@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:body>
+        <ui:composition template="/template/common/commonLayout.xhtml">
+            <ui:define name="content">
+                <div class="container">
+                    <div class="row" style="margin-bottom: 10px;margin-top: 10px;">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-4"><span>Khu vực hiển thị:</span></div>
+                                <div class="col-md-8"><input type="text"
+                                                             style="width: 100%;padding-right: 1px;padding-left: 1px;"/></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="text-nowrap col-md-4"><span>Tuyến đường</span></div>
+                                <div class="col-md-8"><input type="text"/></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8"><iframe allowfullscreen="" frameborder="0"
+                                                      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;q=Paris%2C+France&amp;zoom=11"
+                                                      width="100%" height="100%" style="height: 510px;"></iframe></div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4"><span><strong>Khu vực</strong></span></div>
+                                <div class="col-md-8" style="width: 100%;"><span>Đầu Trần Duy Hưng</span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5"><span><strong>Giá trung bình</strong></span></div>
+                                <div class="col-md-7" style="width: 100%;"><span>150.000.000/m2</span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5"><span><strong>Giá dự đoán</strong></span></div>
+                                <div class="col-md-7" style="width: 100%;"><span>167.000.000/m2</span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5"><span><strong>Giá thấp nhất</strong></span></div>
+                                <div class="col-md-7" style="width: 100%;"><span>100.000.000/m2</span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5"><span><strong>Giá cao nhất</strong></span></div>
+                                <div class="col-md-7" style="width: 100%;"><span>200.000.000/m2</span></div>
+                            </div>
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>Địa điểm</th>
+                                                <th>Giá</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><a href="location-detail.html">1</a></td>
+                                                <td>Số 1 Trần Duy Hưng</td>
+                                                <td>190.000.000/m2</td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="location-detail.html">2</a></td>
+                                                <td>Số 2 Trần Duy Hưng</td>
+                                                <td>100.000.000/m2</td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="location-detail.html">3</a></td>
+                                                <td>Số 3 Trần Duy Hưng</td>
+                                                <td>100.000.000/m2</td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="location-detail.html">4</a></td>
+                                                <td>Số 4 Trần Duy Hưng</td>
+                                                <td>100.000.000/m2</td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="location-detail.html">5</a></td>
+                                                <td>Số 5 Trần Duy Hưng</td>
+                                                <td>100.000.000/m2</td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="location-detail.html">6</a></td>
+                                                <td>Số 6 Trần Duy Hưng</td>
+                                                <td>100.000.000/m2</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="d-xl-flex justify-content-xl-center row">
+                                <nav>
+                                    <ul class="pagination">
+                                        <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span
+                                                    aria-hidden="true">«</span></a></li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                        <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span
+                                                    aria-hidden="true">»</span></a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+
+</html>

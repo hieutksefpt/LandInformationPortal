@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml"   
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:ui = "http://java.sun.com/jsf/facelets">
+    <ui:composition template="/template/common/commonLayout.xhtml">
+        <ui:define name="content">
+            <div class="container">
+                <div class="row" style="margin-bottom: 10px;">
+                    <div class="col-md-2"><span>Khu vực hiển thị:</span></div>
+                    <div class="col-md-5"><input type="text" style="width: 100%;"/></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <iframe allowfullscreen="" frameborder="0"
+                                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;q=Paris%2C+France&amp;zoom=11"
+                                width="100%" height="100%" style="height: 510px;"></iframe>
+                    </div>
+                    <div class="col-md-4">
+                        <form>
+                            <span>Khu vực</span>
+                            <input class="form-control" type="text"/>
+                            <span>Giá trung bình</span>
+                            <input class="form-control" type="text"/>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span>Giá tối thiểu</span>
+                                    <input class="form-control" type="text"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <span>Giá tối đa</span>
+                                    <input class="form-control" type="text"/>
+                                </div>
+                            </div>
+                            <span>Vị trí</span>
+                            <select class="form-control">
+                                <option value="12" selected="">Lựa chọn vị trí</option>
+                                <option value="1">Mặt tiền</option>
+                                <option value="2">Trong ngõ</option>
+                            </select>
+                            <div class="row">
+                                <div class="col-md-4"><span>Bề ngang</span><input class="form-control" type="text"/></div>
+                                <div class="col-md-4"><span>Bề dài</span><input class="form-control" type="text"/></div>
+                                <div class="col-md-4"><span>Diện tích</span><input class="form-control" type="text"/></div>
+                            </div>
+                            <div>
+                                <span class="d-flex justify-content-center">Thông tin xây
+                                    dựng</span>
+                                <div class="row">
+                                    <div class="col-md-7"><span class="text-nowrap">Diện tích xây dựng</span></div>
+                                    <div class="col-md-5"><input class="form-control" type="text"/></div>
+                                </div>
+                                <div class="row" style="margin-top: 3px;">
+                                    <div class="col-md-7"><span class="text-nowrap">Số tầng</span></div>
+                                    <div class="col-md-5"><input class="form-control" type="text"/></div>
+                                </div>
+                                <div class="row" style="margin-top: 4px;">
+                                    <div class="form-check col-md-6"><input class="form-check-input" type="checkbox"
+                                                                            id="formCheck-1"/><label class="form-check-label" for="formCheck-1">Gần siêu
+                                            thị</label></div>
+                                    <div class="form-check col-md-6">
+                                        <input class="form-check-input" type="checkbox" id="formCheck-2"/>
+                                        <label class="form-check-label" for="formCheck-1"
+                                               style="white-space: nowrap;">Gần trường học</label></div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-check col-md-6"><input class="form-check-input" type="checkbox"
+                                                                            id="formCheck-4"/><label class="form-check-label" for="formCheck-1">Gần
+                                            hồ</label></div>
+                                    <div class="form-check col-md-6"><input class="form-check-input" type="checkbox"
+                                                                            id="formCheck-3"/><label class="form-check-label" for="formCheck-1"
+                                                                            style="white-space: nowrap;">Gần công viên</label></div>
+                                </div>
+                            </div>
+                            <div class="d-xl-flex justify-content-xl-center btn-toolbar" style="padding-top: 5px;">
+                                <div class="btn-group mr-3"><button class="btn btn-primary" type="button">Vẽ</button></div>
+                                <div class="btn-group mr-3"><button class="btn btn-primary" type="button">Xóa</button></div>
+                                <div class="btn-group"><button class="btn btn-primary" type="button">Lưu</button></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

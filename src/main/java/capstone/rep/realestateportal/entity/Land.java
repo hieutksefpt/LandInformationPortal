@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.rep.realestateportal.service;
+package capstone.rep.realestateportal.entity;
 
 /**
  *
- * @author Phong
+ * @author tuans
  */
-public class AdminService {
+public class Land {
     
 }

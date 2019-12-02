@@ -6,6 +6,9 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       >
     <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <h:outputStylesheet name="bootstrap.min.css" library="css" />
         <h:outputStylesheet name="Navigation-Clean.css" library="css" />
     </h:head>
@@ -27,7 +30,9 @@
                 </ui:insert>
             </div>
         </div>
-        <h:outputStylesheet name="jquery.min.js" library="js" />
-        <h:outputStylesheet name="bootstrap.min.js" library="js" />
+
     </h:body>
+    <h:outputScript library="js" name="jquery.min.js"/>
+    <h:outputScript library="js" name="bootstrap.min.js" />
+    
 </html>

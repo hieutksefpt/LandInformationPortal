@@ -10,20 +10,20 @@ package capstone.rep.realestateportal.entity;
  * @author tuans
  */
 
-public class Route {
+public class Road {
     private int id;
     private String name;
     public int getId(){
         return id;
     }
-    public Route setId(int id){
+    public Road setId(int id){
         this.id = id;
         return this;
     }
     public String getName(){
         return name;
     }
-    public Route setName(String name){
+    public Road setName(String name){
         this.name = name;
         return this;
     }

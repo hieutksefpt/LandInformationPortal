@@ -5,7 +5,7 @@
  */
 package capstone.rep.realestateportal.bean;
 
-import capstone.rep.realestateportal.entity.Route;
+import capstone.rep.realestateportal.entity.Road;
 import capstone.rep.realestateportal.service.CommonService;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -19,7 +19,7 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class ViewRouteBean {
-    private String routeName;
+    private String roadName;
     private String areaNearName;
     
     @PostConstruct
@@ -27,10 +27,10 @@ public class ViewRouteBean {
         
     }
     
-    public List<Route> getRouteByHint(String hint){
+    public List<Road> getRoadByHint(String hint){
         String hintLowerCase = hint.toLowerCase();
         CommonService commonService = new CommonService();
-        List<Route> listRouteByHint = commonService.getRouteByHint(hintLowerCase);
-        return listRouteByHint;
+        List<Road> listroadByHint = commonService.getRoadByHint(hintLowerCase);
+        return listroadByHint;
     }
 }

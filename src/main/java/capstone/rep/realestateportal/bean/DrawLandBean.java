@@ -6,10 +6,8 @@
 package capstone.rep.realestateportal.bean;
 
 import capstone.rep.realestateportal.entity.Land;
-import capstone.rep.realestateportal.entity.Route;
+import capstone.rep.realestateportal.entity.Road;
 import capstone.rep.realestateportal.service.CommonService;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
@@ -25,7 +23,7 @@ import org.primefaces.json.JSONObject;
 @RequestScoped
 public class DrawLandBean {
 
-    private String routeName;
+    private String roadName;
     private String areaNearName;
 
     @PostConstruct
@@ -33,22 +31,22 @@ public class DrawLandBean {
 
     }
 
-    private String routeId;
+    private String roadId;
 
-    public String getRouteId() {
-        return routeId;
+    public String getRoadId() {
+        return roadId;
     }
 
-    public void setRouteId(String routeId) {
-        this.routeId = routeId;
+    public void setRoadId(String roadId) {
+        this.roadId = roadId;
     }
 
-    public List<Route> listRouteByHint() {
-        String hintLowerCase = (routeId + "").toLowerCase();
+    public List<Road> listRoadByHint() {
+        String hintLowerCase = (roadId + "").toLowerCase();
         CommonService commonService = new CommonService();
-        List<Route> listRouteByHint = commonService.getRouteByHint(hintLowerCase);
-        return listRouteByHint.stream().collect(Collectors.toList());
-//        return listRouteByHint.stream().filter(t -> t.getName().toLowerCase().startsWith(routeHint)).collect(Collectors.toList());
+        List<Road> listRoadByHint = commonService.getRoadByHint(hintLowerCase);
+        return listRoadByHint.stream().collect(Collectors.toList());
+//        return listroadByHint.stream().filter(t -> t.getName().toLowerCase().startsWith(roadHint)).collect(Collectors.toList());
     }
 
     private String json;
@@ -61,11 +59,11 @@ public class DrawLandBean {
         this.json = json;
     }
 
-    public void changeRouteViewById() {
+    public void changeRoadViewById() {
         
         CommonService commonService = new CommonService();
-        List<Land> listLandNearRoute = commonService.getLandNearByRouteId(routeId);
-        JSONObject jsonObject = commonService.createGeoJson(listLandNearRoute);
+        List<Land> listLandNearroad = commonService.getLandNearByroadId(roadId);
+        JSONObject jsonObject = commonService.createGeoJson(listLandNearroad);
         json = jsonObject.toString();
     }
 

@@ -9,7 +9,7 @@ import capstone.rep.realestateportal.adapter.GeoJSONApdater;
 import capstone.rep.realestateportal.entity.Coordinate;
 import capstone.rep.realestateportal.entity.Land;
 import capstone.rep.realestateportal.entity.RealEstateObject;
-import capstone.rep.realestateportal.entity.Route;
+import capstone.rep.realestateportal.entity.Road;
 import java.util.ArrayList;
 import java.util.List;
 import org.primefaces.json.JSONObject;
@@ -19,25 +19,25 @@ import org.primefaces.json.JSONObject;
  * @author tuans
  */
 public class CommonService {
-    public List<Route> getRouteByHint(String hint){
-        //TODO: getRouteByHint(String hint)
+    public List<Road> getRoadByHint(String hint){
+        //TODO: getroadByHint(String hint)
         
         //hard code
-        ArrayList<Route> listRoute = new ArrayList();
-        listRoute.add(new Route().setId(1).setName("a"));
-        listRoute.add(new Route().setId(2).setName("b"));
-        listRoute.add(new Route().setId(3).setName("c"));
-        listRoute.add(new Route().setId(4).setName("d"));
-        listRoute.add(new Route().setId(5).setName("e"));
-        listRoute.add(new Route().setId(6).setName("f"));
-        listRoute.add(new Route().setId(7).setName("g"));
-        listRoute.add(new Route().setId(8).setName("h"));
-        listRoute.add(new Route().setId(9).setName("i"));
-        return listRoute;
+        ArrayList<Road> listroad = new ArrayList();
+        listroad.add(new Road().setId(1).setName("a"));
+        listroad.add(new Road().setId(2).setName("b"));
+        listroad.add(new Road().setId(3).setName("c"));
+        listroad.add(new Road().setId(4).setName("d"));
+        listroad.add(new Road().setId(5).setName("e"));
+        listroad.add(new Road().setId(6).setName("f"));
+        listroad.add(new Road().setId(7).setName("g"));
+        listroad.add(new Road().setId(8).setName("h"));
+        listroad.add(new Road().setId(9).setName("i"));
+        return listroad;
     }
     
-    public List<Land> getLandNearByRouteId(String id){
-        //TODO: getLandNearByRouteId
+    public List<Land> getLandNearByroadId(String id){
+        //TODO: getLandNearByroadId
         
         // hard code
         ArrayList<Land> listLand = new ArrayList();
@@ -102,9 +102,9 @@ public class CommonService {
         return listLand;
     }
 
-    public JSONObject createGeoJson(List<Land> listLandNearRoute) {
-        //TODO: create geo json from list land near route
-        JSONObject jsonObject = GeoJSONApdater.createGeoJSON(listLandNearRoute);
+    public JSONObject createGeoJson(List<Land> listLandNearroad) {
+        //TODO: create geo json from list land near road
+        JSONObject jsonObject = GeoJSONApdater.createGeoJSON(listLandNearroad);
         return jsonObject;
     }
 }

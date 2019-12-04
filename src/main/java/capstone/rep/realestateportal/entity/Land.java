@@ -12,7 +12,7 @@ import java.util.List;
  * @author tuans
  */
 
-// LAND NEAR ROUTE modal
+// LAND NEAR road modal
 public class Land {
     private int id;
     private String name;

@@ -29,31 +29,15 @@
                                     
                                     <h:inputHidden id="geojson" value="#{drawLandBean.json}"></h:inputHidden>
                                     <h:form>  
-                                        <p:autoComplete value="${drawLandBean.routeId}" 
-                                                        completeMethod="${drawLandBean.listRouteByHint()}"
+                                        <p:autoComplete value="${drawLandBean.roadId}" 
+                                                        completeMethod="${drawLandBean.listRoadByHint()}"
                                                         var="element" itemLabel="#{element.name}"
-                                                        itemValue="#{element.id}" converter="#{routeConverter}"
+                                                        itemValue="#{element.id}" converter="#{roadConverter}"
                                                         forceSelection="true">
-                                            <p:ajax event="itemSelect" listener="${drawLandBean.changeRouteViewById()}" process="@form" update="geojson" oncomplete="check()"/>
+                                            <p:ajax event="itemSelect" listener="${drawLandBean.changeRoadViewById()}" process="@form" update="geojson" oncomplete="check()"/>
                                         </p:autoComplete>   
                                     </h:form>  
                                 </div>
-                                <ui:remove>
-                                    <h:form>  
-                                        <h:panelGrid columns="2" cellpadding="5">  
-                                            <p:outputLabel value="Provide Country: " />  
-                                            <p:autoComplete value="${drawLandBean.routeId}" 
-                                                            completeMethod="${drawLandBean.listRouteByHint()}"
-                                                            var="element" itemLabel="#{element.name}"
-                                                            itemValue="#{element.id}" converter="#{routeConverter}"
-                                                            forceSelection="true">
-                                                <p:ajax event="itemSelect" listener="${drawLandBean.changeRouteViewById()}" process="@form" 
-                                                        onsuccess="alert('tuan')" oncomplete="check(#{drawLandBean.json})"/>
-                                                <p:ajax event="query" oncomplete="alert('okk')"/>
-                                            </p:autoComplete>   
-                                        </h:panelGrid>  
-                                    </h:form> 
-                                </ui:remove>
                             </div>
                         </div>
                     </div>

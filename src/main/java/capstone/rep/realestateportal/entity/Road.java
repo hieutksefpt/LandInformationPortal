@@ -13,6 +13,8 @@ package capstone.rep.realestateportal.entity;
 public class Road {
     private int id;
     private String name;
+    private int cityId;
+    
     public int getId(){
         return id;
     }
@@ -27,4 +29,15 @@ public class Road {
         this.name = name;
         return this;
     }
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public Road setCityId(int cityId) {
+        this.cityId = cityId;
+        return this;
+    }
+    
+    
 }

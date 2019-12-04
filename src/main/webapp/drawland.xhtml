@@ -34,7 +34,7 @@
                                                         var="element" itemLabel="#{element.name}"
                                                         itemValue="#{element.id}" converter="#{roadConverter}"
                                                         forceSelection="true">
-                                            <p:ajax event="itemSelect" listener="${drawLandBean.changeRoadViewById()}" process="@form" update="geojson" oncomplete="check()"/>
+                                            <p:ajax event="itemSelect" listener="${drawLandBean.changeRoadViewById()}" process="@form" update="geojson" oncomplete="drawDataRoadByJSon()"/>
                                         </p:autoComplete>   
                                     </h:form>  
                                 </div>

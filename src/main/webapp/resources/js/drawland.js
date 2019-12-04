@@ -93,8 +93,12 @@ function initMap() {
     });
 }
 var dataLayer;
-function check() {
+function drawDataRoadByJSon() {
     let json = $('#geojson').val();
+    if (dataLayer != null)
+    for (let i=0; i<dataLayer.length; i++){
+        map.data.remove(dataLayer[i]);
+    }
     dataLayer = map.data.addGeoJson(JSON.parse(json));
 }
 

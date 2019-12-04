@@ -18,7 +18,7 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class ViewRouteBean {
+public class ViewRoadBean {
     private String roadName;
     private String areaNearName;
     

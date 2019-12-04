@@ -92,4 +92,9 @@ function initMap() {
         map.fitBounds(bounds);
     });
 }
+var dataLayer;
+function check() {
+    let json = $('#geojson').val();
+    dataLayer = map.data.addGeoJson(JSON.parse(json));
+}
 

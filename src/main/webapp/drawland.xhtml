@@ -26,13 +26,15 @@
                             <div class="row">
                                 <div class="text-nowrap col-md-4"><span>Tuyến đường</span></div>
                                 <div class="col-md-8">
+                                    
+                                    <h:inputHidden id="geojson" value="#{drawLandBean.json}"></h:inputHidden>
                                     <h:form>  
                                         <p:autoComplete value="${drawLandBean.routeId}" 
                                                         completeMethod="${drawLandBean.listRouteByHint()}"
                                                         var="element" itemLabel="#{element.name}"
                                                         itemValue="#{element.id}" converter="#{routeConverter}"
                                                         forceSelection="true">
-                                            <p:ajax event="itemSelect" listener="${drawLandBean.changeRoute()}" process="@form"/>
+                                            <p:ajax event="itemSelect" listener="${drawLandBean.changeRouteViewById()}" process="@form" update="geojson" oncomplete="check()"/>
                                         </p:autoComplete>   
                                     </h:form>  
                                 </div>
@@ -45,7 +47,9 @@
                                                             var="element" itemLabel="#{element.name}"
                                                             itemValue="#{element.id}" converter="#{routeConverter}"
                                                             forceSelection="true">
-                                                <p:ajax event="itemSelect" listener="${drawLandBean.changeRoute()}" process="@form"/>
+                                                <p:ajax event="itemSelect" listener="${drawLandBean.changeRouteViewById()}" process="@form" 
+                                                        onsuccess="alert('tuan')" oncomplete="check(#{drawLandBean.json})"/>
+                                                <p:ajax event="query" oncomplete="alert('okk')"/>
                                             </p:autoComplete>   
                                         </h:panelGrid>  
                                     </h:form> 

@@ -3,54 +3,70 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.rep.realestateportal.entity;
+package Entity;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
- * @author tuans
+ * @author Anh Hao
  */
 public class RealEstateObject {
-    private int id;
+    private int reoId;
     private String name;
-    private double price;
-    private List<Coordinate> listCoordinate;
+    private float price;
+    private ArrayList<Feature> listFeature;
+    private ArrayList<Coornidiate> listCoornidate;
 
-    public int getId() {
-        return id;
+    public RealEstateObject() {
     }
 
-    public RealEstateObject setId(int id) {
-        this.id = id;
-        return this;
+    public RealEstateObject(int reoId, String name, float price, ArrayList<Feature> listFeature, ArrayList<Coornidiate> listCoornidate) {
+        this.reoId = reoId;
+        this.name = name;
+        this.price = price;
+        this.listFeature = listFeature;
+        this.listCoornidate = listCoornidate;
+    }
+
+    public int getReoId() {
+        return reoId;
+    }
+
+    public void setReoId(int reoId) {
+        this.reoId = reoId;
     }
 
     public String getName() {
         return name;
     }
 
-    public RealEstateObject setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return this;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public RealEstateObject setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
-        return this;
     }
 
-    public List<Coordinate> getListCoordinate() {
-        return listCoordinate;
+    public ArrayList<Feature> getListFeature() {
+        return listFeature;
     }
 
-    public RealEstateObject setListCoordinate(List<Coordinate> listCoordinate) {
-        this.listCoordinate = listCoordinate;
-        return this;
+    public void setListFeature(ArrayList<Feature> listFeature) {
+        this.listFeature = listFeature;
+    }
+
+    public ArrayList<Coornidiate> getListCoornidate() {
+        return listCoornidate;
+    }
+
+    public void setListCoornidate(ArrayList<Coornidiate> listCoornidate) {
+        this.listCoornidate = listCoornidate;
     }
     
     

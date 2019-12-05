@@ -3,41 +3,60 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.rep.realestateportal.entity;
+package Entity;
+
+import java.util.ArrayList;
 
 /**
  *
- * @author tuans
+ * @author Anh Hao
  */
-
 public class Road {
-    private int id;
+    private int roadId;
     private String name;
-    private int cityId;
-    
-    public int getId(){
-        return id;
+    private City city;
+    private ArrayList<Coornidiate> listCoornidate;
+
+    public Road() {
     }
-    public Road setId(int id){
-        this.id = id;
-        return this;
+
+    public Road(int roadId, String name, City city, ArrayList<Coornidiate> listCoornidate) {
+        this.roadId = roadId;
+        this.name = name;
+        this.city = city;
+        this.listCoornidate = listCoornidate;
     }
-    public String getName(){
+
+    public int getRoadId() {
+        return roadId;
+    }
+
+    public void setRoadId(int roadId) {
+        this.roadId = roadId;
+    }
+
+    public String getName() {
         return name;
     }
-    public Road setName(String name){
+
+    public void setName(String name) {
         this.name = name;
-        return this;
     }
 
-    public int getCityId() {
-        return cityId;
+    public City getCity() {
+        return city;
     }
 
-    public Road setCityId(int cityId) {
-        this.cityId = cityId;
-        return this;
+    public void setCity(City city) {
+        this.city = city;
     }
-    
+
+    public ArrayList<Coornidiate> getListCoornidate() {
+        return listCoornidate;
+    }
+
+    public void setListCoornidate(ArrayList<Coornidiate> listCoornidate) {
+        this.listCoornidate = listCoornidate;
+    }
     
 }

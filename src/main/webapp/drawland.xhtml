@@ -8,7 +8,7 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       >
     <h:body>
-        
+
         <ui:composition template="/template/common/commonLayout.xhtml">
 
             <ui:define name="content">
@@ -26,8 +26,8 @@
                             <div class="row">
                                 <div class="text-nowrap col-md-4"><span>Tuyến đường</span></div>
                                 <div class="col-md-8">
-                                    
-                                    <h:inputHidden id="geojson" value="#{drawLandBean.json}"></h:inputHidden>
+
+                                    <h:inputHidden id="geojson" value="#{drawLandBean.jsonByRoad}"></h:inputHidden>
                                     <h:form>  
                                         <p:autoComplete value="${drawLandBean.roadId}" 
                                                         completeMethod="${drawLandBean.listRoadByHint()}"
@@ -52,24 +52,49 @@
                             <div id="map" style="height: 510px"></div>
                         </div>
                         <div class="col-md-4">
-                            <form><span>Khu vực</span><input class="form-control" type="text"/><span>Giá tính toán</span><input
-                                    class="form-control" type="text" readonly=""/><span>Giá trung bình</span><input
-                                    class="form-control" type="text" readonly=""/>
-                                <div class="row">
-                                    <div class="col-md-6"><span>Giá tối thiểu</span><input class="form-control" type="text"
-                                                                                           readonly=""/></div>
-                                    <div class="col-md-6"><span>Giá tối đa</span><input class="form-control" type="text"
-                                                                                        readonly=""/></div>
-                                </div><span>Số lượng thông tin thu thập được: 5 &#160; <a class="text-right"
-                                                                                          href="#">Export</a></span>
-                                <div class="d-xl-flex justify-content-xl-center btn-toolbar">
-                                    <div class="btn-group mr-2"><button class="btn btn-primary" type="button">Tính toán</button>
+                            <h:form id="form-submit">
+                                
+                                    <span>Khu vực</span>
+                                    <h:inputText class="form-control" id="nameLandInput"></h:inputText>
+                                    <span>Giá tính toán</span>
+                                    <h:inputText class="form-control" readonly="true" id="predictPriceInput"></h:inputText>
+                                    <span>Giá trung bình</span>
+                                    <h:inputText class="form-control" readonly="true" id="averagePriceInput"/>
+                                    <div class="row">
+                                        <div class="col-md-6"><span>Giá tối thiểu</span>
+                                            <h:inputText class="form-control" readonly="true" id="minPriceInput"/>
+                                        </div>
+                                        <div class="col-md-6"><span>Giá tối đa</span>
+                                            <h:inputText class="form-control" readonly="true" id="maxPriceInput"/>
+                                        </div>
+                                    </div><span>Số lượng thông tin thu thập được: 5 &#160; <a class="text-right"
+                                                                                              href="#">Export</a></span>
+                                    
+                                    <h:inputHidden id="listCoordinate" value="${drawLandBean.jsonCoordinateSubmit}">
+                                    </h:inputHidden>
+                                    <h:inputHidden id="clickedLandId" value="${drawLandBean.clickedLandId}">
+                                    </h:inputHidden>
+                                    <div class="d-xl-flex justify-content-xl-center btn-toolbar">
+                                        <div class="btn-group mr-2">
+                                            <h:commandButton class="btn btn-primary" type="button" value="Tính toán">
+                                                <p:ajax event="click" process="@form" listener="${drawLandBean.calculateButtonClick()}"></p:ajax>
+                                            </h:commandButton>
+                                        </div>
+                                        <div class="btn-group mr-2">
+                                            <button class="btn btn-primary" id="btnDraw" onclick="draw()" type="button">Vẽ</button>
+                                        </div>
+                                        <div class="btn-group mr-2">
+                                            <button class="btn btn-primary" id="btnCancel" onclick="clearInput()" type="button">Hủy</button>
+                                        </div>
+                                        <div class="btn-group mr-2"><button class="btn btn-primary" type="button">Xóa</button></div>
+                                        <div class="btn-group mr-2">
+                                            <h:commandButton class="btn btn-primary" type="button" value="Lưu">
+                                                <p:ajax event="click" process="@form" listener="${drawLandBean.saveButtonClick()}"></p:ajax>
+                                            </h:commandButton>
+                                        </div>
                                     </div>
-                                    <div class="btn-group mr-2"><button class="btn btn-primary" type="button">Vẽ</button></div>
-                                    <div class="btn-group mr-2"><button class="btn btn-primary" type="button">Xóa</button></div>
-                                    <div class="btn-group mr-2"><button class="btn btn-primary" type="button">Lưu</button></div>
-                                </div>
-                            </form>
+
+                            </h:form>
                         </div>
                     </div>
                 </div>

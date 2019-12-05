@@ -77,11 +77,15 @@ public class GeoJSONApdater {
         return json;
     }
 
-    private static JSONObject createJSONProperty(Land area, String color){
+    private static JSONObject createJSONProperty(Land land, String color){
         JSONObject json = new JSONObject();
         json.put("color", color);
-        json.put("name", area.getName());
-        json.put("id", area.getId());
+        json.put("name", land.getName());
+        json.put("id", land.getId());
+        json.put("averagePrice", land.getAveragePrice());
+        json.put("maxPrice", land.getMaxPrice());
+        json.put("minPrice", land.getMinPrice());
+        json.put("predictPrice", land.getPredictPrice());
         return json;
     }
     

@@ -34,7 +34,7 @@ public class DrawLandBean {
 
     @PostConstruct
     public void init() {
-        landCalculated = new Land();
+//        landCalculated = new Land();
     }
 
     private String roadId;

@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:body>
         <ui:composition template="/template/common/commonLayout.xhtml">
             <ui:define name="content">
@@ -13,105 +14,157 @@
                         <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-4"><span>Khu vực hiển thị:</span></div>
-                                <div class="col-md-8"><input type="text"
-                                                             style="width: 100%;padding-right: 1px;padding-left: 1px;"/></div>
+                                <div class="col-md-8">
+                                    <input type="text" style="width: 100%; padding-right: 1px; padding-left: 1px;" 
+                                           id="input-gg-map"/>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="text-nowrap col-md-4"><span>Tuyến đường</span></div>
-                                <div class="col-md-8"><input type="text"/></div>
+                                <div class="col-md-8">
+                                    <h:inputHidden id="geojson" value="#{viewRoadBean.geoJSON}"></h:inputHidden>
+                                    <h:form>  
+                                        <p:autoComplete value="${viewRoadBean.roadId}" 
+                                                        completeMethod="${viewRoadBean.listRoadByHint()}"
+                                                        var="element" itemLabel="#{element.name}"
+                                                        itemValue="#{element.id}" converter="#{roadConverter}"
+                                                        forceSelection="true">
+                                            <p:ajax event="itemSelect" listener="${viewRoadBean.changeRoadViewById()}" 
+                                                    process="@form" update="geojson" 
+                                                    oncomplete="drawDataRoadByJSon()"/>
+                                        </p:autoComplete>   
+                                    </h:form>  
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-8"><iframe allowfullscreen="" frameborder="0"
-                                                      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;q=Paris%2C+France&amp;zoom=11"
-                                                      width="100%" height="100%" style="height: 510px;"></iframe></div>
+                        <div class="col-md-8">
+                            <ui:remove>
+                                <iframe allowfullscreen="" frameborder="0"
+                                        src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;center=-33.8569%2C151.2152&amp;zoom=11"
+                                        width="100%" height="100%" style="height: 510px;">
+                                </iframe>
+                            </ui:remove>
+                            <div id="map" style="height: 510px"></div>
+                        </div>
                         <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4"><span><strong>Khu vực</strong></span></div>
-                                <div class="col-md-8" style="width: 100%;"><span>Đầu Trần Duy Hưng</span></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5"><span><strong>Giá trung bình</strong></span></div>
-                                <div class="col-md-7" style="width: 100%;"><span>150.000.000/m2</span></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5"><span><strong>Giá dự đoán</strong></span></div>
-                                <div class="col-md-7" style="width: 100%;"><span>167.000.000/m2</span></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5"><span><strong>Giá thấp nhất</strong></span></div>
-                                <div class="col-md-7" style="width: 100%;"><span>100.000.000/m2</span></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5"><span><strong>Giá cao nhất</strong></span></div>
-                                <div class="col-md-7" style="width: 100%;"><span>200.000.000/m2</span></div>
-                            </div>
-                            <div class="row">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>STT</th>
-                                                <th>Địa điểm</th>
-                                                <th>Giá</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><a href="location-detail.html">1</a></td>
-                                                <td>Số 1 Trần Duy Hưng</td>
-                                                <td>190.000.000/m2</td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="location-detail.html">2</a></td>
-                                                <td>Số 2 Trần Duy Hưng</td>
-                                                <td>100.000.000/m2</td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="location-detail.html">3</a></td>
-                                                <td>Số 3 Trần Duy Hưng</td>
-                                                <td>100.000.000/m2</td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="location-detail.html">4</a></td>
-                                                <td>Số 4 Trần Duy Hưng</td>
-                                                <td>100.000.000/m2</td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="location-detail.html">5</a></td>
-                                                <td>Số 5 Trần Duy Hưng</td>
-                                                <td>100.000.000/m2</td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="location-detail.html">6</a></td>
-                                                <td>Số 6 Trần Duy Hưng</td>
-                                                <td>100.000.000/m2</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            <!-- General Information -->
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <span>
+                                            <strong>Khu vực</strong>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-8" style="width: 100%;">
+                                        <span id="landNearRoadName"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span>
+                                            <strong>Giá trung bình</strong>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-7" style="width: 100%;">
+                                        <span id="landNearRoadAveragePrice"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span>
+                                            <strong>Giá dự đoán</strong>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-7" style="width: 100%;">
+                                        <span id="landNearRoadPredictPrice" ></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span>
+                                            <strong>Giá thấp nhất</strong>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-7" style="width: 100%;">
+                                        <span id="landNearRoadMinPrice" ></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span>
+                                            <strong>Giá cao nhất</strong>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-7" style="width: 100%;">
+                                        <span id="landNearRoadMaxPrice"></span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="d-xl-flex justify-content-xl-center row">
-                                <nav>
-                                    <ul class="pagination">
-                                        <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span
-                                                    aria-hidden="true">«</span></a></li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span
-                                                    aria-hidden="true">»</span></a></li>
-                                    </ul>
-                                </nav>
-                            </div>
+                            <h:form id="form-detail">
+                                <h:inputHidden id="landNearRoadID" value="${viewRoadBean.landNearRoadID}"/>
+                                <h:commandButton id="btnSendLandNearRoadID" type="button" style="display:none">
+                                    <p:ajax event="click" process="@form" update="@form" 
+                                            listener="${viewRoadBean.renderDataLandNearRoad()}"></p:ajax>
+                                </h:commandButton>
+                                <c:if test="${not empty viewRoadBean.reoInLandNearRoad}">
+                                    <!-- List REO -->
+                                    <div class="row">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>STT</th>
+                                                        <th>Địa điểm</th>
+                                                        <th>Giá</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <ui:repeat value="#{viewRoadBean.reoInLandNearRoad}" var="reo">
+                                                        <tr>
+                                                            <td><a href="#">#{reo.id}</a></td>
+                                                            <td>#{reo.name}</td>
+                                                            <td>#{reo.price}/m2</td>
+                                                        </tr>
+                                                    </ui:repeat>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pagination -->
+                                    <div class="d-xl-flex justify-content-xl-center row">
+                                        <nav>
+                                            <ul class="pagination">
+                                                <li class="page-item">
+                                                    <h:commandButton type="button" class="page-link" value="Previous «">
+                                                        <p:ajax event="click" process="@form" update="@form" 
+                                                                listener="${viewRoadBean.previousPage()}"></p:ajax>
+                                                    </h:commandButton>
+                                                </li>
+                                                <li class="page-item">
+                                                    <h:commandButton type="button" class="page-link" value="Next »">
+                                                        <p:ajax event="click" process="@form" update="@form" 
+                                                                listener="${viewRoadBean.nextPage()}"></p:ajax>
+                                                    </h:commandButton>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </c:if>
+                            </h:form>
                         </div>
                     </div>
                 </div>
+            </ui:define>
+            <ui:define name="footer">
+                <h:outputScript name="viewroad.js" library="js"/>
+                <script type="text/javascript"
+                        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
+                async="true" defer="true"></script>
             </ui:define>
         </ui:composition>
 

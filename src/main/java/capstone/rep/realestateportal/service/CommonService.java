@@ -37,8 +37,8 @@ public class CommonService {
         return listroad;
     }
 
-    public List<Land> getLandNearByroadId(String id) {
-        //TODO: getLandNearByroadId
+    public List<Land> getLandNearByRoadId(String id) {
+        //TODO: getLandNearByRoadId
 
         // hard code
         ArrayList<Land> listLand = new ArrayList();
@@ -177,9 +177,9 @@ public class CommonService {
         return listLand;
     }
 
-    public JSONObject createGeoJson(List<Land> listLandNearroad) {
+    public JSONObject createGeoJson(List<Land> listLandNearRoad) {
         //TODO: create geo json from list land near road
-        JSONObject jsonObject = GeoJSONApdater.createGeoJSON(listLandNearroad);
+        JSONObject jsonObject = GeoJSONApdater.createGeoJSON(listLandNearRoad);
         return jsonObject;
     }
 }

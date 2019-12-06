@@ -5,7 +5,7 @@
  */
 var map;
 var selectedMarkers = [];
-console.log('ok');
+var coordinateMarkers = [];
 function initMap() {
     //FPT 
     var latitude = 21.012633;
@@ -28,6 +28,10 @@ function initMap() {
         });
 
         selectedMarkers.push(marker);
+        coordinateMarkers = selectedMarkers.map(x => ({
+            lat: parseFloat(x.getPosition().lat()),
+            lng: parseFloat(x.getPosition().lng())
+        }))
 
 //        var content = document.getElementById('form:fname').value;
 //        document.getElementById('form:fname').value = content + event.latLng.lat() + "," + event.latLng.lng() + "\n\n";
@@ -100,5 +104,46 @@ function drawDataRoadByJSon() {
         map.data.remove(dataLayer[i]);
     }
     dataLayer = map.data.addGeoJson(JSON.parse(json));
+    map.data.addListener('click', function(event){
+        $('#form-submit\\:clickedLandId').val(event.feature.getProperty('id'));
+        $('#form-submit\\:nameLandInput').attr("placeholder", event.feature.getProperty('name'));
+        $('#form-submit\\:predictPriceInput').attr("placeholder", event.feature.getProperty('predictPrice'));
+        $('#form-submit\\:averagePriceInput').val(event.feature.getProperty('averagePrice'));
+        $('#form-submit\\:minPriceInput').val(event.feature.getProperty('minPrice'));
+        $('#form-submit\\:maxPriceInput').val(event.feature.getProperty('minPrice'));
+    });
 }
+function clearInput(){
+    removeMarkers();
+    shape.setMap(null);
+}
+function removeMarkers(){
+    for (let i=0; i<selectedMarkers.length; i++){
+        selectedMarkers[i].setMap(null);
+    }
+    selectedMarkers = [];
+}
+let shape;
 
+function draw(){
+    let path = [];
+    for (let i=0; i<selectedMarkers.length; i++){
+        path.push({
+           lat: parseFloat(selectedMarkers[i].getPosition().lat()),
+           lng: parseFloat(selectedMarkers[i].getPosition().lng())
+        })
+    }
+    shape = new google.maps.Polygon({
+        paths: path,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35
+    });
+    shape.setMap(map);
+    $('#form-submit\\:listCoordinate').val(JSON.stringify(coordinateMarkers));
+}
+function log(){
+    console.log(coordinateMarkers);
+}

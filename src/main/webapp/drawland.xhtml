@@ -55,17 +55,17 @@
                             <h:form id="form-submit">
                                 
                                     <span>Khu vực</span>
-                                    <h:inputText class="form-control" id="nameLandInput"></h:inputText>
+                                    <h:inputText class="form-control" id="nameLandInput" value="${drawLandBean.name}"></h:inputText>
                                     <span>Giá tính toán</span>
-                                    <h:inputText class="form-control" readonly="true" id="predictPriceInput"></h:inputText>
+                                    <h:inputText class="form-control" readonly="true" id="predictPriceInput" value="${drawLandBean.predictPrice}"></h:inputText>
                                     <span>Giá trung bình</span>
-                                    <h:inputText class="form-control" readonly="true" id="averagePriceInput"/>
+                                    <h:inputText class="form-control" readonly="true" id="averagePriceInput" value="${drawLandBean.averagePrice}"/>
                                     <div class="row">
                                         <div class="col-md-6"><span>Giá tối thiểu</span>
-                                            <h:inputText class="form-control" readonly="true" id="minPriceInput"/>
+                                            <h:inputText class="form-control" readonly="true" id="minPriceInput" value="${drawLandBean.minPrice}"/>
                                         </div>
                                         <div class="col-md-6"><span>Giá tối đa</span>
-                                            <h:inputText class="form-control" readonly="true" id="maxPriceInput"/>
+                                            <h:inputText class="form-control" readonly="true" id="maxPriceInput" value="${drawLandBean.maxPrice}"/>
                                         </div>
                                     </div><span>Số lượng thông tin thu thập được: 5 &#160; <a class="text-right"
                                                                                               href="#">Export</a></span>
@@ -77,7 +77,7 @@
                                     <div class="d-xl-flex justify-content-xl-center btn-toolbar">
                                         <div class="btn-group mr-2">
                                             <h:commandButton class="btn btn-primary" type="button" value="Tính toán">
-                                                <p:ajax event="click" process="@form" listener="${drawLandBean.calculateButtonClick()}"></p:ajax>
+                                                <p:ajax event="click" process="@form" update="@form" listener="${drawLandBean.calculateButtonClick()}"></p:ajax>
                                             </h:commandButton>
                                         </div>
                                         <div class="btn-group mr-2">

@@ -34,7 +34,7 @@ public class DrawLandBean {
 
     @PostConstruct
     public void init() {
-
+        landCalculated = new Land();
     }
 
     private String roadId;
@@ -56,9 +56,7 @@ public class DrawLandBean {
     public void setJsonCoordinateSubmit(String jsonCoordinateSubmit) {
         this.jsonCoordinateSubmit = jsonCoordinateSubmit;
     }
-    
-    
-    
+
     public List<Road> listRoadByHint() {
         String hintLowerCase = (roadId + "").toLowerCase();
         CommonService commonService = new CommonService();
@@ -77,6 +75,17 @@ public class DrawLandBean {
         this.jsonByRoad = jsonByRoad;
     }
 
+    
+    private Land landCalculated;
+
+    public Land getLandCalculated() {
+        return landCalculated;
+    }
+
+    public void setLandCalculated(Land landCalculated) {
+        this.landCalculated = landCalculated;
+    }
+    
     public void calculateButtonClick(){
         JSONArray jsonArray = new JSONArray(jsonCoordinateSubmit);
         List<Coordinate> listCoordinateSubmit = new ArrayList<>();
@@ -86,26 +95,17 @@ public class DrawLandBean {
             listCoordinateSubmit.add(new Coordinate().setLatitude(latitude).setLongitude(longitude));
         }
         DrawLandService drawLandService = new DrawLandService();
-        Land land = drawLandService.createNewLandByCoordinate(listCoordinateSubmit);
-        
+        landCalculated = drawLandService.createNewLandByCoordinate(listCoordinateSubmit);
+        name = landCalculated.getName();
+        minPrice = String.valueOf(landCalculated.getMinPrice());
+        maxPrice = String.valueOf(landCalculated.getMaxPrice());
+        predictPrice = String.valueOf(landCalculated.getPredictPrice());
+        averagePrice = String.valueOf(landCalculated.getAveragePrice());
     }
     
     public void saveButtonClick(){
-        int i =1 ;
-        i++;
-        i--;
-//        JSONObject jsonObject = new JSONObject(jsonCoordinateSubmit);
-        JSONArray jsonArray = new JSONArray(jsonCoordinateSubmit);
-        List<Coordinate> listCoordinateSubmit = new ArrayList<>();
-        for (Object element: jsonArray){
-            double longitude = (double)((JSONObject)element).get("lng");
-            double latitude = (double)((JSONObject)element).get("lat");
-            listCoordinateSubmit.add(new Coordinate().setLatitude(latitude).setLongitude(longitude));
-        }
         DrawLandService drawLandService = new DrawLandService();
-        Land land = drawLandService.createNewLandByCoordinate(listCoordinateSubmit);
-        
-        i++;
+        drawLandService.submitNewLandNear(landCalculated);
     }
     
     private String clickedLandId;
@@ -119,20 +119,60 @@ public class DrawLandBean {
     }
     
     public void deleteButtonClick(){
-        int i = 1;
-        i++;
-        i--;
         DrawLandService drawLandService = new DrawLandService();
         drawLandService.deleteLandNear(clickedLandId);
     }
-    
-    
-    public void changeRoadViewById() {
-        
+    public void changeRoadViewById() { 
         CommonService commonService = new CommonService();
-        List<Land> listLandNearRoad = commonService.getLandNearByroadId(roadId);
+        List<Land> listLandNearRoad = commonService.getLandNearByRoadId(roadId);
         JSONObject jsonObject = commonService.createGeoJson(listLandNearRoad);
         jsonByRoad = jsonObject.toString();
     }
 
+    private String name;
+    private String averagePrice;
+    private String predictPrice;
+    private String minPrice;
+    private String maxPrice;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAveragePrice() {
+        return averagePrice;
+    }
+
+    public void setAveragePrice(String averagePrice) {
+        this.averagePrice = averagePrice;
+    }
+
+    public String getPredictPrice() {
+        return predictPrice;
+    }
+
+    public void setPredictPrice(String predictPrice) {
+        this.predictPrice = predictPrice;
+    }
+
+    public String getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(String minPrice) {
+        this.minPrice = minPrice;
+    }
+
+    public String getMaxPrice() {
+        return maxPrice;
+    }
+
+    public void setMaxPrice(String maxPrice) {
+        this.maxPrice = maxPrice;
+    }
+    
 }

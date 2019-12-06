@@ -19,17 +19,23 @@ public class DrawLandService {
     
     public void deleteLandNear(String idLand){
         //TODO: delete a land near road
-        
+        return;
     }
     
-    public void submitNewLandNear(List<RealEstateObject> listReo, Land land){
-        
+    public void submitNewLandNear(Land land){
+        //TODO: submit new land to db
         return;
     }
 
     public List<RealEstateObject> getListReoInside(List<Coordinate> listCoordinates){
         //TODO: return list reo inside a land defined by it coordinate
-        return new ArrayList<>();
+        
+        //hard code:
+        List<RealEstateObject> listReo = new ArrayList<>();
+        listReo.add(new RealEstateObject().setPrice(15));
+        listReo.add(new RealEstateObject().setPrice(16));
+        listReo.add(new RealEstateObject().setPrice(17));
+        return listReo;
     }
     
     public Land createNewLandByCoordinate(List<Coordinate> listCoordinateSubmit) {
@@ -50,7 +56,7 @@ public class DrawLandService {
         }
         averagePrice = sum/listReo.size();
         
-        Land land = new Land().setMaxPrice(maxPrice).setMinPrice(minPrice).setAveragePrice(averagePrice);
+        Land land = new Land().setMaxPrice(maxPrice).setMinPrice(minPrice).setAveragePrice(averagePrice).setListReo(listReo);
         return land;
     }
     

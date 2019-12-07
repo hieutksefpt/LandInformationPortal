@@ -6,8 +6,8 @@
 package capstone.rep.realestateportal.adapter;
 
 import capstone.rep.realestateportal.common.ColorDrawer;
-import capstone.rep.realestateportal.entity.Coordinate;
-import capstone.rep.realestateportal.entity.Land;
+import capstone.rep.realestateportal.model.Coordinate;
+import capstone.rep.realestateportal.model.Land;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;

@@ -5,9 +5,9 @@
  */
 package capstone.rep.realestateportal.bean;
 
-import capstone.rep.realestateportal.entity.Land;
-import capstone.rep.realestateportal.entity.Road;
-import capstone.rep.realestateportal.entity.RealEstateObject;
+import capstone.rep.realestateportal.model.Land;
+import capstone.rep.realestateportal.model.Road;
+import capstone.rep.realestateportal.model.RealEstateObject;
 import capstone.rep.realestateportal.service.CommonService;
 import java.util.ArrayList;
 import java.util.List;

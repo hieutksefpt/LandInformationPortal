@@ -6,10 +6,10 @@
 package capstone.rep.realestateportal.service;
 
 import capstone.rep.realestateportal.adapter.GeoJSONApdater;
-import capstone.rep.realestateportal.entity.Coordinate;
-import capstone.rep.realestateportal.entity.Land;
-import capstone.rep.realestateportal.entity.RealEstateObject;
-import capstone.rep.realestateportal.entity.Road;
+import capstone.rep.realestateportal.model.Coordinate;
+import capstone.rep.realestateportal.model.Land;
+import capstone.rep.realestateportal.model.RealEstateObject;
+import capstone.rep.realestateportal.model.Road;
 import java.util.ArrayList;
 import java.util.List;
 import org.primefaces.json.JSONObject;

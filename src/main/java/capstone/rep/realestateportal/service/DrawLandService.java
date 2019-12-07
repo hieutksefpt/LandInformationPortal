@@ -5,9 +5,9 @@
  */
 package capstone.rep.realestateportal.service;
 
-import capstone.rep.realestateportal.entity.Coordinate;
-import capstone.rep.realestateportal.entity.Land;
-import capstone.rep.realestateportal.entity.RealEstateObject;
+import capstone.rep.realestateportal.model.Coordinate;
+import capstone.rep.realestateportal.model.Land;
+import capstone.rep.realestateportal.model.RealEstateObject;
 import java.util.ArrayList;
 import java.util.List;
 

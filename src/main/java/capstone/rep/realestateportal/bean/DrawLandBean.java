@@ -25,6 +25,8 @@ import org.primefaces.json.JSONObject;
  *
  * @author tuans
  */
+ 
+ //tuan 1234
 @ManagedBean
 @RequestScoped
 public class DrawLandBean {

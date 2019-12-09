@@ -122,4 +122,55 @@ public class CoordinateDAO {
         }
         return listCoornidate;
     }
+
+    public int deleteCoordinateByCoordinateId(ArrayList<Coordinate> listCoordinate) throws SQLException {
+        int deleted = 0;
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            for (int i = 0; i < listCoordinate.size(); i++) {
+                String sql = "delete from Coordinate where CoordinateID = ?";
+                pre = conn.prepareStatement(sql);
+                pre.setInt(1, listCoordinate.get(i).getCoornidateId());
+                int rowDeleted = pre.executeUpdate();
+                deleted += rowDeleted;
+            }
+
+        } catch (Exception ex) {
+
+        } finally {
+            CloseConnect(conn, pre, rs);
+        }
+        return deleted;
+    }
+
+    public int insertCoordinate(ArrayList<Coordinate> listCoordinate) throws SQLException {
+        int inserted = 0;
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            for (int i = 0; i < listCoordinate.size(); i++) {
+                String sql = "insert into Coordinate(CoordinateID, Longtitude, Lattitude, modifiedDate) "
+                        + "values(?,?,?,GETDATE());";
+                pre = conn.prepareStatement(sql);
+                pre.setInt(1, listCoordinate.get(i).getCoornidateId());
+                pre.setFloat(2, listCoordinate.get(i).getLongtitude());
+                pre.setFloat(3, listCoordinate.get(i).getLattitude());
+                int rowInserted = pre.executeUpdate();
+                inserted += rowInserted;
+            }
+
+        } catch (Exception ex) {
+
+        } finally {
+            CloseConnect(conn, pre, rs);
+        }
+        return inserted;
+    }
 }

@@ -23,7 +23,7 @@ public class Coordinate {
         this.lattitude = lattitude;
     }
 
-    public int getCoornidateId() {
+    public int getCoordinateId() {
         return coordinateId;
     }
 

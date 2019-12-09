@@ -16,17 +16,17 @@ public class RealEstateObject {
     private String name;
     private float price;
     private ArrayList<Feature> listFeature;
-    private ArrayList<Coordinate> listCoornidate;
+    private ArrayList<Coordinate> listCoordinate;
 
     public RealEstateObject() {
     }
 
-    public RealEstateObject(int reoId, String name, float price, ArrayList<Feature> listFeature, ArrayList<Coordinate> listCoornidate) {
+    public RealEstateObject(int reoId, String name, float price, ArrayList<Feature> listFeature, ArrayList<Coordinate> listCoordinate) {
         this.reoId = reoId;
         this.name = name;
         this.price = price;
         this.listFeature = listFeature;
-        this.listCoornidate = listCoornidate;
+        this.listCoordinate = listCoordinate;
     }
 
     public int getReoId() {
@@ -61,12 +61,12 @@ public class RealEstateObject {
         this.listFeature = listFeature;
     }
 
-    public ArrayList<Coordinate> getListCoornidate() {
-        return listCoornidate;
+    public ArrayList<Coordinate> getListCoordinate() {
+        return listCoordinate;
     }
 
-    public void setListCoornidate(ArrayList<Coordinate> listCoornidate) {
-        this.listCoornidate = listCoornidate;
+    public void setListCoordinate(ArrayList<Coordinate> listCoordinate) {
+        this.listCoordinate = listCoordinate;
     }
     
     

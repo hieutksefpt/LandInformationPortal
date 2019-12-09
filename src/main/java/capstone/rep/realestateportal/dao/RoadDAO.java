@@ -75,8 +75,8 @@ public class RoadDAO {
                 int roadId = rs.getInt("RoadID");
                 String name = rs.getString("Name");
                 City city = capstone.rep.realestateportal.dao.CityDAO.cityDAO.getCityByCityID(rs.getInt("CityID"));
-                ArrayList<Coordinate> listCoornidate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoornidateWithRoadID(roadId);
-                listRoad.add(new Road(roadId, name, city, listCoornidate));
+                ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoordinateWithRoadID(roadId);
+                listRoad.add(new Road(roadId, name, city, listCoordinate));
             }
         } catch (Exception ex) {
 

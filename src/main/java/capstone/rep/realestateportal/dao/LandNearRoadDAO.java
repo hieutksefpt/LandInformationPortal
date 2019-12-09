@@ -54,7 +54,7 @@ public class LandNearRoadDAO {
                 Float averagePrice = rs.getFloat("AveragePrice");
                 Float predictPrice = rs.getFloat("PredictPrice");
                 RoadSegment roadSegment = capstone.rep.realestateportal.dao.RoadSegmentDAO.roadSegmentDAO.getRoadSegmentByRoadSegmentID(rs.getInt("RoadSegmentID"));
-                ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoornidateWithLandNearRoadID(landNearRoadId);
+                ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoordinateWithLandNearRoadID(landNearRoadId);
                 ArrayList<RealEstateObject> listReo = capstone.rep.realestateportal.dao.ReoDAO.reoDAO.getListReoByLandNearRoadID(landNearRoadId);
                 listLandNearRoad.add(new LandNearRoad(landNearRoadId, name, maxPrice, minPrice, averagePrice, predictPrice, roadSegment, listCoordinate, listReo));
             }
@@ -75,7 +75,7 @@ public class LandNearRoadDAO {
         }
         int deleteLNRCoordinate = deleteLandNearRoadCoordinateByLandNearRoadId(id);
         int deleteLNRDetail = deleteLandNearRoadDetailByLandNearRoadId(id);
-        ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoornidateWithLandNearRoadID(id);
+        ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoordinateWithLandNearRoadID(id);
         int deleteCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.deleteCoordinateByCoordinateId(listCoordinate);
 
         Connection conn = null;
@@ -115,9 +115,9 @@ public class LandNearRoadDAO {
             pre.setFloat(6, landNearRoad.getPredictPrice());
             pre.setInt(7, landNearRoad.getRoadSegment().getRoadSegmentId());
             inserted = pre.executeUpdate();
-            int insertCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.insertCoordinate(landNearRoad.getListCoornidate());
+            int insertCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.insertCoordinate(landNearRoad.getListCoordinate());
             int insertedLNRDetail = insertLandNearRoadDetail(landNearRoad, landNearRoad.getListRealEstateObject());
-            int insertLNRCoordinate = insertLandNearRoadCoordinate(landNearRoad, landNearRoad.getListCoornidate());
+            int insertLNRCoordinate = insertLandNearRoadCoordinate(landNearRoad, landNearRoad.getListCoordinate());
         } catch (Exception ex) {
 
         } finally {
@@ -160,11 +160,11 @@ public class LandNearRoadDAO {
         try {
             conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
             for (int i = 0; i < listCoordinate.size(); i++) {
-                String sql = "insert into LandNearRoadCoornidate(LandNearRoadID, CoornidateID, modifiedDate) "
+                String sql = "insert into LandNearRoadCoordinate(LandNearRoadID, CoordinateID, modifiedDate) "
                         + "values(?,?,GETDATE());";
                 pre = conn.prepareStatement(sql);
                 pre.setInt(1, landNearRoad.getLandNearRoadId());
-                pre.setInt(2, listCoordinate.get(i).getCoornidateId());
+                pre.setInt(2, listCoordinate.get(i).getCoordinateId());
                 int rowInserted = pre.executeUpdate();
                 inserted += rowInserted;
             }
@@ -184,7 +184,7 @@ public class LandNearRoadDAO {
 
         try {
             conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
-            String sql = "delete from LandNearRoadCoornidate where LandNearRoadID = ?";
+            String sql = "delete from LandNearRoadCoordinate where LandNearRoadID = ?";
             pre = conn.prepareStatement(sql);
             pre.setInt(1, landNearRoadId);
             deleted = pre.executeUpdate();

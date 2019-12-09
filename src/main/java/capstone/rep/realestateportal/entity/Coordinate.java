@@ -27,24 +27,27 @@ public class Coordinate {
         return coordinateId;
     }
 
-    public void setCoordinateId(int coordinateId) {
+    public Coordinate setCoordinateId(int coordinateId) {
         this.coordinateId = coordinateId;
+        return this;
     }
 
     public float getLongtitude() {
         return longtitude;
     }
 
-    public void setLongtitude(float longtitude) {
+    public Coordinate setLongtitude(float longtitude) {
         this.longtitude = longtitude;
+        return this;
     }
 
     public float getLattitude() {
         return lattitude;
     }
 
-    public void setLattitude(float lattitude) {
+    public Coordinate setLattitude(float lattitude) {
         this.lattitude = lattitude;
+        return this;
     }
     
 }

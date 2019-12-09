@@ -31,32 +31,36 @@ public class Road {
         return roadId;
     }
 
-    public void setRoadId(int roadId) {
+    public Road setRoadId(int roadId) {
         this.roadId = roadId;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Road setName(String name) {
         this.name = name;
+        return this;
     }
 
     public City getCity() {
         return city;
     }
 
-    public void setCity(City city) {
+    public Road setCity(City city) {
         this.city = city;
+        return this;
     }
 
     public ArrayList<Coordinate> getListCoordinate() {
         return listCoordinate;
     }
 
-    public void setListCoordinate(ArrayList<Coordinate> listCoordinate) {
+    public Road setListCoordinate(ArrayList<Coordinate> listCoordinate) {
         this.listCoordinate = listCoordinate;
+        return this;
     }
     
 }

@@ -25,16 +25,18 @@ public class City {
         return cityId;
     }
 
-    public void setCityId(int cityId) {
+    public City setCityId(int cityId) {
         this.cityId = cityId;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public City setName(String name) {
         this.name = name;
+        return this;
     }
     
 }

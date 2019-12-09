@@ -33,40 +33,45 @@ public class RealEstateObject {
         return reoId;
     }
 
-    public void setReoId(int reoId) {
+    public RealEstateObject setReoId(int reoId) {
         this.reoId = reoId;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public RealEstateObject setName(String name) {
         this.name = name;
+        return this;
     }
 
     public float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public RealEstateObject setPrice(float price) {
         this.price = price;
+        return this;
     }
 
     public ArrayList<Feature> getListFeature() {
         return listFeature;
     }
 
-    public void setListFeature(ArrayList<Feature> listFeature) {
+    public RealEstateObject setListFeature(ArrayList<Feature> listFeature) {
         this.listFeature = listFeature;
+        return this;
     }
 
     public ArrayList<Coordinate> getListCoordinate() {
         return listCoordinate;
     }
 
-    public void setListCoordinate(ArrayList<Coordinate> listCoordinate) {
+    public RealEstateObject setListCoordinate(ArrayList<Coordinate> listCoordinate) {
         this.listCoordinate = listCoordinate;
+        return this;
     }
     
     

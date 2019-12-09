@@ -27,24 +27,27 @@ public class Feature {
         return featureId;
     }
 
-    public void setFeatureId(int featureId) {
+    public Feature setFeatureId(int featureId) {
         this.featureId = featureId;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Feature setName(String name) {
         this.name = name;
+        return this;
     }
 
     public float getCoefficient() {
         return coefficient;
     }
 
-    public void setCoefficient(float coefficient) {
+    public Feature setCoefficient(float coefficient) {
         this.coefficient = coefficient;
+        return this;
     }
     
 }

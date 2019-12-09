@@ -19,13 +19,13 @@ public class LandNearRoad {
     private float averagePrice;
     private float predictPrice;
     private RoadSegment roadSegment;
-    private ArrayList<Coornidiate> listCoornidate;
+    private ArrayList<Coordinate> listCoornidate;
     private ArrayList<RealEstateObject> listRealEstateObject;
 
     public LandNearRoad() {
     }
 
-    public LandNearRoad(int landNearRoadId, String name, float maxPrice, float minPrice, float averagePrice, float predictPrice, RoadSegment roadSegment, ArrayList<Coornidiate> listCoornidate, ArrayList<RealEstateObject> listRealEstateObject) {
+    public LandNearRoad(int landNearRoadId, String name, float maxPrice, float minPrice, float averagePrice, float predictPrice, RoadSegment roadSegment, ArrayList<Coordinate> listCoornidate, ArrayList<RealEstateObject> listRealEstateObject) {
         this.landNearRoadId = landNearRoadId;
         this.name = name;
         this.maxPrice = maxPrice;
@@ -93,11 +93,11 @@ public class LandNearRoad {
         this.roadSegment = roadSegment;
     }
 
-    public ArrayList<Coornidiate> getListCoornidate() {
+    public ArrayList<Coordinate> getListCoornidate() {
         return listCoornidate;
     }
 
-    public void setListCoornidate(ArrayList<Coornidiate> listCoornidate) {
+    public void setListCoornidate(ArrayList<Coordinate> listCoornidate) {
         this.listCoornidate = listCoornidate;
     }
 

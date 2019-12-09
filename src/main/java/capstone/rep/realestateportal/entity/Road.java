@@ -15,12 +15,12 @@ public class Road {
     private int roadId;
     private String name;
     private City city;
-    private ArrayList<Coornidiate> listCoornidate;
+    private ArrayList<Coordinate> listCoornidate;
 
     public Road() {
     }
 
-    public Road(int roadId, String name, City city, ArrayList<Coornidiate> listCoornidate) {
+    public Road(int roadId, String name, City city, ArrayList<Coordinate> listCoornidate) {
         this.roadId = roadId;
         this.name = name;
         this.city = city;
@@ -51,11 +51,11 @@ public class Road {
         this.city = city;
     }
 
-    public ArrayList<Coornidiate> getListCoornidate() {
+    public ArrayList<Coordinate> getListCoornidate() {
         return listCoornidate;
     }
 
-    public void setListCoornidate(ArrayList<Coornidiate> listCoornidate) {
+    public void setListCoornidate(ArrayList<Coordinate> listCoornidate) {
         this.listCoornidate = listCoornidate;
     }
     

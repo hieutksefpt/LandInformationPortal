@@ -9,15 +9,15 @@ package capstone.rep.realestateportal.entity;
  *
  * @author Anh Hao
  */
-public class Coornidiate {
+public class Coordinate {
     private int coornidateId;
     private float longtitude;
     private float lattitude;
 
-    public Coornidiate() {
+    public Coordinate() {
     }
 
-    public Coornidiate(int coornidateId, float longtitude, float lattitude) {
+    public Coordinate(int coornidateId, float longtitude, float lattitude) {
         this.coornidateId = coornidateId;
         this.longtitude = longtitude;
         this.lattitude = lattitude;

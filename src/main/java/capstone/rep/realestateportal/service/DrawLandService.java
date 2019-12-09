@@ -5,6 +5,8 @@
  */
 package capstone.rep.realestateportal.service;
 
+import capstone.rep.realestateportal.dao.LandNearRoadDAO;
+import capstone.rep.realestateportal.dao.ReoDAO;
 import capstone.rep.realestateportal.model.Coordinate;
 import capstone.rep.realestateportal.model.Land;
 import capstone.rep.realestateportal.model.RealEstateObject;
@@ -17,24 +19,22 @@ import java.util.List;
  */
 public class DrawLandService {
     
-    public void deleteLandNear(String idLand){
+    public boolean deleteLandNearRoadById(String idLand){
         //TODO: delete a land near road
-        return;
+    	LandNearRoadDAO landNearRoadDAO = new LandNearRoadDAO();
+    	return landNearRoadDAO.deleteLandNearRoadById(idLand);
     }
     
-    public void submitNewLandNear(Land land){
+    public boolean submitNewLandNear(Land land){
         //TODO: submit new land to db
-        return;
+    	LandNearRoadDAO landNearRoadDAO = new LandNearRoadDAO();
+    	return landNearRoadDAO.insertNewLandNearRoad(land);
     }
 
     public List<RealEstateObject> getListReoInside(List<Coordinate> listCoordinates){
         //TODO: return list reo inside a land defined by it coordinate
-        
-        //hard code:
-        List<RealEstateObject> listReo = new ArrayList<>();
-        listReo.add(new RealEstateObject().setPrice(15));
-        listReo.add(new RealEstateObject().setPrice(16));
-        listReo.add(new RealEstateObject().setPrice(17));
+        ReoDAO reoDAO = new ReoDAO();
+        List<RealEstateObject> listReo = reoDAO.getListReoInside(listCoordinates);
         return listReo;
     }
     

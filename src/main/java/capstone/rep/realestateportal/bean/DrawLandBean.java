@@ -120,8 +120,9 @@ public class DrawLandBean {
     
     public void deleteButtonClick(){
         DrawLandService drawLandService = new DrawLandService();
-        drawLandService.deleteLandNear(clickedLandId);
+        drawLandService.deleteLandNearRoadById(clickedLandId);
     }
+    
     public void changeRoadViewById() { 
         CommonService commonService = new CommonService();
         List<Land> listLandNearRoad = commonService.getLandNearByRoadId(roadId);

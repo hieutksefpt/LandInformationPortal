@@ -5,10 +5,20 @@
  */
 package capstone.rep.realestateportal.dao;
 
+import capstone.rep.realestateportal.entity.Road;
+import java.util.ArrayList;
+
 /**
  *
  * @author Admin
  */
 public class LandNearRoadDAO {
-    
+    public ArrayList<LandNearRoad> getLandNearByRoadId(String roadID){
+        ArrayList<LandNearRoad> listLandNearRoad = new ArrayList<>();
+        // get LandNearRoad by ID here from DB
+        
+        
+        
+        return listLandNearRoad;
+    }
 }

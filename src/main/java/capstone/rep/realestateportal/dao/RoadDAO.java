@@ -5,10 +5,20 @@
  */
 package capstone.rep.realestateportal.dao;
 
+import capstone.rep.realestateportal.entity.Road;
+import java.util.ArrayList;
+
 /**
  *
  * @author Admin
  */
 public class RoadDAO {
-    
+    public ArrayList<Road> getRoadByName(String name){
+        ArrayList<Road> listRoad = new ArrayList<>();
+        // get Road here from DB
+        
+        
+        
+        return listRoad;
+    }
 }

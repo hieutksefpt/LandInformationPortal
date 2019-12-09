@@ -57,7 +57,7 @@ public class ReoDAO {
                 String name = rs.getString("Name");
                 Float price = rs.getFloat("Price");
                 ArrayList<Feature> listFeature = capstone.rep.realestateportal.dao.FeatureDAO.featureDAO.getListFeatureByReoID(reoId);
-                ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoornidateDAO.coornidateDAO.getListCoornidateWithReoID(reoId);
+                ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoornidateWithReoID(reoId);
                 listReo.add(new RealEstateObject(reoId, name, price, listFeature, listCoordinate));
             }
         } catch (Exception ex) {

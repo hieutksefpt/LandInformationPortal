@@ -53,7 +53,7 @@ public class LandNearRoadDAO {
                     Float averagePrice = rs.getFloat("AveragePrice");
                     Float predictPrice = rs.getFloat("PredictPrice");
                     RoadSegment roadSegment = capstone.rep.realestateportal.dao.RoadSegmentDAO.roadSegmentDAO.getRoadSegmentByRoadSegmentID(rs.getInt("RoadSegmentID"));
-                    ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoornidateDAO.coornidateDAO.getListCoornidateWithLandNearRoadID(landNearRoadId);
+                    ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoornidateWithLandNearRoadID(landNearRoadId);
                     ArrayList<RealEstateObject> listReo = capstone.rep.realestateportal.dao.ReoDAO.reoDAO.getListReoByLandNearRoadID(landNearRoadId);
                     listLandNearRoad.add(new LandNearRoad(landNearRoadId, name, maxPrice, minPrice, averagePrice, predictPrice, roadSegment, listCoordinate, listReo));
                 }

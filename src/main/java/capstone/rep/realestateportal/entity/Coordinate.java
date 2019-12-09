@@ -10,25 +10,25 @@ package capstone.rep.realestateportal.entity;
  * @author Anh Hao
  */
 public class Coordinate {
-    private int coornidateId;
+    private int coordinateId;
     private float longtitude;
     private float lattitude;
 
     public Coordinate() {
     }
 
-    public Coordinate(int coornidateId, float longtitude, float lattitude) {
-        this.coornidateId = coornidateId;
+    public Coordinate(int coordinateId, float longtitude, float lattitude) {
+        this.coordinateId = coordinateId;
         this.longtitude = longtitude;
         this.lattitude = lattitude;
     }
 
     public int getCoornidateId() {
-        return coornidateId;
+        return coordinateId;
     }
 
-    public void setCoornidateId(int coornidateId) {
-        this.coornidateId = coornidateId;
+    public void setCoordinateId(int coordinateId) {
+        this.coordinateId = coordinateId;
     }
 
     public float getLongtitude() {

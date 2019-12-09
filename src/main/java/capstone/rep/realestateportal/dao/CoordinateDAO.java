@@ -16,11 +16,11 @@ import java.util.ArrayList;
  *
  * @author Anh Hao
  */
-public class CoornidateDAO {
+public class CoordinateDAO {
 
-    public static CoornidateDAO coornidateDAO = new CoornidateDAO();
+    public static CoordinateDAO coordinateDAO = new CoordinateDAO();
 
-    public CoornidateDAO() {
+    public CoordinateDAO() {
     }
 
     public void CloseConnect(Connection conn, PreparedStatement pre, ResultSet rs) throws SQLException {
@@ -54,10 +54,10 @@ public class CoornidateDAO {
             pre.setInt(1, roadId);
             rs = pre.executeQuery();
             while (rs.next()) {
-                int coornidateId = rs.getInt("CoornidiateID");
+                int coordinateId = rs.getInt("CoordinateID");
                 Float longtitude = rs.getFloat("Longtitude");
                 Float lattitude = rs.getFloat("Lattitude");
-                listCoornidate.add(new Coordinate(coornidateId, longtitude, lattitude));
+                listCoornidate.add(new Coordinate(coordinateId, longtitude, lattitude));
             }
         } catch (Exception ex) {
 
@@ -82,10 +82,10 @@ public class CoornidateDAO {
             pre.setInt(1, landNearRoadID);
             rs = pre.executeQuery();
             while (rs.next()) {
-                int coornidateId = rs.getInt("CoornidiateID");
+                int coordinateId = rs.getInt("CoordinateID");
                 Float longtitude = rs.getFloat("Longtitude");
                 Float lattitude = rs.getFloat("Lattitude");
-                listCoornidate.add(new Coordinate(coornidateId, longtitude, lattitude));
+                listCoornidate.add(new Coordinate(coordinateId, longtitude, lattitude));
             }
         } catch (Exception ex) {
 
@@ -110,10 +110,10 @@ public class CoornidateDAO {
             pre.setInt(1, reoId);
             rs = pre.executeQuery();
             while (rs.next()) {
-                int coornidateId = rs.getInt("CoornidiateID");
+                int coordinateId = rs.getInt("CoordinateID");
                 Float longtitude = rs.getFloat("Longtitude");
                 Float lattitude = rs.getFloat("Lattitude");
-                listCoornidate.add(new Coordinate(coornidateId, longtitude, lattitude));
+                listCoornidate.add(new Coordinate(coordinateId, longtitude, lattitude));
             }
         } catch (Exception ex) {
 

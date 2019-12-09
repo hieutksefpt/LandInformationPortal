@@ -13,7 +13,8 @@ import java.util.ArrayList;
  * @author Admin
  */
 public class RoadDAO {
-    public ArrayList<Road> getRoadByName(String name){
+    
+    public static ArrayList<Road> getRoadByName(String name){
         ArrayList<Road> listRoad = new ArrayList<>();
         // get Road here from DB
         

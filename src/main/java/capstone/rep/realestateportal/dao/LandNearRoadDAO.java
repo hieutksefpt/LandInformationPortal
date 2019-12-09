@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Admin
  */
 public class LandNearRoadDAO {
-    public ArrayList<LandNearRoad> getLandNearByRoadId(String roadID){
+    public static ArrayList<LandNearRoad> getLandNearByRoadId(String roadID){
         ArrayList<LandNearRoad> listLandNearRoad = new ArrayList<>();
         // get LandNearRoad by ID here from DB
         

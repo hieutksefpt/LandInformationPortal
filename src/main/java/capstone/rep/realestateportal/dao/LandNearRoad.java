@@ -12,7 +12,8 @@ import java.util.ArrayList;
  *
  * @author Admin
  */
-class LandNearRoad {
+public class LandNearRoad {
+    
     public ArrayList<RealEstateObject> getListReoByLandNearRoadID(String landNearRoadID,String page){
         ArrayList<RealEstateObject> listReo = new ArrayList<>();
         // get list RealEstateObject by landNearRoadID here from DB

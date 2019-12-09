@@ -22,19 +22,21 @@ public class CommonService {
 
     public List<Road> getRoadByHint(String hint) {
         //TODO: getroadByHint(String hint)
+        return capstone.rep.realestateportal.dao.RoadDAO.getRoadByName(hint);
+        
 
-        //hard code
-        ArrayList<Road> listroad = new ArrayList();
-        listroad.add(new Road().setId(1).setName("Đường 1"));
-        listroad.add(new Road().setId(2).setName("Đường 2"));
-        listroad.add(new Road().setId(3).setName("Đường 3"));
-        listroad.add(new Road().setId(4).setName("Đường 4"));
-        listroad.add(new Road().setId(5).setName("Đường 5"));
-        listroad.add(new Road().setId(6).setName("Đường 6"));
-        listroad.add(new Road().setId(7).setName("Đường 7"));
-        listroad.add(new Road().setId(8).setName("Đường 8"));
-        listroad.add(new Road().setId(9).setName("Đường 9"));
-        return listroad;
+//hard code
+//        ArrayList<Road> listroad = new ArrayList();
+//        listroad.add(new Road().setId(1).setName("Đường 1"));
+//        listroad.add(new Road().setId(2).setName("Đường 2"));
+//        listroad.add(new Road().setId(3).setName("Đường 3"));
+//        listroad.add(new Road().setId(4).setName("Đường 4"));
+//        listroad.add(new Road().setId(5).setName("Đường 5"));
+//        listroad.add(new Road().setId(6).setName("Đường 6"));
+//        listroad.add(new Road().setId(7).setName("Đường 7"));
+//        listroad.add(new Road().setId(8).setName("Đường 8"));
+//        listroad.add(new Road().setId(9).setName("Đường 9"));
+//        return listroad;
     }
 
     public List<Land> getLandNearByroadId(String id) {

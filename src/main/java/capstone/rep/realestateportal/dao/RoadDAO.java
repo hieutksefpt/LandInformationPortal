@@ -2,6 +2,8 @@ package capstone.rep.realestateportal.dao;
 
 import capstone.rep.realestateportal.entity.City;
 import java.util.ArrayList;
+import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
 import capstone.rep.realestateportal.entity.Road;
 import capstone.rep.realestateportal.entity.Coordinate;
 import java.sql.Connection;
@@ -15,7 +17,7 @@ public class RoadDAO {
     }
 
     public static RoadDAO roadDAO = new RoadDAO();
-    
+
     public void CloseConnect(Connection conn, PreparedStatement pre, ResultSet rs) throws SQLException {
         try {
             if (rs != null && !rs.isClosed()) {
@@ -31,8 +33,8 @@ public class RoadDAO {
             throw ex;
         }
     }
-    
-    public Road getRoadByRoadID(int roadId) throws SQLException{
+
+    public Road getRoadByRoadID(int roadId) throws SQLException {
         Connection conn = null;
         ResultSet rs = null;
         PreparedStatement pre = null;
@@ -66,11 +68,11 @@ public class RoadDAO {
 
         try {
             conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
-            String sql = "select r.RoadID, r.Name, c.CityID from Road r " +
-            "inner join City c on r.CityID = c.CityID where r.Name like ?";
+            String sql = "select r.RoadID, r.Name, c.CityID from Road r inner join City c on r.CityID = c.CityID where r.Name like ?";
             pre = conn.prepareStatement(sql);
-            pre.setString(1, "'%" + hint + "%'");
+            pre.setString(1, "%" + hint + "%");
             rs = pre.executeQuery();
+            System.out.println(sql);
             while (rs.next()) {
                 int roadId = rs.getInt("RoadID");
                 String name = rs.getString("Name");
@@ -79,7 +81,9 @@ public class RoadDAO {
                 listRoad.add(new Road(roadId, name, city, listCoordinate));
             }
         } catch (Exception ex) {
-
+            System.out.println("Error: " + ex.getMessage());
+            System.out.println("Cause by: " + ex.getCause());
+            System.out.println(ex);
         } finally {
             CloseConnect(conn, pre, rs);
         }

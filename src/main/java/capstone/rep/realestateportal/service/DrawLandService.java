@@ -7,9 +7,9 @@ package capstone.rep.realestateportal.service;
 
 import capstone.rep.realestateportal.dao.LandNearRoadDAO;
 import capstone.rep.realestateportal.dao.ReoDAO;
-import capstone.rep.realestateportal.model.Coordinate;
-import capstone.rep.realestateportal.model.Land;
-import capstone.rep.realestateportal.model.RealEstateObject;
+import capstone.rep.realestateportal.entity.Coordinate;
+import capstone.rep.realestateportal.entity.LandNearRoad;
+import capstone.rep.realestateportal.entity.RealEstateObject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,16 +19,30 @@ import java.util.List;
  */
 public class DrawLandService {
     
-    public boolean deleteLandNearRoadById(String idLand){
+    public int deleteLandNearRoadById(String idLand){
         //TODO: delete a land near road
     	LandNearRoadDAO landNearRoadDAO = new LandNearRoadDAO();
-    	return landNearRoadDAO.deleteLandNearRoadById(idLand);
+    	int result = 0;
+    	try {
+    		result = landNearRoadDAO.deleteLandNearRoadById(idLand);
+    	}catch(Exception e) {
+    		System.out.println("Error: "+e.getMessage());
+    		System.out.print("Cause by: "+e.getCause());
+    	}
+    	return result;
     }
     
-    public boolean submitNewLandNear(Land land){
+    public int submitNewLandNear(LandNearRoad land){
         //TODO: submit new land to db
     	LandNearRoadDAO landNearRoadDAO = new LandNearRoadDAO();
-    	return landNearRoadDAO.insertNewLandNearRoad(land);
+    	int result = 0;
+    	try {
+    		result = landNearRoadDAO.insertNewLandNearRoad(land);
+    	}catch(Exception e) {
+    		System.out.println("Error: "+e.getMessage());
+    		System.out.print("Cause by: "+e.getCause());
+    	}
+    	return result;
     }
 
     public List<RealEstateObject> getListReoInside(List<Coordinate> listCoordinates){
@@ -38,7 +52,7 @@ public class DrawLandService {
         return listReo;
     }
     
-    public Land createNewLandByCoordinate(List<Coordinate> listCoordinateSubmit) {
+    public LandNearRoad createNewLandByCoordinate(List<Coordinate> listCoordinateSubmit) {
         List<RealEstateObject> listReo = getListReoInside(listCoordinateSubmit);
         double maxPrice = Double.MIN_VALUE;
         double minPrice = Double.MAX_VALUE;
@@ -56,7 +70,7 @@ public class DrawLandService {
         }
         averagePrice = sum/listReo.size();
         
-        Land land = new Land().setMaxPrice(maxPrice).setMinPrice(minPrice).setAveragePrice(averagePrice).setListReo(listReo);
+        LandNearRoad land = new LandNearRoad().setMaxPrice(maxPrice).setMinPrice(minPrice).setAveragePrice(averagePrice).setListRealEstateObject(listReo);
         return land;
     }
     

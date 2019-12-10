@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import capstone.rep.realestateportal.entity.Coordinate;
-import capstone.rep.realestateportal.model.Land;
 import capstone.rep.realestateportal.entity.RealEstateObject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -109,10 +108,10 @@ public class LandNearRoadDAO {
             pre = conn.prepareStatement(sql);
             pre.setInt(1, landNearRoad.getLandNearRoadId());
             pre.setNString(2, landNearRoad.getName());
-            pre.setFloat(3, landNearRoad.getMaxPrice());
-            pre.setFloat(4, landNearRoad.getMinPrice());
-            pre.setFloat(5, landNearRoad.getAveragePrice());
-            pre.setFloat(6, landNearRoad.getPredictPrice());
+            pre.setDouble(3, landNearRoad.getMaxPrice());
+            pre.setDouble(4, landNearRoad.getMinPrice());
+            pre.setDouble(5, landNearRoad.getAveragePrice());
+            pre.setDouble(6, landNearRoad.getPredictPrice());
             pre.setInt(7, landNearRoad.getRoadSegment().getRoadSegmentId());
             inserted = pre.executeUpdate();
             int insertCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.insertCoordinate(landNearRoad.getListCoordinate());
@@ -126,7 +125,7 @@ public class LandNearRoadDAO {
         return inserted;
     }
 
-    public int insertLandNearRoadDetail(LandNearRoad landNearRoad, ArrayList<RealEstateObject> listReo) throws SQLException {
+    public int insertLandNearRoadDetail(LandNearRoad landNearRoad, List<RealEstateObject> listReo) throws SQLException {
         int inserted = 0;
         Connection conn = null;
         ResultSet rs = null;
@@ -151,7 +150,7 @@ public class LandNearRoadDAO {
         return inserted;
     }
 
-    public int insertLandNearRoadCoordinate(LandNearRoad landNearRoad, ArrayList<Coordinate> listCoordinate) throws SQLException {
+    public int insertLandNearRoadCoordinate(LandNearRoad landNearRoad, List<Coordinate> listCoordinate) throws SQLException {
         int inserted = 0;
         Connection conn = null;
         ResultSet rs = null;

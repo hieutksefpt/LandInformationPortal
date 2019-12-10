@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -147,7 +148,7 @@ public class CoordinateDAO {
         return deleted;
     }
 
-    public int insertCoordinate(ArrayList<Coordinate> listCoordinate) throws SQLException {
+    public int insertCoordinate(List<Coordinate> listCoordinate) throws SQLException {
         int inserted = 0;
         Connection conn = null;
         ResultSet rs = null;
@@ -160,8 +161,8 @@ public class CoordinateDAO {
                         + "values(?,?,?,GETDATE());";
                 pre = conn.prepareStatement(sql);
                 pre.setInt(1, listCoordinate.get(i).getCoordinateId());
-                pre.setFloat(2, listCoordinate.get(i).getLongtitude());
-                pre.setFloat(3, listCoordinate.get(i).getLattitude());
+                pre.setDouble(2, listCoordinate.get(i).getLongitude());
+                pre.setDouble(3, listCoordinate.get(i).getLatitude());
                 int rowInserted = pre.executeUpdate();
                 inserted += rowInserted;
             }

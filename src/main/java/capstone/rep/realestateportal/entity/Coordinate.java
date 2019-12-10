@@ -11,16 +11,16 @@ package capstone.rep.realestateportal.entity;
  */
 public class Coordinate {
     private int coordinateId;
-    private float longtitude;
-    private float lattitude;
+    private double longitude;
+    private double latitude;
 
     public Coordinate() {
     }
 
-    public Coordinate(int coordinateId, float longtitude, float lattitude) {
+    public Coordinate(int coordinateId, double longitude, double latitude) {
         this.coordinateId = coordinateId;
-        this.longtitude = longtitude;
-        this.lattitude = lattitude;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     public int getCoordinateId() {
@@ -32,21 +32,21 @@ public class Coordinate {
         return this;
     }
 
-    public float getLongtitude() {
-        return longtitude;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public Coordinate setLongtitude(float longtitude) {
-        this.longtitude = longtitude;
+    public Coordinate setLongitude(double longitude) {
+        this.longitude = longitude;
         return this;
     }
 
-    public float getLattitude() {
-        return lattitude;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public Coordinate setLattitude(float lattitude) {
-        this.lattitude = lattitude;
+    public Coordinate setLatitude(double latitude) {
+        this.latitude = latitude;
         return this;
     }
     

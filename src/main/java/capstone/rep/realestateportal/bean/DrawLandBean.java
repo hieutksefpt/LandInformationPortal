@@ -5,13 +5,11 @@
  */
 package capstone.rep.realestateportal.bean;
 
-import capstone.rep.realestateportal.model.Coordinate;
-import capstone.rep.realestateportal.model.Land;
-import capstone.rep.realestateportal.model.RealEstateObject;
-import capstone.rep.realestateportal.model.Road;
+import capstone.rep.realestateportal.entity.Coordinate;
+import capstone.rep.realestateportal.entity.LandNearRoad;
+import capstone.rep.realestateportal.entity.Road;
 import capstone.rep.realestateportal.service.CommonService;
 import capstone.rep.realestateportal.service.DrawLandService;
-import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,8 +55,9 @@ public class DrawLandBean {
         this.jsonCoordinateSubmit = jsonCoordinateSubmit;
     }
 
-    public List<Road> listRoadByHint() {
-        String hintLowerCase = (roadId + "").toLowerCase();
+    public List<Road> listRoadByHint(String hint) {
+    	if (hint == null) hint = "";
+        String hintLowerCase = hint.toLowerCase();
         CommonService commonService = new CommonService();
         List<Road> listRoadByHint = commonService.getRoadByHint(hintLowerCase);
         return listRoadByHint.stream().collect(Collectors.toList());
@@ -76,13 +75,13 @@ public class DrawLandBean {
     }
 
     
-    private Land landCalculated;
+    private LandNearRoad landCalculated;
 
-    public Land getLandCalculated() {
+    public LandNearRoad getLandCalculated() {
         return landCalculated;
     }
 
-    public void setLandCalculated(Land landCalculated) {
+    public void setLandCalculated(LandNearRoad landCalculated) {
         this.landCalculated = landCalculated;
     }
     
@@ -125,7 +124,7 @@ public class DrawLandBean {
     
     public void changeRoadViewById() { 
         CommonService commonService = new CommonService();
-        List<Land> listLandNearRoad = commonService.getLandNearByRoadId(roadId);
+        List<LandNearRoad> listLandNearRoad = commonService.getLandNearByRoadId(roadId);
         JSONObject jsonObject = commonService.createGeoJson(listLandNearRoad);
         jsonByRoad = jsonObject.toString();
     }

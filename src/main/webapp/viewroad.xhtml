@@ -26,10 +26,10 @@
                                 <div class="col-md-8">
                                     <h:inputHidden id="geojson" value="#{viewRoadBean.geoJSON}"></h:inputHidden>
                                     <h:form>  
-                                        <p:autoComplete value="${viewRoadBean.roadId}" 
-                                                        completeMethod="${viewRoadBean.listRoadByHint()}"
+                                        <p:autoComplete value="${viewRoadBean.roadId}" id="autocompleteValue"
+                                                        completeMethod="${viewRoadBean.listRoadByHint}"
                                                         var="element" itemLabel="#{element.name}"
-                                                        itemValue="#{element.id}" converter="#{roadConverter}"
+                                                        itemValue="#{element.roadId}"
                                                         forceSelection="true">
                                             <p:ajax event="itemSelect" listener="${viewRoadBean.changeRoadViewById()}" 
                                                     process="@form" update="geojson" 

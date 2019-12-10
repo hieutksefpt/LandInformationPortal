@@ -38,8 +38,9 @@ public class ViewRoadBean {
         currentPage = 1;
     }
 
-    public List<Road> listRoadByHint() {
-        String hintLowerCase = (roadId + "").toLowerCase();
+    public List<Road> listRoadByHint(String hint) {
+    	if (hint == null) hint = "";
+        String hintLowerCase = (hint + "").toLowerCase();
         CommonService commonService = new CommonService();
         List<Road> listRoadByHint = commonService.getRoadByHint(hintLowerCase);
         return listRoadByHint.stream().collect(Collectors.toList());

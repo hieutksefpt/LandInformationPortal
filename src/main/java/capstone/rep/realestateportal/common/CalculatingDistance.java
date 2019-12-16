@@ -45,16 +45,16 @@ public class CalculatingDistance {
         // đoạn này tính toán xem nó gần phần segment nào nhất
         for (int i = 0; i < listCoordinateland.size(); i++) {
             for (int j = 0; j < listRoadSegment.size(); j++) {
-                // get điểm đầu của Road Segment 
-                Point roadSegmentA = new Point(listRoadSegment.get(i).getListCoordinate().get(0).getLatitude(), listRoadSegment.get(i).getListCoordinate().get(0).getLongitude());
-                // get điểm cuối của Road Segment
-                Point roadSegmentB = new Point(listRoadSegment.get(i).getListCoordinate().get(1).getLatitude(), listRoadSegment.get(i).getListCoordinate().get(1).getLongitude());
+                // get điểm đầu của Road Segment - cái này tùy vào cách cài đặt của mình trong DB
+                Point roadSegmentA = new Point(listRoadSegment.get(j).getListCoordinate().get(0).getLatitude(), listRoadSegment.get(j).getListCoordinate().get(0).getLongitude());
+                // get điểm cuối của Road Segment - cái này tùy vào cách cài đặt của mình trong DB
+                Point roadSegmentB = new Point(listRoadSegment.get(j).getListCoordinate().get(1).getLatitude(), listRoadSegment.get(j).getListCoordinate().get(1).getLongitude());
                 // điểm Reo thuộc LandNearRoad cần tính khoảng cách
                 Point reoPoint = new Point(listCoordinateland.get(i).getLatitude(), listCoordinateland.get(i).getLongitude());
                 distanceFromReoToRoadSegment.add(distanceToPoint(roadSegmentA, roadSegmentB, reoPoint));
                 Collections.sort(distanceFromReoToRoadSegment);             // sort để lấy ra thằng min nằm đầu tiên
                 if(distanceToPoint(roadSegmentA, roadSegmentB, reoPoint) == (Double)distanceFromReoToRoadSegment.get(0)){
-                    nearesrRoadSegment = listRoadSegment.get(i);            // nếu khoảng cách là ngắn nhất thì chọn RoadSegment
+                    nearesrRoadSegment = listRoadSegment.get(j);            // nếu khoảng cách là ngắn nhất thì chọn RoadSegment
                 }
             }
         }

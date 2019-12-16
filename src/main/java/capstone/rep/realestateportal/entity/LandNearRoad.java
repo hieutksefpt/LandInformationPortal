@@ -6,6 +6,7 @@
 package capstone.rep.realestateportal.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,18 +15,18 @@ import java.util.ArrayList;
 public class LandNearRoad {
     private int landNearRoadId;
     private String name;
-    private float maxPrice;
-    private float minPrice;
-    private float averagePrice;
-    private float predictPrice;
+    private double maxPrice;
+    private double minPrice;
+    private double averagePrice;
+    private double predictPrice;
     private RoadSegment roadSegment;
-    private ArrayList<Coornidiate> listCoornidate;
-    private ArrayList<RealEstateObject> listRealEstateObject;
+    private List<Coordinate> listCoordinate;
+    private List<RealEstateObject> listRealEstateObject;
 
     public LandNearRoad() {
     }
 
-    public LandNearRoad(int landNearRoadId, String name, float maxPrice, float minPrice, float averagePrice, float predictPrice, RoadSegment roadSegment, ArrayList<Coornidiate> listCoornidate, ArrayList<RealEstateObject> listRealEstateObject) {
+    public LandNearRoad(int landNearRoadId, String name, double maxPrice, double minPrice, double averagePrice, double predictPrice, RoadSegment roadSegment, ArrayList<Coordinate> listCoordinate, ArrayList<RealEstateObject> listRealEstateObject) {
         this.landNearRoadId = landNearRoadId;
         this.name = name;
         this.maxPrice = maxPrice;
@@ -33,7 +34,7 @@ public class LandNearRoad {
         this.averagePrice = averagePrice;
         this.predictPrice = predictPrice;
         this.roadSegment = roadSegment;
-        this.listCoornidate = listCoornidate;
+        this.listCoordinate = listCoordinate;
         this.listRealEstateObject = listRealEstateObject;
     }
 
@@ -41,72 +42,81 @@ public class LandNearRoad {
         return landNearRoadId;
     }
 
-    public void setLandNearRoadId(int landNearRoadId) {
+    public LandNearRoad setLandNearRoadId(int landNearRoadId) {
         this.landNearRoadId = landNearRoadId;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public LandNearRoad setName(String name) {
         this.name = name;
+        return this;
     }
 
-    public float getMaxPrice() {
+    public double getMaxPrice() {
         return maxPrice;
     }
 
-    public void setMaxPrice(float maxPrice) {
+    public LandNearRoad setMaxPrice(double maxPrice) {
         this.maxPrice = maxPrice;
+        return this;
     }
 
-    public float getMinPrice() {
+    public double getMinPrice() {
         return minPrice;
     }
 
-    public void setMinPrice(float minPrice) {
+    public LandNearRoad setMinPrice(double minPrice) {
         this.minPrice = minPrice;
+        return this;
     }
 
-    public float getAveragePrice() {
+    public double getAveragePrice() {
         return averagePrice;
     }
 
-    public void setAveragePrice(float averagePrice) {
+    public LandNearRoad setAveragePrice(double averagePrice) {
         this.averagePrice = averagePrice;
+        return this;
     }
 
-    public float getPredictPrice() {
+    public double getPredictPrice() {
         return predictPrice;
     }
 
-    public void setPredictPrice(float predictPrice) {
+    public LandNearRoad setPredictPrice(double predictPrice) {
         this.predictPrice = predictPrice;
+        return this;
     }
 
     public RoadSegment getRoadSegment() {
         return roadSegment;
     }
 
-    public void setRoadSegment(RoadSegment roadSegment) {
+    public LandNearRoad setRoadSegment(RoadSegment roadSegment) {
         this.roadSegment = roadSegment;
+        return this;
     }
 
-    public ArrayList<Coornidiate> getListCoornidate() {
-        return listCoornidate;
+    public List<Coordinate> getListCoordinate() {
+        return listCoordinate;
     }
 
-    public void setListCoornidate(ArrayList<Coornidiate> listCoornidate) {
-        this.listCoornidate = listCoornidate;
+    public LandNearRoad setListCoordinate(List<Coordinate> listCoordinate) {
+        this.listCoordinate = listCoordinate;
+        return this;
     }
 
-    public ArrayList<RealEstateObject> getListRealEstateObject() {
+    public List<RealEstateObject> getListRealEstateObject() {
         return listRealEstateObject;
     }
 
-    public void setListRealEstateObject(ArrayList<RealEstateObject> listRealEstateObject) {
+    public LandNearRoad setListRealEstateObject(List<RealEstateObject> listRealEstateObject) {
         this.listRealEstateObject = listRealEstateObject;
+        return this;
     }
     
 }

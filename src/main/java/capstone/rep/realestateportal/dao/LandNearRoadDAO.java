@@ -1,157 +1,218 @@
 package capstone.rep.realestateportal.dao;
 
+import capstone.rep.realestateportal.entity.City;
+import capstone.rep.realestateportal.entity.Coordinate;
+import capstone.rep.realestateportal.entity.LandNearRoad;
+import capstone.rep.realestateportal.entity.Road;
+import capstone.rep.realestateportal.entity.RoadSegment;
 import java.util.ArrayList;
 import java.util.List;
 
-import capstone.rep.realestateportal.model.Coordinate;
-import capstone.rep.realestateportal.model.Land;
-import capstone.rep.realestateportal.model.RealEstateObject;
+import capstone.rep.realestateportal.entity.Coordinate;
+import capstone.rep.realestateportal.entity.RealEstateObject;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LandNearRoadDAO {
-	public ArrayList<Land> getLandNearByRoadId(String id) {
-		// TODO process get land near by road id from db
-		ArrayList<Land> listLand = new ArrayList();
-		
-		//hard code
-		if (id.compareTo("1")==0) {
-            Land land1 = new Land();
-            land1.setId(1).setMaxPrice(1000).setMinPrice(10).setAveragePrice(50).setName("Land 1").setRoadSegmentId(0);
-            RealEstateObject reo1 = new RealEstateObject();
-            List<Coordinate> listCoordinates = new ArrayList<>();
 
-            Coordinate coo1 = new Coordinate().setId(0).setLongitude(105.5241537094116).setLatitude(21.011269908487428);
-            Coordinate coo2 = new Coordinate().setId(0).setLongitude(105.52434146404266).setLatitude(21.010869288954442);
-            Coordinate coo3 = new Coordinate().setId(0).setLongitude(105.52473843097685).setLatitude(21.0106389322358);
-            Coordinate coo4 = new Coordinate().setId(0).setLongitude(105.52521049976349).setLatitude(21.011004498167104);
-            Coordinate coo5 = new Coordinate().setId(0).setLongitude(105.5249959230423).setLatitude(21.011385086404026);
-            Coordinate coo6 = new Coordinate().setId(0).setLongitude(105.5244916677475).setLatitude(21.011535318335525);
-            listCoordinates.add(coo1);
-            listCoordinates.add(coo2);
-            listCoordinates.add(coo3);
-            listCoordinates.add(coo4);
-            listCoordinates.add(coo5);
-            listCoordinates.add(coo6);
-
-            land1.setListCoordinate(listCoordinates);
-            //------------------
-            Land land2 = new Land();
-            land2.setId(2).setMaxPrice(2000).setMinPrice(20).setAveragePrice(100).setName("Land 2").setRoadSegmentId(0);
-            listCoordinates = new ArrayList<>();
-
-            coo1 = new Coordinate().setId(0).setLongitude(105.52500128746031).setLatitude(21.011745642785428);
-            coo2 = new Coordinate().setId(0).setLongitude(105.52550554275513).setLatitude(21.011224838843674);
-            coo3 = new Coordinate().setId(0).setLongitude(105.52606344223022).setLatitude(21.011655503771777);
-            coo4 = new Coordinate().setId(0).setLongitude(105.52561819553375).setLatitude(21.012066136615044);
-            listCoordinates.add(coo1);
-            listCoordinates.add(coo2);
-            listCoordinates.add(coo3);
-            listCoordinates.add(coo4);
-
-            land2.setListCoordinate(listCoordinates);
-            //------------------
-            Land land3 = new Land();
-            land3.setId(3).setMaxPrice(3000).setMinPrice(30).setAveragePrice(300).setName("Land 3").setRoadSegmentId(0);
-            listCoordinates = new ArrayList<>();
-
-            coo1 = new Coordinate().setId(0).setLongitude(105.52478671073914).setLatitude(21.010563815837596);
-            coo2 = new Coordinate().setId(0).setLongitude(105.52543044090271).setLatitude(21.010032992212228);
-            coo3 = new Coordinate().setId(0).setLongitude(105.52532851696014).setLatitude(21.01095942844316);
-            listCoordinates.add(coo1);
-            listCoordinates.add(coo2);
-            listCoordinates.add(coo3);
-
-            land3.setListCoordinate(listCoordinates);
-            //------------------
-            Land land4 = new Land();
-            land4.setId(4).setMaxPrice(4000).setMinPrice(40).setAveragePrice(400).setName("Land 4").setRoadSegmentId(0);
-            listCoordinates = new ArrayList<>();
-
-            coo1 = new Coordinate().setId(0).setLongitude(105.52552163600922).setLatitude(21.01049871492854);
-            coo2 = new Coordinate().setId(0).setLongitude(105.52670180797577).setLatitude(21.01049871492854);
-            coo3 = new Coordinate().setId(0).setLongitude(105.52670180797577).setLatitude(21.011069598855414);
-            coo4 = new Coordinate().setId(0).setLongitude(105.52552163600922).setLatitude(21.011069598855414);
-            listCoordinates.add(coo1);
-            listCoordinates.add(coo2);
-            listCoordinates.add(coo3);
-            listCoordinates.add(coo4);
-
-            land4.setListCoordinate(listCoordinates);
-            //-----------
-            listLand.add(land1);
-            listLand.add(land2);
-            listLand.add(land3);
-            listLand.add(land4);
-        }else{
-            Land land1 = new Land();
-            land1.setId(1).setMaxPrice(1000).setMinPrice(10).setAveragePrice(50).setName("Land 1").setRoadSegmentId(0);
-            RealEstateObject reo1 = new RealEstateObject();
-            List<Coordinate> listCoordinates = new ArrayList<>();
-
-            Coordinate coo1 = new Coordinate().setId(0).setLongitude(105.52723288536072).setLatitude(21.01348831967627);
-            Coordinate coo2 = new Coordinate().setId(0).setLongitude(105.52769422531128).setLatitude(21.01295249877691);
-            Coordinate coo3 = new Coordinate().setId(0).setLongitude(105.52837550640106).setLatitude(21.013483312013225);
-            Coordinate coo4 = new Coordinate().setId(0).setLongitude(105.52796244621275).setLatitude(21.013979069839216);
-            listCoordinates.add(coo1);
-            listCoordinates.add(coo2);
-            listCoordinates.add(coo3);
-            listCoordinates.add(coo4);
-            land1.setListCoordinate(listCoordinates);
-            //----------
-            Land land2 = new Land();
-            land1.setId(1).setMaxPrice(1000).setMinPrice(10).setAveragePrice(50).setName("Land 2").setRoadSegmentId(0);
-            listCoordinates = new ArrayList<>();
-
-            coo1 = new Coordinate().setId(0).setLongitude(105.52779614925385).setLatitude(21.01286236049255);
-            coo2 = new Coordinate().setId(0).setLongitude(105.5281126499176).setLatitude(21.01260196069842);
-            coo3 = new Coordinate().setId(0).setLongitude(105.52875638008118).setLatitude(21.01293246805176);
-            coo4 = new Coordinate().setId(0).setLongitude(105.52838623523712).setLatitude(21.01332306670698);
-            listCoordinates.add(coo1);
-            listCoordinates.add(coo2);
-            listCoordinates.add(coo3);
-            listCoordinates.add(coo4);
-            land2.setListCoordinate(listCoordinates);
-            //-----------
-            Land land3 = new Land();
-            land1.setId(3).setMaxPrice(1000).setMinPrice(10).setAveragePrice(50).setName("Land 3").setRoadSegmentId(0);
-            listCoordinates = new ArrayList<>();
-
-            coo1 = new Coordinate().setId(0).setLongitude(105.5281126499176).setLatitude(21.014044169229326);
-            coo2 = new Coordinate().setId(0).setLongitude(105.52852034568787).setLatitude(21.013618518856465);
-            coo3 = new Coordinate().setId(0).setLongitude(105.52915871143341).setLatitude(21.014134306799498);
-            coo4 = new Coordinate().setId(0).setLongitude(105.52878320217133).setLatitude(21.014464810757392);
-            listCoordinates.add(coo1);
-            listCoordinates.add(coo2);
-            listCoordinates.add(coo3);
-            listCoordinates.add(coo4);
-            land3.setListCoordinate(listCoordinates);
-            //--------------------
-            Land land4 = new Land();
-            land1.setId(3).setMaxPrice(1000).setMinPrice(10).setAveragePrice(50).setName("Land 4").setRoadSegmentId(0);
-            listCoordinates = new ArrayList<>();
-
-            coo1 = new Coordinate().setId(0).setLongitude(105.52862763404846).setLatitude(21.013468289023088);
-            coo2 = new Coordinate().setId(0).setLongitude(105.52894413471222).setLatitude(21.013117752156756);
-            coo3 = new Coordinate().setId(0).setLongitude(105.52968442440033).setLatitude(21.01352337331289);
-            coo4 = new Coordinate().setId(0).setLongitude(105.52923381328583).setLatitude(21.01398908513186);
-            listCoordinates.add(coo1);
-            listCoordinates.add(coo2);
-            listCoordinates.add(coo3);
-            listCoordinates.add(coo4);
-            land4.setListCoordinate(listCoordinates);
-            //
-            listLand.add(land1);
-            listLand.add(land2);
-            listLand.add(land3);
-            listLand.add(land4);
+    public void CloseConnect(Connection conn, PreparedStatement pre, ResultSet rs) throws SQLException {
+        try {
+            if (rs != null && !rs.isClosed()) {
+                rs.close();
+            }
+            if (pre != null && !pre.isClosed()) {
+                pre.close();
+            }
+            if (conn != null && !conn.isClosed()) {
+                conn.close();
+            }
+        } catch (SQLException ex) {
+            throw ex;
         }
-		return listLand;
-	}
-	
-	public boolean deleteLandNearRoadById(String idLandNearRoad) {
-		return true;
-	}
+    }
 
-	public boolean insertNewLandNearRoad(Land land) {
-		return true;
-	}
+    public ArrayList<LandNearRoad> getLandNearByRoadId(String id) throws SQLException {
+        ArrayList<LandNearRoad> listLandNearRoad = new ArrayList<>();
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            String sql = "select LandNearRoadID, Name, MaxPrice, MinPrice, AveragePrice, PredictPrice, RoadSegmentID from LandNearRoad where LandNearRoadID = ?";
+            pre = conn.prepareStatement(sql);
+            pre.setString(1, id);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                int landNearRoadId = rs.getInt("LandNearRoadID");
+                String name = rs.getString("Name");
+                Float maxPrice = rs.getFloat("MaxPrice");
+                Float minPrice = rs.getFloat("MinPrice");
+                Float averagePrice = rs.getFloat("AveragePrice");
+                Float predictPrice = rs.getFloat("PredictPrice");
+                RoadSegment roadSegment = capstone.rep.realestateportal.dao.RoadSegmentDAO.roadSegmentDAO.getRoadSegmentByRoadSegmentID(rs.getInt("RoadSegmentID"));
+                ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoordinateWithLandNearRoadID(landNearRoadId);
+                ArrayList<RealEstateObject> listReo = capstone.rep.realestateportal.dao.ReoDAO.reoDAO.getListReoByLandNearRoadID(landNearRoadId);
+                listLandNearRoad.add(new LandNearRoad(landNearRoadId, name, maxPrice, minPrice, averagePrice, predictPrice, roadSegment, listCoordinate, listReo));
+            }
+        } catch (Exception ex) {
+
+        } finally {
+            CloseConnect(conn, pre, rs);
+        }
+        return listLandNearRoad;
+    }
+
+    public int deleteLandNearRoadById(String idLandNearRoad) throws SQLException {
+        int id = 0;
+        try {
+            id = Integer.parseInt(idLandNearRoad);
+        } catch (NumberFormatException e) {
+
+        }
+        int deleteLNRCoordinate = deleteLandNearRoadCoordinateByLandNearRoadId(id);
+        int deleteLNRDetail = deleteLandNearRoadDetailByLandNearRoadId(id);
+        ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoordinateWithLandNearRoadID(id);
+        int deleteCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.deleteCoordinateByCoordinateId(listCoordinate);
+
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+        int deleted = 0;
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            String sql = "delete from LandNearRoad where LandNearRoadID = ?";
+            pre = conn.prepareStatement(sql);
+            pre.setInt(1, id);
+            deleted = pre.executeUpdate();
+        } catch (Exception ex) {
+
+        } finally {
+            CloseConnect(conn, pre, rs);
+        }
+        return deleted;
+    }
+
+    public int insertNewLandNearRoad(LandNearRoad landNearRoad) throws SQLException {
+        int inserted = 0;
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            String sql = "insert into LandNearRoad(Name, MaxPrice, MinPrice, AveragePrice, PredictPrice, modifiedDate) "
+                    + "values(?,?,?,?,?,GETDATE());";
+            pre = conn.prepareStatement(sql);
+            pre.setNString(1, landNearRoad.getName());
+            pre.setDouble(2, landNearRoad.getMaxPrice());
+            pre.setDouble(3, landNearRoad.getMinPrice());
+            pre.setDouble(4, landNearRoad.getAveragePrice());
+            pre.setDouble(5, landNearRoad.getPredictPrice());
+//            pre.setInt(6, landNearRoad.getRoadSegment().getRoadSegmentId());
+            inserted = pre.executeUpdate();
+            int insertCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.insertCoordinate(landNearRoad.getListCoordinate());
+            int insertedLNRDetail = insertLandNearRoadDetail(landNearRoad, landNearRoad.getListRealEstateObject());
+            int insertLNRCoordinate = insertLandNearRoadCoordinate(landNearRoad, landNearRoad.getListCoordinate());
+        } catch (Exception ex) {
+        	System.out.print(ex.getMessage());
+        	
+        } finally {
+            CloseConnect(conn, pre, rs);
+        }
+        return inserted;
+    }
+
+    public int insertLandNearRoadDetail(LandNearRoad landNearRoad, List<RealEstateObject> listReo) throws SQLException {
+        int inserted = 0;
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            for (int i = 0; i < listReo.size(); i++) {
+                String sql = "insert into LandNearRoadDetail(LandNearRoadID, ReoID, modifiedDate) "
+                        + "values(?,?,GETDATE());";
+                pre = conn.prepareStatement(sql);
+                pre.setInt(1, landNearRoad.getLandNearRoadId());
+                pre.setInt(2, listReo.get(i).getReoId());
+                int rowInserted = pre.executeUpdate();
+                inserted += rowInserted;
+            }
+        } catch (Exception ex) {
+
+        } finally {
+            CloseConnect(conn, pre, rs);
+        }
+        return inserted;
+    }
+
+    public int insertLandNearRoadCoordinate(LandNearRoad landNearRoad, List<Coordinate> listCoordinate) throws SQLException {
+        int inserted = 0;
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            for (int i = 0; i < listCoordinate.size(); i++) {
+                String sql = "insert into LandNearRoadCoordinate(LandNearRoadID, CoordinateID, modifiedDate) "
+                        + "values(?,?,GETDATE());";
+                pre = conn.prepareStatement(sql);
+                pre.setInt(1, landNearRoad.getLandNearRoadId());
+                pre.setInt(2, listCoordinate.get(i).getCoordinateId());
+                int rowInserted = pre.executeUpdate();
+                inserted += rowInserted;
+            }
+        } catch (Exception ex) {
+
+        } finally {
+            CloseConnect(conn, pre, rs);
+        }
+        return inserted;
+    }
+
+    public int deleteLandNearRoadCoordinateByLandNearRoadId(int landNearRoadId) throws SQLException {
+        int deleted = 0;
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            String sql = "delete from LandNearRoadCoordinate where LandNearRoadID = ?";
+            pre = conn.prepareStatement(sql);
+            pre.setInt(1, landNearRoadId);
+            deleted = pre.executeUpdate();
+        } catch (Exception ex) {
+
+        } finally {
+            CloseConnect(conn, pre, rs);
+        }
+        return deleted;
+    }
+
+    public int deleteLandNearRoadDetailByLandNearRoadId(int landNearRoadId) throws SQLException {
+        int deleted = 0;
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            String sql = "delete from LandNearRoadDetail where LandNearRoadID = ?";
+            pre = conn.prepareStatement(sql);
+            pre.setInt(1, landNearRoadId);
+            deleted = pre.executeUpdate();
+        } catch (Exception ex) {
+
+        } finally {
+            CloseConnect(conn, pre, rs);
+        }
+        return deleted;
+    }
+
 }

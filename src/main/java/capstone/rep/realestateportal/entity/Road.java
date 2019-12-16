@@ -5,58 +5,63 @@
  */
 package capstone.rep.realestateportal.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Anh Hao
  */
-public class Road {
+public class Road implements Serializable{
     private int roadId;
     private String name;
     private City city;
-    private ArrayList<Coornidiate> listCoornidate;
+    private ArrayList<Coordinate> listCoordinate;
 
     public Road() {
     }
 
-    public Road(int roadId, String name, City city, ArrayList<Coornidiate> listCoornidate) {
+    public Road(int roadId, String name, City city, ArrayList<Coordinate> listCoordinate) {
         this.roadId = roadId;
         this.name = name;
         this.city = city;
-        this.listCoornidate = listCoornidate;
+        this.listCoordinate = listCoordinate;
     }
 
     public int getRoadId() {
         return roadId;
     }
 
-    public void setRoadId(int roadId) {
+    public Road setRoadId(int roadId) {
         this.roadId = roadId;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Road setName(String name) {
         this.name = name;
+        return this;
     }
 
     public City getCity() {
         return city;
     }
 
-    public void setCity(City city) {
+    public Road setCity(City city) {
         this.city = city;
+        return this;
     }
 
-    public ArrayList<Coornidiate> getListCoornidate() {
-        return listCoornidate;
+    public ArrayList<Coordinate> getListCoordinate() {
+        return listCoordinate;
     }
 
-    public void setListCoornidate(ArrayList<Coornidiate> listCoornidate) {
-        this.listCoornidate = listCoornidate;
+    public Road setListCoordinate(ArrayList<Coordinate> listCoordinate) {
+        this.listCoordinate = listCoordinate;
+        return this;
     }
     
 }

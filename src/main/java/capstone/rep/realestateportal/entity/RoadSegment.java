@@ -27,24 +27,27 @@ public class RoadSegment {
         return roadSegmentId;
     }
 
-    public void setRoadSegmentId(int roadSegmentId) {
+    public RoadSegment setRoadSegmentId(int roadSegmentId) {
         this.roadSegmentId = roadSegmentId;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public RoadSegment setName(String name) {
         this.name = name;
+        return this;
     }
 
     public Road getRoad() {
         return road;
     }
 
-    public void setRoad(Road road) {
+    public RoadSegment setRoad(Road road) {
         this.road = road;
+        return this;
     }
     
 }

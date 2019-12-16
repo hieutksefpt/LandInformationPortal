@@ -5,19 +5,22 @@
  */
 package capstone.rep.realestateportal.bean;
 
-import capstone.rep.realestateportal.model.Coordinate;
-import capstone.rep.realestateportal.model.Land;
-import capstone.rep.realestateportal.model.RealEstateObject;
-import capstone.rep.realestateportal.model.Road;
+import capstone.rep.realestateportal.common.Checking;
+import capstone.rep.realestateportal.entity.Coordinate;
+import capstone.rep.realestateportal.entity.LandNearRoad;
+import capstone.rep.realestateportal.entity.Road;
 import capstone.rep.realestateportal.service.CommonService;
 import capstone.rep.realestateportal.service.DrawLandService;
-import com.google.gson.Gson;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONObject;
 
@@ -26,8 +29,8 @@ import org.primefaces.json.JSONObject;
  * @author tuans
  */
 @ManagedBean
-@RequestScoped
-public class DrawLandBean {
+@SessionScoped
+public class DrawLandBean implements Serializable{
 
     private String roadName;
     private String areaNearName;
@@ -57,8 +60,9 @@ public class DrawLandBean {
         this.jsonCoordinateSubmit = jsonCoordinateSubmit;
     }
 
-    public List<Road> listRoadByHint() {
-        String hintLowerCase = (roadId + "").toLowerCase();
+    public List<Road> listRoadByHint(String hint) {
+    	if (hint == null) hint = "";
+        String hintLowerCase = hint.toLowerCase();
         CommonService commonService = new CommonService();
         List<Road> listRoadByHint = commonService.getRoadByHint(hintLowerCase);
         return listRoadByHint.stream().collect(Collectors.toList());
@@ -76,13 +80,13 @@ public class DrawLandBean {
     }
 
     
-    private Land landCalculated;
+    private LandNearRoad landCalculated;
 
-    public Land getLandCalculated() {
+    public LandNearRoad getLandCalculated() {
         return landCalculated;
     }
 
-    public void setLandCalculated(Land landCalculated) {
+    public void setLandCalculated(LandNearRoad landCalculated) {
         this.landCalculated = landCalculated;
     }
     
@@ -95,8 +99,11 @@ public class DrawLandBean {
             listCoordinateSubmit.add(new Coordinate().setLatitude(latitude).setLongitude(longitude));
         }
         DrawLandService drawLandService = new DrawLandService();
-        landCalculated = drawLandService.createNewLandByCoordinate(listCoordinateSubmit);
-        name = landCalculated.getName();
+        LandNearRoad land = new LandNearRoad().setListCoordinate(listCoordinateSubmit);
+        
+        landCalculated = drawLandService.createNewLandByCoordinate(land);
+        landCalculated.setName(name);
+        numberReo = String.valueOf(landCalculated.getListRealEstateObject().size());
         minPrice = String.valueOf(landCalculated.getMinPrice());
         maxPrice = String.valueOf(landCalculated.getMaxPrice());
         predictPrice = String.valueOf(landCalculated.getPredictPrice());
@@ -125,7 +132,7 @@ public class DrawLandBean {
     
     public void changeRoadViewById() { 
         CommonService commonService = new CommonService();
-        List<Land> listLandNearRoad = commonService.getLandNearByRoadId(roadId);
+        List<LandNearRoad> listLandNearRoad = commonService.getLandNearByRoadId(roadId);
         JSONObject jsonObject = commonService.createGeoJson(listLandNearRoad);
         jsonByRoad = jsonObject.toString();
     }
@@ -135,7 +142,16 @@ public class DrawLandBean {
     private String predictPrice;
     private String minPrice;
     private String maxPrice;
-
+    private String numberReo;
+    
+    public void setNumberReo(String numberReo) {
+    	this.numberReo = numberReo;
+    }
+    
+    public String getNumberReo(){
+    	return numberReo;
+    }
+    
     public String getName() {
         return name;
     }

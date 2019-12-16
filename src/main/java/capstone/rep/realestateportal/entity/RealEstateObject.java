@@ -16,57 +16,62 @@ public class RealEstateObject {
     private String name;
     private float price;
     private ArrayList<Feature> listFeature;
-    private ArrayList<Coornidiate> listCoornidate;
+    private ArrayList<Coordinate> listCoordinate;
 
     public RealEstateObject() {
     }
 
-    public RealEstateObject(int reoId, String name, float price, ArrayList<Feature> listFeature, ArrayList<Coornidiate> listCoornidate) {
+    public RealEstateObject(int reoId, String name, float price, ArrayList<Feature> listFeature, ArrayList<Coordinate> listCoordinate) {
         this.reoId = reoId;
         this.name = name;
         this.price = price;
         this.listFeature = listFeature;
-        this.listCoornidate = listCoornidate;
+        this.listCoordinate = listCoordinate;
     }
 
     public int getReoId() {
         return reoId;
     }
 
-    public void setReoId(int reoId) {
+    public RealEstateObject setReoId(int reoId) {
         this.reoId = reoId;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public RealEstateObject setName(String name) {
         this.name = name;
+        return this;
     }
 
     public float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public RealEstateObject setPrice(float price) {
         this.price = price;
+        return this;
     }
 
     public ArrayList<Feature> getListFeature() {
         return listFeature;
     }
 
-    public void setListFeature(ArrayList<Feature> listFeature) {
+    public RealEstateObject setListFeature(ArrayList<Feature> listFeature) {
         this.listFeature = listFeature;
+        return this;
     }
 
-    public ArrayList<Coornidiate> getListCoornidate() {
-        return listCoornidate;
+    public ArrayList<Coordinate> getListCoordinate() {
+        return listCoordinate;
     }
 
-    public void setListCoornidate(ArrayList<Coornidiate> listCoornidate) {
-        this.listCoornidate = listCoornidate;
+    public RealEstateObject setListCoordinate(ArrayList<Coordinate> listCoordinate) {
+        this.listCoordinate = listCoordinate;
+        return this;
     }
     
     

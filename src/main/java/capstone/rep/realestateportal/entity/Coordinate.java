@@ -3,23 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.rep.realestateportal.model;
+package capstone.rep.realestateportal.entity;
 
 /**
  *
- * @author tuans
+ * @author Anh Hao
  */
 public class Coordinate {
-    private int id;
+    private int coordinateId;
     private double longitude;
     private double latitude;
 
-    public int getId() {
-        return id;
+    public Coordinate() {
     }
 
-    public Coordinate setId(int id) {
-        this.id = id;
+    public Coordinate(int coordinateId, double longitude, double latitude) {
+        this.coordinateId = coordinateId;
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
+
+    public int getCoordinateId() {
+        return coordinateId;
+    }
+
+    public Coordinate setCoordinateId(int coordinateId) {
+        this.coordinateId = coordinateId;
         return this;
     }
 
@@ -40,6 +49,5 @@ public class Coordinate {
         this.latitude = latitude;
         return this;
     }
-    
     
 }

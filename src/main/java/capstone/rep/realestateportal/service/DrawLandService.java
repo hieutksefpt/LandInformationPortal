@@ -5,11 +5,12 @@
  */
 package capstone.rep.realestateportal.service;
 
+import capstone.rep.realestateportal.common.Checking;
 import capstone.rep.realestateportal.dao.LandNearRoadDAO;
 import capstone.rep.realestateportal.dao.ReoDAO;
-import capstone.rep.realestateportal.model.Coordinate;
-import capstone.rep.realestateportal.model.Land;
-import capstone.rep.realestateportal.model.RealEstateObject;
+import capstone.rep.realestateportal.entity.Coordinate;
+import capstone.rep.realestateportal.entity.LandNearRoad;
+import capstone.rep.realestateportal.entity.RealEstateObject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,27 +20,55 @@ import java.util.List;
  */
 public class DrawLandService {
     
-    public boolean deleteLandNearRoadById(String idLand){
+    public int deleteLandNearRoadById(String idLand){
         //TODO: delete a land near road
     	LandNearRoadDAO landNearRoadDAO = new LandNearRoadDAO();
-    	return landNearRoadDAO.deleteLandNearRoadById(idLand);
+    	int result = 0;
+    	try {
+    		result = landNearRoadDAO.deleteLandNearRoadById(idLand);
+    	}catch(Exception e) {
+    		System.out.println("Error: "+e.getMessage());
+    		System.out.print("Cause by: "+e.getCause());
+    	}
+    	return result;
     }
     
-    public boolean submitNewLandNear(Land land){
+    public int submitNewLandNear(LandNearRoad land){
         //TODO: submit new land to db
     	LandNearRoadDAO landNearRoadDAO = new LandNearRoadDAO();
-    	return landNearRoadDAO.insertNewLandNearRoad(land);
+    	int result = 0;
+    	try {
+    		result = landNearRoadDAO.insertNewLandNearRoad(land);
+    	}catch(Exception e) {
+    		System.out.println("Error: "+e.getMessage());
+    		System.out.print("Cause by: "+e.getCause());
+    	}
+    	return result;
     }
 
-    public List<RealEstateObject> getListReoInside(List<Coordinate> listCoordinates){
+    public List<RealEstateObject> getListReoInside(LandNearRoad land){
         //TODO: return list reo inside a land defined by it coordinate
         ReoDAO reoDAO = new ReoDAO();
-        List<RealEstateObject> listReo = reoDAO.getListReoInside(listCoordinates);
+        List<RealEstateObject> listReo = new ArrayList<>();
+//        List<RealEstateObject> listReo = reoDAO.getListReoInside(land);
+    	//checking reo inside
+        try {
+        	List<RealEstateObject> listReoInDb = reoDAO.getAllReoInDb();
+        	Checking checking = new Checking();
+        	for (RealEstateObject reo: listReoInDb) {
+        		if (checking.isLandNearRoadContainReo(land, reo)) {
+        			listReo.add(reo);
+        		}
+        	}
+        }catch(Exception e) {
+        	System.out.print(e.getStackTrace());
+        }
+        //-------end---------
         return listReo;
     }
     
-    public Land createNewLandByCoordinate(List<Coordinate> listCoordinateSubmit) {
-        List<RealEstateObject> listReo = getListReoInside(listCoordinateSubmit);
+    public LandNearRoad createNewLandByCoordinate(LandNearRoad land) {
+        List<RealEstateObject> listReo = getListReoInside(land);
         double maxPrice = Double.MIN_VALUE;
         double minPrice = Double.MAX_VALUE;
         double averagePrice = 0;
@@ -56,7 +85,7 @@ public class DrawLandService {
         }
         averagePrice = sum/listReo.size();
         
-        Land land = new Land().setMaxPrice(maxPrice).setMinPrice(minPrice).setAveragePrice(averagePrice).setListReo(listReo);
+        land.setMaxPrice(maxPrice).setMinPrice(minPrice).setAveragePrice(averagePrice).setListRealEstateObject(listReo);
         return land;
     }
     

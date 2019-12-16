@@ -5,9 +5,9 @@
  */
 package capstone.rep.realestateportal.bean;
 
-import capstone.rep.realestateportal.model.Land;
-import capstone.rep.realestateportal.model.Road;
-import capstone.rep.realestateportal.model.RealEstateObject;
+import capstone.rep.realestateportal.entity.LandNearRoad;
+import capstone.rep.realestateportal.entity.Road;
+import capstone.rep.realestateportal.entity.RealEstateObject;
 import capstone.rep.realestateportal.service.CommonService;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +38,9 @@ public class ViewRoadBean {
         currentPage = 1;
     }
 
-    public List<Road> listRoadByHint() {
-        String hintLowerCase = (roadId + "").toLowerCase();
+    public List<Road> listRoadByHint(String hint) {
+    	if (hint == null) hint = "";
+        String hintLowerCase = (hint + "").toLowerCase();
         CommonService commonService = new CommonService();
         List<Road> listRoadByHint = commonService.getRoadByHint(hintLowerCase);
         return listRoadByHint.stream().collect(Collectors.toList());
@@ -47,7 +48,7 @@ public class ViewRoadBean {
 
     public void changeRoadViewById() {
         CommonService commonService = new CommonService();
-        List<Land> listLandNearroad = commonService.getLandNearByRoadId(roadId);
+        List<LandNearRoad> listLandNearroad = commonService.getLandNearByRoadId(roadId);
         JSONObject jsonObject = commonService.createGeoJson(listLandNearroad);
         geoJSON = jsonObject.toString();
     }
@@ -59,11 +60,11 @@ public class ViewRoadBean {
         //alternative for call service
         //dummy data
         reoInLandNearRoad = new ArrayList();
-        reoInLandNearRoad.add(new RealEstateObject().setId(1).setName("Test 1").setPrice(1000000));
-        reoInLandNearRoad.add(new RealEstateObject().setId(2).setName("Test 2").setPrice(5000000));
-        reoInLandNearRoad.add(new RealEstateObject().setId(3).setName("Test 3").setPrice(4000000));
-        reoInLandNearRoad.add(new RealEstateObject().setId(4).setName("Test 4").setPrice(3000000));
-        reoInLandNearRoad.add(new RealEstateObject().setId(5).setName("Test 5").setPrice(2000000));
+        reoInLandNearRoad.add(new RealEstateObject().setReoId(1).setName("Test 1").setPrice(1000000));
+        reoInLandNearRoad.add(new RealEstateObject().setReoId(2).setName("Test 2").setPrice(5000000));
+        reoInLandNearRoad.add(new RealEstateObject().setReoId(3).setName("Test 3").setPrice(4000000));
+        reoInLandNearRoad.add(new RealEstateObject().setReoId(4).setName("Test 4").setPrice(3000000));
+        reoInLandNearRoad.add(new RealEstateObject().setReoId(5).setName("Test 5").setPrice(2000000));
         
         return 1;
     }

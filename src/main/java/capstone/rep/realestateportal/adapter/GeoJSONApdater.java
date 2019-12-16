@@ -6,12 +6,9 @@
 package capstone.rep.realestateportal.adapter;
 
 import capstone.rep.realestateportal.common.ColorDrawer;
-import capstone.rep.realestateportal.model.Coordinate;
-import capstone.rep.realestateportal.model.Land;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import capstone.rep.realestateportal.entity.Coordinate;
+import capstone.rep.realestateportal.entity.LandNearRoad;
 import java.util.List;
-import java.util.Map;
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONException;
 import org.primefaces.json.JSONObject;
@@ -29,12 +26,12 @@ public class GeoJSONApdater {
         }
     }
 
-    public static JSONObject createGeoJSON(List<Land> listLand) {
+    public static JSONObject createGeoJSON(List<LandNearRoad> listLand) {
         JSONObject json = new JSONObject();
         json.put("type", "FeatureCollection");
         JSONArray jsonArray = new JSONArray();
 
-        for (Land land : listLand) {
+        for (LandNearRoad land : listLand) {
             JSONObject elementInArray = new JSONObject();
             List listCoordinate = land.getListCoordinate();
             
@@ -48,7 +45,7 @@ public class GeoJSONApdater {
         return json;
     }
 
-    private static JSONObject createJSONGeometry(Land land) {
+    private static JSONObject createJSONGeometry(LandNearRoad land) {
         List<Coordinate> listCoordinate = land.getListCoordinate();
         
         JSONObject json = new JSONObject();
@@ -77,11 +74,11 @@ public class GeoJSONApdater {
         return json;
     }
 
-    private static JSONObject createJSONProperty(Land land, String color){
+    private static JSONObject createJSONProperty(LandNearRoad land, String color){
         JSONObject json = new JSONObject();
         json.put("color", color);
         json.put("name", land.getName());
-        json.put("id", land.getId());
+        json.put("id", land.getLandNearRoadId());
         json.put("averagePrice", land.getAveragePrice());
         json.put("maxPrice", land.getMaxPrice());
         json.put("minPrice", land.getMinPrice());
@@ -89,7 +86,7 @@ public class GeoJSONApdater {
         return json;
     }
     
-    private static JSONObject createJSONObjectArea(Land land, String areaColor) {
+    private static JSONObject createJSONObjectArea(LandNearRoad land, String areaColor) {
         JSONObject json = new JSONObject();
         json.put("type", "Feature");
         

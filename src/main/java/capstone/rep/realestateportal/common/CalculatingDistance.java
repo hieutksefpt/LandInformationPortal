@@ -32,14 +32,14 @@ public class CalculatingDistance {
                 + point2.getterX() * point1.getterY() 
                 - point2.getterY() * point1.getterX();
         if(ts < 0) ts = ts * (-1);
-        double ms = Math.sqrt(Math.pow(point2.getterY() - point1.getterY(), 2) + Math.pow(point2.getterX(), point1.getterX()));
+        double ms = Math.sqrt(Math.pow(point2.getterY() - point1.getterY(), 2) + Math.pow(point2.getterX()-  point1.getterX(), 2));
         return ts/ms;
     }
     
     public RoadSegment checkNearestRoadSegment (LandNearRoad land, Road road) throws Exception{
         List<Coordinate> listCoordinateland = land.getListCoordinate();
-        RoadSegmentDAO rsd = new RoadSegmentDAO();
         RoadSegment nearesrRoadSegment = new RoadSegment();
+        RoadSegmentDAO rsd = new RoadSegmentDAO();
         List<RoadSegment> listRoadSegment = rsd.getRoadSegmentByRoadID(road.getRoadId());
         ArrayList distanceFromReoToRoadSegment = new ArrayList<Double>();
         // đoạn này tính toán xem nó gần phần segment nào nhất

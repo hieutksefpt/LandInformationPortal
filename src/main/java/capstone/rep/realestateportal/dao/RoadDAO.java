@@ -9,7 +9,6 @@ import capstone.rep.realestateportal.entity.Coordinate;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class RoadDAO {
 
@@ -18,7 +17,7 @@ public class RoadDAO {
 
     public static RoadDAO roadDAO = new RoadDAO();
 
-    public void CloseConnect(Connection conn, PreparedStatement pre, ResultSet rs) throws SQLException {
+    public void closeConnection(Connection conn, PreparedStatement pre, ResultSet rs) throws Exception {
         try {
             if (rs != null && !rs.isClosed()) {
                 rs.close();
@@ -29,12 +28,12 @@ public class RoadDAO {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw ex;
         }
     }
 
-    public Road getRoadByRoadID(int roadId) throws SQLException {
+    public Road getRoadByRoadID(int roadId) throws Exception {
         Connection conn = null;
         ResultSet rs = null;
         PreparedStatement pre = null;
@@ -51,14 +50,14 @@ public class RoadDAO {
                 road.setCity(capstone.rep.realestateportal.dao.CityDAO.cityDAO.getCityByCityID(rs.getInt("CityID")));
             }
         } catch (Exception ex) {
-
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return road;
     }
 
-    public ArrayList<Road> getRoadByName(String hint) throws SQLException {
+    public ArrayList<Road> getRoadByName(String hint) throws Exception {
         // TODO process db get list road by prefix start with hint from db
         ArrayList<Road> listRoad = new ArrayList<>();
         // get Road here from DB
@@ -81,11 +80,9 @@ public class RoadDAO {
                 listRoad.add(new Road(roadId, name, city, listCoordinate));
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            System.out.println("Cause by: " + ex.getCause());
-            System.out.println(ex);
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return listRoad;
     }

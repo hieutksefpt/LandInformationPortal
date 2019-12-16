@@ -6,11 +6,13 @@
 package capstone.rep.realestateportal.dao;
 
 import capstone.rep.realestateportal.entity.City;
+import capstone.rep.realestateportal.entity.Coordinate;
+import capstone.rep.realestateportal.entity.Road;
 import capstone.rep.realestateportal.entity.RoadSegment;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,8 +21,8 @@ import java.sql.SQLException;
 public class RoadSegmentDAO {
 
     public static RoadSegmentDAO roadSegmentDAO = new RoadSegmentDAO();
-    
-    public void CloseConnect(Connection conn, PreparedStatement pre, ResultSet rs) throws SQLException {
+
+    public void closeConnection(Connection conn, PreparedStatement pre, ResultSet rs) throws Exception {
         try {
             if (rs != null && !rs.isClosed()) {
                 rs.close();
@@ -31,15 +33,15 @@ public class RoadSegmentDAO {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw ex;
         }
     }
-    
+
     public RoadSegmentDAO() {
     }
-    
-    public RoadSegment getRoadSegmentByRoadSegmentID(int roadSengmentId) throws SQLException{
+
+    public RoadSegment getRoadSegmentByRoadSegmentID(int roadSengmentId) throws Exception {
         Connection conn = null;
         ResultSet rs = null;
         PreparedStatement pre = null;
@@ -56,10 +58,36 @@ public class RoadSegmentDAO {
                 roadSegment.setRoad(capstone.rep.realestateportal.dao.RoadDAO.roadDAO.getRoadByRoadID(rs.getInt("RoadID")));
             }
         } catch (Exception ex) {
-        	
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return roadSegment;
+    }
+
+    public ArrayList<RoadSegment> getRoadSegmentByRoadID(int roadId) throws Exception {
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+        ArrayList<RoadSegment> listRoadSegment = new ArrayList<>();
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            String sql = "select rs.RoadSegmentID, rs.Name, rs.RoadID from RoadSegment rs where rs.RoadID = ?";
+            pre = conn.prepareStatement(sql);
+            pre.setInt(1, roadId);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                int roadSegmentId = rs.getInt("RoadSegmentID");
+                String name = rs.getNString("Name");
+                Road road = capstone.rep.realestateportal.dao.RoadDAO.roadDAO.getRoadByRoadID(rs.getInt("RoadID"));
+                ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoordinateWithRoadSegmentID(roadSegmentId);
+                listRoadSegment.add(new RoadSegment(roadSegmentId, name, road, listCoordinate));
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            closeConnection(conn, pre, rs);
+        }
+        return listRoadSegment;
     }
 }

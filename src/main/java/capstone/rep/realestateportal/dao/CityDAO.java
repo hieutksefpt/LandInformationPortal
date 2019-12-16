@@ -9,8 +9,6 @@ import capstone.rep.realestateportal.entity.City;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  *
@@ -23,7 +21,7 @@ public class CityDAO {
     public CityDAO() {
     }
     
-    public void CloseConnect(Connection conn, PreparedStatement pre, ResultSet rs) throws SQLException {
+    public void closeConnection(Connection conn, PreparedStatement pre, ResultSet rs) throws Exception {
         try {
             if (rs != null && !rs.isClosed()) {
                 rs.close();
@@ -34,12 +32,12 @@ public class CityDAO {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw ex;
         }
     }
     
-    public City getCityByCityID(int cityId) throws SQLException{
+    public City getCityByCityID(int cityId) throws Exception{
         Connection conn = null;
         ResultSet rs = null;
         PreparedStatement pre = null;
@@ -55,9 +53,9 @@ public class CityDAO {
                 city.setName(rs.getNString("Name"));
             }
         } catch (Exception ex) {
-
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return city;
     }

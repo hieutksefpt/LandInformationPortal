@@ -10,7 +10,6 @@ import capstone.rep.realestateportal.entity.Feature;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -24,7 +23,7 @@ public class FeatureDAO {
 
     public static FeatureDAO featureDAO = new FeatureDAO();
 
-    public void CloseConnect(Connection conn, PreparedStatement pre, ResultSet rs) throws SQLException {
+    public void closeConnection(Connection conn, PreparedStatement pre, ResultSet rs) throws Exception {
         try {
             if (rs != null && !rs.isClosed()) {
                 rs.close();
@@ -35,12 +34,12 @@ public class FeatureDAO {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw ex;
         }
     }
 
-    public ArrayList<Feature> getListFeatureByReoID(int reoId) throws SQLException {
+    public ArrayList<Feature> getListFeatureByReoID(int reoId) throws Exception {
         Connection conn = null;
         ResultSet rs = null;
         PreparedStatement pre = null;
@@ -59,9 +58,9 @@ public class FeatureDAO {
                 listFeature.add(new Feature(featureId, name, coefficient));
             }
         } catch (Exception ex) {
-
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return listFeature;
     }

@@ -24,7 +24,7 @@ public class Connection {
     }
 
     public void initConfig() {
-        url = "jdbc:sqlserver://localhost:1433;databaseName=RealEstatePortalGIS";
+        url = "jdbc:sqlserver://TREAPT:1433;databaseName=Test_REP";
         username = "sa";
         password = "123456";
     }

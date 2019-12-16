@@ -61,7 +61,33 @@ public class ReoDAO {
                 listReo.add(new RealEstateObject(reoId, name, price, listFeature, listCoordinate));
             }
         } catch (Exception ex) {
-
+        	System.out.print(ex.getMessage());
+        } finally {
+            CloseConnect(conn, pre, rs);
+        }
+        return listReo;
+    }
+    
+    public ArrayList<RealEstateObject> getAllReoInDb() throws SQLException {
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+        ArrayList<RealEstateObject> listReo = new ArrayList<>();
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            String sql = "select * from RealEstateObject";
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                int reoId = rs.getInt("ReoID");
+                String name = rs.getString("Name");
+                Float price = rs.getFloat("Price");
+                ArrayList<Feature> listFeature = capstone.rep.realestateportal.dao.FeatureDAO.featureDAO.getListFeatureByReoID(reoId);
+                ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoordinateWithReoID(reoId);
+                listReo.add(new RealEstateObject(reoId, name, price, listFeature, listCoordinate));
+            }
+        } catch (Exception ex) {
+        	System.out.print(ex.getMessage());
         } finally {
             CloseConnect(conn, pre, rs);
         }

@@ -5,17 +5,22 @@
  */
 package capstone.rep.realestateportal.bean;
 
+import capstone.rep.realestateportal.common.Checking;
 import capstone.rep.realestateportal.entity.Coordinate;
 import capstone.rep.realestateportal.entity.LandNearRoad;
 import capstone.rep.realestateportal.entity.Road;
 import capstone.rep.realestateportal.service.CommonService;
 import capstone.rep.realestateportal.service.DrawLandService;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONObject;
 
@@ -24,8 +29,8 @@ import org.primefaces.json.JSONObject;
  * @author tuans
  */
 @ManagedBean
-@RequestScoped
-public class DrawLandBean {
+@SessionScoped
+public class DrawLandBean implements Serializable{
 
     private String roadName;
     private String areaNearName;
@@ -94,8 +99,10 @@ public class DrawLandBean {
             listCoordinateSubmit.add(new Coordinate().setLatitude(latitude).setLongitude(longitude));
         }
         DrawLandService drawLandService = new DrawLandService();
-        landCalculated = drawLandService.createNewLandByCoordinate(listCoordinateSubmit);
-        name = landCalculated.getName();
+        LandNearRoad land = new LandNearRoad().setListCoordinate(listCoordinateSubmit);
+        
+        landCalculated = drawLandService.createNewLandByCoordinate(land);
+        landCalculated.setName(name);
         minPrice = String.valueOf(landCalculated.getMinPrice());
         maxPrice = String.valueOf(landCalculated.getMaxPrice());
         predictPrice = String.valueOf(landCalculated.getPredictPrice());

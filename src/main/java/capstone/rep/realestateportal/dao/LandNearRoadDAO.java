@@ -103,22 +103,22 @@ public class LandNearRoadDAO {
 
         try {
             conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
-            String sql = "insert into LandNearRoad(LandNearRoadID, Name, MaxPrice, MinPrice, AveragePrice, PredictPrice, RoadSegmentID, modifiedDate) "
-                    + "values(?,?,?,?,?,?,?,GETDATE());";
+            String sql = "insert into LandNearRoad(Name, MaxPrice, MinPrice, AveragePrice, PredictPrice, modifiedDate) "
+                    + "values(?,?,?,?,?,GETDATE());";
             pre = conn.prepareStatement(sql);
-            pre.setInt(1, landNearRoad.getLandNearRoadId());
-            pre.setNString(2, landNearRoad.getName());
-            pre.setDouble(3, landNearRoad.getMaxPrice());
-            pre.setDouble(4, landNearRoad.getMinPrice());
-            pre.setDouble(5, landNearRoad.getAveragePrice());
-            pre.setDouble(6, landNearRoad.getPredictPrice());
-            pre.setInt(7, landNearRoad.getRoadSegment().getRoadSegmentId());
+            pre.setNString(1, landNearRoad.getName());
+            pre.setDouble(2, landNearRoad.getMaxPrice());
+            pre.setDouble(3, landNearRoad.getMinPrice());
+            pre.setDouble(4, landNearRoad.getAveragePrice());
+            pre.setDouble(5, landNearRoad.getPredictPrice());
+//            pre.setInt(6, landNearRoad.getRoadSegment().getRoadSegmentId());
             inserted = pre.executeUpdate();
             int insertCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.insertCoordinate(landNearRoad.getListCoordinate());
             int insertedLNRDetail = insertLandNearRoadDetail(landNearRoad, landNearRoad.getListRealEstateObject());
             int insertLNRCoordinate = insertLandNearRoadCoordinate(landNearRoad, landNearRoad.getListCoordinate());
         } catch (Exception ex) {
-
+        	System.out.print(ex.getMessage());
+        	
         } finally {
             CloseConnect(conn, pre, rs);
         }

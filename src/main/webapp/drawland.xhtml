@@ -31,8 +31,8 @@
                                     <h:form id="form-autocomplete">  
                                         <p:autoComplete value="${drawLandBean.roadId}" id="autocompleteValue"
                                                         completeMethod="${drawLandBean.listRoadByHint}"
-                                                        var="element" itemLabel="#{element.name}"
-                                                        itemValue="#{element.roadId}"
+                                                        var="elementRoad" itemLabel="#{elementRoad.name}"
+                                                        itemValue="#{elementRoad.roadId}"
                                                         forceSelection="true">
                                             <p:ajax event="itemSelect" listener="${drawLandBean.changeRoadViewById()}" process="@form" update="geojson" oncomplete="drawDataRoadByJSon()"/>
                                         </p:autoComplete>

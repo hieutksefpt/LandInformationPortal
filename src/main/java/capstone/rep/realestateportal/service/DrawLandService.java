@@ -5,6 +5,7 @@
  */
 package capstone.rep.realestateportal.service;
 
+import capstone.rep.realestateportal.common.Checking;
 import capstone.rep.realestateportal.dao.LandNearRoadDAO;
 import capstone.rep.realestateportal.dao.ReoDAO;
 import capstone.rep.realestateportal.entity.Coordinate;
@@ -45,15 +46,29 @@ public class DrawLandService {
     	return result;
     }
 
-    public List<RealEstateObject> getListReoInside(List<Coordinate> listCoordinates){
+    public List<RealEstateObject> getListReoInside(LandNearRoad land){
         //TODO: return list reo inside a land defined by it coordinate
         ReoDAO reoDAO = new ReoDAO();
-        List<RealEstateObject> listReo = reoDAO.getListReoInside(listCoordinates);
+        List<RealEstateObject> listReo = new ArrayList<>();
+//        List<RealEstateObject> listReo = reoDAO.getListReoInside(land);
+    	//checking reo inside
+        try {
+        	List<RealEstateObject> listReoInDb = reoDAO.getAllReoInDb();
+        	Checking checking = new Checking();
+        	for (RealEstateObject reo: listReoInDb) {
+        		if (checking.isLandNearRoadContainReo(land, reo)) {
+        			listReo.add(reo);
+        		}
+        	}
+        }catch(Exception e) {
+        	System.out.print(e.getStackTrace());
+        }
+        //-------end---------
         return listReo;
     }
     
-    public LandNearRoad createNewLandByCoordinate(List<Coordinate> listCoordinateSubmit) {
-        List<RealEstateObject> listReo = getListReoInside(listCoordinateSubmit);
+    public LandNearRoad createNewLandByCoordinate(LandNearRoad land) {
+        List<RealEstateObject> listReo = getListReoInside(land);
         double maxPrice = Double.MIN_VALUE;
         double minPrice = Double.MAX_VALUE;
         double averagePrice = 0;
@@ -70,7 +85,7 @@ public class DrawLandService {
         }
         averagePrice = sum/listReo.size();
         
-        LandNearRoad land = new LandNearRoad().setMaxPrice(maxPrice).setMinPrice(minPrice).setAveragePrice(averagePrice).setListRealEstateObject(listReo);
+        land.setMaxPrice(maxPrice).setMinPrice(minPrice).setAveragePrice(averagePrice).setListRealEstateObject(listReo);
         return land;
     }
     

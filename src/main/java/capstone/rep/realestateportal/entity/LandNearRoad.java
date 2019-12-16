@@ -105,7 +105,7 @@ public class LandNearRoad {
         return listCoordinate;
     }
 
-    public LandNearRoad setListCoordinate(ArrayList<Coordinate> listCoordinate) {
+    public LandNearRoad setListCoordinate(List<Coordinate> listCoordinate) {
         this.listCoordinate = listCoordinate;
         return this;
     }

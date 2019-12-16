@@ -157,12 +157,11 @@ public class CoordinateDAO {
         try {
             conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
             for (int i = 0; i < listCoordinate.size(); i++) {
-                String sql = "insert into Coordinate(CoordinateID, Longtitude, Lattitude, modifiedDate) "
-                        + "values(?,?,?,GETDATE());";
+                String sql = "insert into Coordinate(Longtitude, Lattitude, modifiedDate) "
+                        + "values(?,?,GETDATE());";
                 pre = conn.prepareStatement(sql);
-                pre.setInt(1, listCoordinate.get(i).getCoordinateId());
-                pre.setDouble(2, listCoordinate.get(i).getLongitude());
-                pre.setDouble(3, listCoordinate.get(i).getLatitude());
+                pre.setDouble(1, listCoordinate.get(i).getLongitude());
+                pre.setDouble(2, listCoordinate.get(i).getLatitude());
                 int rowInserted = pre.executeUpdate();
                 inserted += rowInserted;
             }

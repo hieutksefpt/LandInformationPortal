@@ -56,7 +56,7 @@ public class RoadSegmentDAO {
                 roadSegment.setRoad(capstone.rep.realestateportal.dao.RoadDAO.roadDAO.getRoadByRoadID(rs.getInt("RoadID")));
             }
         } catch (Exception ex) {
-
+        	
         } finally {
             CloseConnect(conn, pre, rs);
         }

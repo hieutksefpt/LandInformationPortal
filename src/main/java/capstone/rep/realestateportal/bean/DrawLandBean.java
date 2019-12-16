@@ -103,6 +103,7 @@ public class DrawLandBean implements Serializable{
         
         landCalculated = drawLandService.createNewLandByCoordinate(land);
         landCalculated.setName(name);
+        numberReo = String.valueOf(landCalculated.getListRealEstateObject().size());
         minPrice = String.valueOf(landCalculated.getMinPrice());
         maxPrice = String.valueOf(landCalculated.getMaxPrice());
         predictPrice = String.valueOf(landCalculated.getPredictPrice());
@@ -141,7 +142,16 @@ public class DrawLandBean implements Serializable{
     private String predictPrice;
     private String minPrice;
     private String maxPrice;
-
+    private String numberReo;
+    
+    public void setNumberReo(String numberReo) {
+    	this.numberReo = numberReo;
+    }
+    
+    public String getNumberReo(){
+    	return numberReo;
+    }
+    
     public String getName() {
         return name;
     }

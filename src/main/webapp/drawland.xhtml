@@ -67,9 +67,10 @@
                                     <div class="col-md-6"><span>Giá tối đa</span>
                                         <h:inputText class="form-control" readonly="true" id="maxPriceInput" value="${drawLandBean.maxPrice}"/>
                                     </div>
-                                </div><span>Số lượng thông tin thu thập được: 5 &#160; <a class="text-right"
-                                                                                          href="#">Export</a></span>
-
+                                </div><span>Số lượng thông tin thu thập được: 
+                                		<h:outputText value="${drawLandBean.numberReo}">
+                                		</h:outputText>
+                                		 &#160; <a class="text-right" href="#">Export</a></span>
                                 <h:inputHidden id="listCoordinate" value="${drawLandBean.jsonCoordinateSubmit}">
                                 </h:inputHidden>
                                 <h:inputHidden id="clickedLandId" value="${drawLandBean.clickedLandId}">

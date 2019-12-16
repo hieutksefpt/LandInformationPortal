@@ -5,13 +5,14 @@
  */
 package capstone.rep.realestateportal.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Anh Hao
  */
-public class Road {
+public class Road implements Serializable{
     private int roadId;
     private String name;
     private City city;

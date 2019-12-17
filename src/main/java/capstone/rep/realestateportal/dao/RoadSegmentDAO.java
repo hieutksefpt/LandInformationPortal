@@ -34,7 +34,7 @@ public class RoadSegmentDAO {
                 conn.close();
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         }
     }
 
@@ -59,7 +59,7 @@ public class RoadSegmentDAO {
                 roadSegment.setRoad(capstone.rep.realestateportal.dao.RoadDAO.roadDAO.getRoadByRoadID(rs.getInt("RoadID")));
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }
@@ -85,7 +85,7 @@ public class RoadSegmentDAO {
                 listRoadSegment.add(new RoadSegment(roadSegmentId, name, road, listCoordinate));
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }

@@ -35,7 +35,7 @@ public class FeatureDAO {
                 conn.close();
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         }
     }
 
@@ -58,7 +58,7 @@ public class FeatureDAO {
                 listFeature.add(new Feature(featureId, name, coefficient));
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }

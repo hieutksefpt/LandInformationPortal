@@ -29,7 +29,7 @@ public class LandNearRoadDAO {
                 conn.close();
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         }
     }
 
@@ -60,8 +60,7 @@ public class LandNearRoadDAO {
                 listLandNearRoad.add(new LandNearRoad(landNearRoadId, name, maxPrice, minPrice, averagePrice, predictPrice, roadSegment, listCoordinate, listReo));
             }
         } catch (Exception ex) {
-        	ex.printStackTrace();
-//            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }
@@ -91,7 +90,7 @@ public class LandNearRoadDAO {
             pre.setInt(1, id);
             deleted = pre.executeUpdate();
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }
@@ -130,8 +129,7 @@ public class LandNearRoadDAO {
             int insertedLNRDetail = insertLandNearRoadDetail(landNearRoad, landNearRoad.getListRealEstateObject());
             int insertLNRCoordinate = insertLandNearRoadCoordinate(landNearRoad, landNearRoad.getListCoordinate());
         } catch (Exception ex) {
-        	ex.printStackTrace();
-//            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }
@@ -156,7 +154,7 @@ public class LandNearRoadDAO {
                 inserted += rowInserted;
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }
@@ -181,7 +179,7 @@ public class LandNearRoadDAO {
                 inserted += rowInserted;
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }
@@ -201,7 +199,7 @@ public class LandNearRoadDAO {
             pre.setInt(1, landNearRoadId);
             deleted = pre.executeUpdate();
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }
@@ -221,7 +219,7 @@ public class LandNearRoadDAO {
             pre.setInt(1, landNearRoadId);
             deleted = pre.executeUpdate();
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }

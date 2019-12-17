@@ -33,7 +33,7 @@ public class CityDAO {
                 conn.close();
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         }
     }
     
@@ -54,8 +54,7 @@ public class CityDAO {
                 city.setName(rs.getNString("Name"));
             }
         } catch (Exception ex) {
-        	ex.printStackTrace();
-//            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }

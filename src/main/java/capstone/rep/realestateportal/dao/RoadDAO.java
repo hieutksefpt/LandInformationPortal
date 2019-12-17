@@ -29,7 +29,7 @@ public class RoadDAO {
                 conn.close();
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         }
     }
 
@@ -51,7 +51,7 @@ public class RoadDAO {
                 road.setCity(capstone.rep.realestateportal.dao.CityDAO.cityDAO.getCityByCityID(rs.getInt("CityID")));
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }
@@ -81,8 +81,7 @@ public class RoadDAO {
                 listRoad.add(new Road(roadId, name, city, listCoordinate));
             }
         } catch (Exception ex) {
-        	ex.printStackTrace();
-//            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }

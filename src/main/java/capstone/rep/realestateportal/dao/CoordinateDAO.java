@@ -36,7 +36,7 @@ public class CoordinateDAO {
                 conn.close();
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         }
     }
 
@@ -61,8 +61,7 @@ public class CoordinateDAO {
                 listCoordinate.add(new Coordinate(coordinateId, longtitude, lattitude));
             }
         } catch (Exception ex) {
-        	ex.printStackTrace();
-//            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }
@@ -90,7 +89,7 @@ public class CoordinateDAO {
                 listCoordinate.add(new Coordinate(coordinateId, longtitude, lattitude));
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }
@@ -118,7 +117,7 @@ public class CoordinateDAO {
                 listCoordinate.add(new Coordinate(coordinateId, longtitude, lattitude));
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }
@@ -146,7 +145,7 @@ public class CoordinateDAO {
                 listCoordinate.add(new Coordinate(coordinateId, longtitude, lattitude));
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }
@@ -170,7 +169,7 @@ public class CoordinateDAO {
             }
 
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }
@@ -204,7 +203,7 @@ public class CoordinateDAO {
             }
 
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }

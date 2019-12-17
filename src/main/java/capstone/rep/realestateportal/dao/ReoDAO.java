@@ -30,7 +30,7 @@ public class ReoDAO {
                 conn.close();
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         }
     }
 
@@ -63,7 +63,7 @@ public class ReoDAO {
                 listReo.add(new RealEstateObject(reoId, name, price, listFeature, listCoordinate));
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }
@@ -89,7 +89,7 @@ public class ReoDAO {
                 listReo.add(new RealEstateObject(reoId, name, price, listFeature, listCoordinate));
             }
         } catch (Exception ex) {
-        	throw ex;
+        	ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }

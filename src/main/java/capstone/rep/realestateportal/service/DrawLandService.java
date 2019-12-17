@@ -11,6 +11,8 @@ import capstone.rep.realestateportal.dao.ReoDAO;
 import capstone.rep.realestateportal.entity.Coordinate;
 import capstone.rep.realestateportal.entity.LandNearRoad;
 import capstone.rep.realestateportal.entity.RealEstateObject;
+import capstone.rep.realestateportal.entity.RoadSegment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +86,7 @@ public class DrawLandService {
             sum+=element.getPrice();
         }
         averagePrice = sum/listReo.size();
-        
+        land.setRoadSegment(new RoadSegment().setRoadSegmentId(1));
         land.setMaxPrice(maxPrice).setMinPrice(minPrice).setAveragePrice(averagePrice).setListRealEstateObject(listReo);
         return land;
     }

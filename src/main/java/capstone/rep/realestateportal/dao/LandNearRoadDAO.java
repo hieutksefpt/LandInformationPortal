@@ -41,7 +41,9 @@ public class LandNearRoadDAO {
 
         try {
             conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
-            String sql = "select LandNearRoadID, Name, MaxPrice, MinPrice, AveragePrice, PredictPrice, RoadSegmentID from LandNearRoad where LandNearRoadID = ?";
+            String sql = "select * from LandNearRoad " + 
+	            		"join RoadSegment on LandNearRoad.RoadSegmentID = RoadSegment.RoadSegmentID " + 
+	            		"join Road on RoadSegment.RoadID = Road.RoadID and Road.RoadID = ?";
             pre = conn.prepareStatement(sql);
             pre.setString(1, id);
             rs = pre.executeQuery();

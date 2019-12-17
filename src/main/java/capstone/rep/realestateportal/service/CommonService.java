@@ -12,6 +12,7 @@ import capstone.rep.realestateportal.entity.Coordinate;
 import capstone.rep.realestateportal.entity.LandNearRoad;
 import capstone.rep.realestateportal.entity.RealEstateObject;
 import capstone.rep.realestateportal.entity.Road;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.primefaces.json.JSONObject;
@@ -35,7 +36,7 @@ public class CommonService {
 		}
 		return listRoad;
 	}
-
+	
 	public List<LandNearRoad> getLandNearByRoadId(String id) {
 		// TODO: getLandNearByRoadId
 		ArrayList<LandNearRoad> listLand = null;

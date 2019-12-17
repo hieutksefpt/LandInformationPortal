@@ -20,6 +20,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONObject;
@@ -29,7 +30,7 @@ import org.primefaces.json.JSONObject;
  * @author tuans
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class DrawLandBean implements Serializable{
 
     private String roadName;
@@ -38,6 +39,7 @@ public class DrawLandBean implements Serializable{
     @PostConstruct
     public void init() {
         int i = 1;
+        i++;
     }
 
     private String roadId;

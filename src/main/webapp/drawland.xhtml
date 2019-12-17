@@ -29,7 +29,7 @@
 
                                     <h:inputHidden id="geojson" value="#{drawLandBean.jsonByRoad}"></h:inputHidden>
                                     <h:form id="form-autocomplete">  
-                                        <p:autoComplete value="${drawLandBean.roadId}" id="autocompleteValue"
+                                        <p:autoComplete value="${drawLandBean.roadId}" id="autocompleteValue" 
                                                         completeMethod="${drawLandBean.listRoadByHint}"
                                                         var="elementRoad" itemLabel="#{elementRoad.name}"
                                                         itemValue="#{elementRoad.roadId}"
@@ -87,7 +87,11 @@
                                     <div class="btn-group mr-2">
                                         <button class="btn btn-primary" id="btnCancel" onclick="clearInput()" type="button">Hủy</button>
                                     </div>
-                                    <div class="btn-group mr-2"><button class="btn btn-primary" type="button">Xóa</button></div>
+                                    <div class="btn-group mr-2">
+                                    	<h:commandButton class="btn btn-primary" type="button" value="Xóa">
+                                            <p:ajax event="click" process="@form" listener="${drawLandBean.deleteButtonClick()}"></p:ajax>
+                                        </h:commandButton>
+                                    </div>
                                     <div class="btn-group mr-2">
                                         <h:commandButton class="btn btn-primary" type="button" value="Lưu">
                                             <p:ajax event="click" process="@form" listener="${drawLandBean.saveButtonClick()}"></p:ajax>

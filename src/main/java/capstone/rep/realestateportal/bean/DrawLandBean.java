@@ -37,7 +37,7 @@ public class DrawLandBean implements Serializable{
 
     @PostConstruct
     public void init() {
-//        landCalculated = new Land();
+        int i = 1;
     }
 
     private String roadId;

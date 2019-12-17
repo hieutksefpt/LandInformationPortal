@@ -9,6 +9,7 @@ import capstone.rep.realestateportal.entity.Coordinate;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,12 +56,13 @@ public class CoordinateDAO {
             rs = pre.executeQuery();
             while (rs.next()) {
                 int coordinateId = rs.getInt("CoordinateID");
-                Float longtitude = rs.getFloat("Longtitude");
-                Float lattitude = rs.getFloat("Lattitude");
+                double longtitude = rs.getDouble("Longtitude");
+                double lattitude = rs.getDouble("Lattitude");
                 listCoordinate.add(new Coordinate(coordinateId, longtitude, lattitude));
             }
         } catch (Exception ex) {
-            throw ex;
+        	ex.printStackTrace();
+//            throw ex;
         } finally {
             closeConnection(conn, pre, rs);
         }
@@ -77,14 +79,14 @@ public class CoordinateDAO {
         try {
             conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
             String sql = "select c.CoordinateID, c.Longtitude, c.Lattitude from RoadSegmentCoordinate rsc"
-                    + " inner join Coordinate c on rsc.CoornidateID = c.CoordinateID where rsc.RoadSegmentID = ?";
+                    + " inner join Coordinate c on rsc.CoordinateID = c.CoordinateID where rsc.RoadSegmentID = ?";
             pre = conn.prepareStatement(sql);
             pre.setInt(1, roadSegmentId);
             rs = pre.executeQuery();
             while (rs.next()) {
                 int coordinateId = rs.getInt("CoordinateID");
-                Float longtitude = rs.getFloat("Longtitude");
-                Float lattitude = rs.getFloat("Lattitude");
+                double longtitude = rs.getDouble("Longtitude");
+                double lattitude = rs.getDouble("Lattitude");
                 listCoordinate.add(new Coordinate(coordinateId, longtitude, lattitude));
             }
         } catch (Exception ex) {
@@ -186,10 +188,18 @@ public class CoordinateDAO {
             for (int i = 0; i < listCoordinate.size(); i++) {
                 String sql = "insert into Coordinate(Longtitude, Lattitude, modifiedDate) "
                         + "values(?,?,GETDATE());";
-                pre = conn.prepareStatement(sql);
+                pre = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 pre.setDouble(1, listCoordinate.get(i).getLongitude());
                 pre.setDouble(2, listCoordinate.get(i).getLatitude());
                 int rowInserted = pre.executeUpdate();
+                try (ResultSet generatedKeys = pre.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                    	listCoordinate.get(i).setCoordinateId(generatedKeys.getInt(1));
+                    }
+                    else {
+                        System.out.print("Creating land failed, no ID obtained.");
+                    }
+                }
                 inserted += rowInserted;
             }
 

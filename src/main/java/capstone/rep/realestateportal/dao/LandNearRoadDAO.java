@@ -13,6 +13,7 @@ import capstone.rep.realestateportal.entity.RealEstateObject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class LandNearRoadDAO {
 
@@ -59,7 +60,8 @@ public class LandNearRoadDAO {
                 listLandNearRoad.add(new LandNearRoad(landNearRoadId, name, maxPrice, minPrice, averagePrice, predictPrice, roadSegment, listCoordinate, listReo));
             }
         } catch (Exception ex) {
-            throw ex;
+        	ex.printStackTrace();
+//            throw ex;
         } finally {
             closeConnection(conn, pre, rs);
         }
@@ -104,21 +106,32 @@ public class LandNearRoadDAO {
 
         try {
             conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
-            String sql = "insert into LandNearRoad(Name, MaxPrice, MinPrice, AveragePrice, PredictPrice, modifiedDate) "
-                    + "values(?,?,?,?,?,GETDATE());";
-            pre = conn.prepareStatement(sql);
+            String sql = "insert into LandNearRoad(Name, MaxPrice, MinPrice, AveragePrice, PredictPrice, RoadSegmentID, modifiedDate) "
+                    + "values(?,?,?,?,?,?,GETDATE());";
+            pre = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pre.setNString(1, landNearRoad.getName());
             pre.setDouble(2, landNearRoad.getMaxPrice());
             pre.setDouble(3, landNearRoad.getMinPrice());
             pre.setDouble(4, landNearRoad.getAveragePrice());
             pre.setDouble(5, landNearRoad.getPredictPrice());
-//            pre.setInt(6, landNearRoad.getRoadSegment().getRoadSegmentId());
+            pre.setInt(6, landNearRoad.getRoadSegment().getRoadSegmentId());
             inserted = pre.executeUpdate();
             int insertCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.insertCoordinate(landNearRoad.getListCoordinate());
+            
+            try (ResultSet generatedKeys = pre.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    landNearRoad.setLandNearRoadId((generatedKeys.getInt(1)));
+                }
+                else {
+                    System.out.print("Creating land failed, no ID obtained.");
+                }
+            }
+            
             int insertedLNRDetail = insertLandNearRoadDetail(landNearRoad, landNearRoad.getListRealEstateObject());
             int insertLNRCoordinate = insertLandNearRoadCoordinate(landNearRoad, landNearRoad.getListCoordinate());
         } catch (Exception ex) {
-            throw ex;
+        	ex.printStackTrace();
+//            throw ex;
         } finally {
             closeConnection(conn, pre, rs);
         }

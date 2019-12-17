@@ -52,6 +52,9 @@ public class ReoDAO {
             pre.setInt(1, landNearRoadId);
             rs = pre.executeQuery();
             while (rs.next()) {
+            	if (listReo == null) {
+            		listReo = new ArrayList<>();
+            	}
                 int reoId = rs.getInt("ReoID");
                 String name = rs.getString("Name");
                 Float price = rs.getFloat("Price");

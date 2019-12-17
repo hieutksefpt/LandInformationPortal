@@ -49,12 +49,13 @@ public class CityDAO {
             pre.setInt(1, cityId);
             rs = pre.executeQuery();
             while (rs.next()) {
+            	city = new City();
                 city.setCityId(cityId);
                 city.setName(rs.getNString("Name"));
             }
         } catch (Exception ex) {
         	ex.printStackTrace();
-            throw ex;
+//            throw ex;
         } finally {
             closeConnection(conn, pre, rs);
         }

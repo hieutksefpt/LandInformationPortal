@@ -23,7 +23,7 @@ public class Connection {
         initConfig();
     }
 
-    public void initConfig() {
+    public static void initConfig() {
         url = "jdbc:sqlserver://TREAPT:1433;databaseName=Test_REP";
         username = "sa";
         password = "123456";

@@ -53,6 +53,7 @@ public class RoadSegmentDAO {
             pre.setInt(1, roadSengmentId);
             rs = pre.executeQuery();
             while (rs.next()) {
+            	roadSegment = new RoadSegment();
                 roadSegment.setRoadSegmentId(rs.getInt("RoadSegmentID"));
                 roadSegment.setName(rs.getNString("Name"));
                 roadSegment.setRoad(capstone.rep.realestateportal.dao.RoadDAO.roadDAO.getRoadByRoadID(rs.getInt("RoadID")));

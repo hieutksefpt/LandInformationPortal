@@ -45,8 +45,9 @@ public class RoadDAO {
             pre.setInt(1, roadId);
             rs = pre.executeQuery();
             while (rs.next()) {
+            	road = new Road();
                 road.setRoadId(rs.getInt("RoadID"));
-                road.setName(rs.getNString("RoadName"));
+                road.setName(rs.getNString("Name"));
                 road.setCity(capstone.rep.realestateportal.dao.CityDAO.cityDAO.getCityByCityID(rs.getInt("CityID")));
             }
         } catch (Exception ex) {

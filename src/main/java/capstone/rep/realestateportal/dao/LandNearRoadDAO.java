@@ -13,11 +13,10 @@ import capstone.rep.realestateportal.entity.RealEstateObject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class LandNearRoadDAO {
 
-    public void CloseConnect(Connection conn, PreparedStatement pre, ResultSet rs) throws SQLException {
+    public void closeConnection(Connection conn, PreparedStatement pre, ResultSet rs) throws Exception {
         try {
             if (rs != null && !rs.isClosed()) {
                 rs.close();
@@ -28,12 +27,12 @@ public class LandNearRoadDAO {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw ex;
         }
     }
 
-    public ArrayList<LandNearRoad> getLandNearByRoadId(String id) throws SQLException {
+    public ArrayList<LandNearRoad> getLandNearByRoadId(String id) throws Exception {
         ArrayList<LandNearRoad> listLandNearRoad = new ArrayList<>();
         Connection conn = null;
         ResultSet rs = null;
@@ -60,14 +59,14 @@ public class LandNearRoadDAO {
                 listLandNearRoad.add(new LandNearRoad(landNearRoadId, name, maxPrice, minPrice, averagePrice, predictPrice, roadSegment, listCoordinate, listReo));
             }
         } catch (Exception ex) {
-
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return listLandNearRoad;
     }
 
-    public int deleteLandNearRoadById(String idLandNearRoad) throws SQLException {
+    public int deleteLandNearRoadById(String idLandNearRoad) throws Exception {
         int id = 0;
         try {
             id = Integer.parseInt(idLandNearRoad);
@@ -90,14 +89,14 @@ public class LandNearRoadDAO {
             pre.setInt(1, id);
             deleted = pre.executeUpdate();
         } catch (Exception ex) {
-
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return deleted;
     }
 
-    public int insertNewLandNearRoad(LandNearRoad landNearRoad) throws SQLException {
+    public int insertNewLandNearRoad(LandNearRoad landNearRoad) throws Exception {
         int inserted = 0;
         Connection conn = null;
         ResultSet rs = null;
@@ -119,15 +118,14 @@ public class LandNearRoadDAO {
             int insertedLNRDetail = insertLandNearRoadDetail(landNearRoad, landNearRoad.getListRealEstateObject());
             int insertLNRCoordinate = insertLandNearRoadCoordinate(landNearRoad, landNearRoad.getListCoordinate());
         } catch (Exception ex) {
-        	System.out.print(ex.getMessage());
-        	
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return inserted;
     }
 
-    public int insertLandNearRoadDetail(LandNearRoad landNearRoad, List<RealEstateObject> listReo) throws SQLException {
+    public int insertLandNearRoadDetail(LandNearRoad landNearRoad, List<RealEstateObject> listReo) throws Exception {
         int inserted = 0;
         Connection conn = null;
         ResultSet rs = null;
@@ -145,14 +143,14 @@ public class LandNearRoadDAO {
                 inserted += rowInserted;
             }
         } catch (Exception ex) {
-
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return inserted;
     }
 
-    public int insertLandNearRoadCoordinate(LandNearRoad landNearRoad, List<Coordinate> listCoordinate) throws SQLException {
+    public int insertLandNearRoadCoordinate(LandNearRoad landNearRoad, List<Coordinate> listCoordinate) throws Exception {
         int inserted = 0;
         Connection conn = null;
         ResultSet rs = null;
@@ -170,14 +168,14 @@ public class LandNearRoadDAO {
                 inserted += rowInserted;
             }
         } catch (Exception ex) {
-
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return inserted;
     }
 
-    public int deleteLandNearRoadCoordinateByLandNearRoadId(int landNearRoadId) throws SQLException {
+    public int deleteLandNearRoadCoordinateByLandNearRoadId(int landNearRoadId) throws Exception {
         int deleted = 0;
         Connection conn = null;
         ResultSet rs = null;
@@ -190,14 +188,14 @@ public class LandNearRoadDAO {
             pre.setInt(1, landNearRoadId);
             deleted = pre.executeUpdate();
         } catch (Exception ex) {
-
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return deleted;
     }
 
-    public int deleteLandNearRoadDetailByLandNearRoadId(int landNearRoadId) throws SQLException {
+    public int deleteLandNearRoadDetailByLandNearRoadId(int landNearRoadId) throws Exception {
         int deleted = 0;
         Connection conn = null;
         ResultSet rs = null;
@@ -210,9 +208,9 @@ public class LandNearRoadDAO {
             pre.setInt(1, landNearRoadId);
             deleted = pre.executeUpdate();
         } catch (Exception ex) {
-
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return deleted;
     }

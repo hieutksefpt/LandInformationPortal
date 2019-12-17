@@ -5,6 +5,8 @@
  */
 package capstone.rep.realestateportal.entity;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Anh Hao
@@ -13,14 +15,24 @@ public class RoadSegment {
     private int roadSegmentId;
     private String name;
     private Road road;
-
+    private ArrayList<Coordinate> listCoordinate;
+    
     public RoadSegment() {
     }
 
-    public RoadSegment(int roadSegmentId, String name, Road road) {
+    public RoadSegment(int roadSegmentId, String name, Road road, ArrayList<Coordinate> listCoordinate) {
         this.roadSegmentId = roadSegmentId;
         this.name = name;
         this.road = road;
+        this.listCoordinate = listCoordinate;
+    }
+
+    public ArrayList<Coordinate> getListCoordinate() {
+        return listCoordinate;
+    }
+
+    public void setListCoordinate(ArrayList<Coordinate> listCoordinate) {
+        this.listCoordinate = listCoordinate;
     }
 
     public int getRoadSegmentId() {

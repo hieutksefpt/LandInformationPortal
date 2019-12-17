@@ -10,7 +10,6 @@ import capstone.rep.realestateportal.entity.RealEstateObject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class ReoDAO {
 
@@ -19,7 +18,7 @@ public class ReoDAO {
 
     public static ReoDAO reoDAO = new ReoDAO();
 
-    public void CloseConnect(Connection conn, PreparedStatement pre, ResultSet rs) throws SQLException {
+    public void closeConnection(Connection conn, PreparedStatement pre, ResultSet rs) throws Exception {
         try {
             if (rs != null && !rs.isClosed()) {
                 rs.close();
@@ -30,7 +29,7 @@ public class ReoDAO {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw ex;
         }
     }
@@ -40,7 +39,7 @@ public class ReoDAO {
         return listReo;
     }
 
-    public ArrayList<RealEstateObject> getListReoByLandNearRoadID(int landNearRoadId) throws SQLException {
+    public ArrayList<RealEstateObject> getListReoByLandNearRoadID(int landNearRoadId) throws Exception {
         Connection conn = null;
         ResultSet rs = null;
         PreparedStatement pre = null;
@@ -61,14 +60,14 @@ public class ReoDAO {
                 listReo.add(new RealEstateObject(reoId, name, price, listFeature, listCoordinate));
             }
         } catch (Exception ex) {
-        	System.out.print(ex.getMessage());
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return listReo;
     }
     
-    public ArrayList<RealEstateObject> getAllReoInDb() throws SQLException {
+    public ArrayList<RealEstateObject> getAllReoInDb() throws Exception {
         Connection conn = null;
         ResultSet rs = null;
         PreparedStatement pre = null;
@@ -87,9 +86,9 @@ public class ReoDAO {
                 listReo.add(new RealEstateObject(reoId, name, price, listFeature, listCoordinate));
             }
         } catch (Exception ex) {
-        	System.out.print(ex.getMessage());
+        	throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return listReo;
     }

@@ -9,7 +9,6 @@ import capstone.rep.realestateportal.entity.Coordinate;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class CoordinateDAO {
     public CoordinateDAO() {
     }
 
-    public void CloseConnect(Connection conn, PreparedStatement pre, ResultSet rs) throws SQLException {
+    public void closeConnection(Connection conn, PreparedStatement pre, ResultSet rs) throws Exception {
         try {
             if (rs != null && !rs.isClosed()) {
                 rs.close();
@@ -35,12 +34,12 @@ public class CoordinateDAO {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw ex;
         }
     }
 
-    public ArrayList<Coordinate> getListCoordinateWithRoadID(int roadId) throws SQLException {
+    public ArrayList<Coordinate> getListCoordinateWithRoadID(int roadId) throws Exception {
         ArrayList<Coordinate> listCoordinate = new ArrayList<>();
         // get Road here from DB
         Connection conn = null;
@@ -61,14 +60,42 @@ public class CoordinateDAO {
                 listCoordinate.add(new Coordinate(coordinateId, longtitude, lattitude));
             }
         } catch (Exception ex) {
-
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return listCoordinate;
     }
 
-    public ArrayList<Coordinate> getListCoordinateWithLandNearRoadID(int landNearRoadID) throws SQLException {
+    public ArrayList<Coordinate> getListCoordinateWithRoadSegmentID(int roadSegmentId) throws Exception {
+        ArrayList<Coordinate> listCoordinate = new ArrayList<>();
+        // get Road here from DB
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            String sql = "select c.CoordinateID, c.Longtitude, c.Lattitude from RoadSegmentCoordinate rsc"
+                    + " inner join Coordinate c on rsc.CoornidateID = c.CoordinateID where rsc.RoadSegmentID = ?";
+            pre = conn.prepareStatement(sql);
+            pre.setInt(1, roadSegmentId);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                int coordinateId = rs.getInt("CoordinateID");
+                Float longtitude = rs.getFloat("Longtitude");
+                Float lattitude = rs.getFloat("Lattitude");
+                listCoordinate.add(new Coordinate(coordinateId, longtitude, lattitude));
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            closeConnection(conn, pre, rs);
+        }
+        return listCoordinate;
+    }
+
+    public ArrayList<Coordinate> getListCoordinateWithLandNearRoadID(int landNearRoadID) throws Exception {
         ArrayList<Coordinate> listCoordinate = new ArrayList<>();
         // get Road here from DB
         Connection conn = null;
@@ -89,14 +116,14 @@ public class CoordinateDAO {
                 listCoordinate.add(new Coordinate(coordinateId, longtitude, lattitude));
             }
         } catch (Exception ex) {
-
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return listCoordinate;
     }
 
-    public ArrayList<Coordinate> getListCoordinateWithReoID(int reoId) throws SQLException {
+    public ArrayList<Coordinate> getListCoordinateWithReoID(int reoId) throws Exception {
         ArrayList<Coordinate> listCoordinate = new ArrayList<>();
         // get Road here from DB
         Connection conn = null;
@@ -117,14 +144,14 @@ public class CoordinateDAO {
                 listCoordinate.add(new Coordinate(coordinateId, longtitude, lattitude));
             }
         } catch (Exception ex) {
-
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return listCoordinate;
     }
 
-    public int deleteCoordinateByCoordinateId(ArrayList<Coordinate> listCoordinate) throws SQLException {
+    public int deleteCoordinateByCoordinateId(ArrayList<Coordinate> listCoordinate) throws Exception {
         int deleted = 0;
         Connection conn = null;
         ResultSet rs = null;
@@ -141,14 +168,14 @@ public class CoordinateDAO {
             }
 
         } catch (Exception ex) {
-
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return deleted;
     }
 
-    public int insertCoordinate(List<Coordinate> listCoordinate) throws SQLException {
+    public int insertCoordinate(List<Coordinate> listCoordinate) throws Exception {
         int inserted = 0;
         Connection conn = null;
         ResultSet rs = null;
@@ -167,9 +194,9 @@ public class CoordinateDAO {
             }
 
         } catch (Exception ex) {
-
+            throw ex;
         } finally {
-            CloseConnect(conn, pre, rs);
+            closeConnection(conn, pre, rs);
         }
         return inserted;
     }

@@ -147,3 +147,9 @@ function draw(){
 function log(){
     console.log(coordinateMarkers);
 }
+
+function createAlert(message){
+	$('#message-alert').html(message);
+	$('.alert').removeClass('fade');
+//	$('.alert').addClass('fade')
+}

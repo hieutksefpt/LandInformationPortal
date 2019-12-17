@@ -17,10 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONObject;
@@ -115,6 +117,8 @@ public class DrawLandBean implements Serializable{
     public void saveButtonClick(){
         DrawLandService drawLandService = new DrawLandService();
         drawLandService.submitNewLandNear(landCalculated);
+        
+        changeRoadViewById();
     }
     
     private String clickedLandId;
@@ -130,6 +134,8 @@ public class DrawLandBean implements Serializable{
     public void deleteButtonClick(){
         DrawLandService drawLandService = new DrawLandService();
         drawLandService.deleteLandNearRoadById(clickedLandId);
+        
+        changeRoadViewById();
     }
     
     public void changeRoadViewById() { 

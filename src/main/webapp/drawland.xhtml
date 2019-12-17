@@ -33,7 +33,7 @@
                                                         completeMethod="${drawLandBean.listRoadByHint}"
                                                         var="elementRoad" itemLabel="#{elementRoad.name}"
                                                         itemValue="#{elementRoad.roadId}"
-                                                        forceSelection="true">
+                                                        forceSelection="true" minQueryLength="1">
                                             <p:ajax event="itemSelect" listener="${drawLandBean.changeRoadViewById()}" process="@form" update="geojson" oncomplete="drawDataRoadByJSon()"/>
                                         </p:autoComplete>
                                     </h:form>  

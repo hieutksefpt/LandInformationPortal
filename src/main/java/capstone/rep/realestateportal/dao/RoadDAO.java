@@ -80,7 +80,8 @@ public class RoadDAO {
                 listRoad.add(new Road(roadId, name, city, listCoordinate));
             }
         } catch (Exception ex) {
-            throw ex;
+        	ex.printStackTrace();
+//            throw ex;
         } finally {
             closeConnection(conn, pre, rs);
         }

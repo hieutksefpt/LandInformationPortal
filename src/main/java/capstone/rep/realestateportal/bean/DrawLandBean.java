@@ -101,7 +101,7 @@ public class DrawLandBean implements Serializable{
         DrawLandService drawLandService = new DrawLandService();
         LandNearRoad land = new LandNearRoad().setListCoordinate(listCoordinateSubmit);
         
-        landCalculated = drawLandService.createNewLandByCoordinate(land);
+        landCalculated = drawLandService.createNewLandByCoordinate(land, roadId);
         landCalculated.setName(name);
         numberReo = String.valueOf(landCalculated.getListRealEstateObject().size());
         minPrice = String.valueOf(landCalculated.getMinPrice());

@@ -53,6 +53,7 @@ public class CityDAO {
                 city.setName(rs.getNString("Name"));
             }
         } catch (Exception ex) {
+        	ex.printStackTrace();
             throw ex;
         } finally {
             closeConnection(conn, pre, rs);

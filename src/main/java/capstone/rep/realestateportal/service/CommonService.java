@@ -29,6 +29,7 @@ public class CommonService {
 		try {
 			listRoad = roadDAO.getRoadByName(hint);
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.print("Error" + e.getMessage());
 			System.out.print("Cause by: " + e.getCause());
 		}

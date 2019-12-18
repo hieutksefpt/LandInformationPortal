@@ -125,9 +125,9 @@
                                                 <tbody>
                                                     <ui:repeat value="#{viewRoadBean.displayedReoInLandNearRoad}" var="reo">
                                                         <tr>
-                                                            <td><a href="#">#{reo.id}</a></td>
+                                                            <td><a href="#">#{reo.reoId}</a></td>
                                                             <td>#{reo.name}</td>
-                                                            <td>#{reo.price}/m2</td>
+                                                            <td>#{reo.price}</td>
                                                         </tr>
                                                     </ui:repeat>
                                                 </tbody>
@@ -140,7 +140,7 @@
                                         <nav>
                                             <ul class="pagination">
                                                 <li class="page-item">
-                                                    <h:commandButton type="button" class="page-link" value="Previous «">
+                                                    <h:commandButton type="button" class="page-link" value="« Previous">
                                                         <p:ajax event="click" process="@form" update="@form" 
                                                                 listener="${viewRoadBean.previousPage()}"></p:ajax>
                                                     </h:commandButton>

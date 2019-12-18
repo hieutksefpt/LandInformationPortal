@@ -42,7 +42,6 @@ public class ViewRoadBean {
     
     @PostConstruct
     public void init() {
-        currentPage = 1;
     }
 
     public List<Road> listRoadByHint(String hint) {
@@ -71,6 +70,7 @@ public class ViewRoadBean {
         		.findFirst()
         		.get();
         reoInLandNearRoad = landNearRoadSelected.getListRealEstateObject();
+        currentPage = 1;
         totalPage = reoInLandNearRoad.size()/5;
         displayedReoInLandNearRoad = new ArrayList();
         for (int i = (currentPage-1)*5; (i < currentPage* 5) && (i < reoInLandNearRoad.size()); i++) {
@@ -156,6 +156,20 @@ public class ViewRoadBean {
         this.reoInLandNearRoad = reoInLandNearRoad;
     }
 
-    
+    public int getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
+    }
+
+    public List<LandNearRoad> getListLandNearRoad() {
+        return listLandNearRoad;
+    }
+
+    public void setListLandNearRoad(List<LandNearRoad> listLandNearRoad) {
+        this.listLandNearRoad = listLandNearRoad;
+    }
     
 }

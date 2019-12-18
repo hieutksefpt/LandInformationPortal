@@ -16,8 +16,6 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
         zoom: 14,
-        mapTypeId: 'roadmap',
-        clickableIcons: false,
         disableDoubleClickZoom: true, // disable the default map zoom on double click
     });
 

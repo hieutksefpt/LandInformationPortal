@@ -65,9 +65,11 @@
 							<span>Khu vực</span>
 							<h:inputText class="form-control" id="nameLandInput"
 								value="${drawLandBean.name}"></h:inputText>
-							<span>Giá tính toán</span>
-							<h:inputText class="form-control" readonly="true"
-								id="predictPriceInput" value="${drawLandBean.predictPrice}"></h:inputText>
+							<ui:remove>
+								<span>Giá tính toán</span>
+								<h:inputText class="form-control" readonly="true"
+									id="predictPriceInput" value="${drawLandBean.predictPrice}"></h:inputText>
+							</ui:remove>
 							<span>Giá trung bình</span>
 							<h:inputText class="form-control" readonly="true"
 								id="averagePriceInput" value="${drawLandBean.averagePrice}" />

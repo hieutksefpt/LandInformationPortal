@@ -74,6 +74,8 @@
                                         <span id="landNearRoadAveragePrice"></span>
                                     </div>
                                 </div>
+                                
+                                <!--
                                 <div class="row">
                                     <div class="col-md-5">
                                         <span>
@@ -84,6 +86,8 @@
                                         <span id="landNearRoadPredictPrice" ></span>
                                     </div>
                                 </div>
+                                -->
+                                
                                 <div class="row">
                                     <div class="col-md-5">
                                         <span>
@@ -120,7 +124,7 @@
                                                     <tr>
                                                         <th>STT</th>
                                                         <th>Địa điểm</th>
-                                                        <th>Giá</th>
+                                                        <th>Giá (VNĐ)</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -145,18 +149,22 @@
                                     <div class="d-xl-flex justify-content-xl-center row">
                                         <nav>
                                             <ul class="pagination">
-                                                <li class="page-item">
-                                                    <h:commandButton type="button" class="page-link" value="« Previous">
-                                                        <p:ajax event="click" process="@form" update="@form" 
-                                                                listener="${viewRoadBean.previousPage()}"></p:ajax>
-                                                    </h:commandButton>
-                                                </li>
-                                                <li class="page-item">
-                                                    <h:commandButton type="button" class="page-link" value="Next »">
-                                                        <p:ajax event="click" process="@form" update="@form" 
-                                                                listener="${viewRoadBean.nextPage()}"></p:ajax>
-                                                    </h:commandButton>
-                                                </li>
+                                                <c:if test="${viewRoadBean.currentPage gt 1}">
+                                                    <li class="page-item">
+                                                        <h:commandButton type="button" class="page-link" value="« Previous">
+                                                            <p:ajax event="click" process="@form" update="@form" 
+                                                                    listener="${viewRoadBean.previousPage()}"></p:ajax>
+                                                        </h:commandButton>
+                                                    </li>
+                                                </c:if>
+                                                <c:if test="${viewRoadBean.currentPage lt viewRoadBean.totalPage}">
+                                                    <li class="page-item">
+                                                        <h:commandButton type="button" class="page-link" value="Next »">
+                                                            <p:ajax event="click" process="@form" update="@form" 
+                                                                    listener="${viewRoadBean.nextPage()}"></p:ajax>
+                                                        </h:commandButton>
+                                                    </li>
+                                                </c:if>
                                             </ul>
                                         </nav>
                                     </div>

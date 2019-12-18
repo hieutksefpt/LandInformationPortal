@@ -15,8 +15,6 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
         zoom: 14,
-        mapTypeId: 'roadmap',
-        clickableIcons: false,
         disableDoubleClickZoom: true, // disable the default map zoom on double click
     });
 
@@ -107,7 +105,7 @@ function drawDataRoadByJSon() {
         $('#form-detail\\:landNearRoadID').val(event.feature.getProperty('id'));
         document.getElementById("landNearRoadName").innerHTML = event.feature.getProperty('name');
         document.getElementById("landNearRoadAveragePrice").innerHTML = event.feature.getProperty('averagePrice');
-        document.getElementById("landNearRoadPredictPrice").innerHTML = event.feature.getProperty('predictPrice');
+        //document.getElementById("landNearRoadPredictPrice").innerHTML = event.feature.getProperty('predictPrice');
         document.getElementById("landNearRoadMinPrice").innerHTML = event.feature.getProperty('minPrice');
         document.getElementById("landNearRoadMaxPrice").innerHTML = event.feature.getProperty('maxPrice');
         document.getElementById("form-detail:btnSendLandNearRoadID").click();

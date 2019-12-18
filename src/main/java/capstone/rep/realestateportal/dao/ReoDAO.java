@@ -57,7 +57,7 @@ public class ReoDAO {
             	}
                 int reoId = rs.getInt("ReoID");
                 String name = rs.getString("Name");
-                Float price = rs.getFloat("Price");
+                double price = rs.getDouble("Price");
                 ArrayList<Feature> listFeature = capstone.rep.realestateportal.dao.FeatureDAO.featureDAO.getListFeatureByReoID(reoId);
                 ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoordinateWithReoID(reoId);
                 listReo.add(new RealEstateObject(reoId, name, price, listFeature, listCoordinate));
@@ -83,7 +83,7 @@ public class ReoDAO {
             while (rs.next()) {
                 int reoId = rs.getInt("ReoID");
                 String name = rs.getString("Name");
-                Float price = rs.getFloat("Price");
+                double price = rs.getDouble("Price");
                 ArrayList<Feature> listFeature = capstone.rep.realestateportal.dao.FeatureDAO.featureDAO.getListFeatureByReoID(reoId);
                 ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoordinateWithReoID(reoId);
                 listReo.add(new RealEstateObject(reoId, name, price, listFeature, listCoordinate));

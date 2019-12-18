@@ -112,7 +112,7 @@ function drawDataRoadByJSon() {
         $('#form-submit\\:predictPriceInput').attr("placeholder", event.feature.getProperty('predictPrice'));
         $('#form-submit\\:averagePriceInput').val(event.feature.getProperty('averagePrice'));
         $('#form-submit\\:minPriceInput').val(event.feature.getProperty('minPrice'));
-        $('#form-submit\\:maxPriceInput').val(event.feature.getProperty('minPrice'));
+        $('#form-submit\\:maxPriceInput').val(event.feature.getProperty('maxPrice'));
     });
 }
 function clearInput(){

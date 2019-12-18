@@ -12,12 +12,12 @@ package capstone.rep.realestateportal.entity;
 public class Feature {
     private int featureId;
     private String name;
-    private float coefficient;
+    private double coefficient;
 
     public Feature() {
     }
 
-    public Feature(int featureId, String name, float coefficient) {
+    public Feature(int featureId, String name, double coefficient) {
         this.featureId = featureId;
         this.name = name;
         this.coefficient = coefficient;
@@ -41,11 +41,11 @@ public class Feature {
         return this;
     }
 
-    public float getCoefficient() {
+    public double getCoefficient() {
         return coefficient;
     }
 
-    public Feature setCoefficient(float coefficient) {
+    public Feature setCoefficient(double coefficient) {
         this.coefficient = coefficient;
         return this;
     }

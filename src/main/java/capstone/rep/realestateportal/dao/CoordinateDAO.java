@@ -112,8 +112,8 @@ public class CoordinateDAO {
             rs = pre.executeQuery();
             while (rs.next()) {
                 int coordinateId = rs.getInt("CoordinateID");
-                Float longtitude = rs.getFloat("Longtitude");
-                Float lattitude = rs.getFloat("Lattitude");
+                double longtitude = rs.getDouble("Longtitude");
+                double lattitude = rs.getDouble("Lattitude");
                 listCoordinate.add(new Coordinate(coordinateId, longtitude, lattitude));
             }
         } catch (Exception ex) {
@@ -140,8 +140,8 @@ public class CoordinateDAO {
             rs = pre.executeQuery();
             while (rs.next()) {
                 int coordinateId = rs.getInt("CoordinateID");
-                Float longtitude = rs.getFloat("Longtitude");
-                Float lattitude = rs.getFloat("Lattitude");
+                double longtitude = rs.getDouble("Longtitude");
+                double lattitude = rs.getDouble("Lattitude");
                 listCoordinate.add(new Coordinate(coordinateId, longtitude, lattitude));
             }
         } catch (Exception ex) {

@@ -54,7 +54,7 @@ public class FeatureDAO {
             while (rs.next()) {
                 int featureId = rs.getInt("FeatureID");
                 String name = rs.getString("Name");
-                Float coefficient = rs.getFloat("Coefficient");
+                double coefficient = rs.getDouble("Coefficient");
                 listFeature.add(new Feature(featureId, name, coefficient));
             }
         } catch (Exception ex) {

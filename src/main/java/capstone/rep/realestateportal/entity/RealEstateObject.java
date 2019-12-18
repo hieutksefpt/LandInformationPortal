@@ -14,14 +14,14 @@ import java.util.ArrayList;
 public class RealEstateObject {
     private int reoId;
     private String name;
-    private float price;
+    private double price;
     private ArrayList<Feature> listFeature;
     private ArrayList<Coordinate> listCoordinate;
 
     public RealEstateObject() {
     }
 
-    public RealEstateObject(int reoId, String name, float price, ArrayList<Feature> listFeature, ArrayList<Coordinate> listCoordinate) {
+    public RealEstateObject(int reoId, String name, double price, ArrayList<Feature> listFeature, ArrayList<Coordinate> listCoordinate) {
         this.reoId = reoId;
         this.name = name;
         this.price = price;
@@ -47,11 +47,11 @@ public class RealEstateObject {
         return this;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public RealEstateObject setPrice(float price) {
+    public RealEstateObject setPrice(double price) {
         this.price = price;
         return this;
     }

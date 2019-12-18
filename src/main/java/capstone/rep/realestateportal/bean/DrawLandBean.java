@@ -108,10 +108,10 @@ public class DrawLandBean implements Serializable{
         landCalculated = drawLandService.createNewLandByCoordinate(land, roadId);
         landCalculated.setName(name);
         numberReo = String.valueOf(landCalculated.getListRealEstateObject().size());
-        minPrice = String.valueOf(landCalculated.getMinPrice());
-        maxPrice = String.valueOf(landCalculated.getMaxPrice());
-        predictPrice = String.valueOf(landCalculated.getPredictPrice());
-        averagePrice = String.valueOf(landCalculated.getAveragePrice());
+        minPrice = String.format("%.2f",landCalculated.getMinPrice());
+        maxPrice = String.format("%.2f",landCalculated.getMaxPrice());
+        predictPrice = String.format("%.2f",landCalculated.getPredictPrice());
+        averagePrice = String.format("%.2f",landCalculated.getAveragePrice());
     }
     
     public void saveButtonClick(){

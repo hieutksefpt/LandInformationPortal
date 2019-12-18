@@ -10,6 +10,8 @@ import java.util.List;
 
 import capstone.rep.realestateportal.entity.Coordinate;
 import capstone.rep.realestateportal.entity.RealEstateObject;
+
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -50,10 +52,13 @@ public class LandNearRoadDAO {
             while (rs.next()) {
                 int landNearRoadId = rs.getInt("LandNearRoadID");
                 String name = rs.getString("Name");
-                Float maxPrice = rs.getFloat("MaxPrice");
-                Float minPrice = rs.getFloat("MinPrice");
-                Float averagePrice = rs.getFloat("AveragePrice");
-                Float predictPrice = rs.getFloat("PredictPrice");
+                double maxPrice = rs.getDouble("MaxPrice");
+                double minPrice = rs.getDouble("MinPrice");
+                double averagePrice = rs.getDouble("AveragePrice");
+                double predictPrice = rs.getDouble("PredictPrice");
+                
+                BigDecimal bigMax = rs.getBigDecimal("MaxPrice");
+                
                 RoadSegment roadSegment = capstone.rep.realestateportal.dao.RoadSegmentDAO.roadSegmentDAO.getRoadSegmentByRoadSegmentID(rs.getInt("RoadSegmentID"));
                 ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoordinateWithLandNearRoadID(landNearRoadId);
                 ArrayList<RealEstateObject> listReo = capstone.rep.realestateportal.dao.ReoDAO.reoDAO.getListReoByLandNearRoadID(landNearRoadId);

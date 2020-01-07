@@ -24,14 +24,14 @@ public class Connection {
     }
 
     public static void initConfig() {
-//        url = "jdbc:sqlserver://localhost:1433;databaseName=RealEstatePortalGIS";
-//        username = "sa";
-//        password = "123456";
+        url = "jdbc:sqlserver://localhost:1433;databaseName=RealEstatePortalGIS";
+        username = "sa";
+        password = "123456";
     	
     	//db online
-      url = "jdbc:sqlserver://database-1.czlokgka8gz9.us-east-1.rds.amazonaws.com:1433;databaseName=RealEstatePortalGIS";
-      username = "admin";
-      password = "clgt1234";
+ //     url = "jdbc:sqlserver://database-1.czlokgka8gz9.us-east-1.rds.amazonaws.com:1433;databaseName=RealEstatePortalGIS";
+ //     username = "admin";
+  //    password = "clgt1234";
     }
 
     public java.sql.Connection getConnection() throws Exception {

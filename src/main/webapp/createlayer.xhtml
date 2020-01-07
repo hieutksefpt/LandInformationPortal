@@ -10,16 +10,50 @@
 <h:body>
 
 	<ui:composition template="/template/common/commonLayout.xhtml">
-
+		
 		<ui:define name="content">
+			<div class="container">
+				<div class="row" style="margin-bottom: 10px; margin-top: 10px;">
+					<div class="col-md-8">
+						<div class="row">
+							<div class="col-md-8">
+								<input type="text"
+									style="width: 100%; padding-right: 1px; padding-left: 1px;"
+									id="input-gg-map" />
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="row">
+							<div class="text-nowrap col-md-4">
+								<span>Tuyến đường</span>
+							</div>
+							<div class="col-md-8">
+
+								<h:inputHidden id="geojson" value="#{drawLandBean.jsonByRoad}"></h:inputHidden>
+								<h:form id="form-autocomplete">
+									<p:autoComplete >
+									</p:autoComplete>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-8">
+						<div id="map" style="height: 510px"></div>
+					</div>
+				</div>
+			</div>
 
 		</ui:define>
 		<ui:define name="footer">
-			<h:outputScript name="drawland.js" library="js" />
+			<h:outputScript name="createlayer.js" library="js" />
 			<script type="text/javascript"
 				src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
 				async="true" defer="true"></script>
 		</ui:define>
+	
 	</ui:composition>
 </h:body>
 

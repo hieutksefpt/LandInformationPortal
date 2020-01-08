@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class RoadSegment {
     private int roadSegmentId;
-    private String name;
+    private String roadSegmentName;
     private Road road;
     private ArrayList<Coordinate> listCoordinate;
     
@@ -22,7 +22,7 @@ public class RoadSegment {
 
     public RoadSegment(int roadSegmentId, String name, Road road, ArrayList<Coordinate> listCoordinate) {
         this.roadSegmentId = roadSegmentId;
-        this.name = name;
+        this.roadSegmentName = name;
         this.road = road;
         this.listCoordinate = listCoordinate;
     }
@@ -45,11 +45,11 @@ public class RoadSegment {
     }
 
     public String getName() {
-        return name;
+        return roadSegmentName;
     }
 
     public RoadSegment setName(String name) {
-        this.name = name;
+        this.roadSegmentName = name;
         return this;
     }
 

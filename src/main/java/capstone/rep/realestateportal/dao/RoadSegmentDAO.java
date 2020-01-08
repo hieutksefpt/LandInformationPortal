@@ -12,6 +12,7 @@ import capstone.rep.realestateportal.entity.RoadSegment;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -53,7 +54,7 @@ public class RoadSegmentDAO {
             pre.setInt(1, roadSengmentId);
             rs = pre.executeQuery();
             while (rs.next()) {
-            	roadSegment = new RoadSegment();
+                roadSegment = new RoadSegment();
                 roadSegment.setRoadSegmentId(rs.getInt("RoadSegmentID"));
                 roadSegment.setName(rs.getNString("Name"));
                 roadSegment.setRoad(capstone.rep.realestateportal.dao.RoadDAO.roadDAO.getRoadByRoadID(rs.getInt("RoadID")));
@@ -90,5 +91,30 @@ public class RoadSegmentDAO {
             closeConnection(conn, pre, rs);
         }
         return listRoadSegment;
+    }
+
+    public int insertRoadSegmentCoordinate(int roadSengmentID, double latitude, double longitude) throws Exception {
+        int inserted = 0;
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            String sql = "INSERT INTO RoadSegmentCoordinate(RoadSegmentID, Latitude, Longitude) "
+                    + "VALUES(?,?,?)";
+            System.out.println(sql);
+            pre = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pre.setInt(1, roadSengmentID);
+            pre.setDouble(2, latitude);
+            pre.setDouble(3, longitude);
+            inserted = pre.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            closeConnection(conn, pre, rs);
+        }
+        return inserted;
     }
 }

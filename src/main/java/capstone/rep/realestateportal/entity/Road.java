@@ -17,7 +17,18 @@ public class Road implements Serializable{
     private String name;
     private City city;
     private ArrayList<Coordinate> listCoordinate;
+    
+    private ArrayList<RoadSegment> listRoadSegment;
 
+    public ArrayList<RoadSegment> getListRoadSegment() {
+        return listRoadSegment;
+    }
+
+    public Road setListRoadSegment(ArrayList<RoadSegment> listRoadSegment) {
+        this.listRoadSegment = listRoadSegment;
+        return this;
+    }
+    
     public Road() {
     }
 

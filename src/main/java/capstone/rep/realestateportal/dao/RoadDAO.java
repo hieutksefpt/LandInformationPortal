@@ -6,9 +6,11 @@ import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import capstone.rep.realestateportal.entity.Road;
 import capstone.rep.realestateportal.entity.Coordinate;
+import capstone.rep.realestateportal.entity.RoadSegment;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class RoadDAO {
 
@@ -45,7 +47,7 @@ public class RoadDAO {
             pre.setInt(1, roadId);
             rs = pre.executeQuery();
             while (rs.next()) {
-            	road = new Road();
+                road = new Road();
                 road.setRoadId(rs.getInt("RoadID"));
                 road.setName(rs.getNString("Name"));
                 road.setCity(capstone.rep.realestateportal.dao.CityDAO.cityDAO.getCityByCityID(rs.getInt("CityID")));
@@ -86,6 +88,44 @@ public class RoadDAO {
             closeConnection(conn, pre, rs);
         }
         return listRoad;
+    }
+
+    public int insertRoadSegmentByRoad(Road road, RoadSegment roadSegment) throws Exception {
+        int inserted = 0;
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            String sql = "INSERT INTO RoadSegment(RoadSegmentName, RoadID) "
+                    + "VALUES (?,?)";
+            System.out.println(sql);
+            pre = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pre.setNString(1, roadSegment.getName());
+            pre.setDouble(2, road.getRoadId());
+            inserted = pre.executeUpdate();
+
+            try (ResultSet generatedKeys = pre.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    for(Coordinate coordinate : roadSegment.getListCoordinate()){
+                        int insertRoadSegmentCoordinate = capstone.rep.realestateportal.dao.RoadSegmentDAO
+                                .roadSegmentDAO.insertRoadSegmentCoordinate(
+                                        generatedKeys.getInt(1), 
+                                        coordinate.getLatitude(), 
+                                        coordinate.getLongitude());
+                    }
+                } else {
+                    System.out.print("Creating land failed, no ID obtained.");
+                }
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            closeConnection(conn, pre, rs);
+        }
+        return inserted;
     }
 
 }

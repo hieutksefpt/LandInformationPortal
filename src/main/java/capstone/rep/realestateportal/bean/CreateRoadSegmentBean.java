@@ -11,6 +11,7 @@ import org.primefaces.json.JSONObject;
 import capstone.rep.realestateportal.entity.LandNearRoad;
 import capstone.rep.realestateportal.entity.Road;
 import capstone.rep.realestateportal.service.CommonService;
+import capstone.rep.realestateportal.service.DrawLandService;
 
 /**
  * @dateCreate 07/01/2020
@@ -22,6 +23,11 @@ import capstone.rep.realestateportal.service.CommonService;
 public class CreateRoadSegmentBean {
 	private String jsonByRoad;
     private String roadId;
+    private String firstLat;
+    private String firstLng;
+    private String secondLat;
+    private String secondLng;
+    private String roadSegmentName;
     
     public List<Road> listRoadByHint(String hint) {
     	if (hint == null) hint = "";
@@ -38,6 +44,13 @@ public class CreateRoadSegmentBean {
         jsonByRoad = jsonObject.toString();
     }
 
+    public void saveButtonClick(){
+    	
+//        DrawLandService drawLandService = new DrawLandService();
+//        drawLandService.submitNewLandNear(landCalculated);
+//        
+//        changeRoadViewById();
+    }
 	
     public String getJsonByRoad() {
         return jsonByRoad;
@@ -54,4 +67,46 @@ public class CreateRoadSegmentBean {
     public void setRoadId(String roadId) {
         this.roadId = roadId;
     }
+
+	public String getFirstLat() {
+		return firstLat;
+	}
+
+	public void setFirstLat(String firstLat) {
+		this.firstLat = firstLat;
+	}
+
+	public String getFirstLng() {
+		return firstLng;
+	}
+
+	public void setFirstLng(String firstLng) {
+		this.firstLng = firstLng;
+	}
+
+	public String getSecondLat() {
+		return secondLat;
+	}
+
+	public void setSecondLat(String secondLat) {
+		this.secondLat = secondLat;
+	}
+
+	public String getSecondLng() {
+		return secondLng;
+	}
+
+	public void setSecondLng(String secondLng) {
+		this.secondLng = secondLng;
+	}
+
+	public String getRoadSegmentName() {
+		return roadSegmentName;
+	}
+
+	public void setRoadSegmentName(String roadSegmentName) {
+		this.roadSegmentName = roadSegmentName;
+	}
+    
+    
 }

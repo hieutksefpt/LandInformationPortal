@@ -8,6 +8,7 @@ package capstone.rep.realestateportal.adapter;
 import capstone.rep.realestateportal.common.ColorDrawer;
 import capstone.rep.realestateportal.entity.Coordinate;
 import capstone.rep.realestateportal.entity.LandNearRoad;
+import capstone.rep.realestateportal.entity.RoadSegment;
 import java.util.List;
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONException;
@@ -98,6 +99,79 @@ public class GeoJSONApdater {
         geometry = createJSONGeometry(land);
         json.put("geometry", (Object) geometry);
 
+        return json;
+    }
+    
+    
+   /// Line GeoJSON ///
+    
+    
+    public static JSONObject createLineGeoJSON(List<RoadSegment> listRoadSegment) {
+        JSONObject json = new JSONObject();
+        json.put("type", "LineString");
+        JSONArray jsonArray = new JSONArray();
+
+        for (RoadSegment roadSegment : listRoadSegment) {
+            JSONObject elementInArray = new JSONObject();
+            List listCoordinate = roadSegment.getListCoordinate();
+            String color = ColorDrawer.IdentifyColor(80);    // return red 
+            elementInArray = createJSONObjectLine(roadSegment, color);
+            jsonArray.put(elementInArray);
+        }
+
+        json.put("features", (Object) jsonArray);
+        return json;
+    }
+    
+     private static JSONObject createJSONObjectLine(RoadSegment roadSegment, String LineColor) {
+        JSONObject json = new JSONObject();
+        json.put("type", "Feature");
+        
+        JSONObject property = new JSONObject();
+        property = createLineJSONProperty(roadSegment, LineColor);
+        json.put("properties", (Object) property);
+        
+        JSONObject geometry = new JSONObject();
+        geometry = createLineJSONGeometry(roadSegment);
+        json.put("geometry", (Object) geometry);
+
+        return json;
+    }
+     
+      private static JSONObject createLineJSONProperty(RoadSegment roadSegment, String LineColor){
+        JSONObject json = new JSONObject();
+        json.put("color", LineColor);
+        json.put("name", roadSegment.getName());
+        json.put("id", roadSegment.getRoadSegmentId());
+        return json;
+    }
+      
+      private static JSONObject createLineJSONGeometry(RoadSegment roadSegment) {
+        List<Coordinate> listCoordinate = roadSegment.getListCoordinate();
+        
+        JSONObject json = new JSONObject();
+        json.put("type", "Line String");
+        JSONArray jsonAxis = new JSONArray();
+        JSONArray jsonArrayFirst = null;
+        for (Coordinate coordinate: listCoordinate){
+            JSONArray jsonArray = new JSONArray();
+            jsonArray.put(coordinate.getLongitude());
+            jsonArray.put(coordinate.getLatitude());
+            jsonAxis.put(jsonArray);
+            
+            if (jsonArrayFirst == null){
+                jsonArrayFirst = new JSONArray();
+                jsonArrayFirst.put(coordinate.getLongitude());
+                jsonArrayFirst.put(coordinate.getLatitude());
+            }
+        }
+        jsonAxis.put(jsonArrayFirst);
+
+        //----------
+        JSONArray jsonTemp = new JSONArray();
+        jsonTemp.put((Object) jsonAxis);
+
+        json.put("coordinates", jsonTemp);
         return json;
     }
 }

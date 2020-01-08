@@ -22,10 +22,19 @@
 							<div class="col-md">
 								<strong>Tuyến đường</strong>
 							</div>
-							<div class="col-md">
-								<h:inputHidden id="geojson" value="#{drawLandBean.jsonByRoad}"></h:inputHidden>
+							<div class="col-md">								
+								<h:inputHidden id="geojson" value="#{createRoadSegmentBean.jsonByRoad}"></h:inputHidden>
 								<h:form id="form-autocomplete">
-									<p:autoComplete>
+									<p:autoComplete value="${createRoadSegmentBean.roadId}"
+										id="autocompleteValue"
+										completeMethod="${createRoadSegmentBean.listRoadByHint}"
+										var="elementRoad" itemLabel="#{elementRoad.name}"
+										itemValue="#{elementRoad.roadId}" forceSelection="true"
+										minQueryLength="3">
+										<p:ajax event="itemSelect"
+											listener="${createRoadSegmentBean.changeRoadViewById()}"
+											process="@form" update="geojson"
+											oncomplete="drawDataRoadByJSon()" />
 									</p:autoComplete>
 								</h:form>
 							</div>
@@ -34,13 +43,14 @@
 							
 						</div>
 
-						<form>
+						<h:form id="form-submit">
 							<div class="row" style="padding-top: 5px;">
 								<div class="col-md">
 									<strong>Tên đoạn đường</strong>
 								</div>
 								<div class="col-md">
-									<input></input>
+									<h:inputText class="form-control"
+										id="roadSegmentName" value="${createRoadSegmentBean.roadSegmentName}" />
 								</div>
 							</div>
 							<div class="row">
@@ -58,10 +68,12 @@
 							</div>
 							<div class="row">
 								<div class="col-md-6">
-									<input></input>
+									<h:inputText class="form-control" readonly="true"
+										id="firstLat" value="${createRoadSegmentBean.firstLat}" />
 								</div>
 								<div class="col-md-6">
-									<input></input>
+									<h:inputText class="form-control" readonly="true"
+										id="firstLng" value="${createRoadSegmentBean.firstLng}" />
 								</div>
 							</div>
 
@@ -80,26 +92,34 @@
 							</div>
 							<div class="row">
 								<div class="col-md-6">
-									<input></input>
+									<h:inputText class="form-control" readonly="true"
+										id="secondLat" value="${createRoadSegmentBean.secondLat}" />
 								</div>
 								<div class="col-md-6">
-									<input></input>
+									<h:inputText class="form-control" readonly="true"
+										id="secondLng" value="${createRoadSegmentBean.secondLng}" />
 								</div>
 							</div>
-
+							
 							<div class="d-xl-flex justify-content-xl-center btn-toolbar"
 								style="padding-top: 5px;">
 								<div class="btn-group mr-3">
-									<button class="btn btn-primary" type="button">Vẽ</button>
+									<button class="btn btn-primary" type="button" onclick="drawRoad()">Vẽ</button>
 								</div>
 								<div class="btn-group mr-3">
-									<button class="btn btn-primary" type="button">Xóa</button>
+									<button class="btn btn-primary" type="button" onclick="clearInput()">Xóa</button>
 								</div>
 								<div class="btn-group">
-									<button class="btn btn-primary" type="button">Lưu</button>
+								
+									<h:commandButton class="btn btn-primary" type="button"
+										value="Lưu">
+										<p:ajax event="click" process="@form"
+											listener="${createRoadSegmentBean.saveButtonClick()}" update="geojson"
+											oncomplete="clearInput(),drawDataRoadByJSon()"></p:ajax>
+									</h:commandButton>
 								</div>
 							</div>
-						</form>
+						</h:form>
 					</div>
 				</div>
 			</div>

@@ -22,10 +22,19 @@
 							<div class="col-md">
 								<strong>Tuyến đường</strong>
 							</div>
-							<div class="col-md">
-								<h:inputHidden id="geojson" value="#{drawLandBean.jsonByRoad}"></h:inputHidden>
+							<div class="col-md">								
+								<h:inputHidden id="geojson" value="#{createRoadSegmentBean.jsonByRoad}"></h:inputHidden>
 								<h:form id="form-autocomplete">
-									<p:autoComplete>
+									<p:autoComplete value="${createRoadSegmentBean.roadId}"
+										id="autocompleteValue"
+										completeMethod="${createRoadSegmentBean.listRoadByHint}"
+										var="elementRoad" itemLabel="#{elementRoad.name}"
+										itemValue="#{elementRoad.roadId}" forceSelection="true"
+										minQueryLength="3">
+										<p:ajax event="itemSelect"
+											listener="${createRoadSegmentBean.changeRoadViewById()}"
+											process="@form" update="geojson"
+											oncomplete="drawDataRoadByJSon()" />
 									</p:autoComplete>
 								</h:form>
 							</div>

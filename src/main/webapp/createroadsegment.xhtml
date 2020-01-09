@@ -32,7 +32,7 @@
 										itemValue="#{elementRoad.roadId}" forceSelection="true"
 										minQueryLength="3">
 										<p:ajax event="itemSelect"
-											listener="${createRoadSegmentBean.changeRoadViewById}"
+											listener="${createRoadSegmentBean.changeRoadViewById()}"
 											process="@form" update="geojson"
 											oncomplete="drawDataRoadByJSon()" />
 									</p:autoComplete>

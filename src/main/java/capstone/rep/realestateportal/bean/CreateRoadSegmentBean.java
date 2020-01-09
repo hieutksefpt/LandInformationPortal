@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.json.JSONObject;
 
@@ -41,7 +42,7 @@ public class CreateRoadSegmentBean {
     	if (hint == null) hint = "";
         String hintLowerCase = hint.toLowerCase();
         CommonService commonService = new CommonService();
-        listRoadByHint = commonService.getRoadByHint(hintLowerCase);
+        listRoadByHint = commonService.getRoadByHint_DBNew(hintLowerCase);
         return listRoadByHint.stream().collect(Collectors.toList());
     }
     
@@ -51,6 +52,7 @@ public class CreateRoadSegmentBean {
     	i--;
     	String idRoadSelected = (String)event.getObject();
     	Road roadSelected = listRoadByHint.stream().filter(x -> String.valueOf(x.getRoadId()).equals(idRoadSelected)).findFirst().orElse(null);
+    	PrimeFaces.current().executeScript("focusMap("+roadSelected.getLatitude()+", "+roadSelected.getLongitude()+");");
     	i--;
 //        CommonService commonService = new CommonService();
 //        List<LandNearRoad> listLandNearRoad = commonService.getLandNearByRoadId(roadId);

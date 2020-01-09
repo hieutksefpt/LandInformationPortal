@@ -45,6 +45,9 @@ function initMap() {
         }
     });
 }
+function focusMap(latitude, longitude){
+	map.setCenter(new google.maps.LatLng(latitude, longitude));
+}
 var line;
 function drawRoad(){
     let path = [];
@@ -81,12 +84,12 @@ function removeMarkers(){
 }
 
 function drawDataRoadByJSon() {
-    let json = $('#geojson').val();
-    if (dataLayer != null)
-    for (let i=0; i<dataLayer.length; i++){
-        map.data.remove(dataLayer[i]);
-    }
-    dataLayer = map.data.addGeoJson(JSON.parse(json));
+//    let json = $('#geojson').val();
+//    if (dataLayer != null)
+//    for (let i=0; i<dataLayer.length; i++){
+//        map.data.remove(dataLayer[i]);
+//    }
+//    dataLayer = map.data.addGeoJson(JSON.parse(json));
 //    map.data.addListener('click', function(event){
 //        $('#form-submit\\:clickedLandId').val(event.feature.getProperty('id'));
 //        $('#form-submit\\:nameLandInput').attr("placeholder", event.feature.getProperty('name'));

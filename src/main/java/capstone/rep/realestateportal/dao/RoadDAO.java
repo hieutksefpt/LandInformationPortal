@@ -127,5 +127,37 @@ public class RoadDAO {
         }
         return inserted;
     }
+    
+    public ArrayList<Road> getRoadByName_DBNew(String hint) throws Exception {
+        // TODO process db get list road by prefix start with hint from db
+        ArrayList<Road> listRoad = new ArrayList<>();
+        // get Road here from DB
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            String sql = "select RoadID, RoadName, Latitude, Longitude from Road where RoadName like ?";
+            pre = conn.prepareStatement(sql);
+            pre.setString(1, "%" + hint + "%");
+            rs = pre.executeQuery();
+            System.out.println(sql);
+            while (rs.next()) {
+                int roadId = rs.getInt("RoadID");
+                String name = rs.getString("Name");
+                Double latitude = rs.getDouble("Latitude");
+                Double longitude = rs.getDouble("Longitude");
+                ArrayList<RoadSegment> listRoadSegment = new ArrayList<>();
+                listRoadSegment = capstone.rep.realestateportal.dao.RoadSegmentDAO.roadSegmentDAO.getRoadSegmentByRoadID_DBNew(roadId);
+                listRoad.add(new Road().setRoadId(roadId).setName(name).setListRoadSegment(listRoadSegment).setLatitude(latitude).setLongitude(longitude));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            closeConnection(conn, pre, rs);
+        }
+        return listRoad;
+    }
 
 }

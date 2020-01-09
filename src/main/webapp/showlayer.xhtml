@@ -33,9 +33,9 @@
                                                         itemValue="#{element.roadId}"
                                                         forceSelection="true">
                                             <p:ajax event="itemSelect" 
-                                                    listener="${showLayerBean.changeRoadViewById()}" 
+                                                    listener="${showLayerBean.changeRoadViewById}" 
                                                     process="@form" update="form-submit gjsonRoad" 
-                                                    oncomplete="drawRoad()"/>
+                                                    oncomplete=""/>
                                         </p:autoComplete>   
                                     </h:form>
                                 </div>
@@ -46,7 +46,7 @@
 
             </ui:define>
             <ui:define name="footer">
-                <h:outputScript name="createlayer.js" library="js" />
+                <h:outputScript name="showlayer.js" library="js" />
                 <script type="text/javascript"
                         src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
                 async="true" defer="true"></script>

@@ -33,7 +33,7 @@
                                                         itemValue="#{element.roadId}"
                                                         forceSelection="true">
                                             <p:ajax event="itemSelect" 
-                                                    listener="${createLayerBean.changeRoadViewById()}" 
+                                                    listener="${createLayerBean.changeRoadViewById}" 
                                                     process="@form" update="form-submit gjsonRoad" 
                                                     oncomplete="drawRoad()"/>
                                         </p:autoComplete>   

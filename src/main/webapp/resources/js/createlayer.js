@@ -76,3 +76,7 @@ function drawRoad() {
     var json = $('#geojson').val();
     dataLayer = map.data.addGeoJson(JSON.parse(json));
 }
+
+function focusMap(latitude, longitude){
+	map.setCenter(new google.maps.LatLng(latitude, longitude));
+}

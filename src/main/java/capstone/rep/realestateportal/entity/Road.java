@@ -19,7 +19,9 @@ public class Road implements Serializable{
     private ArrayList<Coordinate> listCoordinate;
     
     private ArrayList<RoadSegment> listRoadSegment;
-
+    private double latitude;
+    private double longitude;
+    
     public ArrayList<RoadSegment> getListRoadSegment() {
         return listRoadSegment;
     }
@@ -74,5 +76,24 @@ public class Road implements Serializable{
         this.listCoordinate = listCoordinate;
         return this;
     }
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public Road setLatitude(double latitude) {
+		this.latitude = latitude;
+		return this;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public Road setLongitude(double longitude) {
+		this.longitude = longitude;
+		return this;
+	}
+    
     
 }

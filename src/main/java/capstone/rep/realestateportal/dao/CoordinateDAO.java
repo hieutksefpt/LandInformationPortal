@@ -209,4 +209,32 @@ public class CoordinateDAO {
         }
         return inserted;
     }
+    
+    public ArrayList<Coordinate> getListCoordinateWithRoadSegmentID_DBNew(int roadSegmentId) throws Exception {
+        ArrayList<Coordinate> listCoordinate = new ArrayList<>();
+        // get Road here from DB
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            String sql = "select RoadSegmentCoordinateID, Latitude, Longitude from RoadSegmentCoordinate where RoadSegmentID = ? order by RoadSegmentCoordinateID asc";
+            pre = conn.prepareStatement(sql);
+            pre.setInt(1, roadSegmentId);
+            System.out.println(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                int coordinateId = rs.getInt("RoadSegmentCoordinateID");
+                double latitude = rs.getDouble("Latitude");
+                double longitude = rs.getDouble("Longitude");
+                listCoordinate.add(new Coordinate().setCoordinateId(coordinateId).setLatitude(latitude).setLongitude(longitude));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            closeConnection(conn, pre, rs);
+        }
+        return listCoordinate;
+    }
 }

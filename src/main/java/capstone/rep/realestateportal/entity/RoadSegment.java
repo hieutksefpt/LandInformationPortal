@@ -31,8 +31,9 @@ public class RoadSegment {
         return listCoordinate;
     }
 
-    public void setListCoordinate(ArrayList<Coordinate> listCoordinate) {
+    public RoadSegment setListCoordinate(ArrayList<Coordinate> listCoordinate) {
         this.listCoordinate = listCoordinate;
+        return this;
     }
 
     public int getRoadSegmentId() {

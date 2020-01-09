@@ -117,4 +117,32 @@ public class RoadSegmentDAO {
         }
         return inserted;
     }
+    
+    public ArrayList<RoadSegment> getRoadSegmentByRoadID_DBNew(int roadId) throws Exception {
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+        ArrayList<RoadSegment> listRoadSegment = new ArrayList<>();
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            String sql = "select RoadSegmentID, RoadSegmentName from RoadSegment where RoadID = ?";
+            pre = conn.prepareStatement(sql);
+            pre.setInt(1, roadId);
+            System.out.println(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                int roadSegmentId = rs.getInt("RoadSegmentID");
+                String name = rs.getNString("Name");
+                ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoordinateWithRoadSegmentID_DBNew(roadSegmentId);
+                listRoadSegment.add(new RoadSegment().setRoadSegmentId(roadSegmentId).setName(name).setListCoordinate(listCoordinate));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            closeConnection(conn, pre, rs);
+        }
+        return listRoadSegment;
+    }
 }
+
+

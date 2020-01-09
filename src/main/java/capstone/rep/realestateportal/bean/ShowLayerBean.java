@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.PrimeFaces;
+import org.primefaces.event.SelectEvent;
 
 /**
  * @dateCreate 09/01/2020
@@ -21,30 +23,43 @@ public class ShowLayerBean {
     private String roadId;
     private String gjsonRoad;
     private String jsonCoordinateSubmit;
+    private String jsonByRoad;
+    private String firstLat;
+    private String firstLng;
+    private String secondLat;
+    private String secondLng;
+    private String roadSegmentName;
+    private Road selectedRoad;
+    private List<Road> listRoadByHint;
 
-    //private List<RoadSegment> listRoadSegment;
     public List<Road> listRoadByHint(String hint) {
         if (hint == null) {
             hint = "";
         }
-        String hintLowerCase = (hint + "").toLowerCase();
+        String hintLowerCase = hint.toLowerCase();
         CommonService commonService = new CommonService();
-        List<Road> listRoadByHint = commonService.getRoadByHint(hintLowerCase);
+        listRoadByHint = commonService.getRoadByHint_DBNew(hintLowerCase);
         return listRoadByHint.stream().collect(Collectors.toList());
+    }
+
+    public void changeRoadViewById(SelectEvent event) {
+        int i = 1;
+        i++;
+        i--;
+        String idRoadSelected = (String) event.getObject();
+        Road roadSelected = listRoadByHint.stream().filter(x -> String.valueOf(x.getRoadId()).equals(idRoadSelected)).findFirst().orElse(null);
+        PrimeFaces.current().executeScript("focusMap(" + roadSelected.getLatitude() + ", " + roadSelected.getLongitude() + ");");
+        i--;
+//        CommonService commonService = new CommonService();
+//        List<LandNearRoad> listLandNearRoad = commonService.getLandNearByRoadId(roadId);
+//        JSONObject jsonObject = commonService.createGeoJson(listLandNearRoad);
+//        jsonByRoad = jsonObject.toString();
     }
 
     public ArrayList<RoadSegment> getListRoadSegmentOfRoad() {
         ArrayList sample = new ArrayList();
         sample.add(new RoadSegment(0, "Test 1", null, null));
         return sample;
-    }
-
-    public void changeRoadViewById() {
-        CommonService commonService = new CommonService();
-        //Using common service get road segment by road id
-        //listRoadSegment = commonService.getListRoadSegmentByRoadId(roadId);
-        //JSONObject jsonObject = commonService.createLineGeoJSON(listRoadSegment);
-        //geoJSON = jsonObject.toString();
     }
 
     public String getJsonCoordinateSubmit() {

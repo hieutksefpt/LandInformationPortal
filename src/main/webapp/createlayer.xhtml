@@ -63,6 +63,12 @@
                                             <strong>Loại lớp:</strong>
                                         </div>
                                         <div class="col-md-6">
+                                            <h:selectOneMenu value="#{createLayerBean.layerType}">
+                                                <f:selectItem itemValue="1" itemLabel="Lớp 1" />
+                                                <f:selectItem itemValue="2" itemLabel="Lớp 2" />
+                                                <f:selectItem itemValue="3" itemLabel="Lớp 3" />
+                                                <f:selectItem itemValue="4" itemLabel="Lớp 4" />
+                                            </h:selectOneMenu>
                                             <select id="layerType">
                                                 <option value="1">Lớp 1</option>
                                                 <option value="2">Lớp 2</option>
@@ -82,8 +88,12 @@
                                                     onclick="clearInput()">Xóa</button>
                                         </div>
                                         <div class="btn-group">
-                                            <button class="btn btn-primary" 
-                                                    type="button">Lưu</button>
+                                            <h:commandButton class="btn btn-primary" type="button"
+                                                             value="Lưu">
+                                                <p:ajax event="click" process="@form"
+                                                        listener="${createLayerBean.saveLayer()}" update="gjsonRoad"
+                                                        oncomplete="clearInput()"></p:ajax>
+                                            </h:commandButton>
                                         </div>
                                     </div>
                                 </c:if>

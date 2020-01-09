@@ -1,5 +1,6 @@
 package capstone.rep.realestateportal.bean;
 
+import capstone.rep.realestateportal.entity.Coordinate;
 import capstone.rep.realestateportal.entity.Road;
 import capstone.rep.realestateportal.entity.RoadSegment;
 import capstone.rep.realestateportal.service.CommonService;
@@ -10,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONObject;
 
 /**
@@ -24,7 +26,8 @@ public class CreateLayerBean {
     private String roadId;
     private String gjsonRoad;
     private String jsonCoordinateSubmit;
-
+    private String layerType;
+    
     private Road selectedRoad;
     private List<Road> listRoadByHint;
 
@@ -57,6 +60,16 @@ public class CreateLayerBean {
         //geoJSON = jsonObject.toString();
     }
 
+    public void saveLayer() {
+        JSONArray jsonArray = new JSONArray(jsonCoordinateSubmit);
+        List<Coordinate> listCoordinateSubmit = new ArrayList<>();
+        for (Object element: jsonArray){
+            double longitude = (double)((JSONObject)element).get("lng");
+            double latitude = (double)((JSONObject)element).get("lat");
+            listCoordinateSubmit.add(new Coordinate().setLatitude(latitude).setLongitude(longitude));
+        }
+    }
+    
     public Road getSelectedRoad() {
         return selectedRoad;
     }
@@ -87,6 +100,14 @@ public class CreateLayerBean {
 
     public void setRoadId(String roadId) {
         this.roadId = roadId;
+    }
+
+    public String getLayerType() {
+        return layerType;
+    }
+
+    public void setLayerType(String layerType) {
+        this.layerType = layerType;
     }
     
 }

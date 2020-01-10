@@ -1,9 +1,11 @@
 package capstone.rep.realestateportal.bean;
 
 import capstone.rep.realestateportal.entity.Coordinate;
+import capstone.rep.realestateportal.entity.Layer;
 import capstone.rep.realestateportal.entity.Road;
 import capstone.rep.realestateportal.entity.RoadSegment;
 import capstone.rep.realestateportal.service.CommonService;
+import capstone.rep.realestateportal.service.CreateLayerService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +29,7 @@ public class CreateLayerBean {
     private String gjsonRoad;
     private String jsonCoordinateSubmit;
     private String layerType;
+    private String selectedRoadSegmentID;
     
     private Road selectedRoad;
     private List<Road> listRoadByHint;
@@ -53,7 +56,7 @@ public class CreateLayerBean {
         PrimeFaces.current().executeScript("focusMap(" 
                 + selectedRoad.getLatitude() + ", " 
                 + selectedRoad.getLongitude() + ");");
-        CommonService commonService = new CommonService();
+        //CommonService commonService = new CommonService();
         //Using common service get road segment by road id
         //listRoadSegment = commonService.getRoadByHint_DBNew(roadId);
         //JSONObject jsonObject = commonService.createLineGeoJSON(listRoadSegment);
@@ -62,12 +65,18 @@ public class CreateLayerBean {
 
     public void saveLayer() {
         JSONArray jsonArray = new JSONArray(jsonCoordinateSubmit);
-        List<Coordinate> listCoordinateSubmit = new ArrayList<>();
+        ArrayList<Coordinate> listCoordinateSubmit = new ArrayList<>();
         for (Object element: jsonArray){
             double longitude = (double)((JSONObject)element).get("lng");
             double latitude = (double)((JSONObject)element).get("lat");
-            listCoordinateSubmit.add(new Coordinate().setLatitude(latitude).setLongitude(longitude));
+            listCoordinateSubmit.add(new Coordinate()
+                    .setLatitude(latitude).setLongitude(longitude));
         }
+        Layer layer = new Layer();
+        layer.setLayerName("Test")
+                .setLayerType(layerType).setListCoordinate(listCoordinateSubmit);
+        new CreateLayerService().insertLayerByRoadSegment(layer,
+                new RoadSegment().setRoadSegmentId(Integer.parseInt(selectedRoadSegmentID)));
     }
     
     public Road getSelectedRoad() {
@@ -108,6 +117,14 @@ public class CreateLayerBean {
 
     public void setLayerType(String layerType) {
         this.layerType = layerType;
+    }
+
+    public String getSelectedRoadSegmentID() {
+        return selectedRoadSegmentID;
+    }
+
+    public void setSelectedRoadSegmentID(String selectedRoadSegmentID) {
+        this.selectedRoadSegmentID = selectedRoadSegmentID;
     }
     
 }

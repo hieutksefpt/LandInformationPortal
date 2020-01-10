@@ -49,7 +49,7 @@
                                             <strong>Đoạn đường:</strong>
                                         </div>
                                         <div class="col-md-6">
-                                            <h:selectOneMenu>
+                                            <h:selectOneMenu value="#{createLayerBean.selectedRoadSegmentID}">
                                                 <f:selectItems value="#{createLayerBean.listRoadSegmentOfRoad}" var="c"
                                                                itemLabel="#{c.name}" itemValue="#{c.roadSegmentId}" />
                                             </h:selectOneMenu>
@@ -69,12 +69,6 @@
                                                 <f:selectItem itemValue="3" itemLabel="Lớp 3" />
                                                 <f:selectItem itemValue="4" itemLabel="Lớp 4" />
                                             </h:selectOneMenu>
-                                            <select id="layerType">
-                                                <option value="1">Lớp 1</option>
-                                                <option value="2">Lớp 2</option>
-                                                <option value="3">Lớp 3</option>
-                                                <option value="4">Lớp 4</option>
-                                            </select>
                                         </div>
                                     </div>
                                     <div class="d-xl-flex justify-content-xl-center btn-toolbar"

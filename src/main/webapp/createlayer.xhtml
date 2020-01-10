@@ -23,10 +23,9 @@
                                     <strong>Tuyến đường:</strong>
                                 </div>
                                 <div class="col-md-6">
+                                    <h:inputHidden id="gjsonRoad" 
+                                        value="#{createLayerBean.gjsonRoad}"/>
                                     <h:form> 
-                                        <h:inputHidden id="gjsonRoad" 
-                                                       value="#{createLayerBean.gjsonRoad}"/>
-
                                         <p:autoComplete value="${createLayerBean.roadId}" 
                                                         id="autocompleteValue"
                                                         completeMethod="${createLayerBean.listRoadByHint}"
@@ -37,7 +36,7 @@
                                                     listener="${createLayerBean.changeRoadViewById}" 
                                                     process="@form" update="form-submit gjsonRoad" 
                                                     oncomplete="drawRoad()"/>
-                                        </p:autoComplete>   
+                                        </p:autoComplete>
                                     </h:form>
                                 </div>
                             </div>
@@ -49,7 +48,7 @@
                                             <strong>Đoạn đường:</strong>
                                         </div>
                                         <div class="col-md-6">
-                                            <h:selectOneMenu value="#{createLayerBean.selectedRoadSegmentID}">
+                                            <h:selectOneMenu value="#{createLayerBean.selectedRoadSegmentID}" style="width: 100%;">
                                                 <f:selectItems value="#{createLayerBean.listRoadSegmentOfRoad}" var="c"
                                                                itemLabel="#{c.name}" itemValue="#{c.roadSegmentId}" />
                                             </h:selectOneMenu>
@@ -63,7 +62,7 @@
                                             <strong>Loại lớp:</strong>
                                         </div>
                                         <div class="col-md-6">
-                                            <h:selectOneMenu value="#{createLayerBean.layerType}">
+                                            <h:selectOneMenu value="#{createLayerBean.layerType}" style="width: 100%;">
                                                 <f:selectItem itemValue="1" itemLabel="Lớp 1" />
                                                 <f:selectItem itemValue="2" itemLabel="Lớp 2" />
                                                 <f:selectItem itemValue="3" itemLabel="Lớp 3" />

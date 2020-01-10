@@ -73,10 +73,11 @@ function drawPolygon(){
 }
 
 function drawRoad() {
-    var json = $('#geojson').val();
+    var json = $('#gjsonRoad').val();
+    console.log(json);
     dataLayer = map.data.addGeoJson(JSON.parse(json));
 }
 
 function focusMap(latitude, longitude){
-	map.setCenter(new google.maps.LatLng(latitude, longitude));
+    map.setCenter(new google.maps.LatLng(latitude, longitude));
 }

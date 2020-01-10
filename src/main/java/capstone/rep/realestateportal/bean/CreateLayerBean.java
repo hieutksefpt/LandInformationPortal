@@ -56,11 +56,10 @@ public class CreateLayerBean {
         PrimeFaces.current().executeScript("focusMap(" 
                 + selectedRoad.getLatitude() + ", " 
                 + selectedRoad.getLongitude() + ");");
-        //CommonService commonService = new CommonService();
         //Using common service get road segment by road id
-        //listRoadSegment = commonService.getRoadByHint_DBNew(roadId);
-        //JSONObject jsonObject = commonService.createLineGeoJSON(listRoadSegment);
-        //geoJSON = jsonObject.toString();
+        CommonService commonService = new CommonService();
+    	JSONObject jsonObject = commonService.createGeoJsonLine(selectedRoad.getListRoadSegment());
+        gjsonRoad = jsonObject.toString();
     }
 
     public void saveLayer() {

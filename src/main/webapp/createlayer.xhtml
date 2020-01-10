@@ -27,7 +27,8 @@
                                         <h:inputHidden id="gjsonRoad" 
                                                        value="#{createLayerBean.gjsonRoad}"/>
 
-                                        <p:autoComplete value="${createLayerBean.roadId}" id="autocompleteValue"
+                                        <p:autoComplete value="${createLayerBean.roadId}" 
+                                                        id="autocompleteValue"
                                                         completeMethod="${createLayerBean.listRoadByHint}"
                                                         var="element" itemLabel="#{element.name}"
                                                         itemValue="#{element.roadId}"
@@ -42,7 +43,7 @@
                             </div>
 
                             <h:form id="form-submit">
-                                <c:if test="${not empty createLayerBean.roadId}">
+                                <c:if test="${not empty createLayerBean.selectedRoad.listRoadSegment}">
                                     <div class="row" style="padding-top: 5px;">
                                         <div class="col-md-6">
                                             <strong>Đoạn đường:</strong>
@@ -73,8 +74,8 @@
                                     <div class="d-xl-flex justify-content-xl-center btn-toolbar"
                                          style="padding-top: 5px;">
                                         <div class="btn-group mr-3">
-                                            <button class="btn btn-primary" 
-                                                    type="button">Vẽ</button>
+                                            <button class="btn btn-primary" type="button"
+                                                    onclick="drawPolygon()">Vẽ</button>
                                         </div>
                                         <div class="btn-group mr-3">
                                             <button class="btn btn-primary" type="button" 
@@ -87,8 +88,6 @@
                                     </div>
                                 </c:if>
                             </h:form>
-
-
                         </div>
                     </div>
                 </div>

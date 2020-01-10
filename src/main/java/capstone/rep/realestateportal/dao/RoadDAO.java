@@ -145,7 +145,7 @@ public class RoadDAO {
             System.out.println(sql);
             while (rs.next()) {
                 int roadId = rs.getInt("RoadID");
-                String name = rs.getString("Name");
+                String name = rs.getString("RoadName");
                 Double latitude = rs.getDouble("Latitude");
                 Double longitude = rs.getDouble("Longitude");
                 ArrayList<RoadSegment> listRoadSegment = new ArrayList<>();
@@ -159,5 +159,37 @@ public class RoadDAO {
         }
         return listRoad;
     }
+    
+    public Road getRoadByRoadId_DBNew(int id) throws Exception {
+        // TODO process db get list road by prefix start with hint from db
+    	Road road = new Road();
+        // get Road here from DB
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            String sql = "select RoadID, RoadName, Latitude, Longitude from Road where RoadID = ?";
+            pre = conn.prepareStatement(sql);
+            pre.setInt(1, id);
+            rs = pre.executeQuery();
+            System.out.println(sql);
+            while (rs.next()) {
+                int roadId = rs.getInt("RoadID");
+                String name = rs.getString("RoadName");
+                Double latitude = rs.getDouble("Latitude");
+                Double longitude = rs.getDouble("Longitude");
+                ArrayList<RoadSegment> listRoadSegment = new ArrayList<>();
+                listRoadSegment = capstone.rep.realestateportal.dao.RoadSegmentDAO.roadSegmentDAO.getRoadSegmentByRoadID_DBNew(roadId);
+                road.setRoadId(roadId).setName(name).setListRoadSegment(listRoadSegment).setLatitude(latitude).setLongitude(longitude);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            closeConnection(conn, pre, rs);
+        }
+        return road;
+    } 
 
 }

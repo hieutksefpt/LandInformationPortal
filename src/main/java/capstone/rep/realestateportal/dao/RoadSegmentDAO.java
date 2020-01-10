@@ -132,7 +132,7 @@ public class RoadSegmentDAO {
             rs = pre.executeQuery();
             while (rs.next()) {
                 int roadSegmentId = rs.getInt("RoadSegmentID");
-                String name = rs.getNString("Name");
+                String name = rs.getNString("RoadSegmentName");
                 ArrayList<Coordinate> listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoordinateWithRoadSegmentID_DBNew(roadSegmentId);
                 listRoadSegment.add(new RoadSegment().setRoadSegmentId(roadSegmentId).setName(name).setListCoordinate(listCoordinate));
             }

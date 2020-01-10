@@ -237,4 +237,31 @@ public class CoordinateDAO {
         }
         return listCoordinate;
     }
+    
+    public ArrayList<Coordinate> getListCoordinateWithLayerId_DBNew(int layerId) throws Exception {
+        ArrayList<Coordinate> listCoordinate = new ArrayList<>();
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            String sql = "select LayerCoordinateID, Latitude, Longitude from LayerCoordinate where LayerID = ? order by LayerCoordinateID asc";
+            pre = conn.prepareStatement(sql);
+            pre.setInt(1, layerId);
+            System.out.println(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                int coordinateId = rs.getInt("LayerCoordinateID");
+                double latitude = rs.getDouble("Latitude");
+                double longitude = rs.getDouble("Longitude");
+                listCoordinate.add(new Coordinate().setCoordinateId(coordinateId).setLatitude(latitude).setLongitude(longitude));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            closeConnection(conn, pre, rs);
+        }
+        return listCoordinate;
+    }
 }

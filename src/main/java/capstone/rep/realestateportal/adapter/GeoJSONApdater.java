@@ -9,6 +9,10 @@ import capstone.rep.realestateportal.common.ColorDrawer;
 import capstone.rep.realestateportal.entity.Coordinate;
 import capstone.rep.realestateportal.entity.LandNearRoad;
 import capstone.rep.realestateportal.entity.RoadSegment;
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 import java.util.List;
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONException;
@@ -103,12 +107,20 @@ public class GeoJSONApdater {
     }
     
     
+<<<<<<< HEAD
+=======
+    
+>>>>>>> master
    /// Line GeoJSON ///
     
     
     public static JSONObject createLineGeoJSON(List<RoadSegment> listRoadSegment) {
         JSONObject json = new JSONObject();
+<<<<<<< HEAD
         json.put("type", "LineString");
+=======
+        json.put("type", "FeatureCollection");
+>>>>>>> master
         JSONArray jsonArray = new JSONArray();
 
         for (RoadSegment roadSegment : listRoadSegment) {
@@ -150,7 +162,11 @@ public class GeoJSONApdater {
         List<Coordinate> listCoordinate = roadSegment.getListCoordinate();
         
         JSONObject json = new JSONObject();
+<<<<<<< HEAD
         json.put("type", "Line String");
+=======
+        json.put("type", "LineString");
+>>>>>>> master
         JSONArray jsonAxis = new JSONArray();
         JSONArray jsonArrayFirst = null;
         for (Coordinate coordinate: listCoordinate){
@@ -165,6 +181,7 @@ public class GeoJSONApdater {
                 jsonArrayFirst.put(coordinate.getLatitude());
             }
         }
+<<<<<<< HEAD
         jsonAxis.put(jsonArrayFirst);
 
         //----------
@@ -172,6 +189,13 @@ public class GeoJSONApdater {
         jsonTemp.put((Object) jsonAxis);
 
         json.put("coordinates", jsonTemp);
+=======
+        //----------
+//        JSONArray jsonTemp = new JSONArray();
+//        jsonTemp.put((Object) jsonAxis);
+
+        json.put("coordinates", jsonAxis);
+>>>>>>> master
         return json;
     }
 }

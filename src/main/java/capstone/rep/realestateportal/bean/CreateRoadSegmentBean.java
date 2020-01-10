@@ -1,5 +1,6 @@
 package capstone.rep.realestateportal.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collector;
@@ -12,6 +13,7 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.json.JSONObject;
 
+import capstone.rep.realestateportal.dao.RoadDAO;
 import capstone.rep.realestateportal.entity.Coordinate;
 import capstone.rep.realestateportal.entity.LandNearRoad;
 import capstone.rep.realestateportal.entity.Road;
@@ -27,7 +29,7 @@ import capstone.rep.realestateportal.service.DrawLandService;
  */
 @ManagedBean
 @ViewScoped
-public class CreateRoadSegmentBean {
+public class CreateRoadSegmentBean implements Serializable{
 	private String jsonByRoad;
     private String roadId;
     private String firstLat;
@@ -46,18 +48,20 @@ public class CreateRoadSegmentBean {
         return listRoadByHint.stream().collect(Collectors.toList());
     }
     
-    public void changeRoadViewById(SelectEvent event) { 
-    	int i = 1;
-    	i++;
-    	i--;
-    	String idRoadSelected = (String)event.getObject();
-    	Road roadSelected = listRoadByHint.stream().filter(x -> String.valueOf(x.getRoadId()).equals(idRoadSelected)).findFirst().orElse(null);
-    	PrimeFaces.current().executeScript("focusMap("+roadSelected.getLatitude()+", "+roadSelected.getLongitude()+");");
-    	i--;
-//        CommonService commonService = new CommonService();
-//        List<LandNearRoad> listLandNearRoad = commonService.getLandNearByRoadId(roadId);
-//        JSONObject jsonObject = commonService.createGeoJson(listLandNearRoad);
-//        jsonByRoad = jsonObject.toString();
+    public void changeRoadViewById() { 
+    	String idRoadSelected = roadId;
+    	RoadDAO roadDAO = new RoadDAO();
+    	try {
+			selectedRoad = roadDAO.getRoadByRoadId_DBNew(Integer.valueOf(idRoadSelected));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//    	selectedRoad = listRoadByHint.stream().filter(x -> String.valueOf(x.getRoadId()).equals(idRoadSelected)).findFirst().orElse(null);
+    	PrimeFaces.current().executeScript("focusMap("+selectedRoad.getLatitude()+", "+selectedRoad.getLongitude()+");");
+    	CommonService commonService = new CommonService();
+    	JSONObject jsonObject = commonService.createGeoJsonLine(selectedRoad.getListRoadSegment());
+        jsonByRoad = jsonObject.toString();
     }
 
     public void saveButtonClick(){
@@ -69,12 +73,7 @@ public class CreateRoadSegmentBean {
     	roadSegment.setName(roadSegmentName).setRoad(selectedRoad).setListCoordinate(listCoordinate);
     	CreateRoadSegmentService createRoadSegmentService = new CreateRoadSegmentService();
     	createRoadSegmentService.insertNewRoadSegmentByRoad(roadSegment, selectedRoad);
-    	
-    	
-//        DrawLandService drawLandService = new DrawLandService();
-//        drawLandService.submitNewLandNear(landCalculated);
-//        
-//        changeRoadViewById();
+        changeRoadViewById();
     }
 	
     public String getJsonByRoad() {

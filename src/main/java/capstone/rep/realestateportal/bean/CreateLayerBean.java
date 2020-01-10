@@ -62,8 +62,14 @@ public class CreateLayerBean {
         gjsonRoad = jsonObject.toString();
     }
 
+    /*
+    * Insert layer when click button Save
+    */
     public void saveLayer() {
+        //get marker coordinate
         JSONArray jsonArray = new JSONArray(jsonCoordinateSubmit);
+        
+        //parse marker coordinate to list
         ArrayList<Coordinate> listCoordinateSubmit = new ArrayList<>();
         for (Object element: jsonArray){
             double longitude = (double)((JSONObject)element).get("lng");
@@ -71,11 +77,15 @@ public class CreateLayerBean {
             listCoordinateSubmit.add(new Coordinate()
                     .setLatitude(latitude).setLongitude(longitude));
         }
+        
+        //init layer
         Layer layer = new Layer();
-        layer.setLayerName("Test")
+        layer.setLayerName("Test") //default
                 .setLayerType(layerType).setListCoordinate(listCoordinateSubmit);
+        
+        //insert layer by ID of road segment
         new CreateLayerService().insertLayerByRoadSegment(layer,
-                new RoadSegment().setRoadSegmentId(Integer.parseInt(selectedRoadSegmentID)));
+                new RoadSegment().setRoadSegmentId(Integer.parseInt(selectedRoadSegmentID))); //give ID road segment only
     }
     
     public Road getSelectedRoad() {

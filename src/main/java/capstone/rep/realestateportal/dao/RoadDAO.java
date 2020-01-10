@@ -73,8 +73,8 @@ public class RoadDAO {
             String sql = "select r.RoadID, r.Name, c.CityID from Road r inner join City c on r.CityID = c.CityID where r.Name like ?";
             pre = conn.prepareStatement(sql);
             pre.setString(1, "%" + hint + "%");
-            rs = pre.executeQuery();
             System.out.println(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 int roadId = rs.getInt("RoadID");
                 String name = rs.getString("Name");
@@ -100,10 +100,10 @@ public class RoadDAO {
             conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
             String sql = "INSERT INTO RoadSegment(RoadSegmentName, RoadID) "
                     + "VALUES (?,?)";
-            System.out.println(sql);
             pre = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pre.setNString(1, roadSegment.getName());
             pre.setDouble(2, road.getRoadId());
+            System.out.println(sql);
             inserted = pre.executeUpdate();
 
             try (ResultSet generatedKeys = pre.getGeneratedKeys()) {
@@ -116,7 +116,7 @@ public class RoadDAO {
                                         coordinate.getLongitude());
                     }
                 } else {
-                    System.out.print("Creating land failed, no ID obtained.");
+                    System.out.print("Creating roadSegment failed, no ID obtained.");
                 }
             }
 
@@ -129,9 +129,7 @@ public class RoadDAO {
     }
     
     public ArrayList<Road> getRoadByName_DBNew(String hint) throws Exception {
-        // TODO process db get list road by prefix start with hint from db
         ArrayList<Road> listRoad = new ArrayList<>();
-        // get Road here from DB
         Connection conn = null;
         ResultSet rs = null;
         PreparedStatement pre = null;
@@ -141,8 +139,8 @@ public class RoadDAO {
             String sql = "select RoadID, RoadName, Latitude, Longitude from Road where RoadName like ?";
             pre = conn.prepareStatement(sql);
             pre.setString(1, "%" + hint + "%");
-            rs = pre.executeQuery();
             System.out.println(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 int roadId = rs.getInt("RoadID");
                 String name = rs.getString("Name");

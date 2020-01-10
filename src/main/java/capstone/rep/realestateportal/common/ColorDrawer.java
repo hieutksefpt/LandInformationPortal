@@ -19,4 +19,16 @@ public class ColorDrawer {
         }
         return "red";
     }
+    public static String IdentifyColorLayer(int typeLayer) {
+        if (typeLayer == 1) {
+        	return "red";
+        }
+        if (typeLayer == 2) {
+        	return "orange";
+        }
+        if (typeLayer == 3) {
+        	return "blue";
+        }
+        return "pink";
+    }
 }

@@ -1,5 +1,7 @@
 package capstone.rep.realestateportal.bean;
 
+import capstone.rep.realestateportal.dao.LayerDAO;
+import capstone.rep.realestateportal.dao.RoadDAO;
 import capstone.rep.realestateportal.entity.Coordinate;
 import capstone.rep.realestateportal.entity.Layer;
 import capstone.rep.realestateportal.entity.Road;
@@ -9,6 +11,8 @@ import capstone.rep.realestateportal.service.CreateLayerService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.PrimeFaces;
@@ -33,7 +37,16 @@ public class CreateLayerBean {
     
     private Road selectedRoad;
     private List<Road> listRoadByHint;
-
+    private List<Layer> listLayerType;
+    
+    private String layerTypeSelected;
+    private String jsonLayer;
+    @PostConstruct
+    public void init() {
+    	LayerDAO layerDAO = new LayerDAO();
+    	listLayerType = layerDAO.getAllLayerType();
+    }
+    
     public List<Road> listRoadByHint(String hint) {
         if (hint == null) {
             hint = "";
@@ -48,11 +61,14 @@ public class CreateLayerBean {
         return selectedRoad.getListRoadSegment();
     }
 
-    public void changeRoadViewById(SelectEvent event) {
-        String roadId = (String) event.getObject();
-        selectedRoad = listRoadByHint.stream()
-                .filter(x -> String.valueOf(x.getRoadId())
-                        .equals(roadId)).findFirst().orElse(null);
+    public void changeRoadViewById() {
+        RoadDAO roadDAO = new RoadDAO();
+        try {
+			selectedRoad = roadDAO.getRoadByRoadId_DBNew(Integer.valueOf(roadId));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         PrimeFaces.current().executeScript("focusMap(" 
                 + selectedRoad.getLatitude() + ", " 
                 + selectedRoad.getLongitude() + ");");
@@ -60,6 +76,10 @@ public class CreateLayerBean {
         CommonService commonService = new CommonService();
     	JSONObject jsonObject = commonService.createGeoJsonLine(selectedRoad.getListRoadSegment());
         gjsonRoad = jsonObject.toString();
+        
+        List<Layer> listLayer = new CreateLayerService().getListLayerByRoad(selectedRoad);
+        jsonObject = commonService.createGeoJsonLayer(listLayer);
+        jsonLayer = jsonObject.toString();
     }
 
     /*
@@ -81,11 +101,13 @@ public class CreateLayerBean {
         //init layer
         Layer layer = new Layer();
         layer.setLayerName("Test") //default
-                .setLayerType(layerType).setListCoordinate(listCoordinateSubmit);
+                .setLayerType(layerTypeSelected).setListCoordinate(listCoordinateSubmit);
         
         //insert layer by ID of road segment
         new CreateLayerService().insertLayerByRoadSegment(layer,
                 new RoadSegment().setRoadSegmentId(Integer.parseInt(selectedRoadSegmentID))); //give ID road segment only
+        
+        changeRoadViewById();
     }
     
     public Road getSelectedRoad() {
@@ -135,5 +157,30 @@ public class CreateLayerBean {
     public void setSelectedRoadSegmentID(String selectedRoadSegmentID) {
         this.selectedRoadSegmentID = selectedRoadSegmentID;
     }
+
+	public List<Layer> getListLayerType() {
+		return listLayerType;
+	}
+
+	public void setListLayerType(List<Layer> listLayerType) {
+		this.listLayerType = listLayerType;
+	}
+
+	public String getLayerTypeSelected() {
+		return layerTypeSelected;
+	}
+
+	public void setLayerTypeSelected(String layerTypeSelected) {
+		this.layerTypeSelected = layerTypeSelected;
+	}
+
+	public String getJsonLayer() {
+		return jsonLayer;
+	}
+
+	public void setJsonLayer(String jsonLayer) {
+		this.jsonLayer = jsonLayer;
+	}
+	
     
 }

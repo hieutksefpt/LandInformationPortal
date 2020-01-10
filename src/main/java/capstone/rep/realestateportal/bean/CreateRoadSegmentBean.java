@@ -13,9 +13,9 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.json.JSONObject;
 
+import capstone.rep.realestateportal.dao.LayerDAO;
 import capstone.rep.realestateportal.dao.RoadDAO;
 import capstone.rep.realestateportal.entity.Coordinate;
-import capstone.rep.realestateportal.entity.LandNearRoad;
 import capstone.rep.realestateportal.entity.Road;
 import capstone.rep.realestateportal.entity.RoadSegment;
 import capstone.rep.realestateportal.service.CommonService;

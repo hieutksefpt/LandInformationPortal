@@ -77,6 +77,17 @@ function drawRoad() {
     console.log(json);
     dataLayer = map.data.addGeoJson(JSON.parse(json));
 }
+function drawLayer(){
+	var json = $('#jsonLayer').val();
+    console.log(json);
+    dataLayer = map.data.addGeoJson(JSON.parse(json));
+    map.data.setStyle(function(feature) {
+	    return /** @type {google.maps.Data.StyleOptions} */({
+	      fillColor: feature.getProperty('fill'),
+	      strokeWeight: 1
+	    });
+	  });
+}
 
 function focusMap(latitude, longitude){
     map.setCenter(new google.maps.LatLng(latitude, longitude));

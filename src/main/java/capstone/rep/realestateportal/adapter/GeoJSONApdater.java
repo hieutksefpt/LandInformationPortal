@@ -8,6 +8,7 @@ package capstone.rep.realestateportal.adapter;
 import capstone.rep.realestateportal.common.ColorDrawer;
 import capstone.rep.realestateportal.entity.Coordinate;
 import capstone.rep.realestateportal.entity.LandNearRoad;
+import capstone.rep.realestateportal.entity.Layer;
 import capstone.rep.realestateportal.entity.RoadSegment;
 
 import java.util.List;
@@ -174,4 +175,78 @@ public class GeoJSONApdater {
         json.put("coordinates", jsonAxis);
         return json;
     }
+      
+      
+      //------------------ layer
+
+
+      public static JSONObject createGeoJSONLayer(List<Layer> listLayer) {
+          JSONObject json = new JSONObject();
+          json.put("type", "FeatureCollection");
+          JSONArray jsonArray = new JSONArray();
+
+          for (Layer layer : listLayer) {
+              JSONObject elementInArray = new JSONObject();
+              List listCoordinate = layer.getListCoordinate();
+              
+              String color = ColorDrawer.IdentifyColorLayer(layer.getLayerTypeId());
+              
+              elementInArray = createJSONObjectArea(layer, color);
+              jsonArray.put(elementInArray);
+          }
+
+          json.put("features", (Object) jsonArray);
+          return json;
+      }
+
+      private static JSONObject createJSONGeometry(Layer layer) {
+          List<Coordinate> listCoordinate = layer.getListCoordinate();
+          
+          JSONObject json = new JSONObject();
+          json.put("type", "Polygon");
+          JSONArray jsonAxis = new JSONArray();
+          JSONArray jsonArrayFirst = null;
+          for (Coordinate coordinate: listCoordinate){
+              JSONArray jsonArray = new JSONArray();
+              jsonArray.put(coordinate.getLongitude());
+              jsonArray.put(coordinate.getLatitude());
+              jsonAxis.put(jsonArray);
+              
+              if (jsonArrayFirst == null){
+                  jsonArrayFirst = new JSONArray();
+                  jsonArrayFirst.put(coordinate.getLongitude());
+                  jsonArrayFirst.put(coordinate.getLatitude());
+              }
+          }
+          jsonAxis.put(jsonArrayFirst);
+
+          //----------
+          JSONArray jsonTemp = new JSONArray();
+          jsonTemp.put((Object) jsonAxis);
+
+          json.put("coordinates", jsonTemp);
+          return json;
+      }
+
+      private static JSONObject createJSONProperty(Layer layer, String color){
+          JSONObject json = new JSONObject();
+          json.put("fill", color);
+          json.put("name", layer.getLayerName());
+          return json;
+      }
+      
+      private static JSONObject createJSONObjectArea(Layer layer, String areaColor) {
+          JSONObject json = new JSONObject();
+          json.put("type", "Feature");
+          
+          JSONObject property = new JSONObject();
+          property = createJSONProperty(layer, areaColor);
+          json.put("properties", (Object) property);
+          
+          JSONObject geometry = new JSONObject();
+          geometry = createJSONGeometry(layer);
+          json.put("geometry", (Object) geometry);
+
+          return json;
+      }
 }

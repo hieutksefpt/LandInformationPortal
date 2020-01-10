@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -26,7 +27,7 @@ public class LayerDAO {
     public LayerDAO() {
     }
 
-    public void closeConnection(Connection conn, PreparedStatement pre, ResultSet rs) throws Exception {
+    public void closeConnection(Connection conn, PreparedStatement pre, ResultSet rs){
         try {
             if (rs != null && !rs.isClosed()) {
                 rs.close();
@@ -42,7 +43,7 @@ public class LayerDAO {
         }
     }
 
-    public ArrayList<Layer> getListLayerByRoad_DBNew(String roadName) throws Exception {
+    public ArrayList<Layer> getListLayerByRoad_DBNew(int roadId) throws Exception {
         // TODO process db get list road by prefix start with hint from db
         ArrayList<Layer> listLayer = new ArrayList<>();
         // get Road here from DB
@@ -52,22 +53,23 @@ public class LayerDAO {
 
         try {
             conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
-            String sql = "select l.LayerID, l.LayerName, lt.LayerTypeName from Road r inner join RoadSegment rs on r.RoadID = rs.RoadID "
+            String sql = "select l.LayerID, l.LayerName, lt.LayerTypeName, lt.LayerTypeID from Road r inner join RoadSegment rs on r.RoadID = rs.RoadID "
                     + "inner join RoadSegmentLayer rsl on rs.RoadSegmentID = rsl.RoadSegmentID "
                     + "inner join Layer l on rsl.LayerID = l.LayerID "
                     + "inner join LayerType lt on l.LayerTypeID = lt.LayerTypeID "
-                    + "where r.RoadName like ? ";
+                    + "where r.RoadId = ? ";
             pre = conn.prepareStatement(sql);
-            pre.setString(1, "%" + roadName + "%");
+            pre.setInt(1, roadId);
             System.out.println(sql);
             rs = pre.executeQuery();
             while (rs.next()) {
                 int layerId = rs.getInt("LayerID");
                 String name = rs.getString("LayerName");
                 String layerType = rs.getString("LayerTypeName");
+                int layerTypeId = rs.getInt("LayerTypeID");
                 ArrayList<Coordinate> listCoordinate = new ArrayList<>();
                 listCoordinate = capstone.rep.realestateportal.dao.CoordinateDAO.coordinateDAO.getListCoordinateWithLayerId_DBNew(layerId);
-                listLayer.add(new Layer().setLayerId(layerId).setLayerName(name).setLayerType(layerType).setListCoordinate(listCoordinate));
+                listLayer.add(new Layer().setLayerId(layerId).setLayerName(name).setLayerType(layerType).setListCoordinate(listCoordinate).setLayerTypeId(layerTypeId));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -85,14 +87,14 @@ public class LayerDAO {
 
         try {
             conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
-            int layerId = getTypeIdWithTypeName_DBNew(layer.getLayerName());
+//            int layerId = getTypeIdWithTypeName_DBNew(layer.getLayerName());
 
             String sql = "insert into Layer (LayerName, LayerTypeID) "
                     + "values (?,?)";
             System.out.println(sql);
             pre = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pre.setNString(1, layer.getLayerName());
-            pre.setInt(2, layerId);
+            pre.setInt(2, Integer.valueOf(layer.getLayerType()));
             inserted = pre.executeUpdate();
 
             try (ResultSet generatedKeys = pre.getGeneratedKeys()) {
@@ -114,28 +116,35 @@ public class LayerDAO {
     }
 
     private int insertLayerCoordinate_DBNew(Layer layer) throws Exception {
-        int inserted = 0;
+        int inserted[] = null;
         Connection conn = null;
         ResultSet rs = null;
         PreparedStatement pre = null;
 
         try {
             conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
-            String sql = "insert LayerCoordinate(LayerID, Latitude, Latitude) "
-                    + "values ";
+            String sql = "insert LayerCoordinate(LayerID, Latitude, Longitude) "
+                    + "values (?, ?, ?)";
             pre = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            conn.setAutoCommit(false);
+            
             for (Coordinate coordinate : layer.getListCoordinate()) {
-                sql = sql + ",(" + layer.getLayerId() + "," + coordinate.getLatitude() + "," + coordinate.getLongitude() + ")";
-            }
+            	pre.setInt(1, layer.getLayerId());
+            	pre.setDouble(2, coordinate.getLatitude());
+            	pre.setDouble(3, coordinate.getLongitude());
+            	pre.addBatch();
+        	}
+            
             System.out.println(sql);
-            inserted = pre.executeUpdate();
+            inserted = pre.executeBatch();
+            conn.commit();
 
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
             closeConnection(conn, pre, rs);
         }
-        return inserted;
+        return inserted.length;
     }
 
     private int insertRoadSegmentLayer_DBNew(int roadSegmentId, int layerId) throws Exception {
@@ -183,5 +192,29 @@ public class LayerDAO {
             closeConnection(conn, pre, rs);
         }
         return layerId;
+    }
+    
+    public List<Layer> getAllLayerType(){
+    	Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement pre = null;
+        List<Layer> listLayer = new ArrayList();
+        try {
+            conn = capstone.rep.realestateportal.connection.Connection.dBContext.getConnection();
+            String sql = "select * from LayerType";
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+            System.out.println(sql);
+            while (rs.next()) {
+                int layerId = rs.getInt("LayerTypeId");
+                String name = rs.getString("LayerTypeName");
+                listLayer.add(new Layer().setLayerId(layerId).setLayerName(name));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            closeConnection(conn, pre, rs);
+        }
+        return listLayer;
     }
 }

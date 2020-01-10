@@ -10,6 +10,7 @@ import capstone.rep.realestateportal.dao.LandNearRoadDAO;
 import capstone.rep.realestateportal.dao.RoadDAO;
 import capstone.rep.realestateportal.entity.Coordinate;
 import capstone.rep.realestateportal.entity.LandNearRoad;
+import capstone.rep.realestateportal.entity.Layer;
 import capstone.rep.realestateportal.entity.RealEstateObject;
 import capstone.rep.realestateportal.entity.Road;
 import capstone.rep.realestateportal.entity.RoadSegment;
@@ -79,6 +80,10 @@ public class CommonService {
 	
 	public JSONObject createGeoJsonLine(List<RoadSegment> listRoadSegment) {
 		JSONObject jsonObject = GeoJSONApdater.createLineGeoJSON(listRoadSegment);
+		return jsonObject;
+	}
+	public JSONObject createGeoJsonLayer(List<Layer> listLayer) {
+		JSONObject jsonObject = GeoJSONApdater.createGeoJSONLayer(listLayer);
 		return jsonObject;
 	}
 }

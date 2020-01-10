@@ -15,6 +15,7 @@ public class Layer {
     private int layerId;
     private String layerName;
     private String layerType;
+    private int layerTypeId;
     private ArrayList<Coordinate> listCoordinate;
 
     public Layer() {
@@ -55,5 +56,14 @@ public class Layer {
         this.listCoordinate = listCoordinate;
         return this;
     }
+
+	public int getLayerTypeId() {
+		return layerTypeId;
+	}
+
+	public Layer setLayerTypeId(int layerTypeId) {
+		this.layerTypeId = layerTypeId;
+		return this;
+	}
     
 }

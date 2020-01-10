@@ -11,14 +11,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <h:outputStylesheet name="bootstrap.min.css" library="css" />
         <h:outputStylesheet name="Navigation-Clean.css" library="css" />
-        <div id="css">
-        	<ui:insert name="css" >
-               
-            </ui:insert>
-        </div>
+        
     </h:head>
     <h:body>
         <div id="page">
+	        <div id="css">
+	        	<ui:insert name="css" >
+	               
+	            </ui:insert>
+	        </div>
             <div id="header">
                 <ui:insert name="header" >
                     <ui:include src="/template/common/commonHeader.xhtml" />

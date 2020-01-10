@@ -10,7 +10,9 @@
     <h:body>
 
         <ui:composition template="/template/common/commonLayout.xhtml">
-
+			<ui:define name="css">
+				<h:outputStylesheet name="createLayer.css" library="css"></h:outputStylesheet>
+			</ui:define>
             <ui:define name="content">
                 <div class="container">
                     <div class="row">
@@ -33,7 +35,7 @@
                                                         completeMethod="${createLayerBean.listRoadByHint}"
                                                         var="element" itemLabel="#{element.name}"
                                                         itemValue="#{element.roadId}"
-                                                        forceSelection="true" style="max-width: 200px;">
+                                                        forceSelection="true" style="max-width: 200px;" inputStyleClass="inputText">
                                             <p:ajax event="itemSelect" 
                                                     listener="${createLayerBean.changeRoadViewById()}" 
                                                     process="@form" update="form-submit gjsonRoad jsonLayer" 

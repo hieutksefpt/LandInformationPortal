@@ -23,20 +23,24 @@
                                     <strong>Tuyến đường:</strong>
                                 </div>
                                 <div class="col-md-6">
-                                    <h:form id="form-submit"> 
-                                        <h:inputHidden id="gjsonRoad" 
-                                                       value="#{showLayerBean.gjsonRoad}"/>
-
-                                        <p:autoComplete value="${showLayerBean.roadId}" id="autocompleteValue"
+	                                <h:inputHidden id="gjsonRoad" 
+	                                    value="#{showLayerBean.gjsonRoad}"/>
+                                    <h:inputHidden id="jsonLayer"
+                                    	value="#{showLayerBean.jsonLayer}"/>
+                                    
+                                    
+                                    <h:form id="form-search"> 
+                                        <p:autoComplete value="${showLayerBean.roadId}" 
+                                                        id="autocompleteValue"
                                                         completeMethod="${showLayerBean.listRoadByHint}"
                                                         var="element" itemLabel="#{element.name}"
                                                         itemValue="#{element.roadId}"
                                                         forceSelection="true">
                                             <p:ajax event="itemSelect" 
-                                                    listener="${showLayerBean.changeRoadViewById}" 
-                                                    process="@form" update="form-submit gjsonRoad" 
-                                                    oncomplete=""/>
-                                        </p:autoComplete>   
+                                                    listener="${showLayerBean.changeRoadViewById()}" 
+                                                    process="@form" update="gjsonRoad jsonLayer" 
+                                                    oncomplete="drawRoad(), drawLayer()"/>
+                                        </p:autoComplete>
                                     </h:form>
                                 </div>
                             </div>

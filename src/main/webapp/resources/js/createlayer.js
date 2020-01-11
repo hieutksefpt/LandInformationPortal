@@ -71,16 +71,24 @@ function drawPolygon(){
     shape.setMap(map);
     $('#form-submit\\:listCoordinate').val(JSON.stringify(coordinateMarkers));
 }
-
+var dataGeoRoad, dataGeoLayer;
 function drawRoad() {
     var json = $('#gjsonRoad').val();
     console.log(json);
-    dataLayer = map.data.addGeoJson(JSON.parse(json));
+    if (dataGeoRoad != null)
+        for (let i=0; i<dataGeoRoad.length; i++){
+            map.data.remove(dataGeoRoad[i]);
+        }
+    dataGeoRoad = map.data.addGeoJson(JSON.parse(json));
 }
 function drawLayer(){
 	var json = $('#jsonLayer').val();
     console.log(json);
-    dataLayer = map.data.addGeoJson(JSON.parse(json));
+    if (dataGeoLayer != null)
+        for (let i=0; i<dataGeoLayer.length; i++){
+            map.data.remove(dataGeoLayer[i]);
+        }
+    dataGeoLayer = map.data.addGeoJson(JSON.parse(json));
     map.data.setStyle(function(feature) {
 	    return /** @type {google.maps.Data.StyleOptions} */({
 	      fillColor: feature.getProperty('fill'),
@@ -91,4 +99,5 @@ function drawLayer(){
 
 function focusMap(latitude, longitude){
     map.setCenter(new google.maps.LatLng(latitude, longitude));
+    map.setZoom(15);
 }

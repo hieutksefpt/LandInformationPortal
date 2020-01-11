@@ -153,5 +153,4 @@ function log(){
 function createAlert(message){
 	$('#message-alert').html(message);
 	$('.alert').removeClass('fade');
-//	$('.alert').addClass('fade')
 }

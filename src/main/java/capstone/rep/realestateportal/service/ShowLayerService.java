@@ -6,6 +6,8 @@ import capstone.rep.realestateportal.dao.ReoDAO;
 import capstone.rep.realestateportal.entity.LandNearRoad;
 import capstone.rep.realestateportal.entity.Layer;
 import capstone.rep.realestateportal.entity.RealEstateObject;
+import capstone.rep.realestateportal.entity.Road;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +21,11 @@ import java.util.List;
 public class ShowLayerService {
 
     // function to get List Layer By Road Name on map
-    public List<Layer> getListLayerByRoad(String roadName) {
+    public List<Layer> getListLayerByRoad(Road road) {
         LayerDAO layerDAO = new LayerDAO();
         List<Layer> listLayer = new ArrayList<>();
         try {
-            List<Layer> listLayerByRoad = layerDAO.getListLayerByRoad_DBNew(roadName);
+            List<Layer> listLayerByRoad = layerDAO.getListLayerByRoad_DBNew(road.getRoadId());
             for (Layer layer : listLayerByRoad) {
                 listLayer.add(layer);
             }

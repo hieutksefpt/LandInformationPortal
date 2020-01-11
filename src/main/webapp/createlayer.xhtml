@@ -86,8 +86,8 @@
                                             <h:commandButton class="btn btn-primary" type="button"
                                                              value="Lưu">
                                                 <p:ajax event="click" process="@form"
-                                                        listener="${createLayerBean.saveLayer()}" update="gjsonRoad"
-                                                        oncomplete="clearInput()"></p:ajax>
+                                                        listener="${createLayerBean.saveLayer()}" update="gjsonRoad jsonLayer"
+                                                        oncomplete="clearInput(), drawRoad(), drawLayer()"></p:ajax>
                                             </h:commandButton>
                                         </div>
                                     </div>

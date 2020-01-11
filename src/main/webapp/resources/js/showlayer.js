@@ -21,4 +21,8 @@ function initMap() {
     });
 }
 
+function focusMap(latitude, longitude){
+	map.setCenter(new google.maps.LatLng(latitude, longitude));
+}
+
 

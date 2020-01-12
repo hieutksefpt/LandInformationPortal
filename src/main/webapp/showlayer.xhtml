@@ -42,8 +42,63 @@
                                                     oncomplete="drawRoad(), drawLayer()"/>
                                         </p:autoComplete>
                                     </h:form>
+                                    
                                 </div>
                             </div>
+                            
+                            <div class="row" id="inforPanel" style="display:none">
+                            	<div class="form-group" style="padding-top:10px;padding-left:60px;">
+                            		<div>
+                            			<p class="text-center"><strong>Thông tin lớp</strong></p>
+                            		</div>
+                            		<div class="row">
+	                            		<label class="col-md-6">Đoạn đường</label>
+	                            		<input class="form-control col-md-6" id="roadSegmentNameInfor" readonly="true"></input>
+                            		</div>
+                            		<div class="row">
+	                            		<label class="col-md-6">Lớp</label>
+	                            		<input class="form-control col-md-6" id="layerInfor" readonly="true"></input>
+                            		</div>
+                            		<div class="row">
+	                            		<label class="col-md-6">Giá quy định</label>
+	                            		<input class="form-control col-md-6" id="priceInfor" readonly="true"></input>
+                            		</div>
+                            	</div>
+                            </div>
+                            
+                            <div class="row">
+							    <div class="col-md-3 text-white" style="background-color: red !important">Lớp 1</div>
+							    <div  class="col-md-9">
+							    	<span>
+							    		Chỉ giới hè đường vào 100 m, giá 100%
+							    	</span>
+							    </div>
+                            </div>
+                            <div class="row">
+							    <div class="col-md-3 text-white" style="background-color: orange !important">Lớp 2</div>
+							    <div class="col-md-9">
+							    	<span>
+							    		Chỉ giới hè đường từ trên 100m đến 200m, giá giảm 10%
+							    	</span>
+							    </div>
+                            </div>
+                            <div class="row">
+							    <div class="col-md-3 text-white" style="background-color: blue !important">Lớp 3</div>
+							    <div class="col-md-9">
+							    	<span>
+							    		Chỉ giới hè đường từ trên 200m đến 300m, giá giảm 20%
+							    	</span>
+							    </div>
+                            </div>
+                            <div class="row">
+							    <div class="col-md-3 text-white" style="background-color: pink !important">Lớp 4</div>
+							    <div class="col-md-9">
+							    	<span>
+							    		Chỉ giới hè đường từ trên 300m, giá giảm 30%
+							    	</span>
+							    </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

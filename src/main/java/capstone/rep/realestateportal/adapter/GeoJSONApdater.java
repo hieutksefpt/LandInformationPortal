@@ -232,6 +232,17 @@ public class GeoJSONApdater {
           JSONObject json = new JSONObject();
           json.put("fill", color);
           json.put("name", layer.getLayerName());
+          int maxRandom = 30000;
+          int minRandom = 10000;
+          double random = (Math.random() * ((maxRandom - minRandom) + 1)) + minRandom;
+          
+          
+          json.put("price", (int)random);
+          json.put("layerType", layer.getLayerTypeId());
+          maxRandom = 10;
+          minRandom = 1;
+          random = (Math.random() * ((maxRandom - minRandom) + 1)) + minRandom;
+          json.put("roadSegmentName", "Đoạn "+ (int)random);
           return json;
       }
       

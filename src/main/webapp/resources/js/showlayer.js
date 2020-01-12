@@ -19,6 +19,12 @@ function initMap() {
         clickableIcons: false,
         disableDoubleClickZoom: true, // disable the default map zoom on double click
     });
+    map.data.addListener('click', function(event){
+    	$('#inforPanel').css('display','block');
+    	$('#priceInfor').val(event.feature.getProperty('price'));
+    	$('#layerInfor').val(event.feature.getProperty('layerType'));
+    	$('#roadSegmentNameInfor').val(event.feature.getProperty('roadSegmentName'));
+    });
 }
 
 function focusMap(latitude, longitude){

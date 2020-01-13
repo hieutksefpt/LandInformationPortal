@@ -24,6 +24,8 @@ function initMap() {
     	$('#priceInfor').val(event.feature.getProperty('price'));
     	$('#layerInfor').val(event.feature.getProperty('layerType'));
     	$('#roadSegmentNameInfor').val(event.feature.getProperty('roadSegmentName'));
+    	$('#kInfor').val('1,67');
+    	$('#priceMarketInfor').val(Math.floor(event.feature.getProperty('price')*1.67));
     });
 }
 

@@ -30,6 +30,7 @@
                                     
                                     
                                     <h:form id="form-search"> 
+                                    	<ui:remove>
                                         <p:autoComplete value="${showLayerBean.roadId}" 
                                                         id="autocompleteValue"
                                                         completeMethod="${showLayerBean.listRoadByHint}"
@@ -41,6 +42,18 @@
                                                     process="@form" update="gjsonRoad jsonLayer" 
                                                     oncomplete="drawRoad(), drawLayer()"/>
                                         </p:autoComplete>
+                                        </ui:remove>
+                                        <p:selectOneMenu value="#{showLayerBean.roadId}" style="padding-right:0">
+                                        	<f:selectItem itemLabel="" itemValue="" />
+                                        	<f:selectItems value="#{showLayerBean.listRoadByHint}"
+                                        	var="element" itemLabel="#{element.name}" 
+                                        	itemValue="#{element.roadId}"></f:selectItems>
+                                        	<p:ajax event="itemSelect" 
+                                                    listener="${showLayerBean.changeRoadViewById()}" 
+                                                    process="@form" update="gjsonRoad jsonLayer" 
+                                                    oncomplete="drawRoad(), drawLayer()"/>
+                                        	
+                                        </p:selectOneMenu>
                                     </h:form>
                                     
                                 </div>
@@ -62,6 +75,14 @@
                             		<div class="row">
 	                            		<label class="col-md-6">Giá quy định</label>
 	                            		<input class="form-control col-md-6" id="priceInfor" readonly="true"></input>
+                            		</div>
+                            		<div class="row">
+	                            		<label class="col-md-6">Hệ số K</label>
+	                            		<input class="form-control col-md-6" id="kInfor" readonly="true"></input>
+                            		</div>
+                            		<div class="row">
+	                            		<label class="col-md-6">Giá thị trường</label>
+	                            		<input class="form-control col-md-6" id="priceMarketInfor" readonly="true"></input>
                             		</div>
                             	</div>
                             </div>

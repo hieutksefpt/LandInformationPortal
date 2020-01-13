@@ -10,6 +10,8 @@ import capstone.rep.realestateportal.service.CreateLayerService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.PrimeFaces;
@@ -38,6 +40,11 @@ public class ShowLayerBean {
     private List<Road> listRoadByHint;
     private String jsonLayer;
     
+    @PostConstruct
+    public void init() {
+    	CommonService commonService = new CommonService();
+        listRoadByHint = commonService.getRoadByHint_DBNew("");
+    }
     public List<Road> listRoadByHint(String hint) {
         if (hint == null) {
             hint = "";
@@ -103,4 +110,12 @@ public class ShowLayerBean {
 	public void setJsonLayer(String jsonLayer) {
 		this.jsonLayer = jsonLayer;
 	}
+	public List<Road> getListRoadByHint() {
+		return listRoadByHint;
+	}
+	public void setListRoadByHint(List<Road> listRoadByHint) {
+		this.listRoadByHint = listRoadByHint;
+	}
+	
+	
 }

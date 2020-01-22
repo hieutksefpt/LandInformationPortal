@@ -29,9 +29,9 @@ public class Connection {
         password = "123456";
     	
     	//db online
- //     url = "jdbc:sqlserver://database-1.czlokgka8gz9.us-east-1.rds.amazonaws.com:1433;databaseName=RealEstatePortalGIS";
- //     username = "admin";
-  //    password = "clgt1234";
+//      url = "jdbc:sqlserver://database-1.czlokgka8gz9.us-east-1.rds.amazonaws.com:1433;databaseName=RealEstatePortal_Phase3_Ver_01";
+//      username = "admin";
+//      password = "clgt1234";
     }
 
     public java.sql.Connection getConnection() throws Exception {

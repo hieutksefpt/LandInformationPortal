@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
 
 import org.primefaces.json.JSONObject;
 
@@ -26,8 +27,7 @@ import org.primefaces.json.JSONObject;
  *
  * @author Phong
  */
-@ManagedBean
-@ViewScoped
+@Named
 public class ViewRoadBean {
 
     private String roadId;

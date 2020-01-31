@@ -25,9 +25,9 @@
 							<div class="col-md">								
 								<h:inputHidden id="geojson" value="#{createRoadSegmentBean.jsonByRoad}"></h:inputHidden>
 								<h:form id="form-autocomplete">
-									<p:autoComplete value="${createRoadSegmentBean.roadId}"
+									<p:autoComplete value="#{createRoadSegmentBean.roadId}"
 										id="autocompleteValue"
-										completeMethod="${createRoadSegmentBean.listRoadByHint}"
+										completeMethod="#{createRoadSegmentBean.listRoadByHint}"
 										var="elementRoad" itemLabel="#{elementRoad.name}"
 										itemValue="#{elementRoad.roadId}" forceSelection="true"
 										minQueryLength="3">

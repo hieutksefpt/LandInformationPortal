@@ -23,6 +23,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONObject;
@@ -31,8 +32,7 @@ import org.primefaces.json.JSONObject;
  *
  * @author tuans
  */
-@ManagedBean
-@ViewScoped
+@Named
 public class DrawLandBean implements Serializable{
 
     private String roadName;

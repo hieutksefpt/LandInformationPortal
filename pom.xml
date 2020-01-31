@@ -12,10 +12,37 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    	<java.version>1.8</java.version>
+    	<joinfaces.version>3.3.0-rc2</joinfaces.version>
     </properties>
-    
+    <parent>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-parent</artifactId>
+	    <version>2.1.0.RELEASE</version>
+	    <relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<dependencyManagement>
     <dependencies>
-        
+	      <dependency>
+	        <groupId>org.joinfaces</groupId>
+	        <artifactId>joinfaces-dependencies</artifactId>
+	        <version>${joinfaces.version}</version>
+	        <type>pom</type>
+	        <scope>import</scope>
+	      </dependency>
+	    </dependencies>
+	</dependencyManagement>
+    <dependencies>
+        <dependency>
+	      <groupId>org.joinfaces</groupId>
+	      <artifactId>primefaces-spring-boot-starter</artifactId>
+	    </dependency>
+	    <dependency>
+	      <groupId>javax.enterprise</groupId>
+	      <artifactId>cdi-api</artifactId>
+	    </dependency>
+	    
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>

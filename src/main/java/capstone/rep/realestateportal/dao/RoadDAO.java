@@ -3,7 +3,6 @@ package capstone.rep.realestateportal.dao;
 import capstone.rep.realestateportal.entity.City;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-import org.apache.commons.logging.Log;
 import capstone.rep.realestateportal.entity.Road;
 import capstone.rep.realestateportal.entity.Coordinate;
 import capstone.rep.realestateportal.entity.RoadSegment;

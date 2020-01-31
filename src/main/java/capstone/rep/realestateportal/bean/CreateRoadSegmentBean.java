@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
 
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
@@ -27,8 +28,7 @@ import capstone.rep.realestateportal.service.DrawLandService;
  * @author tuans
  * @description bean model for createroadsegment.xhtml
  */
-@ManagedBean
-@ViewScoped
+@Named
 public class CreateRoadSegmentBean implements Serializable{
 	private String jsonByRoad;
     private String roadId;

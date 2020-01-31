@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
+
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.json.JSONArray;
@@ -25,8 +27,7 @@ import org.primefaces.json.JSONObject;
  * @author tuans
  * @description bean model for createlayer.xhtml
  */
-@ManagedBean
-@ViewScoped
+@Named
 public class CreateLayerBean {
 
     private String roadId;

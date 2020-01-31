@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
+
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.json.JSONObject;
@@ -23,8 +25,7 @@ import org.primefaces.json.JSONObject;
  * @author Hieu
  * @description Bean model for showlayer.xhtml
  */
-@ManagedBean
-@ViewScoped
+@Named
 public class ShowLayerBean {
 
     private String roadId;

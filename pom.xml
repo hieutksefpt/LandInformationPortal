@@ -71,6 +71,13 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.adminfaces/admin-template -->
+		<dependency>
+		    <groupId>com.github.adminfaces</groupId>
+		    <artifactId>admin-template</artifactId>
+		    <version>1.0.0-RC21</version>
+		</dependency>
+        
     </dependencies>
 
     <build>

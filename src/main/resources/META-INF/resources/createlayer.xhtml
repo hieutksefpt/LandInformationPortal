@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>
+
+        <ui:composition template="/template/common/commonLayout.xhtml">
+			<ui:define name="css">
+				<h:outputStylesheet name="createLayer.css" library="css"></h:outputStylesheet>
+			</ui:define>
+            <ui:define name="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div id="map" style="height: 510px"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>Tuyến đường:</strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <h:inputHidden id="gjsonRoad" 
+                                        value="#{createLayerBean.gjsonRoad}"/>
+                                    <h:inputHidden id="jsonLayer"
+                                    	value="#{createLayerBean.jsonLayer}"/>
+                                    <h:form id="form-search"> 
+                                        <p:autoComplete value="${createLayerBean.roadId}" 
+                                                        id="autocompleteValue"
+                                                        completeMethod="${createLayerBean.listRoadByHint}"
+                                                        var="element" itemLabel="#{element.name}"
+                                                        itemValue="#{element.roadId}"
+                                                        forceSelection="true" style="max-width: 200px;" inputStyleClass="inputText">
+                                            <p:ajax event="itemSelect" 
+                                                    listener="${createLayerBean.changeRoadViewById()}" 
+                                                    process="@form" update="form-submit gjsonRoad jsonLayer" 
+                                                    oncomplete="drawRoad(), drawLayer()"/>
+                                        </p:autoComplete>
+                                    </h:form>
+                                </div>
+                            </div>
+
+                            <h:form id="form-submit">
+                                <c:if test="${not empty createLayerBean.selectedRoad.listRoadSegment}">
+                                    <div class="row" style="padding-top: 5px;">
+                                        <div class="col-md-6">
+                                            <strong>Đoạn đường:</strong>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p:selectOneMenu value="#{createLayerBean.selectedRoadSegmentID}" style="width: 200px; padding-right:0">
+                                                <f:selectItems value="#{createLayerBean.listRoadSegmentOfRoad}" var="c"
+                                                               itemLabel="#{c.name}" itemValue="#{c.roadSegmentId}" />
+                                            </p:selectOneMenu>
+                                            <h:inputHidden id="listCoordinate"
+                                                           value="${createLayerBean.jsonCoordinateSubmit}">
+                                            </h:inputHidden>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-top: 5px;">
+                                        <div class="col-md-6">
+                                            <strong>Loại lớp:</strong>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p:selectOneMenu value="#{createLayerBean.layerTypeSelected}" style="width: 200px; padding-right:0">
+                                            	<f:selectItems value="#{createLayerBean.listLayerType}" var="element"
+                                            	 itemLabel="#{element.layerName}" itemValue="#{element.layerId}"></f:selectItems>
+                                            </p:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="d-xl-flex justify-content-xl-center btn-toolbar"
+                                         style="padding-top: 5px;">
+                                        <div class="btn-group mr-3">
+                                            <button class="btn btn-primary" type="button"
+                                                    onclick="drawPolygon()">Vẽ</button>
+                                        </div>
+                                        <div class="btn-group mr-3">
+                                            <button class="btn btn-primary" type="button" 
+                                                    onclick="clearInput()">Xóa</button>
+                                        </div>
+                                        <div class="btn-group">
+                                            <h:commandButton class="btn btn-primary" type="button"
+                                                             value="Lưu">
+                                                <p:ajax event="click" process="@form"
+                                                        listener="${createLayerBean.saveLayer()}" update="gjsonRoad jsonLayer"
+                                                        oncomplete="clearInput(), drawRoad(), drawLayer()"></p:ajax>
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+
+            </ui:define>
+            <ui:define name="footer">
+                <h:outputScript name="createlayer.js" library="js" />
+                <script type="text/javascript"
+                        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
+                async="true" defer="true"></script>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+
+</html>

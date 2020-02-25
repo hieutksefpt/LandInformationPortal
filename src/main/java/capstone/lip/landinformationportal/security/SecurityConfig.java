@@ -17,13 +17,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	    http.authorizeRequests()
 	    	.antMatchers("/javax.faces.resource/**","/helloworld.xhtml").permitAll()
 	    	.antMatchers("/helloadmin.xhtml").authenticated()
-	    	.anyRequest().authenticated();
+	    	.anyRequest().permitAll()
+	    	;
 	    // login
 	    http.formLogin().loginPage("/login.xhtml").permitAll()
 	        .failureUrl("/login.xhtml?error=true");
-	    // logout
+//	     logout
 	    http.logout().logoutSuccessUrl("/login.xhtml");
-	    // not needed as JSF 2.2 is implicitly protected against CSRF
+//	     not needed as JSF 2.2 is implicitly protected against CSRF
 	    http.csrf().disable();
 	  }
 

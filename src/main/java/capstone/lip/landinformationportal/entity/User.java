@@ -1,15 +1,17 @@
-package capstone.lip.landinformationportal;
+package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
 import javax.persistence.Id;
 
 @Entity
-@Table(name="My_Table")
+@Table(name="My_Table", schema="public")
 public class User implements Serializable{
 	
 	/**
@@ -19,7 +21,8 @@ public class User implements Serializable{
 
 	@Id
 	@Column(name = "id")
-	private Integer id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	
 	@Column(name = "username")
 	private String username;
@@ -27,11 +30,28 @@ public class User implements Serializable{
 	@Column(name = "password")
 	private String password;
 	
-	public Integer getId() {
+	
+	
+	public User() {
+		super();
+	}
+
+	public User(Long id, String username, String password) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+	}
+	
+	public User(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -49,5 +69,11 @@ public class User implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return username+"\t"+password;
 	}
 }

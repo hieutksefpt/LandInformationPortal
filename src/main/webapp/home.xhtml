@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
 <h:head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -117,7 +118,14 @@
 			</div>
 		</div>
 	</div>
-
+	<div class="authorization-div">
+		<sec:authorize access="hasRole('ROLE_USER')">
+			<p:outputLabel value="You have the USER role" />
+		</sec:authorize>
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<p:outputLabel value="You have the ADMIN role" />
+		</sec:authorize>
+	</div>
 </h:body>
 <h:outputScript library="js" name="jquery.min.js" />
 <h:outputScript library="js" name="bootstrap.min.js" />

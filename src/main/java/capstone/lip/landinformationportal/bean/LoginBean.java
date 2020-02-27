@@ -5,13 +5,17 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
+import capstone.lip.landinformationportal.security.CustomAuthenticationManager;
+
 import javax.inject.Named;
 
 @Named
 public class LoginBean {
 	
-//	@Autowired
-//    private AuthenticationManager authenticationManager;
+	@Autowired
+    private CustomAuthenticationManager authenticationManager;
 
 	
 	private String username;
@@ -22,12 +26,17 @@ public class LoginBean {
 			int i = 1;
 			i++;
 			System.out.print("Hello tuan oi");
-//		    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken( username, password ); 
-//		    Authentication authentication = authenticationManager.authenticate(authenticationToken);
+			
+			
+			
+			
+		    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken( username, password ); 
+		    Authentication authentication = authenticationManager.authenticate(authenticationToken);
 //		    Authentication authentication1 =
 //		            SecurityContextHolder.getContext().getAuthentication();
-//		    SecurityContextHolder.getContext().setAuthentication(authentication);
+		    SecurityContextHolder.getContext().setAuthentication(authentication);
 		} catch (Exception e) {
+			e.printStackTrace();
 		    System.out.print("Login failed");
 		    SecurityContextHolder.getContext().setAuthentication(null);
 		}

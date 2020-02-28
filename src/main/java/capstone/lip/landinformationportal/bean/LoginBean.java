@@ -23,17 +23,10 @@ public class LoginBean {
 	
 	public void loginAction() {
 		try {
-			int i = 1;
-			i++;
-			System.out.print("Hello tuan oi");
-			
-			
-			
-			
+
 		    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken( username, password ); 
 		    Authentication authentication = authenticationManager.authenticate(authenticationToken);
-//		    Authentication authentication1 =
-//		            SecurityContextHolder.getContext().getAuthentication();
+
 		    SecurityContextHolder.getContext().setAuthentication(authentication);
 		} catch (Exception e) {
 			e.printStackTrace();

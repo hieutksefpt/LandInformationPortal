@@ -43,7 +43,7 @@ public class CustomAuthenticationManager implements AuthenticationManager, Seria
 //	        throw new DisabledException("1001");
 //	    }
 	    List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 	    return new UsernamePasswordAuthenticationToken(username, password, authorities);
 	}
 

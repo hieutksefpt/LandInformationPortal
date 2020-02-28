@@ -9,23 +9,14 @@
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <h:body>
 
-	<ui:composition template="/template/common/commonLayout.xhtml">
+	<ui:composition template="/template/admin/adminLayout.xhtml">
 
 		<ui:define name="content">
-			<div id="map" style="height: 510px"></div>
-			<div class="container">
-				
-				<div class="row">
-					
-					
-				</div>
-			</div>
-
+			
 		</ui:define>
 		<ui:define name="footer">
-			<h:outputScript name="drawland.js" library="js" />
 			<script type="text/javascript"
-				src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
+				src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places"
 				async="true" defer="true"></script>
 		</ui:define>
 	</ui:composition>

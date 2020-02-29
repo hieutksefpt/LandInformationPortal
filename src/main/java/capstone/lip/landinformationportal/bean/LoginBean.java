@@ -16,7 +16,6 @@ public class LoginBean {
 	
 	@Autowired
     private CustomAuthenticationManager authenticationManager;
-
 	
 	private String username;
 	private String password;
@@ -26,7 +25,6 @@ public class LoginBean {
 
 		    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken( username, password ); 
 		    Authentication authentication = authenticationManager.authenticate(authenticationToken);
-
 		    SecurityContextHolder.getContext().setAuthentication(authentication);
 		} catch (Exception e) {
 			e.printStackTrace();

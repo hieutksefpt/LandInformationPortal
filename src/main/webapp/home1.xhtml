@@ -12,11 +12,12 @@
 	<ui:composition template="/template/admin/adminLayout.xhtml">
 
 		<ui:define name="content">
-			
+			<div id="map" style="height:80%"></div>
 		</ui:define>
 		<ui:define name="footer">
+			<h:outputScript name="home.js" library="js" />
 			<script type="text/javascript"
-				src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places"
+				src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
 				async="true" defer="true"></script>
 		</ui:define>
 	</ui:composition>

@@ -16,17 +16,15 @@
     </h:head>
     <h:body>
     	<div class="wrapper">
-    		<div id="header">
-		        <ui:insert name="header" >
-		            <ui:include src="/template/admin/adminHeader.xhtml" />
-		        </ui:insert>
-		    </div>
-		    <div id="leftmenubar">
 		    	<ui:insert name="leftmenubar">
 		    		<ui:include src="/template/admin/adminLeftMenuBar.xhtml"></ui:include>
 		    	</ui:insert>
-		    </div>
 		    <div id="content">
+			    <div id="header">
+			        <ui:insert name="header" >
+			            <ui:include src="/template/admin/adminHeader.xhtml" />
+			        </ui:insert>
+			    </div>
 		        <ui:insert name="content" >
 		            <ui:include src="/template/common/commonContent.xhtml" />
 		        </ui:insert>

@@ -1,4 +1,4 @@
-package capstone.lip.landinformationportal.security;
+package capstone.lip.landinformationportal.config;
 
 import java.io.Serializable;
 import java.util.ArrayList;

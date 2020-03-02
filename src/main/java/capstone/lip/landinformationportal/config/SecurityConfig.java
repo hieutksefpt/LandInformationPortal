@@ -1,4 +1,4 @@
-package capstone.lip.landinformationportal.security;
+package capstone.lip.landinformationportal.config;
 
 import java.security.AuthProvider;
 import java.util.Arrays;

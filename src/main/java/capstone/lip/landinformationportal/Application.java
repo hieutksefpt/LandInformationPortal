@@ -1,9 +1,11 @@
 package capstone.lip.landinformationportal;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.security.auth.x500.X500Principal;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import capstone.lip.landinformationportal.entity.District;
+import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.repository.DistrictRepository;
 import capstone.lip.landinformationportal.repository.ProvinceRepository;
@@ -45,12 +48,18 @@ public class Application implements CommandLineRunner{
 
       System.out.println("\nprovince()");
       provinceRepo.findAll().forEach(x -> System.out.println(x.getProvinceName()));
+      Province province = provinceRepo.findAll().get(0);
       
-      System.out.println("\nprovince()");
-      List<District> list = districtRepo.findAll();
-      int i = 1;
-      i++;
-      System.out.print(list.get(0).getProvince().getProvinceName());
+      System.out.print(province.getProvinceName());
+      province.getListDistrict().get(0).getDistrictName();
+//      List<District> set = province.getListDistrict();
+//      Hibernate.initialize(set.size());
+      
+//      System.out.println("\nprovince()");
+//      List<District> list = districtRepo.findAll();
+//      int i = 1;
+//      i++;
+//      System.out.print(list.get(0).getProvince());
 //      repository.save(new User("test2","test2"));
 //      repository.save(new User("test3","test3"));
 //      

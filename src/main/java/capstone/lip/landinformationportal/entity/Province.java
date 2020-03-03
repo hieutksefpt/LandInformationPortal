@@ -1,14 +1,26 @@
 package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name="Province")
+//@NamedEntityGraph(name="graph.province.district",
+//		attributeNodes= @NamedAttributeNode(value="district", subgraph="district"))
 public class Province extends AuditAbstract implements Serializable{
 	/**
 	 * 
@@ -24,6 +36,17 @@ public class Province extends AuditAbstract implements Serializable{
 	private Double provinceLat;
 	@Column(name = "ProvinceLng")
 	private Double provinceLng;
+	
+	@OneToMany(mappedBy="province",cascade = CascadeType.ALL,orphanRemoval = true, fetch=FetchType.EAGER)
+//	@Fetch(value = FetchMode.SELECT)
+	private List<District> listDistrict;
+	
+	public List<District> getListDistrict() {
+		return listDistrict;
+	}
+	public void setListDistrict(List<District> listDistrict) {
+		this.listDistrict = listDistrict;
+	}
 	public Long getProvinceId() {
 		return provinceId;
 	}

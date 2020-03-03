@@ -1,0 +1,14 @@
+package capstone.lip.landinformationportal.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import capstone.lip.landinformationportal.entity.Province;
+import capstone.lip.landinformationportal.entity.User;
+
+@Repository
+public interface ProvinceRepository extends JpaRepository<Province, Long>{
+	List<Province> findAll();
+}

@@ -11,5 +11,4 @@ import java.lang.Long;
 
 @Repository
 public interface ProvinceRepository extends JpaRepository<Province, Long>{
-	List<Province> findAll();
 }

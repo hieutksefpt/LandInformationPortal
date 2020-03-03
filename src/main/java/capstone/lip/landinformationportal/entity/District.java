@@ -1,13 +1,16 @@
 package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
@@ -36,6 +39,18 @@ public class District extends AuditAbstract  implements Serializable{
 	@JoinColumn(name ="ProvinceID", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Province province;
+
+	@OneToMany(mappedBy="district",cascade = CascadeType.ALL,orphanRemoval = true, fetch=FetchType.LAZY)
+	private List<SegmentOfStreet> listSegmentOfStreet;
+	
+	
+	public List<SegmentOfStreet> getListSegmentOfStreet() {
+		return listSegmentOfStreet;
+	}
+
+	public void setListSegmentOfStreet(List<SegmentOfStreet> listSegmentOfStreet) {
+		this.listSegmentOfStreet = listSegmentOfStreet;
+	}
 
 	public Long getDistrictId() {
 		return districtId;

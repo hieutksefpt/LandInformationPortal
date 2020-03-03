@@ -35,20 +35,6 @@ public class ProvinceService implements IProvinceService{
 		provinceRepository.deleteById(id);
 	}
 	
-//	public List<District> getListDistrictByProvince(Province province){
-//		PersistenceUnitUtil impl = entityManagerFactory.getPersistenceUnitUtil();
-//		if (!impl.isLoaded(province.getListDistrict())){
-//		      System.out.println("listEmployee is Lazy");
-//		      EntityManager entityManager = entityManagerFactory.createEntityManager();
-//		      List<District> listDistrict = entityManager
-//		          .createQuery("SELECT e FROM District e WHERE company = :company", District.class).setParameter("province", province).getResultList();
-//		      entityManager.close();
-//		      return listDistrict;
-//	    } else {
-//	      return province.getListDistrict();
-//	    }
-//	  }
-
 	@Override
 	public List<District> getListDistrictByProvinceId(Long provinceId) {
 		Province province = provinceRepository.findById(provinceId).get();

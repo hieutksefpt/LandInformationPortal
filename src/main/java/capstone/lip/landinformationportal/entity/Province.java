@@ -37,7 +37,7 @@ public class Province extends AuditAbstract implements Serializable{
 	@Column(name = "ProvinceLng")
 	private Double provinceLng;
 	
-	@OneToMany(mappedBy="province",cascade = CascadeType.ALL,orphanRemoval = true, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="province",cascade = CascadeType.ALL,orphanRemoval = true, fetch=FetchType.LAZY)
 //	@Fetch(value = FetchMode.SELECT)
 	private List<District> listDistrict;
 	

@@ -21,6 +21,7 @@ import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.repository.DistrictRepository;
 import capstone.lip.landinformationportal.repository.ProvinceRepository;
 import capstone.lip.landinformationportal.repository.UserRepository;
+import capstone.lip.landinformationportal.service.IProvinceService;
 
 @EnableJpaAuditing
 @SpringBootApplication
@@ -35,11 +36,15 @@ public class Application implements CommandLineRunner{
 //  @Autowired
 //  private UserRepository repository;
   
-  @Autowired
-  private ProvinceRepository provinceRepo;
+//  @Autowired
+//  private ProvinceRepository provinceRepo;
+//  
+//  @Autowired
+//  private DistrictRepository districtRepo;
+  
   
   @Autowired
-  private DistrictRepository districtRepo;
+  private IProvinceService provinceService;
   
   @Override
   public void run(String... args) {
@@ -47,11 +52,19 @@ public class Application implements CommandLineRunner{
       log.info("StartApplication...");
 
       System.out.println("\nprovince()");
-      provinceRepo.findAll().forEach(x -> System.out.println(x.getProvinceName()));
-      Province province = provinceRepo.findAll().get(0);
+      provinceService.findAll().forEach(x -> System.out.println(x.getProvinceName()));
+      Province province = provinceService.findAll().get(0);
       
       System.out.print(province.getProvinceName());
       province.getListDistrict().get(0).getDistrictName();
+      
+      List<District> list = provinceService.getListDistrictByProvinceId(1L);
+      for (District district:list) {
+    	  System.out.println(district.getDistrictName());
+      }
+      
+      
+      
 //      List<District> set = province.getListDistrict();
 //      Hibernate.initialize(set.size());
       

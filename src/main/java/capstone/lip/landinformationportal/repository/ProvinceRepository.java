@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.entity.User;
+import java.lang.Long;
 
 @Repository
 public interface ProvinceRepository extends JpaRepository<Province, Long>{

@@ -13,8 +13,8 @@
 
 		<ui:define name="content">
             <div id="formControl">
-	            <h:form>
-				    <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+	            <h:form id="form">
+				    <p:growl id="msgs" showDetail="true"/>
 				 
 				    <p:panel header="Chọn địa điểm" style="margin-bottom:10px;">
 				    	<div class="form-group row">
@@ -42,8 +42,9 @@
 						</div>
 				        <div class="form-group row">
 				        	<div class="col-md">
-				        		<h:selectOneMenu id="cbb-Street" value="#{manageGeoInfoBean.streetIdSelected}">
-				        			<p:ajax listener="#{manageGeoInfoBean.streetChange}" update="cbb-SegmentOfStreet"></p:ajax>
+				        		<h:selectOneMenu id="cbb-Street" value="#{manageGeoInfoBean.streetIdSelected}" >
+				        			<p:ajax	listener="#{manageGeoInfoBean.streetChange}" update="cbb-SegmentOfStreet"></p:ajax>
+				        			
 					                <f:selectItem itemLabel="Đường phố" itemValue=""/>
 					                <f:selectItems value="#{manageGeoInfoBean.listStreet}" var="element"
 					                itemLabel="#{element.streetName}" itemValue="#{element.streetId}"/>
@@ -79,16 +80,17 @@
 								</p:outputLabel>	
 				 			</div>
 				 			<div class="col-md">
-				 				<h:inputText id="txtinput-Name"></h:inputText>
+				 				<h:inputText id="txtinput-Name" value="#{manageGeoInfoBean.nameInput}"></h:inputText>
 				 			</div>
 						 </div>
 						<h:panelGroup rendered="#{manageGeoInfoBean.processType != '4'}">
 							<div class="form-group row">
 								<div class="col-md">
-									<p:outputLabel for="singleCoordinate" value="Tọa độ địa lý"></p:outputLabel>
+									<p:outputLabel value="Tọa độ địa lý"></p:outputLabel>
 								</div>
 								<div class="col-md">
-									<h:inputText id="singleCoordinate"></h:inputText>
+									<h:inputText id="txtinput-lngSingleCoordinate" value="#{manageGeoInfoBean.lngSingleCoordinate}"></h:inputText>
+									<h:inputText id="txtinput-latSingleCoordinate" value="#{manageGeoInfoBean.latSingleCoordinate}"></h:inputText>
 								</div>
 							</div>
 						</h:panelGroup>
@@ -101,12 +103,39 @@
 									
 									<h:inputTextarea id="multiCoordinate"></h:inputTextarea>
 								</div>
+								<div>
+									<p:commandButton value="Add new row" styleClass="ui-priority-primary" process="@this" update=":form:msgs"
+	                              	 oncomplete="PF('table-coordinate').addRow();" action="#{manageGeoInfoBean.addNewRow()}"/>
+	                              	
+									<p:dataTable id="table-coordinate" widgetVar="table-coordinate" value="#{manageGeoInfoBean.listCoordinate}" 
+									editable="true" var="coordinate" styleClass="test">
+										<p:column headerText="Longitude">
+											<p:cellEditor>
+												<f:facet name="output"> <h:outputText value="#{coordinate.longitude}"></h:outputText> </f:facet>
+												<f:facet name="input"> <p:inputText id="txtInput-longitude"
+												value="#{coordinate.longitude}"></p:inputText> </f:facet>
+											</p:cellEditor>
+										</p:column>
+										<p:column headerText="Latitude">
+											<p:cellEditor>
+												<f:facet name="output"> <h:outputText value="#{coordinate.latitude}"></h:outputText> </f:facet>
+												<f:facet name="input"> <p:inputText id="txtInput-latitude"
+												value="#{coordinate.latitude}"></p:inputText> </f:facet>
+											</p:cellEditor>
+										</p:column>
+										<p:column style="width:32px">
+								            <p:rowEditor />
+								        </p:column>
+									</p:dataTable>
+								</div>
 							</div>
 						</h:panelGroup >
 						<p:separator />
 						<div class="form-group row">
 				 			<div class="col-md">
-				 				<h:commandButton value="Thêm mới" action="#{manageGeoInfoBean.addButtonClick}"></h:commandButton>
+				 				<h:commandButton value="Thêm mới" action="#{manageGeoInfoBean.addButtonClick}">
+				 					<f:ajax execute="@form" render="@form" ></f:ajax>
+				 				</h:commandButton>
 				 			</div>
 				 			<div class="col-md">
 				 				<h:commandButton value="Lưu"></h:commandButton>

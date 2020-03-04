@@ -29,8 +29,8 @@ public class ProvinceService implements IProvinceService{
 		return provinceRepository.findAll();
 	}
 	
-	public void save(Province province) {
-		provinceRepository.save(province);
+	public Province save(Province province) {
+		return provinceRepository.save(province);
 	}
 	
 	public void delete(Long id) {

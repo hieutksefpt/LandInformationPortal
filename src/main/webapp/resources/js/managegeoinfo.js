@@ -1,3 +1,10 @@
+
+
+var map;
+var selectedMarkers = [];
+var coordinateMarkers = [];
+var deleteOld = true;
+
 function initMap() {
     //FPT 
     var latitude = 21.012633;
@@ -63,30 +70,42 @@ function initMap() {
         });
         map.fitBounds(bounds);
     });
-    
- // Create new marker on single click event on the map
+
     google.maps.event.addListener(map, 'click', function (event) {
-        var marker = new google.maps.Marker({
+    	let selectedType = $("#form\\:cbb-IpgType option:selected").val();
+    	
+    	if (deleteOld){
+    		clearOldMarkers();
+    	}
+    	
+    	var marker = new google.maps.Marker({
             position: event.latLng,
             map: map,
             title: event.latLng.lat() + ', ' + event.latLng.lng()
         });
-
-//        selectedMarkers.push(marker);
-//        coordinateMarkers = selectedMarkers.map(x => ({
-//            lat: parseFloat(x.getPosition().lat()),
-//            lng: parseFloat(x.getPosition().lng())
-//        }))
-
-//        var content = document.getElementById('form:fname').value;
-//        document.getElementById('form:fname').value = content + event.latLng.lat() + "," + event.latLng.lng() + "\n\n";
-//        
-//        listCoordinates.push([event.latLng.lat(),event.latLng.lng()]);
-//        document.getElementById('form:json').value = JSON.stringify(listCoordinates);
+    	selectedMarkers.push(marker);
+    	setCoordinateForInput(marker)
     });
-
 }
+
+function setCoordinateForInput(marker){
+	$('#form\\:txtinput-lngSingleCoordinate').val(marker.getPosition().lng());
+	$('#form\\:txtinput-latSingleCoordinate').val(marker.getPosition().lat());
+}
+
+function clearOldMarkers(){
+	for (let i=0; i<selectedMarkers.length; i++){
+        selectedMarkers[i].setMap(null);
+    }
+    selectedMarkers = [];
+}
+
 function focusMap(latitude, longitude){
     map.setCenter(new google.maps.LatLng(latitude, longitude));
     map.setZoom(15);
+}
+function changeInfo(name, longitude, latitude){
+	$('#form\\:txtinput-Name').val(name);
+	$('#form\\:txtinput-lngSingleCoordinate').val(longitude);
+	$('#form\\:txtinput-latSingleCoordinate').val(latitude);
 }

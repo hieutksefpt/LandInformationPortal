@@ -60,7 +60,8 @@ public class ManageGeoInfoBean {
 			Province selectedProvince = listProvince.stream().filter(x -> x.getProvinceId().equals(Long.parseLong(provinceIdSelected))).collect(Collectors.toList()).get(0);
 			PrimeFaces.current().executeScript("focusMap(" + selectedProvince.getProvinceLat() + ", " + selectedProvince.getProvinceLng() + ");");
 			
-			listDistrict = provinceService.getListDistrictByProvinceId(Long.parseLong(provinceIdSelected));
+			// listDistrict = provinceService.getListDistrictByProvinceId(Long.parseLong(provinceIdSelected));
+			listDistrict = selectedProvince.getListDistrict();
 		}else {
 			listDistrict = new ArrayList<>();
 			listProvince = new ArrayList<>();

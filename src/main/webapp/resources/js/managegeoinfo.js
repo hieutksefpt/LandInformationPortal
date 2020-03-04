@@ -21,7 +21,7 @@ function initMap() {
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(formControl);
     
     var markers = [];
-    var input = $('#pac-input')[0];
+    var input = $('#searchbox-Address')[0];
     var searchBox = new google.maps.places.SearchBox(input);
 
     map.addListener('bounds_changed', function () {
@@ -84,4 +84,9 @@ function initMap() {
 //        listCoordinates.push([event.latLng.lat(),event.latLng.lng()]);
 //        document.getElementById('form:json').value = JSON.stringify(listCoordinates);
     });
+
+}
+function focusMap(latitude, longitude){
+    map.setCenter(new google.maps.LatLng(latitude, longitude));
+    map.setZoom(15);
 }

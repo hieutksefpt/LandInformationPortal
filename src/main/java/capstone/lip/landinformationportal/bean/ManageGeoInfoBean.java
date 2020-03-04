@@ -2,6 +2,8 @@ package capstone.lip.landinformationportal.bean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -9,14 +11,16 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 import capstone.lip.landinformationportal.entity.Street;
-import capstone.lip.landinformationportal.service.IDistrictService;
-import capstone.lip.landinformationportal.service.IProvinceService;
+import capstone.lip.landinformationportal.service.Interface.IDistrictService;
+import capstone.lip.landinformationportal.service.Interface.IProvinceService;
+import capstone.lip.landinformationportal.service.Interface.ISegmentOfStreetService;
 
 @Named
 @ViewScoped
@@ -27,6 +31,10 @@ public class ManageGeoInfoBean {
 
 	@Autowired
 	private IDistrictService districtService;
+	
+	@Autowired
+	private ISegmentOfStreetService segmentOfStreetService;
+	
 	
 	private List<Province> listProvince;
 	private List<District> listDistrict;
@@ -39,6 +47,7 @@ public class ManageGeoInfoBean {
 	private String streetIdSelected;
 	private String segmentStreetIdSelected;
 	private String processType;
+	private String nameInput;
 	@PostConstruct
 	public void init() {
 		processType = "1";
@@ -48,30 +57,63 @@ public class ManageGeoInfoBean {
 
 	public void provinceChange() {
 		if (provinceIdSelected != null && !provinceIdSelected.equals("")) {
+			Province selectedProvince = listProvince.stream().filter(x -> x.getProvinceId().equals(Long.parseLong(provinceIdSelected))).collect(Collectors.toList()).get(0);
+			PrimeFaces.current().executeScript("focusMap(" + selectedProvince.getProvinceLat() + ", " + selectedProvince.getProvinceLng() + ");");
+			
 			listDistrict = provinceService.getListDistrictByProvinceId(Long.parseLong(provinceIdSelected));
 		}else {
 			listDistrict = new ArrayList<>();
+			listProvince = new ArrayList<>();
+			listStreet = new ArrayList<>();
 		}
 	}
 	public void districtChange() {
 		if (districtIdSelected != null && !districtIdSelected.equals("")) {
-			listSegmentOfStreet = districtService.getListSegmentOfStreet(Long.parseLong(districtIdSelected));
+			District selectedDistrict = listDistrict.stream().filter(x->x.getDistrictId().equals(Long.parseLong(districtIdSelected))).collect(Collectors.toList()).get(0);
+			PrimeFaces.current().executeScript("focusMap(" + selectedDistrict.getDistrictLat() + ", " + selectedDistrict.getDistrictLng() + ");");
+			
+			listSegmentOfStreet = selectedDistrict.getListSegmentOfStreet();
+			listStreet = segmentOfStreetService.getListStreetByListSegment(listSegmentOfStreet);
 		}else {
+			listStreet = new ArrayList<>();
 			listSegmentOfStreet = new ArrayList<>();
 		}
 	}
 	public void streetChange() {
-		if (provinceIdSelected != null && !provinceIdSelected.equals("")) {
-			listDistrict = provinceService.getListDistrictByProvinceId(Long.parseLong(provinceIdSelected));
+		if (streetIdSelected != null && !streetIdSelected.equals("")) {
+			Street streetSelected = listStreet.stream().filter(x->x.getStreetId().equals((Long.parseLong(streetIdSelected)))).collect(Collectors.toList()).get(0);
+			PrimeFaces.current().executeScript("focusMap(" + streetSelected.getStreetLat() + ", " + streetSelected.getStreetLng() + ");");
+			
+			listSegmentOfStreet = streetSelected.getListSegmentOfStreet();			
 		}else {
-			listDistrict = new ArrayList<>();
+			listSegmentOfStreet = new ArrayList<>();
 		}
+		
 	}
 	public void segmentStreetChange() {
-		if (provinceIdSelected != null && !provinceIdSelected.equals("")) {
-			listDistrict = provinceService.getListDistrictByProvinceId(Long.parseLong(provinceIdSelected));
-		}else {
-			listDistrict = new ArrayList<>();
+//		if (provinceIdSelected != null && !provinceIdSelected.equals("")) {
+//			listDistrict = provinceService.getListDistrictByProvinceId(Long.parseLong(provinceIdSelected));
+//		}else {
+//			listDistrict = new ArrayList<>();
+//		}
+	}
+	public void addButtonClick() {
+		switch (processType) {
+			case "1":
+				Province province = new Province();
+				province.setProvinceName(nameInput);
+				
+				provinceService.save(province);
+				break;
+			case "2":
+				break;
+			case "3":
+				break;
+			case "4":
+				break;
+
+		default:
+			break;
 		}
 	}
 	public void displayLocation() {
@@ -83,6 +125,15 @@ public class ManageGeoInfoBean {
 //			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid", "City is not selected.");
 
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	
+	public String getNameInput() {
+		return nameInput;
+	}
+
+	public void setNameInput(String nameInput) {
+		this.nameInput = nameInput;
 	}
 
 	public List<District> getListDistrict() {

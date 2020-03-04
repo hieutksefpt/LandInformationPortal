@@ -3,6 +3,7 @@ package capstone.lip.landinformationportal.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,13 +35,14 @@ public class District extends AuditAbstract  implements Serializable{
 	@Column(name="DistrictLng")
 	private Double districtLng;
 	
-	
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@Basic(fetch = FetchType.LAZY)
+	@ManyToOne(optional = false)
 	@JoinColumn(name ="ProvinceID", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Province province;
 
-	@OneToMany(mappedBy="district",cascade = CascadeType.ALL,orphanRemoval = true, fetch=FetchType.LAZY)
+	@Basic(fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="district",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<SegmentOfStreet> listSegmentOfStreet;
 	
 	
@@ -91,10 +93,7 @@ public class District extends AuditAbstract  implements Serializable{
 	public void setProvince(Province province) {
 		this.province = province;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+    
 	
 	
 }

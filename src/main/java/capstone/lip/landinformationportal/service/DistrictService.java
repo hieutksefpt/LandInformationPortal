@@ -10,6 +10,7 @@ import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 import capstone.lip.landinformationportal.repository.DistrictRepository;
+import capstone.lip.landinformationportal.service.Interface.IDistrictService;
 
 @Service
 public class DistrictService implements IDistrictService{

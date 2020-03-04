@@ -19,20 +19,21 @@
 				    <p:panel header="Chọn địa điểm" style="margin-bottom:10px;">
 				    	<div class="form-group row">
 				    		<div class="col-md">
-				    			<input id="pac-input" class="controls" type="text" placeholder="Search Box"/>
+				    			<input id="searchbox-Address" class="controls" type="text" placeholder="Search Box"/>
 				    		</div>
 				    	</div>
 						<div class="form-group row">
 							<div class="col-md">
-								<h:selectOneMenu id="province" value="#{manageGeoInfoBean.provinceIdSelected}" >
-					                <p:ajax listener="#{manageGeoInfoBean.provinceChange}" update="district"/>
+								<h:selectOneMenu id="cbb-Province" value="#{manageGeoInfoBean.provinceIdSelected}" >
+					                <p:ajax listener="#{manageGeoInfoBean.provinceChange}" update="cbb-District"/>
 					                <f:selectItem itemLabel="Tỉnh/Thành phố" itemValue=""/>
 					                <f:selectItems value="#{manageGeoInfoBean.listProvince}" var="element"
 					                itemLabel="#{element.provinceName}" itemValue="#{element.provinceId}"/>
 					            </h:selectOneMenu>
 							</div>
 							<div class="col-md">
-								<h:selectOneMenu id="district" value="#{manageGeoInfoBean.districtIdSelected}">
+								<h:selectOneMenu id="cbb-District" value="#{manageGeoInfoBean.districtIdSelected}">
+									<p:ajax listener="#{manageGeoInfoBean.districtChange}" update="cbb-Street cbb-SegmentOfStreet"></p:ajax>
 					                <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
 					                <f:selectItems value="#{manageGeoInfoBean.listDistrict}" var="element"
 					                itemLabel="#{element.districtName}" itemValue="#{element.districtId}"/>
@@ -41,26 +42,29 @@
 						</div>
 				        <div class="form-group row">
 				        	<div class="col-md">
-				        		<h:selectOneMenu id="street" value="#{manageGeoInfoBean.streetIdSelected}">
+				        		<h:selectOneMenu id="cbb-Street" value="#{manageGeoInfoBean.streetIdSelected}">
+				        			<p:ajax listener="#{manageGeoInfoBean.streetChange}" update="cbb-SegmentOfStreet"></p:ajax>
 					                <f:selectItem itemLabel="Đường phố" itemValue=""/>
-					                <f:selectItems value="#{manageGeoInfoBean.listStreet}" />
+					                <f:selectItems value="#{manageGeoInfoBean.listStreet}" var="element"
+					                itemLabel="#{element.streetName}" itemValue="#{element.streetId}"/>
 					            </h:selectOneMenu>
 				        	</div>
 				        	<div class="col-md">
-				        		<h:selectOneMenu id="segmentStreet" value="#{manageGeoInfoBean.segmentStreetIdSelected}">
+				        		<h:selectOneMenu id="cbb-SegmentOfStreet" value="#{manageGeoInfoBean.segmentStreetIdSelected}">
 					                <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
-					                <f:selectItems value="#{manageGeoInfoBean.listSegmentOfStreet}" />
+					                <f:selectItems value="#{manageGeoInfoBean.listSegmentOfStreet}" var="element"
+					                itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
 					            </h:selectOneMenu>
 				        	</div>
 				        </div>
 				        <p:separator />
 				 		<div class="form-group row">
 				 			<div class="col-md">
-				 				<p:outputLabel for="processType" value="Thao tác với">
+				 				<p:outputLabel for="cbb-IpgType" value="Thao tác với">
 								</p:outputLabel>
 				 			</div>
 				 			<div class="col-md">
-				 				<h:selectOneMenu id="processType" value="#{manageGeoInfoBean.processType}">
+				 				<h:selectOneMenu id="cbb-IpgType" value="#{manageGeoInfoBean.processType}">
 									<p:ajax update="@form"></p:ajax>
 									<f:selectItem itemLabel="Tỉnh/Thành phố" itemValue="1"></f:selectItem>
 									<f:selectItem itemLabel="Quận/Huyện" itemValue="2"></f:selectItem>
@@ -71,11 +75,11 @@
 				 		</div>
 					    <div class="form-group row">
 				 			<div class="col-md">
-				 				<p:outputLabel for="nameInput" value="Tên">
+				 				<p:outputLabel for="txtinput-Name" value="Tên">
 								</p:outputLabel>	
 				 			</div>
 				 			<div class="col-md">
-				 				<h:inputText id="nameInput"></h:inputText>
+				 				<h:inputText id="txtinput-Name"></h:inputText>
 				 			</div>
 						 </div>
 						<h:panelGroup rendered="#{manageGeoInfoBean.processType != '4'}">
@@ -85,14 +89,13 @@
 								</div>
 								<div class="col-md">
 									<h:inputText id="singleCoordinate"></h:inputText>
-									
 								</div>
 							</div>
 						</h:panelGroup>
 						<h:panelGroup rendered="#{manageGeoInfoBean.processType == '4'}">
 							<div class="form-group row">
 								<div class="col-md">
-									<p:outputLabel for="singleCoordinate" value="Tọa độ cấu tạo"></p:outputLabel>
+									<p:outputLabel for="multiCoordinate" value="Tọa độ cấu tạo"></p:outputLabel>
 								</div>
 								<div class="col-md">
 									
@@ -103,7 +106,7 @@
 						<p:separator />
 						<div class="form-group row">
 				 			<div class="col-md">
-				 				<h:commandButton value="Thêm mới"></h:commandButton>
+				 				<h:commandButton value="Thêm mới" action="#{manageGeoInfoBean.addButtonClick}"></h:commandButton>
 				 			</div>
 				 			<div class="col-md">
 				 				<h:commandButton value="Lưu"></h:commandButton>

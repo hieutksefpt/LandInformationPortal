@@ -15,9 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.repository.ProvinceRepository;
+import capstone.lip.landinformationportal.service.Interface.IProvinceService;
 
 @Service
 public class ProvinceService implements IProvinceService{
+	
 	@Autowired 
 	ProvinceRepository provinceRepository;
 	

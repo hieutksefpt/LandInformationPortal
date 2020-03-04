@@ -1,4 +1,4 @@
-package capstone.lip.landinformationportal.service;
+package capstone.lip.landinformationportal.service.Interface;
 
 import java.util.List;
 

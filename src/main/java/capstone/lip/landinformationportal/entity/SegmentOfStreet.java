@@ -28,15 +28,63 @@ public class SegmentOfStreet extends AuditAbstract implements Serializable{
 	@Column(name="SegmentLng")
 	private Double segmentLng;
 	
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name ="DistrictID", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private District district;
 	
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name ="StreetID", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Street street;
-	
 
+	public Long getSegmentId() {
+		return segmentId;
+	}
+
+	public void setSegmentId(Long segmentId) {
+		this.segmentId = segmentId;
+	}
+
+	public String getSegmentName() {
+		return segmentName;
+	}
+
+	public void setSegmentName(String segmentName) {
+		this.segmentName = segmentName;
+	}
+
+	public Double getSegmentLat() {
+		return segmentLat;
+	}
+
+	public void setSegmentLat(Double segmentLat) {
+		this.segmentLat = segmentLat;
+	}
+
+	public Double getSegmentLng() {
+		return segmentLng;
+	}
+
+	public void setSegmentLng(Double segmentLng) {
+		this.segmentLng = segmentLng;
+	}
+
+	public District getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(District district) {
+		this.district = district;
+	}
+
+	public Street getStreet() {
+		return street;
+	}
+
+	public void setStreet(Street street) {
+		this.street = street;
+	}
+	
+	
 }

@@ -12,16 +12,26 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.primefaces.PrimeFaces;
+import org.primefaces.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import capstone.lip.landinformationportal.dto.Coordinate;
 import capstone.lip.landinformationportal.entity.District;
+import capstone.lip.landinformationportal.entity.FormedCoordinate;
 import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 import capstone.lip.landinformationportal.entity.Street;
 import capstone.lip.landinformationportal.service.Interface.IDistrictService;
+import capstone.lip.landinformationportal.service.Interface.IFormedCoordinate;
 import capstone.lip.landinformationportal.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.service.Interface.ISegmentOfStreetService;
+import capstone.lip.landinformationportal.service.Interface.IStreetService;
 
 @Named
 @ViewScoped
@@ -36,6 +46,11 @@ public class ManageGeoInfoBean {
 	@Autowired
 	private ISegmentOfStreetService segmentOfStreetService;
 	
+	@Autowired
+	private IStreetService streetService;
+	
+	@Autowired
+	private IFormedCoordinate formedCoordinateService;
 	
 	private List<Province> listProvince;
 	private List<District> listDistrict;
@@ -52,6 +67,9 @@ public class ManageGeoInfoBean {
 	private String lngSingleCoordinate;
 	private String latSingleCoordinate;
 	private List<Coordinate> listCoordinate;
+	private String jsonMultipleCoordinate;
+	
+	
 	@PostConstruct
 	public void init() {
 		processType = "1";
@@ -60,10 +78,12 @@ public class ManageGeoInfoBean {
 		listProvince = provinceService.findAll();
 	}
 
+	Province selectedProvince;
 	public void provinceChange() {
 		if (provinceIdSelected != null && !provinceIdSelected.equals("")) {
-			Province selectedProvince = listProvince.stream().filter(x -> x.getProvinceId().equals(Long.parseLong(provinceIdSelected))).collect(Collectors.toList()).get(0);
+			selectedProvince = listProvince.stream().filter(x -> x.getProvinceId().equals(Long.parseLong(provinceIdSelected))).collect(Collectors.toList()).get(0);
 			listDistrict = selectedProvince.getListDistrict();
+			
 			PrimeFaces.current().executeScript("focusMap(" + selectedProvince.getProvinceLat() + ", " + selectedProvince.getProvinceLng() + ");");
 			PrimeFaces.current().executeScript("changeInfo(\""+selectedProvince.getProvinceName()+"\", "+selectedProvince.getProvinceLng()+", "+
 			selectedProvince.getProvinceLat()+")");
@@ -75,10 +95,14 @@ public class ManageGeoInfoBean {
 		
 		
 	}
+	District selectedDistrict;
 	public void districtChange() {
 		if (districtIdSelected != null && !districtIdSelected.equals("")) {
-			District selectedDistrict = listDistrict.stream().filter(x->x.getDistrictId().equals(Long.parseLong(districtIdSelected))).collect(Collectors.toList()).get(0);
+			selectedDistrict = listDistrict.stream().filter(x->x.getDistrictId().equals(Long.parseLong(districtIdSelected))).collect(Collectors.toList()).get(0);
 			PrimeFaces.current().executeScript("focusMap(" + selectedDistrict.getDistrictLat() + ", " + selectedDistrict.getDistrictLng() + ");");
+			
+			PrimeFaces.current().executeScript("changeInfo(\""+selectedDistrict.getDistrictName()+"\", "+selectedDistrict.getDistrictLng()+", "+
+		    selectedDistrict.getDistrictLat()+")");
 			
 			listSegmentOfStreet = selectedDistrict.getListSegmentOfStreet();
 			listStreet = segmentOfStreetService.getListStreetByListSegment(listSegmentOfStreet);
@@ -87,25 +111,35 @@ public class ManageGeoInfoBean {
 			listSegmentOfStreet = new ArrayList<>();
 		}
 	}
+	Street selectedStreet;
 	public void streetChange() {
 		if (streetIdSelected != null && !streetIdSelected.equals("")) {
-			Street streetSelected = listStreet.stream().filter(x->x.getStreetId().equals((Long.parseLong(streetIdSelected)))).collect(Collectors.toList()).get(0);
-			PrimeFaces.current().executeScript("focusMap(" + streetSelected.getStreetLat() + ", " + streetSelected.getStreetLng() + ");");
-			
-			listSegmentOfStreet = streetSelected.getListSegmentOfStreet();			
+			selectedStreet = listStreet.stream().filter(x->x.getStreetId().equals((Long.parseLong(streetIdSelected)))).collect(Collectors.toList()).get(0);
+			PrimeFaces.current().executeScript("focusMap(" + selectedStreet.getStreetLat() + ", " + selectedStreet.getStreetLng() + ");");
+			PrimeFaces.current().executeScript("changeInfo(\""+selectedDistrict.getDistrictName()+"\", "+selectedStreet.getStreetLat()+", "+
+					selectedStreet.getStreetLng()+")");
+					
+			listSegmentOfStreet = selectedStreet.getListSegmentOfStreet();			
 		}else {
 			listSegmentOfStreet = new ArrayList<>();
 		}
 		
 	}
+	SegmentOfStreet segmentOfStreet;
 	public void segmentStreetChange() {
-//		if (provinceIdSelected != null && !provinceIdSelected.equals("")) {
-//			listDistrict = provinceService.getListDistrictByProvinceId(Long.parseLong(provinceIdSelected));
-//		}else {
-//			listDistrict = new ArrayList<>();
-//		}
+		if (provinceIdSelected != null && !provinceIdSelected.equals("")) {
+			segmentOfStreet = listSegmentOfStreet.stream().filter(x->x.getSegmentId().equals(segmentStreetIdSelected)).collect(Collectors.toList()).get(0);
+			PrimeFaces.current().executeScript("focusMap(" + segmentOfStreet.getSegmentLat() + ", " + segmentOfStreet.getSegmentLng() + ");");
+			PrimeFaces.current().executeScript("changeInfo(\""+segmentOfStreet.getSegmentName()+"\", "+segmentOfStreet.getSegmentLat()+", "+
+					segmentOfStreet.getSegmentLng()+")");
+		}else {
+			
+		}
 	}
-	private boolean flagAddNewStreet;
+
+	
+	Street streetTemp;
+	
 	public void addButtonClick() {
 		FacesMessage msg;
 		String error = findErrorInput();
@@ -130,6 +164,7 @@ public class ManageGeoInfoBean {
 				district.setDistrictName(nameInput);
 				district.setDistrictLat(Double.valueOf(latSingleCoordinate));
 				district.setDistrictLng(Double.valueOf(lngSingleCoordinate));
+				district.setProvince(selectedProvince);
 				district = districtService.save(district);
 				listDistrict.add(district);
 				break;
@@ -138,10 +173,41 @@ public class ManageGeoInfoBean {
 				street.setStreetName(nameInput);
 				street.setStreetLat(Double.valueOf(latSingleCoordinate));
 				street.setStreetLng(Double.valueOf(lngSingleCoordinate));
+				streetTemp = street;
 				break;
 			case "4":
+				
+				street = streetService.save(streetTemp);
+				
 				SegmentOfStreet segmentStreet = new SegmentOfStreet();
+				segmentStreet.setStreet(street);
+				
+				JsonParser jsonParser = new JsonParser();
+				JsonArray jsonArray = (JsonArray) jsonParser.parse(jsonMultipleCoordinate);
+				List<FormedCoordinate> listFormedCoordinate = new ArrayList();
+				
+				segmentStreet.setSegmentLat(1.0);
+				segmentStreet.setSegmentLng(1.0);
+				segmentStreet.setDistrict(selectedDistrict);
+				segmentStreet.setStreet(streetTemp);
 				segmentStreet.setSegmentName(nameInput);
+				segmentStreet.setListFormedCoordinate(listFormedCoordinate);
+				
+				segmentStreet = segmentOfStreetService.save(segmentStreet);
+				
+				for (JsonElement jsonElement : jsonArray) {
+					JsonObject temp = (JsonObject)jsonElement;
+					FormedCoordinate coordinate = new FormedCoordinate();
+					coordinate.setFormedLat(Double.parseDouble(temp.get("lat").toString()));
+					coordinate.setFormedLng(Double.parseDouble(temp.get("lng").toString()));
+					coordinate.setSegmentOfStreet(segmentStreet);
+					listFormedCoordinate.add(coordinate);
+				}
+				
+				listFormedCoordinate = formedCoordinateService.saveAll(listFormedCoordinate);
+				
+				
+				
 				break;
 
 		default:
@@ -152,15 +218,18 @@ public class ManageGeoInfoBean {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	private String findErrorInput() {
-		if (nameInput.isEmpty()) {
+		if (nameInput == null || nameInput.isEmpty()) {
 			return "Tên không được để trống";
 		}
-		if (lngSingleCoordinate.isEmpty()) {
+		
+		if (processType.equals("4")) {
+			if (jsonMultipleCoordinate == null || jsonMultipleCoordinate.isEmpty()) {
+				return "Tọa độ không được để trống";
+			}
+		}else if (lngSingleCoordinate == null || latSingleCoordinate ==null|| lngSingleCoordinate.isEmpty() || latSingleCoordinate.isEmpty()) {
 			return "Tọa độ không được để trống";
 		}
-		if (nameInput.isEmpty()) {
-			return "Tọa độ không được để trống";
-		}
+
 		return "";
 	}
 	public void displayMessage() {
@@ -279,6 +348,14 @@ public class ManageGeoInfoBean {
 
 	public void setListCoordinate(List<Coordinate> listCoordinate) {
 		this.listCoordinate = listCoordinate;
+	}
+
+	public String getJsonMultipleCoordinate() {
+		return jsonMultipleCoordinate;
+	}
+
+	public void setJsonMultipleCoordinate(String jsonMultipleCoordinate) {
+		this.jsonMultipleCoordinate = jsonMultipleCoordinate;
 	}
 	
 }

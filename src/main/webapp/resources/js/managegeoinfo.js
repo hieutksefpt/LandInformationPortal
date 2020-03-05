@@ -2,7 +2,6 @@
 
 var map;
 var selectedMarkers = [];
-var coordinateMarkers = [];
 var deleteOld = true;
 
 function initMap() {
@@ -74,20 +73,80 @@ function initMap() {
     google.maps.event.addListener(map, 'click', function (event) {
     	let selectedType = $("#form\\:cbb-IpgType option:selected").val();
     	
-    	if (deleteOld){
-    		clearOldMarkers();
-    	}
-    	
-    	var marker = new google.maps.Marker({
+    	let marker = new google.maps.Marker({
             position: event.latLng,
             map: map,
             title: event.latLng.lat() + ', ' + event.latLng.lng()
         });
+    	
+    	if (deleteOld){
+    		clearOldMarkers();
+        	setCoordinateForInput(marker);
+    	}else{
+    		addNewRowCoordinate();
+    		addDataToNewRow(marker);
+    		
+    	}
+    	
+    	
+
     	selectedMarkers.push(marker);
-    	setCoordinateForInput(marker)
     });
 }
+let countRow = 0;
+function addDataToNewRow(marker){
+	$('#lng-'+(countRow-1)).val(marker.getPosition().lng());
+	$('#lat-'+(countRow-1)).val(marker.getPosition().lat());
+	$('#form\\:txtInput_multipleCoordinate').val(JSON.stringify(
+			selectedMarkers.map(x=>{
+				let obj={};obj.lat = x.getPosition().lat();obj.lng=x.getPosition().lng();
+				return obj})
+		));
+}
+function addNewRowCoordinate(){
+	var newRow = $("<tr>");
+    var cols = "";
+	cols+= '<td class="td-lng"><input type="text" name="longitude" id="lng-'+countRow+'" class="form-control longitude-multi""/></td>';
+	cols+= '<td class="td-lat"><input type="text" name="latitude"  id="lat-'+countRow+'" class="form-control latitude-multi"/></td>';
+	countRow++;
+	cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger " onclick="deleteRow(this)" value="X"></td>';
+    newRow.append(cols);
+    $("#table-coordinate").append(newRow);
+}
 
+function deleteRow(element){
+	console.log($(element).closest("tr"));
+	$(element).closest("tr").remove();
+	let lng = $($(element).parent().parent().children()[0]).children().val()
+	let lat = $($(element).parent().parent().children()[1]).children().val()
+	
+	selectedMarkers = selectedMarkers.filter(x=> {
+		if (x.getPosition().lat()==lat && x.getPosition().lng()==lng){
+			x.setMap(null);
+		}
+		return x.getPosition().lat()!=lat && x.getPosition().lng()!=lng
+	});
+	$('#form\\:txtInput_multipleCoordinate').val(JSON.stringify(
+		selectedMarkers.map(x=>{
+			let obj={};obj.lat = x.getPosition().lat();obj.lng=x.getPosition().lng();
+			return obj}))
+	);	
+	countRow--;
+}
+$("#table-coordinate").on("click", ".ibtnDel", function (event) {
+    $(this).closest("tr").remove();       
+    countRow--;
+});
+
+function updateDeleteOld(){
+	let selectedType = $("#form\\:cbb-IpgType option:selected").val();
+	if (selectedType == "4"){
+		deleteOld = false;
+	}else{
+		deleteOld = true;
+	}
+	countRow = 0;
+}
 function setCoordinateForInput(marker){
 	$('#form\\:txtinput-lngSingleCoordinate').val(marker.getPosition().lng());
 	$('#form\\:txtinput-latSingleCoordinate').val(marker.getPosition().lat());

@@ -1,7 +1,10 @@
 package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
@@ -31,16 +35,22 @@ public class SegmentOfStreet extends AuditAbstract implements Serializable{
 	@Column(name="SegmentLng")
 	private Double segmentLng;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@Basic(fetch = FetchType.LAZY)
+	@ManyToOne(optional = false)
 	@JoinColumn(name ="DistrictID", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private District district;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@Basic(fetch = FetchType.LAZY)
+	@ManyToOne(optional = false)
 	@JoinColumn(name ="StreetID", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Street street;
-
+	
+	@Basic(fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="segmentOfStreet",cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<FormedCoordinate> listFormedCoordinate;
+	
 	public Long getSegmentId() {
 		return segmentId;
 	}
@@ -87,6 +97,14 @@ public class SegmentOfStreet extends AuditAbstract implements Serializable{
 
 	public void setStreet(Street street) {
 		this.street = street;
+	}
+
+	public List<FormedCoordinate> getListFormedCoordinate() {
+		return listFormedCoordinate;
+	}
+
+	public void setListFormedCoordinate(List<FormedCoordinate> listFormedCoordinate) {
+		this.listFormedCoordinate = listFormedCoordinate;
 	}
 	
 	

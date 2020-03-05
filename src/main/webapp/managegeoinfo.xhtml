@@ -8,10 +8,11 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <h:body>
-
+	
 	<ui:composition template="/template/admin/adminLayout.xhtml">
 
 		<ui:define name="content">
+			<h:outputStylesheet name="managegeoinfo.css" library="css"></h:outputStylesheet>
             <div id="formControl">
 	            <h:form id="form">
 				    <p:growl id="msgs" showDetail="true"/>
@@ -66,7 +67,7 @@
 				 			</div>
 				 			<div class="col-md">
 				 				<h:selectOneMenu id="cbb-IpgType" value="#{manageGeoInfoBean.processType}">
-									<p:ajax update="@form"></p:ajax>
+									<p:ajax update="@form" oncomplete="clearOldMarkers(), updateDeleteOld()"></p:ajax>
 									<f:selectItem itemLabel="Tỉnh/Thành phố" itemValue="1"></f:selectItem>
 									<f:selectItem itemLabel="Quận/Huyện" itemValue="2"></f:selectItem>
 									<f:selectItem itemLabel="Đường phố" itemValue="3"></f:selectItem>
@@ -97,36 +98,33 @@
 						<h:panelGroup rendered="#{manageGeoInfoBean.processType == '4'}">
 							<div class="form-group row">
 								<div class="col-md">
-									<p:outputLabel for="multiCoordinate" value="Tọa độ cấu tạo"></p:outputLabel>
+									<p:outputLabel value="Tọa độ cấu tạo"></p:outputLabel>
 								</div>
-								<div class="col-md">
-									
-									<h:inputTextarea id="multiCoordinate"></h:inputTextarea>
-								</div>
+							</div>
+							<div class="form-group row">
+								<h:inputHidden id="txtInput_multipleCoordinate" value="#{manageGeoInfoBean.jsonMultipleCoordinate}"></h:inputHidden>
 								<div>
-									<p:commandButton value="Add new row" styleClass="ui-priority-primary" process="@this" update=":form:msgs"
-	                              	 oncomplete="PF('table-coordinate').addRow();" action="#{manageGeoInfoBean.addNewRow()}"/>
-	                              	
-									<p:dataTable id="table-coordinate" widgetVar="table-coordinate" value="#{manageGeoInfoBean.listCoordinate}" 
-									editable="true" var="coordinate" styleClass="test">
-										<p:column headerText="Longitude">
-											<p:cellEditor>
-												<f:facet name="output"> <h:outputText value="#{coordinate.longitude}"></h:outputText> </f:facet>
-												<f:facet name="input"> <p:inputText id="txtInput-longitude"
-												value="#{coordinate.longitude}"></p:inputText> </f:facet>
-											</p:cellEditor>
-										</p:column>
-										<p:column headerText="Latitude">
-											<p:cellEditor>
-												<f:facet name="output"> <h:outputText value="#{coordinate.latitude}"></h:outputText> </f:facet>
-												<f:facet name="input"> <p:inputText id="txtInput-latitude"
-												value="#{coordinate.latitude}"></p:inputText> </f:facet>
-											</p:cellEditor>
-										</p:column>
-										<p:column style="width:32px">
-								            <p:rowEditor />
-								        </p:column>
-									</p:dataTable>
+									<table id="tableCoordinate" class="table order-list">
+										<thead>
+											<tr>
+												<th>Longitude</th>
+												<th>Latitude</th>
+											</tr>
+										</thead>
+										
+										<tbody>
+											<tr>
+												<td colspan="2">
+													<div class="scrolldata">
+														<table id="table-coordinate">
+															
+														</table>
+													</div>
+												</td>
+											</tr>
+											
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</h:panelGroup >

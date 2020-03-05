@@ -22,14 +22,16 @@ public class Coordinate implements Serializable{
 	public Double getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(Double longitude) {
+	public Coordinate setLongitude(Double longitude) {
 		this.longitude = longitude;
+		return this;
 	}
 	public Double getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(Double latitude) {
+	public Coordinate setLatitude(Double latitude) {
 		this.latitude = latitude;
+		return this;
 	}
 	
 }

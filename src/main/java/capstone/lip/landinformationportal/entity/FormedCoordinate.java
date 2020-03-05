@@ -2,9 +2,12 @@ package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,14 +21,16 @@ public class FormedCoordinate extends AuditAbstract implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="FoormedCoordinateId")
 	private Long formedCoordinateId;
-	@Column(name="formedLat")
+	@Column(name="FormedLat")
 	private Double formedLat;
-	@Column(name="formedLng")
+	@Column(name="FormedLng")
 	private Double formedLng;
 	
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@Basic(fetch = FetchType.LAZY)
+	@ManyToOne(optional = false)
 	@JoinColumn(name ="SegmentID", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private SegmentOfStreet segmentOfStreet;

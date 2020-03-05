@@ -28,6 +28,16 @@ public class LandsFeature extends AuditAbstract implements Serializable {
     @Column(name = "LandsFeatureUnit")
     private String landsfeatureUnit;
 
+    public LandsFeature(String landsfeatureName, String landsfeatureUnit) {
+        this.landsfeatureName = landsfeatureName;
+        this.landsfeatureUnit = landsfeatureUnit;
+    }
+
+    public LandsFeature() {
+    }
+
+    
+    
     public Long getLandsfeatureID() {
         return landsfeatureID;
     }

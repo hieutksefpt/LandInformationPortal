@@ -28,6 +28,15 @@ public class HousesFeature extends AuditAbstract implements Serializable {
     @Column(name = "HousesFeatureUnit")
     private String housesfeatureUnit;
 
+    public HousesFeature(String housesfeatureName, String housesfeatureUnit) {
+        this.housesfeatureName = housesfeatureName;
+        this.housesfeatureUnit = housesfeatureUnit;
+    }
+
+    public HousesFeature() {
+    }
+    
+    
     public Long getHousesfeatureID() {
         return housesfeatureID;
     }

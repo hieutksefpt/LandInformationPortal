@@ -22,7 +22,7 @@ public class FormedCoordinate extends AuditAbstract implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="FoormedCoordinateId")
+	@Column(name="FormedCoordinateID")
 	private Long formedCoordinateId;
 	@Column(name="FormedLat")
 	private Double formedLat;
@@ -39,32 +39,36 @@ public class FormedCoordinate extends AuditAbstract implements Serializable {
 		return formedCoordinateId;
 	}
 
-	public void setFormedCoordinateId(Long formedCoordinateId) {
+	public FormedCoordinate setFormedCoordinateId(Long formedCoordinateId) {
 		this.formedCoordinateId = formedCoordinateId;
+		return this;
 	}
 
 	public Double getFormedLat() {
 		return formedLat;
 	}
 
-	public void setFormedLat(Double formedLat) {
+	public FormedCoordinate setFormedLat(Double formedLat) {
 		this.formedLat = formedLat;
+		return this;
 	}
 
 	public Double getFormedLng() {
 		return formedLng;
 	}
 
-	public void setFormedLng(Double formedLng) {
+	public FormedCoordinate setFormedLng(Double formedLng) {
 		this.formedLng = formedLng;
+		return this;
 	}
 
 	public SegmentOfStreet getSegmentOfStreet() {
 		return segmentOfStreet;
 	}
 
-	public void setSegmentOfStreet(SegmentOfStreet segmentOfStreet) {
+	public FormedCoordinate setSegmentOfStreet(SegmentOfStreet segmentOfStreet) {
 		this.segmentOfStreet = segmentOfStreet;
+		return this;
 	}
 	
 	

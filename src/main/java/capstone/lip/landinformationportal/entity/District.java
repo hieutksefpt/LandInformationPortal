@@ -53,48 +53,54 @@ public class District extends AuditAbstract  implements Serializable{
 		return listSegmentOfStreet;
 	}
 
-	public void setListSegmentOfStreet(List<SegmentOfStreet> listSegmentOfStreet) {
+	public District setListSegmentOfStreet(List<SegmentOfStreet> listSegmentOfStreet) {
 		this.listSegmentOfStreet = listSegmentOfStreet;
+		return this;
 	}
 
 	public Long getDistrictId() {
 		return districtId;
 	}
 
-	public void setDistrictId(Long districtId) {
+	public District setDistrictId(Long districtId) {
 		this.districtId = districtId;
+		return this;
 	}
 
 	public String getDistrictName() {
 		return districtName;
 	}
 
-	public void setDistrictName(String districtName) {
+	public District setDistrictName(String districtName) {
 		this.districtName = districtName;
+		return this;
 	}
 
 	public Double getDistrictLat() {
 		return districtLat;
 	}
 
-	public void setDistrictLat(Double districtLat) {
+	public District setDistrictLat(Double districtLat) {
 		this.districtLat = districtLat;
+		return this;
 	}
 
 	public Double getDistrictLng() {
 		return districtLng;
 	}
 
-	public void setDistrictLng(Double districtLng) {
+	public District setDistrictLng(Double districtLng) {
 		this.districtLng = districtLng;
+		return this;
 	}
 
 	public Province getProvince() {
 		return province;
 	}
 
-	public void setProvince(Province province) {
+	public District setProvince(Province province) {
 		this.province = province;
+		return this;
 	}
     
 	

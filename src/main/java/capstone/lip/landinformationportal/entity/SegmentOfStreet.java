@@ -55,56 +55,63 @@ public class SegmentOfStreet extends AuditAbstract implements Serializable{
 		return segmentId;
 	}
 
-	public void setSegmentId(Long segmentId) {
+	public SegmentOfStreet setSegmentId(Long segmentId) {
 		this.segmentId = segmentId;
+		return this;
 	}
 
 	public String getSegmentName() {
 		return segmentName;
 	}
 
-	public void setSegmentName(String segmentName) {
+	public SegmentOfStreet setSegmentName(String segmentName) {
 		this.segmentName = segmentName;
+		return this;
 	}
 
 	public Double getSegmentLat() {
 		return segmentLat;
 	}
 
-	public void setSegmentLat(Double segmentLat) {
+	public SegmentOfStreet setSegmentLat(Double segmentLat) {
 		this.segmentLat = segmentLat;
+		return this;
 	}
 
 	public Double getSegmentLng() {
 		return segmentLng;
 	}
 
-	public void setSegmentLng(Double segmentLng) {
+	public SegmentOfStreet setSegmentLng(Double segmentLng) {
 		this.segmentLng = segmentLng;
+		return this;
 	}
 
 	public District getDistrict() {
 		return district;
 	}
 
-	public void setDistrict(District district) {
+	public SegmentOfStreet setDistrict(District district) {
 		this.district = district;
+		return this;
 	}
 
 	public Street getStreet() {
 		return street;
 	}
 
-	public void setStreet(Street street) {
+	public SegmentOfStreet setStreet(Street street) {
 		this.street = street;
+		return this;
 	}
 
 	public List<FormedCoordinate> getListFormedCoordinate() {
 		return listFormedCoordinate;
 	}
 
-	public void setListFormedCoordinate(List<FormedCoordinate> listFormedCoordinate) {
+	public SegmentOfStreet setListFormedCoordinate(List<FormedCoordinate> listFormedCoordinate) {
 		this.listFormedCoordinate = listFormedCoordinate;
+		return this;
 	}
 	
 	

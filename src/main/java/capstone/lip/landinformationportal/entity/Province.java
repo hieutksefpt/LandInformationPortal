@@ -46,31 +46,36 @@ public class Province extends AuditAbstract implements Serializable{
 	public List<District> getListDistrict() {
 		return listDistrict;
 	}
-	public void setListDistrict(List<District> listDistrict) {
+	public Province setListDistrict(List<District> listDistrict) {
 		this.listDistrict = listDistrict;
+		return this;
 	}
 	public Long getProvinceId() {
 		return provinceId;
 	}
-	public void setProvinceId(Long provinceId) {
+	public Province setProvinceId(Long provinceId) {
 		this.provinceId = provinceId;
+		return this;
 	}
 	public String getProvinceName() {
 		return provinceName;
 	}
-	public void setProvinceName(String provinceName) {
+	public Province setProvinceName(String provinceName) {
 		this.provinceName = provinceName;
+		return this;
 	}
 	public Double getProvinceLat() {
 		return provinceLat;
 	}
-	public void setProvinceLat(Double provinceLat) {
+	public Province setProvinceLat(Double provinceLat) {
 		this.provinceLat = provinceLat;
+		return this;
 	}
 	public Double getProvinceLng() {
 		return provinceLng;
 	}
-	public void setProvinceLng(Double provinceLng) {
+	public Province setProvinceLng(Double provinceLng) {
 		this.provinceLng = provinceLng;
+		return this;
 	}
 }

@@ -40,29 +40,34 @@ public class Street extends AuditAbstract implements Serializable {
 	public List<SegmentOfStreet> getListSegmentOfStreet() {
 		return listSegmentOfStreet;
 	}
-	public void setListSegmentOfStreet(List<SegmentOfStreet> listSegmentOfStreet) {
+	public Street setListSegmentOfStreet(List<SegmentOfStreet> listSegmentOfStreet) {
 		this.listSegmentOfStreet = listSegmentOfStreet;
+		return this;
 	}
-	public void setStreetId(Long streetId) {
+	public Street setStreetId(Long streetId) {
 		this.streetId = streetId;
+		return this;
 	}
 	public String getStreetName() {
 		return streetName;
 	}
-	public void setStreetName(String streetName) {
+	public Street setStreetName(String streetName) {
 		this.streetName = streetName;
+		return this;
 	}
 	public Double getStreetLat() {
 		return streetLat;
 	}
-	public void setStreetLat(Double streetLat) {
+	public Street setStreetLat(Double streetLat) {
 		this.streetLat = streetLat;
+		return this;
 	}
 	public Double getStreetLng() {
 		return streetLng;
 	}
-	public void setStreetLng(Double streetLng) {
+	public Street setStreetLng(Double streetLng) {
 		this.streetLng = streetLng;
+		return this;
 	}
 	
 	@Override

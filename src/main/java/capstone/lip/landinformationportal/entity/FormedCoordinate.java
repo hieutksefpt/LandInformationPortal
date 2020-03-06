@@ -2,9 +2,12 @@ package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,14 +21,16 @@ public class FormedCoordinate extends AuditAbstract implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="FoormedCoordinateId")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="FormedCoordinateID")
 	private Long formedCoordinateId;
-	@Column(name="formedLat")
+	@Column(name="FormedLat")
 	private Double formedLat;
-	@Column(name="formedLng")
+	@Column(name="FormedLng")
 	private Double formedLng;
 	
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@Basic(fetch = FetchType.LAZY)
+	@ManyToOne(optional = false)
 	@JoinColumn(name ="SegmentID", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private SegmentOfStreet segmentOfStreet;
@@ -34,32 +39,36 @@ public class FormedCoordinate extends AuditAbstract implements Serializable {
 		return formedCoordinateId;
 	}
 
-	public void setFormedCoordinateId(Long formedCoordinateId) {
+	public FormedCoordinate setFormedCoordinateId(Long formedCoordinateId) {
 		this.formedCoordinateId = formedCoordinateId;
+		return this;
 	}
 
 	public Double getFormedLat() {
 		return formedLat;
 	}
 
-	public void setFormedLat(Double formedLat) {
+	public FormedCoordinate setFormedLat(Double formedLat) {
 		this.formedLat = formedLat;
+		return this;
 	}
 
 	public Double getFormedLng() {
 		return formedLng;
 	}
 
-	public void setFormedLng(Double formedLng) {
+	public FormedCoordinate setFormedLng(Double formedLng) {
 		this.formedLng = formedLng;
+		return this;
 	}
 
 	public SegmentOfStreet getSegmentOfStreet() {
 		return segmentOfStreet;
 	}
 
-	public void setSegmentOfStreet(SegmentOfStreet segmentOfStreet) {
+	public FormedCoordinate setSegmentOfStreet(SegmentOfStreet segmentOfStreet) {
 		this.segmentOfStreet = segmentOfStreet;
+		return this;
 	}
 	
 	

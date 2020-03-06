@@ -24,8 +24,8 @@ public class DistrictService implements IDistrictService{
 	}
 
 	@Override
-	public void save(District district) {
-		districtRepository.save(district);
+	public District save(District district) {
+		return districtRepository.save(district);
 	}
 
 	@Override

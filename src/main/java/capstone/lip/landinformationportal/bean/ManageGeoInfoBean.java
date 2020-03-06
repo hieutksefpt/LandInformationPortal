@@ -167,13 +167,17 @@ public class ManageGeoInfoBean {
 	Street streetTemp;
 	
 	public void addButtonClick() {
-		FacesMessage msg;
+		FacesMessage msg = new FacesMessage();
 		String error = findErrorInput();
+		PrimeFaces.current().executeScript("renderTable()");
+		
 		if (!error.equals("")) {
 			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Lỗi", error);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return;
 		}
+		
+		
 		
 		switch (processType) {
 			case "1":
@@ -197,9 +201,11 @@ public class ManageGeoInfoBean {
 				street.setStreetName(nameInput).setStreetLat(Double.valueOf(latSingleCoordinate))
 					.setStreetLng(Double.valueOf(lngSingleCoordinate));
 				streetTemp = street;
-				break;
+				msg.setSeverity(FacesMessage.SEVERITY_WARN);
+				msg = new FacesMessage("Lưu ý", "Hãy thêm 1 đoạn đường trên đường này");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				return;
 			case "4":
-//				if ()
 				street = streetTemp;
 				if (street != null) {
 					street = streetService.save(streetTemp);
@@ -249,11 +255,29 @@ public class ManageGeoInfoBean {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
+	public void deleteButtonClick() {
+		switch (processType) {
+		case "1":
+			Province province = listProvince.stream().filter(x->x.getProvinceId().equals(Long.valueOf(provinceIdSelected))).collect(Collectors.toList()).get(0);
+			List<District> listDistrict = province.getListDistrict();
+//			List<SegmentOfStreet> listSegmentStreet = listDistrict.stream().map(x->x.getListSegmentOfStreet());
+			provinceService.deleteById(Long.valueOf(provinceIdSelected));
+			listProvince = listProvince.stream().filter(x->!x.getProvinceId().equals(Long.valueOf(provinceIdSelected))).collect(Collectors.toList());
+			break;
+
+		default:
+			break;
+		}
+	}
 	private String findErrorInput() {
 		if (nameInput == null || nameInput.isEmpty()) {
 			return "Tên không được để trống";
 		}
-		
+		if (processType.equals("1")) {
+			if (!listProvince.stream().filter(x->x.getProvinceName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()) {
+				return "Trùng tên";
+			}
+		}
 		if (processType.equals("4")) {
 			if (jsonMultipleCoordinate == null || jsonMultipleCoordinate.isEmpty()) {
 				return "Tọa độ không được để trống";

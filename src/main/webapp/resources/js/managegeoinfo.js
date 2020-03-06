@@ -4,6 +4,8 @@ var map;
 var selectedMarkers = [];
 var deleteOld = true;
 var path = [];
+var searchBox;
+var saveRow = [];
 function initMap() {
     //FPT 
     var latitude = 21.012633;
@@ -28,7 +30,8 @@ function initMap() {
     
     var markers = [];
     var input = $('#searchbox-Address')[0];
-    var searchBox = new google.maps.places.SearchBox(input);
+    
+    searchBox = new google.maps.places.SearchBox(input);
 
     map.addListener('bounds_changed', function () {
         searchBox.setBounds(map.getBounds());
@@ -111,15 +114,22 @@ function addNewRowCoordinate(){
 	countRow++;
 	cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger " onclick="deleteRow(this)" value="X"></td>';
     newRow.append(cols);
+    saveRow.push(newRow);
     $("#table-coordinate").append(newRow);
 }
-
+function renderTable(){
+	saveRow.forEach(x=>{
+		$("#table-coordinate").append(x);
+	});
+}
 function deleteRow(element){
 	console.log($(element).closest("tr"));
 	$(element).closest("tr").remove();
 	let lng = $($(element).parent().parent().children()[0]).children().val()
 	let lat = $($(element).parent().parent().children()[1]).children().val()
-	
+	saveRow = saveRow.filter(x=>{
+		return ($($($($(x).children())[0].children)[0]).val() != lng && $($($($(x).children())[1].children)[0]).val() != lat);
+	});
 	selectedMarkers = selectedMarkers.filter(x=> {
 		if (x.getPosition().lat()==lat && x.getPosition().lng()==lng){
 			x.setMap(null);
@@ -131,6 +141,9 @@ function deleteRow(element){
 			let obj={};obj.lat = x.getPosition().lat();obj.lng=x.getPosition().lng();
 			return obj}))
 	);	
+	
+	
+	
 	countRow--;
 }
 $("#table-coordinate").on("click", ".ibtnDel", function (event) {

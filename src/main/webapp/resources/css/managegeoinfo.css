@@ -1,4 +1,27 @@
 .scrolldata {
     overflow:scroll;
+    overflow-x: hidden;
     height:80px;
+}
+.ui-growl-message p{
+	color: white;
+}
+#formControl{
+	max-width: 400px;
+}
+#form:cbb-Province{
+	width: 100% !important;
+}
+#form select{
+	width: 100%;
+}
+#table-coordinate{
+	width: 100%;	
+}
+
+#table-coordinate th{
+	text-align: center !important;
+}
+.scrolldata{
+	width: 100%;
 }

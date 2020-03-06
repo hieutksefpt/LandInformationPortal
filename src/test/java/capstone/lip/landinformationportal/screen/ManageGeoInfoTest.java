@@ -5,25 +5,27 @@
  */
 package capstone.lip.landinformationportal.screen;
 
-import capstone.lip.landinformationportal.common.WebDriverUtil;
-import org.junit.Assert;
+import capstone.lip.landinformationportal.common.ChromeTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
+import static org.junit.Assert.*;
+import org.openqa.selenium.By;
 /**
  *
  * @author Phong
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class ManageGeoInfoTest extends WebDriverUtil {
+@SpringBootTest
+public class ManageGeoInfoTest extends ChromeTest {
     
     @Test
     public void visitIndexPage() throws Exception {
         driver.get("http://localhost:8080/managegeoinfo.xhtml");
-        Assert.assertNotNull(driver.findElements(By.id("123456")));
+        Thread.currentThread().sleep(1000);
+        assertTrue(!driver.findElements(
+                By.xpath("//select[contains(@id,'cbb-District')]"))
+                .isEmpty());
     }
 }

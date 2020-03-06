@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,6 +19,7 @@ public class Street extends AuditAbstract implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="StreetID")
 	private Long streetId;
 	@Column(name="StreetName")
@@ -37,29 +40,34 @@ public class Street extends AuditAbstract implements Serializable {
 	public List<SegmentOfStreet> getListSegmentOfStreet() {
 		return listSegmentOfStreet;
 	}
-	public void setListSegmentOfStreet(List<SegmentOfStreet> listSegmentOfStreet) {
+	public Street setListSegmentOfStreet(List<SegmentOfStreet> listSegmentOfStreet) {
 		this.listSegmentOfStreet = listSegmentOfStreet;
+		return this;
 	}
-	public void setStreetId(Long streetId) {
+	public Street setStreetId(Long streetId) {
 		this.streetId = streetId;
+		return this;
 	}
 	public String getStreetName() {
 		return streetName;
 	}
-	public void setStreetName(String streetName) {
+	public Street setStreetName(String streetName) {
 		this.streetName = streetName;
+		return this;
 	}
 	public Double getStreetLat() {
 		return streetLat;
 	}
-	public void setStreetLat(Double streetLat) {
+	public Street setStreetLat(Double streetLat) {
 		this.streetLat = streetLat;
+		return this;
 	}
 	public Double getStreetLng() {
 		return streetLng;
 	}
-	public void setStreetLng(Double streetLng) {
+	public Street setStreetLng(Double streetLng) {
 		this.streetLng = streetLng;
+		return this;
 	}
 	
 	@Override

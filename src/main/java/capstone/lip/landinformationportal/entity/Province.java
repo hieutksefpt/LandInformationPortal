@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
@@ -28,6 +30,7 @@ public class Province extends AuditAbstract implements Serializable{
 	private static final long serialVersionUID = -7177630011940526932L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "ProvinceID")
 	private Long provinceId;
 	@Column(name = "ProvinceName")
@@ -43,31 +46,36 @@ public class Province extends AuditAbstract implements Serializable{
 	public List<District> getListDistrict() {
 		return listDistrict;
 	}
-	public void setListDistrict(List<District> listDistrict) {
+	public Province setListDistrict(List<District> listDistrict) {
 		this.listDistrict = listDistrict;
+		return this;
 	}
 	public Long getProvinceId() {
 		return provinceId;
 	}
-	public void setProvinceId(Long provinceId) {
+	public Province setProvinceId(Long provinceId) {
 		this.provinceId = provinceId;
+		return this;
 	}
 	public String getProvinceName() {
 		return provinceName;
 	}
-	public void setProvinceName(String provinceName) {
+	public Province setProvinceName(String provinceName) {
 		this.provinceName = provinceName;
+		return this;
 	}
 	public Double getProvinceLat() {
 		return provinceLat;
 	}
-	public void setProvinceLat(Double provinceLat) {
+	public Province setProvinceLat(Double provinceLat) {
 		this.provinceLat = provinceLat;
+		return this;
 	}
 	public Double getProvinceLng() {
 		return provinceLng;
 	}
-	public void setProvinceLng(Double provinceLng) {
+	public Province setProvinceLng(Double provinceLng) {
 		this.provinceLng = provinceLng;
+		return this;
 	}
 }

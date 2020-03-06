@@ -7,6 +7,8 @@ import capstone.lip.landinformationportal.entity.Street;
 
 public interface ISegmentOfStreetService {
 	
+	public SegmentOfStreet save(SegmentOfStreet segmentOfStreet);
+	
 	public List<Street> getListStreetByListSegment(List<SegmentOfStreet> listSegment);
 	
 }

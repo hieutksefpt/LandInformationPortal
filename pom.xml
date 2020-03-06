@@ -152,7 +152,7 @@
             <scope>test</scope>
         </dependency>
         
-        <!-- Test dependencies -->
+        <!-- TEST DEPENDENCIES -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -197,8 +197,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <!-- Export test report -->
+    <!-- TEST REPORT -->
     <reporting>
         <plugins>
             <plugin>

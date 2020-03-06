@@ -5,7 +5,7 @@
  */
 package capstone.lip.landinformationportal.screen;
 
-import capstone.lip.landinformationportal.common.ChromeTest;
+import capstone.lip.landinformationportal.common.ChromeDevice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,10 +18,10 @@ import org.openqa.selenium.By;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ManageGeoInfoTest extends ChromeTest {
+public class ManageGeoInfoTest extends ChromeDevice {
     
     @Test
-    public void visitIndexPage() throws Exception {
+    public void checkExist() throws Exception {
         driver.get("http://localhost:8080/managegeoinfo.xhtml");
         Thread.currentThread().sleep(1000);
         assertTrue(!driver.findElements(

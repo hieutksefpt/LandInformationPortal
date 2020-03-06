@@ -16,7 +16,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
  *
  * @author Phong
  */
-public abstract class ChromeTest {
+public abstract class ChromeDevice {
 
     protected WebDriver driver;
 

@@ -1,0 +1,42 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 5, 2020, 2:44:54 PM
+    Author     : Administrator
+*/
+
+.title{
+    
+}
+
+.tabelFeature{
+   
+}
+
+.tabelFeature .headerRow{
+    
+}
+
+.addFeature{
+    float: right;
+}
+
+.tabelFeature .headerRow .headerColumn{
+    padding-right: 40px;
+    float: left;
+}
+
+.buttonEdit{
+    background-color: blue;
+}
+
+.buttonDelete{
+    background-color: red;
+}
+
+.headerFeature{
+    font-weight: bold;
+}

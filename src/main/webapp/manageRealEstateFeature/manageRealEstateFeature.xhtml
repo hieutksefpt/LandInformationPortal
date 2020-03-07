@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template/admin/adminLayout.xhtml">
+            <ui:define name="content">
+                <h:outputStylesheet name="manageRealEstateFeature.css" library="css" />
+                <h2>Danh sách thuộc tính</h2>
+                <p:tabView>
+                    <p:tab title="Thuộc tính của Đất">
+                        <p:panelGrid columns="3" layout="grid" styleClass="showcase-text-align-center">
+                            <h:outputText style="font-weight: bold" value="Tên thuộc tính" /> 
+                            <h:outputText style="font-weight: bold" value="Đơn vị" /> 
+                            <h:outputText style="font-weight: bold" value="Tác vụ" /> 
+
+                            <h:outputText value="Diện tích" /> 
+                            <h:outputText value="Mét vuông(m2)" /> 
+                            <div style="float: right">
+                                <p:button value="Edit">
+
+                                </p:button>
+                                <p:button value="Delete">
+
+                                </p:button>
+                            </div>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab title="Thuộc tính của Nhà">
+                        <p>hello again</p>
+                    </p:tab>
+                    <p:tab title="Thêm thuộc tính">
+                        <p>Go away</p>
+                    </p:tab>
+                </p:tabView>
+                
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

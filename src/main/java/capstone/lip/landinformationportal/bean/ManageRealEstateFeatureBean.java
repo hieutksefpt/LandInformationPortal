@@ -8,8 +8,9 @@ package capstone.lip.landinformationportal.bean;
 import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.entity.Province;
-import capstone.lip.landinformationportal.service.IHousesFeatureService;
-import capstone.lip.landinformationportal.service.ILandsFetureService;
+import capstone.lip.landinformationportal.service.Interface.IHousesFeatureService;
+import capstone.lip.landinformationportal.service.Interface.ILandsFeatureService;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -22,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ManageRealEstateFeatureBean {
 
     @Autowired
-    private ILandsFetureService landsfeatureService;
+    private ILandsFeatureService landsfeatureService;
 
     @Autowired
     private IHousesFeatureService housesfeatureService;

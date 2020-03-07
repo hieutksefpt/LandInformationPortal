@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.lip.landinformationportal.service;
+package capstone.lip.landinformationportal.service.Interface;
 
 import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.LandsFeature;
@@ -13,11 +13,11 @@ import java.util.List;
  *
  * @author Admin
  */
-public interface ILandsFetureService {
+public interface ILandsFeatureService {
 
     public List<LandsFeature> findAll();
 
-    public void save(LandsFeature landsfeature);
+    public LandsFeature save(LandsFeature landsfeature);
     
     public void delete(Long landsfeatureID);
 }

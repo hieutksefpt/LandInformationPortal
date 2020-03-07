@@ -22,21 +22,35 @@ and open the template in the editor.
                 <h2>Danh sách thuộc tính</h2>
                 <p:tabView>
                     <p:tab title="Thuộc tính của Đất">
-                        <p:panelGrid columns="3" layout="grid" styleClass="showcase-text-align-center">
-                            <h:outputText style="font-weight: bold" value="Tên thuộc tính" /> 
-                            <h:outputText style="font-weight: bold" value="Đơn vị" /> 
-                            <h:outputText style="font-weight: bold" value="Tác vụ" /> 
+                        <p:panelGrid>
+                        	<div class="row">
+	                        	<div class="col-md">
+	                            	<h:outputText style="font-weight: bold" value="Tên thuộc tính" /> 
+	                            </div>
+	                            <div class="col-md">
+	                            	 <h:outputText style="font-weight: bold" value="Đơn vị" /> 
+	                            </div>
+	                            <div class="col-md">
+	                            	<h:outputText style="font-weight: bold" value="Tác vụ" /> 
+	                            </div>
+                        	</div>
+							<div class="row">
+	                        	<div class="col-md">
+	                            	<h:outputText value="Diện tích" /> 
+	                            </div>
+	                            <div class="col-md">
+	                            	 <h:outputText value="Mét vuông(m2)" /> 
+	                            </div>
+	                            <div class="col-md">
+	                            	<p:button value="Edit">
 
-                            <h:outputText value="Diện tích" /> 
-                            <h:outputText value="Mét vuông(m2)" /> 
-                            <div style="float: right">
-                                <p:button value="Edit">
+	                                </p:button>
+	                                <p:button value="Delete">
+	
+	                                </p:button>
+	                            </div>
+                        	</div>
 
-                                </p:button>
-                                <p:button value="Delete">
-
-                                </p:button>
-                            </div>
                         </p:panelGrid>
                     </p:tab>
                     <p:tab title="Thuộc tính của Nhà">

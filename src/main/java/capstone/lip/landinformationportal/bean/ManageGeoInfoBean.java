@@ -210,7 +210,7 @@ public class ManageGeoInfoBean {
 				return;
 			case "4":
 				street = streetTemp;
-				if (street != null) {
+				if (street != null && !listStreet.contains(street)) {
 					street = streetService.save(streetTemp);
 					if (listStreet == null) listStreet = new ArrayList();
 					listStreet.add(street);
@@ -271,10 +271,27 @@ public class ManageGeoInfoBean {
 			List<FormedCoordinate> listCoordinate = listSegmentStreet.stream().map(x->x.getListFormedCoordinate())
 					.flatMap(List::stream).collect(Collectors.toList());
 			
+			System.out.println("----------------delete coordinate--------------");
+//			formedCoordinateService.delete(listCoordinate);
 			formedCoordinateService.delete(listCoordinate);
+			System.out.println("----------------delete segment--------------");
+//			segmentOfStreetService.delete(listSegmentStreet);
+			listSegmentStreet.forEach(x->{
+				x.getListFormedCoordinate().clear();
+				x.setDistrict(new District());
+			});
 			segmentOfStreetService.delete(listSegmentStreet);
-			streetService.delete(listStreet);
-//			districtService.delete(listDistrict);
+			
+			System.out.println("----------------delete street--------------");
+//			streetService.delete(listStreet);
+			listDistrict.forEach(x->{
+				x.getListSegmentOfStreet().clear();
+			});
+			
+			System.out.println("----------------delete province--------------");
+			districtService.delete(listDistrict);
+			
+			province.getListDistrict().clear();
 			provinceService.delete(province);
 			
 //			list
@@ -290,6 +307,17 @@ public class ManageGeoInfoBean {
 		default:
 			break;
 		}
+	}
+	
+	public void resetButtonClick() {
+		provinceIdSelected = "0";
+		districtIdSelected = "0";
+		segmentStreetIdSelected = "0";
+		streetIdSelected = "0";
+		processType = "1";
+		nameInput = "";
+		lngSingleCoordinate = "";
+		latSingleCoordinate = "";
 	}
 	private String findErrorInput() {
 		if (nameInput == null || nameInput.isEmpty()) {

@@ -19,6 +19,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name="Province")
@@ -42,7 +46,8 @@ public class Province extends AuditAbstract implements Serializable{
 	private Double provinceLng;
 	
 	@Basic(fetch = FetchType.LAZY)
-	@OneToMany(mappedBy="province",cascade = CascadeType.ALL,orphanRemoval = false)
+	@OneToMany(mappedBy="province")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<District> listDistrict;
 	
 	public List<District> getListDistrict() {

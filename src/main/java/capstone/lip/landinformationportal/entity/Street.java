@@ -13,6 +13,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name="Street")
 public class Street extends AuditAbstract implements Serializable {
@@ -33,7 +38,9 @@ public class Street extends AuditAbstract implements Serializable {
 	}
 	
 	@Basic(fetch = FetchType.LAZY)
-	@OneToMany(mappedBy="street",cascade = CascadeType.ALL,orphanRemoval = true)
+	@NotFound(action = NotFoundAction.IGNORE)
+	@OneToMany(mappedBy="street",cascade = CascadeType.ALL)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<SegmentOfStreet> listSegmentOfStreet;
 	
 	

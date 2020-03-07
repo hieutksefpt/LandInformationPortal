@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 @Entity
@@ -36,19 +38,20 @@ public class SegmentOfStreet extends AuditAbstract implements Serializable{
 	private Double segmentLng;
 	
 	@Basic(fetch = FetchType.LAZY)
-	@ManyToOne()
-	@JoinColumn(name ="DistrictID", nullable = false)
+	@ManyToOne
+	@JoinColumn(name ="DistrictID")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private District district;
 	
 	@Basic(fetch = FetchType.LAZY)
-	@ManyToOne()
-	@JoinColumn(name ="StreetID", nullable = false)
+	@ManyToOne
+	@JoinColumn(name ="StreetID")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Street street;
 	
 	@Basic(fetch = FetchType.LAZY)
-	@OneToMany(mappedBy="segmentOfStreet",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@OneToMany(mappedBy="segmentOfStreet")
 	private List<FormedCoordinate> listFormedCoordinate;
 	
 	public Long getSegmentId() {

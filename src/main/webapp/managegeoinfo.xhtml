@@ -124,7 +124,7 @@
 							<p:separator />
 							<div class="form-group row">
 					 			<div class="col-md">
-					 				<h:commandButton value="Thêm mới" action="#{manageGeoInfoBean.addButtonClick}">
+					 				<h:commandButton value="Thêm mới" action="#{manageGeoInfoBean.addButtonClick()}">
 					 					<f:ajax execute="@form" render="@form"></f:ajax>
 					 				</h:commandButton>
 					 			</div>
@@ -132,7 +132,9 @@
 					 				<h:commandButton value="Lưu"></h:commandButton>
 					 			</div>
 					 			<div class="col-md">
-					 				<h:commandButton value="Clear" onclick="clearAllInput()"></h:commandButton>
+					 				<h:commandButton value="Clear" onclick="clearAllInput(), clearDataMap()" action="#{manageGeoInfoBean.resetButtonClick()}">
+					 					<f:ajax execute="@form" render="@form"></f:ajax>
+					 				</h:commandButton>
 					 			</div>
 					 			<div class="col-md">
 					 				<h:commandButton value="Xóa" action="#{manageGeoInfoBean.deleteButtonClick}" onclick="clearAllInput(), clearDataMap()">

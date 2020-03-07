@@ -6,24 +6,20 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
 @SpringBootApplication
-public class Application{
+public class Application {
 
-  public static void main(String[] args) {
-    SpringApplication.run(Application.class, args);
-  }
-  
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
 //  private static final Logger log = LoggerFactory.getLogger(Application.class);
-
 //  @Autowired
 //  private UserRepository repository;
-  
 //  @Autowired
 //  private ProvinceRepository provinceRepo;
 //  
 //  @Autowired
 //  private DistrictRepository districtRepo;
-  
-  
 //  @Autowired
 //  private IProvinceService provinceService;
 //  
@@ -38,19 +34,12 @@ public class Application{
 //      
 //      System.out.print(province.getProvinceName());
 //      System.out.print(province.getListDistrict().get(0).getDistrictName());
-      
-      
-      
 //      List<District> list = provinceService.getListDistrictByProvinceId(1L);
 //      for (District district:list) {
 //    	  System.out.println(district.getDistrictName());
 //      }
-      
-      
-      
 //      List<District> set = province.getListDistrict();
 //      Hibernate.initialize(set.size());
-      
 //      System.out.println("\nprovince()");
 //      List<District> list = districtRepo.findAll();
 //      int i = 1;
@@ -67,8 +56,5 @@ public class Application{
 //
 //      System.out.println("\nfindByName('Node')");
 //      repository.findByName("Node").forEach(x -> System.out.println(x));
-      
-      
-
 //  }
 }

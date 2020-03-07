@@ -8,8 +8,9 @@ import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.Province;
 
 public interface IProvinceService {
-	public List<Province> findAll();
-	public Province save(Province province);
-	public void deleteById(Long id);
-	public List<District> getListDistrictByProvinceId(Long provinceId);
+	List<Province> findAll();
+	Province save(Province province);
+	void deleteById(Long id);
+	List<District> getListDistrictByProvinceId(Long provinceId);
+	void delete(Province province);
 }

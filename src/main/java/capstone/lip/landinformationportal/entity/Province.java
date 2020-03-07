@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,7 +41,8 @@ public class Province extends AuditAbstract implements Serializable{
 	@Column(name = "ProvinceLng")
 	private Double provinceLng;
 	
-	@OneToMany(mappedBy="province",cascade = CascadeType.ALL,orphanRemoval = true, fetch=FetchType.LAZY)
+	@Basic(fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="province",cascade = CascadeType.ALL,orphanRemoval = false)
 	private List<District> listDistrict;
 	
 	public List<District> getListDistrict() {

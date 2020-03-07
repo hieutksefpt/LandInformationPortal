@@ -36,13 +36,13 @@ public class SegmentOfStreet extends AuditAbstract implements Serializable{
 	private Double segmentLng;
 	
 	@Basic(fetch = FetchType.LAZY)
-	@ManyToOne(optional = false)
+	@ManyToOne()
 	@JoinColumn(name ="DistrictID", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private District district;
 	
 	@Basic(fetch = FetchType.LAZY)
-	@ManyToOne(optional = false)
+	@ManyToOne()
 	@JoinColumn(name ="StreetID", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Street street;

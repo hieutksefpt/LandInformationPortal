@@ -1,5 +1,7 @@
 package capstone.lip.landinformationportal.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,12 @@ public class StreetService implements IStreetService{
 	@Override
 	public Street save(Street street) {
 		return streetRepository.save(street);
+	}
+
+	@Override
+	public void delete(List<Street> listStreet) {
+		streetRepository.deleteInBatch(listStreet);
+		
 	}
 
 }

@@ -31,7 +31,7 @@
 							<div class="form-group row">
 								<div class="col-md-6">
 									<h:selectOneMenu id="cbb-Province" value="#{manageGeoInfoBean.provinceIdSelected}" >
-						                <p:ajax listener="#{manageGeoInfoBean.provinceChange}" update="form" oncomplete="clearAllInput()"/>
+						                <p:ajax listener="#{manageGeoInfoBean.provinceChange}" update="form" onstart="clearDataMap()"/>
 						                <f:selectItem itemLabel="Tỉnh/Thành phố" itemValue=""/>
 						                <f:selectItems value="#{manageGeoInfoBean.listProvince}" var="element"
 						                itemLabel="#{element.provinceName}" itemValue="#{element.provinceId}"/>
@@ -39,7 +39,7 @@
 								</div>
 								<div class="col-md-6">
 									<h:selectOneMenu id="cbb-District" value="#{manageGeoInfoBean.districtIdSelected}">
-										<p:ajax listener="#{manageGeoInfoBean.districtChange}" update="form" oncomplete="clearAllInput()"></p:ajax>
+										<p:ajax listener="#{manageGeoInfoBean.districtChange}" update="form" onstart="clearDataMap()"></p:ajax>
 						                <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
 						                <f:selectItems value="#{manageGeoInfoBean.listDistrict}" var="element"
 						                itemLabel="#{element.districtName}" itemValue="#{element.districtId}"/>
@@ -49,7 +49,7 @@
 					        <div class="form-group row">
 					        	<div class="col-md-6">
 					        		<h:selectOneMenu id="cbb-Street" value="#{manageGeoInfoBean.streetIdSelected}" >
-					        			<p:ajax	listener="#{manageGeoInfoBean.streetChange}" update="form" oncomplete="clearAllInput()"></p:ajax>
+					        			<p:ajax	listener="#{manageGeoInfoBean.streetChange}" update="form" onstart="clearDataMap()"></p:ajax>
 					        			
 						                <f:selectItem itemLabel="Đường phố" itemValue=""/>
 						                <f:selectItems value="#{manageGeoInfoBean.listStreet}" var="element"
@@ -58,7 +58,9 @@
 					        	</div>
 					        	<div class="col-md-6">
 					        		<h:selectOneMenu id="cbb-SegmentOfStreet" value="#{manageGeoInfoBean.segmentStreetIdSelected}">
-					        			<p:ajax	listener="#{manageGeoInfoBean.segmentStreetChange}" update="form" oncomplete="clearAllInput(), drawPath()"></p:ajax>
+					        			<p:ajax	listener="#{manageGeoInfoBean.segmentStreetChange}" update="form" 
+					        			onstart="clearDataMap()"
+					        			oncomplete="drawPath()"></p:ajax>
 						                <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
 						                <f:selectItems value="#{manageGeoInfoBean.listSegmentOfStreet}" var="element"
 						                itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
@@ -74,7 +76,7 @@
 					 			</div>
 					 			<div class="col-md">
 					 				<h:selectOneMenu id="cbb-IpgType" value="#{manageGeoInfoBean.processType}">
-										<p:ajax update="@form" oncomplete="clearAllInput(), updateDeleteOld()"></p:ajax>
+										<p:ajax update="@form" oncomplete="clearAllInput(), clearDataMap(), updateDeleteOld()"></p:ajax>
 										<f:selectItem itemLabel="Tỉnh/Thành phố" itemValue="1"></f:selectItem>
 										<f:selectItem itemLabel="Quận/Huyện" itemValue="2"></f:selectItem>
 										<f:selectItem itemLabel="Đường phố" itemValue="3"></f:selectItem>
@@ -133,8 +135,8 @@
 					 				<h:commandButton value="Clear" onclick="clearAllInput()"></h:commandButton>
 					 			</div>
 					 			<div class="col-md">
-					 				<h:commandButton value="Xóa" action="#{manageGeoInfoBean.deleteButtonClick}">
-					 					<f:ajax execute="@form" render="@form" onevent=""></f:ajax>
+					 				<h:commandButton value="Xóa" action="#{manageGeoInfoBean.deleteButtonClick}" onclick="clearAllInput(), clearDataMap()">
+					 					<f:ajax execute="@form" render="@form"></f:ajax>
 					 				</h:commandButton>
 					 			</div>
 					 		</div>

@@ -7,4 +7,6 @@ import capstone.lip.landinformationportal.entity.FormedCoordinate;
 public interface IFormedCoordinate {
 	FormedCoordinate save(FormedCoordinate formedCoordinate);
 	List<FormedCoordinate> saveAll(List<FormedCoordinate> listFormedCoordinate);
+	void delete(List<FormedCoordinate> listCoordinate);
+	
 }

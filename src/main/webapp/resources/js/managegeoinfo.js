@@ -200,11 +200,14 @@ function changeInfo(name, longitude, latitude){
 	$('#form\\:txtinput-lngSingleCoordinate').val(longitude);
 	$('#form\\:txtinput-latSingleCoordinate').val(latitude);
 }
-function clearAllInput(){
+function clearDataMap(){
 	path.forEach(x=>x.setMap(null));
 	selectedMarkers.forEach(x=>x.setMap(null));
 	path = [];
 	selectedMarkers = [];
+}
+function clearAllInput(){
+	
 	$('#form\\:txtinput-Name').val("");
 	$('#form\\:txtinput-lngSingleCoordinate').val("");
 	$('#form\\:txtinput-latSingleCoordinate').val("");

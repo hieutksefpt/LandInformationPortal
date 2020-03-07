@@ -3,11 +3,9 @@ package capstone.lip.landinformationportal.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import capstone.lip.landinformationportal.entity.District;
-import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 import capstone.lip.landinformationportal.repository.DistrictRepository;
 import capstone.lip.landinformationportal.service.Interface.IDistrictService;
@@ -33,6 +31,11 @@ public class DistrictService implements IDistrictService{
 		District district = districtRepository.findById(streetId).get();
 		List<SegmentOfStreet> list = district.getListSegmentOfStreet();
 		return list;
+	}
+
+	@Override
+	public void delete(List<District> listDistrict) {
+		districtRepository.deleteInBatch(listDistrict);
 	}
 
 }

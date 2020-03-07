@@ -44,4 +44,9 @@ public class ProvinceService implements IProvinceService{
 		return list;
 	}
 
+	@Override
+	public void delete(Province province) {
+		provinceRepository.delete(province);
+	}
+
 }

@@ -92,13 +92,16 @@ public class ManageGeoInfoBean {
 			districtIdSelected = "";
 			streetIdSelected = "";
 			segmentStreetIdSelected = "";
+			nameInput = selectedProvince.getProvinceName();
+			latSingleCoordinate = selectedProvince.getProvinceLat().toString();
+			lngSingleCoordinate = selectedProvince.getProvinceLng().toString();
+			
 			
 			PrimeFaces.current().executeScript("focusMap(" + selectedProvince.getProvinceLat() + ", " + selectedProvince.getProvinceLng() + ");");
-			PrimeFaces.current().executeScript("changeInfo(\""+selectedProvince.getProvinceName()+"\", "+selectedProvince.getProvinceLng()+", "+
-			selectedProvince.getProvinceLat()+")");
+//			PrimeFaces.current().executeScript("changeInfo(\""+selectedProvince.getProvinceName()+"\", "+selectedProvince.getProvinceLng()+", "+
+//			selectedProvince.getProvinceLat()+")");
 		}else {
 			listDistrict = new ArrayList<>();
-			listProvince = new ArrayList<>();
 			listStreet = new ArrayList<>();
 		}
 		
@@ -207,7 +210,7 @@ public class ManageGeoInfoBean {
 				return;
 			case "4":
 				street = streetTemp;
-				if (street != null) {
+				if (street != null && !listStreet.contains(street)) {
 					street = streetService.save(streetTemp);
 					if (listStreet == null) listStreet = new ArrayList();
 					listStreet.add(street);
@@ -241,9 +244,11 @@ public class ManageGeoInfoBean {
 							.setSegmentOfStreet(segmentStreet);
 					listFormedCoordinate.add(coordinate);
 				}
-				if (listStreet == null) listStreet = new ArrayList<>();
-				listStreet.add(street);
+				
 				listFormedCoordinate = formedCoordinateService.saveAll(listFormedCoordinate);
+				if (listSegmentOfStreet == null) {
+					listSegmentOfStreet = new ArrayList();
+				}
 				listSegmentOfStreet.add(segmentStreet);
 				PrimeFaces.current().executeScript("drawPath()");
 				break;
@@ -260,14 +265,59 @@ public class ManageGeoInfoBean {
 		case "1":
 			Province province = listProvince.stream().filter(x->x.getProvinceId().equals(Long.valueOf(provinceIdSelected))).collect(Collectors.toList()).get(0);
 			List<District> listDistrict = province.getListDistrict();
-//			List<SegmentOfStreet> listSegmentStreet = listDistrict.stream().map(x->x.getListSegmentOfStreet());
-			provinceService.deleteById(Long.valueOf(provinceIdSelected));
+			List<SegmentOfStreet> listSegmentStreet = listDistrict.stream().map(x->x.getListSegmentOfStreet())
+					.flatMap(List::stream).collect(Collectors.toList());
+			List<Street> listStreet = listSegmentStreet.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
+			List<FormedCoordinate> listCoordinate = listSegmentStreet.stream().map(x->x.getListFormedCoordinate())
+					.flatMap(List::stream).collect(Collectors.toList());
+			
+			System.out.println("----------------delete coordinate--------------");
+//			formedCoordinateService.delete(listCoordinate);
+			formedCoordinateService.delete(listCoordinate);
+			System.out.println("----------------delete segment--------------");
+//			segmentOfStreetService.delete(listSegmentStreet);
+			listSegmentStreet.forEach(x->{
+				x.getListFormedCoordinate().clear();
+				x.setDistrict(new District());
+			});
+			segmentOfStreetService.delete(listSegmentStreet);
+			
+			System.out.println("----------------delete street--------------");
+//			streetService.delete(listStreet);
+			listDistrict.forEach(x->{
+				x.getListSegmentOfStreet().clear();
+			});
+			
+			System.out.println("----------------delete province--------------");
+			districtService.delete(listDistrict);
+			
+			province.getListDistrict().clear();
+			provinceService.delete(province);
+			
+//			list
+			
+//			provinceService.deleteById(Long.valueOf(provinceIdSelected));
+			
+			
 			listProvince = listProvince.stream().filter(x->!x.getProvinceId().equals(Long.valueOf(provinceIdSelected))).collect(Collectors.toList());
+			
+			
 			break;
 
 		default:
 			break;
 		}
+	}
+	
+	public void resetButtonClick() {
+		provinceIdSelected = "0";
+		districtIdSelected = "0";
+		segmentStreetIdSelected = "0";
+		streetIdSelected = "0";
+		processType = "1";
+		nameInput = "";
+		lngSingleCoordinate = "";
+		latSingleCoordinate = "";
 	}
 	private String findErrorInput() {
 		if (nameInput == null || nameInput.isEmpty()) {

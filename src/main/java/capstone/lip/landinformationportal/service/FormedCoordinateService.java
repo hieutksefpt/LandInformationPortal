@@ -24,6 +24,11 @@ public class FormedCoordinateService implements IFormedCoordinate{
 	public List<FormedCoordinate> saveAll(List<FormedCoordinate> listFormedCoordinate) {
 		return formerCoordinateRepository.saveAll(listFormedCoordinate);
 	}
+
+	@Override
+	public void delete(List<FormedCoordinate> listCoordinate) {
+		formerCoordinateRepository.deleteInBatch(listCoordinate);
+	}
 	
 	
 

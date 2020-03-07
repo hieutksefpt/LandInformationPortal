@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -39,13 +41,15 @@ public class District extends AuditAbstract  implements Serializable{
 	private Double districtLng;
 	
 	@Basic(fetch = FetchType.LAZY)
-	@ManyToOne(optional = false)
-	@JoinColumn(name ="ProvinceID", nullable = false)
+	@ManyToOne
+	@JoinColumn(name ="ProvinceID")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Province province;
 
 	@Basic(fetch = FetchType.LAZY)
-	@OneToMany(mappedBy="district",cascade = CascadeType.ALL,orphanRemoval = true)
+	@NotFound(action = NotFoundAction.IGNORE)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@OneToMany(mappedBy="district")
 	private List<SegmentOfStreet> listSegmentOfStreet;
 	
 	

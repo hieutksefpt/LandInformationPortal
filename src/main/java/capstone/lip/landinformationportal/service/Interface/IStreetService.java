@@ -1,7 +1,10 @@
 package capstone.lip.landinformationportal.service.Interface;
 
+import java.util.List;
+
 import capstone.lip.landinformationportal.entity.Street;
 
 public interface IStreetService {
-	public Street save(Street street);
+	Street save(Street street);
+	void delete(List<Street> listStreet);
 }

@@ -34,6 +34,8 @@ public class SegmentOfStreetService implements ISegmentOfStreetService {
 	public SegmentOfStreet save(SegmentOfStreet segmentOfStreet) {
 		return segmentOfStreetRepository.save(segmentOfStreet);
 	}
-
-
+	@Override
+	public void delete(List<SegmentOfStreet> listSegment) {
+		segmentOfStreetRepository.deleteInBatch(listSegment);
+	}
 }

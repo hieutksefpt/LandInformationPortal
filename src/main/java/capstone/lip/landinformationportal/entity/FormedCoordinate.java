@@ -30,8 +30,8 @@ public class FormedCoordinate extends AuditAbstract implements Serializable {
 	private Double formedLng;
 	
 	@Basic(fetch = FetchType.LAZY)
-	@ManyToOne(optional = false)
-	@JoinColumn(name ="SegmentID", nullable = false)
+	@ManyToOne
+	@JoinColumn(name ="SegmentID")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private SegmentOfStreet segmentOfStreet;
 

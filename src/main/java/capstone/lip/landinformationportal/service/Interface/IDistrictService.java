@@ -11,4 +11,5 @@ public interface IDistrictService {
 	District save(District district);
 	List<SegmentOfStreet> getListSegmentOfStreet(Long streetId);
 	void delete(List<District> listDistrict);
+	void delete(District district);
 }

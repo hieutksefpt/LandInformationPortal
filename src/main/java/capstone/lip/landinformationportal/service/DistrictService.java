@@ -38,4 +38,11 @@ public class DistrictService implements IDistrictService{
 		districtRepository.deleteInBatch(listDistrict);
 	}
 
+	@Override
+	public void delete(District district) {
+		districtRepository.delete(district);
+	}
+	
+	
+
 }

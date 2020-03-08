@@ -134,7 +134,7 @@ public class ManageGeoInfoBean {
 			
 			selectedStreet = listStreet.stream().filter(x->x.getStreetId().equals((Long.parseLong(streetIdSelected)))).collect(Collectors.toList()).get(0);
 			PrimeFaces.current().executeScript("focusMap(" + selectedStreet.getStreetLat() + ", " + selectedStreet.getStreetLng() + ");");
-			PrimeFaces.current().executeScript("changeInfo(\""+selectedDistrict.getDistrictName()+"\", "+selectedStreet.getStreetLat()+", "+
+			PrimeFaces.current().executeScript("changeInfo(\""+selectedStreet.getStreetName()+"\", "+selectedStreet.getStreetLat()+", "+
 					selectedStreet.getStreetLng()+")");
 					
 			listSegmentOfStreet = selectedStreet.getListSegmentOfStreet();			
@@ -148,9 +148,11 @@ public class ManageGeoInfoBean {
 		if (provinceIdSelected != null && !provinceIdSelected.equals("")) {
 			processType = "4";
 			segmentOfStreet = listSegmentOfStreet.stream().filter(x->x.getSegmentId().equals(Long.parseLong(segmentStreetIdSelected))).collect(Collectors.toList()).get(0);
-//			PrimeFaces.current().executeScript("focusMap(" + segmentOfStreet.getSegmentLat() + ", " + segmentOfStreet.getSegmentLng() + ");");
-//			PrimeFaces.current().executeScript("changeInfo(\""+segmentOfStreet.getSegmentName()+"\", "+segmentOfStreet.getSegmentLat()+", "+
-//					segmentOfStreet.getSegmentLng()+")");
+			PrimeFaces.current().executeScript("focusMap(" + segmentOfStreet.getSegmentLat() + ", " + segmentOfStreet.getSegmentLng() + ");");
+			PrimeFaces.current().executeScript("changeInfo(\""+segmentOfStreet.getSegmentName()+"\", "+segmentOfStreet.getSegmentLat()+", "+
+					segmentOfStreet.getSegmentLng()+")");
+			
+			PrimeFaces.current().executeScript("updateDeleteOld()");
 			List<FormedCoordinate> listFormedCoordinate = segmentOfStreet.getListFormedCoordinate();
 			List<Coordinate> listCoordinate = listFormedCoordinate.stream()
 					.map(x->{
@@ -214,6 +216,7 @@ public class ManageGeoInfoBean {
 					street = streetService.save(streetTemp);
 					if (listStreet == null) listStreet = new ArrayList();
 					listStreet.add(street);
+					streetIdSelected = street.getStreetId().toString();
 				}else {
 					street = listStreet.stream().filter(x->x.getStreetId().equals(Long.valueOf(streetIdSelected))).collect(Collectors.toList()).get(0);
 				}
@@ -260,9 +263,28 @@ public class ManageGeoInfoBean {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
+	public void setMessage(FacesMessage.Severity severityType, String message) {
+		
+		FacesMessage msg = new FacesMessage();
+		if (severityType == FacesMessage.SEVERITY_ERROR) {
+			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Lỗi", message);
+		} else if (severityType == FacesMessage.SEVERITY_WARN) {
+			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Lưu ý", message);
+		} else {
+			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Thành công", message);
+		}
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+	
 	public void deleteButtonClick() {
 		switch (processType) {
 		case "1":
+			try {
+				Long selected = Long.parseLong(provinceIdSelected);
+			}catch(Exception ex){
+				setMessage(FacesMessage.SEVERITY_ERROR, "Chưa lựa chọn tỉnh thành");
+				return;
+			}
 			Province province = listProvince.stream().filter(x->x.getProvinceId().equals(Long.valueOf(provinceIdSelected))).collect(Collectors.toList()).get(0);
 			List<District> listDistrict = province.getListDistrict();
 			List<SegmentOfStreet> listSegmentStreet = listDistrict.stream().map(x->x.getListSegmentOfStreet())
@@ -272,48 +294,129 @@ public class ManageGeoInfoBean {
 					.flatMap(List::stream).collect(Collectors.toList());
 			
 			System.out.println("----------------delete coordinate--------------");
-//			formedCoordinateService.delete(listCoordinate);
+
 			formedCoordinateService.delete(listCoordinate);
 			System.out.println("----------------delete segment--------------");
-//			segmentOfStreetService.delete(listSegmentStreet);
+
 			listSegmentStreet.forEach(x->{
 				x.getListFormedCoordinate().clear();
-				x.setDistrict(new District());
+//				x.setDistrict(new District());
 			});
 			segmentOfStreetService.delete(listSegmentStreet);
 			
 			System.out.println("----------------delete street--------------");
-//			streetService.delete(listStreet);
+
 			listDistrict.forEach(x->{
 				x.getListSegmentOfStreet().clear();
 			});
+			streetService.delete(listStreet);
 			
-			System.out.println("----------------delete province--------------");
+			System.out.println("----------------delete district--------------");
 			districtService.delete(listDistrict);
-			
+			System.out.println("----------------delete province--------------");
 			province.getListDistrict().clear();
 			provinceService.delete(province);
 			
-//			list
-			
-//			provinceService.deleteById(Long.valueOf(provinceIdSelected));
-			
-			
-			listProvince = listProvince.stream().filter(x->!x.getProvinceId().equals(Long.valueOf(provinceIdSelected))).collect(Collectors.toList());
-			
-			
+			this.listProvince = listProvince.stream().filter(x->!x.getProvinceId().equals(Long.valueOf(provinceIdSelected))).collect(Collectors.toList());
+			provinceIdSelected = "";
+			setMessage(FacesMessage.SEVERITY_INFO, "Xóa thành công");
 			break;
+		case "2":
+			try {
+				Long selected = Long.parseLong(districtIdSelected);
+			}catch(Exception ex){
+				setMessage(FacesMessage.SEVERITY_ERROR, "Chưa lựa chọn quận huyện");
+				return;
+			}
+			District district = this.listDistrict.stream().filter(x->x.getDistrictId().equals(Long.parseLong(districtIdSelected))).collect(Collectors.toList()).get(0);
+			List<SegmentOfStreet> listSegment = district.getListSegmentOfStreet();
+			List<FormedCoordinate> listFCoordinate = listSegment.stream().map(x->x.getListFormedCoordinate()).flatMap(List::stream).collect(Collectors.toList());
+			List<Street> listStreetTemp = listSegment.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
+			System.out.println("----------------delete coordinate--------------");
 
+			
+			formedCoordinateService.delete(listFCoordinate);
+			System.out.println("----------------delete segment--------------");
+
+			listSegment.forEach(x->{
+				x.getListFormedCoordinate().clear();
+				x.setDistrict(new District());
+			});
+			segmentOfStreetService.delete(listSegment);
+			
+			System.out.println("----------------delete street--------------");
+			district.getListSegmentOfStreet().clear();
+			streetService.delete(listStreetTemp);
+			System.out.println("----------------delete district--------------");
+			districtService.delete(district);
+			
+			this.listDistrict = this.listDistrict.stream().filter(x->!x.getDistrictId().equals(Long.valueOf(districtIdSelected))).collect(Collectors.toList());
+			districtIdSelected = "";
+			setMessage(FacesMessage.SEVERITY_INFO, "Xóa thành công");
+			break;
+		case "3":
+			try {
+				Long selected = Long.parseLong(streetIdSelected);
+			}catch(Exception ex){
+				setMessage(FacesMessage.SEVERITY_ERROR, "Chưa lựa chọn đường phố");
+				return;
+			}
+			
+			Street street = this.listStreet.stream().filter(x->x.getStreetId().equals(Long.parseLong(streetIdSelected))).collect(Collectors.toList()).get(0);
+			List<SegmentOfStreet> listSegmentByStreet = street.getListSegmentOfStreet();
+			List<FormedCoordinate> listCoordinateByStreet = listSegmentByStreet.stream().map(x->x.getListFormedCoordinate()).flatMap(List::stream).collect(Collectors.toList());
+			System.out.println("----------------delete coordinate--------------");
+			formedCoordinateService.delete(listCoordinateByStreet);
+			System.out.println("----------------delete segment--------------");
+			listSegmentByStreet.forEach(x->{
+				x.getListFormedCoordinate().clear();
+//				x.setDistrict(new District());
+			});
+			segmentOfStreetService.delete(listSegmentByStreet);
+			System.out.println("----------------delete street--------------");
+			streetService.delete(street);
+			this.listStreet = this.listStreet.stream().filter(x->!x.getStreetId().equals(Long.parseLong(streetIdSelected))).collect(Collectors.toList());
+			streetIdSelected = "";
+			break;
+		case "4":
+			try {
+				Long selected = Long.parseLong(segmentStreetIdSelected);
+			}catch(Exception ex){
+				setMessage(FacesMessage.SEVERITY_ERROR, "Chưa lựa chọn đoạn đường");
+				return;
+			}
+			SegmentOfStreet segment = this.listSegmentOfStreet.stream().filter(x->x.getSegmentId().equals(Long.parseLong(segmentStreetIdSelected))).collect(Collectors.toList()).get(0);
+			List<FormedCoordinate> listCoordinateBySegment = segment.getListFormedCoordinate();
+			
+			System.out.println("----------------delete coordinate--------------");
+			formedCoordinateService.delete(listCoordinateBySegment);
+			System.out.println("----------------delete segment--------------");
+			segment.getListFormedCoordinate().clear();
+//			segment.setStreet(new Street());
+			Street streetBySegment = segment.getStreet();
+			
+			segmentOfStreetService.delete(segment);
+			
+			if (this.listSegmentOfStreet.size() == 1) {
+				System.out.println("----------------delete street--------------");
+//				streetBySegment.getListSegmentOfStreet().clear();
+//				streetService.delete(streetBySegment);
+				this.listStreet = this.listStreet.stream().filter(x->!x.getStreetId().equals(streetBySegment.getStreetId())).collect(Collectors.toList());
+				streetIdSelected = "";
+			}
+			
+			
+			
+			this.listSegmentOfStreet = this.listSegmentOfStreet.stream().filter(x->!x.getSegmentId().equals(Long.parseLong(segmentStreetIdSelected))).collect(Collectors.toList());
+			segmentStreetIdSelected = "";
+			setMessage(FacesMessage.SEVERITY_INFO, "Xóa thành công");
+			break;
 		default:
 			break;
 		}
 	}
 	
 	public void resetButtonClick() {
-		provinceIdSelected = "0";
-		districtIdSelected = "0";
-		segmentStreetIdSelected = "0";
-		streetIdSelected = "0";
 		processType = "1";
 		nameInput = "";
 		lngSingleCoordinate = "";

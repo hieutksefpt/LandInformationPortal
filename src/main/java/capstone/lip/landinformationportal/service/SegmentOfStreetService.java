@@ -38,4 +38,9 @@ public class SegmentOfStreetService implements ISegmentOfStreetService {
 	public void delete(List<SegmentOfStreet> listSegment) {
 		segmentOfStreetRepository.deleteInBatch(listSegment);
 	}
+
+	@Override
+	public void delete(SegmentOfStreet segmentOfStreet) {
+		segmentOfStreetRepository.delete(segmentOfStreet);
+	}
 }

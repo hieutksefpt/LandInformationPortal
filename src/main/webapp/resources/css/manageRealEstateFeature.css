@@ -58,10 +58,12 @@ and open the template in the editor.
 
 .buttonEdit:hover{
     text-decoration: underline;
+    background-color: #428bca;
 }
 
 .buttonDelete:hover{
     text-decoration: underline;
+    background-color: #d9534f;
 }
 
 #buttonAddFeature{
@@ -74,5 +76,4 @@ and open the template in the editor.
 
 #buttonAddFeature:hover{
     text-decoration: underline;
-    
 }

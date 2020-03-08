@@ -22,44 +22,45 @@ public class LandsFeature extends AuditAbstract implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "LandsFeatureID")
-    private Long landsfeatureID;
+    private Long landsFeatureID;
     @Column(name = "LandsFeatureName")
-    private String landsfeatureName;
+    private String landsFeatureName;
     @Column(name = "LandsFeatureUnit")
-    private String landsfeatureUnit;
+    private String landsFeatureUnit;
 
-    public LandsFeature(String landsfeatureName, String landsfeatureUnit) {
-        this.landsfeatureName = landsfeatureName;
-        this.landsfeatureUnit = landsfeatureUnit;
+    public LandsFeature(String landsFeatureName, String landsFeatureUnit) {
+        this.landsFeatureName = landsFeatureName;
+        this.landsFeatureUnit = landsFeatureUnit;
     }
 
     public LandsFeature() {
     }
 
+    public Long getLandsFeatureID() {
+        return landsFeatureID;
+    }
+
+    public void setLandsFeatureID(Long landsFeatureID) {
+        this.landsFeatureID = landsFeatureID;
+    }
+
+    public String getLandsFeatureName() {
+        return landsFeatureName;
+    }
+
+    public void setLandsFeatureName(String landsFeatureName) {
+        this.landsFeatureName = landsFeatureName;
+    }
+
+    public String getLandsFeatureUnit() {
+        return landsFeatureUnit;
+    }
+
+    public void setLandsFeatureUnit(String landsFeatureUnit) {
+        this.landsFeatureUnit = landsFeatureUnit;
+    }
+
     
     
-    public Long getLandsfeatureID() {
-        return landsfeatureID;
-    }
-
-    public void setLandsfeatureID(Long landsfeatureID) {
-        this.landsfeatureID = landsfeatureID;
-    }
-
-    public String getLandsfeatureName() {
-        return landsfeatureName;
-    }
-
-    public void setLandsfeatureName(String landsfeatureName) {
-        this.landsfeatureName = landsfeatureName;
-    }
-
-    public String getLandsfeatureUnit() {
-        return landsfeatureUnit;
-    }
-
-    public void setLandsfeatureUnit(String landsfeatureUnit) {
-        this.landsfeatureUnit = landsfeatureUnit;
-    }
-
+    
 }

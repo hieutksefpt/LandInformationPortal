@@ -22,43 +22,46 @@ public class HousesFeature extends AuditAbstract implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "HousesFeatureID")
-    private Long housesfeatureID;
+    private Long housesFeatureID;
     @Column(name = "HousesFeatureName")
-    private String housesfeatureName;
+    private String housesFeatureName;
     @Column(name = "HousesFeatureUnit")
-    private String housesfeatureUnit;
+    private String housesFeatureUnit;
 
-    public HousesFeature(String housesfeatureName, String housesfeatureUnit) {
-        this.housesfeatureName = housesfeatureName;
-        this.housesfeatureUnit = housesfeatureUnit;
-    }
 
     public HousesFeature() {
     }
+
+    public HousesFeature(String housesFeatureName, String housesFeatureUnit) {
+        this.housesFeatureName = housesFeatureName;
+        this.housesFeatureUnit = housesFeatureUnit;
+    }
+
+    public Long getHousesFeatureID() {
+        return housesFeatureID;
+    }
+
+    public void setHousesFeatureID(Long housesFeatureID) {
+        this.housesFeatureID = housesFeatureID;
+    }
+
+    public String getHousesFeatureName() {
+        return housesFeatureName;
+    }
+
+    public void setHousesFeatureName(String housesFeatureName) {
+        this.housesFeatureName = housesFeatureName;
+    }
+
+    public String getHousesFeatureUnit() {
+        return housesFeatureUnit;
+    }
+
+    public void setHousesFeatureUnit(String housesFeatureUnit) {
+        this.housesFeatureUnit = housesFeatureUnit;
+    }
     
     
-    public Long getHousesfeatureID() {
-        return housesfeatureID;
-    }
-
-    public void setHousesfeatureID(Long housesfeatureID) {
-        this.housesfeatureID = housesfeatureID;
-    }
-
-    public String getHousesfeatureName() {
-        return housesfeatureName;
-    }
-
-    public void setHousesfeatureName(String housesfeatureName) {
-        this.housesfeatureName = housesfeatureName;
-    }
-
-    public String getHousesfeatureUnit() {
-        return housesfeatureUnit;
-    }
-
-    public void setHousesfeatureUnit(String housesfeatureUnit) {
-        this.housesfeatureUnit = housesfeatureUnit;
-    }
+    
 
 }

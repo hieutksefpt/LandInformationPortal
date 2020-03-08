@@ -28,10 +28,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ManageRealEstateFeatureBean implements Serializable{
 
     @Autowired
-    private ILandsFeatureService landsfeatureService;
+    private ILandsFeatureService landsFeatureService;
 
     @Autowired
-    private IHousesFeatureService housesfeatureService;
+    private IHousesFeatureService housesFeatureService;
 
     private List<LandsFeature> listLandsFeature;
     private List<HousesFeature> listHousesFeature;
@@ -49,29 +49,29 @@ public class ManageRealEstateFeatureBean implements Serializable{
     public void init() {
         processType = "1";
         listLandsFeature = new ArrayList<LandsFeature>();
-        listLandsFeature = landsfeatureService.findAll();
+        listLandsFeature = landsFeatureService.findAll();
         listHousesFeature = new ArrayList<HousesFeature>();
-        listHousesFeature = housesfeatureService.findAll();
+        listHousesFeature = housesFeatureService.findAll();
     }
     
     
     
     public void saveLandsFeature(){
         LandsFeature landfeature = new LandsFeature(landsFeatureName,landsFeatureUnit);
-        landsfeatureService.save(landfeature);
+        landsFeatureService.save(landfeature);
     }
     
     public void saveHousesFeature(){
         HousesFeature housesfeature = new HousesFeature(housesFeatureName, housesFeatureUnit);
-        housesfeatureService.save(housesfeature);
+        housesFeatureService.save(housesfeature);
     }
     
     public void deleteLandsFeature(){
-        landsfeatureService.delete(landfeatureID);
+        landsFeatureService.delete(landfeatureID);
     }
     
     public void deleteHousesFeature(){
-        housesfeatureService.delete(housefeatureID);
+        housesFeatureService.delete(housefeatureID);
     }
     
     

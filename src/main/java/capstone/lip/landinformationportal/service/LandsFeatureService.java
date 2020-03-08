@@ -22,21 +22,21 @@ import org.springframework.stereotype.Service;
 public class LandsFeatureService implements ILandsFeatureService {
 
     @Autowired
-    private LandsFeatureRepository landsfeatureRepository;
+    private LandsFeatureRepository landsFeatureRepository;
 
     @Override
     public List<LandsFeature> findAll() {
-           return landsfeatureRepository.findAll();
+           return landsFeatureRepository.findAll();
     }
 
     @Override
-    public LandsFeature save(LandsFeature landsfeature) {
-          return landsfeatureRepository.save(landsfeature);
+    public LandsFeature save(LandsFeature landsFeature) {
+          return landsFeatureRepository.save(landsFeature);
     }
 
     @Override
-    public void delete(Long landsfeatureID) {
-        landsfeatureRepository.deleteById(landsfeatureID);
+    public void delete(Long landsFeatureId) {
+        landsFeatureRepository.deleteById(landsFeatureId);
     }
 
 }

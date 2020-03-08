@@ -14,12 +14,17 @@ import capstone.lip.landinformationportal.service.Interface.ILandsFeatureService
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author Admin
  */
+
+@Named
+@ViewScoped
 public class ManageRealEstateFeatureBean {
 
     @Autowired
@@ -31,6 +36,14 @@ public class ManageRealEstateFeatureBean {
     private List<LandsFeature> listLandsFeature;
     private List<HousesFeature> listHousesFeature;
     private String processType;
+    
+    private String housesFeatureName;
+    private String landsFeatureName;
+    private String housesFeatureUnit;
+    private String landsFeatureUnit;
+    private Long landfeatureID;
+    private Long housefeatureID;
+    
 
     @PostConstruct
     public void init() {
@@ -43,22 +56,22 @@ public class ManageRealEstateFeatureBean {
     
     
     
-    public void saveLandsFeature(String landsFeatureName, String landsFeatureUnit){
+    public void saveLandsFeature(){
         LandsFeature landfeature = new LandsFeature(landsFeatureName,landsFeatureUnit);
         landsfeatureService.save(landfeature);
     }
     
-    public void saveHousesFeature(String housesFeatureName, String housesFeatureUnit){
+    public void saveHousesFeature(){
         HousesFeature housesfeature = new HousesFeature(housesFeatureName, housesFeatureUnit);
         housesfeatureService.save(housesfeature);
     }
     
-    public void deleteLandsFeature(Long landfeatureID){
+    public void deleteLandsFeature(){
         landsfeatureService.delete(landfeatureID);
     }
     
-    public void deleteHousesFeature(Long housesfeatureID){
-        housesfeatureService.delete(housesfeatureID);
+    public void deleteHousesFeature(){
+        housesfeatureService.delete(housefeatureID);
     }
     
     

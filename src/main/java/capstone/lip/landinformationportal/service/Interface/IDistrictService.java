@@ -9,6 +9,7 @@ import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 public interface IDistrictService {
 	List<District> findAll();
 	District save(District district);
+        void delete(List<District> listDistrict);
 	List<SegmentOfStreet> getListSegmentOfStreet(Long streetId);
-	void delete(List<District> listDistrict);
+	
 }

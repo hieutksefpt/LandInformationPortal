@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class HousesFeatureService implements IHousesFeatureService{
     
-	@Autowired
+    @Autowired
     private HousesFeatureRepository housefeatureRepository;
 
     @Override

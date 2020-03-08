@@ -40,3 +40,39 @@ and open the template in the editor.
 .headerFeature{
     font-weight: bold;
 }
+
+.buttonEdit{
+    margin-right: 5px;
+    text-decoration: none;
+    background-color: #428bca;
+    color: white;
+    border-radius: 10px;
+}
+
+.buttonDelete{
+    text-decoration: none;
+    background-color: #d9534f;
+    color: white;
+    border-radius: 10px;
+}
+
+.buttonEdit:hover{
+    text-decoration: underline;
+}
+
+.buttonDelete:hover{
+    text-decoration: underline;
+}
+
+#buttonAddFeature{
+    color: white;
+    margin-bottom: 5px;
+    background-color: #d9534f;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+#buttonAddFeature:hover{
+    text-decoration: underline;
+    
+}

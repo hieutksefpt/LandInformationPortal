@@ -6,11 +6,11 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -19,48 +19,67 @@ and open the template in the editor.
         <ui:composition template="/template/admin/adminLayout.xhtml">
             <ui:define name="content">
                 <h:outputStylesheet name="manageRealEstateFeature.css" library="css" />
-                <h2>Danh sách thuộc tính</h2>
-                <p:tabView>
+                <div>
+                    <h2>Danh sách thuộc tính</h2>
+                    <h:commandButton id="buttonAddFeature" value="+ Thêm thuộc tính" type="button" />
+                </div>
+                <p:tabView id="view">
                     <p:tab title="Thuộc tính của Đất">
                         <p:panelGrid>
-                        	<div class="row">
-	                        	<div class="col-md">
-	                            	<h:outputText style="font-weight: bold" value="Tên thuộc tính" /> 
-	                            </div>
-	                            <div class="col-md">
-	                            	 <h:outputText style="font-weight: bold" value="Đơn vị" /> 
-	                            </div>
-	                            <div class="col-md">
-	                            	<h:outputText style="font-weight: bold" value="Tác vụ" /> 
-	                            </div>
-                        	</div>
-							<div class="row">
-	                        	<div class="col-md">
-	                            	<h:outputText value="Diện tích" /> 
-	                            </div>
-	                            <div class="col-md">
-	                            	 <h:outputText value="Mét vuông(m2)" /> 
-	                            </div>
-	                            <div class="col-md">
-	                            	<p:button value="Edit">
-
-	                                </p:button>
-	                                <p:button value="Delete">
-	
-	                                </p:button>
-	                            </div>
-                        	</div>
-
+                            <div class="row">
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Tên thuộc tính" /> 
+                                </div>
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Đơn vị" /> 
+                                </div>
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Tác vụ" /> 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <h:outputText value="Diện tích" /> 
+                                </div>
+                                <div class="col-md">
+                                    <h:outputText value="Mét vuông(m2)" /> 
+                                </div>
+                                <div class="col-md">
+                                    <h:commandButton class="buttonEdit" value="Edit" type="button" />
+                                    <h:commandButton class="buttonDelete" value="Delete" type="button" />
+                                </div>
+                            </div>
                         </p:panelGrid>
                     </p:tab>
                     <p:tab title="Thuộc tính của Nhà">
-                        <p>hello again</p>
-                    </p:tab>
-                    <p:tab title="Thêm thuộc tính">
-                        <p>Go away</p>
+                        <p:panelGrid>
+                            <div class="row">
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Tên thuộc tính" /> 
+                                </div>
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Đơn vị" /> 
+                                </div>
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Tác vụ" /> 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <h:outputText value="Diện tích" /> 
+                                </div>
+                                <div class="col-md">
+                                    <h:outputText value="Mét vuông(m2)" /> 
+                                </div>
+                                <div class="col-md">
+                                    <h:commandButton class="buttonEdit" value="Edit" type="button" />
+                                    <h:commandButton class="buttonDelete" value="Delete" type="button" />
+                                </div>
+                            </div>
+                        </p:panelGrid>
                     </p:tab>
                 </p:tabView>
-                
+
             </ui:define>
         </ui:composition>
     </h:body>

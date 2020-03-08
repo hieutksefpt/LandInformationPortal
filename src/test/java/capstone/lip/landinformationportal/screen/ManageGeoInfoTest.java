@@ -20,48 +20,56 @@ import org.openqa.selenium.By;
 @SpringBootTest
 public class ManageGeoInfoTest extends ChromeDevice {
     
-    @Test
-    public void checkExist() throws Exception {
+    private void openSite() throws InterruptedException {
         driver.get("http://localhost:8080/managegeoinfo.xhtml");
         Thread.currentThread().sleep(1000);
-        assertTrue(!driver.findElements(
-                By.xpath("//select[contains(@id,'searchbox-Address')]"))
+    }
+    
+    private void checkCommonItem() {
+        assertFalse(driver.findElements(
+                By.xpath("//*[contains(@id,'searchbox-Address')]"))
                 .isEmpty());
-        assertTrue(!driver.findElements(
+        assertFalse(driver.findElements(
                 By.xpath("//select[contains(@id,'cbb-Province')]"))
                 .isEmpty());
-        assertTrue(!driver.findElements(
+        assertFalse(driver.findElements(
                 By.xpath("//select[contains(@id,'cbb-Street')]"))
                 .isEmpty());
-        assertTrue(!driver.findElements(
+        assertFalse(driver.findElements(
                 By.xpath("//select[contains(@id,'cbb-District')]"))
                 .isEmpty());
-        assertTrue(!driver.findElements(
+        assertFalse(driver.findElements(
                 By.xpath("//select[contains(@id,'cbb-SegmentOfStreet')]"))
                 .isEmpty());
-        assertTrue(!driver.findElements(
+        assertFalse(driver.findElements(
                 By.xpath("//select[contains(@id,'cbb-IpgType')]"))
                 .isEmpty());
-        assertTrue(!driver.findElements(
-                By.xpath("//select[contains(@id,'txtInput-Name')]"))
+        assertFalse(driver.findElements(
+                By.xpath("//input[contains(@id,'txtInput-Name')]"))
                 .isEmpty());
-        assertTrue(!driver.findElements(
-                By.xpath("//select[contains(@id,'txtInput-Coordinate')]"))
+        assertFalse(driver.findElements(
+                By.xpath("//input[contains(@id,'txtInput-Coordinate')]"))
                 .isEmpty());
-        assertTrue(!driver.findElements(
-                By.xpath("//select[contains(@id,'btn-AddNew')]"))
+        assertFalse(driver.findElements(
+                By.xpath("//button[contains(@id,'btn-AddNew')]"))
                 .isEmpty());
-        assertTrue(!driver.findElements(
-                By.xpath("//select[contains(@id,'btn-Save')]"))
+        assertFalse(driver.findElements(
+                By.xpath("//button[contains(@id,'btn-Save')]"))
                 .isEmpty());
-        assertTrue(!driver.findElements(
-                By.xpath("//select[contains(@id,'btn-Delete')]"))
+        assertFalse(driver.findElements(
+                By.xpath("//button[contains(@id,'btn-Delete')]"))
                 .isEmpty());
-        assertTrue(!driver.findElements(
-                By.xpath("//select[contains(@id,'txtInput-CoordinateContribute')]"))
+        assertFalse(driver.findElements(
+                By.xpath("//input[contains(@id,'txtInput-CoordinateContribute')]"))
                 .isEmpty());
-        assertTrue(!driver.findElements(
-                By.xpath("//select[contains(@id,'txtInput-Name')]"))
+        assertFalse(driver.findElements(
+                By.xpath("//input[contains(@id,'txtInput-Name')]"))
                 .isEmpty());
+    }
+    
+    @Test
+    public void testExistedItem_UC001() throws Exception {
+        openSite();
+        checkCommonItem();
     }
 }

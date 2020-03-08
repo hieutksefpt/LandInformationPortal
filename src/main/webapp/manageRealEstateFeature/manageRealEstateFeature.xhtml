@@ -22,10 +22,61 @@ and open the template in the editor.
                 <h:outputStylesheet name="bootstrap.min.css" library="css" />
                 <div>
                     <h2>Danh sách thuộc tính</h2>
-                    <h:commandButton id="buttonAddFeature" value="+ Thêm thuộc tính" type="button" />
+                    <h:commandButton id="buttonAddFeature" value="+ Thêm thuộc tính" type="button" onclick="openAddFeaturePopup()"/>
+                    
+                    <div class="modal fade" id="addLandFeaturePopup" tabindex="-1" role="dialog" aria-labelledby="addLandFeaturePopupTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLongTitle">Thêm thuộc tính của đất</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md">Tên thuộc tính</div>
+                                    <div class="col-md"><p:inputText /></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md">Đơn vị</div>
+                                    <div class="col-md"><p:inputText /></div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary">Save</button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="addHouseFeaturePopup" tabindex="-1" role="dialog" aria-labelledby="addHouseFeaturePopupTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLongTitle">Thêm thuộc tính của nhà</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md">Tên thuộc tính</div>
+                                    <div class="col-md"><p:inputText /></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md">Đơn vị</div>
+                                    <div class="col-md"><p:inputText /></div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary">Save</button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
                 </div>
                 <p:tabView id="view">
-                    <p:tab title="Thuộc tính của Đất">
+                    <p:tab title="Thuộc tính của Đất" id="landFeature">
                         <p:panelGrid>
                             <div class="row">
                                 <div class="col-md">
@@ -46,11 +97,78 @@ and open the template in the editor.
                                     <h:outputText value="Mét vuông(m2)" /> 
                                 </div>
                                 <div class="col-md">
-                                    <h:commandButton value="Edit" type="button" class="btn btn-primary" 
-                                    data-toggle="modal" data-target="#exampleModalCenter"
-                                    onclick="openEditPopup()"/>
-                                    
-                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <h:commandButton value="Edit" type="button" class="btn btn-primary buttonEdit" onclick="openEditPopup()"/>
+                                    <div class="modal fade" id="editPopup" tabindex="-1" role="dialog" aria-labelledby="editPopupTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md">Tên thuộc tính</div>
+                                                    <div class="col-md"><p:inputText /></div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md">Đơn vị</div>
+                                                    <div class="col-md"><p:inputText /></div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                              <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <h:commandButton value="Delete" type="button" class="btn btn-primary buttonDelete" onclick="openDeletePopup()"/>
+                                    <div class="modal fade" id="deletePopup" tabindex="-1" role="dialog" aria-labelledby="deletePopup" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="exampleModalLongTitle">Confirm Dialog</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              Do you want to delete this item ?
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                              <button type="button" class="btn btn-primary buttonDelete">Delete</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab title="Thuộc tính của Nhà" id="houseFeature">
+                        <p:panelGrid>
+                            <div class="row">
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Tên thuộc tính" /> 
+                                </div>
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Đơn vị" /> 
+                                </div>
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Tác vụ" /> 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <h:outputText value="Diện tích" /> 
+                                </div>
+                                <div class="col-md">
+                                    <h:outputText value="Mét vuông(m2)" /> 
+                                </div>
+                                <div class="col-md">
+                                    <h:commandButton value="Edit" type="button" class="btn btn-primary buttonEdit" onclick="openEditPopup2()"/>
+                                    <div class="modal fade" id="editPopup2" tabindex="-1" role="dialog" aria-labelledby="editPopupTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                           <div class="modal-content">
                                             <div class="modal-header">
@@ -67,35 +185,26 @@ and open the template in the editor.
                                             </div>
                                           </div>
                                         </div>
-                                      </div>
-                                    <h:commandButton value="Delete" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"/>
-                                </div>
-                            </div>
-                        </p:panelGrid>
-                    </p:tab>
-                    <p:tab title="Thuộc tính của Nhà">
-                        <p:panelGrid>
-                            <div class="row">
-                                <div class="col-md">
-                                    <h:outputText style="font-weight: bold" value="Tên thuộc tính" /> 
-                                </div>
-                                <div class="col-md">
-                                    <h:outputText style="font-weight: bold" value="Đơn vị" /> 
-                                </div>
-                                <div class="col-md">
-                                    <h:outputText style="font-weight: bold" value="Tác vụ" /> 
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md">
-                                    <h:outputText value="Diện tích" /> 
-                                </div>
-                                <div class="col-md">
-                                    <h:outputText value="Mét vuông(m2)" /> 
-                                </div>
-                                <div class="col-md">
-                                    <h:commandButton class="buttonEdit" value="Edit" type="button" />
-                                    <h:commandButton class="buttonDelete" value="Delete" type="button" />
+                                    </div>
+                                    <h:commandButton value="Delete" type="button" class="btn btn-primary buttonDelete" onclick="openDeletePopup2()"/>
+                                    <div class="modal fade" id="deletePopup2" tabindex="-1" role="dialog" aria-labelledby="deletePopup" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="exampleModalLongTitle">Confirm Dialog</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              Do you want to delete this item ?
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                              <button type="button" class="btn btn-primary buttonDelete">Delete</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </p:panelGrid>

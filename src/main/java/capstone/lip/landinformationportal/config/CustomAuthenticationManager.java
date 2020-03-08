@@ -30,12 +30,12 @@ public class CustomAuthenticationManager implements AuthenticationManager, Seria
 		String username = authentication.getPrincipal() + "";
 	    String password = authentication.getCredentials() + "";
 	    
-	    long test = userRepo.count();
-	    
-	    User user = userRepo.findByUserName(username);
-	    if (user == null) {
-	        throw new BadCredentialsException("1000");
-	    }
+//	    long test = userRepo.count();
+//	    
+//	    User user = userRepo.findByUsername(username);
+//	    if (user == null) {
+//	        throw new BadCredentialsException("1000");
+//	    }
 //	    if (!encoder.matches(password, user.getPassword())) {
 //	        throw new BadCredentialsException("1000");
 //	    }

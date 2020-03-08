@@ -44,14 +44,15 @@ public class SegmentOfStreet extends AuditAbstract implements Serializable{
 	private District district;
 	
 	@Basic(fetch = FetchType.LAZY)
-	@ManyToOne
+//	@ManyToOne(cascade=CascadeType.REMOVE)
+	@ManyToOne()
 	@JoinColumn(name ="StreetID")
-	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Street street;
 	
 	@Basic(fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@OneToMany(mappedBy="segmentOfStreet")
+	@OneToMany(mappedBy="segmentOfStreet",cascade = CascadeType.REMOVE)
 	private List<FormedCoordinate> listFormedCoordinate;
 	
 	public Long getSegmentId() {

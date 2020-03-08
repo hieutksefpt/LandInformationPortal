@@ -22,21 +22,21 @@ import org.springframework.stereotype.Service;
 public class HousesFeatureService implements IHousesFeatureService{
     
     @Autowired
-    private HousesFeatureRepository housefeatureRepository;
+    private HousesFeatureRepository houseFeatureRepository;
 
     @Override
     public List<HousesFeature> findAll() {
-        return housefeatureRepository.findAll();
+        return houseFeatureRepository.findAll();
     }
 
     @Override
     public void save(HousesFeature housesfeature) {
-        housefeatureRepository.save(housesfeature);
+        houseFeatureRepository.save(housesfeature);
     }
 
     @Override
     public void delete(Long housesfeatureID) {
-        housefeatureRepository.deleteById(housesfeatureID);
+        houseFeatureRepository.deleteById(housesfeatureID);
     }
     
 }

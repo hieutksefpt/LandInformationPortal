@@ -32,10 +32,11 @@ import capstone.lip.landinformationportal.service.Interface.IFormedCoordinate;
 import capstone.lip.landinformationportal.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.service.Interface.ISegmentOfStreetService;
 import capstone.lip.landinformationportal.service.Interface.IStreetService;
+import java.io.Serializable;
 
 @Named
 @ViewScoped
-public class ManageGeoInfoBean {
+public class ManageGeoInfoBean implements Serializable {
 
 	@Autowired
 	private IProvinceService provinceService;

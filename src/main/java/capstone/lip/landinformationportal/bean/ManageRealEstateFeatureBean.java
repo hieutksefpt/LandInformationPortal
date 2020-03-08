@@ -10,7 +10,7 @@ import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.service.Interface.IHousesFeatureService;
 import capstone.lip.landinformationportal.service.Interface.ILandsFeatureService;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Named
 @ViewScoped
-public class ManageRealEstateFeatureBean {
+public class ManageRealEstateFeatureBean implements Serializable{
 
     @Autowired
     private ILandsFeatureService landsfeatureService;

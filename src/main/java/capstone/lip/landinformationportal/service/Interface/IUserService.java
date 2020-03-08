@@ -16,6 +16,8 @@ import java.util.List;
 public interface IUserService {
 
     List<User> findAll();
+    
+    List<User> search(String userNamePart);
 
     User save(User user);
 

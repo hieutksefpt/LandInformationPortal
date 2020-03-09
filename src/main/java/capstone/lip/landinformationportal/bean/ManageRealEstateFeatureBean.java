@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -60,6 +61,7 @@ public class ManageRealEstateFeatureBean implements Serializable {
     public void updateLandsFeature() {
         landsFeatureService.save(landsFeatureClicked);
         listLandsFeature = landsFeatureService.findAll();
+        PrimeFaces.current().executeScript("reloadPage()");
         int i = 1;
         i++;
     }

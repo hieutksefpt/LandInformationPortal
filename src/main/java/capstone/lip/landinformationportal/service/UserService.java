@@ -42,7 +42,7 @@ public class UserService implements IUserService{
     // search User theo username
     @Override
     public List<User> search(String userNamePart) {
-        return userRepository.findByNameContaining(userNamePart);
+        return userRepository.findByuserNameContaining(userNamePart);
     }
      
      

@@ -56,7 +56,7 @@ and open the template in the editor.
                                                 data-dismiss="modal">Close</button>
                                         <h:commandButton class="btn btn-primary" value="Save" onclick="hideAddFeaturePopup()"
                                                          action="#{manageRealEstateFeatureBean.saveLandsFeature}">
-                                            <f:ajax execute="@form" render="view" />
+                                            <p:ajax process="addLandsFeature" update="view view:formListLandFeature "></p:ajax>
                                         </h:commandButton>
                                     </div>
                                 </h:form>
@@ -74,7 +74,7 @@ and open the template in the editor.
                                     <button type="button" class="close" data-dismiss="modal"
                                             aria-label="Close"></button>
                                 </div>
-                                <h:form>
+                                <h:form id="addHouseFeature">
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-md">Tên thuộc tính</div>
@@ -92,9 +92,10 @@ and open the template in the editor.
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Close</button>
-                                        <h:commandButton class="btn btn-primary" value="Save" onclick="hideAddFeaturePopup()"
-                                                         action="#{manageRealEstateFeatureBean.saveHousesFeature}">
-                                            <f:ajax execute="@form" render="view" />
+                                        <h:commandButton class="btn btn-primary" value="Save" onclick="hideAddFeaturePopup()">
+                                            <p:ajax process="addHouseFeature" update="@(.ui-tabs-panel:visible .tab-content)" 
+                                            listener="#{manageRealEstateFeatureBean.saveHousesFeature}" 
+                                            ></p:ajax>
                                         </h:commandButton>
                                     </div>
                                 </h:form>
@@ -102,9 +103,10 @@ and open the template in the editor.
                         </div>
                     </div>
                 </div>
-                <p:tabView id="view">
+                <p:tabView widgetVar="view" id="view" dynamic="true">
                     <p:tab title="Thuộc tính của Đất" id="landFeature">
-                        <p:panelGrid>
+
+                        <h:panelGroup id="formListLandFeature" styleClass="tab-content">
                             <div class="row">
                                 <div class="col-md">
                                     <h:outputText style="font-weight: bold" value="Tên thuộc tính" />
@@ -147,10 +149,11 @@ and open the template in the editor.
                                     </div>
                                 </c:forEach>
                             </h:form>
-                        </p:panelGrid>
+                        </h:panelGroup>
                     </p:tab>
+
                     <p:tab title="Thuộc tính của Nhà" id="houseFeature">
-                        <p:panelGrid>
+                        <h:panelGroup id="formListHouseFeature" styleClass="tab-content">
                             <div class="row">
                                 <div class="col-md">
                                     <h:outputText style="font-weight: bold" value="Tên thuộc tính" />
@@ -180,20 +183,20 @@ and open the template in the editor.
                                                              action="#{manageRealEstateFeatureBean.clickOnButtonRowHousesFeature(i.housesFeatureID)}" 
                                                              onclick="openEditPopup2()">
 
-                                                <f:ajax execute="@form" render="edit-form" />
+                                                <f:ajax execute="@form" render="edit-form1" />
 
                                             </h:commandButton>
                                             <h:commandButton value="Delete" type="button"
                                                              class="btn btn-primary buttonDelete"
                                                              action="#{manageRealEstateFeatureBean.clickOnButtonRowHousesFeature(i.housesFeatureID)}"
                                                              onclick="openDeletePopup2()">
-                                                <f:ajax execute="@form" render="deletePopup" />
+                                                <f:ajax execute="@form" render="deletePopup2" />
                                             </h:commandButton>
                                         </div>
                                     </div>
                                 </c:forEach>
                             </h:form>
-                        </p:panelGrid>
+                        </h:panelGroup>
                     </p:tab>
                 </p:tabView>
 
@@ -224,8 +227,9 @@ and open the template in the editor.
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
-                                    <h:commandButton value="Save changes" styleClass="btn btn-primary" onclick="hideEditPopup()" action="#{manageRealEstateFeatureBean.updateLandsFeature()}">
-                                        <f:ajax execute="@form" rendered="edit-form view"></f:ajax>
+                                    <h:commandButton value="Save changes" styleClass="btn btn-primary" 
+                                    onclick="hideEditPopup()" action="#{manageRealEstateFeatureBean.updateLandsFeature()}">
+                                        <p:ajax process="@form" update="view view:formListLandFeature"></p:ajax>
                                     </h:commandButton>
                                 </div>
                             </h:form>
@@ -247,8 +251,11 @@ and open the template in the editor.
                                 <h:form>
                                     <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
-                                    <h:commandButton styleClass="btn btn-primary buttonDelete" onclick="hideDeletePopup()" value="Delete" action="#{manageRealEstateFeatureBean.deleteLandsFeature()}">
-                                        <f:ajax execute="@form" render="view"></f:ajax>
+                                    <h:commandButton styleClass="btn btn-primary buttonDelete" 
+                                    onclick="hideDeletePopup()" 
+                                    value="Delete" 
+                                    action="#{manageRealEstateFeatureBean.deleteLandsFeature()}">
+                                        <p:ajax process="@this" update="view view:formListLandFeature"></p:ajax>
                                     </h:commandButton>
                                 </h:form>
                             </div>
@@ -267,7 +274,7 @@ and open the template in the editor.
                             <h:form id="edit-form1">
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="col-md">Tên thuộc tính</div>
+                                        <div class="col-md">Tên thuộc tính 123</div>
                                         <div class="col-md">
                                             <p:inputText value="${manageRealEstateFeatureBean.housesFeatureClicked.housesFeatureName}"/>
                                         </div>
@@ -282,8 +289,10 @@ and open the template in the editor.
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
-                                    <h:commandButton value="Save changes" styleClass="btn btn-primary" onclick="hideEditPopup2()" action="#{manageRealEstateFeatureBean.updateHousesFeature()}">
-                                        <f:ajax execute="@form" rendered="edit-form1 view"></f:ajax>
+                                    <h:commandButton value="Save changes" styleClass="btn btn-primary" 
+                                    onclick="hideEditPopup2()" >
+                                    	<p:ajax listener="#{manageRealEstateFeatureBean.updateHousesFeature()}" process="@form" 
+                                    	update="@(.ui-tabs-panel:visible .tab-content)"></p:ajax>
                                     </h:commandButton>
                                 </div>
                             </h:form>
@@ -305,8 +314,9 @@ and open the template in the editor.
                                 <h:form>
                                     <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
-                                    <h:commandButton styleClass="btn btn-primary buttonDelete" onclick="hideDeletePopup2()" value="Delete" action="#{manageRealEstateFeatureBean.deleteHousesFeature()}">
-                                        <f:ajax execute="@form" render="view"></f:ajax>
+                                    <h:commandButton styleClass="btn btn-primary buttonDelete" onclick="hideDeletePopup2()" value="Delete">
+                                        <p:ajax listener="#{manageRealEstateFeatureBean.deleteHousesFeature()}" process="@form" 
+                                    	update="@(.ui-tabs-panel:visible .tab-content)"></p:ajax>
                                     </h:commandButton>
                                 </h:form>
                             </div>

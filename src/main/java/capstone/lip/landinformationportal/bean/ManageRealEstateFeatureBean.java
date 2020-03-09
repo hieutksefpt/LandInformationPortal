@@ -61,7 +61,7 @@ public class ManageRealEstateFeatureBean implements Serializable {
     public void updateLandsFeature() {
         landsFeatureService.save(landsFeatureClicked);
         listLandsFeature = landsFeatureService.findAll();
-        PrimeFaces.current().executeScript("reloadPage()");
+//        PrimeFaces.current().executeScript("reloadPage()");
         int i = 1;
         i++;
     }
@@ -87,10 +87,15 @@ public class ManageRealEstateFeatureBean implements Serializable {
 
     public void clickOnButtonRowLandsFeature(String id) {
         landsFeatureClicked = listLandsFeature.stream().filter(x -> x.getLandsFeatureID().equals(Long.parseLong(id))).collect(Collectors.toList()).get(0);
+        int i = 1;
+        i++;
     }
     
     public void clickOnButtonRowHousesFeature(String id) {
         housesFeatureClicked = listHousesFeature.stream().filter(x -> x.getHousesFeatureID().equals(Long.parseLong(id))).collect(Collectors.toList()).get(0);
+        int i= 1;
+        i++;
+    
     }
 
     public void deleteLandsFeature() {
@@ -100,7 +105,11 @@ public class ManageRealEstateFeatureBean implements Serializable {
 
     public void deleteHousesFeature() {
         housesFeatureService.delete(housesFeatureClicked.getHousesFeatureID());
+        int i = 1;
+        i++;
         listHousesFeature = housesFeatureService.findAll();
+        i = 1;
+        i++;
     }
 
     public List<LandsFeature> getListLandsFeature() {

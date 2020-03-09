@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <District districtId="1" districtName="A" districtLat="1" districtLng="2"/>
+    <District districtId="2" districtName="B" districtLat="1" districtLng="2"/>
+</dataset>

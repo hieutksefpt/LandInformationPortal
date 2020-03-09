@@ -7,4 +7,5 @@ import capstone.lip.landinformationportal.entity.Street;
 public interface IStreetService {
 	Street save(Street street);
 	void delete(List<Street> listStreet);
+	void delete(Street street);
 }

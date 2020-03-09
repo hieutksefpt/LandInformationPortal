@@ -22,7 +22,10 @@ public class StreetService implements IStreetService{
 	@Override
 	public void delete(List<Street> listStreet) {
 		streetRepository.deleteInBatch(listStreet);
-		
+	}
+	
+	public void delete(Street street) {
+		streetRepository.delete(street);
 	}
 
 }

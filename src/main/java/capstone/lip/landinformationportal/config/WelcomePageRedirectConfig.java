@@ -11,7 +11,7 @@ public class WelcomePageRedirectConfig implements WebMvcConfigurer {
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
     registry.addViewController("/")
-        .setViewName("redirect:/managegeoinfo.xhtml");
+        .setViewName("redirect:/admin/managegeoinfo.xhtml");
     registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
   }
 }

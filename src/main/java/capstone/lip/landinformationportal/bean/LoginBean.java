@@ -22,10 +22,11 @@ public class LoginBean {
 	
 	public void loginAction() {
 		try {
-
-		    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken( username, password ); 
-		    Authentication authentication = authenticationManager.authenticate(authenticationToken);
-		    SecurityContextHolder.getContext().setAuthentication(authentication);
+			int i= 1;
+			i++;
+//		    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken( username, password ); 
+//		    Authentication authentication = authenticationManager.authenticate(authenticationToken);
+//		    SecurityContextHolder.getContext().setAuthentication(authentication);
 		} catch (Exception e) {
 			e.printStackTrace();
 		    System.out.print("Login failed");

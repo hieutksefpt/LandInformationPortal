@@ -10,4 +10,5 @@ public interface ISegmentOfStreetService {
 	SegmentOfStreet save(SegmentOfStreet segmentOfStreet);
 	List<Street> getListStreetByListSegment(List<SegmentOfStreet> listSegment);
 	void delete(List<SegmentOfStreet> listSegment);
+	void delete(SegmentOfStreet segmentOfStreet);
 }

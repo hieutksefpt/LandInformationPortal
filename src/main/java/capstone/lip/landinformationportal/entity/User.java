@@ -42,8 +42,7 @@ public class User extends AuditAbstract implements Serializable {
     public User() {
     }
 
-    public User(Long userId, String userName, String password, String fullName, String role, String email, String phone) {
-        this.userId = userId;
+    public User(String userName, String password, String fullName, String role, String email, String phone) {
         this.userName = userName;
         this.password = password;
         this.fullName = fullName;

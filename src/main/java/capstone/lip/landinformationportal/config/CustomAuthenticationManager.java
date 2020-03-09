@@ -32,7 +32,7 @@ public class CustomAuthenticationManager implements AuthenticationManager, Seria
 	    
 	    long test = userRepo.count();
 	    
-	    User user = (User) userRepo.findByuserNameContaining(username);
+	    User user = (User) userRepo.findByUserNameContaining(username);
 	    if (user == null) {
 	        throw new BadCredentialsException("1000");
 	    }

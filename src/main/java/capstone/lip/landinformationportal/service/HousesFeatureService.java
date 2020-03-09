@@ -30,8 +30,8 @@ public class HousesFeatureService implements IHousesFeatureService{
     }
 
     @Override
-    public void save(HousesFeature housesfeature) {
-        houseFeatureRepository.save(housesfeature);
+    public HousesFeature save(HousesFeature housesfeature) {
+        return houseFeatureRepository.save(housesfeature);
     }
 
     @Override

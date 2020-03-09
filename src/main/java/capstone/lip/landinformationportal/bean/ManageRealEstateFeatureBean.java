@@ -24,10 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Admin
  */
-
 @Named
 @ViewScoped
-public class ManageRealEstateFeatureBean implements Serializable{
+public class ManageRealEstateFeatureBean implements Serializable {
 
     @Autowired
     private ILandsFeatureService landsFeatureService;
@@ -38,16 +37,16 @@ public class ManageRealEstateFeatureBean implements Serializable{
     private List<LandsFeature> listLandsFeature;
     private List<HousesFeature> listHousesFeature;
     private String processType;
-    
+
     private String housesFeatureName;
     private String landsFeatureName;
     private String housesFeatureUnit;
     private String landsFeatureUnit;
     private Long landfeatureID;
     private Long housefeatureID;
-    
+
     private LandsFeature landsFeatureClicked;
-   
+    private HousesFeature housesFeatureClicked;
 
     @PostConstruct
     public void init() {
@@ -57,39 +56,50 @@ public class ManageRealEstateFeatureBean implements Serializable{
         listHousesFeature = new ArrayList<HousesFeature>();
         listHousesFeature = housesFeatureService.findAll();
     }
+
+    public void updateLandsFeature() {
+        landsFeatureService.save(landsFeatureClicked);
+        listLandsFeature = landsFeatureService.findAll();
+        int i = 1;
+        i++;
+    }
     
-    
-    
-    public void saveLandsFeature(){
-        LandsFeature landfeature = new LandsFeature(landsFeatureName,landsFeatureUnit);
+    public void updateHousesFeature() {
+        housesFeatureService.save(housesFeatureClicked);
+        listHousesFeature = housesFeatureService.findAll();
+        int i = 1;
+        i++;
+    }
+
+     public void saveLandsFeature() {
+        LandsFeature landfeature = new LandsFeature(landsFeatureName, landsFeatureUnit);
         landfeature = landsFeatureService.save(landfeature);
         listLandsFeature.add(landfeature);
     }
-    public void updateLandsFeature() {
-    	landsFeatureService.save(landsFeatureClicked);
-    	listLandsFeature = landsFeatureService.findAll();
-    	int i = 1;
-    	i++;
+     
+    public void saveHousesFeature() {
+        HousesFeature housesFeature = new HousesFeature(housesFeatureName, housesFeatureUnit);
+        housesFeature = housesFeatureService.save(housesFeature);
+        listHousesFeature.add(housesFeature);
     }
-    public void saveHousesFeature(){
-        HousesFeature housesfeature = new HousesFeature(housesFeatureName, housesFeatureUnit);
-        housesFeatureService.save(housesfeature);
-    }
-    
-    public void clickOnButtonRow(String id) {
-    	landsFeatureClicked = listLandsFeature.stream().filter(x->x.getLandsFeatureID().equals(Long.parseLong(id))).collect(Collectors.toList()).get(0);
+
+    public void clickOnButtonRowLandsFeature(String id) {
+        landsFeatureClicked = listLandsFeature.stream().filter(x -> x.getLandsFeatureID().equals(Long.parseLong(id))).collect(Collectors.toList()).get(0);
     }
     
-    public void deleteLandsFeature(){
+    public void clickOnButtonRowHousesFeature(String id) {
+        housesFeatureClicked = listHousesFeature.stream().filter(x -> x.getHousesFeatureID().equals(Long.parseLong(id))).collect(Collectors.toList()).get(0);
+    }
+
+    public void deleteLandsFeature() {
         landsFeatureService.delete(landsFeatureClicked.getLandsFeatureID());
         listLandsFeature = landsFeatureService.findAll();
     }
-    
-    public void deleteHousesFeature(){
-        housesFeatureService.delete(housefeatureID);
+
+    public void deleteHousesFeature() {
+        housesFeatureService.delete(housesFeatureClicked.getHousesFeatureID());
+        listHousesFeature = housesFeatureService.findAll();
     }
-    
-    
 
     public List<LandsFeature> getListLandsFeature() {
         return listLandsFeature;
@@ -115,60 +125,68 @@ public class ManageRealEstateFeatureBean implements Serializable{
         this.processType = processType;
     }
 
-	public String getHousesFeatureName() {
-		return housesFeatureName;
-	}
+    public String getHousesFeatureName() {
+        return housesFeatureName;
+    }
 
-	public void setHousesFeatureName(String housesFeatureName) {
-		this.housesFeatureName = housesFeatureName;
-	}
+    public void setHousesFeatureName(String housesFeatureName) {
+        this.housesFeatureName = housesFeatureName;
+    }
 
-	public String getLandsFeatureName() {
-		return landsFeatureName;
-	}
+    public String getLandsFeatureName() {
+        return landsFeatureName;
+    }
 
-	public void setLandsFeatureName(String landsFeatureName) {
-		this.landsFeatureName = landsFeatureName;
-	}
+    public void setLandsFeatureName(String landsFeatureName) {
+        this.landsFeatureName = landsFeatureName;
+    }
 
-	public String getHousesFeatureUnit() {
-		return housesFeatureUnit;
-	}
+    public String getHousesFeatureUnit() {
+        return housesFeatureUnit;
+    }
 
-	public void setHousesFeatureUnit(String housesFeatureUnit) {
-		this.housesFeatureUnit = housesFeatureUnit;
-	}
+    public void setHousesFeatureUnit(String housesFeatureUnit) {
+        this.housesFeatureUnit = housesFeatureUnit;
+    }
 
-	public String getLandsFeatureUnit() {
-		return landsFeatureUnit;
-	}
+    public String getLandsFeatureUnit() {
+        return landsFeatureUnit;
+    }
 
-	public void setLandsFeatureUnit(String landsFeatureUnit) {
-		this.landsFeatureUnit = landsFeatureUnit;
-	}
+    public void setLandsFeatureUnit(String landsFeatureUnit) {
+        this.landsFeatureUnit = landsFeatureUnit;
+    }
 
-	public Long getLandfeatureID() {
-		return landfeatureID;
-	}
+    public Long getLandfeatureID() {
+        return landfeatureID;
+    }
 
-	public void setLandfeatureID(Long landfeatureID) {
-		this.landfeatureID = landfeatureID;
-	}
+    public void setLandfeatureID(Long landfeatureID) {
+        this.landfeatureID = landfeatureID;
+    }
 
-	public Long getHousefeatureID() {
-		return housefeatureID;
-	}
+    public Long getHousefeatureID() {
+        return housefeatureID;
+    }
 
-	public void setHousefeatureID(Long housefeatureID) {
-		this.housefeatureID = housefeatureID;
-	}
+    public void setHousefeatureID(Long housefeatureID) {
+        this.housefeatureID = housefeatureID;
+    }
 
-	public LandsFeature getLandsFeatureClicked() {
-		return landsFeatureClicked;
-	}
+    public LandsFeature getLandsFeatureClicked() {
+        return landsFeatureClicked;
+    }
 
-	public void setLandsFeatureClicked(LandsFeature landsFeatureClicked) {
-		this.landsFeatureClicked = landsFeatureClicked;
-	}
+    public void setLandsFeatureClicked(LandsFeature landsFeatureClicked) {
+        this.landsFeatureClicked = landsFeatureClicked;
+    }
     
+    public HousesFeature getHousesFeatureClicked() {
+        return housesFeatureClicked;
+    }
+    
+    public void setHousesFeatureClicked(HousesFeature housesFeatureClicked) {
+        this.housesFeatureClicked = housesFeatureClicked;
+    }
+
 }

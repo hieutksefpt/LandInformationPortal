@@ -16,7 +16,7 @@ import java.util.List;
 public interface IHousesFeatureService {
         public List<HousesFeature> findAll();
 
-        public void save(HousesFeature housesfeature);
+        public HousesFeature save(HousesFeature housesfeature);
         
         public void delete(Long housesfeatureID);
 }

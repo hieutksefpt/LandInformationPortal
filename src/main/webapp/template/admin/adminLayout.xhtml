@@ -11,31 +11,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <h:outputStylesheet name="bootstrap.min.css" library="css" />
         <h:outputStylesheet name="Navigation-Clean.css" library="css" />
-		<h:outputStylesheet name="Navigation-with-Button.css" library="css" />
-		<h:outputStylesheet name="adminLayout.css" library="css"/>
+        <h:outputStylesheet name="Navigation-with-Button.css" library="css" />
+        <h:outputStylesheet name="adminLayout.css" library="css"/>
     </h:head>
     <h:body>
-    	<div class="wrapper">
-		    	<ui:insert name="leftmenubar">
-		    		<ui:include src="/template/admin/adminLeftMenuBar.xhtml"></ui:include>
-		    	</ui:insert>
-		    <div id="content">
-			    <div id="header">
-			        <ui:insert name="header" >
-			            <ui:include src="/template/admin/adminHeader.xhtml" />
-			        </ui:insert>
-			    </div>
-		        <ui:insert name="content" >
-		            <ui:include src="/template/common/commonContent.xhtml" />
-		        </ui:insert>
-		    </div>
-		    <div id="footer">
-		        <ui:insert name="footer" >
-		            <ui:include src="/template/common/commonFooter.xhtml" />
-		        </ui:insert>
-		    </div>
-    	</div>
+        <div class="wrapper">
+            <ui:insert name="leftmenubar">
+                <ui:include src="/template/admin/adminLeftMenuBar.xhtml"></ui:include>
+            </ui:insert>
+            <div id="content">
+                <div id="header">
+                    <ui:insert name="header" >
+                        <ui:include src="/template/admin/adminHeader.xhtml" />
+                    </ui:insert>
+                </div>
+                <ui:insert name="content" >
+                    <ui:include src="/template/common/commonContent.xhtml" />
+                </ui:insert>
+            </div>
+            <div id="footer">
+                <ui:insert name="footer" >
+                    <ui:include src="/template/common/commonFooter.xhtml" />
+                </ui:insert>
+            </div>
+        </div>
     </h:body>
     <h:outputScript library="js" name="bootstrap.min.js" />
-    
+
 </html>

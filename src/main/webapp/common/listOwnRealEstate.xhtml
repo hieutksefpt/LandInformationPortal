@@ -12,7 +12,13 @@
     <body>
         <ui:composition template="/template/common/commonLayout.xhtml">
             <ui:define name="content">
-				<div id="map" style="width:1000px;height:1000px"></div>
+                <div>
+                    <h:outputStylesheet name="listOwnRealEstate.css" library="css"></h:outputStylesheet>
+                    <div id="map"></div>
+                    <div>
+                        <p>Danh sách BĐS đóng góp</p>
+                    </div>
+                </div>
             </ui:define>
             
             <ui:define name="footer">

@@ -14,7 +14,4 @@ function initMap() {
         disableDoubleClickZoom: true,
         fullscreenControl: false
     });
-    map.addListener('bounds_changed', function() {
-      searchBox.setBounds(map.getBounds());
-    });
 }

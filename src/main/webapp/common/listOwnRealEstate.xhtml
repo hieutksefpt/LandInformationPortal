@@ -12,9 +12,9 @@
     <body>
         <ui:composition template="/template/common/commonLayout.xhtml">
             <ui:define name="content">
-
+				<div id="map" style="width:1000px;height:1000px"></div>
             </ui:define>
-            <div id="map" style="height:80%"></div>
+            
             <ui:define name="footer">
                 <h:outputScript name="listOwnRealEstate.js" library="js" />
                 <script type="text/javascript"

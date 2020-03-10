@@ -8,13 +8,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-@EnableScheduling
-@Configuration
-@ConditionalOnProperty(name = "spring.enable.scheduling")
+//@EnableScheduling
+//@Configuration
+//@ConditionalOnProperty(name = "spring.enable.scheduling")
 public class CrawlRealEstateConfig {
 	private static final Logger LOG = LoggerFactory.getLogger(CrawlRealEstateConfig.class);
 
-    @Scheduled(fixedRateString = "${crawljob}")
+//    @Scheduled(fixedRateString = "${crawljob}")
     public void sayHello(){
     	System.out.println("hello tuan");
         LOG.info("Hello from our simple scheduled method");

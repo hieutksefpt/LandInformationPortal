@@ -15,14 +15,20 @@
 			<h:outputStylesheet name="managecrawlrealestate.css" library="css"></h:outputStylesheet>
             <h:form>
             	<h:outputText value="Khoảng thời gian crawl"></h:outputText>
-            	<h:inputText value="#{manageCrawlRealEstate.timerCrawl}"></h:inputText>
+            	<h:inputText value="#{manageCrawlRealEstateBean.timerCrawl}"></h:inputText>
             	
             	<h:commandButton value="Cài thời gian crawler">
-            		<p:ajax process="@form" listener="#{manageCrawlRealEstate.setTimerButtonClick}"></p:ajax>
+            		<p:ajax process="@form" listener="#{manageCrawlRealEstateBean.setTimerButtonClick()}"></p:ajax>
             	</h:commandButton>
-            	<h:commandButton value="Bật/tắt crawler">
-            		<p:ajax process="@form" listener="#{manageCrawlRealEstate.changeCrawlerStatus()}"></p:ajax>
+            	
+            	<h:commandButton value="Bật crawler">
+            		<p:ajax process="@form" listener="#{manageCrawlRealEstateBean.turnOnCrawler()}"></p:ajax>
             	</h:commandButton>
+            	
+            	<h:commandButton value="Tắt crawler">
+            		<p:ajax process="@form" listener="#{manageCrawlRealEstateBean.turnOffCrawler()}"></p:ajax>
+            	</h:commandButton>
+            	
             	
             	<h:commandButton value="Crawl ngay"></h:commandButton>
             </h:form>

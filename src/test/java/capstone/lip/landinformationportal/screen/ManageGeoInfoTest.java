@@ -5,10 +5,9 @@
  */
 package capstone.lip.landinformationportal.screen;
 
-import capstone.lip.landinformationportal.common.GUITest;
-import capstone.lip.landinformationportal.common.TestCommonKeyword;
+import capstone.lip.landinformationportal.common.AdminUITest;
+import capstone.lip.landinformationportal.screen.element.IPGType;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +16,7 @@ import static org.junit.Assert.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import capstone.lip.landinformationportal.screen.element.GroupLocation;
 
 /**
  *
@@ -24,43 +24,52 @@ import org.openqa.selenium.support.ui.Select;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ManageGeoInfoTest extends GUITest {
+public class ManageGeoInfoTest extends AdminUITest 
+        implements GroupLocation, IPGType {
 
-    private final String SEARCHBOX_ADDRESS = "//input[contains(@id,'searchbox-Address')]";
-    private final String CBB_PROVINCE = "//select[contains(@id,'cbb-Province')]";
-    private final String CBB_DISTRICT = "//select[contains(@id,'cbb-District')]";
-    private final String CBB_STREET = "//select[contains(@id,'cbb-Street')]";
-    private final String CBB_SEGMENT = "//select[contains(@id,'cbb-SegmentOfStreet')]";
-
-    private final String CBB_IPGTYPE = "//select[contains(@id,'cbb-IpgType')]";
-    private final String TXT_INPUT_NAME = "//input[contains(@id,'txtInput-Name')]";
+    private final String TXT_NAME = "//input[contains(@id,'txtInput-Name')]";
+    private final String LBL_COORDINATE = "//input[contains(@id,'lbl-Coordinate')]";
+    private final String TXT_LAT = "//input[contains(@id,'txtInput-Latitude')]";
+    private final String TXT_LNG = "//input[contains(@id,'txtInput-Longitude')]";
 
     private final String BTN_ADD_NEW = "//button[contains(@id,'btn-AddNew')]";
     private final String BTN_SAVE = "//button[contains(@id,'btn-Save')]";
     private final String BTN_DELETE = "//button[contains(@id,'btn-Delete')]";
     private final String BTN_CLEAR = "//button[contains(@id,'btn-Clear')]";
 
+    private final String TXT_SEGMENT = "//button[contains(@id,'txtInput-SegmentName')]";
+    private final String LBL_FORMED_COORDINATE = "//input[contains(@id,'lbl-FormedCoordinate')]";
+    private final String TXT_FORMED_LAT = "//button[contains(@id,'txtInput-FormedLatitude')]";
+    private final String TXT_FORMED_LNG = "//button[contains(@id,'txtInput-FormedLongitude')]";
     private final String BTN_SAVE_SEGMENT = "//button[contains(@id,'btn-SaveSegmentStreet')]";
     private final String BTN_CLEAR_SEGMENT = "//button[contains(@id,'btn-ClearSegment')]";
 
     private void openSite() throws InterruptedException {
-        driver.get("http://" + TestCommonKeyword.HOST + "/admin/managegeoinfo.xhtml");
+        driver.get("http://" + HOST + "/admin/managegeoinfo.xhtml");
         Thread.currentThread().sleep(200);
     }
 
-    private void checkDefaultVisibleItem() {
-
+    @Override
+    public void checkGroupLocation() {
         checkExistItem(SEARCHBOX_ADDRESS);
         checkExistItem(CBB_PROVINCE);
         checkExistItem(CBB_DISTRICT);
         checkExistItem(CBB_STREET);
         checkExistItem(CBB_SEGMENT);
-
+    }
+    
+    private void checkItemNormalState() {
+        checkExistItem(TXT_NAME);
+        
+        checkExistItem(LBL_COORDINATE);
+        checkExistItem(TXT_LAT);
+        checkExistItem(TXT_LNG);
+    }
+    
+    private void checkCommonButton() {
+        checkExistItem(LBL_DO_WITH);
         checkExistItem(CBB_IPGTYPE);
-        checkExistItem(TXT_INPUT_NAME);
-        //pending - wait document
-        //checkExistItem("//input[contains(@id,'txtInput-Coordinate')]");
-
+        
         checkExistItem(BTN_ADD_NEW);
         checkExistItem(BTN_SAVE);
         checkExistItem(BTN_DELETE);
@@ -68,9 +77,14 @@ public class ManageGeoInfoTest extends GUITest {
     }
 
     private void checkSegmentItem() {
-        //pending - wait document
-        //checkExistItem("//input[contains(@id,'txtInput-CoordinateContribute')]");
+        checkExistItem(TXT_SEGMENT);
+        
+        checkExistItem(LBL_FORMED_COORDINATE);
+        checkExistItem(TXT_FORMED_LAT);
+        checkExistItem(TXT_FORMED_LNG);
+        
         checkExistItem(BTN_SAVE_SEGMENT);
+        checkExistItem(BTN_CLEAR_SEGMENT);
     }
 
     /*
@@ -88,7 +102,10 @@ public class ManageGeoInfoTest extends GUITest {
     @Test
     public void GUI_MIC_02() throws Exception {
         openSite();
-        checkDefaultVisibleItem();
+        
+        checkGroupLocation();
+        checkItemNormalState();
+        checkCommonButton();
     }
 
     /*
@@ -100,15 +117,16 @@ public class ManageGeoInfoTest extends GUITest {
         Select cbbIpgType = new Select(driver.findElement(By.xpath(CBB_IPGTYPE)));
         List<WebElement> cbbs = cbbIpgType.getOptions();
 
+        //Check number of items
         assertEquals(4, cbbs.size());
 
-        assertEquals(TestCommonKeyword.CBB_IPGTYPE_PROVINCE_TEXT,
+        assertEquals(CBB_IPGTYPE_PROVINCE_TEXT,
                 cbbs.get(0).getText());
-        assertEquals(TestCommonKeyword.CBB_IPGTYPE_DISTRICT_TEXT,
+        assertEquals(CBB_IPGTYPE_DISTRICT_TEXT,
                 cbbs.get(1).getText());
-        assertEquals(TestCommonKeyword.CBB_IPGTYPE_STREET_TEXT,
+        assertEquals(CBB_IPGTYPE_STREET_TEXT,
                 cbbs.get(2).getText());
-        assertEquals(TestCommonKeyword.CBB_IPGTYPE_SEGMENT_TEXT,
+        assertEquals(CBB_IPGTYPE_SEGMENT_TEXT,
                 cbbs.get(3).getText());
     }
 
@@ -119,8 +137,11 @@ public class ManageGeoInfoTest extends GUITest {
     public void GUI_MIC_04() throws Exception {
         openSite();
         Select cbbIpgType = new Select(driver.findElement(By.xpath(CBB_IPGTYPE)));
-        cbbIpgType.selectByValue(TestCommonKeyword.CBB_IPGTYPE_PROVINCE_VALUE);
-        checkDefaultVisibleItem();
+        cbbIpgType.selectByValue(CBB_IPGTYPE_PROVINCE_VALUE);
+        
+        checkGroupLocation();
+        checkItemNormalState();
+        checkCommonButton();
     }
 
     /*
@@ -130,8 +151,11 @@ public class ManageGeoInfoTest extends GUITest {
     public void GUI_MIC_05() throws Exception {
         openSite();
         Select cbbIpgType = new Select(driver.findElement(By.xpath(CBB_IPGTYPE)));
-        cbbIpgType.selectByValue(TestCommonKeyword.CBB_IPGTYPE_DISTRICT_VALUE);
-        checkDefaultVisibleItem();
+        cbbIpgType.selectByValue(CBB_IPGTYPE_DISTRICT_VALUE);
+        
+        checkGroupLocation();
+        checkItemNormalState();
+        checkCommonButton();
     }
 
     /*
@@ -141,8 +165,11 @@ public class ManageGeoInfoTest extends GUITest {
     public void GUI_MIC_06() throws Exception {
         openSite();
         Select cbbIpgType = new Select(driver.findElement(By.xpath(CBB_IPGTYPE)));
-        cbbIpgType.selectByValue(TestCommonKeyword.CBB_IPGTYPE_STREET_VALUE);
-        checkDefaultVisibleItem();
+        cbbIpgType.selectByValue(CBB_IPGTYPE_STREET_VALUE);
+        
+        checkGroupLocation();
+        checkItemNormalState();
+        checkCommonButton();
     }
 
     /*
@@ -152,8 +179,11 @@ public class ManageGeoInfoTest extends GUITest {
     public void GUI_MIC_07() throws Exception {
         openSite();
         Select cbbIpgType = new Select(driver.findElement(By.xpath(CBB_IPGTYPE)));
-        cbbIpgType.selectByValue(TestCommonKeyword.CBB_IPGTYPE_SEGMENT_VALUE);
-        //checkDefaultVisibleItem();
+        cbbIpgType.selectByValue(CBB_IPGTYPE_SEGMENT_VALUE);
+        
+        checkGroupLocation();
+        checkSegmentItem();
+        checkCommonButton();
     }
 
     /*
@@ -161,7 +191,32 @@ public class ManageGeoInfoTest extends GUITest {
      */
     @Test
     public void GUI_MIC_08() throws Exception {
-        //
+        //Open MIG site
+        openSite();
+        
+        //Choose type street
+        Select cbbIpgType = new Select(driver.findElement(By.xpath(CBB_IPGTYPE)));
+        cbbIpgType.selectByValue(CBB_IPGTYPE_STREET_VALUE);
+        
+        //Enter value into inputs
+            //name
+        driver.findElement(By.xpath(TXT_NAME)).sendKeys("Some thing");
+        Thread.currentThread().sleep(100);
+            //lat
+        driver.findElement(By.xpath(TXT_LAT)).sendKeys("1");
+        Thread.currentThread().sleep(100);
+            //lng
+        driver.findElement(By.xpath(TXT_LNG)).sendKeys("1");
+        Thread.currentThread().sleep(100);
+        
+        //Click add new button
+        driver.findElement(By.xpath(BTN_ADD_NEW)).click();
+        Thread.currentThread().sleep(100);
+        
+        //ASSERT normal state items are visible
+        checkItemNormalState();
+        //ASSERT segment items are visible
+        checkSegmentItem();
     }
 
     /*
@@ -171,17 +226,14 @@ public class ManageGeoInfoTest extends GUITest {
     public void GUI_MIC_09() throws Exception {
         openSite();
 
-        //Select street
-        Select cbbIpgType = new Select(driver.findElement(By.xpath(CBB_IPGTYPE)));
-        cbbIpgType.selectByValue(TestCommonKeyword.CBB_IPGTYPE_STREET_VALUE);
-
         //Add value
-        driver.findElement(By.xpath(TXT_INPUT_NAME)).sendKeys("Some thing");
+        driver.findElement(By.xpath(TXT_NAME)).sendKeys("Some thing");
         Thread.currentThread().sleep(100);
-        //thiếu coordinate
         //lat
+        driver.findElement(By.xpath(TXT_LAT)).sendKeys("1");
         Thread.currentThread().sleep(100);
         //lng
+        driver.findElement(By.xpath(TXT_LNG)).sendKeys("1");
         Thread.currentThread().sleep(100);
 
         //Clear
@@ -189,7 +241,9 @@ public class ManageGeoInfoTest extends GUITest {
         Thread.currentThread().sleep(100);
 
         //Test
-        assertTrue(driver.findElement(By.xpath(TXT_INPUT_NAME)).getText().isEmpty());
+        assertTrue(driver.findElement(By.xpath(TXT_NAME)).getText().isEmpty());
+        assertTrue(driver.findElement(By.xpath(TXT_LAT)).getText().isEmpty());
+        assertTrue(driver.findElement(By.xpath(TXT_LNG)).getText().isEmpty());
     }
 
     /*
@@ -201,15 +255,16 @@ public class ManageGeoInfoTest extends GUITest {
 
         //Select street
         Select cbbIpgType = new Select(driver.findElement(By.xpath(CBB_IPGTYPE)));
-        cbbIpgType.selectByValue(TestCommonKeyword.CBB_IPGTYPE_STREET_VALUE);
+        cbbIpgType.selectByValue(CBB_IPGTYPE_STREET_VALUE);
 
         //Add value
-        driver.findElement(By.xpath(TXT_INPUT_NAME)).sendKeys("Some thing");
+        driver.findElement(By.xpath(TXT_NAME)).sendKeys("Some thing");
         Thread.currentThread().sleep(100);
-        //thiếu coordinate
         //lat
+        driver.findElement(By.xpath(TXT_LAT)).sendKeys("1");
         Thread.currentThread().sleep(100);
         //lng
+        driver.findElement(By.xpath(TXT_LNG)).sendKeys("1");
         Thread.currentThread().sleep(100);
 
         //Clear
@@ -217,9 +272,12 @@ public class ManageGeoInfoTest extends GUITest {
         Thread.currentThread().sleep(100);
 
         //Test
-        assertTrue(driver.findElement(By.xpath(TXT_INPUT_NAME)).getText().isEmpty());
+        assertTrue(driver.findElement(By.xpath(TXT_NAME)).getText().isEmpty());
+        assertTrue(driver.findElement(By.xpath(TXT_LAT)).getText().isEmpty());
+        assertTrue(driver.findElement(By.xpath(TXT_LNG)).getText().isEmpty());
+        
         assertEquals(cbbIpgType.getFirstSelectedOption().getText(),
-                TestCommonKeyword.CBB_IPGTYPE_STREET_TEXT);
+                CBB_IPGTYPE_STREET_TEXT);
     }
 
     /*
@@ -231,15 +289,16 @@ public class ManageGeoInfoTest extends GUITest {
 
         //Select street
         Select cbbIpgType = new Select(driver.findElement(By.xpath(CBB_IPGTYPE)));
-        cbbIpgType.selectByValue(TestCommonKeyword.CBB_IPGTYPE_SEGMENT_VALUE);
+        cbbIpgType.selectByValue(CBB_IPGTYPE_SEGMENT_VALUE);
 
         //Add value
-        driver.findElement(By.xpath(TXT_INPUT_NAME)).sendKeys("Some thing");
+        driver.findElement(By.xpath(TXT_SEGMENT)).sendKeys("Some thing");
         Thread.currentThread().sleep(100);
-        //thiếu coordinate
         //lat
+        driver.findElement(By.xpath(TXT_FORMED_LAT)).sendKeys("1");
         Thread.currentThread().sleep(100);
         //lng
+        driver.findElement(By.xpath(TXT_FORMED_LNG)).sendKeys("1");
         Thread.currentThread().sleep(100);
 
         //Clear
@@ -247,9 +306,12 @@ public class ManageGeoInfoTest extends GUITest {
         Thread.currentThread().sleep(100);
 
         //Test
-        assertTrue(driver.findElement(By.xpath(TXT_INPUT_NAME)).getText().isEmpty());
+        assertTrue(driver.findElement(By.xpath(TXT_SEGMENT)).getText().isEmpty());
+        assertTrue(driver.findElement(By.xpath(TXT_FORMED_LAT)).getText().isEmpty());
+        assertTrue(driver.findElement(By.xpath(TXT_FORMED_LNG)).getText().isEmpty());
+        
         assertEquals(cbbIpgType.getFirstSelectedOption().getText(),
-                TestCommonKeyword.CBB_IPGTYPE_SEGMENT_TEXT);
+                CBB_IPGTYPE_SEGMENT_TEXT);
     }
     
     /*
@@ -257,6 +319,69 @@ public class ManageGeoInfoTest extends GUITest {
      */
     @Test
     public void GUI_MIC_12() throws Exception {
-        //
+        //Open MIG site
+        openSite();
+        
+        //Select first value
+            //province
+        Select cbbProvince = new Select(driver.findElement(By.xpath(CBB_PROVINCE)));
+        String selectedProvince = cbbProvince.getFirstSelectedOption().getText();
+            //district
+        Select cbbDistrict = new Select(driver.findElement(By.xpath(CBB_PROVINCE)));
+        String selectedDistrict = cbbDistrict.getFirstSelectedOption().getText();
+            //street
+        Select cbbStreet = new Select(driver.findElement(By.xpath(CBB_PROVINCE)));
+        String selectedStreet = cbbStreet.getFirstSelectedOption().getText();
+            //segment
+        Select cbbSegment = new Select(driver.findElement(By.xpath(CBB_PROVINCE)));
+        String selectedSegment = cbbSegment.getFirstSelectedOption().getText();
+            
+        //Select district type
+        Select cbbIpgType = new Select(driver.findElement(By.xpath(CBB_IPGTYPE)));
+        cbbIpgType.selectByValue(CBB_IPGTYPE_DISTRICT_VALUE);
+        
+        //Enter input
+            //name
+        driver.findElement(By.xpath(TXT_SEGMENT)).sendKeys("Some thing");
+        Thread.currentThread().sleep(100);
+            //lat
+        driver.findElement(By.xpath(TXT_FORMED_LAT)).sendKeys("1");
+        Thread.currentThread().sleep(100);
+            //lng
+        driver.findElement(By.xpath(TXT_FORMED_LNG)).sendKeys("1");
+        Thread.currentThread().sleep(100);
+        
+        //Click clear button
+        driver.findElement(By.xpath(BTN_CLEAR)).click();
+        Thread.currentThread().sleep(100);
+        
+        
+        //ASSERT value in text input is cleared
+            //name
+        assertTrue(driver.findElement(By.xpath(TXT_SEGMENT))
+                .getText().isEmpty());
+            //lat
+        assertTrue(driver.findElement(By.xpath(TXT_FORMED_LAT))
+                .getText().isEmpty());
+            //lng
+        assertTrue(driver.findElement(By.xpath(TXT_FORMED_LNG))
+                .getText().isEmpty());
+        
+        //ASSERT value in combobox is not changed
+            //province
+        assertEquals(selectedProvince,
+                cbbProvince.getFirstSelectedOption().getText());
+            //district
+        assertEquals(selectedDistrict,
+                cbbDistrict.getFirstSelectedOption().getText());
+            //street
+        assertEquals(selectedStreet,
+                cbbStreet.getFirstSelectedOption().getText());
+            //segment
+        assertEquals(selectedSegment,
+                cbbSegment.getFirstSelectedOption().getText());
+            //type
+        assertEquals(cbbIpgType.getFirstSelectedOption().getText(),
+                CBB_IPGTYPE_DISTRICT_TEXT);
     }
 }

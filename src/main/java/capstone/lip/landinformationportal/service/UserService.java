@@ -5,6 +5,7 @@
  */
 package capstone.lip.landinformationportal.service;
 
+import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.repository.UserRepository;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
@@ -16,17 +17,15 @@ import org.springframework.stereotype.Service;
  *
  * @author Admin
  */
-
 @Service
-public class UserService implements IUserService{
+public class UserService implements IUserService {
 
-    
     @Autowired
     private UserRepository userRepository;
 
     @Override
     public List<User> findAll() {
-       return userRepository.findAll();
+        return userRepository.findAll();
     }
 
     @Override
@@ -43,10 +42,15 @@ public class UserService implements IUserService{
     @Override
     public List<User> search(String userNamePart) {
 
-    	return userRepository.findByUserNameContaining(userNamePart);
+        return userRepository.findByUserNameContaining(userNamePart);
     }
-     
-     
-    
-    
+
+    // Hàm này get List Real Estate theo ID của User
+    @Override
+    public List<RealEstate> getListRealEstate(Long userId) {
+        User user = userRepository.findById(userId).get();
+        List<RealEstate> listRealEstate = user.getListRealEstate();
+        return listRealEstate;
+    }
+
 }

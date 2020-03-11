@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <head>
+    </head>
+    <body>
+        <ui:composition template="/template/common/commonLayout.xhtml">
+            <ui:define name="content">
+                <h:outputStylesheet name="listOwnRealEstate.css" library="css"></h:outputStylesheet>
+                <div class="container">
+                    <div class="row">
+                        <div id="map" class="col-9 col-lg-9"></div>
+                        <div class="col-3 col-lg-3 rightMap">
+                            <div class="row">
+                                <div class="col-8 col-lg-8 headerList titleHeader">Danh sách BĐS đóng góp</div>
+                                <div class="col-4 col-lg-4 headerList"><a class="labelAddNewRealEstate" href="#">+ New</a></div>
+                                
+                                <!--Loop data here -->
+                                <div class="col-8 col-lg-8 elementList">463, Vũ tông phan, Phường khương đình, quận thanh xuân</div>
+                                <div class="col-4 col-lg-4 elementList"><h:commandButton value="Xem" class="btnView" type="button"/></div>
+                                <div class="col-8 col-lg-8 elementList">463, Vũ tông phan, Phường khương đình, quận thanh xuân</div>
+                                <div class="col-4 col-lg-4 elementList"><h:commandButton value="Xem" class="btnView" type="button"/></div>
+                                <div class="col-8 col-lg-8 elementList">463, Vũ tông phan, Phường khương đình, quận thanh xuân</div>
+                                <div class="col-4 col-lg-4 elementList"><h:commandButton value="Xem" class="btnView" type="button"/></div>
+                                <div class="col-8 col-lg-8 elementList">463, Vũ tông phan, Phường khương đình, quận thanh xuân</div>
+                                <div class="col-4 col-lg-4 elementList"><h:commandButton value="Xem" class="btnView" type="button"/></div>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </ui:define>
+
+            <ui:define name="footer">
+                <h:outputScript name="listownrealestate.js" library="js" />
+                <script type="text/javascript"
+                        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
+                async="true" defer="true"></script>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

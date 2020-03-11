@@ -20,6 +20,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
  */
 public abstract class GUITest {
 
+    protected final String HOST = "localhost:8080";
+    
     protected WebDriver driver;
 
     @BeforeClass
@@ -43,18 +45,6 @@ public abstract class GUITest {
         assertFalse("MISSING " + xpath, driver.findElements(
                 By.xpath(xpath))
                 .size() != 1);
-    }
-    
-    protected void checkAdminLeftBarItem() {
-        checkExistItem("//button[contains(@id,'btn-Logo')]");
-        checkExistItem("//button[contains(@id,btn-ManageUser')]");
-        checkExistItem("//button[contains(@id,'btn-ManageRepCrawled')]");
-        checkExistItem("//button[contains(@id,'btn-ManageNewsCrawled')]");
-        checkExistItem("//button[contains(@id,'btn-ManageNews')]");
-        checkExistItem("//button[contains(@id,'btn-ManageIPG')]");
-        checkExistItem("//button[contains(@id,'btn-ManageLaws')]");
-        checkExistItem("//button[contains(@id,'btn-CheckRepContributed')]");
-        checkExistItem("//button[contains(@id,'btn-UpdateProfile')]");
     }
 
 }

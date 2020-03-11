@@ -6,12 +6,20 @@
 package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  *
@@ -31,6 +39,20 @@ public class HousesFeature extends AuditAbstract implements Serializable {
     @Column(name = "HousesFeatureUnit")
     private String housesFeatureUnit;
 
+    
+    @Basic(fetch = FetchType.LAZY)
+    @NotFound(action = NotFoundAction.IGNORE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "housesFeature")
+    private List<LandsDetail> listHousesDetail;
+
+    public List<LandsDetail> getListHousesDetail() {
+        return listHousesDetail;
+    }
+
+    public void setListHousesDetail(List<LandsDetail> listHousesDetail) {
+        this.listHousesDetail = listHousesDetail;
+    }
 
     public HousesFeature() {
     }

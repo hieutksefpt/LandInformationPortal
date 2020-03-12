@@ -1,0 +1,36 @@
+/* 
+    Created on : Mar 10, 2020, 1:42:50 PM
+    Author     : AnhHao
+*/
+
+.main{
+    width: 100%;
+}
+
+.navbar {
+    padding: 15px 10px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btnOnNav{
+    border-radius: 20px;
+    padding: .5rem 1rem;
+    font-size: inherit;
+    color: #fff;
+}
+
+.btnUser{
+    background-color: #56c6c6;
+}
+
+.btnAddRealEstate{
+    background-color: #56c6c6;
+}
+
+.btnLogOut{
+    background-color: #d9534f;
+}

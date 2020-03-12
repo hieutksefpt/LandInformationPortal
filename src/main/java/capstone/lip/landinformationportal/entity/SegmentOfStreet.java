@@ -20,103 +20,119 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
-@Table(name="SegmentOfStreet")
-public class SegmentOfStreet extends AuditAbstract implements Serializable{
+@Table(name = "SegmentOfStreet")
+public class SegmentOfStreet extends AuditAbstract implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="SegmentID")
-	private Long segmentId;
-	@Column(name="SegmentName")
-	private String segmentName;
-	@Column(name="SegmentLat")
-	private Double segmentLat;
-	@Column(name="SegmentLng")
-	private Double segmentLng;
-	
-	@Basic(fetch = FetchType.LAZY)
-	@ManyToOne
-	@JoinColumn(name ="DistrictID")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private District district;
-	
-	@Basic(fetch = FetchType.LAZY)
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "SegmentID")
+    private Long segmentId;
+    @Column(name = "SegmentName")
+    private String segmentName;
+    @Column(name = "SegmentLat")
+    private Double segmentLat;
+    @Column(name = "SegmentLng")
+    private Double segmentLng;
+
+    @Basic(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "DistrictID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private District district;
+
+    @Basic(fetch = FetchType.LAZY)
 //	@ManyToOne(cascade=CascadeType.REMOVE)
-	@ManyToOne()
-	@JoinColumn(name ="StreetID")
+    @ManyToOne()
+    @JoinColumn(name = "StreetID")
 //	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Street street;
-	
-	@Basic(fetch = FetchType.LAZY)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@OneToMany(mappedBy="segmentOfStreet",cascade = CascadeType.REMOVE)
-	private List<FormedCoordinate> listFormedCoordinate;
-	
-	public Long getSegmentId() {
-		return segmentId;
-	}
+    private Street street;
 
-	public SegmentOfStreet setSegmentId(Long segmentId) {
-		this.segmentId = segmentId;
-		return this;
-	}
+    @Basic(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "segmentOfStreet", cascade = CascadeType.REMOVE)
+    private List<FormedCoordinate> listFormedCoordinate;
 
-	public String getSegmentName() {
-		return segmentName;
-	}
+    @Basic(fetch = FetchType.LAZY)
+    @NotFound(action = NotFoundAction.IGNORE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "segmentOfStreet")
+    private List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment;
 
-	public SegmentOfStreet setSegmentName(String segmentName) {
-		this.segmentName = segmentName;
-		return this;
-	}
+   
 
-	public Double getSegmentLat() {
-		return segmentLat;
-	}
+    public Long getSegmentId() {
+        return segmentId;
+    }
 
-	public SegmentOfStreet setSegmentLat(Double segmentLat) {
-		this.segmentLat = segmentLat;
-		return this;
-	}
+    public SegmentOfStreet setSegmentId(Long segmentId) {
+        this.segmentId = segmentId;
+        return this;
+    }
 
-	public Double getSegmentLng() {
-		return segmentLng;
-	}
+    public String getSegmentName() {
+        return segmentName;
+    }
 
-	public SegmentOfStreet setSegmentLng(Double segmentLng) {
-		this.segmentLng = segmentLng;
-		return this;
-	}
+    public SegmentOfStreet setSegmentName(String segmentName) {
+        this.segmentName = segmentName;
+        return this;
+    }
 
-	public District getDistrict() {
-		return district;
-	}
+    public Double getSegmentLat() {
+        return segmentLat;
+    }
 
-	public SegmentOfStreet setDistrict(District district) {
-		this.district = district;
-		return this;
-	}
+    public SegmentOfStreet setSegmentLat(Double segmentLat) {
+        this.segmentLat = segmentLat;
+        return this;
+    }
 
-	public Street getStreet() {
-		return street;
-	}
+    public Double getSegmentLng() {
+        return segmentLng;
+    }
 
-	public SegmentOfStreet setStreet(Street street) {
-		this.street = street;
-		return this;
-	}
+    public SegmentOfStreet setSegmentLng(Double segmentLng) {
+        this.segmentLng = segmentLng;
+        return this;
+    }
 
-	public List<FormedCoordinate> getListFormedCoordinate() {
-		return listFormedCoordinate;
-	}
+    public District getDistrict() {
+        return district;
+    }
 
-	public SegmentOfStreet setListFormedCoordinate(List<FormedCoordinate> listFormedCoordinate) {
-		this.listFormedCoordinate = listFormedCoordinate;
-		return this;
-	}
-	
-	
+    public SegmentOfStreet setDistrict(District district) {
+        this.district = district;
+        return this;
+    }
+
+    public Street getStreet() {
+        return street;
+    }
+
+    public SegmentOfStreet setStreet(Street street) {
+        this.street = street;
+        return this;
+    }
+
+    public List<FormedCoordinate> getListFormedCoordinate() {
+        return listFormedCoordinate;
+    }
+
+    public SegmentOfStreet setListFormedCoordinate(List<FormedCoordinate> listFormedCoordinate) {
+        this.listFormedCoordinate = listFormedCoordinate;
+        return this;
+    }
+
+    public List<RealEstateAdjacentSegment> getListRealEstateAdjacentSegment() {
+        return listRealEstateAdjacentSegment;
+    }
+
+    public void setListRealEstateAdjacentSegment(List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment) {
+        this.listRealEstateAdjacentSegment = listRealEstateAdjacentSegment;
+    }
+    
 }

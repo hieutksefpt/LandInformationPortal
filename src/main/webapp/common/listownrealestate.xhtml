@@ -27,9 +27,11 @@
                                         ${i.realEstateAddress}
                                     </div>
                                     <div class="col-4 col-lg-4 elementList">
-                                        <button value="Xem" class="btnView" type="button">
-                                            <p:ajax listener="#{listOwnRealEstateBean.clickOnButtonRowRealEstate(i.realEstateId)}"></p:ajax>
-                                        </button>
+<!--                                        <h:commandButton value="Xem" class="btnView" action="#{listOwnRealEstateBean.clickOnButtonRowRealEstate(i.realEstateId)}">
+                                        </h:commandButton>-->
+<!--
+                                        <h:commandLink value="details" action="#{listOwnRealEstateBean.goToDetails(i.realEstateId)}" >
+                                            <f:param/></h:commandLink>-->
                                     </div>
                                 </c:forEach>
                             </div>

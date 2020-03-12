@@ -44,13 +44,13 @@ public class HousesFeature extends AuditAbstract implements Serializable {
     @NotFound(action = NotFoundAction.IGNORE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "housesFeature")
-    private List<LandsDetail> listHousesDetail;
+    private List<HousesDetail> listHousesDetail;
 
-    public List<LandsDetail> getListHousesDetail() {
+    public List<HousesDetail> getListHousesDetail() {
         return listHousesDetail;
     }
 
-    public void setListHousesDetail(List<LandsDetail> listHousesDetail) {
+    public void setListHousesDetail(List<HousesDetail> listHousesDetail) {
         this.listHousesDetail = listHousesDetail;
     }
 

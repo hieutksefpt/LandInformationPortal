@@ -6,6 +6,8 @@
 package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
+import java.util.UUID;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,12 +30,9 @@ public class RealEstateAdjacentSegment extends AuditAbstract implements Serializ
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "SegmentID")
-    private Long segmentId;
-    @Id
-    @Column(name = "RealEstateID")
-    private Long realEstateId;
-    
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID uuid;
+
     
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
@@ -48,29 +47,6 @@ public class RealEstateAdjacentSegment extends AuditAbstract implements Serializ
     private RealEstate realEstate;
 
     public RealEstateAdjacentSegment() {
-    }
-
-    public RealEstateAdjacentSegment(Long segmentId, Long realEstateId, SegmentOfStreet segmentOfStreet, RealEstate realEstate) {
-        this.segmentId = segmentId;
-        this.realEstateId = realEstateId;
-        this.segmentOfStreet = segmentOfStreet;
-        this.realEstate = realEstate;
-    }
-
-    public Long getSegmentId() {
-        return segmentId;
-    }
-
-    public void setSegmentId(Long segmentId) {
-        this.segmentId = segmentId;
-    }
-
-    public Long getRealEstateId() {
-        return realEstateId;
-    }
-
-    public void setRealEstateId(Long realEstateId) {
-        this.realEstateId = realEstateId;
     }
 
     public SegmentOfStreet getSegmentOfStreet() {
@@ -88,6 +64,14 @@ public class RealEstateAdjacentSegment extends AuditAbstract implements Serializ
     public void setRealEstate(RealEstate realEstate) {
         this.realEstate = realEstate;
     }
+
+	public UUID getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(UUID uuid) {
+		this.uuid = uuid;
+	}
     
     
 }

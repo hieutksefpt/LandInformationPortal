@@ -6,6 +6,8 @@
 package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
+import java.util.UUID;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,13 +28,11 @@ import org.hibernate.annotations.OnDeleteAction;
 public class HousesDetail extends AuditAbstract implements Serializable{
     
     private static final long serialVersionUID = 1L;
-
+    
     @Id
-    @Column(name = "HouseID")
-    private Long houseId;
-    @Id
-    @Column(name = "HousesFeatureID")
-    private Long housesFeatureId;
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID uuid;
+    
     @Column(name = "Value")
     private String value;
     
@@ -49,30 +49,6 @@ public class HousesDetail extends AuditAbstract implements Serializable{
     private HousesFeature housesFeature;
 
     public HousesDetail() {
-    }
-
-    public HousesDetail(Long houseId, Long housesFeatureId, String value, House house, HousesFeature housesFeature) {
-        this.houseId = houseId;
-        this.housesFeatureId = housesFeatureId;
-        this.value = value;
-        this.house = house;
-        this.housesFeature = housesFeature;
-    }
-
-    public Long getHouseId() {
-        return houseId;
-    }
-
-    public void setHouseId(Long houseId) {
-        this.houseId = houseId;
-    }
-
-    public Long getHousesFeatureId() {
-        return housesFeatureId;
-    }
-
-    public void setHousesFeatureId(Long housesFeatureId) {
-        this.housesFeatureId = housesFeatureId;
     }
 
     public String getValue() {
@@ -98,6 +74,14 @@ public class HousesDetail extends AuditAbstract implements Serializable{
     public void setHousesFeature(HousesFeature housesFeature) {
         this.housesFeature = housesFeature;
     }
+
+	public UUID getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(UUID uuid) {
+		this.uuid = uuid;
+	}
     
     
 }

@@ -6,6 +6,8 @@
 package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
+import java.util.UUID;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,13 +27,10 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name="LandsDetail")
 public class LandsDetail extends AuditAbstract implements Serializable{
     private static final long serialVersionUID = 1L;
+    @Id
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID uuid;
 
-    @Id
-    @Column(name = "LandID")
-    private Long landId;
-    @Id
-    @Column(name = "LandsFeatureID")
-    private Long landsFeatureId;
     @Column(name = "Value")
     private String value;
     
@@ -48,30 +47,6 @@ public class LandsDetail extends AuditAbstract implements Serializable{
     private LandsFeature landsFeature;
 
     public LandsDetail() {
-    }
-
-    public LandsDetail(Long landId, Long landsFeatureId, String value, Land land, LandsFeature landsFeature) {
-        this.landId = landId;
-        this.landsFeatureId = landsFeatureId;
-        this.value = value;
-        this.land = land;
-        this.landsFeature = landsFeature;
-    }
-
-    public Long getLandId() {
-        return landId;
-    }
-
-    public void setLandId(Long landId) {
-        this.landId = landId;
-    }
-
-    public Long getLandsFeatureId() {
-        return landsFeatureId;
-    }
-
-    public void setLandsFeatureId(Long landsFeatureId) {
-        this.landsFeatureId = landsFeatureId;
     }
 
     public String getValue() {
@@ -97,6 +72,14 @@ public class LandsDetail extends AuditAbstract implements Serializable{
     public void setLandsFeature(LandsFeature landsFeature) {
         this.landsFeature = landsFeature;
     }
+
+	public UUID getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(UUID uuid) {
+		this.uuid = uuid;
+	}
     
     
     

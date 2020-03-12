@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 public class CrawlJob implements Job {
 
@@ -22,12 +23,19 @@ public class CrawlJob implements Job {
 		
 		HttpHeaders header = new HttpHeaders();
 		header.set("Content-Type", "application/json");
-		Map<String, Object> map = new HashMap<>();
-		map.put("type", "reo");
+		header.set("type", "reo");
 		
-		HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, header);
+//		not work in get 
+		Map<String, String> map = new HashMap<>();
+//		map.put("type", "reo");
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
+		        .queryParam("type", "reo");
 		
-		ResponseEntity<String> response = restTemplate.exchange(URL, HttpMethod.GET, entity, String.class);
+		HttpEntity<Map<String, String>> entity = new HttpEntity<>(map, header);
+		System.out.println(restTemplate.toString());
+		ResponseEntity<String> response = restTemplate.exchange(builder.toUriString(),
+				HttpMethod.GET, entity, String.class);
 		System.out.print(response.getBody());
 	}
 

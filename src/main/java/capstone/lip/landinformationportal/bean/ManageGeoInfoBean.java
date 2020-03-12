@@ -178,8 +178,7 @@ public class ManageGeoInfoBean implements Serializable {
 		PrimeFaces.current().executeScript("renderTable()");
 		
 		if (!error.equals("")) {
-			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Lỗi", error);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			setMessage(FacesMessage.SEVERITY_ERROR, error);
 			return;
 		}
 		
@@ -195,6 +194,10 @@ public class ManageGeoInfoBean implements Serializable {
 				break;
 			case "2":
 				District district = new District();
+				if (selectedProvince == null) {
+					setMessage(FacesMessage.SEVERITY_ERROR, "Phải chọn tỉnh thành trước");
+					return;
+				}
 				district.setDistrictName(nameInput).setDistrictLat(Double.valueOf(latSingleCoordinate))
 					.setDistrictLng(Double.valueOf(lngSingleCoordinate)).setProvince(selectedProvince);
 				district = districtService.save(district);
@@ -203,7 +206,15 @@ public class ManageGeoInfoBean implements Serializable {
 				
 				break;
 			case "3":
+				if (selectedProvince == null) {
+					setMessage(FacesMessage.SEVERITY_ERROR, "Phải chọn tỉnh thành trước");
+					return;
+				}
 				Street street = new Street();
+				if (selectedDistrict== null) {
+					setMessage(FacesMessage.SEVERITY_ERROR, "Phải chọn quận huyện trước");
+					return;
+				}
 				street.setStreetName(nameInput).setStreetLat(Double.valueOf(latSingleCoordinate))
 					.setStreetLng(Double.valueOf(lngSingleCoordinate));
 				streetTemp = street;

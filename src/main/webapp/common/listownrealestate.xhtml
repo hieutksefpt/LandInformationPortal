@@ -20,16 +20,18 @@
                             <div class="row">
                                 <div class="col-8 col-lg-8 headerList titleHeader">Danh sách BĐS đóng góp</div>
                                 <div class="col-4 col-lg-4 headerList"><a class="labelAddNewRealEstate" href="#">+ New</a></div>
-                                
+
                                 <!--Loop data here -->
-                                <div class="col-8 col-lg-8 elementList">463, Vũ tông phan, Phường khương đình, quận thanh xuân</div>
-                                <div class="col-4 col-lg-4 elementList"><h:commandButton value="Xem" class="btnView" type="button"/></div>
-                                <div class="col-8 col-lg-8 elementList">463, Vũ tông phan, Phường khương đình, quận thanh xuân</div>
-                                <div class="col-4 col-lg-4 elementList"><h:commandButton value="Xem" class="btnView" type="button"/></div>
-                                <div class="col-8 col-lg-8 elementList">463, Vũ tông phan, Phường khương đình, quận thanh xuân</div>
-                                <div class="col-4 col-lg-4 elementList"><h:commandButton value="Xem" class="btnView" type="button"/></div>
-                                <div class="col-8 col-lg-8 elementList">463, Vũ tông phan, Phường khương đình, quận thanh xuân</div>
-                                <div class="col-4 col-lg-4 elementList"><h:commandButton value="Xem" class="btnView" type="button"/></div>
+                                <c:forEach items="#{listOwnRealEstateBean.listUserRealEstate}" var="i">
+                                    <div class="col-8 col-lg-8 elementList">
+                                        ${i.realEstateAddress}
+                                    </div>
+                                    <div class="col-4 col-lg-4 elementList">
+                                        <button value="Xem" class="btnView" type="button">
+                                            <p:ajax listener="#{listOwnRealEstateBean.clickOnButtonRowRealEstate(i.realEstateId)}"></p:ajax>
+                                        </button>
+                                    </div>
+                                </c:forEach>
                             </div>
                         </div>    
                     </div>

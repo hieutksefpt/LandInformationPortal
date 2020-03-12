@@ -13,6 +13,7 @@ import capstone.lip.landinformationportal.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 /**

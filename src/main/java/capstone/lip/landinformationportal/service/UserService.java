@@ -42,7 +42,7 @@ public class UserService implements IUserService {
     @Override
     public List<User> search(String userNamePart) {
 
-        return userRepository.findByUserNameContaining(userNamePart);
+        return userRepository.findByUsernameContaining(userNamePart);
     }
 
     // Hàm này get List Real Estate theo ID của User

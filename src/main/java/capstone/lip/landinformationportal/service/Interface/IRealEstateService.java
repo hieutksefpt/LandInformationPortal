@@ -17,7 +17,7 @@ import java.util.List;
 public interface IRealEstateService {
 
     List<RealEstate> findAll();
-
+    
     RealEstate save(RealEstate realEstate);
 
     void delete(List<RealEstate> listRealEstate);

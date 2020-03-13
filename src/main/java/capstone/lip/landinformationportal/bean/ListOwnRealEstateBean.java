@@ -1,10 +1,12 @@
 package capstone.lip.landinformationportal.bean;
 
+import capstone.lip.landinformationportal.dto.Coordinate;
 import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class ListOwnRealEstateBean implements Serializable {
 
     private List<RealEstate> listUserRealEstate;
     private RealEstate realEstateClicked;
+    private String jsonMultipleCoordinate;
 
     @PostConstruct
     public void init() {
@@ -38,6 +41,7 @@ public class ListOwnRealEstateBean implements Serializable {
         listUserRealEstate = new ArrayList<>();
         //truyền userId vào hàm dưới, đang hard code
         listUserRealEstate = userService.getListRealEstate(1L);
+        transferListCoordinate();
     }
 
     public void goToDetails(long userId, long realEstateId) throws IOException {
@@ -45,6 +49,23 @@ public class ListOwnRealEstateBean implements Serializable {
         ec.redirect(ec.getRequestContextPath() + "/common/viewrealestatedetail.xhtml?userId=" + userId + "&realEstateId=" + realEstateId);
     }
 
+    public void transferListCoordinate(){
+        List<Coordinate> listCoordinate = new ArrayList<>();
+        for(RealEstate re : listUserRealEstate){
+            listCoordinate.add(new Coordinate().setLatitude(re.getRealEstateLat()).setLongitude(re.getRealEstateLng()));
+        }
+        Gson gson = new Gson();
+        jsonMultipleCoordinate = gson.toJson(listCoordinate);
+    }
+
+    public String getJsonMultipleCoordinate() {
+        return jsonMultipleCoordinate;
+    }
+
+    public void setJsonMultipleCoordinate(String jsonMultipleCoordinate) {
+        this.jsonMultipleCoordinate = jsonMultipleCoordinate;
+    }
+    
     public List<RealEstate> getListUserRealEstate() {
         return listUserRealEstate;
     }

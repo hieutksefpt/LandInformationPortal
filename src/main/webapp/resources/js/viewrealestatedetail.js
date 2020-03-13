@@ -1,8 +1,8 @@
 
 function initMap() {
-    //FPT 
-    var latitude = 21.012633;
-    var longitude = 105.527423;
+    var markers = JSON.parse($('#txtInput_coordinate_detailRealEstate').val());
+    var latitude = markers.latitude;
+    var longitude = markers .longitude;
 
     var myLatLng = {lat: latitude, lng: longitude};
 
@@ -14,4 +14,6 @@ function initMap() {
         disableDoubleClickZoom: true,
         fullscreenControl: false
     });
+    
+    var marker = new google.maps.Marker({position: myLatLng, map: map});
 }

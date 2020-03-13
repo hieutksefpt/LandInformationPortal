@@ -20,14 +20,14 @@
                             <div class="row">
                                 <div class="col-8 col-lg-8 headerList titleHeader">Danh sách BĐS đóng góp</div>
                                 <div class="col-4 col-lg-4 headerList"><a class="labelAddNewRealEstate" href="#">+ New</a></div>
-                                <h:form class="elementList">
+                                <h:form>
                                     <div class="row">
                                         <c:forEach items="#{listOwnRealEstateBean.listUserRealEstate}" var="i">
-                                            <div class="col-9 col-lg-9">
+                                            <div class="col-9 col-lg-9 elementList">
                                                 ${i.realEstateAddress}
                                             </div>
-                                            <div class="col-3 col-lg-3">
-                                                <h:commandButton class="btnView" value="Xem" action="#{listOwnRealEstateBean.goToDetails(i.realEstateId, i.realEstateId)}">
+                                            <div class="col-3 col-lg-3 elementList">
+                                                <h:commandButton class="btnView" value="Xem" action="#{listOwnRealEstateBean.goToDetails(1.00, i.realEstateId)}">
                                                     <!--biến realEstateId đầu tiên thưc chất là biến userId, truyền vào dựa trên user đang đăng nhập -->
                                                     <p:ajax process="@form"></p:ajax>
                                                 </h:commandButton>
@@ -35,6 +35,7 @@
                                         </c:forEach>
                                     </div>
                                 </h:form>
+                                <h:inputHidden id="txtInput_multipleCoordinate_listOwnRealEstate" value="#{listOwnRealEstateBean.jsonMultipleCoordinate}"></h:inputHidden>
                             </div>
                         </div>    
                     </div>

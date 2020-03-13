@@ -1,9 +1,11 @@
 package capstone.lip.landinformationportal.bean;
 
+import capstone.lip.landinformationportal.dto.Coordinate;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
+import com.google.gson.Gson;
 import java.io.Serializable;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -22,6 +24,7 @@ public class ViewRealEstateDetailBean implements Serializable {
 
     private RealEstate realEstateClicked;
     private User currentUser;
+    private String jsonCoordinate;
 
     @Autowired
     private IRealEstateService realEstateService;
@@ -36,8 +39,24 @@ public class ViewRealEstateDetailBean implements Serializable {
         long realEstateId = Long.parseLong(params.get("realEstateId"));
         currentUser = userService.findById(userId);
         realEstateClicked = realEstateService.findById(realEstateId);
+        transferCoordinate();
+    }
+    
+    public void transferCoordinate(){
+        Coordinate coordinate;
+        coordinate = new Coordinate().setLatitude(realEstateClicked.getRealEstateLat()).setLongitude(realEstateClicked.getRealEstateLng());
+        Gson gson = new Gson();
+        jsonCoordinate = gson.toJson(coordinate);
     }
 
+    public String getJsonCoordinate() {
+        return jsonCoordinate;
+    }
+
+    public void setJsonCoordinate(String jsonCoordinate) {
+        this.jsonCoordinate = jsonCoordinate;
+    }
+    
     public RealEstate getRealEstateClicked() {
         return realEstateClicked;
     }

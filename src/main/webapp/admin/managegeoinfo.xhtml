@@ -2,159 +2,158 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-<h:body>
-	<ui:composition template="/template/admin/adminLayout.xhtml">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>
+        <ui:composition template="/template/admin/adminLayout.xhtml">
 
-		<ui:define name="content">
-			<h:outputStylesheet name="managegeoinfo.css" library="css"></h:outputStylesheet>
-            <div id="formControl">
+            <ui:define name="content">
+                <h:outputStylesheet name="managegeoinfo.css" library="css"></h:outputStylesheet>
+                <div id="formControl">
+                    <p:panel id="container">
+                        <div class="form-group row">
+                            <div class="col-md">
+                                <input id="searchbox-Address" class="controls" type="text" style="width: 100%;" placeholder="Search Box"/>
+                            </div>
+                        </div>
 
-				<p:panel id="container">
-					<div class="form-group row">
-			    		<div class="col-md">
-			    			<input id="searchbox-Address" class="controls" type="text" style="width: 100%;" placeholder="Search Box"/>
-			    		</div>
+                        <h:form id="form" onsubmit="return false;">
+                            <p:growl id="msgs" showDetail="true"/>
+
+
+                            <p:panel id="panel-form" style="margin-bottom:10px;">
+                                <h:panelGroup id="combobox_data">
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <h:selectOneMenu id="cbb-Province" value="#{manageGeoInfoBean.provinceIdSelected}" >
+                                                <p:ajax listener="#{manageGeoInfoBean.provinceChange}" update="form" onstart="clearDataMap()"/>
+                                                <f:selectItem itemLabel="Tỉnh/Thành phố" itemValue=""/>
+                                                <f:selectItems value="#{manageGeoInfoBean.listProvince}" var="element"
+                                                               itemLabel="#{element.provinceName}" itemValue="#{element.provinceId}"/>
+                                            </h:selectOneMenu>
                                         </div>
-				
-		            <h:form id="form" onsubmit="return false;">
-					    <p:growl id="msgs" showDetail="true"/>
-					 	
+                                        <div class="col-md-6">
+                                            <h:selectOneMenu id="cbb-District" value="#{manageGeoInfoBean.districtIdSelected}">
+                                                <p:ajax listener="#{manageGeoInfoBean.districtChange}" update="form" onstart="clearDataMap()"></p:ajax>
+                                                <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
+                                                <f:selectItems value="#{manageGeoInfoBean.listDistrict}" var="element"
+                                                               itemLabel="#{element.districtName}" itemValue="#{element.districtId}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <h:selectOneMenu id="cbb-Street" value="#{manageGeoInfoBean.streetIdSelected}" >
+                                                <p:ajax	listener="#{manageGeoInfoBean.streetChange}" update="form" onstart="clearDataMap()"></p:ajax>
 
-					    <p:panel id="panel-form" style="margin-bottom:10px;">
-					    	<h:panelGroup id="combobox_data">
-							<div class="form-group row">
-								<div class="col-md-6">
-									<h:selectOneMenu id="cbb-Province" value="#{manageGeoInfoBean.provinceIdSelected}" >
-						                <p:ajax listener="#{manageGeoInfoBean.provinceChange}" update="form" onstart="clearDataMap()"/>
-						                <f:selectItem itemLabel="Tỉnh/Thành phố" itemValue=""/>
-						                <f:selectItems value="#{manageGeoInfoBean.listProvince}" var="element"
-						                itemLabel="#{element.provinceName}" itemValue="#{element.provinceId}"/>
-						            </h:selectOneMenu>
-								</div>
-								<div class="col-md-6">
-									<h:selectOneMenu id="cbb-District" value="#{manageGeoInfoBean.districtIdSelected}">
-										<p:ajax listener="#{manageGeoInfoBean.districtChange}" update="form" onstart="clearDataMap()"></p:ajax>
-						                <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
-						                <f:selectItems value="#{manageGeoInfoBean.listDistrict}" var="element"
-						                itemLabel="#{element.districtName}" itemValue="#{element.districtId}"/>
-						            </h:selectOneMenu>
-								</div>
-							</div>
-					        <div class="form-group row">
-					        	<div class="col-md-6">
-					        		<h:selectOneMenu id="cbb-Street" value="#{manageGeoInfoBean.streetIdSelected}" >
-					        			<p:ajax	listener="#{manageGeoInfoBean.streetChange}" update="form" onstart="clearDataMap()"></p:ajax>
-					        			
-						                <f:selectItem itemLabel="Đường phố" itemValue=""/>
-						                <f:selectItems value="#{manageGeoInfoBean.listStreet}" var="element"
-						                itemLabel="#{element.streetName}" itemValue="#{element.streetId}"/>
-						            </h:selectOneMenu>
-					        	</div>
-					        	<div class="col-md-6">
-					        		<h:selectOneMenu id="cbb-SegmentOfStreet" value="#{manageGeoInfoBean.segmentStreetIdSelected}">
-					        			<p:ajax	listener="#{manageGeoInfoBean.segmentStreetChange}" update="form" 
-					        			onstart="clearDataMap()"
-					        			oncomplete="drawPath()"></p:ajax>
-						                <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
-						                <f:selectItems value="#{manageGeoInfoBean.listSegmentOfStreet}" var="element"
-						                itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
-						            </h:selectOneMenu>
-					        	</div>
-					        </div>
-					        </h:panelGroup>
-					        <p:separator />
-					 		<div class="form-group row">
-					 			<div class="col-md">
-					 				<p:outputLabel for="cbb-IpgType" value="Thao tác với">
-									</p:outputLabel>
-					 			</div>
-					 			<div class="col-md">
-					 				<h:selectOneMenu id="cbb-IpgType" value="#{manageGeoInfoBean.processType}">
-										<p:ajax update="@form" oncomplete="clearAllInput(), clearDataMap(), updateDeleteOld()"></p:ajax>
-										<f:selectItem itemLabel="Tỉnh/Thành phố" itemValue="1"></f:selectItem>
-										<f:selectItem itemLabel="Quận/Huyện" itemValue="2"></f:selectItem>
-										<f:selectItem itemLabel="Đường phố" itemValue="3"></f:selectItem>
-										<f:selectItem itemLabel="Đoạn đường" itemValue="4"></f:selectItem>
-									</h:selectOneMenu>
-					 			</div>
-					 		</div>
-						    <div class="form-group row">
-					 			<div class="col-md">
-					 				<p:outputLabel for="txtinput-Name" value="Tên">
-									</p:outputLabel>	
-					 			</div>
-					 			<div class="col-md">
-					 				<h:inputText id="txtinput-Name" value="#{manageGeoInfoBean.nameInput}"></h:inputText>
-					 			</div>
-							 </div>
-							
-							<h:panelGroup rendered="#{manageGeoInfoBean.processType != '4'}">
-								<div class="form-group row">
-									<div class="col-md">
-										<p:outputLabel value="Tọa độ địa lý"></p:outputLabel>
-									</div>
-									<div class="col-md">
-										<h:inputText id="txtinput-lngSingleCoordinate" value="#{manageGeoInfoBean.lngSingleCoordinate}"></h:inputText>
-										<h:inputText id="txtinput-latSingleCoordinate" value="#{manageGeoInfoBean.latSingleCoordinate}"></h:inputText>
-									</div>
-								</div>
-							</h:panelGroup>
-							<h:panelGroup rendered="#{manageGeoInfoBean.processType == '4'}">
-								<div class="form-group row">
-									<div class="col-md">
-										<p:outputLabel value="Tọa độ cấu tạo"></p:outputLabel>
-									</div>
-								</div>
-								<div class="form-group row">
-									<h:inputHidden id="txtInput_multipleCoordinate" value="#{manageGeoInfoBean.jsonMultipleCoordinate}"></h:inputHidden>
-									<div class="scrolldata">
-										<table id="table-coordinate">
-											<th>Longitude</th>
-											<th>Latitude</th>
-										</table>
-									</div>
-								</div>
-							</h:panelGroup >
-							<p:separator />
-							<div class="form-group row">
-					 			<div class="col-md">
-					 				<h:commandButton value="Thêm mới" action="#{manageGeoInfoBean.addButtonClick()}">
-					 					<f:ajax execute="@form" render="@form"></f:ajax>
-					 				</h:commandButton>
-					 			</div>
-					 			<div class="col-md">
-					 				<h:commandButton value="Lưu"></h:commandButton>
-					 			</div>
-					 			<div class="col-md">
-					 				<h:commandButton value="Clear" onclick="clearAllInput(), clearDataMap()" action="#{manageGeoInfoBean.resetButtonClick()}">
-					 					<f:ajax execute="@form" render="@form"></f:ajax>
-					 				</h:commandButton>
-					 			</div>
-					 			<div class="col-md">
-					 				<h:commandButton value="Xóa" action="#{manageGeoInfoBean.deleteButtonClick}" onclick="clearAllInput(), clearDataMap()">
-					 					<f:ajax execute="@form" render="@form"></f:ajax>
-					 				</h:commandButton>
-					 			</div>
-					 		</div>
-					    </p:panel>
-					</h:form>
-				</p:panel>
-			</div>
-            <div id="map" style="height:80%"></div>
-            
-		</ui:define>
-		<ui:define name="footer">
-			<h:outputScript name="managegeoinfo.js" library="js" />
-			<script type="text/javascript"
-				src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
-				async="true" defer="true"></script>
-		</ui:define>
-	</ui:composition>
-</h:body>
+                                                <f:selectItem itemLabel="Đường phố" itemValue=""/>
+                                                <f:selectItems value="#{manageGeoInfoBean.listStreet}" var="element"
+                                                               itemLabel="#{element.streetName}" itemValue="#{element.streetId}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{manageGeoInfoBean.segmentStreetIdSelected}">
+                                                <p:ajax	listener="#{manageGeoInfoBean.segmentStreetChange}" update="form" 
+                                                        onstart="clearDataMap()"
+                                                        oncomplete="drawPath()"></p:ajax>
+                                                <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
+                                                <f:selectItems value="#{manageGeoInfoBean.listSegmentOfStreet}" var="element"
+                                                               itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                </h:panelGroup>
+                                <p:separator />
+                                <div class="form-group row">
+                                    <div class="col-md">
+                                        <p:outputLabel for="cbb-IpgType" value="Thao tác với">
+                                        </p:outputLabel>
+                                    </div>
+                                    <div class="col-md">
+                                        <h:selectOneMenu id="cbb-IpgType" value="#{manageGeoInfoBean.processType}">
+                                            <p:ajax update="@form" oncomplete="clearAllInput(), clearDataMap(), updateDeleteOld()"></p:ajax>
+                                            <f:selectItem itemLabel="Tỉnh/Thành phố" itemValue="1"></f:selectItem>
+                                            <f:selectItem itemLabel="Quận/Huyện" itemValue="2"></f:selectItem>
+                                            <f:selectItem itemLabel="Đường phố" itemValue="3"></f:selectItem>
+                                            <f:selectItem itemLabel="Đoạn đường" itemValue="4"></f:selectItem>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md">
+                                        <p:outputLabel for="txtinput-Name" value="Tên">
+                                        </p:outputLabel>	
+                                    </div>
+                                    <div class="col-md">
+                                        <h:inputText id="txtinput-Name" value="#{manageGeoInfoBean.nameInput}"></h:inputText>
+                                    </div>
+                                </div>
+
+                                <h:panelGroup rendered="#{manageGeoInfoBean.processType != '4'}">
+                                    <div class="form-group row">
+                                        <div class="col-md">
+                                            <p:outputLabel value="Tọa độ địa lý"></p:outputLabel>
+                                        </div>
+                                        <div class="col-md">
+                                            <h:inputText id="txtinput-lngSingleCoordinate" value="#{manageGeoInfoBean.lngSingleCoordinate}"></h:inputText>
+                                            <h:inputText id="txtinput-latSingleCoordinate" value="#{manageGeoInfoBean.latSingleCoordinate}"></h:inputText>
+                                        </div>
+                                    </div>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{manageGeoInfoBean.processType == '4'}">
+                                    <div class="form-group row">
+                                        <div class="col-md">
+                                            <p:outputLabel value="Tọa độ cấu tạo"></p:outputLabel>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <h:inputHidden id="txtInput_multipleCoordinate" value="#{manageGeoInfoBean.jsonMultipleCoordinate}"></h:inputHidden>
+                                        <div class="scrolldata">
+                                            <table id="table-coordinate">
+                                                <th>Longitude</th>
+                                                <th>Latitude</th>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </h:panelGroup >
+                                <p:separator />
+                                <div class="form-group row">
+                                    <div class="col-md">
+                                        <h:commandButton value="Thêm mới" action="#{manageGeoInfoBean.addButtonClick()}">
+                                            <f:ajax execute="@form" render="@form"></f:ajax>
+                                        </h:commandButton>
+                                    </div>
+                                    <div class="col-md">
+                                        <h:commandButton value="Lưu"></h:commandButton>
+                                    </div>
+                                    <div class="col-md">
+                                        <h:commandButton value="Clear" onclick="clearAllInput(), clearDataMap()" action="#{manageGeoInfoBean.resetButtonClick()}">
+                                            <f:ajax execute="@form" render="@form"></f:ajax>
+                                        </h:commandButton>
+                                    </div>
+                                    <div class="col-md">
+                                        <h:commandButton value="Xóa" action="#{manageGeoInfoBean.deleteButtonClick}" onclick="clearAllInput(), clearDataMap()">
+                                            <f:ajax execute="@form" render="@form"></f:ajax>
+                                        </h:commandButton>
+                                    </div>
+                                </div>
+                            </p:panel>
+                        </h:form>
+                    </p:panel>
+                </div>
+                <div id="map" style="height:80%"></div>
+
+            </ui:define>
+            <ui:define name="footer">
+                <h:outputScript name="managegeoinfo.js" library="js" />
+                <script type="text/javascript"
+                        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
+                async="true" defer="true"></script>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 
 </html>

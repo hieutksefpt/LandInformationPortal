@@ -99,8 +99,6 @@ public class ManageGeoInfoBean implements Serializable {
 			
 			
 			PrimeFaces.current().executeScript("focusMap(" + selectedProvince.getProvinceLat() + ", " + selectedProvince.getProvinceLng() + ");");
-//			PrimeFaces.current().executeScript("changeInfo(\""+selectedProvince.getProvinceName()+"\", "+selectedProvince.getProvinceLng()+", "+
-//			selectedProvince.getProvinceLat()+")");
 		}else {
 			listDistrict = new ArrayList<>();
 			listStreet = new ArrayList<>();

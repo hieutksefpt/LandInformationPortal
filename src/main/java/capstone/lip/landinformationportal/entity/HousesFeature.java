@@ -16,10 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 /**
  *
@@ -41,8 +37,6 @@ public class HousesFeature extends AuditAbstract implements Serializable {
 
     
     @Basic(fetch = FetchType.LAZY)
-    @NotFound(action = NotFoundAction.IGNORE)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "housesFeature")
     private List<HousesDetail> listHousesDetail;
 
@@ -89,6 +83,49 @@ public class HousesFeature extends AuditAbstract implements Serializable {
         this.housesFeatureUnit = housesFeatureUnit;
         return this;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((housesFeatureID == null) ? 0 : housesFeatureID.hashCode());
+		result = prime * result + ((housesFeatureName == null) ? 0 : housesFeatureName.hashCode());
+		result = prime * result + ((housesFeatureUnit == null) ? 0 : housesFeatureUnit.hashCode());
+		result = prime * result + ((listHousesDetail == null) ? 0 : listHousesDetail.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HousesFeature other = (HousesFeature) obj;
+		if (housesFeatureID == null) {
+			if (other.housesFeatureID != null)
+				return false;
+		} else if (!housesFeatureID.equals(other.housesFeatureID))
+			return false;
+		if (housesFeatureName == null) {
+			if (other.housesFeatureName != null)
+				return false;
+		} else if (!housesFeatureName.equals(other.housesFeatureName))
+			return false;
+		if (housesFeatureUnit == null) {
+			if (other.housesFeatureUnit != null)
+				return false;
+		} else if (!housesFeatureUnit.equals(other.housesFeatureUnit))
+			return false;
+		if (listHousesDetail == null) {
+			if (other.listHousesDetail != null)
+				return false;
+		} else if (!listHousesDetail.equals(other.listHousesDetail))
+			return false;
+		return true;
+	}
     
     
     

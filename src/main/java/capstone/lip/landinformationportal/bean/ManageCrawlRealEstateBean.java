@@ -15,14 +15,21 @@ import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Configuration;
+
 import capstone.lip.landinformationportal.config.CrawlJob;
 
 @Named
 @ViewScoped
+@Configuration
+@EnableAutoConfiguration
 public class ManageCrawlRealEstateBean{
 
 	private String timerCrawl;
-	Scheduler scheduler = null;
+	@Autowired
+	Scheduler scheduler;
 	
 	private JobKey jobKey = new JobKey("crawlerJob", "crawler");
 	
@@ -30,11 +37,11 @@ public class ManageCrawlRealEstateBean{
 	public void init() {
 		
 		timerCrawl = "";
-		try {
-			scheduler = new StdSchedulerFactory().getScheduler();
-		} catch (SchedulerException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			scheduler = new StdSchedulerFactory().getScheduler();
+//		} catch (SchedulerException e) {
+//			e.printStackTrace();
+//		}
 		
 		JobDetail jobDetail;
 		try {

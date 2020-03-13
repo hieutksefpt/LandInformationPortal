@@ -11,10 +11,8 @@ import javax.persistence.Table;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -110,6 +108,55 @@ public class Land extends AuditAbstract implements Serializable {
         this.listLandsDetail = listLandsDetail;
         return this;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((landId == null) ? 0 : landId.hashCode());
+		result = prime * result + ((landName == null) ? 0 : landName.hashCode());
+		result = prime * result + ((landPrice == null) ? 0 : landPrice.hashCode());
+		result = prime * result + ((listLandsDetail == null) ? 0 : listLandsDetail.hashCode());
+		result = prime * result + ((realEstate == null) ? 0 : realEstate.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Land other = (Land) obj;
+		if (landId == null) {
+			if (other.landId != null)
+				return false;
+		} else if (!landId.equals(other.landId))
+			return false;
+		if (landName == null) {
+			if (other.landName != null)
+				return false;
+		} else if (!landName.equals(other.landName))
+			return false;
+		if (landPrice == null) {
+			if (other.landPrice != null)
+				return false;
+		} else if (!landPrice.equals(other.landPrice))
+			return false;
+		if (listLandsDetail == null) {
+			if (other.listLandsDetail != null)
+				return false;
+		} else if (!listLandsDetail.equals(other.listLandsDetail))
+			return false;
+		if (realEstate == null) {
+			if (other.realEstate != null)
+				return false;
+		} else if (!realEstate.equals(other.realEstate))
+			return false;
+		return true;
+	}
     
     
     

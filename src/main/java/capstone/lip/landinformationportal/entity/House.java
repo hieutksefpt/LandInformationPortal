@@ -110,6 +110,55 @@ public class House extends AuditAbstract implements Serializable{
         this.listHousesDetail = listHousesDetail;
         return this;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((houseId == null) ? 0 : houseId.hashCode());
+		result = prime * result + ((houseName == null) ? 0 : houseName.hashCode());
+		result = prime * result + ((housePrice == null) ? 0 : housePrice.hashCode());
+		result = prime * result + ((listHousesDetail == null) ? 0 : listHousesDetail.hashCode());
+		result = prime * result + ((realEstate == null) ? 0 : realEstate.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		House other = (House) obj;
+		if (houseId == null) {
+			if (other.houseId != null)
+				return false;
+		} else if (!houseId.equals(other.houseId))
+			return false;
+		if (houseName == null) {
+			if (other.houseName != null)
+				return false;
+		} else if (!houseName.equals(other.houseName))
+			return false;
+		if (housePrice == null) {
+			if (other.housePrice != null)
+				return false;
+		} else if (!housePrice.equals(other.housePrice))
+			return false;
+		if (listHousesDetail == null) {
+			if (other.listHousesDetail != null)
+				return false;
+		} else if (!listHousesDetail.equals(other.listHousesDetail))
+			return false;
+		if (realEstate == null) {
+			if (other.realEstate != null)
+				return false;
+		} else if (!realEstate.equals(other.realEstate))
+			return false;
+		return true;
+	}
     
     
     

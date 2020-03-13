@@ -18,8 +18,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -209,6 +207,104 @@ public class RealEstate extends AuditAbstract implements Serializable {
         this.listRealEstateAdjacentSegment = listRealEstateAdjacentSegment;
         return this;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((listHouse == null) ? 0 : listHouse.hashCode());
+		result = prime * result + ((listLand == null) ? 0 : listLand.hashCode());
+		result = prime * result
+				+ ((listRealEstateAdjacentSegment == null) ? 0 : listRealEstateAdjacentSegment.hashCode());
+		result = prime * result + ((realEstateAddress == null) ? 0 : realEstateAddress.hashCode());
+		result = prime * result + ((realEstateId == null) ? 0 : realEstateId.hashCode());
+		result = prime * result + ((realEstateLat == null) ? 0 : realEstateLat.hashCode());
+		result = prime * result + ((realEstateLink == null) ? 0 : realEstateLink.hashCode());
+		result = prime * result + ((realEstateLng == null) ? 0 : realEstateLng.hashCode());
+		result = prime * result + ((realEstateName == null) ? 0 : realEstateName.hashCode());
+		result = prime * result + ((realEstatePrice == null) ? 0 : realEstatePrice.hashCode());
+		result = prime * result + ((realEstateStatus == null) ? 0 : realEstateStatus.hashCode());
+		result = prime * result + ((realEstateType == null) ? 0 : realEstateType.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RealEstate other = (RealEstate) obj;
+		if (listHouse == null) {
+			if (other.listHouse != null)
+				return false;
+		} else if (!listHouse.equals(other.listHouse))
+			return false;
+		if (listLand == null) {
+			if (other.listLand != null)
+				return false;
+		} else if (!listLand.equals(other.listLand))
+			return false;
+		if (listRealEstateAdjacentSegment == null) {
+			if (other.listRealEstateAdjacentSegment != null)
+				return false;
+		} else if (!listRealEstateAdjacentSegment.equals(other.listRealEstateAdjacentSegment))
+			return false;
+		if (realEstateAddress == null) {
+			if (other.realEstateAddress != null)
+				return false;
+		} else if (!realEstateAddress.equals(other.realEstateAddress))
+			return false;
+		if (realEstateId == null) {
+			if (other.realEstateId != null)
+				return false;
+		} else if (!realEstateId.equals(other.realEstateId))
+			return false;
+		if (realEstateLat == null) {
+			if (other.realEstateLat != null)
+				return false;
+		} else if (!realEstateLat.equals(other.realEstateLat))
+			return false;
+		if (realEstateLink == null) {
+			if (other.realEstateLink != null)
+				return false;
+		} else if (!realEstateLink.equals(other.realEstateLink))
+			return false;
+		if (realEstateLng == null) {
+			if (other.realEstateLng != null)
+				return false;
+		} else if (!realEstateLng.equals(other.realEstateLng))
+			return false;
+		if (realEstateName == null) {
+			if (other.realEstateName != null)
+				return false;
+		} else if (!realEstateName.equals(other.realEstateName))
+			return false;
+		if (realEstatePrice == null) {
+			if (other.realEstatePrice != null)
+				return false;
+		} else if (!realEstatePrice.equals(other.realEstatePrice))
+			return false;
+		if (realEstateStatus == null) {
+			if (other.realEstateStatus != null)
+				return false;
+		} else if (!realEstateStatus.equals(other.realEstateStatus))
+			return false;
+		if (realEstateType == null) {
+			if (other.realEstateType != null)
+				return false;
+		} else if (!realEstateType.equals(other.realEstateType))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
     
     
 }

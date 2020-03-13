@@ -2,7 +2,6 @@ package capstone.lip.landinformationportal.bean;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -12,7 +11,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.primefaces.PrimeFaces;
-import org.primefaces.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.gson.Gson;
@@ -37,6 +35,8 @@ import java.io.Serializable;
 @Named
 @ViewScoped
 public class ManageGeoInfoBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private IProvinceService provinceService;
@@ -160,8 +160,6 @@ public class ManageGeoInfoBean implements Serializable {
 						Coordinate coor = new Coordinate(x.getFormedLng(), x.getFormedLat());
 						return coor;
 					}).collect(Collectors.toList());
-			int i = 1;
-			i++;
 			Gson gson = new Gson();
 			jsonMultipleCoordinate = gson.toJson(listCoordinate);
 		}else {

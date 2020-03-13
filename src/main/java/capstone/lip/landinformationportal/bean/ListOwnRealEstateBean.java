@@ -1,7 +1,5 @@
 package capstone.lip.landinformationportal.bean;
 
-import capstone.lip.landinformationportal.entity.HousesFeature;
-import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
@@ -22,8 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Named
 @ViewScoped
 public class ListOwnRealEstateBean implements Serializable{
-    
-    @Autowired
+
+	private static final long serialVersionUID = 1L;
+
+	@Autowired
     private IRealEstateService realEstateService;
     
     @Autowired

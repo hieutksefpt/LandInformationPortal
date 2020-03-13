@@ -8,12 +8,10 @@ package capstone.lip.landinformationportal.service;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.RealEstate;
-import capstone.lip.landinformationportal.repository.HouseRepository;
 import capstone.lip.landinformationportal.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 /**

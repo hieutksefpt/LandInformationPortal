@@ -57,23 +57,19 @@ public class RealEstate extends AuditAbstract implements Serializable {
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name = "UserID")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Basic(fetch = FetchType.LAZY)
-    @NotFound(action = NotFoundAction.IGNORE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "realEstate")
     private List<Land> listLand;
     
     @Basic(fetch = FetchType.LAZY)
-    @NotFound(action = NotFoundAction.IGNORE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "realEstate")
     private List<House> listHouse;
     
     @Basic(fetch = FetchType.LAZY)
-    @NotFound(action = NotFoundAction.IGNORE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "realEstate")
     private List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment;
@@ -101,104 +97,117 @@ public class RealEstate extends AuditAbstract implements Serializable {
         return realEstateId;
     }
 
-    public void setRealEstateId(Long realEstateId) {
+    public RealEstate setRealEstateId(Long realEstateId) {
         this.realEstateId = realEstateId;
+        return this;
     }
 
     public String getRealEstateName() {
         return realEstateName;
     }
 
-    public void setRealEstateName(String realEstateName) {
+    public RealEstate setRealEstateName(String realEstateName) {
         this.realEstateName = realEstateName;
+        return this;
     }
 
     public Double getRealEstateLat() {
         return realEstateLat;
     }
 
-    public void setRealEstateLat(Double realEstateLat) {
+    public RealEstate setRealEstateLat(Double realEstateLat) {
         this.realEstateLat = realEstateLat;
+        return this;
     }
 
     public Double getRealEstateLng() {
         return realEstateLng;
     }
 
-    public void setRealEstateLng(Double realEstateLng) {
+    public RealEstate setRealEstateLng(Double realEstateLng) {
         this.realEstateLng = realEstateLng;
+        return this;
     }
 
     public String getRealEstateAddress() {
         return realEstateAddress;
     }
 
-    public void setRealEstateAddress(String realEstateAddress) {
+    public RealEstate setRealEstateAddress(String realEstateAddress) {
         this.realEstateAddress = realEstateAddress;
+        return this;
     }
 
     public Double getRealEstatePrice() {
         return realEstatePrice;
     }
 
-    public void setRealEstatePrice(Double realEstatePrice) {
+    public RealEstate setRealEstatePrice(Double realEstatePrice) {
         this.realEstatePrice = realEstatePrice;
+        return this;
     }
 
     public String getRealEstateStatus() {
         return realEstateStatus;
     }
 
-    public void setRealEstateStatus(String realEstateStatus) {
+    public RealEstate setRealEstateStatus(String realEstateStatus) {
         this.realEstateStatus = realEstateStatus;
+        return this;
     }
 
     public String getRealEstateLink() {
         return realEstateLink;
     }
 
-    public void setRealEstateLink(String realEstateLink) {
+    public RealEstate setRealEstateLink(String realEstateLink) {
         this.realEstateLink = realEstateLink;
+        return this;
     }
 
     public String getRealEstateType() {
         return realEstateType;
     }
 
-    public void setRealEstateType(String realEstateType) {
+    public RealEstate setRealEstateType(String realEstateType) {
         this.realEstateType = realEstateType;
+        return this;
     }
 
     public User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public RealEstate setUser(User user) {
         this.user = user;
+        return this;
     }
 
     public List<Land> getListLand() {
         return listLand;
     }
 
-    public void setListLand(List<Land> listLand) {
+    public RealEstate setListLand(List<Land> listLand) {
         this.listLand = listLand;
+        return this;
     }
 
     public List<House> getListHouse() {
         return listHouse;
     }
 
-    public void setListHouse(List<House> listHouse) {
+    public RealEstate setListHouse(List<House> listHouse) {
         this.listHouse = listHouse;
+        return this;
     }
 
     public List<RealEstateAdjacentSegment> getListRealEstateAdjacentSegment() {
         return listRealEstateAdjacentSegment;
     }
 
-    public void setListRealEstateAdjacentSegment(List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment) {
+    public RealEstate setListRealEstateAdjacentSegment(List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment) {
         this.listRealEstateAdjacentSegment = listRealEstateAdjacentSegment;
+        return this;
     }
     
     

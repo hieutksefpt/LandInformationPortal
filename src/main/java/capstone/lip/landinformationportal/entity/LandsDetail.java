@@ -53,32 +53,36 @@ public class LandsDetail extends AuditAbstract implements Serializable{
         return value;
     }
 
-    public void setValue(String value) {
+    public LandsDetail setValue(String value) {
         this.value = value;
+		return this;
     }
 
     public Land getLand() {
         return land;
     }
 
-    public void setLand(Land land) {
+    public LandsDetail setLand(Land land) {
         this.land = land;
+		return this;
     }
 
     public LandsFeature getLandsFeature() {
         return landsFeature;
     }
 
-    public void setLandsFeature(LandsFeature landsFeature) {
+    public LandsDetail setLandsFeature(LandsFeature landsFeature) {
         this.landsFeature = landsFeature;
+		return this;
     }
 
 	public UUID getUuid() {
 		return uuid;
 	}
 
-	public void setUuid(UUID uuid) {
+	public LandsDetail setUuid(UUID uuid) {
 		this.uuid = uuid;
+		return this;
 	}
     
     

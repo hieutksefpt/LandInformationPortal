@@ -50,8 +50,9 @@ public class HousesFeature extends AuditAbstract implements Serializable {
         return listHousesDetail;
     }
 
-    public void setListHousesDetail(List<HousesDetail> listHousesDetail) {
+    public HousesFeature setListHousesDetail(List<HousesDetail> listHousesDetail) {
         this.listHousesDetail = listHousesDetail;
+		return this;
     }
 
     public HousesFeature() {
@@ -66,24 +67,27 @@ public class HousesFeature extends AuditAbstract implements Serializable {
         return housesFeatureID;
     }
 
-    public void setHousesFeatureID(Long housesFeatureID) {
+    public HousesFeature setHousesFeatureID(Long housesFeatureID) {
         this.housesFeatureID = housesFeatureID;
+        return this;
     }
 
     public String getHousesFeatureName() {
         return housesFeatureName;
     }
 
-    public void setHousesFeatureName(String housesFeatureName) {
+    public HousesFeature setHousesFeatureName(String housesFeatureName) {
         this.housesFeatureName = housesFeatureName;
+        return this;
     }
 
     public String getHousesFeatureUnit() {
         return housesFeatureUnit;
     }
 
-    public void setHousesFeatureUnit(String housesFeatureUnit) {
+    public HousesFeature setHousesFeatureUnit(String housesFeatureUnit) {
         this.housesFeatureUnit = housesFeatureUnit;
+        return this;
     }
     
     

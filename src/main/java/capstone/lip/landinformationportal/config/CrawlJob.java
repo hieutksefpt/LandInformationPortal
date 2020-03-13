@@ -1,11 +1,14 @@
 package capstone.lip.landinformationportal.config;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -14,15 +17,20 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import capstone.lip.landinformationportal.dto.RealEstateObjectCrawl;
+import capstone.lip.landinformationportal.service.Interface.ICrawlRealEstateService;
 
 public class CrawlJob implements Job {
 
 	static final String URL = "http://127.0.0.1:8000/realestateobject/";
-	RestTemplate restTemplate = new RestTemplate();
+	
+	@Autowired
+	private ICrawlRealEstateService crawlReoService;
+	
+	
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		System.out.println("crawling");
-		
+		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders header = new HttpHeaders();
 		header.set("WWW-Authenticate", "Token");
 		header.set("Content-Type", "application/json");
@@ -44,10 +52,8 @@ public class CrawlJob implements Job {
 //				RealEstateObjectCrawl[].class);
 		ResponseEntity<RealEstateObjectCrawl[]> responseEntity = 
 				restTemplate.exchange(builder.toUriString(),HttpMethod.GET,entity,RealEstateObjectCrawl[].class);
-		RealEstateObjectCrawl[] objects = responseEntity.getBody();
-		int i = 1;
-		i++;
-		
+		List<RealEstateObjectCrawl> listCrawl = Arrays.asList(responseEntity.getBody());
+		crawlReoService.saveRealEstateCrawl(listCrawl);
 	}
 
 }

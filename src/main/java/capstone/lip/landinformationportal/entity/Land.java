@@ -70,40 +70,45 @@ public class Land extends AuditAbstract implements Serializable {
         return landId;
     }
 
-    public void setLandId(Long landId) {
+    public Land setLandId(Long landId) {
         this.landId = landId;
+        return this;
     }
 
     public String getLandName() {
         return landName;
     }
 
-    public void setLandName(String landName) {
+    public Land setLandName(String landName) {
         this.landName = landName;
+        return this;
     }
 
     public Double getLandPrice() {
         return landPrice;
     }
 
-    public void setLandPrice(Double landPrice) {
+    public Land setLandPrice(Double landPrice) {
         this.landPrice = landPrice;
+        return this;
     }
 
     public RealEstate getRealEstate() {
         return realEstate;
     }
 
-    public void setRealEstate(RealEstate realEstate) {
+    public Land setRealEstate(RealEstate realEstate) {
         this.realEstate = realEstate;
+        return this;
     }
 
     public List<LandsDetail> getListLandsDetail() {
         return listLandsDetail;
     }
 
-    public void setListLandsDetail(List<LandsDetail> listLandsDetail) {
+    public Land setListLandsDetail(List<LandsDetail> listLandsDetail) {
         this.listLandsDetail = listLandsDetail;
+        return this;
     }
     
     

@@ -55,32 +55,36 @@ public class HousesDetail extends AuditAbstract implements Serializable{
         return value;
     }
 
-    public void setValue(String value) {
+    public HousesDetail setValue(String value) {
         this.value = value;
+		return this;
     }
 
     public House getHouse() {
         return house;
     }
 
-    public void setHouse(House house) {
+    public HousesDetail setHouse(House house) {
         this.house = house;
+		return this;
     }
 
     public HousesFeature getHousesFeature() {
         return housesFeature;
     }
 
-    public void setHousesFeature(HousesFeature housesFeature) {
+    public HousesDetail setHousesFeature(HousesFeature housesFeature) {
         this.housesFeature = housesFeature;
+		return this;
     }
 
 	public UUID getUuid() {
 		return uuid;
 	}
 
-	public void setUuid(UUID uuid) {
+	public HousesDetail setUuid(UUID uuid) {
 		this.uuid = uuid;
+		return this;
 	}
     
     

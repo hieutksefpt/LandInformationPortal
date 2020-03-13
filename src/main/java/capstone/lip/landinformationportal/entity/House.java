@@ -70,40 +70,45 @@ public class House extends AuditAbstract implements Serializable{
         return houseId;
     }
 
-    public void setHouseId(Long houseId) {
+    public House setHouseId(Long houseId) {
         this.houseId = houseId;
+        return this;
     }
 
     public String getHouseName() {
         return houseName;
     }
 
-    public void setHouseName(String houseName) {
+    public House setHouseName(String houseName) {
         this.houseName = houseName;
+        return this;
     }
 
     public Double getHousePrice() {
         return housePrice;
     }
 
-    public void setHousePrice(Double housePrice) {
+    public House setHousePrice(Double housePrice) {
         this.housePrice = housePrice;
+        return this;
     }
 
     public RealEstate getRealEstate() {
         return realEstate;
     }
 
-    public void setRealEstate(RealEstate realEstate) {
+    public House setRealEstate(RealEstate realEstate) {
         this.realEstate = realEstate;
+        return this;
     }
 
     public List<HousesDetail> getListHousesDetail() {
         return listHousesDetail;
     }
 
-    public void setListHousesDetail(List<HousesDetail> listHousesDetail) {
+    public House setListHousesDetail(List<HousesDetail> listHousesDetail) {
         this.listHousesDetail = listHousesDetail;
+        return this;
     }
     
     

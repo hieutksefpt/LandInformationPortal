@@ -62,4 +62,9 @@ public class RealEstateService implements IRealEstateService {
         realEstateRepository.delete(realEstate);
     }
 
+    @Override
+    public RealEstate findById(long realEstateId) {
+        return realEstateRepository.findById(realEstateId).get();
+    }
+
 }

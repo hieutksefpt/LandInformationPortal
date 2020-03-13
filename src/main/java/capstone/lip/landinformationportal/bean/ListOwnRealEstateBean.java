@@ -27,9 +27,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ListOwnRealEstateBean implements Serializable {
 
     @Autowired
-    private IRealEstateService realEstateService;
-
-    @Autowired
     private IUserService userService;
 
     private List<RealEstate> listUserRealEstate;
@@ -37,19 +34,16 @@ public class ListOwnRealEstateBean implements Serializable {
 
     @PostConstruct
     public void init() {
+        //Hàm init này phải truyền vào biến userId để list ra những thằng RealEstate thuộc user đó
         listUserRealEstate = new ArrayList<>();
+        //truyền userId vào hàm dưới, đang hard code
         listUserRealEstate = userService.getListRealEstate(1L);
     }
 
-//    public void goToDetails(long userId) throws IOException {
-//        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-//        ec.redirect(ec.getRequestContextPath() + "/common/viewrealestatedetail?userId=" + userId);
-//    }
-//
-//    public String clickOnButtonRowRealEstate(String realEstateId) {
-//        realEstateClicked = listUserRealEstate.stream().filter(x -> x.getRealEstateId().equals(Long.parseLong(realEstateId))).collect(Collectors.toList()).get(0);
-//        return "common/viewrealestatedetail.xhtml?faces-redirect=true";
-//    }
+    public void goToDetails(long userId, long realEstateId) throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath() + "/common/viewrealestatedetail.xhtml?userId=" + userId + "&realEstateId=" + realEstateId);
+    }
 
     public List<RealEstate> getListUserRealEstate() {
         return listUserRealEstate;

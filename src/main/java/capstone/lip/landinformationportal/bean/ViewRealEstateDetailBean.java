@@ -1,0 +1,56 @@
+package capstone.lip.landinformationportal.bean;
+
+import capstone.lip.landinformationportal.entity.RealEstate;
+import capstone.lip.landinformationportal.entity.User;
+import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
+import capstone.lip.landinformationportal.service.Interface.IUserService;
+import java.io.Serializable;
+import java.util.Map;
+import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import org.springframework.beans.factory.annotation.Autowired;
+
+/**
+ *
+ * @author AnhHao
+ */
+@Named
+@ViewScoped
+public class ViewRealEstateDetailBean implements Serializable {
+
+    private RealEstate realEstateClicked;
+    private User currentUser;
+
+    @Autowired
+    private IRealEstateService realEstateService;
+    
+    @Autowired
+    private IUserService userService;
+
+    @PostConstruct
+    public void init() {
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        long userId = Long.parseLong(params.get("userId"));
+        long realEstateId = Long.parseLong(params.get("realEstateId"));
+        currentUser = userService.findById(userId);
+        realEstateClicked = realEstateService.findById(realEstateId);
+    }
+
+    public RealEstate getRealEstateClicked() {
+        return realEstateClicked;
+    }
+
+    public void setRealEstateClicked(RealEstate realEstateClicked) {
+        this.realEstateClicked = realEstateClicked;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+}

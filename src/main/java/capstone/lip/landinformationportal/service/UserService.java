@@ -53,4 +53,9 @@ public class UserService implements IUserService {
         return listRealEstate;
     }
 
+    @Override
+    public User findById(Long userId) {
+        return userRepository.findById(userId).get();
+    }
+
 }

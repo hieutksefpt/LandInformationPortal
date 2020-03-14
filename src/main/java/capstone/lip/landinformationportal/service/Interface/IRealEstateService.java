@@ -9,6 +9,7 @@ import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -17,6 +18,8 @@ import java.util.List;
 public interface IRealEstateService {
 
     List<RealEstate> findAll();
+    
+    RealEstate findById(long realEstateId);
     
     RealEstate save(RealEstate realEstate);
 

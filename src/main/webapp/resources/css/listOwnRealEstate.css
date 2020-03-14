@@ -49,11 +49,11 @@
     padding-top: 10px;
     padding-bottom: 10px;
     border-bottom: 1px black groove;
+    width: 100%;
 }
 .btnView{
     border-radius: 20px;
     padding: .5rem 1rem;
-    font-size: inherit;
     color: #fff;
     background-color: #56c6c6;
 }

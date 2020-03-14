@@ -24,5 +24,7 @@ public interface IUserService {
 
     void delete(Long userID);
     
+    User findById(Long userId);
+    
      List<RealEstate> getListRealEstate(Long userId);
 }

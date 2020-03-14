@@ -28,11 +28,11 @@ and open the template in the editor.
 #form select{
     width: 100%;
 }
-#table-coordinate{
-    width: 100%;	
+#table-feature{
+    width: 90%;	
 }
 
-#table-coordinate th{
+#table-feature th{
     text-align: center !important;
 }
 .scrolldata{

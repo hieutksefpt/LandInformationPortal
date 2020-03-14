@@ -232,7 +232,25 @@ function clearAllInput() {
     $('#form\\:txtinput-latSingleCoordinate').val("");
 }
 
-$("#cbb-RealEstateType").
+function display_div(show){
+    if(document.getElementById('optionList').value === 1){
+        document.getElementById('houseBox').blur();
+        document.getElementById('houseBoxName').readOnly = true;
+        document.getElementById('houseBoxValue').readOnly = true;
+    }
+   if(document.getElementById('optionList').value === 2){
+        document.getElementById('landBox').blur();
+        document.getElementById('landBoxName').readOnly = true;
+        document.getElementById('landBoxValue').readOnly = true;
+    }
+    if(document.getElementById('optionList').value === 3){
+        document.getElementById('houseBoxName').readOnly = false;
+        document.getElementById('houseBoxValue').readOnly = false;
+        document.getElementById('landBoxName').readOnly = false;
+        document.getElementById('landBoxValue').readOnly = false;
+    }
+
+}
 
 // đoạn này bắt đầu test MultiForm
 $(".next").click(function(){

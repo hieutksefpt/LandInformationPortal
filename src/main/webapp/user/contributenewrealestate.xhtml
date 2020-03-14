@@ -86,64 +86,76 @@
                     </fieldset>
                     <!-- fieldset 2 : cung cấp thông tin -->
                     <fieldset>
-                            <div id="UploadInfor">
-                                <table class="formUploadInfor">
-                                    <tr>
-                                        <td><span class="title-mandatory">Tên bất động sản</span></td><td><input type="text" name="fullname"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="title-mandatory">Giá trị</span></td><td><input type="text" name="value"/> <span class="unit"><i>(VND)</i></span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="title">Loại bất động sản</span>
-                                        </td>
-                                        <td>
-                                            <h:selectOneMenu  id="cbb-RealEstateType" value="#{contributeNewRealEstateBean.realEstateTypeSelected}">
-                                                    <ui:remove>
-                                                        <p:ajax listener="#{contributeNewRealEstateBean.realEstateChange}" update="panel-form"/>
-                                                    </ui:remove>
-                                                    <f:selectItem itemLabel="Đường phố" itemValue=""/>
-                                                    <f:selectItems value="#{contributeNewRealEstateBean.listStreet}" var="element"
-                                                                   itemLabel="#{element.streetName}" itemValue="#{element.streetId}"/>
-                                                </h:selectOneMenu>
-                                        </td>
-                                    </tr>
-                                </table>
+                        <div id="UploadInfor">
+                            <table class="formUploadInfor">
+                                <tr>
+                                    <td><span class="title-mandatory">Tên bất động sản</span></td><td><input type="text" name="fullname"/></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="title-mandatory">Giá trị</span></td><td><input type="text" name="value"/> <span class="unit"><i>(VND)</i></span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="title">Loại bất động sản</span>
+                                    </td>
+                                    <td>
+                                        <select  id="optionList" onchange="display_div(document.getElementById('optionList').value);">
+                                            <option selected="selected">--</option>
+                                            <option value="1">Đất</option>
+                                            <option value="2">Nhà</option>
+                                            <option value="3">Nháp</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
 
-                                <div class="flexCommon row">
-                                    <div class="landbox col-5">
-                                        <table class="landUpload">     
-                                            <tr>
-                                                <td><span class="title-mandatory">Thuộc tính Đất</span></td><td><input type="text" name="fullname"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><input type="text" name="value"/> <span class="unit"><i>(đơn vị)</i></span></td>
-                                            </tr>
+                            <div class="flexCommon row">
+                                <div id="landBox" class="landbox col-5">
+                                    <table class="landUpload">     
+                                        <tr>
+                                            <td><span class="title-mandatory">Thuộc tính Đất</span></td><td><input id="landBoxName" type="text" name="fullname"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><input id="landBoxValue" type="text" name="value"/> <span class="unit"><i>(đơn vị)</i></span></td>
+                                        </tr>
 
-                                        </table>
-                                        <div class="boxAreaInput">
-                                            <span class="title">Text</span>
+                                    </table>
+                                    <div class="boxAreaInput">
+                                        <div class="form-group row">
+                                            <div class="scrolldata">
+                                                <table id="table-feature">
+                                                    <th>Thuộc tính</th>
+                                                    <th>Giá trị</th>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="housebox col-5">
-                                        <table class="houseUpload">     
-                                            <tr>
-                                                <td><span class="title-mandatory">Thuộc tính Nhà</span></td><td><input type="text" name="fullname"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><input type="text" name="value"/> <span class="unit"><i>(đơn vị)</i></span></td>
-                                            </tr>
-                                        </table>
-                                        <div class="boxAreaInput">
-                                            <span class="title">Text</span>
+                                </div>
+                                <div id="houseBox" class="housebox col-5">
+                                    <table class="houseUpload">     
+                                        <tr>
+                                            <td><span class="title-mandatory">Thuộc tính Nhà</span></td><td><input id="houseBoxName" type="text" name="fullname"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><input id="houseBoxValue" type="text" name="value"/> <span class="unit"><i>(đơn vị)</i></span></td>
+                                        </tr>
+                                    </table>
+                                    <div class="boxAreaInput">
+                                        <div class="form-group row">
+                                            <div class="scrolldata">
+                                                <table id="table-feature">
+                                                    <th>Thuộc tính</th>
+                                                    <th>Giá trị</th>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <input type="button" name="next" class="next action-button" value="Tiếp theo" />
-                            <input type="button" name="previous" class="previous action-button" value="Quay lại" />
+                        <input type="button" name="next" class="next action-button" value="Tiếp theo" />
+                        <input type="button" name="previous" class="previous action-button" value="Quay lại" />
                     </fieldset>
 
                     <!-- fieldset 3 : hoàn tất thông tin -->

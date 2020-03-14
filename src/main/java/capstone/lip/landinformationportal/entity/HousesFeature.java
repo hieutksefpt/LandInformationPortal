@@ -40,7 +40,7 @@ public class HousesFeature extends AuditAbstract implements Serializable {
     @Column(name = "HousesFeatureUnit")
     private String housesFeatureUnit;
 
-    @ManyToMany(mappedBy = "landsFeature")
+    @ManyToMany(mappedBy = "listHousesFeatures")
     @NotFound(action = NotFoundAction.IGNORE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<House> listHouses;

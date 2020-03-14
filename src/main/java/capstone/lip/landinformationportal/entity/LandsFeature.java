@@ -41,7 +41,7 @@ public class LandsFeature extends AuditAbstract implements Serializable {
     @Column(name = "LandsFeatureUnit")
     private String landsFeatureUnit;
 
-    @ManyToMany(mappedBy = "landsFeature")
+    @ManyToMany(mappedBy = "listLandsFeatures")
     @NotFound(action = NotFoundAction.IGNORE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Land> listLands;

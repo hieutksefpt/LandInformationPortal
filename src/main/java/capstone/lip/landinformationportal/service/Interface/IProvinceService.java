@@ -2,8 +2,6 @@ package capstone.lip.landinformationportal.service.Interface;
 
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.Province;
 

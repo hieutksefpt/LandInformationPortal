@@ -6,9 +6,12 @@
 package capstone.lip.landinformationportal.service;
 
 import capstone.lip.landinformationportal.entity.Land;
+import capstone.lip.landinformationportal.entity.LandsDetail;
 import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.repository.LandRepository;
 import capstone.lip.landinformationportal.service.Interface.ILandService;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +48,11 @@ public class LandService implements ILandService{
     @Override
     public List<LandsFeature> getListLandsFeature(Long landId) {
         Land land = landRepository.findById(landId).get();
-        List<LandsFeature> listLandsFeature = land.getListLandsFeatures();
+        List<LandsDetail> listLandDetail = land.getListLandsDetail();
+        List<LandsFeature> listLandsFeature = new ArrayList<LandsFeature>();
+        for (LandsDetail landDetail : listLandDetail) {
+        	listLandsFeature.add(landDetail.getLandsFeature());
+        }
         return listLandsFeature;
     }
 }

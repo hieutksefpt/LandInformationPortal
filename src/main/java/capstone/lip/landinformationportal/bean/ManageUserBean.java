@@ -6,7 +6,6 @@
 package capstone.lip.landinformationportal.bean;
 
 import capstone.lip.landinformationportal.entity.User;
-import capstone.lip.landinformationportal.repository.UserRepository;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import java.io.Serializable;
 import java.util.List;
@@ -26,8 +25,5 @@ public class ManageUserBean implements Serializable{
     private IUserService userService;
     
     private List<User> listUser;
-    
-    
-    
-    
+
 }

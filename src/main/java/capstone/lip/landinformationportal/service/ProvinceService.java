@@ -1,16 +1,9 @@
 package capstone.lip.landinformationportal.service;
 
 import java.util.List;
-import java.util.Optional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceUnitUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.Province;

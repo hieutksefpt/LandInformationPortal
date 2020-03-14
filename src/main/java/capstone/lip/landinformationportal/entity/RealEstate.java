@@ -18,9 +18,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -58,23 +55,19 @@ public class RealEstate extends AuditAbstract implements Serializable {
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name = "UserID")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Basic(fetch = FetchType.LAZY)
-    @NotFound(action = NotFoundAction.IGNORE)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToOne(mappedBy = "realEstate")
-    private Land land;
+    @OneToMany(mappedBy = "realEstate")
+    private List<Land> listLand;
     
     @Basic(fetch = FetchType.LAZY)
-    @NotFound(action = NotFoundAction.IGNORE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "realEstate")
     private List<House> listHouse;
     
     @Basic(fetch = FetchType.LAZY)
-    @NotFound(action = NotFoundAction.IGNORE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "realEstate")
     private List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment;
@@ -84,7 +77,7 @@ public class RealEstate extends AuditAbstract implements Serializable {
     public RealEstate() {
     }
 
-    public RealEstate(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, Double realEstatePrice, String realEstateStatus, String realEstateLink, String realEstateType, User user, Land land, List<House> listHouse) {
+    public RealEstate(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, Double realEstatePrice, String realEstateStatus, String realEstateLink, String realEstateType, User user, List<Land> listLand, List<House> listHouse) {
         this.realEstateName = realEstateName;
         this.realEstateLat = realEstateLat;
         this.realEstateLng = realEstateLng;
@@ -94,7 +87,7 @@ public class RealEstate extends AuditAbstract implements Serializable {
         this.realEstateLink = realEstateLink;
         this.realEstateType = realEstateType;
         this.user = user;
-        this.land = land;
+        this.listLand = listLand;
         this.listHouse = listHouse;
     }
 
@@ -102,106 +95,216 @@ public class RealEstate extends AuditAbstract implements Serializable {
         return realEstateId;
     }
 
-    public void setRealEstateId(Long realEstateId) {
+    public RealEstate setRealEstateId(Long realEstateId) {
         this.realEstateId = realEstateId;
+        return this;
     }
 
     public String getRealEstateName() {
         return realEstateName;
     }
 
-    public void setRealEstateName(String realEstateName) {
+    public RealEstate setRealEstateName(String realEstateName) {
         this.realEstateName = realEstateName;
+        return this;
     }
 
     public Double getRealEstateLat() {
         return realEstateLat;
     }
 
-    public void setRealEstateLat(Double realEstateLat) {
+    public RealEstate setRealEstateLat(Double realEstateLat) {
         this.realEstateLat = realEstateLat;
+        return this;
     }
 
     public Double getRealEstateLng() {
         return realEstateLng;
     }
 
-    public void setRealEstateLng(Double realEstateLng) {
+    public RealEstate setRealEstateLng(Double realEstateLng) {
         this.realEstateLng = realEstateLng;
+        return this;
     }
 
     public String getRealEstateAddress() {
         return realEstateAddress;
     }
 
-    public void setRealEstateAddress(String realEstateAddress) {
+    public RealEstate setRealEstateAddress(String realEstateAddress) {
         this.realEstateAddress = realEstateAddress;
+        return this;
     }
 
     public Double getRealEstatePrice() {
         return realEstatePrice;
     }
 
-    public void setRealEstatePrice(Double realEstatePrice) {
+    public RealEstate setRealEstatePrice(Double realEstatePrice) {
         this.realEstatePrice = realEstatePrice;
+        return this;
     }
 
     public String getRealEstateStatus() {
         return realEstateStatus;
     }
 
-    public void setRealEstateStatus(String realEstateStatus) {
+    public RealEstate setRealEstateStatus(String realEstateStatus) {
         this.realEstateStatus = realEstateStatus;
+        return this;
     }
 
     public String getRealEstateLink() {
         return realEstateLink;
     }
 
-    public void setRealEstateLink(String realEstateLink) {
+    public RealEstate setRealEstateLink(String realEstateLink) {
         this.realEstateLink = realEstateLink;
+        return this;
     }
 
     public String getRealEstateType() {
         return realEstateType;
     }
 
-    public void setRealEstateType(String realEstateType) {
+    public RealEstate setRealEstateType(String realEstateType) {
         this.realEstateType = realEstateType;
+        return this;
     }
 
     public User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public RealEstate setUser(User user) {
         this.user = user;
+        return this;
     }
 
-    public Land getLand() {
-        return land;
+    public List<Land> getListLand() {
+        return listLand;
     }
 
-    public void setLand(Land land) {
-        this.land = land;
+    public RealEstate setListLand(List<Land> listLand) {
+        this.listLand = listLand;
+        return this;
     }
-
 
     public List<House> getListHouse() {
         return listHouse;
     }
 
-    public void setListHouse(List<House> listHouse) {
+    public RealEstate setListHouse(List<House> listHouse) {
         this.listHouse = listHouse;
+        return this;
     }
 
     public List<RealEstateAdjacentSegment> getListRealEstateAdjacentSegment() {
         return listRealEstateAdjacentSegment;
     }
 
-    public void setListRealEstateAdjacentSegment(List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment) {
+    public RealEstate setListRealEstateAdjacentSegment(List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment) {
         this.listRealEstateAdjacentSegment = listRealEstateAdjacentSegment;
+        return this;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((listHouse == null) ? 0 : listHouse.hashCode());
+		result = prime * result + ((listLand == null) ? 0 : listLand.hashCode());
+		result = prime * result
+				+ ((listRealEstateAdjacentSegment == null) ? 0 : listRealEstateAdjacentSegment.hashCode());
+		result = prime * result + ((realEstateAddress == null) ? 0 : realEstateAddress.hashCode());
+		result = prime * result + ((realEstateId == null) ? 0 : realEstateId.hashCode());
+		result = prime * result + ((realEstateLat == null) ? 0 : realEstateLat.hashCode());
+		result = prime * result + ((realEstateLink == null) ? 0 : realEstateLink.hashCode());
+		result = prime * result + ((realEstateLng == null) ? 0 : realEstateLng.hashCode());
+		result = prime * result + ((realEstateName == null) ? 0 : realEstateName.hashCode());
+		result = prime * result + ((realEstatePrice == null) ? 0 : realEstatePrice.hashCode());
+		result = prime * result + ((realEstateStatus == null) ? 0 : realEstateStatus.hashCode());
+		result = prime * result + ((realEstateType == null) ? 0 : realEstateType.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RealEstate other = (RealEstate) obj;
+		if (listHouse == null) {
+			if (other.listHouse != null)
+				return false;
+		} else if (!listHouse.equals(other.listHouse))
+			return false;
+		if (listLand == null) {
+			if (other.listLand != null)
+				return false;
+		} else if (!listLand.equals(other.listLand))
+			return false;
+		if (listRealEstateAdjacentSegment == null) {
+			if (other.listRealEstateAdjacentSegment != null)
+				return false;
+		} else if (!listRealEstateAdjacentSegment.equals(other.listRealEstateAdjacentSegment))
+			return false;
+		if (realEstateAddress == null) {
+			if (other.realEstateAddress != null)
+				return false;
+		} else if (!realEstateAddress.equals(other.realEstateAddress))
+			return false;
+		if (realEstateId == null) {
+			if (other.realEstateId != null)
+				return false;
+		} else if (!realEstateId.equals(other.realEstateId))
+			return false;
+		if (realEstateLat == null) {
+			if (other.realEstateLat != null)
+				return false;
+		} else if (!realEstateLat.equals(other.realEstateLat))
+			return false;
+		if (realEstateLink == null) {
+			if (other.realEstateLink != null)
+				return false;
+		} else if (!realEstateLink.equals(other.realEstateLink))
+			return false;
+		if (realEstateLng == null) {
+			if (other.realEstateLng != null)
+				return false;
+		} else if (!realEstateLng.equals(other.realEstateLng))
+			return false;
+		if (realEstateName == null) {
+			if (other.realEstateName != null)
+				return false;
+		} else if (!realEstateName.equals(other.realEstateName))
+			return false;
+		if (realEstatePrice == null) {
+			if (other.realEstatePrice != null)
+				return false;
+		} else if (!realEstatePrice.equals(other.realEstatePrice))
+			return false;
+		if (realEstateStatus == null) {
+			if (other.realEstateStatus != null)
+				return false;
+		} else if (!realEstateStatus.equals(other.realEstateStatus))
+			return false;
+		if (realEstateType == null) {
+			if (other.realEstateType != null)
+				return false;
+		} else if (!realEstateType.equals(other.realEstateType))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
     
     
 }

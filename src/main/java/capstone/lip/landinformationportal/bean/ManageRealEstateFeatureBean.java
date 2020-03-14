@@ -7,7 +7,6 @@ package capstone.lip.landinformationportal.bean;
 
 import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.entity.LandsFeature;
-import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.service.Interface.IHousesFeatureService;
 import capstone.lip.landinformationportal.service.Interface.ILandsFeatureService;
 import java.io.Serializable;
@@ -18,7 +17,6 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -29,7 +27,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @ViewScoped
 public class ManageRealEstateFeatureBean implements Serializable {
 
-    @Autowired
+	private static final long serialVersionUID = 1L;
+
+	@Autowired
     private ILandsFeatureService landsFeatureService;
 
     @Autowired
@@ -62,15 +62,11 @@ public class ManageRealEstateFeatureBean implements Serializable {
         landsFeatureService.save(landsFeatureClicked);
         listLandsFeature = landsFeatureService.findAll();
 //        PrimeFaces.current().executeScript("reloadPage()");
-        int i = 1;
-        i++;
     }
     
     public void updateHousesFeature() {
         housesFeatureService.save(housesFeatureClicked);
         listHousesFeature = housesFeatureService.findAll();
-        int i = 1;
-        i++;
     }
 
      public void saveLandsFeature() {
@@ -87,14 +83,10 @@ public class ManageRealEstateFeatureBean implements Serializable {
 
     public void clickOnButtonRowLandsFeature(String id) {
         landsFeatureClicked = listLandsFeature.stream().filter(x -> x.getLandsFeatureID().equals(Long.parseLong(id))).collect(Collectors.toList()).get(0);
-        int i = 1;
-        i++;
     }
     
     public void clickOnButtonRowHousesFeature(String id) {
         housesFeatureClicked = listHousesFeature.stream().filter(x -> x.getHousesFeatureID().equals(Long.parseLong(id))).collect(Collectors.toList()).get(0);
-        int i= 1;
-        i++;
     
     }
 
@@ -105,11 +97,7 @@ public class ManageRealEstateFeatureBean implements Serializable {
 
     public void deleteHousesFeature() {
         housesFeatureService.delete(housesFeatureClicked.getHousesFeatureID());
-        int i = 1;
-        i++;
         listHousesFeature = housesFeatureService.findAll();
-        i = 1;
-        i++;
     }
 
     public List<LandsFeature> getListLandsFeature() {

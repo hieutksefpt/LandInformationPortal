@@ -1,11 +1,7 @@
 package capstone.lip.landinformationportal.bean;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
 
 import capstone.lip.landinformationportal.config.CustomAuthenticationManager;
 
@@ -22,8 +18,8 @@ public class LoginBean {
 	
 	public void loginAction() {
 		try {
-			int i= 1;
-			i++;
+//			int i= 1;
+//			i++;
 //		    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken( username, password ); 
 //		    Authentication authentication = authenticationManager.authenticate(authenticationToken);
 //		    SecurityContextHolder.getContext().setAuthentication(authentication);

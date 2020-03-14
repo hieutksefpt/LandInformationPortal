@@ -26,9 +26,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @Named
 @ViewScoped
-public class ListOwnRealEstateBean implements Serializable {
+public class ListOwnRealEstateBean implements Serializable{
 
-    @Autowired
+	private static final long serialVersionUID = 1L;
+
+	@Autowired
     private IUserService userService;
 
     private List<RealEstate> listUserRealEstate;
@@ -37,9 +39,9 @@ public class ListOwnRealEstateBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        //HÃ m init nÃ y pháº£i truyá»n vÃ o biáº¿n userId Ä‘á»ƒ list ra nhá»¯ng tháº±ng RealEstate thuá»™c user Ä‘Ã³
+        //Hàm init này ph?i truy?n vào bi?n userId ğ? list ra nh?ng th?ng RealEstate thu?c user ğó
         listUserRealEstate = new ArrayList<>();
-        //truyá»n userId vÃ o hÃ m dÆ°á»›i, Ä‘ang hard code
+        //truy?n userId vào hàm dı?i, ğang hard code
         listUserRealEstate = userService.getListRealEstate(1L);
         transferListCoordinate();
     }

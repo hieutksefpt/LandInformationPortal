@@ -232,6 +232,7 @@ function clearAllInput() {
     $('#form\\:txtinput-latSingleCoordinate').val("");
 }
 
+$("#cbb-RealEstateType").
 
 // đoạn này bắt đầu test MultiForm
 $(".next").click(function(){

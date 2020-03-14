@@ -103,6 +103,9 @@
                                                     <ui:remove>
                                                         <p:ajax listener="#{contributeNewRealEstateBean.realEstateChange}" update="panel-form"/>
                                                     </ui:remove>
+                                                    <f:selectItem itemLabel="Đường phố" itemValue=""/>
+                                                    <f:selectItems value="#{contributeNewRealEstateBean.listStreet}" var="element"
+                                                                   itemLabel="#{element.streetName}" itemValue="#{element.streetId}"/>
                                                 </h:selectOneMenu>
                                         </td>
                                     </tr>

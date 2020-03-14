@@ -5,11 +5,8 @@
  */
 package capstone.lip.landinformationportal.service;
 
-import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.HousesDetail;
-import capstone.lip.landinformationportal.repository.DistrictRepository;
 import capstone.lip.landinformationportal.repository.HousesDetailRepository;
-import capstone.lip.landinformationportal.service.Interface.IHouseService;
 import capstone.lip.landinformationportal.service.Interface.IHousesDetailService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

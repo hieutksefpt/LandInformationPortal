@@ -30,7 +30,7 @@ public class CustomAuthenticationManager implements AuthenticationManager, Seria
 		String username = authentication.getPrincipal() + "";
 	    String password = authentication.getCredentials() + "";
 	    
-	    long test = userRepo.count();
+//	    long test = userRepo.count();
 	    
 	    User user = (User) userRepo.findByUsernameContaining(username);
 	    if (user == null) {

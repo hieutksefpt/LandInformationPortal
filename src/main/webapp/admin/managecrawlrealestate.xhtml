@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:body>
+	
+	<ui:composition template="/template/admin/adminLayout.xhtml">
+
+		<ui:define name="content">
+			<h:outputStylesheet name="managecrawlrealestate.css" library="css"></h:outputStylesheet>
+            <h:form>
+            	<h:outputText value="Khoảng thời gian crawl"></h:outputText>
+            	<h:inputText value="#{manageCrawlRealEstateBean.timerCrawl}"></h:inputText>
+            	
+            	<h:commandButton value="Cài thời gian crawler">
+            		<p:ajax process="@form" listener="#{manageCrawlRealEstateBean.setTimerButtonClick()}"></p:ajax>
+            	</h:commandButton>
+            	
+            	<h:commandButton value="Bật crawler">
+            		<p:ajax process="@form" listener="#{manageCrawlRealEstateBean.turnOnCrawler()}"></p:ajax>
+            	</h:commandButton>
+            	
+            	<h:commandButton value="Tắt crawler">
+            		<p:ajax process="@form" listener="#{manageCrawlRealEstateBean.turnOffCrawler()}"></p:ajax>
+            	</h:commandButton>
+            	
+            	
+            	<h:commandButton value="Crawl ngay"></h:commandButton>
+            </h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<h:outputScript name="managecrawlrealestate.js" library="js" />
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

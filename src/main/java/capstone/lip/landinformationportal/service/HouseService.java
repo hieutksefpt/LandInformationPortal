@@ -6,10 +6,14 @@
 package capstone.lip.landinformationportal.service;
 
 import capstone.lip.landinformationportal.entity.House;
+import capstone.lip.landinformationportal.entity.HousesDetail;
 import capstone.lip.landinformationportal.entity.HousesFeature;
+import capstone.lip.landinformationportal.entity.LandsDetail;
 import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.repository.HouseRepository;
 import capstone.lip.landinformationportal.service.Interface.IHouseService;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,7 +51,12 @@ public class HouseService implements IHouseService {
     @Override
     public List<HousesFeature> getListHousesFeature(Long houseId) {
         House house = houseRepository.findById(houseId).get();
-        List<HousesFeature> listHousesFeature = house.getListHousesFeatures();   // đhs chỗ này lỗi ? 
+//        List<HousesFeature> listHousesFeature = house.getListHousesFeatures();   // đhs chỗ này lỗi ?
+        List<HousesFeature> listHousesFeature = new ArrayList<HousesFeature>();
+        List<HousesDetail> listHouseDetail = house.getListHousesDetail();
+        for (HousesDetail housesDetail: listHouseDetail) {
+        	listHousesFeature.add(housesDetail.getHousesFeature());
+        }
         return listHousesFeature;
     }
 

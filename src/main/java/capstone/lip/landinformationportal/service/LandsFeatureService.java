@@ -6,7 +6,6 @@
 package capstone.lip.landinformationportal.service;
 
 import capstone.lip.landinformationportal.entity.LandsFeature;
-import capstone.lip.landinformationportal.repository.DistrictRepository;
 import capstone.lip.landinformationportal.repository.LandsFeatureRepository;
 import capstone.lip.landinformationportal.service.Interface.ILandsFeatureService;
 

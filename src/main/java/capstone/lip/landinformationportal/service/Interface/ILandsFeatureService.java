@@ -5,7 +5,6 @@
  */
 package capstone.lip.landinformationportal.service.Interface;
 
-import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.LandsFeature;
 import java.util.List;
 

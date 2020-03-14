@@ -2,7 +2,6 @@ package capstone.lip.landinformationportal.bean;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -12,7 +11,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.primefaces.PrimeFaces;
-import org.primefaces.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.gson.Gson;
@@ -37,6 +35,8 @@ import java.io.Serializable;
 @Named
 @ViewScoped
 public class ManageGeoInfoBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private IProvinceService provinceService;
@@ -158,8 +158,6 @@ public class ManageGeoInfoBean implements Serializable {
 						Coordinate coor = new Coordinate(x.getFormedLng(), x.getFormedLat());
 						return coor;
 					}).collect(Collectors.toList());
-			int i = 1;
-			i++;
 			Gson gson = new Gson();
 			jsonMultipleCoordinate = gson.toJson(listCoordinate);
 		}else {
@@ -176,8 +174,7 @@ public class ManageGeoInfoBean implements Serializable {
 		PrimeFaces.current().executeScript("renderTable()");
 		
 		if (!error.equals("")) {
-			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Lỗi", error);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			setMessage(FacesMessage.SEVERITY_ERROR, error);
 			return;
 		}
 		
@@ -193,6 +190,10 @@ public class ManageGeoInfoBean implements Serializable {
 				break;
 			case "2":
 				District district = new District();
+				if (selectedProvince == null) {
+					setMessage(FacesMessage.SEVERITY_ERROR, "Phải chọn tỉnh thành trước");
+					return;
+				}
 				district.setDistrictName(nameInput).setDistrictLat(Double.valueOf(latSingleCoordinate))
 					.setDistrictLng(Double.valueOf(lngSingleCoordinate)).setProvince(selectedProvince);
 				district = districtService.save(district);
@@ -201,7 +202,15 @@ public class ManageGeoInfoBean implements Serializable {
 				
 				break;
 			case "3":
+				if (selectedProvince == null) {
+					setMessage(FacesMessage.SEVERITY_ERROR, "Phải chọn tỉnh thành trước");
+					return;
+				}
 				Street street = new Street();
+				if (selectedDistrict== null) {
+					setMessage(FacesMessage.SEVERITY_ERROR, "Phải chọn quận huyện trước");
+					return;
+				}
 				street.setStreetName(nameInput).setStreetLat(Double.valueOf(latSingleCoordinate))
 					.setStreetLng(Double.valueOf(lngSingleCoordinate));
 				streetTemp = street;

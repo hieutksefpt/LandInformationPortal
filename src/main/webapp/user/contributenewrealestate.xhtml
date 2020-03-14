@@ -14,7 +14,7 @@
             <ui:define name="content">
                 <h:outputStylesheet name="contributenewrealestate.css" library="css"/>
 
-                <form id="msform">
+                <h:form id="msform" onsubmit="return false;">
                     <!-- progressbar -->
                     <ul id="progressbar">
                         <li class="active">Định vị</li>
@@ -32,7 +32,6 @@
                                     </div>
                                 </div>
 
-                                <h:form id="form" onsubmit="return false;">
                                     <p:growl id="msgs" showDetail="true"/>
 
 
@@ -41,7 +40,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-6">
                                                     <h:selectOneMenu id="cbb-Province" value="#{contributeNewRealEstateBean.provinceIdSelected}" >
-                                                        <p:ajax listener="#{contributeNewRealEstateBean.provinceChange}" update="form" onstart="clearDataMap()"/>
+                                                        <p:ajax listener="#{contributeNewRealEstateBean.provinceChange}" update="panel-form" onstart="clearDataMap()"/>
                                                         <f:selectItem itemLabel="Tỉnh/Thành phố" itemValue=""/>
                                                         <f:selectItems value="#{contributeNewRealEstateBean.listProvince}" var="element"
                                                                        itemLabel="#{element.provinceName}" itemValue="#{element.provinceId}"/>
@@ -49,7 +48,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <h:selectOneMenu id="cbb-District" value="#{contributeNewRealEstateBean.districtIdSelected}">
-                                                        <p:ajax listener="#{contributeNewRealEstateBean.districtChange}" update="form" onstart="clearDataMap()"></p:ajax>
+                                                        <p:ajax listener="#{contributeNewRealEstateBean.districtChange}" update="panel-form" onstart="clearDataMap()"></p:ajax>
                                                         <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
                                                         <f:selectItems value="#{contributeNewRealEstateBean.listDistrict}" var="element"
                                                                        itemLabel="#{element.districtName}" itemValue="#{element.districtId}"/>
@@ -59,7 +58,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-6">
                                                     <h:selectOneMenu id="cbb-Street" value="#{contributeNewRealEstateBean.streetIdSelected}" >
-                                                        <p:ajax	listener="#{contributeNewRealEstateBean.streetChange}" update="form" onstart="clearDataMap()"></p:ajax>
+                                                        <p:ajax	listener="#{contributeNewRealEstateBean.streetChange}" update="panel-form" onstart="clearDataMap()"></p:ajax>
 
                                                         <f:selectItem itemLabel="Đường phố" itemValue=""/>
                                                         <f:selectItems value="#{contributeNewRealEstateBean.listStreet}" var="element"
@@ -68,7 +67,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{contributeNewRealEstateBean.segmentStreetIdSelected}">
-                                                        <p:ajax	listener="#{contributeNewRealEstateBean.segmentStreetChange}" update="form" 
+                                                        <p:ajax	listener="#{contributeNewRealEstateBean.segmentStreetChange}" update="panel-form" 
                                                                 onstart="clearDataMap()"
                                                                 oncomplete="drawPath()"></p:ajax>
                                                         <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
@@ -81,7 +80,6 @@
 
 
                                     </p:panel>
-                                </h:form>
                             </p:panel>
                         </div>
                         <input type="button" name="next" class="next action-button" value="Next" />
@@ -108,7 +106,7 @@
                         <input type="button" name="previous" class="previous action-button" value="Previous" />
                         <input type="submit" name="submit" class="submit action-button" value="Submit" />
                     </fieldset>
-                </form>
+                </h:form>
             </ui:define>
             <ui:define name="footer">
                 <h:outputScript name="contributenewrealestate.js" library="js" />

@@ -236,4 +236,151 @@ public class ContributeNewRealEstateBean implements Serializable {
             return;
         }
     }
+
+    public List<Province> getListProvince() {
+        return listProvince;
+    }
+
+    public void setListProvince(List<Province> listProvince) {
+        this.listProvince = listProvince;
+    }
+
+    public List<District> getListDistrict() {
+        return listDistrict;
+    }
+
+    public void setListDistrict(List<District> listDistrict) {
+        this.listDistrict = listDistrict;
+    }
+
+    public List<SegmentOfStreet> getListSegmentOfStreet() {
+        return listSegmentOfStreet;
+    }
+
+    public void setListSegmentOfStreet(List<SegmentOfStreet> listSegmentOfStreet) {
+        this.listSegmentOfStreet = listSegmentOfStreet;
+    }
+
+    public List<Street> getListStreet() {
+        return listStreet;
+    }
+
+    public void setListStreet(List<Street> listStreet) {
+        this.listStreet = listStreet;
+    }
+
+    public String getProvinceIdSelected() {
+        return provinceIdSelected;
+    }
+
+    public void setProvinceIdSelected(String provinceIdSelected) {
+        this.provinceIdSelected = provinceIdSelected;
+    }
+
+    public String getDistrictIdSelected() {
+        return districtIdSelected;
+    }
+
+    public void setDistrictIdSelected(String districtIdSelected) {
+        this.districtIdSelected = districtIdSelected;
+    }
+
+    public String getStreetIdSelected() {
+        return streetIdSelected;
+    }
+
+    public void setStreetIdSelected(String streetIdSelected) {
+        this.streetIdSelected = streetIdSelected;
+    }
+
+    public String getSegmentStreetIdSelected() {
+        return segmentStreetIdSelected;
+    }
+
+    public void setSegmentStreetIdSelected(String segmentStreetIdSelected) {
+        this.segmentStreetIdSelected = segmentStreetIdSelected;
+    }
+
+    public String getProcessType() {
+        return processType;
+    }
+
+    public void setProcessType(String processType) {
+        this.processType = processType;
+    }
+
+    public String getNameInput() {
+        return nameInput;
+    }
+
+    public void setNameInput(String nameInput) {
+        this.nameInput = nameInput;
+    }
+
+    public String getLngSingleCoordinate() {
+        return lngSingleCoordinate;
+    }
+
+    public void setLngSingleCoordinate(String lngSingleCoordinate) {
+        this.lngSingleCoordinate = lngSingleCoordinate;
+    }
+
+    public String getLatSingleCoordinate() {
+        return latSingleCoordinate;
+    }
+
+    public void setLatSingleCoordinate(String latSingleCoordinate) {
+        this.latSingleCoordinate = latSingleCoordinate;
+    }
+
+    public List<Coordinate> getListCoordinate() {
+        return listCoordinate;
+    }
+
+    public void setListCoordinate(List<Coordinate> listCoordinate) {
+        this.listCoordinate = listCoordinate;
+    }
+
+    public String getJsonMultipleCoordinate() {
+        return jsonMultipleCoordinate;
+    }
+
+    public void setJsonMultipleCoordinate(String jsonMultipleCoordinate) {
+        this.jsonMultipleCoordinate = jsonMultipleCoordinate;
+    }
+
+    public Province getSelectedProvince() {
+        return selectedProvince;
+    }
+
+    public void setSelectedProvince(Province selectedProvince) {
+        this.selectedProvince = selectedProvince;
+    }
+
+    public District getSelectedDistrict() {
+        return selectedDistrict;
+    }
+
+    public void setSelectedDistrict(District selectedDistrict) {
+        this.selectedDistrict = selectedDistrict;
+    }
+
+    public Street getSelectedStreet() {
+        return selectedStreet;
+    }
+
+    public void setSelectedStreet(Street selectedStreet) {
+        this.selectedStreet = selectedStreet;
+    }
+
+    public SegmentOfStreet getSegmentOfStreet() {
+        return segmentOfStreet;
+    }
+
+    public void setSegmentOfStreet(SegmentOfStreet segmentOfStreet) {
+        this.segmentOfStreet = segmentOfStreet;
+    }
+    
+    
+    
 }

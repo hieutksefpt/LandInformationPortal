@@ -77,6 +77,10 @@ public class ContributeNewRealEstateBean implements Serializable {
     private String latSingleCoordinate;
     private List<Coordinate> listCoordinate;
     private String jsonMultipleCoordinate;
+    
+    private String realEstateTypeSelected = "";
+
+    
 
     @PostConstruct
     public void init() {
@@ -87,6 +91,16 @@ public class ContributeNewRealEstateBean implements Serializable {
         listDistrict = new ArrayList<>();
         listSegmentOfStreet = new ArrayList<>();
         listStreet = new ArrayList<>();
+    }
+    String selectedRealEstateType;
+
+    public void RealEstateTypeChange() {
+        if (selectedRealEstateType != null && !provinceIdSelected.equals("")) {
+            processType = "5";
+            selectedProvince = listProvince.stream().filter(x -> x.getProvinceId().equals(Long.parseLong(provinceIdSelected))).collect(Collectors.toList()).get(0);
+            listDistrict = selectedProvince.getListDistrict();
+            listSegmentOfStreet = new ArrayList();
+        }
     }
 
     Province selectedProvince;
@@ -379,6 +393,14 @@ public class ContributeNewRealEstateBean implements Serializable {
 
     public void setSegmentOfStreet(SegmentOfStreet segmentOfStreet) {
         this.segmentOfStreet = segmentOfStreet;
+    }
+
+    public String getRealEstateTypeSelected() {
+        return realEstateTypeSelected;
+    }
+
+    public void setRealEstateTypeSelected(String realEstateTypeSelected) {
+        this.realEstateTypeSelected = realEstateTypeSelected;
     }
     
     

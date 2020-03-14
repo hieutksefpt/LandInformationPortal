@@ -13,7 +13,7 @@
 
             <ui:define name="content">
                 <h:outputStylesheet name="contributenewrealestate.css" library="css"/>
-
+                <h:outputStylesheet name="common-style.css" library="css"/>
                 <h:form id="msform" onsubmit="return false;">
                     <!-- progressbar -->
                     <ul id="progressbar">
@@ -32,69 +32,117 @@
                                     </div>
                                 </div>
 
-                                    <p:growl id="msgs" showDetail="true"/>
+                                <p:growl id="msgs" showDetail="true"/>
 
 
-                                    <p:panel id="panel-form" style="margin-bottom:10px;">
-                                        <h:panelGroup id="combobox_data">
-                                            <div class="form-group row">
-                                                <div class="col-md-6">
-                                                    <h:selectOneMenu id="cbb-Province" value="#{contributeNewRealEstateBean.provinceIdSelected}" >
-                                                        <p:ajax listener="#{contributeNewRealEstateBean.provinceChange}" update="panel-form" onstart="clearDataMap()"/>
-                                                        <f:selectItem itemLabel="Tỉnh/Thành phố" itemValue=""/>
-                                                        <f:selectItems value="#{contributeNewRealEstateBean.listProvince}" var="element"
-                                                                       itemLabel="#{element.provinceName}" itemValue="#{element.provinceId}"/>
-                                                    </h:selectOneMenu>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <h:selectOneMenu id="cbb-District" value="#{contributeNewRealEstateBean.districtIdSelected}">
-                                                        <p:ajax listener="#{contributeNewRealEstateBean.districtChange}" update="panel-form" onstart="clearDataMap()"></p:ajax>
-                                                        <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
-                                                        <f:selectItems value="#{contributeNewRealEstateBean.listDistrict}" var="element"
-                                                                       itemLabel="#{element.districtName}" itemValue="#{element.districtId}"/>
-                                                    </h:selectOneMenu>
-                                                </div>
+                                <p:panel id="panel-form" style="margin-bottom:10px;">
+                                    <h:panelGroup id="combobox_data">
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <h:selectOneMenu id="cbb-Province" value="#{contributeNewRealEstateBean.provinceIdSelected}" >
+                                                    <p:ajax listener="#{contributeNewRealEstateBean.provinceChange}" update="panel-form" onstart="clearDataMap()"/>
+                                                    <f:selectItem itemLabel="Tỉnh/Thành phố" itemValue=""/>
+                                                    <f:selectItems value="#{contributeNewRealEstateBean.listProvince}" var="element"
+                                                                   itemLabel="#{element.provinceName}" itemValue="#{element.provinceId}"/>
+                                                </h:selectOneMenu>
                                             </div>
-                                            <div class="form-group row">
-                                                <div class="col-md-6">
-                                                    <h:selectOneMenu id="cbb-Street" value="#{contributeNewRealEstateBean.streetIdSelected}" >
-                                                        <p:ajax	listener="#{contributeNewRealEstateBean.streetChange}" update="panel-form" onstart="clearDataMap()"></p:ajax>
-
-                                                        <f:selectItem itemLabel="Đường phố" itemValue=""/>
-                                                        <f:selectItems value="#{contributeNewRealEstateBean.listStreet}" var="element"
-                                                                       itemLabel="#{element.streetName}" itemValue="#{element.streetId}"/>
-                                                    </h:selectOneMenu>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{contributeNewRealEstateBean.segmentStreetIdSelected}">
-                                                        <p:ajax	listener="#{contributeNewRealEstateBean.segmentStreetChange}" update="panel-form" 
-                                                                onstart="clearDataMap()"
-                                                                oncomplete="drawPath()"></p:ajax>
-                                                        <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
-                                                        <f:selectItems value="#{contributeNewRealEstateBean.listSegmentOfStreet}" var="element"
-                                                                       itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
-                                                    </h:selectOneMenu>
-                                                </div>
+                                            <div class="col-md-6">
+                                                <h:selectOneMenu id="cbb-District" value="#{contributeNewRealEstateBean.districtIdSelected}">
+                                                    <p:ajax listener="#{contributeNewRealEstateBean.districtChange}" update="panel-form" onstart="clearDataMap()"></p:ajax>
+                                                    <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
+                                                    <f:selectItems value="#{contributeNewRealEstateBean.listDistrict}" var="element"
+                                                                   itemLabel="#{element.districtName}" itemValue="#{element.districtId}"/>
+                                                </h:selectOneMenu>
                                             </div>
-                                        </h:panelGroup>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <h:selectOneMenu id="cbb-Street" value="#{contributeNewRealEstateBean.streetIdSelected}" >
+                                                    <p:ajax	listener="#{contributeNewRealEstateBean.streetChange}" update="panel-form" onstart="clearDataMap()"></p:ajax>
+
+                                                    <f:selectItem itemLabel="Đường phố" itemValue=""/>
+                                                    <f:selectItems value="#{contributeNewRealEstateBean.listStreet}" var="element"
+                                                                   itemLabel="#{element.streetName}" itemValue="#{element.streetId}"/>
+                                                </h:selectOneMenu>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{contributeNewRealEstateBean.segmentStreetIdSelected}">
+                                                    <p:ajax	listener="#{contributeNewRealEstateBean.segmentStreetChange}" update="panel-form" 
+                                                            onstart="clearDataMap()"
+                                                            oncomplete="drawPath()"></p:ajax>
+                                                    <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
+                                                    <f:selectItems value="#{contributeNewRealEstateBean.listSegmentOfStreet}" var="element"
+                                                                   itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
 
 
-                                    </p:panel>
+                                </p:panel>
                             </p:panel>
                         </div>
-                        <input type="button" name="next" class="next action-button" value="Next" />
+                        <input type="button" name="next" class="next action-button" value="Tiếp theo" />
                     </fieldset>
                     <!-- fieldset 2 : cung cấp thông tin -->
                     <fieldset>
-                        <h2 class="fs-title">Social Profiles</h2>
-                        <h3 class="fs-subtitle">Your presence on the social network</h3>
-                        <input type="text" name="twitter" placeholder="Twitter" />
-                        <input type="text" name="facebook" placeholder="Facebook" />
-                        <input type="text" name="gplus" placeholder="Google Plus" />
-                        <input type="button" name="previous" class="previous action-button" value="Previous" />
-                        <input type="button" name="next" class="next action-button" value="Next" />
+                            <div id="UploadInfor">
+                                <table class="formUploadInfor">
+                                    <tr>
+                                        <td><span class="title-mandatory">Tên bất động sản</span></td><td><input type="text" name="fullname"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="title-mandatory">Giá trị</span></td><td><input type="text" name="value"/> <span class="unit"><i>(VND)</i></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="title">Loại bất động sản</span>
+                                        </td>
+                                        <td>
+                                                <h:selectOneMenu id="cbb-RealEstateType" value="#{contributeNewRealEstateBean.realEstateTypeSelected}" >
+                                                    <ui:remove>
+                                                        <p:ajax listener="#{contributeNewRealEstateBean.realEstateChange}" update="panel-form"/>
+                                                    </ui:remove>
+                                                </h:selectOneMenu>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <div class="flexCommon row">
+                                    <div class="landbox col-5">
+                                        <table class="landUpload">     
+                                            <tr>
+                                                <td><span class="title-mandatory">Thuộc tính Đất</span></td><td><input type="text" name="fullname"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><input type="text" name="value"/> <span class="unit"><i>(đơn vị)</i></span></td>
+                                            </tr>
+
+                                        </table>
+                                        <div class="boxAreaInput">
+                                            <span class="title">Text</span>
+                                        </div>
+                                    </div>
+                                    <div class="housebox col-5">
+                                        <table class="houseUpload">     
+                                            <tr>
+                                                <td><span class="title-mandatory">Thuộc tính Nhà</span></td><td><input type="text" name="fullname"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><input type="text" name="value"/> <span class="unit"><i>(đơn vị)</i></span></td>
+                                            </tr>
+                                        </table>
+                                        <div class="boxAreaInput">
+                                            <span class="title">Text</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="button" name="next" class="next action-button" value="Tiếp theo" />
+                            <input type="button" name="previous" class="previous action-button" value="Quay lại" />
                     </fieldset>
-                    
+
                     <!-- fieldset 3 : hoàn tất thông tin -->
                     <fieldset>
                         <h2 class="fs-title">Personal Details</h2>

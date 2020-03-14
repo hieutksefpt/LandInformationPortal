@@ -23,3 +23,20 @@
 	height:100px;
 	border: 1px solid #000;
 }
+
+.title , .title-mandatory {
+    font-family: montserrat, arial, verdana;
+    font-size: 19px;
+    margin: 15px;
+}
+
+.unit {
+    font-family: montserrat, arial, verdana;
+    font-size: 9px;
+    margin: 5px;
+}
+
+.title-mandatory::after {
+    content: "*";
+    color: red;
+}

@@ -3,28 +3,40 @@ package capstone.lip.landinformationportal.entity;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Id;
 
-public class LandDetailId implements Serializable {
+@Embeddable
+public class LandsDetailId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Column(name="LandID")
     private Long landId;
+	@Column(name="LandsFeatureID")
     private Long landsFeatureId;
-	public LandDetailId() {
-		super();
+	
+	public LandsDetailId() {
 	}
+	
+	public LandsDetailId(Long landId, Long landsFeatureId) {
+		this.landId = landId;
+		this.landsFeatureId = landsFeatureId;
+	}
+
 	public Long getLandId() {
 		return landId;
 	}
-	public void setLandId(Long landId) {
+	public LandsDetailId setLandId(Long landId) {
 		this.landId = landId;
+		return this;
 	}
 	public Long getLandsFeatureId() {
 		return landsFeatureId;
 	}
-	public void setLandsFeatureId(Long landsFeatureId) {
+	public LandsDetailId setLandsFeatureId(Long landsFeatureId) {
 		this.landsFeatureId = landsFeatureId;
+		return this;
 	}
 	@Override
 	public int hashCode() {
@@ -42,7 +54,7 @@ public class LandDetailId implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LandDetailId other = (LandDetailId) obj;
+		LandsDetailId other = (LandsDetailId) obj;
 		if (landId == null) {
 			if (other.landId != null)
 				return false;

@@ -2,31 +2,45 @@ package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
 
-public class HouseDetailId implements Serializable {
+import javax.persistence.Column;
+
+public class HousesDetailId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	private Long houseId;
+    
+	@Column(name="HouseID")
+    private Long houseId;
+    
+    @Column(name="HousesFeatureID")
+    private Long housesFeatureId;
 	
-	private Long housesFeatureId;
-	
-	public HouseDetailId() {
+	public HousesDetailId() {
 	}
+	
+
+	public HousesDetailId(Long houseId, Long housesFeatureId) {
+		super();
+		this.houseId = houseId;
+		this.housesFeatureId = housesFeatureId;
+	}
+
 
 	public Long getHouseId() {
 		return houseId;
 	}
 
-	public void setHouseId(Long houseId) {
+	public HousesDetailId setHouseId(Long houseId) {
 		this.houseId = houseId;
+		return this;
 	}
 
 	public Long getHousesFeatureId() {
 		return housesFeatureId;
 	}
 
-	public void setHousesFeatureId(Long housesFeatureId) {
+	public HousesDetailId setHousesFeatureId(Long housesFeatureId) {
 		this.housesFeatureId = housesFeatureId;
+		return this;
 	}
 
 	@Override
@@ -46,7 +60,7 @@ public class HouseDetailId implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		HouseDetailId other = (HouseDetailId) obj;
+		HousesDetailId other = (HousesDetailId) obj;
 		if (houseId == null) {
 			if (other.houseId != null)
 				return false;

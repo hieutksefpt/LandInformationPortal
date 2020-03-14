@@ -47,11 +47,9 @@ public class House extends AuditAbstract implements Serializable{
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name = "RealEstateID")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private RealEstate realEstate;
     
     @Basic(fetch = FetchType.LAZY)
-    @NotFound(action = NotFoundAction.IGNORE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "house")
     private List<HousesDetail> listHousesDetail;

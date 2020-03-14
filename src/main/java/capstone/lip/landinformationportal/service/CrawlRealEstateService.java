@@ -13,9 +13,11 @@ import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
 import capstone.lip.landinformationportal.dto.RealEstateObjectCrawl;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.HousesDetail;
+import capstone.lip.landinformationportal.entity.HousesDetailId;
 import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.LandsDetail;
+import capstone.lip.landinformationportal.entity.LandsDetailId;
 import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.User;
@@ -78,6 +80,7 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 				.setRealEstateLink(reoCrawl.getLink())
 				.setRealEstateAddress(reoCrawl.getAddress())
 				.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.NOT_VERIFIED));
+			reo = realEstateRepository.save(reo);
 			House house = new House();
 			house.setRealEstate(reo)
 				.setHouseName(reoCrawl.getTitle())
@@ -86,6 +89,10 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 			land.setRealEstate(reo)
 				.setLandName(reoCrawl.getTitle())
 				.setLandPrice(0D);
+			
+			house = houseRepository.save(house);
+			land = landRepository.save(land);
+			
 			List<HousesDetail> listHousesDetail = parseDataToListHouseDetail(reoCrawl, house);
 			List<LandsDetail> listLandsDetail = parseDataToListLandDetail(reoCrawl, land);
 			house.setListHousesDetail(listHousesDetail);
@@ -96,15 +103,9 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 			reo.setListLand(listLand);
 			reo.setUser(user);
 			
-			realEstateRepository.save(reo);
 			
-			houseRepository.save(house);
 			housesDetailRepository.saveAll(listHousesDetail);
-			
-			landRepository.save(land);
 			landsDetailRepository.saveAll(listLandsDetail);
-			
-			
 		}
 		int i = 1;
 		i++;
@@ -129,36 +130,42 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 			case HousesFeatureNameConstant.numberFloors:
 				listHouseDetail.add(new HousesDetail()
 						.setHouse(house)
+						.setId(new HousesDetailId().setHouseId(house.getHouseId()).setHousesFeatureId(housesFeature.getHousesFeatureID()))
 						.setHousesFeature(housesFeature)
 						.setValue(getStringCheckNull(reoCrawl.getNumberFloor().toString())));
 				break;
 			case HousesFeatureNameConstant.numberBedrooms:
 				listHouseDetail.add(new HousesDetail()
 						.setHouse(house)
+						.setId(new HousesDetailId().setHouseId(house.getHouseId()).setHousesFeatureId(housesFeature.getHousesFeatureID()))
 						.setHousesFeature(housesFeature)
 						.setValue(getStringCheckNull(reoCrawl.getNumberBedrooms().toString())));
 				break;
 			case HousesFeatureNameConstant.homeDirection:
 				listHouseDetail.add(new HousesDetail()
 						.setHouse(house)
+						.setId(new HousesDetailId().setHouseId(house.getHouseId()).setHousesFeatureId(housesFeature.getHousesFeatureID()))
 						.setHousesFeature(housesFeature)
 						.setValue(getStringCheckNull(reoCrawl.getHomeDirection())));
 				break;
 			case HousesFeatureNameConstant.numberToilets:
 				listHouseDetail.add(new HousesDetail()
 						.setHouse(house)
+						.setId(new HousesDetailId().setHouseId(house.getHouseId()).setHousesFeatureId(housesFeature.getHousesFeatureID()))
 						.setHousesFeature(housesFeature)
 						.setValue(getStringCheckNull(reoCrawl.getNumberToilets().toString())));
 				break;
 			case HousesFeatureNameConstant.balconyDirection:
 				listHouseDetail.add(new HousesDetail()
 						.setHouse(house)
+						.setId(new HousesDetailId().setHouseId(house.getHouseId()).setHousesFeatureId(housesFeature.getHousesFeatureID()))
 						.setHousesFeature(housesFeature)
 						.setValue(getStringCheckNull(reoCrawl.getBalconyDirection())));
 				break;
 			case HousesFeatureNameConstant.projectOwner:
 				listHouseDetail.add(new HousesDetail()
 						.setHouse(house)
+						.setId(new HousesDetailId().setHouseId(house.getHouseId()).setHousesFeatureId(housesFeature.getHousesFeatureID()))
 						.setHousesFeature(housesFeature)
 						.setValue(getStringCheckNull(reoCrawl.getProjectOwner())));
 				break;
@@ -175,12 +182,14 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 			case LandsFeatureNameConstant.area:
 				listLandDetail.add(new LandsDetail()
 						.setLand(land)
+						.setId(new LandsDetailId().setLandId(land.getLandId()).setLandsFeatureId(landsFeature.getLandsFeatureID()))
 						.setLandsFeature(landsFeature)
 						.setValue(getStringCheckNull(reoCrawl.getArea().toString())));
 				break;
 			case LandsFeatureNameConstant.wardin:
 				listLandDetail.add(new LandsDetail()
 						.setLand(land)
+						.setId(new LandsDetailId().setLandId(land.getLandId()).setLandsFeatureId(landsFeature.getLandsFeatureID()))
 						.setLandsFeature(landsFeature)
 						.setValue(getStringCheckNull(reoCrawl.getWardin())));
 				break;

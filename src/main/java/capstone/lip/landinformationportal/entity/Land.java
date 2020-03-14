@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -45,11 +46,9 @@ public class Land extends AuditAbstract implements Serializable {
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name = "RealEstateID")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private RealEstate realEstate;
     
     @Basic(fetch = FetchType.LAZY)
-    @NotFound(action = NotFoundAction.IGNORE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "land")
     private List<LandsDetail> listLandsDetail;

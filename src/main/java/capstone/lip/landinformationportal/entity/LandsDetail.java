@@ -10,12 +10,15 @@ import java.util.UUID;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -26,89 +29,79 @@ import org.hibernate.annotations.OnDeleteAction;
  */
 @Entity
 @Table(name="LandsDetail")
-@IdClass(LandDetailId.class)
 public class LandsDetail extends AuditAbstract implements Serializable{
     private static final long serialVersionUID = 1L;
-//    @Id
-//    @Column(columnDefinition = "BINARY(16)")
-//    private UUID uuid;
+ 
+    @EmbeddedId
+    private LandsDetailId id; 
 
-    @Column(name = "Value")
-    private String value;
-    
-    @Id
-    @Column(name="LandID", insertable=false, updatable=false)
-    private Long landId;
-    
-    @Id
-    @Column(name="LandsFeatureID", insertable=false, updatable=false)
-    private Long landsFeatureId;
-    
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
+    @MapsId("LandID")
     @JoinColumn(name = "LandID")
     private Land land;
     
+
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
+    @MapsId("LandsFeatureID")
     @JoinColumn(name = "LandsFeatureID")
     private LandsFeature landsFeature;
 
-    public LandsDetail() {
-    }
+    @Column(name = "Value")
+    private String value;
 
-    public String getValue() {
-        return value;
-    }
+	public Land getLand() {
+		return land;
+	}
 
-    public LandsDetail setValue(String value) {
-        this.value = value;
+	
+	public LandsDetail setLand(Land land) {
+		this.land = land;
 		return this;
-    }
+	}
 
-    public Land getLand() {
-        return land;
-    }
+	public LandsFeature getLandsFeature() {
+		return landsFeature;
+	}
 
-    public LandsDetail setLand(Land land) {
-        this.land = land;
+	public LandsDetail setLandsFeature(LandsFeature landsFeature) {
+		this.landsFeature = landsFeature;
 		return this;
-    }
+	}
 
-    public LandsFeature getLandsFeature() {
-        return landsFeature;
-    }
+	public String getValue() {
+		return value;
+	}
 
-    public LandsDetail setLandsFeature(LandsFeature landsFeature) {
-        this.landsFeature = landsFeature;
+	public LandsDetail setValue(String value) {
+		this.value = value;
 		return this;
-    }
-
-	public Long getLandId() {
-		return landId;
 	}
 
-	public void setLandId(Long landId) {
-		this.landId = landId;
+
+	public LandsDetailId getId() {
+		return id;
 	}
 
-	public Long getLandsFeatureId() {
-		return landsFeatureId;
+
+	public LandsDetail setId(LandsDetailId id) {
+		this.id = id;
+		return this;
 	}
 
-	public void setLandsFeatureId(Long landsFeatureId) {
-		this.landsFeatureId = landsFeatureId;
-	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((landId == null) ? 0 : landId.hashCode());
-		result = prime * result + ((landsFeatureId == null) ? 0 : landsFeatureId.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((land == null) ? 0 : land.hashCode());
+		result = prime * result + ((landsFeature == null) ? 0 : landsFeature.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -119,15 +112,20 @@ public class LandsDetail extends AuditAbstract implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		LandsDetail other = (LandsDetail) obj;
-		if (landId == null) {
-			if (other.landId != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!landId.equals(other.landId))
+		} else if (!id.equals(other.id))
 			return false;
-		if (landsFeatureId == null) {
-			if (other.landsFeatureId != null)
+		if (land == null) {
+			if (other.land != null)
 				return false;
-		} else if (!landsFeatureId.equals(other.landsFeatureId))
+		} else if (!land.equals(other.land))
+			return false;
+		if (landsFeature == null) {
+			if (other.landsFeature != null)
+				return false;
+		} else if (!landsFeature.equals(other.landsFeature))
 			return false;
 		if (value == null) {
 			if (other.value != null)
@@ -136,16 +134,6 @@ public class LandsDetail extends AuditAbstract implements Serializable{
 			return false;
 		return true;
 	}
-
-//	public UUID getUuid() {
-//		return uuid;
-//	}
-//
-//	public LandsDetail setUuid(UUID uuid) {
-//		this.uuid = uuid;
-//		return this;
-//	}
-//    
     
-    
+	
 }

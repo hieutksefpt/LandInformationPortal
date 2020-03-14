@@ -9,12 +9,14 @@ import java.io.Serializable;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -25,36 +27,30 @@ import org.hibernate.annotations.OnDeleteAction;
  */
 @Entity
 @Table(name="HousesDetail")
-@IdClass(HouseDetailId.class)
 public class HousesDetail extends AuditAbstract implements Serializable{
     
     private static final long serialVersionUID = 1L;
     
-//    @Id
-//    @Column(columnDefinition = "BINARY(16)")
-//    private UUID uuid;
-    
-    @Column(name = "Value")
-    private String value;
-    
-    @Id
-    @Column(name="HouseID", insertable=false, updatable=false)
-    private Long houseId;
-    
-    @Id
-    @Column(name="HousesFeatureID", insertable=false, updatable=false)
-    private Long housesFeatureId;
+    @EmbeddedId
+    private HousesDetailId id;
     
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
+    @MapsId("HouseId")
     @JoinColumn(name = "HouseID")
     private House house;
     
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
+    @MapsId("HousesFeatureID")
     @JoinColumn(name = "HousesFeatureID")
     private HousesFeature housesFeature;
 
+
+    @Column(name = "Value")
+    private String value;
+    
+    
     public HousesDetail() {
     }
 
@@ -86,23 +82,13 @@ public class HousesDetail extends AuditAbstract implements Serializable{
 		return this;
     }
 
-	public Long getHouseId() {
-		return houseId;
+	public HousesDetailId getId() {
+		return id;
 	}
 
-
-	public void setHouseId(Long houseId) {
-		this.houseId = houseId;
-	}
-
-
-	public Long getHousesFeatureId() {
-		return housesFeatureId;
-	}
-
-
-	public void setHousesFeatureId(Long housesFeatureId) {
-		this.housesFeatureId = housesFeatureId;
+	public HousesDetail setId(HousesDetailId id) {
+		this.id = id;
+		return this;
 	}
 
 
@@ -110,8 +96,9 @@ public class HousesDetail extends AuditAbstract implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((houseId == null) ? 0 : houseId.hashCode());
-		result = prime * result + ((housesFeatureId == null) ? 0 : housesFeatureId.hashCode());
+		result = prime * result + ((house == null) ? 0 : house.hashCode());
+		result = prime * result + ((housesFeature == null) ? 0 : housesFeature.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
 	}
@@ -126,15 +113,20 @@ public class HousesDetail extends AuditAbstract implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		HousesDetail other = (HousesDetail) obj;
-		if (houseId == null) {
-			if (other.houseId != null)
+		if (house == null) {
+			if (other.house != null)
 				return false;
-		} else if (!houseId.equals(other.houseId))
+		} else if (!house.equals(other.house))
 			return false;
-		if (housesFeatureId == null) {
-			if (other.housesFeatureId != null)
+		if (housesFeature == null) {
+			if (other.housesFeature != null)
 				return false;
-		} else if (!housesFeatureId.equals(other.housesFeatureId))
+		} else if (!housesFeature.equals(other.housesFeature))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (value == null) {
 			if (other.value != null)
@@ -143,15 +135,7 @@ public class HousesDetail extends AuditAbstract implements Serializable{
 			return false;
 		return true;
 	}
-    
-//	public UUID getUuid() {
-//		return uuid;
-//	}
-//
-//	public HousesDetail setUuid(UUID uuid) {
-//		this.uuid = uuid;
-//		return this;
-//	}
-    
+	
+	
     
 }

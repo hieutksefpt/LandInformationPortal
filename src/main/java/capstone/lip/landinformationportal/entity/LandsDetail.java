@@ -37,12 +37,18 @@ public class LandsDetail extends AuditAbstract implements Serializable{
     private String value;
     
     @Id
+    @Column(name="LandID", insertable=false, updatable=false)
+    private Long landId;
+    
+    @Id
+    @Column(name="LandsFeatureID", insertable=false, updatable=false)
+    private Long landsFeatureId;
+    
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name = "LandID")
     private Land land;
     
-    @Id
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name = "LandsFeatureID")
@@ -78,12 +84,28 @@ public class LandsDetail extends AuditAbstract implements Serializable{
 		return this;
     }
 
+	public Long getLandId() {
+		return landId;
+	}
+
+	public void setLandId(Long landId) {
+		this.landId = landId;
+	}
+
+	public Long getLandsFeatureId() {
+		return landsFeatureId;
+	}
+
+	public void setLandsFeatureId(Long landsFeatureId) {
+		this.landsFeatureId = landsFeatureId;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((land == null) ? 0 : land.hashCode());
-		result = prime * result + ((landsFeature == null) ? 0 : landsFeature.hashCode());
+		result = prime * result + ((landId == null) ? 0 : landId.hashCode());
+		result = prime * result + ((landsFeatureId == null) ? 0 : landsFeatureId.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
 	}
@@ -97,15 +119,15 @@ public class LandsDetail extends AuditAbstract implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		LandsDetail other = (LandsDetail) obj;
-		if (land == null) {
-			if (other.land != null)
+		if (landId == null) {
+			if (other.landId != null)
 				return false;
-		} else if (!land.equals(other.land))
+		} else if (!landId.equals(other.landId))
 			return false;
-		if (landsFeature == null) {
-			if (other.landsFeature != null)
+		if (landsFeatureId == null) {
+			if (other.landsFeatureId != null)
 				return false;
-		} else if (!landsFeature.equals(other.landsFeature))
+		} else if (!landsFeatureId.equals(other.landsFeatureId))
 			return false;
 		if (value == null) {
 			if (other.value != null)

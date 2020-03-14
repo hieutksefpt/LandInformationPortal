@@ -2,49 +2,38 @@ package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+
 public class LandDetailId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	private Land land;
 
-    private LandsFeature landsFeature;
-
+    private Long landId;
+    private Long landsFeatureId;
 	public LandDetailId() {
 		super();
 	}
-	
-	public LandDetailId(Land land, LandsFeature landsFeature) {
-		super();
-		this.land = land;
-		this.landsFeature = landsFeature;
+	public Long getLandId() {
+		return landId;
 	}
-
-	public Land getLand() {
-		return land;
+	public void setLandId(Long landId) {
+		this.landId = landId;
 	}
-
-	public void setLand(Land land) {
-		this.land = land;
+	public Long getLandsFeatureId() {
+		return landsFeatureId;
 	}
-
-	public LandsFeature getLandsFeature() {
-		return landsFeature;
+	public void setLandsFeatureId(Long landsFeatureId) {
+		this.landsFeatureId = landsFeatureId;
 	}
-
-	public void setLandsFeature(LandsFeature landsFeature) {
-		this.landsFeature = landsFeature;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((land == null) ? 0 : land.hashCode());
-		result = prime * result + ((landsFeature == null) ? 0 : landsFeature.hashCode());
+		result = prime * result + ((landId == null) ? 0 : landId.hashCode());
+		result = prime * result + ((landsFeatureId == null) ? 0 : landsFeatureId.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -54,17 +43,18 @@ public class LandDetailId implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		LandDetailId other = (LandDetailId) obj;
-		if (land == null) {
-			if (other.land != null)
+		if (landId == null) {
+			if (other.landId != null)
 				return false;
-		} else if (!land.equals(other.land))
+		} else if (!landId.equals(other.landId))
 			return false;
-		if (landsFeature == null) {
-			if (other.landsFeature != null)
+		if (landsFeatureId == null) {
+			if (other.landsFeatureId != null)
 				return false;
-		} else if (!landsFeature.equals(other.landsFeature))
+		} else if (!landsFeatureId.equals(other.landsFeatureId))
 			return false;
 		return true;
 	}
+    
     
 }

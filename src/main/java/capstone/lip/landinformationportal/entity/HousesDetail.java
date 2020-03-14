@@ -38,11 +38,11 @@ public class HousesDetail extends AuditAbstract implements Serializable{
     private String value;
     
     @Id
-    @Column(name="HouseID")
+    @Column(name="HouseID", insertable=false, updatable=false)
     private Long houseId;
     
     @Id
-    @Column(name="HousesFeatureID")
+    @Column(name="HousesFeatureID", insertable=false, updatable=false)
     private Long housesFeatureId;
     
     @Basic(fetch = FetchType.LAZY)
@@ -50,7 +50,6 @@ public class HousesDetail extends AuditAbstract implements Serializable{
     @JoinColumn(name = "HouseID")
     private House house;
     
-    @Id
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name = "HousesFeatureID")
@@ -59,6 +58,7 @@ public class HousesDetail extends AuditAbstract implements Serializable{
     public HousesDetail() {
     }
 
+    
     public String getValue() {
         return value;
     }
@@ -86,15 +86,36 @@ public class HousesDetail extends AuditAbstract implements Serializable{
 		return this;
     }
 
+	public Long getHouseId() {
+		return houseId;
+	}
+
+
+	public void setHouseId(Long houseId) {
+		this.houseId = houseId;
+	}
+
+
+	public Long getHousesFeatureId() {
+		return housesFeatureId;
+	}
+
+
+	public void setHousesFeatureId(Long housesFeatureId) {
+		this.housesFeatureId = housesFeatureId;
+	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((house == null) ? 0 : house.hashCode());
-		result = prime * result + ((housesFeature == null) ? 0 : housesFeature.hashCode());
+		result = prime * result + ((houseId == null) ? 0 : houseId.hashCode());
+		result = prime * result + ((housesFeatureId == null) ? 0 : housesFeatureId.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -105,15 +126,15 @@ public class HousesDetail extends AuditAbstract implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		HousesDetail other = (HousesDetail) obj;
-		if (house == null) {
-			if (other.house != null)
+		if (houseId == null) {
+			if (other.houseId != null)
 				return false;
-		} else if (!house.equals(other.house))
+		} else if (!houseId.equals(other.houseId))
 			return false;
-		if (housesFeature == null) {
-			if (other.housesFeature != null)
+		if (housesFeatureId == null) {
+			if (other.housesFeatureId != null)
 				return false;
-		} else if (!housesFeature.equals(other.housesFeature))
+		} else if (!housesFeatureId.equals(other.housesFeatureId))
 			return false;
 		if (value == null) {
 			if (other.value != null)

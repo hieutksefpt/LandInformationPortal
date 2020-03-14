@@ -1,32 +1,30 @@
 package capstone.lip.landinformationportal;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import capstone.lip.landinformationportal.repository.HousesDetailRepository;
+
 @EnableJpaAuditing
 @SpringBootApplication
 @ComponentScan
-public class Application {
+public class Application implements CommandLineRunner{
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
         
     }
 
-//  private static final Logger log = LoggerFactory.getLogger(Application.class);
-//  @Autowired
-//  private HousesFeatureRepository repository;
-//  
-//  @Override
-//  public void run(String... args) {
-//
-//      log.info("StartApplication...");
-//
-//      System.out.println("\nfindAll()");
-//      List<HousesFeature> list = repository.findAll();
-//      int i = 1;
-//      i++;
-//      i--;
-//  }
+  @Autowired
+  private HousesDetailRepository repo;
+  
+  @Override
+  public void run(String... args) {
+
+      System.out.print("hello");
+      
+  }
 }

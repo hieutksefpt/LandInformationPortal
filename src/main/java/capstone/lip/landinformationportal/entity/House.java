@@ -56,13 +56,13 @@ public class House extends AuditAbstract implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "HousesDetail", joinColumns = @JoinColumn(name = "HouseID"),
             inverseJoinColumns = @JoinColumn(name = "HousesFeatureID"))
-    private List<LandsFeature> listHousesFeatures;
+    private List<HousesFeature> listHousesFeatures;
 
-    public List<LandsFeature> getListHousesFeatures() {
+    public List<HousesFeature> getListHousesFeatures() {
         return listHousesFeatures;
     }
 
-    public void setListHousesFeatures(List<LandsFeature> listHousesFeatures) {
+    public void setListHousesFeatures(List<HousesFeature> listHousesFeatures) {
         this.listHousesFeatures = listHousesFeatures;
     }
 

@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package capstone.lip.landinformationportal.entity;
+
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +19,8 @@ import javax.persistence.Table;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import org.hibernate.annotations.NotFound;
@@ -28,11 +32,10 @@ import org.hibernate.annotations.OnDeleteAction;
  *
  * @author Admin
  */
-
 @Entity
-@Table(name="House")
-public class House extends AuditAbstract implements Serializable{
-    
+@Table(name = "House")
+public class House extends AuditAbstract implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -43,27 +46,33 @@ public class House extends AuditAbstract implements Serializable{
     private String houseName;
     @Column(name = "HousePrice")
     private Double housePrice;
-    
+
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name = "RealEstateID")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private RealEstate realEstate;
-    
-    @Basic(fetch = FetchType.LAZY)
-    @NotFound(action = NotFoundAction.IGNORE)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "house")
-    private List<HousesDetail> listHousesDetail;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "HousesDetail", joinColumns = @JoinColumn(name = "HouseID"),
+            inverseJoinColumns = @JoinColumn(name = "HousesFeatureID"))
+    private List<LandsFeature> listHousesFeatures;
+
+    public List<LandsFeature> getListHousesFeatures() {
+        return listHousesFeatures;
+    }
+
+    public void setListHousesFeatures(List<LandsFeature> listHousesFeatures) {
+        this.listHousesFeatures = listHousesFeatures;
+    }
 
     public House() {
     }
 
-    public House(String houseName, Double housePrice, RealEstate realEstate, List<HousesDetail> listHousesDetail) {
+    public House(String houseName, Double housePrice, RealEstate realEstate) {
         this.houseName = houseName;
         this.housePrice = housePrice;
         this.realEstate = realEstate;
-        this.listHousesDetail = listHousesDetail;
     }
 
     public Long getHouseId() {
@@ -98,14 +107,4 @@ public class House extends AuditAbstract implements Serializable{
         this.realEstate = realEstate;
     }
 
-    public List<HousesDetail> getListHousesDetail() {
-        return listHousesDetail;
-    }
-
-    public void setListHousesDetail(List<HousesDetail> listHousesDetail) {
-        this.listHousesDetail = listHousesDetail;
-    }
-    
-    
-    
 }

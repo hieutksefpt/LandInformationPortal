@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.NotFound;
@@ -39,20 +40,19 @@ public class HousesFeature extends AuditAbstract implements Serializable {
     @Column(name = "HousesFeatureUnit")
     private String housesFeatureUnit;
 
-    
-    @Basic(fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "landsFeature")
     @NotFound(action = NotFoundAction.IGNORE)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "housesFeature")
-    private List<HousesDetail> listHousesDetail;
+    private List<House> listHouses;
 
-    public List<HousesDetail> getListHousesDetail() {
-        return listHousesDetail;
+    public List<House> getListHouses() {
+        return listHouses;
     }
 
-    public void setListHousesDetail(List<HousesDetail> listHousesDetail) {
-        this.listHousesDetail = listHousesDetail;
+    public void setListHouses(List<House> listHouses) {
+        this.listHouses = listHouses;
     }
+    
 
     public HousesFeature() {
     }

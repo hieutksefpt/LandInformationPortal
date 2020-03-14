@@ -6,6 +6,7 @@
 package capstone.lip.landinformationportal.service;
 
 import capstone.lip.landinformationportal.entity.Land;
+import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.repository.LandRepository;
 import capstone.lip.landinformationportal.service.Interface.ILandService;
 import java.util.List;
@@ -40,5 +41,11 @@ public class LandService implements ILandService{
     public void deleteById(Long landId) {
         landRepository.deleteById(landId);
     }
-
+    
+    @Override
+    public List<LandsFeature> getListLandsFeature(Long landId) {
+        Land land = landRepository.findById(landId).get();
+        List<LandsFeature> listLandsFeature = land.getListLandsFeatures();
+        return listLandsFeature;
+    }
 }

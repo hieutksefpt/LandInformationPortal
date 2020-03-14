@@ -6,6 +6,7 @@
 package capstone.lip.landinformationportal.service.Interface;
 
 import capstone.lip.landinformationportal.entity.Land;
+import capstone.lip.landinformationportal.entity.LandsFeature;
 import java.util.List;
 
 /**
@@ -22,4 +23,5 @@ public interface ILandService {
 
     void deleteById(Long landID);
 
+    List<LandsFeature> getListLandsFeature(Long landId);
 }

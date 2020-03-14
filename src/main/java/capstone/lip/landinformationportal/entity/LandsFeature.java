@@ -6,6 +6,7 @@
 package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.NotFound;
@@ -31,27 +33,25 @@ public class LandsFeature extends AuditAbstract implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "LandsFeatureID")
     private Long landsFeatureID;
     @Column(name = "LandsFeatureName")
     private String landsFeatureName;
     @Column(name = "LandsFeatureUnit")
     private String landsFeatureUnit;
-    
-    
-    @Basic(fetch = FetchType.LAZY)
+
+    @ManyToMany(mappedBy = "landsFeature")
     @NotFound(action = NotFoundAction.IGNORE)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "landsFeature")
-    private List<LandsDetail> listLandsDetail;
+    private List<Land> listLands;
 
-    public List<LandsDetail> getListLandsDetail() {
-        return listLandsDetail;
+    public List<Land> getListLands() {
+        return listLands;
     }
 
-    public void setListLandsDetail(List<LandsDetail> listLandsDetail) {
-        this.listLandsDetail = listLandsDetail;
+    public void setListLands(List<Land> listLands) {
+        this.listLands = listLands;
     }
     
     
@@ -88,7 +88,4 @@ public class LandsFeature extends AuditAbstract implements Serializable {
         this.landsFeatureUnit = landsFeatureUnit;
     }
 
-    
-    
-    
 }

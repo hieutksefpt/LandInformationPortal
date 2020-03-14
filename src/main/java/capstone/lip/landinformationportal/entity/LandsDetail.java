@@ -24,8 +24,9 @@ import org.hibernate.annotations.OnDeleteAction;
  * @author Admin
  */
 @Entity
-@Table(name="LandsDetail")
-public class LandsDetail extends AuditAbstract implements Serializable{
+@Table(name = "LandsDetail")
+public class LandsDetail extends AuditAbstract implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Column(columnDefinition = "BINARY(16)")
@@ -33,13 +34,13 @@ public class LandsDetail extends AuditAbstract implements Serializable{
 
     @Column(name = "Value")
     private String value;
-    
+
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name = "LandID")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Land land;
-    
+
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name = "LandsFeatureID")
@@ -73,14 +74,12 @@ public class LandsDetail extends AuditAbstract implements Serializable{
         this.landsFeature = landsFeature;
     }
 
-	public UUID getUuid() {
-		return uuid;
-	}
+    public UUID getUuid() {
+        return uuid;
+    }
 
-	public void setUuid(UUID uuid) {
-		this.uuid = uuid;
-	}
-    
-    
-    
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
 }

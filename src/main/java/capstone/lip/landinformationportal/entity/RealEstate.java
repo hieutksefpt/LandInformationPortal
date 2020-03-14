@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
@@ -63,8 +64,8 @@ public class RealEstate extends AuditAbstract implements Serializable {
     @Basic(fetch = FetchType.LAZY)
     @NotFound(action = NotFoundAction.IGNORE)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "realEstate")
-    private List<Land> listLand;
+    @OneToOne(mappedBy = "realEstate")
+    private Land land;
     
     @Basic(fetch = FetchType.LAZY)
     @NotFound(action = NotFoundAction.IGNORE)
@@ -83,7 +84,7 @@ public class RealEstate extends AuditAbstract implements Serializable {
     public RealEstate() {
     }
 
-    public RealEstate(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, Double realEstatePrice, String realEstateStatus, String realEstateLink, String realEstateType, User user, List<Land> listLand, List<House> listHouse) {
+    public RealEstate(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, Double realEstatePrice, String realEstateStatus, String realEstateLink, String realEstateType, User user, Land land, List<House> listHouse) {
         this.realEstateName = realEstateName;
         this.realEstateLat = realEstateLat;
         this.realEstateLng = realEstateLng;
@@ -93,7 +94,7 @@ public class RealEstate extends AuditAbstract implements Serializable {
         this.realEstateLink = realEstateLink;
         this.realEstateType = realEstateType;
         this.user = user;
-        this.listLand = listLand;
+        this.land = land;
         this.listHouse = listHouse;
     }
 
@@ -177,13 +178,14 @@ public class RealEstate extends AuditAbstract implements Serializable {
         this.user = user;
     }
 
-    public List<Land> getListLand() {
-        return listLand;
+    public Land getLand() {
+        return land;
     }
 
-    public void setListLand(List<Land> listLand) {
-        this.listLand = listLand;
+    public void setLand(Land land) {
+        this.land = land;
     }
+
 
     public List<House> getListHouse() {
         return listHouse;

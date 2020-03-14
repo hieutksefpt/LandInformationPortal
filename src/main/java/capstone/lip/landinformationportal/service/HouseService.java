@@ -6,6 +6,8 @@
 package capstone.lip.landinformationportal.service;
 
 import capstone.lip.landinformationportal.entity.House;
+import capstone.lip.landinformationportal.entity.HousesFeature;
+import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.repository.HouseRepository;
 import capstone.lip.landinformationportal.service.Interface.IHouseService;
 import java.util.List;
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Service;
  * @author Admin
  */
 @Service
-public class HouseService implements IHouseService{
+public class HouseService implements IHouseService {
 
     @Autowired
     private HouseRepository houseRepository;
@@ -42,5 +44,12 @@ public class HouseService implements IHouseService{
         houseRepository.deleteById(houseId);
     }
 
-    
+    @Override
+    public List<HousesFeature> getListHousesFeature(Long houseId) {
+        House house = houseRepository.findById(houseId).get();
+        List<HousesFeature> listHousesFeature = house.getListHousesFeatures();   // đhs chỗ này lỗi ? 
+        return listHousesFeature;
+    }
+
+
 }

@@ -6,6 +6,7 @@
 package capstone.lip.landinformationportal.service.Interface;
 
 import capstone.lip.landinformationportal.entity.House;
+import capstone.lip.landinformationportal.entity.HousesFeature;
 import java.util.List;
 
 /**
@@ -20,4 +21,6 @@ public interface IHouseService {
     void delete(List<House> listHouse);
 
     void deleteById(Long houseID);
+    
+    List<HousesFeature> getListHousesFeature(Long houseId);
 }

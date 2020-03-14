@@ -43,10 +43,10 @@ public class RealEstateService implements IRealEstateService {
 
     // Hàm này get List Land theo ID của Real Estate
     @Override
-    public List<Land> getListLand(Long realEstateId) {
+    public Land getLand(Long realEstateId) {
         RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
-        List<Land> listLand = realEstate.getListLand();
-        return listLand;
+        Land land = realEstate.getLand();
+        return land;
     }
 
     // Hàm này get List House theo ID của Real Estate

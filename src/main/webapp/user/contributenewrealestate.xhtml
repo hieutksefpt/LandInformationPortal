@@ -101,7 +101,7 @@
                                     </td>
                                     <td>
                                         <select  id="optionList" onchange="display_div(document.getElementById('optionList').value);">
-                                            <option selected="selected">--</option>
+                                            <option selected="selected">---</option>
                                             <option value="1">Đất</option>
                                             <option value="2">Nhà</option>
                                             <option value="3">Nháp</option>
@@ -111,13 +111,14 @@
                             </table>
 
                             <div class="flexCommon row">
+                                <p:panel id="panel-Uploadform">
                                 <div id="landBox" class="landbox col-5">
                                     <table class="landUpload">     
                                         <tr>
                                             <td><span class="title-mandatory">Thuộc tính Đất</span></td>
                                             <td>
                                                 <h:selectOneMenu id="cbb-landFeature" value="#{contributeNewRealEstateBean.landFeatureIdSelected}">
-                                                    <f:selectItem itemLabel="Thuộc tính Đất" itemValue=""/>
+                                                    <f:selectItem itemLabel="---" itemValue=""/>
                                                     <f:selectItems value="#{contributeNewRealEstateBean.listLandsFeature}" var="element"
                                                                    itemLabel="#{element.landsFeatureName}" itemValue="#{element.landsFeatureID}"/>
                                                 </h:selectOneMenu>
@@ -129,7 +130,7 @@
                                         <tr>
                                             <td></td><td>
                                                 <h:commandButton class="add action-button2" value="Thêm thuộc tính Đất" id="addLandFeature">
-                                                    <p:ajax listener="#{contributeNewRealEstateBean.addNewLandFeatureValue()}" update="panel-form"/>
+                                                    <p:ajax listener="#{contributeNewRealEstateBean.addNewLandFeatureValue()}" update="panel-Uploadform"/>
                                                 </h:commandButton>
                                             </td>
                                         </tr>
@@ -137,9 +138,17 @@
                                     <div class="boxAreaInput">
                                         <div class="form-group row">
                                             <div class="scrolldata">
-                                                <table id="table-feature">
+                                                <table id="table-landfeature">
                                                     <th>Thuộc tính</th>
                                                     <th>Giá trị</th>
+                                                    <ui:remove>
+                                                        <c:forEach items="#{contributeNewRealEstateBean.listLandFeatureValue}" var="i">
+                                                            <tr>
+                                                                <td>${i.landFeature}</td>
+                                                                <td>${i.value}</td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </ui:remove>
                                                 </table>
                                             </div>
                                         </div>
@@ -181,6 +190,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </p:panel>
                             </div>
                         </div>
 

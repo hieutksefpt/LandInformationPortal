@@ -85,7 +85,9 @@ public class ContributeNewRealEstateBean implements Serializable {
     private String jsonMultipleCoordinate;
     
     private String landFeatureIdSelected = "";
-    private List<LandFeatureValue> landFeatureValue;
+    private List<LandFeatureValue> listLandFeatureValue;
+
+    
     private List<LandsFeature> listLandsFeature;
     private String newLandFeature;
     
@@ -108,10 +110,19 @@ public class ContributeNewRealEstateBean implements Serializable {
     public void addNewLandFeatureValue(){
         for (int i = 0; i < listLandsFeature.size(); i++) {
             if(landFeatureIdSelected.equals(listLandsFeature.get(i).getLandsFeatureID().toString())){
-                landFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeature));
+                listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeature));
             }
         }
         
+//        FacesMessage msg = new FacesMessage();
+//		String error = findErrorInput();
+//		PrimeFaces.current().executeScript("renderTableLandFeature()");
+//		
+//		if (!error.equals("")) {
+//			setMessage(FacesMessage.SEVERITY_ERROR, error);
+//			return;
+//		}
+//        
     }
     
     
@@ -432,5 +443,14 @@ public class ContributeNewRealEstateBean implements Serializable {
     public void setListLandsFeature(List<LandsFeature> listLandsFeature) {
         this.listLandsFeature = listLandsFeature;
     }
+    
+    public List<LandFeatureValue> getListLandFeatureValue() {
+        return listLandFeatureValue;
+    }
+
+    public void setListLandFeatureValue(List<LandFeatureValue> listLandFeatureValue) {
+        this.listLandFeatureValue = listLandFeatureValue;
+    }
+    
     
 }

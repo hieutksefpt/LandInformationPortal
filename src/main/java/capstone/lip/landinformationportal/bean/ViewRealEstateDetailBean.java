@@ -2,6 +2,7 @@ package capstone.lip.landinformationportal.bean;
 
 import capstone.lip.landinformationportal.dto.Coordinate;
 import capstone.lip.landinformationportal.entity.House;
+import capstone.lip.landinformationportal.entity.HousesDetail;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.LandsDetail;
 import capstone.lip.landinformationportal.entity.RealEstate;
@@ -57,7 +58,11 @@ public class ViewRealEstateDetailBean implements Serializable {
         jsonCoordinate = gson.toJson(coordinate);
     }
     
-    public List<LandsDetail> getListLandDetail(){
+    public List<HousesDetail> getListHousesDetail(House house){
+        return house.getListHousesDetail();
+    }
+    
+    public List<LandsDetail> getListLandsDetail(){
         return this.currentLand.getListLandsDetail();
     }
     

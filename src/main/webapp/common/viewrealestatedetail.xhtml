@@ -53,18 +53,22 @@
                             </div>
                             <div class="titleHeader">Các đặc tính của Đất</div>
                             <div class="row elementList">
-
-                                <c:forEach items="#{viewRealEstateDetailBean.listLandDetail}" var="i">
-                                    <div class="col-4 col-lg-4">#{i.landsFeature.landsFeatureName}</div>
-                                    <div class="col-4 col-lg-4">#{i.value}</div>
-                                    <div class="col-4 col-lg-4">#{i.landsFeature.landsFeatureUnit   }</div>
+                                <c:forEach items="#{viewRealEstateDetailBean.listLandsDetail}" var="landsDetail">
+                                    <div class="col-4 col-lg-4">#{landsDetail.landsFeature.landsFeatureName}</div>
+                                    <div class="col-4 col-lg-4">#{landsDetail.value}</div>
+                                    <div class="col-4 col-lg-4">#{landsDetail.landsFeature.landsFeatureUnit}</div>
                                 </c:forEach>
-
                             </div>
                             <div class="titleHeader">Các đặc tính của Nhà</div>
-                            <div class="row">
-
-                            </div>
+                            <c:forEach items="#{viewRealEstateDetailBean.currentListHouse}" var="house">
+                                <div class="row">
+                                    <c:forEach items="#{viewRealEstateDetailBean.getListHousesDetail(house)}" var="housesDetail">
+                                        <div class="col-4 col-lg-4">#{housesDetail.housesFeature.housesFeatureName}</div>
+                                        <div class="col-4 col-lg-4">#{housesDetail.value}</div>
+                                        <div class="col-4 col-lg-4">#{housesDetail.housesFeature.housesFeatureUnit}</div>
+                                    </c:forEach>
+                                </div>
+                            </c:forEach>
                         </div>    
                     </div>
                 </div>

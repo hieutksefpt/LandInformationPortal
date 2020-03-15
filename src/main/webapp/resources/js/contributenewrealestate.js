@@ -252,6 +252,10 @@ function display_div(show){
 
 }
 
+function loadUnit(landUnit){
+    document.getElementById("houseUnit").textContent="" + landUnit;
+}
+
 // đoạn này bắt đầu test MultiForm
 $(".next").click(function(){
 	if(animating) return false;

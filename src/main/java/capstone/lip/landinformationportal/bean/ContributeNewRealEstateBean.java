@@ -67,10 +67,10 @@ public class ContributeNewRealEstateBean implements Serializable {
 
     @Autowired
     private IFormedCoordinate formedCoordinateService;
-    
+
     @Autowired
     private ILandsFeatureService landFeatureService;
-    
+
     @Autowired
     private IHousesFeatureService housesFeatureService;
 
@@ -89,18 +89,18 @@ public class ContributeNewRealEstateBean implements Serializable {
     private String latSingleCoordinate;
     private List<Coordinate> listCoordinate;
     private String jsonMultipleCoordinate;
-    
+
     private String landFeatureIdSelected = "";
     private String houseFeatureIdSelected = "";
     private List<LandFeatureValue> listLandFeatureValue = new ArrayList<>();
     private List<HouseFeatureValue> listHouseFeatureValue = new ArrayList<>();
-    
+
     private List<LandsFeature> listLandsFeature;
     private List<HousesFeature> listHousesFeature;
     private String newLandFeatureValue;
     private String newHouseFeatureValue;
-
-    
+    private String landUnit;
+    private String houseUnit;
 
     @PostConstruct
     public void init() {
@@ -113,29 +113,48 @@ public class ContributeNewRealEstateBean implements Serializable {
         listStreet = new ArrayList<>();
         listLandsFeature = landFeatureService.findAll();
         listHousesFeature = housesFeatureService.findAll();
-        
-        
+
     }
 
-    public void addNewLandFeatureValue(){
+    private static int k = 0;
+
+    public void onChangeLandUnit() {
+        if (k == 0) {
+            k++;
+        } else {
+            for (int i = 0; i < listLandsFeature.size(); i++) {
+                if (listLandsFeature.get(i).getLandsFeatureID().toString().equals(landFeatureIdSelected)) {
+                    landUnit = listLandsFeature.get(i).getLandsFeatureUnit();
+                }
+            }
+            PrimeFaces.current().executeScript("loadUnit("+ landUnit +")");
+
+        }
+
+    }
+
+    public void onChangeHouseUnit() {
+
+    }
+
+    public void addNewLandFeatureValue() {
         for (int i = 0; i < listLandsFeature.size(); i++) {
-            if(landFeatureIdSelected.equals(listLandsFeature.get(i).getLandsFeatureID().toString())){
+            if (landFeatureIdSelected.equals(listLandsFeature.get(i).getLandsFeatureID().toString())) {
                 listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
             }
         }
-        
+
     }
-    
-    public void addNewHousesFeatureValue(){
+
+    public void addNewHousesFeatureValue() {
         for (int i = 0; i < listHousesFeature.size(); i++) {
-            if(houseFeatureIdSelected.equals(listHousesFeature.get(i).getHousesFeatureID().toString())){
+            if (houseFeatureIdSelected.equals(listHousesFeature.get(i).getHousesFeatureID().toString())) {
                 listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));
             }
         }
-        
+
     }
-    
-    
+
     Province selectedProvince;
 
     public void provinceChange() {
@@ -243,19 +262,19 @@ public class ContributeNewRealEstateBean implements Serializable {
 
         return "";
     }
-    
+
     public void setMessage(FacesMessage.Severity severityType, String message) {
-		
-		FacesMessage msg = new FacesMessage();
-		if (severityType == FacesMessage.SEVERITY_ERROR) {
-			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Lỗi", message);
-		} else if (severityType == FacesMessage.SEVERITY_WARN) {
-			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Lưu ý", message);
-		} else {
-			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Thành công", message);
-		}
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
+
+        FacesMessage msg = new FacesMessage();
+        if (severityType == FacesMessage.SEVERITY_ERROR) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Lỗi", message);
+        } else if (severityType == FacesMessage.SEVERITY_WARN) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Lưu ý", message);
+        } else {
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Thành công", message);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 
     public void NextButtonClickLocate() {
         try {
@@ -351,10 +370,6 @@ public class ContributeNewRealEstateBean implements Serializable {
     public void setNewHouseFeatureValue(String newHouseFeatureValue) {
         this.newHouseFeatureValue = newHouseFeatureValue;
     }
-
-    
-    
-    
 
     public void setListStreet(List<Street> listStreet) {
         this.listStreet = listStreet;
@@ -487,7 +502,7 @@ public class ContributeNewRealEstateBean implements Serializable {
     public void setListLandsFeature(List<LandsFeature> listLandsFeature) {
         this.listLandsFeature = listLandsFeature;
     }
-    
+
     public List<LandFeatureValue> getListLandFeatureValue() {
         return listLandFeatureValue;
     }
@@ -495,6 +510,21 @@ public class ContributeNewRealEstateBean implements Serializable {
     public void setListLandFeatureValue(List<LandFeatureValue> listLandFeatureValue) {
         this.listLandFeatureValue = listLandFeatureValue;
     }
-    
-    
+
+    public String getLandUnit() {
+        return landUnit;
+    }
+
+    public void setLandUnit(String landUnit) {
+        this.landUnit = landUnit;
+    }
+
+    public String getHouseUnit() {
+        return houseUnit;
+    }
+
+    public void setHouseUnit(String houseUnit) {
+        this.houseUnit = houseUnit;
+    }
+
 }

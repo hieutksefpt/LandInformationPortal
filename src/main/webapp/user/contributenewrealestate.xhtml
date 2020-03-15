@@ -117,7 +117,7 @@
                                         <tr>
                                             <td><span class="title-mandatory">Thuộc tính Đất</span></td>
                                             <td>
-                                                <h:selectOneMenu id="cbb-landFeature" value="#{contributeNewRealEstateBean.landFeatureIdSelected}">
+                                                <h:selectOneMenu id="cbb-landFeature" value="#{contributeNewRealEstateBean.landFeatureIdSelected}" onchange="#{contributeNewRealEstateBean.onChangeLandUnit()}">
                                                     <f:selectItem itemLabel="---" itemValue=""/>
                                                     <f:selectItems value="#{contributeNewRealEstateBean.listLandsFeature}" var="element"
                                                                    itemLabel="#{element.landsFeatureName}" itemValue="#{element.landsFeatureID}"/>
@@ -125,7 +125,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputLandFeatureNew" value="#{contributeNewRealEstateBean.newLandFeatureValue}"></h:inputText> <span class="unit"><i>(đơn vị)</i></span></td>
+                                            <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputLandFeatureNew" value="#{contributeNewRealEstateBean.newLandFeatureValue}"></h:inputText> <span id="landUnit" class="unit"><i>(đơn vị)</i></span></td>
                                         </tr>
                                         <tr>
                                             <td></td><td>
@@ -159,7 +159,7 @@
                                         <tr>
                                             <td><span class="title-mandatory">Thuộc tính Nhà</span></td>
                                             <td>
-                                                <h:selectOneMenu id="cbb-houseFeature" value="#{contributeNewRealEstateBean.houseFeatureIdSelected}">
+                                                <h:selectOneMenu id="cbb-houseFeature" value="#{contributeNewRealEstateBean.houseFeatureIdSelected}" onchange="loadUnit()">
                                                     <f:selectItem itemLabel="---" itemValue=""/>
                                                     <f:selectItems value="#{contributeNewRealEstateBean.listHousesFeature}" var="element"
                                                                    itemLabel="#{element.housesFeatureName}" itemValue="#{element.housesFeatureID}"/>
@@ -167,7 +167,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputHouseFeatureNew" value="#{contributeNewRealEstateBean.newHouseFeatureValue}"></h:inputText> <span class="unit"><i>(đơn vị)</i></span></td>
+                                            <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputHouseFeatureNew" value="#{contributeNewRealEstateBean.newHouseFeatureValue}"></h:inputText> <span id="houseUnit" class="unit">(đơn vị</span></td>
                                         </tr>
                                         <tr>
                                             <td></td>

@@ -19,6 +19,7 @@ function initMap() {
         mapTypeId: 'roadmap',
         clickableIcons: false,
         disableDoubleClickZoom: true,
+        disableDefaultUI: true,
         fullscreenControl: false
     });
     map.addListener('bounds_changed', function() {

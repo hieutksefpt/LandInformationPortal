@@ -20,6 +20,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 
 import capstone.lip.landinformationportal.config.CrawlJob;
+import capstone.lip.landinformationportal.entity.RealEstate;
 
 @Named
 @ViewScoped
@@ -65,7 +66,6 @@ public class ManageCrawlRealEstateBean{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 	Trigger trigger;
 	JobDetail job;

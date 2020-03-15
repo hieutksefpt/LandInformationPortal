@@ -32,7 +32,8 @@ public class CrawlJob implements Job {
 	
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-
+		
+		System.out.println("hello 12345");
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		System.out.println("crawling");
 		RestTemplate restTemplate = new RestTemplate();
@@ -57,10 +58,11 @@ public class CrawlJob implements Job {
 //		ResponseEntity<RealEstateObjectCrawl[]> responseEntity = restTemplate.getForEntity(builder.toUriString(),
 ////				entity,
 //				RealEstateObjectCrawl[].class);
+		// code done here
 		ResponseEntity<RealEstateObjectCrawl[]> responseEntity = 
 				restTemplate.exchange(builder.toUriString(),HttpMethod.GET,entity,RealEstateObjectCrawl[].class);
 		List<RealEstateObjectCrawl> listCrawl = Arrays.asList(responseEntity.getBody());
-//		crawlReoService = new CrawlRealEstateService();
+		// temp comment
 		crawlReoService.saveRealEstateCrawl(listCrawl);
 	}
 

@@ -12,11 +12,11 @@ import java.util.List;
  * @author Admin
  */
 public interface ILandsDetailService {
-//    List<LandsDetail> findAll();
-//
-//    LandsDetail save(LandsDetail landsDetail);
-//
-//    void delete(List<LandsDetail> listLandsDetail);
-//
-//    void deleteById(Long landsDetailId);
+    List<LandsDetail> findAll();
+
+    LandsDetail save(LandsDetail landsDetail);
+
+    void delete(List<LandsDetail> listLandsDetail);
+
+    void deleteById(Long landsDetailId);
 }

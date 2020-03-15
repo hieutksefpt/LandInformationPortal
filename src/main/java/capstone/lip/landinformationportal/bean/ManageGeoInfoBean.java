@@ -74,7 +74,7 @@ public class ManageGeoInfoBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		processType = "1";
-		listCoordinate = new ArrayList();
+		listCoordinate = new ArrayList<>();
 		listProvince = new ArrayList<Province>();
 		listProvince = provinceService.findAll();
 		listDistrict = new ArrayList<>();
@@ -88,8 +88,8 @@ public class ManageGeoInfoBean implements Serializable {
 			processType = "1";
 			selectedProvince = listProvince.stream().filter(x -> x.getProvinceId().equals(Long.parseLong(provinceIdSelected))).collect(Collectors.toList()).get(0);
 			listDistrict = selectedProvince.getListDistrict();
-			listSegmentOfStreet = new ArrayList();
-			listStreet = new ArrayList();
+			listSegmentOfStreet = new ArrayList<>();
+			listStreet = new ArrayList<>();
 			districtIdSelected = "";
 			streetIdSelected = "";
 			segmentStreetIdSelected = "";
@@ -197,7 +197,7 @@ public class ManageGeoInfoBean implements Serializable {
 				district.setDistrictName(nameInput).setDistrictLat(Double.valueOf(latSingleCoordinate))
 					.setDistrictLng(Double.valueOf(lngSingleCoordinate)).setProvince(selectedProvince);
 				district = districtService.save(district);
-				if (listDistrict == null) listDistrict = new ArrayList();
+				if (listDistrict == null) listDistrict = new ArrayList<>();
 				listDistrict.add(district);
 				
 				break;
@@ -222,7 +222,7 @@ public class ManageGeoInfoBean implements Serializable {
 				street = streetTemp;
 				if (street != null && !listStreet.contains(street)) {
 					street = streetService.save(streetTemp);
-					if (listStreet == null) listStreet = new ArrayList();
+					if (listStreet == null) listStreet = new ArrayList<>();
 					listStreet.add(street);
 					streetIdSelected = street.getStreetId().toString();
 				}else {
@@ -233,7 +233,7 @@ public class ManageGeoInfoBean implements Serializable {
 				
 				JsonParser jsonParser = new JsonParser();
 				JsonArray jsonArray = (JsonArray) jsonParser.parse(jsonMultipleCoordinate);
-				List<FormedCoordinate> listFormedCoordinate = new ArrayList();
+				List<FormedCoordinate> listFormedCoordinate = new ArrayList<>();
 				
 				for (JsonElement jsonElement : jsonArray) {
 					JsonObject temp = (JsonObject)jsonElement;
@@ -258,7 +258,7 @@ public class ManageGeoInfoBean implements Serializable {
 				
 				listFormedCoordinate = formedCoordinateService.saveAll(listFormedCoordinate);
 				if (listSegmentOfStreet == null) {
-					listSegmentOfStreet = new ArrayList();
+					listSegmentOfStreet = new ArrayList<>();
 				}
 				listSegmentOfStreet.add(segmentStreet);
 				PrimeFaces.current().executeScript("drawPath()");

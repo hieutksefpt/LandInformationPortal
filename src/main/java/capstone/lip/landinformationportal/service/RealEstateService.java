@@ -43,7 +43,7 @@ public class RealEstateService implements IRealEstateService {
     @Override
     public Land getLand(Long realEstateId) {
         RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
-        Land land = realEstate.getListLand().get(0);
+        Land land = realEstate.getLand();
         return land;
     }
 
@@ -64,5 +64,10 @@ public class RealEstateService implements IRealEstateService {
     public RealEstate findById(long realEstateId) {
         return realEstateRepository.findById(realEstateId).get();
     }
+
+	@Override
+	public List<RealEstate> findByRealEstateStatus(String status) {
+		return realEstateRepository.findByRealEstateStatus(status);
+	}
 
 }

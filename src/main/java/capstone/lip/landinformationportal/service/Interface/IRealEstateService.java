@@ -30,4 +30,6 @@ public interface IRealEstateService {
     List<House> getListHouse(Long realEstateId);
 
     void delete(RealEstate realEstate);
+    
+    List<RealEstate> findByRealEstateStatus(String status);
 }

@@ -21,19 +21,19 @@
     margin-right: 0px !important;
     margin-left: 0px !important;
 }
-.rightMap{
+.right-map{
     border: 1px black groove;
     padding-left: 0px;
     padding-right: 0px;
 }
-.titleHeader{
+.title-header{
     font-weight: bold;
 }
-.headerList{
+.header-list{
     background-color: black;
     color: white;
 }
-.labelAddNewRealEstate{
+.label-add-new-real-estate{
     border: 2px white solid;
     text-decoration: none;
     color: white;
@@ -41,17 +41,17 @@
     padding-right: 5px;
     font-weight: bold;
 }
-.labelAddNewRealEstate:hover{
+.label-add-new-real-estate:hover{
     text-decoration: underline;
     color: white;
 }
-.elementList{
+.element-list{
     padding-top: 10px;
     padding-bottom: 10px;
     border-bottom: 1px black groove;
     width: 100%;
 }
-.btnView{
+.btn-view{
     border-radius: 20px;
     padding: .5rem 1rem;
     color: #fff;

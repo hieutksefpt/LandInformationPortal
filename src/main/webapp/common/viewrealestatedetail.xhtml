@@ -16,52 +16,53 @@
                 <div class="container">
                     <div class="row">
                         <div id="map" class="col-9 col-lg-9"></div>
-                        <div class="col-3 col-lg-3 rightMap">
-                            <div class="contentRightMap">
-                                <div class="titleHeader">Chi tiết Bất Động Sản</div>
+                        <div class="col-3 col-lg-3 right-map">
+                            <div class="content-right-map">
+                                <div class="title-header">Chi tiết Bất Động Sản</div>
                                 <h:inputHidden id="txtInput_coordinate_detailRealEstate" value="#{viewRealEstateDetailBean.jsonCoordinate}"></h:inputHidden>
-                                <div class="text name elementList">
+                                <div class="text name element-list">
                                     Tên người đóng góp
                                 </div>
-                                <div class="nameInput elementList">
+                                <div class="nameInput element-list">
                                     <h:inputText class="input" value="#{viewRealEstateDetailBean.currentUser.fullName}"></h:inputText>
                                 </div>
-                                <div class="text realEstateName elementList">
+                                <div class="text realEstateName element-list">
                                     Tên đối tượng BĐS
                                 </div>
-                                <div class="realEstateNameInput elementList">
+                                <div class="realEstateNameInput element-list">
                                     <h:inputText class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstateName}"></h:inputText>
                                 </div>
-                                <div class="text address elementList">
+                                <div class="text address element-list">
                                     Địa chỉ
                                 </div>
-                                <div class="addressInput elementList">
+                                <div class="addressInput element-list">
                                     <h:inputText class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstateAddress}"></h:inputText>
                                 </div>
-                                <div class="text price elementList">
+                                <div class="text price element-list">
                                     Giá
                                 </div>
-                                <div class="priceInput elementList">
+                                <div class="priceInput element-list">
                                     <h:inputText class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstatePrice}"></h:inputText><p>(Đơn vị: triệu/m2)</p>
                                 </div>
-                                <div class="text shortDes elementList">
+                                <div class="text shortDes element-list">
                                     Mô tả ngắn gọn
                                 </div>
-                                <div class="shortDesInput elementList">
+                                <div class="shortDesInput element-list">
                                     <p:inputTextarea class="input" rows="6" cols="33"></p:inputTextarea>
                                 </div>
                             </div>
-                            <div class="titleHeader">Các đặc tính của Đất</div>
-                            <div class="row elementList">
+                            <div class="title-header">Các đặc tính của Đất</div>
+                            <div class="row element-list-land">
                                 <c:forEach items="#{viewRealEstateDetailBean.listLandsDetail}" var="landsDetail">
                                     <div class="col-4 col-lg-4">#{landsDetail.landsFeature.landsFeatureName}</div>
                                     <div class="col-4 col-lg-4">#{landsDetail.value}</div>
                                     <div class="col-4 col-lg-4">#{landsDetail.landsFeature.landsFeatureUnit}</div>
                                 </c:forEach>
                             </div>
-                            <div class="titleHeader">Các đặc tính của Nhà</div>
+                            <div class="title-header">Các đặc tính của Nhà</div>
                             <c:forEach items="#{viewRealEstateDetailBean.currentListHouse}" var="house">
-                                <div class="row">
+                                <div class="element-list-house-name">#{house.houseName}</div>
+                                <div class="row element-list-house">
                                     <c:forEach items="#{viewRealEstateDetailBean.getListHousesDetail(house)}" var="housesDetail">
                                         <div class="col-4 col-lg-4">#{housesDetail.housesFeature.housesFeatureName}</div>
                                         <div class="col-4 col-lg-4">#{housesDetail.value}</div>

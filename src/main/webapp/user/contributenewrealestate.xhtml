@@ -141,14 +141,12 @@
                                                 <table id="table-landfeature">
                                                     <th>Thuộc tính</th>
                                                     <th>Giá trị</th>
-                                                    <ui:remove>
                                                         <c:forEach items="#{contributeNewRealEstateBean.listLandFeatureValue}" var="i">
                                                             <tr>
-                                                                <td>${i.landFeature}</td>
+                                                                <td>${i.landFeature.landsFeatureName}</td>
                                                                 <td>${i.value}</td>
                                                             </tr>
                                                         </c:forEach>
-                                                    </ui:remove>
                                                 </table>
                                             </div>
                                         </div>

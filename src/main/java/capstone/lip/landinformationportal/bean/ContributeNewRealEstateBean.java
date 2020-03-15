@@ -5,6 +5,8 @@
  */
 package capstone.lip.landinformationportal.bean;
 
+import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
+import static capstone.lip.landinformationportal.common.StatusRealEstateConstant.CONFUSED;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collector;
@@ -44,6 +46,7 @@ import capstone.lip.landinformationportal.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.service.Interface.ISegmentOfStreetService;
 import capstone.lip.landinformationportal.service.Interface.IStreetService;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  *
@@ -51,7 +54,7 @@ import java.io.Serializable;
  */
 @Named
 @ViewScoped
-public class ContributeNewRealEstateBean implements Serializable {
+public class ContributeNewRealEstateBean implements Serializable, StatusRealEstateConstant {
 
     @Autowired
     private IProvinceService provinceService;
@@ -101,7 +104,27 @@ public class ContributeNewRealEstateBean implements Serializable {
     private String newHouseFeatureValue;
     private String landUnit;
     private String houseUnit;
+    
+    // variable to save New RealEstate
+    private String realEstateName;
+    private String provinceAddress;
+    private String districtAddress;
+    private String streetAddress;
+    private String segmentStreetAddress;
+    private String realEstateAddress;
+    private Double realEstateLat;
+    private Double realEstateLng;
+    private BigDecimal realEstatePrice;
+    private String realEstateStatus;
+    private String realEstateLink;
+    private String realEstateType;
+    private String userId;
 
+    //submit data
+    private BigDecimal realEstatePriceSubmit;
+    private String  realEstateNameSubmit;
+
+    
     @PostConstruct
     public void init() {
         processType = "1";
@@ -113,28 +136,68 @@ public class ContributeNewRealEstateBean implements Serializable {
         listStreet = new ArrayList<>();
         listLandsFeature = landFeatureService.findAll();
         listHousesFeature = housesFeatureService.findAll();
+        realEstateStatus = String.valueOf(CONFUSED);
+        realEstateType = CONTRIBUTOR;
+        userId = "1";
 
     }
 
-    private static int k = 0;
-
-    public void onChangeLandUnit() {
-        if (k == 0) {
-            k++;
-        } else {
-            for (int i = 0; i < listLandsFeature.size(); i++) {
-                if (listLandsFeature.get(i).getLandsFeatureID().toString().equals(landFeatureIdSelected)) {
-                    landUnit = listLandsFeature.get(i).getLandsFeatureUnit();
-                }
-            }
-            PrimeFaces.current().executeScript("loadUnit("+ landUnit +")");
-
+    public void submitUploadInformation(){
+        
+    }
+    public void nextLocatePoint(){
+        for (int i = 0; i < listProvince.size(); i++) {
+            if(listProvince.get(i).getProvinceId().toString().equals(provinceIdSelected))
+                provinceAddress = listProvince.get(i).getProvinceName();
         }
+        for (int i = 0; i < listDistrict.size(); i++) {
+            if(listDistrict.get(i).getDistrictId().toString().equals(districtIdSelected))
+                districtAddress = listDistrict.get(i).getDistrictName();
+        }
+        for (int i = 0; i < listStreet.size(); i++) {
+            if(listStreet.get(i).getStreetId().toString().equals(streetIdSelected))
+                streetAddress = listStreet.get(i).getStreetName();
+        }
+        for (int i = 0; i < listSegmentOfStreet.size(); i++) {
+            if(listSegmentOfStreet.get(i).getSegmentId().toString().equals(segmentStreetIdSelected))
+                segmentStreetAddress = listSegmentOfStreet.get(i).getSegmentName();
+        }
+        realEstateAddress = streetAddress + districtAddress +  provinceAddress; // Address of Real Estate show just only Street.
+        try{
+            realEstateLng = Double.parseDouble(lngSingleCoordinate);
+            realEstateLat = Double.parseDouble(latSingleCoordinate);
+        }catch (Exception e){
+            
+        }
+//        if(provinceAddress.equals("") || districtAddress.equals("") 
+//                || streetAddress.equals("") || segmentStreetAddress.equals("") 
+//                || realEstateLng.equals("") || realEstateLat.equals("")){
+//                // this case will show for user to warning about empty address of Combobox 
+//        }
+    }
+    
+    
+    public void nextUploadInformation(){
+        realEstateNameSubmit = realEstateName;
+        realEstatePriceSubmit = realEstatePrice;
+    }
+    public void onChangeLandUnit() {
+        for (int i = 0; i < listLandsFeature.size(); i++) {
+            if (listLandsFeature.get(i).getLandsFeatureID().toString().equals(landFeatureIdSelected)) {
+                landUnit = listLandsFeature.get(i).getLandsFeatureUnit();
+            }
+        }
+        PrimeFaces.current().executeScript("loadLandUnit('" + landUnit + "')");
 
     }
 
     public void onChangeHouseUnit() {
-
+        for (int i = 0; i < listHousesFeature.size(); i++) {
+            if (listHousesFeature.get(i).getHousesFeatureID().toString().equals(houseFeatureIdSelected)) {
+                houseUnit = listHousesFeature.get(i).getHousesFeatureUnit();
+            }
+        }
+        PrimeFaces.current().executeScript("loadHouseUnit('" + houseUnit + "')");
     }
 
     public void addNewLandFeatureValue() {
@@ -527,4 +590,126 @@ public class ContributeNewRealEstateBean implements Serializable {
         this.houseUnit = houseUnit;
     }
 
+    public String getProvinceAddress() {
+        return provinceAddress;
+    }
+
+    public void setProvinceAddress(String provinceAddress) {
+        this.provinceAddress = provinceAddress;
+    }
+
+    public String getDistrictAddress() {
+        return districtAddress;
+    }
+
+    public void setDistrictAddress(String districtAddress) {
+        this.districtAddress = districtAddress;
+    }
+
+    public String getStreetAddress() {
+        return streetAddress;
+    }
+
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
+    }
+
+    public String getSegmentStreetAddress() {
+        return segmentStreetAddress;
+    }
+
+    public void setSegmentStreetAddress(String segmentStreetAddress) {
+        this.segmentStreetAddress = segmentStreetAddress;
+    }
+
+    public String getRealEstateAddress() {
+        return realEstateAddress;
+    }
+
+    public void setRealEstateAddress(String realEstateAddress) {
+        this.realEstateAddress = realEstateAddress;
+    }
+
+    public Double getRealEstateLat() {
+        return realEstateLat;
+    }
+
+    public void setRealEstateLat(Double realEstateLat) {
+        this.realEstateLat = realEstateLat;
+    }
+
+    public Double getRealEstateLng() {
+        return realEstateLng;
+    }
+
+    public void setRealEstateLng(Double realEstateLng) {
+        this.realEstateLng = realEstateLng;
+    }
+
+    public BigDecimal getRealEstatePrice() {
+        return realEstatePrice;
+    }
+
+    public void setRealEstatePrice(BigDecimal realEstatePrice) {
+        this.realEstatePrice = realEstatePrice;
+    }
+
+    public String getRealEstateStatus() {
+        return realEstateStatus;
+    }
+
+    public void setRealEstateStatus(String realEstateStatus) {
+        this.realEstateStatus = realEstateStatus;
+    }
+
+    public String getRealEstateLink() {
+        return realEstateLink;
+    }
+
+    public void setRealEstateLink(String realEstateLink) {
+        this.realEstateLink = realEstateLink;
+    }
+
+    public String getRealEstateType() {
+        return realEstateType;
+    }
+
+    public void setRealEstateType(String realEstateType) {
+        this.realEstateType = realEstateType;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getRealEstateName() {
+        return realEstateName;
+    }
+
+    public void setRealEstateName(String realEstateName) {
+        this.realEstateName = realEstateName;
+    }
+    
+    
+    public BigDecimal getRealEstatePriceSubmit() {
+        return realEstatePriceSubmit;
+    }
+
+    public void setRealEstatePriceSubmit(BigDecimal realEstatePriceSubmit) {
+        this.realEstatePriceSubmit = realEstatePriceSubmit;
+    }
+
+    public String getRealEstateNameSubmit() {
+        return realEstateNameSubmit;
+    }
+
+    public void setRealEstateNameSubmit(String realEstateNameSubmit) {
+        this.realEstateNameSubmit = realEstateNameSubmit;
+    }
+    
+    
 }

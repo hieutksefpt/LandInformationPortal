@@ -75,6 +75,8 @@
                                                                    itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
                                                 </h:selectOneMenu>    
                                             </div>
+                                            <h:inputHidden id="txtinput-lngSingleCoordinate" value="#{contributeNewRealEstateBean.lngSingleCoordinate}"></h:inputHidden>
+                                            <h:inputHidden id="txtinput-latSingleCoordinate" value="#{contributeNewRealEstateBean.latSingleCoordinate}"></h:inputHidden>
                                         </div>
                                     </h:panelGroup>
 
@@ -83,29 +85,37 @@
 
                             </p:panel>
                         </div>
-                        <input type="button" name="next" class="next action-button" value="Tiếp theo" />
+                        <h:commandButton class="next action-button" value="Tiếp theo">
+                            <p:ajax listener="#{contributeNewRealEstateBean.nextLocatePoint()}"/>
+                        </h:commandButton>
                     </fieldset>
                     <!-- fieldset 2 : cung cấp thông tin -->
                     <fieldset>
                         <div id="UploadInfor">
                             <table class="formUploadInfor">
                                 <tr>
-                                    <td><span class="title-mandatory">Tên bất động sản</span></td><td><input type="text" name="fullname"/></td>
+                                    <td><span class="title-mandatory">Tên bất động sản</span></td>
+                                    <td>
+                                        <h:inputText id="realEstateName" value="#{contributeNewRealEstateBean.realEstateName}">
+                                        </h:inputText></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="title-mandatory">Giá trị</span></td><td><input type="text" name="value"/> <span class="unit"><i>(VND)</i></span></td>
+                                    <td><span class="title-mandatory">Giá trị</span></td><td>
+                                        <h:inputText id="realEstatePrice" value="#{contributeNewRealEstateBean.realEstatePrice}">
+                                        </h:inputText>
+                                        <span class="unit"><i>(VND)</i></span></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="title">Loại bất động sản</span>
                                     </td>
                                     <td>
-                                        <select  id="optionList" onchange="display_div(document.getElementById('optionList').value);">
-                                            <option selected="selected">---</option>
-                                            <option value="1">Đất</option>
-                                            <option value="2">Nhà</option>
-                                            <option value="3">Nháp</option>
-                                        </select>
+                                        <h:selectOneMenu id="optionList" value="#{contributeNewRealEstateBean.realEstateType}" onchange="display_div(document.getElementById('optionList').value);">
+                                            <f:selectItem itemLabel="---" itemValue=""/>
+                                            <f:selectItem itemLabel="Đất" itemValue="1"/>
+                                            <f:selectItem itemLabel="Nhà" itemValue="2"/>
+                                            <f:selectItem itemLabel="Nhà và Đất" itemValue="3"/>
+                                        </h:selectOneMenu>
                                     </td>
                                 </tr>
                             </table>
@@ -117,7 +127,8 @@
                                         <tr>
                                             <td><span class="title-mandatory">Thuộc tính Đất</span></td>
                                             <td>
-                                                <h:selectOneMenu id="cbb-landFeature" value="#{contributeNewRealEstateBean.landFeatureIdSelected}" onchange="#{contributeNewRealEstateBean.onChangeLandUnit()}">
+                                                <h:selectOneMenu id="cbb-landFeature" value="#{contributeNewRealEstateBean.landFeatureIdSelected}">
+                                                    <p:ajax listener="#{contributeNewRealEstateBean.onChangeLandUnit()}" process="msform"/>
                                                     <f:selectItem itemLabel="---" itemValue=""/>
                                                     <f:selectItems value="#{contributeNewRealEstateBean.listLandsFeature}" var="element"
                                                                    itemLabel="#{element.landsFeatureName}" itemValue="#{element.landsFeatureID}"/>
@@ -155,11 +166,12 @@
                                     </div>
                                 </div>
                                 <div id="houseBox" class="housebox col-5">
-                                    <table class="houseUpload">     
+                                    <table class="houseUpload row">     
                                         <tr>
                                             <td><span class="title-mandatory">Thuộc tính Nhà</span></td>
                                             <td>
-                                                <h:selectOneMenu id="cbb-houseFeature" value="#{contributeNewRealEstateBean.houseFeatureIdSelected}" onchange="loadUnit()">
+                                                <h:selectOneMenu id="cbb-houseFeature" value="#{contributeNewRealEstateBean.houseFeatureIdSelected}">
+                                                    <p:ajax listener="#{contributeNewRealEstateBean.onChangeHouseUnit()}" process="msform"/>
                                                     <f:selectItem itemLabel="---" itemValue=""/>
                                                     <f:selectItems value="#{contributeNewRealEstateBean.listHousesFeature}" var="element"
                                                                    itemLabel="#{element.housesFeatureName}" itemValue="#{element.housesFeatureID}"/>
@@ -167,7 +179,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputHouseFeatureNew" value="#{contributeNewRealEstateBean.newHouseFeatureValue}"></h:inputText> <span id="houseUnit" class="unit">(đơn vị</span></td>
+                                            <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputHouseFeatureNew" value="#{contributeNewRealEstateBean.newHouseFeatureValue}"></h:inputText> <span id="houseUnit" class="unit"><i>(đơn vị)</i></span></td>
                                         </tr>
                                         <tr>
                                             <td></td>
@@ -200,20 +212,42 @@
                             </div>
                         </div>
 
-                        <input type="button" name="next" class="next action-button" value="Tiếp theo" />
-                        <input type="button" name="previous" class="previous action-button" value="Quay lại" />
+                        <h:commandButton class="next action-button" value="Tiếp theo">
+                            <p:ajax listener="#{contributeNewRealEstateBean.nextUploadInformation()}"/>
+                        </h:commandButton>
+                        <!--<input type="button" name="next" class="next action-button" value="Tiếp theo" />-->
+                        <!--<input type="button" name="previous" class="previous action-button" value="Quay lại" />-->
                     </fieldset>
 
                     <!-- fieldset 3 : hoàn tất thông tin -->
                     <fieldset>
-                        <h2 class="fs-title">Personal Details</h2>
-                        <h3 class="fs-subtitle">We will never sell it</h3>
-                        <input type="text" name="fname" placeholder="First Name" />
-                        <input type="text" name="lname" placeholder="Last Name" />
-                        <input type="text" name="phone" placeholder="Phone" />
-                        <textarea name="address" placeholder="Address"></textarea>
-                        <input type="button" name="previous" class="previous action-button" value="Previous" />
-                        <input type="submit" name="submit" class="submit action-button" value="Submit" />
+                        <div class="completeUploadInfor">
+                            <table class="completeUpload">
+                                <tr>
+                                    <td><span class="title-mandatory">Tên bất động sản</span></td>
+                                    <td>
+                                        <h:inputText id="realEstateNameSubmit" value="#{contributeNewRealEstateBean.realEstateNameSubmit}"></h:inputText></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="title-mandatory">Giá trị</span></td><td>
+                                        <h:inputText id="realEstatePriceSubmit" value="#{contributeNewRealEstateBean.realEstatePriceSubmit}"></h:inputText>
+                                        <span class="unit"><i>(VND)</i></span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="title">Loại bất động sản</span>
+                                    </td>
+                                    <td>
+                                        <h:inputText id="realEstateTypeSubmit" value="#{contributeNewRealEstateBean.realEstateType}"></h:inputText>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <h:commandButton class="submit action-button" value="Hoàn tất">
+                            <p:ajax listener="#{contributeNewRealEstateBean.submitUploadInformation()}"/>
+                        </h:commandButton>
+<!--                        <input type="submit" name="submit" class="submit action-button" value="Hoàn tất" />-->
                     </fieldset>
                 </h:form>
             </ui:define>

@@ -180,8 +180,8 @@ function updateDeleteOld() {
     countRow = 0;
 }
 function setCoordinateForInput(marker) {
-    $('#form\\:txtinput-lngSingleCoordinate').val(marker.getPosition().lng());
-    $('#form\\:txtinput-latSingleCoordinate').val(marker.getPosition().lat());
+    $('#msform\\:txtinput-lngSingleCoordinate').val(marker.getPosition().lng());
+    $('#msform\\:txtinput-latSingleCoordinate').val(marker.getPosition().lat());
 }
 
 function clearOldMarkers() {
@@ -252,8 +252,12 @@ function display_div(show){
 
 }
 
-function loadUnit(landUnit){
-    document.getElementById("houseUnit").textContent="" + landUnit;
+function loadLandUnit(landUnit){
+    document.getElementById("landUnit").textContent="(" + landUnit+")";
+}
+
+function loadHouseUnit(houseUnit){
+    document.getElementById("houseUnit").textContent="(" + houseUnit+")";
 }
 
 // đoạn này bắt đầu test MultiForm

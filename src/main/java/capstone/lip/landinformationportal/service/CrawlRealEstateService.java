@@ -1,15 +1,25 @@
 package capstone.lip.landinformationportal.service;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.JobKey;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.SimpleScheduleBuilder;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import capstone.lip.landinformationportal.common.HousesFeatureNameConstant;
 import capstone.lip.landinformationportal.common.LandsFeatureNameConstant;
 import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
+import capstone.lip.landinformationportal.config.CrawlJob;
 import capstone.lip.landinformationportal.dto.RealEstateObjectCrawl;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.HousesDetail;
@@ -58,9 +68,9 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 	@Autowired
 	private LandsDetailRepository landsDetailRepository;
 	
-	public void printRandom() {
-        System.out.println(ThreadLocalRandom.current().nextInt());
-    }
+	private JobKey jobKey = new JobKey("crawlerJob", "crawler");
+	@Autowired
+	Scheduler scheduler;
 	
 	private List<HousesFeature> listHouseFeature;
 	private List<LandsFeature> listLandsFeature;
@@ -199,4 +209,60 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 		}
 		return listLandDetail;
 	}
+	
+	public String initCrawlJob() {
+		String timeCrawl = "";
+		JobDetail jobDetail;
+		try {
+			jobDetail = scheduler.getJobDetail(jobKey);
+			if (jobDetail == null) return timeCrawl;
+			List<? extends Trigger> triggers = scheduler.getTriggersOfJob(jobDetail.getKey());
+		    for (Trigger trigger : triggers) {
+		    	
+		        SimpleScheduleBuilder scheduleBuilder = (SimpleScheduleBuilder)trigger.getScheduleBuilder();
+		        if (scheduleBuilder != null) {
+		        	
+		        	Field privateStringField = SimpleScheduleBuilder.class.
+		        	            getDeclaredField("interval");
+
+		        	privateStringField.setAccessible(true);
+		        	Long fieldValue = ((Long) privateStringField.get(scheduleBuilder))/1000;
+		        	System.out.println("fieldValue = " + fieldValue);
+		        	timeCrawl = String.valueOf(fieldValue);
+		        }
+		    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return timeCrawl;
+	}
+	public void setTimeCrawlJob(int value) {
+
+		trigger = TriggerBuilder.newTrigger().withIdentity("crawlerTriggler", "crawler")
+				.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(value).repeatForever()).build();
+
+		job = JobBuilder.newJob(CrawlJob.class).withIdentity("crawlerJob", "crawler").build();
+	}
+	public void turnOffCrawler() {
+		try {
+			if (scheduler!= null) {
+				scheduler.standby();
+			}
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
+	}
+	public void turnOnCrawler() {
+		try {
+			if (scheduler!= null) {
+				scheduler.clear();
+				scheduler.start();
+				scheduler.scheduleJob(job, trigger);
+			}
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
+	}
+	private Trigger trigger;
+	private JobDetail job;
 }

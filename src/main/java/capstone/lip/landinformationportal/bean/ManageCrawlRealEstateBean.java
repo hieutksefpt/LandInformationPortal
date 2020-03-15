@@ -20,87 +20,74 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 
 import capstone.lip.landinformationportal.config.CrawlJob;
+import capstone.lip.landinformationportal.entity.RealEstate;
+import capstone.lip.landinformationportal.service.Interface.ICrawlRealEstateService;
 
 @Named
 @ViewScoped
-@Configuration
-@EnableAutoConfiguration
+//@Configuration
+//@EnableAutoConfiguration
 public class ManageCrawlRealEstateBean{
 
 	private String timerCrawl;
-	@Autowired
-	Scheduler scheduler;
 	
-	private JobKey jobKey = new JobKey("crawlerJob", "crawler");
+//	@Autowired
+//	Scheduler scheduler;
+	
+//	private JobKey jobKey = new JobKey("crawlerJob", "crawler");
+	
+	@Autowired
+	private ICrawlRealEstateService crawlReoService;
+	
+	private List<RealEstate> listRealEstate;
 	
 	@PostConstruct
 	public void init() {
 		
 		timerCrawl = "";
+		timerCrawl = crawlReoService.initCrawlJob();
 //		try {
 //			scheduler = new StdSchedulerFactory().getScheduler();
 //		} catch (SchedulerException e) {
 //			e.printStackTrace();
 //		}
-		
-		JobDetail jobDetail;
-		try {
-			jobDetail = scheduler.getJobDetail(jobKey);
-			if (jobDetail == null) return;
-			List<? extends Trigger> triggers = scheduler.getTriggersOfJob(jobDetail.getKey());
-		    for (Trigger trigger : triggers) {
-		    	
-		        SimpleScheduleBuilder scheduleBuilder = (SimpleScheduleBuilder)trigger.getScheduleBuilder();
-		        if (scheduleBuilder != null) {
-		        	
-		        	Field privateStringField = SimpleScheduleBuilder.class.
-		        	            getDeclaredField("interval");
-
-		        	privateStringField.setAccessible(true);
-		        	Long fieldValue = (Long) privateStringField.get(scheduleBuilder);
-		        	System.out.println("fieldValue = " + fieldValue);
-		        	timerCrawl = String.valueOf(fieldValue);
-		        }
-		    }
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		
+//		JobDetail jobDetail;
+//		try {
+//			jobDetail = scheduler.getJobDetail(jobKey);
+//			if (jobDetail == null) return;
+//			List<? extends Trigger> triggers = scheduler.getTriggersOfJob(jobDetail.getKey());
+//		    for (Trigger trigger : triggers) {
+//		    	
+//		        SimpleScheduleBuilder scheduleBuilder = (SimpleScheduleBuilder)trigger.getScheduleBuilder();
+//		        if (scheduleBuilder != null) {
+//		        	
+//		        	Field privateStringField = SimpleScheduleBuilder.class.
+//		        	            getDeclaredField("interval");
+//
+//		        	privateStringField.setAccessible(true);
+//		        	Long fieldValue = ((Long) privateStringField.get(scheduleBuilder))/1000;
+//		        	System.out.println("fieldValue = " + fieldValue);
+//		        	timerCrawl = String.valueOf(fieldValue);
+//		        }
+//		    }
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		
 	}
-	Trigger trigger;
-	JobDetail job;
+	
 	
 	public void setTimerButtonClick() {
-		
 		int timer= Integer.valueOf(timerCrawl);
-		
-		trigger = TriggerBuilder.newTrigger().withIdentity("crawlerTriggler", "crawler")
-				.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(timer).repeatForever()).build();
-
-		job = JobBuilder.newJob(CrawlJob.class).withIdentity("crawlerJob", "crawler").build();
+		crawlReoService.setTimeCrawlJob(timer);
 	}
 
 	public void turnOffCrawler() {
-		try {
-			if (scheduler!= null) {
-				scheduler.standby();
-			}
-		} catch (SchedulerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		crawlReoService.turnOffCrawler();
 	}
 	public void turnOnCrawler() {
-		try {
-			if (scheduler!= null) {
-				scheduler.clear();
-				scheduler.start();
-				scheduler.scheduleJob(job, trigger);
-			}
-		} catch (SchedulerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		crawlReoService.turnOnCrawler();
 	}
 
 	public String getTimerCrawl() {

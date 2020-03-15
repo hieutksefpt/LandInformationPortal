@@ -13,9 +13,9 @@
     padding: 0px !important;
 }
 .contentRightMap{
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 .text{
     font-weight: bold;
@@ -23,4 +23,15 @@
 }
 .input{
     width: 96%;
+}
+.titleHeader{
+    font-weight: bold;
+    background-color: black;
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.elementList{
+    padding-right: 15px;
+    padding-left: 15px;
 }

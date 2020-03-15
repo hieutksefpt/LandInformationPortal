@@ -85,7 +85,7 @@ public class ContributeNewRealEstateBean implements Serializable {
     @PostConstruct
     public void init() {
         processType = "1";
-        listCoordinate = new ArrayList();
+        listCoordinate = new ArrayList<>();
         listProvince = new ArrayList<Province>();
         listProvince = provinceService.findAll();
         listDistrict = new ArrayList<>();
@@ -99,7 +99,7 @@ public class ContributeNewRealEstateBean implements Serializable {
             processType = "5";
             selectedProvince = listProvince.stream().filter(x -> x.getProvinceId().equals(Long.parseLong(provinceIdSelected))).collect(Collectors.toList()).get(0);
             listDistrict = selectedProvince.getListDistrict();
-            listSegmentOfStreet = new ArrayList();
+            listSegmentOfStreet = new ArrayList<>();
         }
     }
 
@@ -110,8 +110,8 @@ public class ContributeNewRealEstateBean implements Serializable {
             processType = "1";
             selectedProvince = listProvince.stream().filter(x -> x.getProvinceId().equals(Long.parseLong(provinceIdSelected))).collect(Collectors.toList()).get(0);
             listDistrict = selectedProvince.getListDistrict();
-            listSegmentOfStreet = new ArrayList();
-            listStreet = new ArrayList();
+            listSegmentOfStreet = new ArrayList<>();
+            listStreet = new ArrayList<>();
             districtIdSelected = "";
             streetIdSelected = "";
             segmentStreetIdSelected = "";

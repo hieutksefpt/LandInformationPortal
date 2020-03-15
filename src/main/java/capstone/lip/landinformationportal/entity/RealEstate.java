@@ -18,6 +18,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -59,8 +61,8 @@ public class RealEstate extends AuditAbstract implements Serializable {
 
     @Basic(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "realEstate")
-    private List<Land> listLand;
+    @OneToOne(mappedBy = "realEstate")
+    private Land land;
     
     @Basic(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -77,7 +79,7 @@ public class RealEstate extends AuditAbstract implements Serializable {
     public RealEstate() {
     }
 
-    public RealEstate(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, Double realEstatePrice, String realEstateStatus, String realEstateLink, String realEstateType, User user, List<Land> listLand, List<House> listHouse) {
+    public RealEstate(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, Double realEstatePrice, String realEstateStatus, String realEstateLink, String realEstateType, User user, Land land, List<House> listHouse) {
         this.realEstateName = realEstateName;
         this.realEstateLat = realEstateLat;
         this.realEstateLng = realEstateLng;
@@ -87,7 +89,7 @@ public class RealEstate extends AuditAbstract implements Serializable {
         this.realEstateLink = realEstateLink;
         this.realEstateType = realEstateType;
         this.user = user;
-        this.listLand = listLand;
+        this.land = land;
         this.listHouse = listHouse;
     }
 
@@ -181,15 +183,6 @@ public class RealEstate extends AuditAbstract implements Serializable {
         return this;
     }
 
-    public List<Land> getListLand() {
-        return listLand;
-    }
-
-    public RealEstate setListLand(List<Land> listLand) {
-        this.listLand = listLand;
-        return this;
-    }
-
     public List<House> getListHouse() {
         return listHouse;
     }
@@ -208,12 +201,21 @@ public class RealEstate extends AuditAbstract implements Serializable {
         return this;
     }
 
+
+	public Land getLand() {
+		return land;
+	}
+
+	public void setLand(Land land) {
+		this.land = land;
+	}
+    
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((listHouse == null) ? 0 : listHouse.hashCode());
-		result = prime * result + ((listLand == null) ? 0 : listLand.hashCode());
+		result = prime * result + ((land == null) ? 0 : land.hashCode());
 		result = prime * result
 				+ ((listRealEstateAdjacentSegment == null) ? 0 : listRealEstateAdjacentSegment.hashCode());
 		result = prime * result + ((realEstateAddress == null) ? 0 : realEstateAddress.hashCode());
@@ -243,10 +245,10 @@ public class RealEstate extends AuditAbstract implements Serializable {
 				return false;
 		} else if (!listHouse.equals(other.listHouse))
 			return false;
-		if (listLand == null) {
-			if (other.listLand != null)
+		if (land == null) {
+			if (other.land != null)
 				return false;
-		} else if (!listLand.equals(other.listLand))
+		} else if (!land.equals(other.land))
 			return false;
 		if (listRealEstateAdjacentSegment == null) {
 			if (other.listRealEstateAdjacentSegment != null)
@@ -305,6 +307,5 @@ public class RealEstate extends AuditAbstract implements Serializable {
 			return false;
 		return true;
 	}
-    
-    
+
 }

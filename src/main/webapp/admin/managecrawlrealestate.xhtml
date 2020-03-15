@@ -12,6 +12,7 @@
 	<ui:composition template="/template/admin/adminLayout.xhtml">
 
 		<ui:define name="content">
+			<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
 			<h:outputStylesheet name="managecrawlrealestate.css" library="css"></h:outputStylesheet>
             <h:form>
             	<h:outputText value="Khoảng thời gian crawl"></h:outputText>
@@ -32,7 +33,29 @@
             	
             	<h:commandButton value="Crawl ngay"></h:commandButton>
             </h:form>
-            
+            <h:form>
+	            <p:dataTable value="#{manageCrawlRealEstateBean.listRealEstate}" var="element"
+		           	rows="10" paginator="true"
+		            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+		            >
+		            <f:facet name="paginatorTopLeft">
+			            <p:commandButton type="button" icon="pi pi-refresh" />
+			        </f:facet>
+	            	<p:column>
+	            		<f:facet name="header">Address</f:facet>
+	            		#{element.realEstateAddress}
+	            	</p:column>
+	            	<p:column>
+	            		<f:facet name="header">Link</f:facet>
+	            		<a href="#{element.realEstateLink}" target="_blank">Link</a>
+	            	</p:column>
+	            	<p:column>
+	            		<f:facet name="header">Status</f:facet>
+	            		#{element.realEstateStatus}
+	            	</p:column>
+	            </p:dataTable>
+            </h:form>
 		</ui:define>
 		<ui:define name="footer">
 			<h:outputScript name="managecrawlrealestate.js" library="js" />

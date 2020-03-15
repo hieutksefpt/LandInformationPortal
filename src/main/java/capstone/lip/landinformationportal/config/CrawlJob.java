@@ -58,12 +58,12 @@ public class CrawlJob implements Job {
 //		ResponseEntity<RealEstateObjectCrawl[]> responseEntity = restTemplate.getForEntity(builder.toUriString(),
 ////				entity,
 //				RealEstateObjectCrawl[].class);
-//		// code done here
-//		ResponseEntity<RealEstateObjectCrawl[]> responseEntity = 
-//				restTemplate.exchange(builder.toUriString(),HttpMethod.GET,entity,RealEstateObjectCrawl[].class);
-//		List<RealEstateObjectCrawl> listCrawl = Arrays.asList(responseEntity.getBody());
-//		// temp comment
-//		crawlReoService.saveRealEstateCrawl(listCrawl);
+		// code done here
+		ResponseEntity<RealEstateObjectCrawl[]> responseEntity = 
+				restTemplate.exchange(builder.toUriString(),HttpMethod.GET,entity,RealEstateObjectCrawl[].class);
+		List<RealEstateObjectCrawl> listCrawl = Arrays.asList(responseEntity.getBody());
+		// temp comment
+		crawlReoService.saveRealEstateCrawl(listCrawl);
 	}
 
 }

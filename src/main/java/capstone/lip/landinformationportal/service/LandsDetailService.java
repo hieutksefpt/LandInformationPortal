@@ -6,6 +6,7 @@
 package capstone.lip.landinformationportal.service;
 
 import capstone.lip.landinformationportal.entity.LandsDetail;
+import capstone.lip.landinformationportal.repository.LandsDetailRepository;
 import capstone.lip.landinformationportal.service.Interface.ILandsDetailService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,27 +19,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class LandsDetailService implements ILandsDetailService {
 
-//    @Autowired
-//    private LandsDetailRepository landsDetailRepository;
-//
-//    @Override
-//    public List<LandsDetail> findAll() {
-//        return landsDetailRepository.findAll();
-//    }
-//
-//    @Override
-//    public LandsDetail save(LandsDetail landsDetail) {
-//        return landsDetailRepository.save(landsDetail);
-//    }
-//
-//    @Override
-//    public void delete(List<LandsDetail> listLandsDetail) {
-//        landsDetailRepository.deleteInBatch(listLandsDetail);
-//    }
-//
-//    @Override
-//    public void deleteById(Long landsDetailId) {
-//        landsDetailRepository.deleteById(landsDetailId);
-//    }
+    @Autowired
+    private LandsDetailRepository landsDetailRepository;
+
+    @Override
+    public List<LandsDetail> findAll() {
+        return landsDetailRepository.findAll();
+    }
+
+    @Override
+    public LandsDetail save(LandsDetail landsDetail) {
+        return landsDetailRepository.save(landsDetail);
+    }
+
+    @Override
+    public void delete(List<LandsDetail> listLandsDetail) {
+        landsDetailRepository.deleteInBatch(listLandsDetail);
+    }
+
+    @Override
+    public void deleteById(Long landsDetailId) {
+        landsDetailRepository.deleteById(landsDetailId);
+    }
 
 }

@@ -1,5 +1,6 @@
 package capstone.lip.landinformationportal.bean;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -19,15 +20,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 
+import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
 import capstone.lip.landinformationportal.config.CrawlJob;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.service.Interface.ICrawlRealEstateService;
+import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 
 @Named
 @ViewScoped
 //@Configuration
 //@EnableAutoConfiguration
-public class ManageCrawlRealEstateBean{
+public class ManageCrawlRealEstateBean implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	private String timerCrawl;
 	
@@ -35,7 +40,9 @@ public class ManageCrawlRealEstateBean{
 //	Scheduler scheduler;
 	
 //	private JobKey jobKey = new JobKey("crawlerJob", "crawler");
-	
+
+	@Autowired
+	private IRealEstateService realEstateService;
 	@Autowired
 	private ICrawlRealEstateService crawlReoService;
 	
@@ -46,6 +53,7 @@ public class ManageCrawlRealEstateBean{
 		
 		timerCrawl = "";
 		timerCrawl = crawlReoService.initCrawlJob();
+		listRealEstate = realEstateService.findByRealEstateStatus(String.valueOf(StatusRealEstateConstant.NOT_VERIFIED));
 //		try {
 //			scheduler = new StdSchedulerFactory().getScheduler();
 //		} catch (SchedulerException e) {
@@ -98,4 +106,14 @@ public class ManageCrawlRealEstateBean{
 		this.timerCrawl = timerCrawl;
 	}
 
+
+	public List<RealEstate> getListRealEstate() {
+		return listRealEstate;
+	}
+
+
+	public void setListRealEstate(List<RealEstate> listRealEstate) {
+		this.listRealEstate = listRealEstate;
+	}
+	
 }

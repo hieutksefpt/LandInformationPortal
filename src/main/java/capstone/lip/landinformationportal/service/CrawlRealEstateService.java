@@ -82,6 +82,12 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 		User user = userRepository.findAll().get(0);
 		for (RealEstateObjectCrawl reoCrawl : listReoCrawl) {
 			RealEstate reo = new RealEstate();
+			String link = reoCrawl.getLink();
+			RealEstate reoSearch = realEstateRepository.findByRealEstateLink(link);
+			if (reoSearch != null) {
+				continue;
+			}
+
 			reo.setRealEstateName(reoCrawl.getTitle())
 				.setRealEstateLat(reoCrawl.getLatitude())
 				.setRealEstateLng(reoCrawl.getLongitude())
@@ -89,6 +95,7 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 				.setRealEstateType(reoCrawl.getType())
 				.setRealEstateLink(reoCrawl.getLink())
 				.setRealEstateAddress(reoCrawl.getAddress())
+				.setUser(user)
 				.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.NOT_VERIFIED));
 			reo = realEstateRepository.save(reo);
 			House house = new House();
@@ -108,12 +115,11 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 			house.setListHousesDetail(listHousesDetail);
 			land.setListLandsDetail(listLandsDetail);
 			List<House> listHouse = new ArrayList<House>();listHouse.add(house);
-			List<Land> listLand = new ArrayList<Land>();listLand.add(land);
+			
 			reo.setListHouse(listHouse);
-			reo.setListLand(listLand);
-			reo.setUser(user);
+			reo.setLand(land);
 			
-			
+
 			housesDetailRepository.saveAll(listHousesDetail);
 			landsDetailRepository.saveAll(listLandsDetail);
 		}

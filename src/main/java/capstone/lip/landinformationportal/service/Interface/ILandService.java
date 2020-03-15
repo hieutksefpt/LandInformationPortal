@@ -21,5 +21,6 @@ public interface ILandService {
     void delete(Land land);
 
     void deleteById(Long landID);
-
+    
+    Land findByRealEstateId(long realEstateId);
 }

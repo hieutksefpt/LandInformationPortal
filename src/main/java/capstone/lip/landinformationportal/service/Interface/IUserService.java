@@ -17,14 +17,14 @@ import java.util.List;
 public interface IUserService {
 
     List<User> findAll();
-    
+
     List<User> search(String userNamePart);
 
     User save(User user);
 
     void delete(Long userID);
-    
+
     User findById(Long userId);
-    
-     List<RealEstate> getListRealEstate(Long userId);
+
+    List<RealEstate> getListRealEstate(Long userId);
 }

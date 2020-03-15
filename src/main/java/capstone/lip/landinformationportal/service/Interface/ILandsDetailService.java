@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface ILandsDetailService {
     List<LandsDetail> findAll();
-
+    
     LandsDetail save(LandsDetail landsDetail);
 
     void delete(List<LandsDetail> listLandsDetail);

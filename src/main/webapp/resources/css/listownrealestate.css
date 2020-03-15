@@ -28,6 +28,11 @@
 }
 .titleHeader{
     font-weight: bold;
+    padding-left: 10px;
+}
+.headerList{
+    background-color: black;
+    color: white;
 }
 .labelAddNewRealEstate{
     border: 2px white solid;
@@ -39,10 +44,6 @@
 }
 .labelAddNewRealEstate:hover{
     text-decoration: underline;
-    color: white;
-}
-.headerList{
-    background-color: black;
     color: white;
 }
 .elementList{

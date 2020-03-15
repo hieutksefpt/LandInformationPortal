@@ -14,6 +14,8 @@ import java.util.List;
  */
 public interface IHouseService {
     List<House> findAll();
+    
+    List<House> findByRealEstateId(long realEstateId);
 
     House save(House house);
 

@@ -25,7 +25,7 @@ public interface IRealEstateService {
 
     void delete(List<RealEstate> listRealEstate);
 
-    List<Land> getListLand(Long realEstateId);
+    Land getLand(Long realEstateId);
     
     List<House> getListHouse(Long realEstateId);
 

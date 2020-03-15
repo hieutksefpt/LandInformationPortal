@@ -19,37 +19,57 @@
                         <div class="col-3 col-lg-3 rightMap">
                             <div class="contentRightMap">
                                 <h:inputHidden id="txtInput_coordinate_detailRealEstate" value="#{viewRealEstateDetailBean.jsonCoordinate}"></h:inputHidden>
-                                <div class="text name">
+                                <div class="headerList titleHeader">Chi tiết bất động sản</div>
+                                <div class="text name elementList">
                                     Tên người đóng góp
                                 </div>
-                                <div class="nameInput">
+                                <div class="nameInput elementList">
                                     <h:inputText class="input" value="#{viewRealEstateDetailBean.currentUser.fullName}"></h:inputText>
                                 </div>
-                                <div class="text realEstateName">
+                                <div class="text realEstateName elementList">
                                     Tên đối tượng BĐS
                                 </div>
-                                <div class="realEstateNameInput">
+                                <div class="realEstateNameInput elementList">
                                     <h:inputText class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstateName}"></h:inputText>
                                 </div>
-                                <div class="text address">
+                                <div class="text address elementList">
                                     Địa chỉ
                                 </div>
-                                <div class="addressInput">
+                                <div class="addressInput elementList">
                                     <h:inputText class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstateAddress}"></h:inputText>
                                 </div>
-                                <div class="text price">
+                                <div class="text price elementList">
                                     Giá
                                 </div>
-                                <div class="priceInput">
+                                <div class="priceInput elementList">
                                     <h:inputText class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstatePrice}"></h:inputText><p>(Đơn vị: triệu/m2)</p>
                                 </div>
-                                <div class="text shortDes">
+                                <div class="text shortDes elementList">
                                     Mô tả ngắn gọn
                                 </div>
-                                <div class="shortDesInput">
+                                <div class="shortDesInput elementList">
                                     <p:inputTextarea class="input" rows="6" cols="33"></p:inputTextarea>
                                 </div>
+                                <div class="headerList titleHeader">Thuộc tính của đất</div>
+                                <div class="row elementList">
+                                    <div class="col-4 col-lg-4">Tên thuộc tính</div>
+                                    <div class="col-4 col-lg-4">Giá trị</div>
+                                    <div class="col-4 col-lg-4">Đơn vị</div>
+                                    <div class="col-4 col-lg-4">Tên thuộc tính</div>
+                                    <div class="col-4 col-lg-4">Giá trị</div>
+                                    <div class="col-4 col-lg-4">Đơn vị</div>
+                                </div>
+                                <div class="headerList titleHeader">Thuộc tính của nhà</div>
+                                <div class="row elementList">
+                                    <div class="col-4 col-lg-4">Tên thuộc tính</div>
+                                    <div class="col-4 col-lg-4">Giá trị</div>
+                                    <div class="col-4 col-lg-4">Đơn vị</div>
+                                    <div class="col-4 col-lg-4">Tên thuộc tính</div>
+                                    <div class="col-4 col-lg-4">Giá trị</div>
+                                    <div class="col-4 col-lg-4">Đơn vị</div>
+                                </div>
                             </div>    
+
                         </div>    
                     </div>
                 </div>

@@ -6,7 +6,9 @@
 package capstone.lip.landinformationportal.service;
 
 import capstone.lip.landinformationportal.entity.House;
+import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.repository.HouseRepository;
+import capstone.lip.landinformationportal.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.service.Interface.IHouseService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class HouseService implements IHouseService{
 
     @Autowired
     private HouseRepository houseRepository;
+    
+    @Autowired
+    private RealEstateRepository realEstateRepository;
 
     @Override
     public List<House> findAll() {
@@ -40,6 +45,12 @@ public class HouseService implements IHouseService{
     @Override
     public void deleteById(Long houseId) {
         houseRepository.deleteById(houseId);
+    }
+
+    @Override
+    public List<House> findByRealEstateId(long realEstateId) {
+        RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
+        return realEstate.getListHouse();
     }
 
     

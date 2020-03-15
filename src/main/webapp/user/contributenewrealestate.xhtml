@@ -111,7 +111,7 @@
                             </table>
 
                             <div class="flexCommon row">
-                                <p:panel id="panel-Uploadform">
+
                                 <div id="landBox" class="landbox col-5">
                                     <table class="landUpload">     
                                         <tr>
@@ -125,31 +125,33 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputLandFeatureNew" value="#{contributeNewRealEstateBean.newLandFeature}"></h:inputText> <span class="unit"><i>(đơn vị)</i></span></td>
+                                            <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputLandFeatureNew" value="#{contributeNewRealEstateBean.newLandFeatureValue}"></h:inputText> <span class="unit"><i>(đơn vị)</i></span></td>
                                         </tr>
                                         <tr>
                                             <td></td><td>
                                                 <h:commandButton class="add action-button2" value="Thêm thuộc tính Đất" id="addLandFeature">
-                                                    <p:ajax listener="#{contributeNewRealEstateBean.addNewLandFeatureValue()}" update="panel-Uploadform"/>
+                                                    <p:ajax listener="#{contributeNewRealEstateBean.addNewLandFeatureValue()}" process="msform" update="panel-UploadLandform"/>
                                                 </h:commandButton>
                                             </td>
                                         </tr>
                                     </table>
                                     <div class="boxAreaInput">
-                                        <div class="form-group row">
-                                            <div class="scrolldata">
-                                                <table id="table-landfeature">
-                                                    <th>Thuộc tính</th>
-                                                    <th>Giá trị</th>
+                                        <p:panel id="panel-UploadLandform">
+                                            <div class="form-group row">
+                                                <div class="scrolldata">
+                                                    <table id="table-feature">
+                                                        <th>Thuộc tính</th>
+                                                        <th>Giá trị</th>
                                                         <c:forEach items="#{contributeNewRealEstateBean.listLandFeatureValue}" var="i">
                                                             <tr>
                                                                 <td>${i.landFeature.landsFeatureName}</td>
                                                                 <td>${i.value}</td>
                                                             </tr>
                                                         </c:forEach>
-                                                </table>
+                                                    </table>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </p:panel>
                                     </div>
                                 </div>
                                 <div id="houseBox" class="housebox col-5">
@@ -157,38 +159,44 @@
                                         <tr>
                                             <td><span class="title-mandatory">Thuộc tính Nhà</span></td>
                                             <td>
-                                                <select  id="optionList" onchange="display_div(document.getElementById('optionList').value);">
-                                                    <option selected="selected">--</option>
-                                                    <option value="1">Đất</option>
-                                                    <option value="2">Nhà</option>
-                                                    <option value="3">Nháp</option>
-                                                </select>
+                                                <h:selectOneMenu id="cbb-houseFeature" value="#{contributeNewRealEstateBean.houseFeatureIdSelected}">
+                                                    <f:selectItem itemLabel="---" itemValue=""/>
+                                                    <f:selectItems value="#{contributeNewRealEstateBean.listHousesFeature}" var="element"
+                                                                   itemLabel="#{element.housesFeatureName}" itemValue="#{element.housesFeatureID}"/>
+                                                </h:selectOneMenu>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><input id="houseBoxValue" type="text" name="value"/> <span class="unit"><i>(đơn vị)</i></span></td>
+                                            <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputHouseFeatureNew" value="#{contributeNewRealEstateBean.newHouseFeatureValue}"></h:inputText> <span class="unit"><i>(đơn vị)</i></span></td>
                                         </tr>
                                         <tr>
                                             <td></td>
                                             <td>
                                                 <h:commandButton class="add action-button2" value="Thêm thuộc tính Nhà" id="addHouseFeature">
-                                                    <p:ajax listener="#{contributeNewRealEstateBean.init()}" update="panel-form"/>
+                                                    <p:ajax listener="#{contributeNewRealEstateBean.addNewHousesFeatureValue()}" process="msform" update="panel-UploadHouseform"/>
                                                 </h:commandButton>
                                             </td>
                                         </tr>
                                     </table>
                                     <div class="boxAreaInput">
-                                        <div class="form-group row">
-                                            <div class="scrolldata">
-                                                <table id="table-feature">
-                                                    <th>Thuộc tính</th>
-                                                    <th>Giá trị</th>
-                                                </table>
+                                        <p:panel id="panel-UploadHouseform">
+                                            <div class="form-group row">
+                                                <div class="scrolldata">
+                                                    <table id="table-feature">
+                                                        <th>Thuộc tính</th>
+                                                        <th>Giá trị</th>
+                                                        <c:forEach items="#{contributeNewRealEstateBean.listHouseFeatureValue}" var="i">
+                                                            <tr>
+                                                                <td>${i.housesFeature.housesFeatureName}</td>
+                                                                <td>${i.value}</td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </table>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </p:panel>
                                     </div>
                                 </div>
-                                </p:panel>
                             </div>
                         </div>
 

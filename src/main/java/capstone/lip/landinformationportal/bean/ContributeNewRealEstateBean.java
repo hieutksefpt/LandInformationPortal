@@ -27,15 +27,18 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import capstone.lip.landinformationportal.dto.Coordinate;
+import capstone.lip.landinformationportal.dto.HouseFeatureValue;
 import capstone.lip.landinformationportal.dto.LandFeatureValue;
 import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.FormedCoordinate;
+import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 import capstone.lip.landinformationportal.entity.Street;
 import capstone.lip.landinformationportal.service.Interface.IDistrictService;
 import capstone.lip.landinformationportal.service.Interface.IFormedCoordinate;
+import capstone.lip.landinformationportal.service.Interface.IHousesFeatureService;
 import capstone.lip.landinformationportal.service.Interface.ILandsFeatureService;
 import capstone.lip.landinformationportal.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.service.Interface.ISegmentOfStreetService;
@@ -67,6 +70,9 @@ public class ContributeNewRealEstateBean implements Serializable {
     
     @Autowired
     private ILandsFeatureService landFeatureService;
+    
+    @Autowired
+    private IHousesFeatureService housesFeatureService;
 
     private List<Province> listProvince;
     private List<District> listDistrict;
@@ -85,12 +91,14 @@ public class ContributeNewRealEstateBean implements Serializable {
     private String jsonMultipleCoordinate;
     
     private String landFeatureIdSelected = "";
-    private List<LandFeatureValue> listLandFeatureValue;
-
+    private String houseFeatureIdSelected = "";
+    private List<LandFeatureValue> listLandFeatureValue = new ArrayList<>();
+    private List<HouseFeatureValue> listHouseFeatureValue = new ArrayList<>();
     
     private List<LandsFeature> listLandsFeature;
-    private String newLandFeature;
-    
+    private List<HousesFeature> listHousesFeature;
+    private String newLandFeatureValue;
+    private String newHouseFeatureValue;
 
     
 
@@ -104,25 +112,27 @@ public class ContributeNewRealEstateBean implements Serializable {
         listSegmentOfStreet = new ArrayList<>();
         listStreet = new ArrayList<>();
         listLandsFeature = landFeatureService.findAll();
+        listHousesFeature = housesFeatureService.findAll();
+        
         
     }
 
     public void addNewLandFeatureValue(){
         for (int i = 0; i < listLandsFeature.size(); i++) {
             if(landFeatureIdSelected.equals(listLandsFeature.get(i).getLandsFeatureID().toString())){
-                listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeature));
+                listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
             }
         }
         
-//        FacesMessage msg = new FacesMessage();
-//		String error = findErrorInput();
-//		PrimeFaces.current().executeScript("renderTableLandFeature()");
-//		
-//		if (!error.equals("")) {
-//			setMessage(FacesMessage.SEVERITY_ERROR, error);
-//			return;
-//		}
-//        
+    }
+    
+    public void addNewHousesFeatureValue(){
+        for (int i = 0; i < listHousesFeature.size(); i++) {
+            if(houseFeatureIdSelected.equals(listHousesFeature.get(i).getHousesFeatureID().toString())){
+                listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));
+            }
+        }
+        
     }
     
     
@@ -302,13 +312,47 @@ public class ContributeNewRealEstateBean implements Serializable {
         return listStreet;
     }
 
-    public String getNewLandFeature() {
-        return newLandFeature;
+    public String getHouseFeatureIdSelected() {
+        return houseFeatureIdSelected;
     }
 
-    public void setNewLandFeature(String newLandFeature) {
-        this.newLandFeature = newLandFeature;
+    public void setHouseFeatureIdSelected(String houseFeatureIdSelected) {
+        this.houseFeatureIdSelected = houseFeatureIdSelected;
     }
+
+    public List<HouseFeatureValue> getListHouseFeatureValue() {
+        return listHouseFeatureValue;
+    }
+
+    public void setListHouseFeatureValue(List<HouseFeatureValue> listHouseFeatureValue) {
+        this.listHouseFeatureValue = listHouseFeatureValue;
+    }
+
+    public List<HousesFeature> getListHousesFeature() {
+        return listHousesFeature;
+    }
+
+    public void setListHousesFeature(List<HousesFeature> listHousesFeature) {
+        this.listHousesFeature = listHousesFeature;
+    }
+
+    public String getNewLandFeatureValue() {
+        return newLandFeatureValue;
+    }
+
+    public void setNewLandFeatureValue(String newLandFeatureValue) {
+        this.newLandFeatureValue = newLandFeatureValue;
+    }
+
+    public String getNewHouseFeatureValue() {
+        return newHouseFeatureValue;
+    }
+
+    public void setNewHouseFeatureValue(String newHouseFeatureValue) {
+        this.newHouseFeatureValue = newHouseFeatureValue;
+    }
+
+    
     
     
 

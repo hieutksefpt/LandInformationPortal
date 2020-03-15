@@ -138,27 +138,6 @@ function renderTable() {
     });
 }
 
-function addNewRowLandFeature() {
-    var newRow = $("<tr>");
-    var cols = "";
-    cols += '<td class="td-lng"><input type="text" name="LandFeatureName" id="lng-' + countRow + '" class="form-control longitude-multi""/></td>';
-    cols += '<td class="td-lat"><input type="text" name="LandFeatureValue"  id="lat-' + countRow + '" class="form-control latitude-multi""/></td>';
-    countRow++;
-    cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger " onclick="deleteRow(this)" value="X"></td>';
-    newRow.append(cols);
-    saveRow.push(newRow);
-    $("#table-landfeature").append(newRow);
-}
-function renderTableLandFeature() {
-    saveRow.forEach(x => {
-        $("#table-landfeature").append(x);
-    });
-}
-
-$("#table-landfeature").on("click", ".ibtnDel", function (event) {
-    $(this).closest("tr").remove();       
-    countRow--;
-});
 function deleteRow(element) {
     console.log($(element).closest("tr"));
     $(element).closest("tr").remove();
@@ -254,21 +233,21 @@ function clearAllInput() {
 }
 
 function display_div(show){
-    if(document.getElementById('optionList').value === 1){
-        document.getElementById('houseBox').blur();
-        document.getElementById('houseBoxName').readOnly = true;
-        document.getElementById('houseBoxValue').readOnly = true;
+    if(document.getElementById('optionList').value == 1){
+//        document.getElementById('houseBox').blur();
+        document.getElementById('houseBox').readOnly = true;
+//        document.getElementById('txtInputHouseFeatureNew').readOnly = true;
     }
-   if(document.getElementById('optionList').value === 2){
-        document.getElementById('landBox').blur();
-        document.getElementById('landBoxName').readOnly = true;
-        document.getElementById('landBoxValue').readOnly = true;
+   if(document.getElementById('optionList').value == 2){
+//        document.getElementById('landBox').blur();
+        document.getElementById('landBox').readOnly = true;
+//        document.getElementById('txtInputLandFeatureNew').readOnly = true;
     }
-    if(document.getElementById('optionList').value === 3){
-        document.getElementById('houseBoxName').readOnly = false;
-        document.getElementById('houseBoxValue').readOnly = false;
-        document.getElementById('landBoxName').readOnly = false;
-        document.getElementById('landBoxValue').readOnly = false;
+    if(document.getElementById('optionList').value == 3){
+        document.getElementById('houseBox').readOnly = false;
+//        document.getElementById('txtInputHouseFeatureNew').readOnly = false;
+        document.getElementById('landBox').readOnly = false;
+//        document.getElementById('txtInputLandFeatureNew').readOnly = false;
     }
 
 }

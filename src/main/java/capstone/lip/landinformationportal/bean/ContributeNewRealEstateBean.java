@@ -27,13 +27,16 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import capstone.lip.landinformationportal.dto.Coordinate;
+import capstone.lip.landinformationportal.dto.LandFeatureValue;
 import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.FormedCoordinate;
+import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 import capstone.lip.landinformationportal.entity.Street;
 import capstone.lip.landinformationportal.service.Interface.IDistrictService;
 import capstone.lip.landinformationportal.service.Interface.IFormedCoordinate;
+import capstone.lip.landinformationportal.service.Interface.ILandsFeatureService;
 import capstone.lip.landinformationportal.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.service.Interface.ISegmentOfStreetService;
 import capstone.lip.landinformationportal.service.Interface.IStreetService;
@@ -61,6 +64,9 @@ public class ContributeNewRealEstateBean implements Serializable {
 
     @Autowired
     private IFormedCoordinate formedCoordinateService;
+    
+    @Autowired
+    private ILandsFeatureService landFeatureService;
 
     private List<Province> listProvince;
     private List<District> listDistrict;
@@ -78,7 +84,11 @@ public class ContributeNewRealEstateBean implements Serializable {
     private List<Coordinate> listCoordinate;
     private String jsonMultipleCoordinate;
     
-    private String realEstateTypeSelected = "";
+    private String landFeatureIdSelected = "";
+    private List<LandFeatureValue> landFeatureValue;
+    private List<LandsFeature> listLandsFeature;
+    private String newLandFeature;
+    
 
     
 
@@ -91,18 +101,20 @@ public class ContributeNewRealEstateBean implements Serializable {
         listDistrict = new ArrayList<>();
         listSegmentOfStreet = new ArrayList<>();
         listStreet = new ArrayList<>();
+        listLandsFeature = landFeatureService.findAll();
+        
     }
-    String selectedRealEstateType;
 
-    public void RealEstateTypeChange() {
-        if (selectedRealEstateType != null && !provinceIdSelected.equals("")) {
-            processType = "5";
-            selectedProvince = listProvince.stream().filter(x -> x.getProvinceId().equals(Long.parseLong(provinceIdSelected))).collect(Collectors.toList()).get(0);
-            listDistrict = selectedProvince.getListDistrict();
-            listSegmentOfStreet = new ArrayList();
+    public void addNewLandFeatureValue(){
+        for (int i = 0; i < listLandsFeature.size(); i++) {
+            if(landFeatureIdSelected.equals(listLandsFeature.get(i).getLandsFeatureID().toString())){
+                landFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeature));
+            }
         }
+        
     }
-
+    
+    
     Province selectedProvince;
 
     public void provinceChange() {
@@ -279,6 +291,16 @@ public class ContributeNewRealEstateBean implements Serializable {
         return listStreet;
     }
 
+    public String getNewLandFeature() {
+        return newLandFeature;
+    }
+
+    public void setNewLandFeature(String newLandFeature) {
+        this.newLandFeature = newLandFeature;
+    }
+    
+    
+
     public void setListStreet(List<Street> listStreet) {
         this.listStreet = listStreet;
     }
@@ -395,14 +417,20 @@ public class ContributeNewRealEstateBean implements Serializable {
         this.segmentOfStreet = segmentOfStreet;
     }
 
-    public String getRealEstateTypeSelected() {
-        return realEstateTypeSelected;
+    public String getLandFeatureIdSelected() {
+        return landFeatureIdSelected;
     }
 
-    public void setRealEstateTypeSelected(String realEstateTypeSelected) {
-        this.realEstateTypeSelected = realEstateTypeSelected;
+    public void setLandFeatureIdSelected(String landFeatureIdSelected) {
+        this.landFeatureIdSelected = landFeatureIdSelected;
     }
-    
-    
+
+    public List<LandsFeature> getListLandsFeature() {
+        return listLandsFeature;
+    }
+
+    public void setListLandsFeature(List<LandsFeature> listLandsFeature) {
+        this.listLandsFeature = listLandsFeature;
+    }
     
 }

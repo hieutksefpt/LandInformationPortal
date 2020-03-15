@@ -73,13 +73,14 @@
                                                     <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
                                                     <f:selectItems value="#{contributeNewRealEstateBean.listSegmentOfStreet}" var="element"
                                                                    itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
-                                                </h:selectOneMenu>
+                                                </h:selectOneMenu>    
                                             </div>
                                         </div>
                                     </h:panelGroup>
 
 
                                 </p:panel>
+
                             </p:panel>
                         </div>
                         <input type="button" name="next" class="next action-button" value="Tiếp theo" />
@@ -113,12 +114,25 @@
                                 <div id="landBox" class="landbox col-5">
                                     <table class="landUpload">     
                                         <tr>
-                                            <td><span class="title-mandatory">Thuộc tính Đất</span></td><td><input id="landBoxName" type="text" name="fullname"/></td>
+                                            <td><span class="title-mandatory">Thuộc tính Đất</span></td>
+                                            <td>
+                                                <h:selectOneMenu id="cbb-landFeature" value="#{contributeNewRealEstateBean.landFeatureIdSelected}">
+                                                    <f:selectItem itemLabel="Thuộc tính Đất" itemValue=""/>
+                                                    <f:selectItems value="#{contributeNewRealEstateBean.listLandsFeature}" var="element"
+                                                                   itemLabel="#{element.landsFeatureName}" itemValue="#{element.landsFeatureID}"/>
+                                                </h:selectOneMenu>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><input id="landBoxValue" type="text" name="value"/> <span class="unit"><i>(đơn vị)</i></span></td>
+                                            <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputLandFeatureNew" value="#{contributeNewRealEstateBean.newLandFeature}"></h:inputText> <span class="unit"><i>(đơn vị)</i></span></td>
                                         </tr>
-
+                                        <tr>
+                                            <td></td><td>
+                                                <h:commandButton class="add action-button2" value="Thêm thuộc tính Đất" id="addLandFeature">
+                                                    <p:ajax listener="#{contributeNewRealEstateBean.addNewLandFeatureValue()}" update="panel-form"/>
+                                                </h:commandButton>
+                                            </td>
+                                        </tr>
                                     </table>
                                     <div class="boxAreaInput">
                                         <div class="form-group row">
@@ -134,10 +148,26 @@
                                 <div id="houseBox" class="housebox col-5">
                                     <table class="houseUpload">     
                                         <tr>
-                                            <td><span class="title-mandatory">Thuộc tính Nhà</span></td><td><input id="houseBoxName" type="text" name="fullname"/></td>
+                                            <td><span class="title-mandatory">Thuộc tính Nhà</span></td>
+                                            <td>
+                                                <select  id="optionList" onchange="display_div(document.getElementById('optionList').value);">
+                                                    <option selected="selected">--</option>
+                                                    <option value="1">Đất</option>
+                                                    <option value="2">Nhà</option>
+                                                    <option value="3">Nháp</option>
+                                                </select>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td><span class="title-mandatory">Giá trị thuộc tính</span></td><td><input id="houseBoxValue" type="text" name="value"/> <span class="unit"><i>(đơn vị)</i></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <h:commandButton class="add action-button2" value="Thêm thuộc tính Nhà" id="addHouseFeature">
+                                                    <p:ajax listener="#{contributeNewRealEstateBean.init()}" update="panel-form"/>
+                                                </h:commandButton>
+                                            </td>
                                         </tr>
                                     </table>
                                     <div class="boxAreaInput">

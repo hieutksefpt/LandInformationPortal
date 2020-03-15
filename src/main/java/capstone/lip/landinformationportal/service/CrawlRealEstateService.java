@@ -80,10 +80,13 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 		listHouseFeature = housesFeatureRepository.findAll();
 		listLandsFeature = landsFeatureRepository.findAll();
 		User user = userRepository.findAll().get(0);
+		int i = 1;
 		for (RealEstateObjectCrawl reoCrawl : listReoCrawl) {
 			RealEstate reo = new RealEstate();
 			String link = reoCrawl.getLink();
 			RealEstate reoSearch = realEstateRepository.findByRealEstateLink(link);
+			System.out.println(i+" "+link);
+			i++;
 			if (reoSearch != null) {
 				continue;
 			}
@@ -123,9 +126,6 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 			housesDetailRepository.saveAll(listHousesDetail);
 			landsDetailRepository.saveAll(listLandsDetail);
 		}
-		int i = 1;
-		i++;
-		i--;
 	}
 	private String getStringCheckNull(String string) {
 		if (string == null) {

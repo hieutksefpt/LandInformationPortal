@@ -73,9 +73,7 @@ public class RealEstate extends AuditAbstract implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "realEstate")
     private List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment;
-
     
-
     public RealEstate() {
     }
 

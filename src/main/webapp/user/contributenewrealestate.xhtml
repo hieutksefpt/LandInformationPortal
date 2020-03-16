@@ -123,8 +123,17 @@
                             <div class="flexCommon row">
 
                                 <div id="landBox" class="landbox col-5">
-                                    <table class="landUpload">     
+                                    <table class="landUpload">
+                                        <tr><td><span class="title-mandatory">Giá trị phần Đất</span></td>
+                                            <td>
+                                                <h:inputText id="txtInputLandMoney" value="#{contributeNewRealEstateBean.newLandMoney}">
+                                                    <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
+                                                </h:inputText>
+                                                <span class="unit"><i>(VND)</i></span>
+                                            </td>
+                                        </tr>
                                         <tr>
+
                                             <td><span class="title-mandatory">Thuộc tính Đất</span></td>
                                             <td>
                                                 <h:selectOneMenu id="cbb-landFeature" value="#{contributeNewRealEstateBean.landFeatureIdSelected}">
@@ -157,6 +166,12 @@
                                                             <tr>
                                                                 <td>${i.landFeature.landsFeatureName}</td>
                                                                 <td>${i.value}</td>
+                                                                <td>
+                                                                    <h:commandButton class="ibtnDel btn btn-md btn-danger " onclick="deleteRowFeature(this)" value="X">
+                                                                        <ui:remove><p:ajax listener="#{contributeNewRealEstateBean.deleteLandRowInsert()}" process="msform"/></ui:remove>
+                                                                        <h:inputHidden id="deleteElementLand" value="${i.landFeature.landsFeatureName}" binding="#{contributeNewRealEstateBean.nameLandsFeatureDelete}"></h:inputHidden>
+                                                                    </h:commandButton>
+                                                                </td>
                                                             </tr>
                                                         </c:forEach>
                                                     </table>
@@ -166,8 +181,13 @@
                                     </div>
                                 </div>
                                 <div id="houseBox" class="housebox col-5">
-                                    <table class="houseUpload row">     
+                                    <table class="houseUpload row">
+                                        <tr><td><span class="title-mandatory">Giá trị phần Nhà</span></td><td>
+                                                <h:inputText id="txtInputHouseMoney" value="#{contributeNewRealEstateBean.newHouseMoney}">
+                                                    <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
+                                                </h:inputText><span class="unit"><i>(VND)</i></span></td></tr>
                                         <tr>
+
                                             <td><span class="title-mandatory">Thuộc tính Nhà</span></td>
                                             <td>
                                                 <h:selectOneMenu id="cbb-houseFeature" value="#{contributeNewRealEstateBean.houseFeatureIdSelected}">
@@ -201,6 +221,11 @@
                                                             <tr>
                                                                 <td>${i.housesFeature.housesFeatureName}</td>
                                                                 <td>${i.value}</td>
+                                                                <td>
+                                                                    <h:commandButton class="ibtnDel btn btn-md btn-danger " onclick="deleteRowFeature(this)" value="X">
+                                                                        <ui:remove><p:ajax listener="#{contributeNewRealEstateBean.deleteHouseRowInsert()}" process="msform"/></ui:remove>
+                                                                    </h:commandButton>
+                                                                </td>
                                                             </tr>
                                                         </c:forEach>
                                                     </table>
@@ -248,7 +273,7 @@
                             <p:ajax listener="#{contributeNewRealEstateBean.submitUploadInformation()}"/>
                         </h:commandButton>
                         <input type="button" name="previous" class="previous action-button" value="Quay lại" />
-<!--                        <input type="submit" name="submit" class="submit action-button" value="Hoàn tất" />-->
+                        <!--                        <input type="submit" name="submit" class="submit action-button" value="Hoàn tất" />-->
                     </fieldset>
                 </h:form>
             </ui:define>

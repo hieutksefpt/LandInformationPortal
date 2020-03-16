@@ -28,4 +28,9 @@ public class StreetService implements IStreetService{
 		streetRepository.delete(street);
 	}
 
+    @Override
+    public List<Street> findAll() {
+        return streetRepository.findAll();
+    }
+
 }

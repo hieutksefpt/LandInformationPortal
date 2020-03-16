@@ -1,4 +1,4 @@
-.rightMap{
+.right-map{
     border: 1px black groove;
     padding-left: 0px;
     padding-right: 0px;
@@ -12,7 +12,7 @@
     margin:0px !important;
     padding: 0px !important;
 }
-.contentRightMap{
+.content-right-map{
     margin-top: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -24,14 +24,18 @@
 .input{
     width: 96%;
 }
-.titleHeader{
+.title-header{
     font-weight: bold;
     background-color: black;
     color: white;
     padding-left: 5px;
     padding-right: 5px;
 }
-.elementList{
+.element-list-house{
+    padding-right: 25px;
+    padding-left: 25px;
+}
+.element-list ,.element-list-house-name ,.element-list-land{
     padding-right: 15px;
     padding-left: 15px;
 }

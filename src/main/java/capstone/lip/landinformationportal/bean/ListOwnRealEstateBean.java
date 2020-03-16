@@ -48,7 +48,7 @@ public class ListOwnRealEstateBean implements Serializable{
 
     public void goToDetails(long userId, long realEstateId) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        ec.redirect(ec.getRequestContextPath() + "/common/viewrealestatedetail.xhtml?userId=" + userId + "&realEstateId=" + realEstateId);
+        ec.redirect(ec.getRequestContextPath() + "/user/viewrealestatedetail.xhtml?userId=" + userId + "&realEstateId=" + realEstateId);
     }
 
     public void transferListCoordinate(){

@@ -284,8 +284,7 @@ $(".next").click(function(){
 			//3. increase opacity of next_fs to 1 as it moves in
 			opacity = 1 - now;
 			current_fs.css({
-        'transform': 'scale('+scale+')',
-        'position': 'absolute'
+        'transform': 'scale('+scale+')'
       });
 			next_fs.css({'left': left, 'opacity': opacity});
 		}, 

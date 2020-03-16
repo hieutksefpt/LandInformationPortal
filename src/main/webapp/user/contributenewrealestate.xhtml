@@ -213,10 +213,10 @@
                         </div>
 
                         <h:commandButton class="next action-button" value="Tiếp theo">
-                            <p:ajax listener="#{contributeNewRealEstateBean.nextUploadInformation()}"/>
+                            <p:ajax listener="#{contributeNewRealEstateBean.nextUploadInformation()}" process="msform" update="realEstateNameSubmit realEstatePriceSubmit"/>
                         </h:commandButton>
                         <!--<input type="button" name="next" class="next action-button" value="Tiếp theo" />-->
-                        <!--<input type="button" name="previous" class="previous action-button" value="Quay lại" />-->
+                        <input type="button" name="previous" class="previous action-button" value="Quay lại" />
                     </fieldset>
 
                     <!-- fieldset 3 : hoàn tất thông tin -->
@@ -247,6 +247,7 @@
                         <h:commandButton class="submit action-button" value="Hoàn tất">
                             <p:ajax listener="#{contributeNewRealEstateBean.submitUploadInformation()}"/>
                         </h:commandButton>
+                        <input type="button" name="previous" class="previous action-button" value="Quay lại" />
 <!--                        <input type="submit" name="submit" class="submit action-button" value="Hoàn tất" />-->
                     </fieldset>
                 </h:form>

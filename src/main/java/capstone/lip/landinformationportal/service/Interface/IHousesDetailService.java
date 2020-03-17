@@ -20,4 +20,6 @@ public interface IHousesDetailService {
 
     void delete(List<HousesDetail> listDistrict);
 
+    void delete(HousesDetail housesDetail);
+    
 }

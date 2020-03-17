@@ -1,11 +1,14 @@
 package capstone.lip.landinformationportal.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -14,21 +17,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.gson.Gson;
 
+import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
 import capstone.lip.landinformationportal.dto.Coordinate;
 import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.FormedCoordinate;
 import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.entity.RealEstate;
+import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegment;
+import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegmentId;
 import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 import capstone.lip.landinformationportal.entity.Street;
-import capstone.lip.landinformationportal.service.ProvinceService;
+import capstone.lip.landinformationportal.service.RealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IProvinceService;
+import capstone.lip.landinformationportal.service.Interface.IRealEstateAdjacentSegmentService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 
 @Named
 @ViewScoped
 //@SessionScoped
-public class ManageCrawlRealEstateSetRoadSegment implements Serializable{
+public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private RealEstate realEstate;
@@ -41,18 +48,25 @@ public class ManageCrawlRealEstateSetRoadSegment implements Serializable{
 	private List<District> listDistrict;
 	private List<Street> listStreet;
 	private List<SegmentOfStreet> listSegment;
-	
+	private List<RealEstateAdjacentSegment> listAdjacentSegment;
 	@Autowired
 	private IRealEstateService realEstateService;
 	
 	@Autowired 
 	private IProvinceService provinceService;
 	
+	@Autowired
+	private IRealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
+
 	public void showPopup(Long realEstateId) {
 		realEstate = realEstateService.findById(realEstateId);
 		showPopup = true;
 		PrimeFaces.current().executeScript("initMap("+realEstate.getRealEstateLat()+", "+realEstate.getRealEstateLng()+")");
 		listProvince = provinceService.findAll();
+		listDistrict = null;
+		listStreet = null;
+		listSegment = null;
+		listAdjacentSegment = null;
 		provinceIdSelected = "";
 		districtIdSelected = "";
 		streetIdSelected = "";
@@ -100,12 +114,46 @@ public class ManageCrawlRealEstateSetRoadSegment implements Serializable{
 		PrimeFaces.current().executeScript("drawPath('"+json+"')");
 	}
 	public void saveSegmentToReo() {
+		if (listAdjacentSegment == null || listAdjacentSegment.isEmpty()) {
+			return;
+		} 
+		
+		realEstateAdjacentSegmentService.save(listAdjacentSegment);
+		realEstate.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.VERIFIED));
+		realEstateService.save(realEstate);
+		setMessage(FacesMessage.SEVERITY_INFO, "Chỉnh sửa thành công");
+		showPopup = false;
+	}
+	
+	public void setMessage(FacesMessage.Severity severityType, String message) {
+		
+		FacesMessage msg = new FacesMessage();
+		if (severityType == FacesMessage.SEVERITY_ERROR) {
+			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Lỗi", message);
+		} else if (severityType == FacesMessage.SEVERITY_WARN) {
+			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Lưu ý", message);
+		} else {
+			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Thành công", message);
+		}
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+	public void addSegment() {
 		if (roadSegmentIdSelected.isEmpty()) {
 			return;
 		} 
+		if (listAdjacentSegment == null) {
+			listAdjacentSegment = new ArrayList<RealEstateAdjacentSegment>();
+		}
 		SegmentOfStreet segment = listSegment.stream()
 				.filter(x->x.getSegmentId().toString().equals(roadSegmentIdSelected)).collect(Collectors.toList()).get(0);
-		realEstate.getListRealEstateAdjacentSegment()
+		
+		RealEstateAdjacentSegment reoAdj = new RealEstateAdjacentSegment()
+				.setId(new RealEstateAdjacentSegmentId(segment.getSegmentId(), realEstate.getRealEstateId()))
+				.setRealEstate(realEstate)
+				.setSegmentOfStreet(segment);
+		if (!listAdjacentSegment.contains(reoAdj)) {
+			listAdjacentSegment.add(reoAdj);
+		}
 	}
 	public void hidePopup() {
 		showPopup = false;
@@ -170,6 +218,12 @@ public class ManageCrawlRealEstateSetRoadSegment implements Serializable{
 	}
 	public void setListSegment(List<SegmentOfStreet> listSegment) {
 		this.listSegment = listSegment;
+	}
+	public List<RealEstateAdjacentSegment> getListAdjacentSegment() {
+		return listAdjacentSegment;
+	}
+	public void setListAdjacentSegment(List<RealEstateAdjacentSegment> listAdjacentSegment) {
+		this.listAdjacentSegment = listAdjacentSegment;
 	}
 	
 	

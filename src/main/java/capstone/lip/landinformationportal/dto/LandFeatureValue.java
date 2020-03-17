@@ -1,0 +1,41 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package capstone.lip.landinformationportal.dto;
+
+import capstone.lip.landinformationportal.entity.LandsFeature;
+import java.io.Serializable;
+
+/**
+ *
+ * @author Admin
+ */
+public class LandFeatureValue implements Serializable{
+    private LandsFeature landFeature;
+    private String value;
+
+    public LandFeatureValue(LandsFeature landFeature, String value) {
+        this.landFeature = landFeature;
+        this.value = value;
+    }
+
+    public LandsFeature getLandFeature() {
+        return landFeature;
+    }
+
+    public void setLandFeature(LandsFeature landFeature) {
+        this.landFeature = landFeature;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+    
+    
+}

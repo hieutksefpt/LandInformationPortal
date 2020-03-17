@@ -20,6 +20,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -60,22 +62,22 @@ public class RealEstate extends AuditAbstract implements Serializable {
     private User user;
 
     @Basic(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToOne(mappedBy = "realEstate")
     private Land land;
     
     @Basic(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToMany(mappedBy = "realEstate")
     private List<House> listHouse;
     
     @Basic(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToMany(mappedBy = "realEstate")
     private List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment;
-
     
-
     public RealEstate() {
     }
 

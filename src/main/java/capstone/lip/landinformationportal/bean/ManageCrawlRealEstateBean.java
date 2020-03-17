@@ -78,6 +78,8 @@ public class ManageCrawlRealEstateBean implements Serializable{
 
 	public void refreshData() {
 		listRealEstate = realEstateService.findByRealEstateStatus(String.valueOf(StatusRealEstateConstant.NOT_VERIFIED));
+		int i = 1;
+		i++;
 	}
 	public List<RealEstate> getListRealEstate() {
 		return listRealEstate;

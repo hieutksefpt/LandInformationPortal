@@ -16,3 +16,11 @@
 select{
 	width: 95%;
 }
+.scrollit {
+    overflow:scroll;
+    height:100px;
+    overflow-x: hidden;
+}
+.ui-growl-message p{
+	color: white;
+}

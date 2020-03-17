@@ -103,7 +103,6 @@ function initMap() {
             selectedMarkers.push(marker);
         } else {
             selectedMarkers.push(marker);
-            addNewRowCoordinate();
             addDataToNewRow(marker);
         }
 
@@ -138,6 +137,7 @@ function renderTable() {
         $("#table-coordinate").append(x);
     });
 }
+
 function deleteRow(element) {
     console.log($(element).closest("tr"));
     $(element).closest("tr").remove();
@@ -180,8 +180,8 @@ function updateDeleteOld() {
     countRow = 0;
 }
 function setCoordinateForInput(marker) {
-    $('#form\\:txtinput-lngSingleCoordinate').val(marker.getPosition().lng());
-    $('#form\\:txtinput-latSingleCoordinate').val(marker.getPosition().lat());
+    $('#msform\\:txtinput-lngSingleCoordinate').val(marker.getPosition().lng());
+    $('#msform\\:txtinput-latSingleCoordinate').val(marker.getPosition().lat());
 }
 
 function clearOldMarkers() {
@@ -232,6 +232,33 @@ function clearAllInput() {
     $('#form\\:txtinput-latSingleCoordinate').val("");
 }
 
+function display_div(show){
+    if(document.getElementById('optionList').value == 1){
+//        document.getElementById('houseBox').blur();
+        document.getElementById('houseBox').readOnly = true;
+//        document.getElementById('txtInputHouseFeatureNew').readOnly = true;
+    }
+   if(document.getElementById('optionList').value == 2){
+//        document.getElementById('landBox').blur();
+        document.getElementById('landBox').readOnly = true;
+//        document.getElementById('txtInputLandFeatureNew').readOnly = true;
+    }
+    if(document.getElementById('optionList').value == 3){
+        document.getElementById('houseBox').readOnly = false;
+//        document.getElementById('txtInputHouseFeatureNew').readOnly = false;
+        document.getElementById('landBox').readOnly = false;
+//        document.getElementById('txtInputLandFeatureNew').readOnly = false;
+    }
+
+}
+
+function loadLandUnit(landUnit){
+    document.getElementById("landUnit").textContent="(" + landUnit+")";
+}
+
+function loadHouseUnit(houseUnit){
+    document.getElementById("houseUnit").textContent="(" + houseUnit+")";
+}
 
 // đoạn này bắt đầu test MultiForm
 $(".next").click(function(){
@@ -257,8 +284,7 @@ $(".next").click(function(){
 			//3. increase opacity of next_fs to 1 as it moves in
 			opacity = 1 - now;
 			current_fs.css({
-        'transform': 'scale('+scale+')',
-        'position': 'absolute'
+        'transform': 'scale('+scale+')'
       });
 			next_fs.css({'left': left, 'opacity': opacity});
 		}, 

@@ -28,12 +28,15 @@ and open the template in the editor.
 #form select{
     width: 100%;
 }
-#table-coordinate{
-    width: 100%;	
+#table-feature{
+    width: 90%;	
 }
 
-#table-coordinate th{
+#table-feature th{
     text-align: center !important;
+}
+#table-feature td{
+    text-align: center;
 }
 .scrolldata{
     width: 100%;
@@ -122,8 +125,23 @@ body {
 }
 
 /*buttons*/
+
+
 #msform .action-button {
     width: 100px;
+    background: #27AE60;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 1px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+    float: right;
+}
+
+#msform .action-button2 {
+    width: 200px;
     background: #27AE60;
     font-weight: bold;
     color: white;

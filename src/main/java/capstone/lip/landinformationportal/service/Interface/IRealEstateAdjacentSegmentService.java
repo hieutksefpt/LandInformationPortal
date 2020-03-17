@@ -20,4 +20,6 @@ public interface IRealEstateAdjacentSegmentService {
     void delete(List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment);
 
     void deleteById(Long realEstateAdjacentSegmentId);
+    
+    List<RealEstateAdjacentSegment> save(List<RealEstateAdjacentSegment> listReoAdjacentSegment);
 }

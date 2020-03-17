@@ -52,7 +52,7 @@ public class HouseService implements IHouseService {
     public List<HousesFeature> getListHousesFeature(Long houseId) {
         House house = houseRepository.findById(houseId).get();
 //        List<HousesFeature> listHousesFeature = house.getListHousesFeatures();   // đhs chỗ này lỗi ?
-        List<HousesFeature> listHousesFeature = new ArrayList<HousesFeature>();
+        List<HousesFeature> listHousesFeature = new ArrayList<>();
         List<HousesDetail> listHouseDetail = house.getListHousesDetail();
         for (HousesDetail housesDetail: listHouseDetail) {
         	listHousesFeature.add(housesDetail.getHousesFeature());

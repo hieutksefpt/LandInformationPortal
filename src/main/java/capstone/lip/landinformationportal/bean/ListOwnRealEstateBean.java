@@ -39,16 +39,16 @@ public class ListOwnRealEstateBean implements Serializable{
 
     @PostConstruct
     public void init() {
-        //Hàm init này ph?i truy?n vào bi?n userId ð? list ra nh?ng th?ng RealEstate thu?c user ðó
+        //Ham init nay phai truyen vao userId
         listUserRealEstate = new ArrayList<>();
-        //truy?n userId vào hàm dý?i, ðang hard code
+        //truyen userId vao ham ben duoi, ï¿½ang hard code
         listUserRealEstate = userService.getListRealEstate(1L);
         transferListCoordinate();
     }
 
     public void goToDetails(long userId, long realEstateId) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        ec.redirect(ec.getRequestContextPath() + "/common/viewrealestatedetail.xhtml?userId=" + userId + "&realEstateId=" + realEstateId);
+        ec.redirect(ec.getRequestContextPath() + "/user/viewrealestatedetail.xhtml?userId=" + userId + "&realEstateId=" + realEstateId);
     }
 
     public void transferListCoordinate(){

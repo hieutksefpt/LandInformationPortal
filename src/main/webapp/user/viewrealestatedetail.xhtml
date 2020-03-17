@@ -13,6 +13,34 @@
         <ui:composition template="/template/common/commonLayout.xhtml">
             <ui:define name="content">
                 <h:outputStylesheet name="viewrealestatedetail.css" library="css"></h:outputStylesheet>
+                <h:outputStylesheet name="bootstrap.min.css" library="css" />
+                <div class="modal fade" id="confirmDeletePopup" tabindex="-1" role="dialog"
+                     aria-labelledby="confirmDeletePopup" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận xóa bất động sản</h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">Bạn có chắc chắn muốn xóa bất động sản này ?</div>
+                            <div class="modal-footer">
+                                <h:form>
+                                    <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Đóng</button>
+                                    <h:commandButton id="btn-ButtonDelete"
+                                                     styleClass="btn btn-primary btn-delete" 
+                                                     onclick="hideConfirmDeletePopup()" 
+                                                     value="Xóa"
+                                                     action="#{viewRealEstateDetailBean.deleteRealEstate()}">
+                                        <p:ajax process="@form"></p:ajax>
+                                    </h:commandButton>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="container">
                     <div class="row">
                         <div id="map" class="col-9 col-lg-9"></div>
@@ -22,9 +50,12 @@
                                 <h:inputHidden id="txtInput_coordinate_detailRealEstate" value="#{viewRealEstateDetailBean.jsonCoordinate}"></h:inputHidden>
                                 <div>
                                     <h:form>
-                                        <h:commandButton id="btn-ButtonDelete" class="btn-delete btn-in-detai-page" 
-                                        value="Xóa" action="#{viewRealEstateDetailBean.deleteRealEstate()}">
-                                            <p:ajax process="@form"></p:ajax>
+                                        <h:commandButton id="btn-ButtonDelete" 
+                                                         type="button" 
+                                                         class="btn-delete btn-in-detai-page" 
+                                                         value="Xóa" 
+                                                         onclick="openConfirmDeletePopup()">
+                                            <f:ajax execute="@form" render="confirmDeletePopup" />
                                         </h:commandButton>
                                         <h:commandButton id="btn-ButtonEdit" class="btn-edit btn-in-detai-page" value="Sửa">
                                             <p:ajax process="@form"></p:ajax>
@@ -87,6 +118,7 @@
             </ui:define>
 
             <ui:define name="footer">
+                <h:outputScript name="bootstrap.min.js" library="js"/>
                 <h:outputScript name="viewrealestatedetail.js" library="js" />
                 <script type="text/javascript"
                         src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"

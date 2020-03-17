@@ -21,5 +21,5 @@ function openConfirmDeletePopup() {
     $('#confirmDeletePopup').modal('show');
 }
 function hideConfirmDeletePopup() {
-    $('#confirmDeletePopup').modal('hide');
+    $('#confirmDeletePopup').modal('show');
 }

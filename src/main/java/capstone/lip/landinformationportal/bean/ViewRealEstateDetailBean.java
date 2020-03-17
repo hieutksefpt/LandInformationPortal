@@ -43,19 +43,19 @@ public class ViewRealEstateDetailBean implements Serializable {
 
     @Autowired
     private IRealEstateService realEstateService;
-    
+
     @Autowired
     private ILandService landService;
-    
+
     @Autowired
     private IHouseService houseService;
-    
+
     @Autowired
     private ILandsDetailService landsDetailService;
-    
+
     @Autowired
     private IHousesDetailService housesDetailService;
-    
+
     @Autowired
     private IUserService userService;
 
@@ -70,46 +70,44 @@ public class ViewRealEstateDetailBean implements Serializable {
         currentListHouse = realEstateService.getListHouse(realEstateId);
         transferCoordinate();
     }
-    
-    public void deleteRealEstate(){
 
-		List<LandsDetail> listLandDetail = realEstateClicked.getLand().getListLandsDetail();	
-		landsDetailService.delete(listLandDetail);
-		Land land = realEstateClicked.getLand();
-		landService.delete(land);
-		
-		List<House> listHouse = realEstateClicked.getListHouse();
-    	List<HousesDetail> listHouseDetail = listHouse.stream()
-    			.map(x->x.getListHousesDetail()).flatMap(List::stream).collect(Collectors.toList());
-    	
-    	housesDetailService.delete(listHouseDetail);
-    	houseService.delete(listHouse);
-    	
-    	realEstateService.delete(realEstateClicked);
-    	try {
-	    	ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-	        ec.redirect( ec.getRequestContextPath() + "/user/listownrealestate.xhtml" );
-    	}
-    	catch (Exception e) {
-			e.printStackTrace();
-		}
+    public void deleteRealEstate() {
+        List<LandsDetail> listLandDetail = realEstateClicked.getLand().getListLandsDetail();
+        landsDetailService.delete(listLandDetail);
+        Land land = realEstateClicked.getLand();
+        landService.delete(land);
+
+        List<House> listHouse = realEstateClicked.getListHouse();
+        List<HousesDetail> listHouseDetail = listHouse.stream()
+                .map(x -> x.getListHousesDetail()).flatMap(List::stream).collect(Collectors.toList());
+
+        housesDetailService.delete(listHouseDetail);
+        houseService.delete(listHouse);
+
+        realEstateService.delete(realEstateClicked);
+        try {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(ec.getRequestContextPath() + "/user/listownrealestate.xhtml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    
-    public void transferCoordinate(){
+
+    public void transferCoordinate() {
         Coordinate coordinate;
         coordinate = new Coordinate().setLatitude(realEstateClicked.getRealEstateLat()).setLongitude(realEstateClicked.getRealEstateLng());
         Gson gson = new Gson();
         jsonCoordinate = gson.toJson(coordinate);
     }
-    
-    public List<HousesDetail> getListHousesDetail(House house){
+
+    public List<HousesDetail> getListHousesDetail(House house) {
         return house.getListHousesDetail();
     }
-    
-    public List<LandsDetail> getListLandsDetail(){
+
+    public List<LandsDetail> getListLandsDetail() {
         return this.currentLand.getListLandsDetail();
     }
-    
+
     public Land getCurrentLand() {
         return currentLand;
     }
@@ -125,7 +123,7 @@ public class ViewRealEstateDetailBean implements Serializable {
     public void setCurrentListHouse(List<House> currentListHouse) {
         this.currentListHouse = currentListHouse;
     }
-    
+
     public String getJsonCoordinate() {
         return jsonCoordinate;
     }
@@ -133,7 +131,7 @@ public class ViewRealEstateDetailBean implements Serializable {
     public void setJsonCoordinate(String jsonCoordinate) {
         this.jsonCoordinate = jsonCoordinate;
     }
-    
+
     public RealEstate getRealEstateClicked() {
         return realEstateClicked;
     }

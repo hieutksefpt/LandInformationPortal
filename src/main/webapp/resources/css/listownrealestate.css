@@ -6,6 +6,7 @@
 #map{
     width: 100%;
     height: 1000px;
+    border: groove black 1px;
 }
 .container {
     max-width: 100%;
@@ -25,6 +26,8 @@
     border: 1px black groove;
     padding-left: 0px;
     padding-right: 0px;
+    max-height: 1000px;
+    overflow: auto;
 }
 .title-header{
     font-weight: bold;

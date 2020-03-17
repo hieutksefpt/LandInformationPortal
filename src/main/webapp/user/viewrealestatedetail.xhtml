@@ -13,6 +13,35 @@
         <ui:composition template="/template/common/commonLayout.xhtml">
             <ui:define name="content">
                 <h:outputStylesheet name="viewrealestatedetail.css" library="css"></h:outputStylesheet>
+
+                <div class="modal fade" id="confirmDeletePopup" tabindex="-1" role="dialog"
+                     aria-labelledby="confirmDeletePopup" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Confirm
+                                    Dialog Delete Land's Feature</h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">Do you want to delete this item ?</div>
+                            <div class="modal-footer">
+                                <h:form>
+                                    <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Đóng</button>
+                                    <h:commandButton id="btn-ButtonDelete"
+                                                     styleClass="btn btn-primary buttonDelete" 
+                                                     onclick="hideConfirmDeletePopup()" 
+                                                     value="Xóa"
+                                                     action="#{viewRealEstateDetailBean.deleteRealEstate()}">
+                                        <p:ajax process="@form"></p:ajax>
+                                    </h:commandButton>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="container">
                     <div class="row">
                         <div id="map" class="col-9 col-lg-9"></div>
@@ -22,9 +51,12 @@
                                 <h:inputHidden id="txtInput_coordinate_detailRealEstate" value="#{viewRealEstateDetailBean.jsonCoordinate}"></h:inputHidden>
                                 <div>
                                     <h:form>
-                                        <h:commandButton id="btn-ButtonDelete" class="btn-delete btn-in-detai-page" 
-                                        value="Xóa" action="#{viewRealEstateDetailBean.deleteRealEstate()}">
-                                            <p:ajax process="@form"></p:ajax>
+                                        <h:commandButton id="btn-ButtonDelete" 
+                                                         type="button" 
+                                                         class="btn-delete btn-in-detai-page" 
+                                                         value="Xóa" 
+                                                         onclick="openConfirmDeletePopup()">
+                                            <f:ajax execute="@form" render="confirmDeletePopup" />
                                         </h:commandButton>
                                         <h:commandButton id="btn-ButtonEdit" class="btn-edit btn-in-detai-page" value="Sửa">
                                             <p:ajax process="@form"></p:ajax>

@@ -19,4 +19,6 @@ public interface ILandsDetailService {
     void delete(List<LandsDetail> listLandsDetail);
 
     void deleteById(Long landsDetailId);
+    
+    void deleteByLandId(long landDetailId);
 }

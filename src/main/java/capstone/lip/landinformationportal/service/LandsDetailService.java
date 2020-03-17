@@ -42,4 +42,9 @@ public class LandsDetailService implements ILandsDetailService {
         landsDetailRepository.deleteById(landsDetailId);
     }
 
+    @Override
+    public void deleteByLandId(long landDetailId) {
+        
+    }
+
 }

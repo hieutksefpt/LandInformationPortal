@@ -7,6 +7,10 @@ import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.LandsDetail;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.User;
+import capstone.lip.landinformationportal.service.Interface.IHouseService;
+import capstone.lip.landinformationportal.service.Interface.IHousesDetailService;
+import capstone.lip.landinformationportal.service.Interface.ILandService;
+import capstone.lip.landinformationportal.service.Interface.ILandsDetailService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import com.google.gson.Gson;
@@ -37,6 +41,18 @@ public class ViewRealEstateDetailBean implements Serializable {
     private IRealEstateService realEstateService;
     
     @Autowired
+    private ILandService landService;
+    
+    @Autowired
+    private IHouseService houseService;
+    
+    @Autowired
+    private ILandsDetailService landsDetailService;
+    
+    @Autowired
+    private IHousesDetailService housesDetailService;
+    
+    @Autowired
     private IUserService userService;
 
     @PostConstruct
@@ -49,6 +65,13 @@ public class ViewRealEstateDetailBean implements Serializable {
         currentLand = realEstateService.getLand(realEstateId);
         currentListHouse = realEstateService.getListHouse(realEstateId);
         transferCoordinate();
+    }
+    
+    public void deleteRealEstate(){
+        List<LandsDetail> listLandsDetail = getListLandsDetail();
+        for(LandsDetail ld : listLandsDetail){
+            
+        }
     }
     
     public void transferCoordinate(){

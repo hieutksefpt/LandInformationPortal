@@ -66,25 +66,25 @@
                                     Tên người đóng góp
                                 </div>
                                 <div class="nameInput element-list">
-                                    <h:inputText id="lbl-UsersName" class="input" value="#{viewRealEstateDetailBean.currentUser.fullName}" readonly="true"></h:inputText>
+                                    <h:inputText id="ipt-UsersName" class="input" value="#{viewRealEstateDetailBean.currentUser.fullName}" readonly="true"></h:inputText>
                                 </div>
                                 <div id="lbl-RealEstateNameLabel" class="text realEstateName element-list">
                                     Tên đối tượng BĐS
                                 </div>
                                 <div class="realEstateNameInput element-list">
-                                    <h:inputText id="lbl-RealEstateName" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstateName}" readonly="true"></h:inputText>
+                                    <h:inputText id="ipt-RealEstateName" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstateName}" readonly="true"></h:inputText>
                                 </div>
                                 <div id="lbl-RealEstateAddressLabel" class="text address element-list">
                                     Địa chỉ
                                 </div>
                                 <div class="addressInput element-list">
-                                    <h:inputText id="lbl-RealEstateAddress" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstateAddress}" readonly="true"></h:inputText>
+                                    <h:inputText id="ipt-RealEstateAddress" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstateAddress}" readonly="true"></h:inputText>
                                 </div>
                                 <div id="lbl-RealEstatePriceLabel" class="text price element-list">
                                     Giá
                                 </div>
                                 <div class="priceInput element-list">
-                                    <h:inputText id="lbl-RealEstatePrice" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstatePrice}" readonly="true"></h:inputText><p>(Đơn vị: triệu/m2)</p>
+                                    <h:inputText id="ipt-RealEstatePrice" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstatePrice}" readonly="true"></h:inputText><p>(Đơn vị: triệu/m2)</p>
                                 </div>
                                 <div class="text shortDes element-list">
                                     Mô tả ngắn gọn
@@ -96,9 +96,11 @@
                             <div class="title-header">Các đặc tính của Đất</div>
                             <div class="row element-list-land">
                                 <c:forEach items="#{viewRealEstateDetailBean.listLandsDetail}" var="landsDetail">
-                                    <div id="lbl-LandsDetailFeatureName" class="col-4 col-lg-4">#{landsDetail.landsFeature.landsFeatureName}</div>
-                                    <div id="lbl-LandsDetailValue" class="col-4 col-lg-4">#{landsDetail.value}</div>
-                                    <div id="lbl-LandsDetailUnit" class="col-4 col-lg-4">#{landsDetail.landsFeature.landsFeatureUnit}</div>
+                                    <c:if test="#{not empty landsDetail.value}">
+                                        <div id="lbl-LandsDetailFeatureName" class="col-4 col-lg-4">#{landsDetail.landsFeature.landsFeatureName}</div>
+                                        <div id="lbl-LandsDetailValue" class="col-4 col-lg-4">#{landsDetail.value}</div>
+                                        <div id="lbl-LandsDetailUnit" class="col-4 col-lg-4">#{landsDetail.landsFeature.landsFeatureUnit}</div>
+                                    </c:if>
                                 </c:forEach>
                             </div>
                             <div class="title-header">Các đặc tính của Nhà</div>
@@ -106,9 +108,11 @@
                                 <div class="element-list-house-name">#{house.houseName}</div>
                                 <div class="row element-list-house">
                                     <c:forEach items="#{viewRealEstateDetailBean.getListHousesDetail(house)}" var="housesDetail">
-                                        <div id="lbl-HousesDetailFeatureName" class="col-4 col-lg-4">#{housesDetail.housesFeature.housesFeatureName}</div>
-                                        <div id="lbl-HousesDetailValue" class="col-4 col-lg-4">#{housesDetail.value}</div>
-                                        <div id="lbl-HousesDetailUnit" class="col-4 col-lg-4">#{housesDetail.housesFeature.housesFeatureUnit}</div>
+                                        <c:if test="#{not empty housesDetail.value}">
+                                            <div id="lbl-HousesDetailFeatureName" class="col-4 col-lg-4">#{housesDetail.housesFeature.housesFeatureName}</div>
+                                            <div id="lbl-HousesDetailValue" class="col-4 col-lg-4">#{housesDetail.value}</div>
+                                            <div id="lbl-HousesDetailUnit" class="col-4 col-lg-4">#{housesDetail.housesFeature.housesFeatureUnit}</div>
+                                        </c:if>
                                     </c:forEach>
                                 </div>
                             </c:forEach>

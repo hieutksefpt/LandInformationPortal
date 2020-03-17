@@ -260,6 +260,7 @@ public class ManageGeoInfoBean implements Serializable {
 				if (listSegmentOfStreet == null) {
 					listSegmentOfStreet = new ArrayList<>();
 				}
+
 				listSegmentOfStreet.add(segmentStreet);
 				PrimeFaces.current().executeScript("drawPath()");
 				break;

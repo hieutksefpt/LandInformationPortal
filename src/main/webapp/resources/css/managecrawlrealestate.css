@@ -13,3 +13,6 @@
     border-radius: 5px;
     border: 1px solid #DDD;
 }
+select{
+	width: 95%;
+}

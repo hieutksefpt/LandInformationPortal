@@ -19,7 +19,8 @@ function initMap() {
         mapTypeId: 'roadmap',
         clickableIcons: false,
         disableDoubleClickZoom: true,
-        fullscreenControl: false
+        fullscreenControl: false,
+        disableDefaultUI: true
     });
     map.addListener('bounds_changed', function() {
       searchBox.setBounds(map.getBounds());

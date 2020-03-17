@@ -35,7 +35,7 @@
             		<p:ajax process="@form" listener="#{manageCrawlRealEstateBean.crawlNow()}"></p:ajax>
            		</h:commandButton>
             </h:form>
-            <h:form id="tabledata" prependId="false">
+            <h:form id="tabledata" prependId="false" onsubmit="return false;">
 	            <p:dataTable value="#{manageCrawlRealEstateBean.listRealEstate}" var="element"
 		           	rows="10" paginator="true"
 		            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
@@ -55,24 +55,85 @@
 	            	</p:column>
 	            	<p:column style="text-align: center">
 			             <p:commandButton icon="pi pi-search" title="View" update="tabledata"
-			             action="#{manageCrawlRealEstateSetRoadSegment.showPopup(element.realEstateId)}">
+			             action="#{manageCrawlRealEstateSetRoadSegment.showPopup(element.realEstateId)}" >
 			             	
 			            </p:commandButton>
 			        </p:column>
 	            </p:dataTable>
-	            <h:panelGroup id="popup" layout="block" styleClass="popup-panel-overlay" rendered="#{manageCrawlRealEstateSetRoadSegment.showPopup}">
+	            <h:panelGroup id="popup" layout="block" styleClass="popup-panel-overlay" 
+	            rendered="#{manageCrawlRealEstateSetRoadSegment.showPopup}">
 	                <div class="popup-panel">
+	                    <c:set var="beanPopup" value="${manageCrawlRealEstateSetRoadSegment}"></c:set>
 	                    <div class="row">
 	                    	<div class="col-3">
-	                    		#{manageCrawlRealEstateSetRoadSegment.realEstate.realEstateAddress}
+	                    		
+                    			<h:panelGroup id="combobox_data">
+                    				<div class="form-group row">
+                    					<div class="col">
+                    						Địa chỉ: #{beanPopup.realEstate.realEstateAddress}
+                    					</div>
+                    				</div>
+                    				<div class="form-group row">
+                    					<div class="col" style="text-align: center">
+                    						<strong>Cập nhập đoạn đường</strong>
+                    					</div>
+                    				</div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <h:selectOneMenu id="cbb-Province" value="#{beanPopup.provinceIdSelected}">
+                                               	<p:ajax listener="#{beanPopup.provinceChange()}" update="combobox_data"/>
+                                                <f:selectItem itemLabel="Tỉnh/Thành phố" itemValue=""/>
+                                                <f:selectItems value="#{beanPopup.listProvince}" var="element"
+                                                               itemLabel="#{element.provinceName}" itemValue="#{element.provinceId}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h:selectOneMenu id="cbb-District" value="#{beanPopup.districtIdSelected}">
+                                                <p:ajax listener="#{beanPopup.districtChange()}" update="combobox_data"></p:ajax>
+                                                <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
+                                                <f:selectItems value="#{beanPopup.listDistrict}" var="element"
+                                                               itemLabel="#{element.districtName}" itemValue="#{element.districtId}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <h:selectOneMenu id="cbb-Street" value="#{beanPopup.streetIdSelected}" >
+                                                <p:ajax	listener="#{beanPopup.streetChange()}" update="combobox_data"></p:ajax>
+
+                                                <f:selectItem itemLabel="Đường phố" itemValue=""/>
+                                                <f:selectItems value="#{beanPopup.listStreet}" var="element"
+                                                               itemLabel="#{element.streetName}" itemValue="#{element.streetId}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{beanPopup.roadSegmentIdSelected}">
+                                                <p:ajax	listener="#{beanPopup.segmentStreetChange()}" update="combobox_data"></p:ajax>
+                                                <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
+                                                <f:selectItems value="#{beanPopup.listSegment}" var="element"
+                                                               itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                </h:panelGroup>	
 	                    	</div>
 	                    	<div class="col-9">
 	                    		<div id="map" style="height: 400px"></div>
 	                    	</div>
 	                    </div>
-	                    <h:commandButton value="hide details" action="#{manageCrawlRealEstateSetRoadSegment.hidePopup()}">
-	                        <f:ajax render="tabledata"/>
-	                    </h:commandButton>
+	                    <div class="form-group row">
+	                    	<div class="col">
+	                    		<h:commandButton value="Lưu" action="#{manageCrawlRealEstateSetRoadSegment.saveSegmentToReo()}">
+			                        <f:ajax render="tabledata"/>
+			                    </h:commandButton>
+	                    	</div>
+	                    	<div class="col">
+	                    		<h:commandButton value="Hủy" action="#{manageCrawlRealEstateSetRoadSegment.hidePopup()}">
+			                        <f:ajax render="tabledata"/>
+			                    </h:commandButton>
+	                    	</div>
+	                    </div>
+	                    
 	                </div>
 	            </h:panelGroup>
             </h:form>
@@ -80,9 +141,9 @@
 		</ui:define>
 		<ui:define name="footer">
 			<h:outputScript name="managecrawlrealestate.js" library="js" />
-			<script type="text/javascript"
-                        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
-                async="true" defer="true"></script>
+				<script type="text/javascript"
+                        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;initMap(0,0)"
+                async="true" defer="true"></script>	
 		</ui:define>
 	</ui:composition>
 </h:body>

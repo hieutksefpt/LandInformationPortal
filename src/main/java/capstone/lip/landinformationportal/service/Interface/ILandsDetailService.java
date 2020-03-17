@@ -20,5 +20,4 @@ public interface ILandsDetailService {
 
     void deleteById(Long landsDetailId);
     
-    void deleteByLandId(long landDetailId);
 }

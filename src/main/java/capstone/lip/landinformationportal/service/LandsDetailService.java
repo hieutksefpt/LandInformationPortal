@@ -37,14 +37,10 @@ public class LandsDetailService implements ILandsDetailService {
         landsDetailRepository.deleteInBatch(listLandsDetail);
     }
 
+    // not work with composite key
     @Override
     public void deleteById(Long landsDetailId) {
         landsDetailRepository.deleteById(landsDetailId);
-    }
-
-    @Override
-    public void deleteByLandId(long landDetailId) {
-        
     }
 
 }

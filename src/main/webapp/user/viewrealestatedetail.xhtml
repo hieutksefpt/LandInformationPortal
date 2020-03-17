@@ -22,7 +22,8 @@
                                 <h:inputHidden id="txtInput_coordinate_detailRealEstate" value="#{viewRealEstateDetailBean.jsonCoordinate}"></h:inputHidden>
                                 <div>
                                     <h:form>
-                                        <h:commandButton id="btn-ButtonDelete" class="btn-delete btn-in-detai-page" value="Xóa" action="">
+                                        <h:commandButton id="btn-ButtonDelete" class="btn-delete btn-in-detai-page" 
+                                        value="Xóa" action="#{viewRealEstateDetailBean.deleteRealEstate()}">
                                             <p:ajax process="@form"></p:ajax>
                                         </h:commandButton>
                                         <h:commandButton id="btn-ButtonEdit" class="btn-edit btn-in-detai-page" value="Sửa">

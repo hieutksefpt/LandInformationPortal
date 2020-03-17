@@ -43,7 +43,7 @@ public class LandsFeature extends AuditAbstract implements Serializable {
     
 //    @Basic(fetch = FetchType.LAZY)
 //    @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "landsFeature", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "landsFeature")
     private List<LandsDetail> listLandsDetail;
     
     public LandsFeature() {

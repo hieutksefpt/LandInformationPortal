@@ -21,7 +21,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 
 import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
-import capstone.lip.landinformationportal.config.CrawlJob;
+import capstone.lip.landinformationportal.config.CrawlRealEstateScheduleJob;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.service.Interface.ICrawlRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
@@ -35,14 +35,10 @@ public class ManageCrawlRealEstateBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private String timerCrawl;
-	
-//	@Autowired
-//	Scheduler scheduler;
-	
-//	private JobKey jobKey = new JobKey("crawlerJob", "crawler");
 
 	@Autowired
 	private IRealEstateService realEstateService;
+	
 	@Autowired
 	private ICrawlRealEstateService crawlReoService;
 	
@@ -54,37 +50,7 @@ public class ManageCrawlRealEstateBean implements Serializable{
 		timerCrawl = "";
 		timerCrawl = crawlReoService.initCrawlJob();
 		listRealEstate = realEstateService.findByRealEstateStatus(String.valueOf(StatusRealEstateConstant.NOT_VERIFIED));
-//		try {
-//			scheduler = new StdSchedulerFactory().getScheduler();
-//		} catch (SchedulerException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		JobDetail jobDetail;
-//		try {
-//			jobDetail = scheduler.getJobDetail(jobKey);
-//			if (jobDetail == null) return;
-//			List<? extends Trigger> triggers = scheduler.getTriggersOfJob(jobDetail.getKey());
-//		    for (Trigger trigger : triggers) {
-//		    	
-//		        SimpleScheduleBuilder scheduleBuilder = (SimpleScheduleBuilder)trigger.getScheduleBuilder();
-//		        if (scheduleBuilder != null) {
-//		        	
-//		        	Field privateStringField = SimpleScheduleBuilder.class.
-//		        	            getDeclaredField("interval");
-//
-//		        	privateStringField.setAccessible(true);
-//		        	Long fieldValue = ((Long) privateStringField.get(scheduleBuilder))/1000;
-//		        	System.out.println("fieldValue = " + fieldValue);
-//		        	timerCrawl = String.valueOf(fieldValue);
-//		        }
-//		    }
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-		
 	}
-	
 	
 	public void setTimerButtonClick() {
 		int timer= Integer.valueOf(timerCrawl);
@@ -97,6 +63,10 @@ public class ManageCrawlRealEstateBean implements Serializable{
 	public void turnOnCrawler() {
 		crawlReoService.turnOnCrawler();
 	}
+	
+	public void crawlNow() {
+		crawlReoService.crawlNow();
+	}
 
 	public String getTimerCrawl() {
 		return timerCrawl;
@@ -106,7 +76,9 @@ public class ManageCrawlRealEstateBean implements Serializable{
 		this.timerCrawl = timerCrawl;
 	}
 
-
+	public void refreshData() {
+		listRealEstate = realEstateService.findByRealEstateStatus(String.valueOf(StatusRealEstateConstant.NOT_VERIFIED));
+	}
 	public List<RealEstate> getListRealEstate() {
 		return listRealEstate;
 	}

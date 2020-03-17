@@ -10,4 +10,5 @@ public interface ICrawlRealEstateService {
 	void setTimeCrawlJob(int value);
 	void turnOnCrawler();
 	void turnOffCrawler();
+	void crawlNow();
 }

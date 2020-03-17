@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.quartz.JobBuilder;
+import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
@@ -19,7 +20,8 @@ import org.springframework.stereotype.Service;
 import capstone.lip.landinformationportal.common.HousesFeatureNameConstant;
 import capstone.lip.landinformationportal.common.LandsFeatureNameConstant;
 import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
-import capstone.lip.landinformationportal.config.CrawlJob;
+import capstone.lip.landinformationportal.config.CrawlRealEstateNowJob;
+import capstone.lip.landinformationportal.config.CrawlRealEstateScheduleJob;
 import capstone.lip.landinformationportal.dto.RealEstateObjectCrawl;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.HousesDetail;
@@ -74,6 +76,9 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 	
 	private List<HousesFeature> listHouseFeature;
 	private List<LandsFeature> listLandsFeature;
+	
+	private Trigger trigger;
+	private JobDetail job;
 	
 	@Override
 	public void saveRealEstateCrawl(List<RealEstateObjectCrawl> listReoCrawl) {
@@ -220,6 +225,7 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 		String timeCrawl = "";
 		JobDetail jobDetail;
 		try {
+			//find current job if exist
 			jobDetail = scheduler.getJobDetail(jobKey);
 			if (jobDetail == null) return timeCrawl;
 			List<? extends Trigger> triggers = scheduler.getTriggersOfJob(jobDetail.getKey());
@@ -247,12 +253,13 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 		trigger = TriggerBuilder.newTrigger().withIdentity("crawlerTriggler", "crawler")
 				.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(value).repeatForever()).build();
 
-		job = JobBuilder.newJob(CrawlJob.class).withIdentity("crawlerJob", "crawler").build();
+		job = JobBuilder.newJob(CrawlRealEstateScheduleJob.class).withIdentity("crawlerJob", "crawler").build();
 	}
 	public void turnOffCrawler() {
 		try {
 			if (scheduler!= null) {
 				scheduler.standby();
+				scheduler.shutdown();
 			}
 		} catch (SchedulerException e) {
 			e.printStackTrace();
@@ -269,6 +276,19 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 			e.printStackTrace();
 		}
 	}
-	private Trigger trigger;
-	private JobDetail job;
+	public void crawlNow() {
+		JobKey jobKeyNow = JobKey.jobKey("crawlerNowJob", "crawler");
+		JobDetail jobNow = JobBuilder.newJob(CrawlRealEstateNowJob.class).storeDurably(true).withIdentity("crawlerNowJob", "crawler").build();
+		try {
+			scheduler.addJob(jobNow, true);
+			scheduler.getContext().put("crawlnow", "true");
+			scheduler.triggerJob(jobKeyNow);
+			scheduler.deleteJob(jobKeyNow);
+			scheduler.getContext().remove("crawlnow");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 }

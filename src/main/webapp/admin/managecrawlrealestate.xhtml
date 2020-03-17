@@ -31,16 +31,19 @@
             	</h:commandButton>
             	
             	
-            	<h:commandButton value="Crawl ngay"></h:commandButton>
+            	<h:commandButton value="Crawl ngay">
+            		<p:ajax process="@form" listener="#{manageCrawlRealEstateBean.crawlNow()}"></p:ajax>
+           		</h:commandButton>
             </h:form>
-            <h:form>
+            <h:form id="tabledata" prependId="false">
 	            <p:dataTable value="#{manageCrawlRealEstateBean.listRealEstate}" var="element"
 		           	rows="10" paginator="true"
-		            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
 		            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
 		            >
 		            <f:facet name="paginatorTopLeft">
-			            <p:commandButton type="button" icon="pi pi-refresh" />
+			            <p:commandButton icon="pi pi-refresh" 
+			            action="#{manageCrawlRealEstateBean.refreshData}"/>
 			        </f:facet>
 	            	<p:column width="85%">
 	            		<f:facet name="header">Address</f:facet>
@@ -51,15 +54,35 @@
 	            		<a href="#{element.realEstateLink}" target="_blank">Link</a>
 	            	</p:column>
 	            	<p:column style="text-align: center">
-			             <p:commandButton icon="pi pi-search" title="View">
-			               
+			             <p:commandButton icon="pi pi-search" title="View" update="tabledata"
+			             action="#{manageCrawlRealEstateSetRoadSegment.showPopup(element.realEstateId)}">
+			             	
 			            </p:commandButton>
 			        </p:column>
 	            </p:dataTable>
+	            <h:panelGroup id="popup" layout="block" styleClass="popup-panel-overlay" rendered="#{manageCrawlRealEstateSetRoadSegment.showPopup}">
+	                <div class="popup-panel">
+	                    <div class="row">
+	                    	<div class="col-3">
+	                    		#{manageCrawlRealEstateSetRoadSegment.realEstate.realEstateAddress}
+	                    	</div>
+	                    	<div class="col-9">
+	                    		<div id="map" style="height: 400px"></div>
+	                    	</div>
+	                    </div>
+	                    <h:commandButton value="hide details" action="#{manageCrawlRealEstateSetRoadSegment.hidePopup()}">
+	                        <f:ajax render="tabledata"/>
+	                    </h:commandButton>
+	                </div>
+	            </h:panelGroup>
             </h:form>
+            
 		</ui:define>
 		<ui:define name="footer">
 			<h:outputScript name="managecrawlrealestate.js" library="js" />
+			<script type="text/javascript"
+                        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
+                async="true" defer="true"></script>
 		</ui:define>
 	</ui:composition>
 </h:body>

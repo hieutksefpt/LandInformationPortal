@@ -39,3 +39,19 @@
     padding-right: 15px;
     padding-left: 15px;
 }
+.btn-in-detai-page{
+    border-radius: 20px;
+    float: right;
+    color: white;
+    width: 60px;
+    height: 30px;
+}
+.btn-delete{
+    
+    margin-right: 25px;
+    background-color: #d9534f;
+    
+}
+.btn-edit{
+    background-color: #56c6c6;
+}

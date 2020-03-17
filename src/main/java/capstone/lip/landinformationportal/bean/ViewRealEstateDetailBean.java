@@ -6,14 +6,22 @@ import capstone.lip.landinformationportal.entity.HousesDetail;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.LandsDetail;
 import capstone.lip.landinformationportal.entity.RealEstate;
+import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 import capstone.lip.landinformationportal.entity.User;
+import capstone.lip.landinformationportal.service.Interface.IHouseService;
+import capstone.lip.landinformationportal.service.Interface.IHousesDetailService;
+import capstone.lip.landinformationportal.service.Interface.ILandService;
+import capstone.lip.landinformationportal.service.Interface.ILandsDetailService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import com.google.gson.Gson;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import javax.annotation.PostConstruct;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -37,6 +45,18 @@ public class ViewRealEstateDetailBean implements Serializable {
     private IRealEstateService realEstateService;
     
     @Autowired
+    private ILandService landService;
+    
+    @Autowired
+    private IHouseService houseService;
+    
+    @Autowired
+    private ILandsDetailService landsDetailService;
+    
+    @Autowired
+    private IHousesDetailService housesDetailService;
+    
+    @Autowired
     private IUserService userService;
 
     @PostConstruct
@@ -49,6 +69,30 @@ public class ViewRealEstateDetailBean implements Serializable {
         currentLand = realEstateService.getLand(realEstateId);
         currentListHouse = realEstateService.getListHouse(realEstateId);
         transferCoordinate();
+    }
+    
+    public void deleteRealEstate(){
+
+		List<LandsDetail> listLandDetail = realEstateClicked.getLand().getListLandsDetail();	
+		landsDetailService.delete(listLandDetail);
+		Land land = realEstateClicked.getLand();
+		landService.delete(land);
+		
+		List<House> listHouse = realEstateClicked.getListHouse();
+    	List<HousesDetail> listHouseDetail = listHouse.stream()
+    			.map(x->x.getListHousesDetail()).flatMap(List::stream).collect(Collectors.toList());
+    	
+    	housesDetailService.delete(listHouseDetail);
+    	houseService.delete(listHouse);
+    	
+    	realEstateService.delete(realEstateClicked);
+    	try {
+	    	ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+	        ec.redirect( ec.getRequestContextPath() + "/user/listownrealestate.xhtml" );
+    	}
+    	catch (Exception e) {
+			e.printStackTrace();
+		}
     }
     
     public void transferCoordinate(){

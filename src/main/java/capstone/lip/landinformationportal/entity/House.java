@@ -50,7 +50,8 @@ public class House extends AuditAbstract implements Serializable{
     private RealEstate realEstate;
     
     @Basic(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToMany(mappedBy = "house")
     private List<HousesDetail> listHousesDetail;
 

@@ -189,6 +189,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         realEstateService.save(newUploadRealEstate);
         
         
+        
         // save to Table REAS
         RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
         newRealEstateAdjacentSegment.setRealEstate(newUploadRealEstate);
@@ -249,12 +250,13 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     }
 
     // delete element in listLandFeatureValue has Name equal Name in Row Delete Selected
-    public void deleteLandRowInsert(){
+    public void deleteLandRowInsert(String landFeatureName){
         for (int i = 0; i < listLandFeatureValue.size(); i++) {
-            if (listLandFeatureValue.get(i).getLandFeature().getLandsFeatureName().toString().equals(nameLandsFeatureDelete)) {
+            if (listLandFeatureValue.get(i).getLandFeature().getLandsFeatureName().toString().equals(landFeatureName)) {
                 listLandFeatureValue.remove(listLandFeatureValue.get(i));
             }
         }
+        System.out.println("ssssss");
     }
     
     public void deleteHouseRowInsert(){

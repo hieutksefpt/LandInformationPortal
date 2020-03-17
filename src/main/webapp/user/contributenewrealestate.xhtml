@@ -168,8 +168,7 @@
                                                                 <td>${i.value}</td>
                                                                 <td>
                                                                     <h:commandButton class="ibtnDel btn btn-md btn-danger " onclick="deleteRowFeature(this)" value="X">
-                                                                        <ui:remove><p:ajax listener="#{contributeNewRealEstateBean.deleteLandRowInsert()}" process="msform"/></ui:remove>
-                                                                        <h:inputHidden id="deleteElementLand" value="${i.landFeature.landsFeatureName}" binding="#{contributeNewRealEstateBean.nameLandsFeatureDelete}"></h:inputHidden>
+                                                                        <p:ajax listener="#{contributeNewRealEstateBean.deleteLandRowInsert(i.landFeature.landsFeatureName)}" process="msform"/>
                                                                     </h:commandButton>
                                                                 </td>
                                                             </tr>

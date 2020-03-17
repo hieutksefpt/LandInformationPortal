@@ -42,4 +42,9 @@ public class RealEstateAdjacentSegmentService implements IRealEstateAdjacentSegm
         realEstateAdjacentSegmentRepository.deleteById(realEstateAdjacentSegmentId);
     }
 
+	@Override
+	public List<RealEstateAdjacentSegment> save(List<RealEstateAdjacentSegment> listReoAdjacentSegment) {
+		return realEstateAdjacentSegmentRepository.saveAll(listReoAdjacentSegment);
+	}
+
 }

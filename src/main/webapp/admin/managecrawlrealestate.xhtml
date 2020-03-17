@@ -10,11 +10,12 @@
 <h:body>
 	
 	<ui:composition template="/template/admin/adminLayout.xhtml">
-
+		
 		<ui:define name="content">
 			<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
 			<h:outputStylesheet name="managecrawlrealestate.css" library="css"></h:outputStylesheet>
             <h:form>
+            	
             	<h:outputText value="Khoảng thời gian crawl"></h:outputText>
             	<h:inputText value="#{manageCrawlRealEstateBean.timerCrawl}"></h:inputText>
             	
@@ -31,16 +32,20 @@
             	</h:commandButton>
             	
             	
-            	<h:commandButton value="Crawl ngay"></h:commandButton>
+            	<h:commandButton value="Crawl ngay">
+            		<p:ajax process="@form" listener="#{manageCrawlRealEstateBean.crawlNow()}"></p:ajax>
+           		</h:commandButton>
             </h:form>
-            <h:form>
+            <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px">
+            	<p:growl id="msgs" showDetail="true"/>
 	            <p:dataTable value="#{manageCrawlRealEstateBean.listRealEstate}" var="element"
 		           	rows="10" paginator="true"
-		            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
 		            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
 		            >
 		            <f:facet name="paginatorTopLeft">
-			            <p:commandButton type="button" icon="pi pi-refresh" />
+			            <p:commandButton icon="pi pi-refresh" 
+			            action="#{manageCrawlRealEstateBean.refreshData()}"/>
 			        </f:facet>
 	            	<p:column width="85%">
 	            		<f:facet name="header">Address</f:facet>
@@ -51,15 +56,119 @@
 	            		<a href="#{element.realEstateLink}" target="_blank">Link</a>
 	            	</p:column>
 	            	<p:column style="text-align: center">
-			             <p:commandButton icon="pi pi-search" title="View">
-			               
+			             <p:commandButton icon="pi pi-search" title="View" update="tabledata"
+			             action="#{manageCrawlRealEstateSetRoadSegmentBean.showPopup(element.realEstateId)}" >
+			             	
 			            </p:commandButton>
 			        </p:column>
 	            </p:dataTable>
+	            <h:panelGroup id="popup" layout="block" styleClass="popup-panel-overlay" 
+	            rendered="#{manageCrawlRealEstateSetRoadSegmentBean.showPopup}">
+	            	
+	                <div class="popup-panel">
+	                    <c:set var="beanPopup" value="${manageCrawlRealEstateSetRoadSegmentBean}"></c:set>
+	                    <div class="row">
+	                    	<div class="col-3">
+	                    		
+                    			<h:panelGroup id="combobox_data">
+                    				<div class="form-group row">
+                    					<div class="col">
+                    						Địa chỉ: #{beanPopup.realEstate.realEstateAddress}
+                    					</div>
+                    				</div>
+                    				<div class="form-group row">
+                    					<div class="col" style="text-align: center">
+                    						<strong>Cập nhập đoạn đường</strong>
+                    					</div>
+                    				</div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <h:selectOneMenu id="cbb-Province" value="#{beanPopup.provinceIdSelected}">
+                                               	<p:ajax listener="#{beanPopup.provinceChange()}" update="combobox_data"/>
+                                                <f:selectItem itemLabel="Tỉnh/Thành phố" itemValue=""/>
+                                                <f:selectItems value="#{beanPopup.listProvince}" var="element"
+                                                               itemLabel="#{element.provinceName}" itemValue="#{element.provinceId}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h:selectOneMenu id="cbb-District" value="#{beanPopup.districtIdSelected}">
+                                                <p:ajax listener="#{beanPopup.districtChange()}" update="combobox_data"></p:ajax>
+                                                <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
+                                                <f:selectItems value="#{beanPopup.listDistrict}" var="element"
+                                                               itemLabel="#{element.districtName}" itemValue="#{element.districtId}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <h:selectOneMenu id="cbb-Street" value="#{beanPopup.streetIdSelected}" >
+                                                <p:ajax	listener="#{beanPopup.streetChange()}" update="combobox_data"></p:ajax>
+
+                                                <f:selectItem itemLabel="Đường phố" itemValue=""/>
+                                                <f:selectItems value="#{beanPopup.listStreet}" var="element"
+                                                               itemLabel="#{element.streetName}" itemValue="#{element.streetId}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{beanPopup.roadSegmentIdSelected}">
+                                                <p:ajax	listener="#{beanPopup.segmentStreetChange()}" update="combobox_data"></p:ajax>
+                                                <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
+                                                <f:selectItems value="#{beanPopup.listSegment}" var="element"
+                                                               itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+				                    	<div class="col">
+				                    		<h:commandButton value="Thêm đoạn đường liền kề">
+				                    			<p:ajax listener="#{beanPopup.addSegment()}" update="tablesegment"></p:ajax>
+				                    		</h:commandButton>
+				                    	</div>
+				                    </div>
+				                    <h:panelGroup id="tablesegment">
+				                    	<div class="scrollit">
+					                    	<table>
+					                    		<tbody>
+						                    	<c:forEach items="#{beanPopup.listAdjacentSegment}" var="element">
+			                                    	<tr>
+			                                    		<td>#{element.segmentOfStreet.segmentName}</td>
+			                                    	</tr>
+			                                    </c:forEach>
+			                                    </tbody>
+		                                    </table>
+	                                    </div>
+				                    </h:panelGroup>
+                                    
+                                </h:panelGroup>	
+                                <div class="form-group row" style="padding-top:40px;">
+			                    	<div class="col text-center">
+			                    		<h:commandButton value="Lưu" 
+			                    			action="#{beanPopup.saveSegmentToReo()}">
+					                        <f:ajax render="tabledata"/> 
+					                        <f:actionListener binding="#{manageCrawlRealEstateBean.refreshData()}"></f:actionListener>
+					                    </h:commandButton>
+			                    	</div>
+			                    	<div class="col text-center">
+			                    		<h:commandButton value="Hủy" action="#{beanPopup.hidePopup()}">
+					                        <f:ajax render="tabledata"/>
+					                    </h:commandButton>
+			                    	</div>
+			                    </div>
+	                    	</div>
+	                    	<div class="col-9">
+	                    		<div id="map" style="min-height: 400px"></div>
+	                    	</div>
+	                    </div>
+	                </div>
+	            </h:panelGroup>
             </h:form>
+            
 		</ui:define>
 		<ui:define name="footer">
 			<h:outputScript name="managecrawlrealestate.js" library="js" />
+				<script type="text/javascript"
+                        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;initMap(0,0)"
+                async="true" defer="true"></script>	
 		</ui:define>
 	</ui:composition>
 </h:body>

@@ -35,6 +35,8 @@ import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.FormedCoordinate;
 import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.entity.Land;
+import capstone.lip.landinformationportal.entity.LandsDetail;
+import capstone.lip.landinformationportal.entity.LandsDetailId;
 import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.entity.RealEstate;
@@ -46,6 +48,7 @@ import capstone.lip.landinformationportal.service.Interface.IDistrictService;
 import capstone.lip.landinformationportal.service.Interface.IFormedCoordinate;
 import capstone.lip.landinformationportal.service.Interface.IHousesFeatureService;
 import capstone.lip.landinformationportal.service.Interface.ILandService;
+import capstone.lip.landinformationportal.service.Interface.ILandsDetailService;
 import capstone.lip.landinformationportal.service.Interface.ILandsFeatureService;
 import capstone.lip.landinformationportal.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateAdjacentSegmentService;
@@ -65,10 +68,9 @@ import java.util.UUID;
 @ViewScoped
 public class ContributeNewRealEstateBean implements Serializable, StatusRealEstateConstant {
 
-    
     @Autowired
     private IRealEstateService realEstateService;
-    
+
     @Autowired
     private IProvinceService provinceService;
 
@@ -76,8 +78,11 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     private IDistrictService districtService;
     
     @Autowired
+    private ILandsDetailService landsDetailService;
+
+    @Autowired
     private IUserService userService;
-    
+
     @Autowired
     private ILandService landService;
 
@@ -92,7 +97,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 
     @Autowired
     private ILandsFeatureService landFeatureService;
-    
+
     @Autowired
     private IRealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
 
@@ -148,8 +153,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     private String realEstateNameSubmit;
     private String newLandName;
     private String newHouseName;
-    
-    
+
     @PostConstruct
     public void init() {
         processType = "1";
@@ -170,12 +174,12 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 
     }
 
-    public void saveDataUploadToDB(){
+    public void saveDataUploadToDB() {
         //save to DB RE
         User tempUser = new User();
         List<User> userListAll = userService.findAll();
         for (int i = 0; i < userListAll.size(); i++) {
-            if(userListAll.get(i).getUserId().equals(userId)){
+            if (userListAll.get(i).getUserId().equals(userId)) {
                 tempUser.setUserId(userListAll.get(i).getUserId());
                 tempUser.setUsername(userListAll.get(i).getUsername());
                 tempUser.setPassword(userListAll.get(i).getPassword());
@@ -191,55 +195,65 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         newUploadRealEstate.setRealEstatePrice(realEstatePrice);
         newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateType(realEstateType).setUser(tempUser);
         realEstateService.save(newUploadRealEstate);
-        
-        
-        
+
         // save to Table REAS
         RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
         newRealEstateAdjacentSegment.setRealEstate(newUploadRealEstate);
         SegmentOfStreet tempSos = new SegmentOfStreet();
         List<SegmentOfStreet> segmentOfStreetListAll = segmentOfStreetService.findAll();
         for (int i = 0; i < segmentOfStreetListAll.size(); i++) {
-            if(segmentOfStreetListAll.get(i).getSegmentId().equals(segmentStreetIdSelected)){
+            if (segmentOfStreetListAll.get(i).getSegmentId().equals(segmentStreetIdSelected)) {
                 tempSos.setSegmentName(segmentOfStreetListAll.get(i).getSegmentName())
                         .setSegmentLat(segmentOfStreetListAll.get(i).getSegmentLng()).setSegmentLng(segmentOfStreetListAll.get(i).getSegmentLng())
                         .setDistrict(selectedDistrict).setStreet(selectedStreet);
             }
         }
-        
+
         newRealEstateAdjacentSegment.setSegmentOfStreet(tempSos);
         newRealEstateAdjacentSegment.setRealEstate(newUploadRealEstate);
-        newRealEstateAdjacentSegment.setUuid(UUID.fromString(nameInput));    // cái này là gen kiểu gì nhỉ ?? 
         realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);
-        
-        
-        // save to Table Land 
-        if(newLandMoney.compareTo(BigDecimal.ZERO) != 0){
+
+        // save to Table Land & save to Table LandsDetail
+        if (newLandMoney.compareTo(BigDecimal.ZERO) != 0) {
             Land tempLand = new Land();
             tempLand.setLandName(realEstateName);
             tempLand.setLandPrice(Double.parseDouble(newLandMoney.toString()));
-            // chỗ này thì lưu tận cả 1 list, thôi đm đi ngủ =)))) cay VCL CODE 
-//            tempLand.se
+            tempLand.setRealEstate(newUploadRealEstate);
+
 //            landService.save(tempLand);
+            // 
+            for (int i = 0; i < listLandFeatureValue.size(); i++) {
+                LandsDetailId tempLDI = new LandsDetailId();
+                tempLDI.setLandId(tempLand.getLandId());
+                tempLDI.setLandsFeatureId(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureID());
+                LandsDetail tempLD = new LandsDetail();
+                LandsFeature lf = new LandsFeature();
+                lf.setLandsFeatureID(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureID());
+                lf.setLandsFeatureName(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureName());
+                lf.setLandsFeatureUnit(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureUnit());
+       //        lf.setListLandsDetail();           // set list Detail ở đây thế nào khi 
+                tempLD.setId(tempLDI).setLand(tempLand).setLandsFeature(lf);
+                landsDetailService.save(tempLD);
+            }
+
         }
+
+        // save to Table House & House Detail tương tự Land :(( 
         
-        // save to Table House 
-        if(newHouseMoney.compareTo(BigDecimal.ZERO) != 0){
-            
-        }
     }
-    
+
     // function call when Ajax listener (textbox Price change value)
     public void calculateRealEstateValue() {
         // when new House Price not null but Total Null (Null is different Zero)
-        if(realEstatePrice.equals(BigDecimal.ZERO) && !newHouseMoney.equals(BigDecimal.ZERO) && !newLandMoney.equals(BigDecimal.ZERO))
+        if (realEstatePrice.equals(BigDecimal.ZERO) && !newHouseMoney.equals(BigDecimal.ZERO) && !newLandMoney.equals(BigDecimal.ZERO)) {
             realEstatePrice = newHouseMoney.add(newLandMoney);
-        // when new Land Price not null but Total Null (Null is different Zero)
-        else if(realEstatePrice.equals(BigDecimal.ZERO) && !newHouseMoney.equals(BigDecimal.ZERO) && newLandMoney.equals(BigDecimal.ZERO))
+        } // when new Land Price not null but Total Null (Null is different Zero)
+        else if (realEstatePrice.equals(BigDecimal.ZERO) && !newHouseMoney.equals(BigDecimal.ZERO) && newLandMoney.equals(BigDecimal.ZERO)) {
             realEstatePrice = newHouseMoney.add(BigDecimal.ZERO);
-        // when new House & Land Price not null but Total Null (Null is different Zero)
-        else if(realEstatePrice.equals(BigDecimal.ZERO) && newHouseMoney.equals(BigDecimal.ZERO) && !newLandMoney.equals(BigDecimal.ZERO))
+        } // when new House & Land Price not null but Total Null (Null is different Zero)
+        else if (realEstatePrice.equals(BigDecimal.ZERO) && newHouseMoney.equals(BigDecimal.ZERO) && !newLandMoney.equals(BigDecimal.ZERO)) {
             realEstatePrice = newLandMoney.add(BigDecimal.ZERO);
+        }
         //khi mà cả 3 trường đều có giá trị 
         try {
             if (realEstatePrice.equals(newHouseMoney.add(newLandMoney)) || realEstatePrice.compareTo(newHouseMoney.add(newLandMoney)) > 0) {
@@ -254,23 +268,20 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     }
 
     // delete element in listLandFeatureValue has Name equal Name in Row Delete Selected
-    public void deleteLandRowInsert(String landFeatureName){
+    public void deleteLandRowInsert(String landFeatureName) {
         for (int i = 0; i < listLandFeatureValue.size(); i++) {
             if (listLandFeatureValue.get(i).getLandFeature().getLandsFeatureName().equals(landFeatureName)) {
                 listLandFeatureValue.remove(listLandFeatureValue.get(i));
             }
         }
     }
-    
-    public void deleteHouseRowInsert(String houseFeatureName){
+
+    public void deleteHouseRowInsert(String houseFeatureName) {
         for (int i = 0; i < listHouseFeatureValue.size(); i++) {
             if (listHouseFeatureValue.get(i).getHousesFeature().getHousesFeatureName().equals(houseFeatureName)) {
                 listHouseFeatureValue.remove(listHouseFeatureValue.get(i));
             }
         }
-    }
-    public void submitUploadInformation() {
-
     }
 
     public void nextLocatePoint() {
@@ -308,10 +319,6 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 //        }
     }
 
-    public void nextUploadInformation() {
-        realEstateNameSubmit = realEstateName;
-        realEstatePriceSubmit = realEstatePrice;
-    }
 
     public void onChangeLandUnit() {
         for (int i = 0; i < listLandsFeature.size(); i++) {
@@ -873,8 +880,5 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     public void setNewHouseName(String newHouseName) {
         this.newHouseName = newHouseName;
     }
-
-    
-    
 
 }

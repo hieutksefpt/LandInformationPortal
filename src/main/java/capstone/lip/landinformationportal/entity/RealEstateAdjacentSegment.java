@@ -29,10 +29,6 @@ public class RealEstateAdjacentSegment extends AuditAbstract implements Serializ
     
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(columnDefinition = "BINARY(16)")
-    private UUID uuid;
-
     
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
@@ -65,13 +61,6 @@ public class RealEstateAdjacentSegment extends AuditAbstract implements Serializ
         this.realEstate = realEstate;
     }
 
-	public UUID getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(UUID uuid) {
-		this.uuid = uuid;
-	}
     
     
 }

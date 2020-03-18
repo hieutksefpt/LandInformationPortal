@@ -43,9 +43,12 @@ and open the template in the editor.
 }
 
 #map{
-    width: 100%;
+    width: 90%;
     height: 650px;
     margin: auto;
+    border: 0 none;
+    border-radius: 3px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);     
 }
 
 

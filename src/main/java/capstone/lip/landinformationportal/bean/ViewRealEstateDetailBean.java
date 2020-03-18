@@ -36,7 +36,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ViewRealEstateDetailBean implements Serializable {
 
     private RealEstate realEstateClicked;
-    private User currentUser;
     private String jsonCoordinate;
     private Land currentLand;
     private List<House> currentListHouse;
@@ -62,9 +61,7 @@ public class ViewRealEstateDetailBean implements Serializable {
     @PostConstruct
     public void init() {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        long userId = Long.parseLong(params.get("userId"));
         long realEstateId = Long.parseLong(params.get("realEstateId"));
-        currentUser = userService.findById(userId);
         realEstateClicked = realEstateService.findById(realEstateId);
         currentLand = realEstateService.getLand(realEstateId);
         currentListHouse = realEstateService.getListHouse(realEstateId);
@@ -138,13 +135,5 @@ public class ViewRealEstateDetailBean implements Serializable {
 
     public void setRealEstateClicked(RealEstate realEstateClicked) {
         this.realEstateClicked = realEstateClicked;
-    }
-
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
     }
 }

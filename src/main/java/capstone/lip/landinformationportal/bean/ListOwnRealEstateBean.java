@@ -46,16 +46,16 @@ public class ListOwnRealEstateBean implements Serializable {
         transferListCoordinate();
     }
 
-    public void goToDetails(long userId, long realEstateId) throws IOException {
+    public void goToDetails(long realEstateId) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        ec.redirect(ec.getRequestContextPath() + "/user/viewrealestatedetail.xhtml?userId=" + userId + "&realEstateId=" + realEstateId);
+        ec.redirect(ec.getRequestContextPath() + "/user/viewrealestatedetail.xhtml?realEstateId=" + realEstateId);
     }
 
     public void transferListCoordinate() {
         List<Coordinate> listCoordinate = new ArrayList<>();
-        for (RealEstate re : listUserRealEstate) {
+        listUserRealEstate.stream().forEach((re) -> {
             listCoordinate.add(new Coordinate().setLatitude(re.getRealEstateLat()).setLongitude(re.getRealEstateLng()));
-        }
+        });
         Gson gson = new Gson();
         jsonMultipleCoordinate = gson.toJson(listCoordinate);
     }

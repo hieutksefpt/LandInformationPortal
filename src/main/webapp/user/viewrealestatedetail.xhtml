@@ -62,12 +62,14 @@
                                         </h:commandButton>
                                     </h:form>
                                 </div>
-                                <div id="lbl-UsersNameLabel" class="text name element-list">
-                                    Tên người đóng góp
-                                </div>
-                                <div class="nameInput element-list">
-                                    <h:inputText id="txt-UsersName" class="input" value="#{viewRealEstateDetailBean.currentUser.fullName}" readonly="true"></h:inputText>
-                                </div>
+                                <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateType == 'Contributor'}">
+                                    <div id="lbl-UsersNameLabel" class="text name element-list">
+                                        Tên người đóng góp
+                                    </div>
+                                    <div class="nameInput element-list">
+                                        <h:inputText id="txt-UsersName" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.user.fullName}" readonly="true"></h:inputText>
+                                    </div>
+                                </c:if>
                                 <div id="lbl-RealEstateNameLabel" class="text realEstateName element-list">
                                     Tên đối tượng BĐS
                                 </div>
@@ -98,8 +100,7 @@
                                 <c:forEach items="#{viewRealEstateDetailBean.listLandsDetail}" var="landsDetail">
                                     <c:if test="#{not empty landsDetail.value}">
                                         <div id="lbl-LandsDetailFeatureName" class="col-4 col-lg-4">#{landsDetail.landsFeature.landsFeatureName}</div>
-                                        <div id="lbl-LandsDetailValue" class="col-4 col-lg-4">#{landsDetail.value}</div>
-                                        <div id="lbl-LandsDetailUnit" class="col-4 col-lg-4">#{landsDetail.landsFeature.landsFeatureUnit}</div>
+                                        <div id="lbl-LandsDetailValueUnit" class="col-8 col-lg-8">#{landsDetail.value} #{landsDetail.landsFeature.landsFeatureUnit}</div>
                                     </c:if>
                                 </c:forEach>
                             </div>
@@ -110,8 +111,7 @@
                                     <c:forEach items="#{viewRealEstateDetailBean.getListHousesDetail(house)}" var="housesDetail">
                                         <c:if test="#{not empty housesDetail.value}">
                                             <div id="lbl-HousesDetailFeatureName" class="col-4 col-lg-4">#{housesDetail.housesFeature.housesFeatureName}</div>
-                                            <div id="lbl-HousesDetailValue" class="col-4 col-lg-4">#{housesDetail.value}</div>
-                                            <div id="lbl-HousesDetailUnit" class="col-4 col-lg-4">#{housesDetail.housesFeature.housesFeatureUnit}</div>
+                                            <div id="lbl-HousesDetailValueUnit" class="col-8 col-lg-8">#{housesDetail.value} #{housesDetail.housesFeature.housesFeatureUnit}</div>
                                         </c:if>
                                     </c:forEach>
                                 </div>

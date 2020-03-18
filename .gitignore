@@ -5,3 +5,5 @@ target
 nbproject
 /nbactions.tmp
 nb-configuration.xml
+test-output
+testng.xml

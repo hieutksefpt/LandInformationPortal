@@ -47,14 +47,11 @@
 			            <p:commandButton icon="pi pi-refresh" 
 			            action="#{manageCrawlRealEstateBean.refreshData()}"/>
 			        </f:facet>
-	            	<p:column width="85%">
+	            	<p:column width="95%">
 	            		<f:facet name="header">Address</f:facet>
-	            		#{element.realEstateAddress}
+	            		<a href="#{element.realEstateLink}" target="_blank">#{element.realEstateAddress}</a>
 	            	</p:column>
-	            	<p:column width="5%">
-	            		<f:facet name="header">Link</f:facet>
-	            		<a href="#{element.realEstateLink}" target="_blank">Link</a>
-	            	</p:column>
+	     
 	            	<p:column style="text-align: center">
 			             <p:commandButton icon="pi pi-search" title="View" update="tabledata"
 			             action="#{manageCrawlRealEstateSetRoadSegmentBean.showPopup(element.realEstateId)}" >

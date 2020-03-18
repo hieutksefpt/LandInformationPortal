@@ -8,10 +8,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
-import capstone.lip.landinformationportal.entity.RealEstate;
-import capstone.lip.landinformationportal.service.Interface.ICrawlRealEstateService;
-import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
+import capstone.lip.landinformationportal.common.StatusCrawledNewsConstant;
+import capstone.lip.landinformationportal.entity.CrawledNews;
+import capstone.lip.landinformationportal.service.Interface.ICrawledNewsService;
 
 @Named
 @ViewScoped
@@ -21,36 +20,31 @@ public class ManageCrawlNewsBean implements Serializable{
 
 	private String timerCrawl;
 
-	@Autowired
-	private IRealEstateService realEstateService;
+	@Autowired 
+	private ICrawledNewsService crawledNewService;
 	
-	@Autowired
-	private ICrawlRealEstateService crawlReoService;
-	
-	private List<RealEstate> listRealEstate;
-	
+	private List<CrawledNews> listCrawledNews;
 	@PostConstruct
 	public void init() {
-		
 		timerCrawl = "";
-		timerCrawl = crawlReoService.initCrawlJob();
-		listRealEstate = realEstateService.findByRealEstateStatus(String.valueOf(StatusRealEstateConstant.NOT_VERIFIED));
+		timerCrawl = crawledNewService.initCrawlJob();
+		listCrawledNews = crawledNewService.findAll();
 	}
 	
 	public void setTimerButtonClick() {
 		int timer= Integer.valueOf(timerCrawl);
-		crawlReoService.setTimeCrawlJob(timer);
+		crawledNewService.setTimeCrawlJob(timer);
 	}
 
 	public void turnOffCrawler() {
-		crawlReoService.turnOffCrawler();
+		crawledNewService.turnOffCrawler();
 	}
 	public void turnOnCrawler() {
-		crawlReoService.turnOnCrawler();
+		crawledNewService.turnOnCrawler();
 	}
 	
 	public void crawlNow() {
-		crawlReoService.crawlNow();
+		crawledNewService.crawlNow();
 	}
 
 	public String getTimerCrawl() {
@@ -62,17 +56,15 @@ public class ManageCrawlNewsBean implements Serializable{
 	}
 
 	public void refreshData() {
-		listRealEstate = realEstateService.findByRealEstateStatus(String.valueOf(StatusRealEstateConstant.NOT_VERIFIED));
-		int i = 1;
-		i++;
-	}
-	public List<RealEstate> getListRealEstate() {
-		return listRealEstate;
+		listCrawledNews = crawledNewService.findByCrawledNewsStatus(StatusCrawledNewsConstant.NON_DISPLAY);
 	}
 
+	public List<CrawledNews> getListCrawledNews() {
+		return listCrawledNews;
+	}
 
-	public void setListRealEstate(List<RealEstate> listRealEstate) {
-		this.listRealEstate = listRealEstate;
+	public void setListCrawledNews(List<CrawledNews> listCrawledNews) {
+		this.listCrawledNews = listCrawledNews;
 	}
 	
 }

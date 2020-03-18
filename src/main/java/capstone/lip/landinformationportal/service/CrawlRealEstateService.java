@@ -100,7 +100,7 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 				.setRealEstateLat(reoCrawl.getLatitude())
 				.setRealEstateLng(reoCrawl.getLongitude())
 				.setRealEstatePrice(Double.valueOf(reoCrawl.getPrice().toString()))
-				.setRealEstateType(reoCrawl.getType())
+				.setRealEstateSource(reoCrawl.getSource())
 				.setRealEstateLink(reoCrawl.getLink())
 				.setRealEstateAddress(reoCrawl.getAddress())
 				.setUser(user)

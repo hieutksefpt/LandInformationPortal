@@ -15,7 +15,7 @@ import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 
 @Named
 @ViewScoped
-public class ManageCrawlRealEstateBean implements Serializable{
+public class ManageCrawlNewsBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 

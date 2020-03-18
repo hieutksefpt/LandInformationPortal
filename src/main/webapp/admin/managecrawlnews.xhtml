@@ -13,7 +13,7 @@
 		
 		<ui:define name="content">
 			<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
-			<h:outputStylesheet name="managecrawlrealestate.css" library="css"></h:outputStylesheet>
+			<h:outputStylesheet name="managecrawlnews.css" library="css"></h:outputStylesheet>
             <h:form>
             	
             	<h:outputText value="Khoảng thời gian crawl"></h:outputText>
@@ -47,11 +47,14 @@
 			            <p:commandButton icon="pi pi-refresh" 
 			            action="#{manageCrawlRealEstateBean.refreshData()}"/>
 			        </f:facet>
-	            	<p:column width="95%">
+	            	<p:column width="85%">
 	            		<f:facet name="header">Address</f:facet>
-	            		<a href="#{element.realEstateLink}" target="_blank">#{element.realEstateAddress}</a>
+	            		#{element.realEstateAddress}
 	            	</p:column>
-	     
+	            	<p:column width="5%">
+	            		<f:facet name="header">Link</f:facet>
+	            		<a href="#{element.realEstateLink}" target="_blank">Link</a>
+	            	</p:column>
 	            	<p:column style="text-align: center">
 			             <p:commandButton icon="pi pi-search" title="View" update="tabledata"
 			             action="#{manageCrawlRealEstateSetRoadSegmentBean.showPopup(element.realEstateId)}" >
@@ -162,7 +165,7 @@
             
 		</ui:define>
 		<ui:define name="footer">
-			<h:outputScript name="managecrawlrealestate.js" library="js" />
+			<h:outputScript name="managecrawlnews.js" library="js" />
 				<script type="text/javascript"
                         src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;initMap(0,0)"
                 async="true" defer="true"></script>	

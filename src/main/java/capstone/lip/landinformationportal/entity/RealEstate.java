@@ -54,8 +54,8 @@ public class RealEstate extends AuditAbstract implements Serializable {
     private String realEstateStatus;
     @Column(name = "RealEstateLink")
     private String realEstateLink;
-    @Column(name = "RealEstateType")
-    private String realEstateType;
+    @Column(name = "RealEstateSource")
+    private String realEstateSource;
 
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
@@ -82,7 +82,7 @@ public class RealEstate extends AuditAbstract implements Serializable {
     public RealEstate() {
     }
 
-    public RealEstate(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice, String realEstateStatus, String realEstateLink, String realEstateType, User user, List<Land> listLand, List<House> listHouse) {
+    public RealEstate(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice, String realEstateStatus, String realEstateLink, String realEstateSource, User user, Land land, List<House> listHouse) {
         this.realEstateName = realEstateName;
         this.realEstateLat = realEstateLat;
         this.realEstateLng = realEstateLng;
@@ -90,7 +90,7 @@ public class RealEstate extends AuditAbstract implements Serializable {
         this.realEstatePrice = realEstatePrice;
         this.realEstateStatus = realEstateStatus;
         this.realEstateLink = realEstateLink;
-        this.realEstateType = realEstateType;
+        this.realEstateSource = realEstateSource;
         this.user = user;
         this.land = land;
         this.listHouse = listHouse;
@@ -145,8 +145,9 @@ public class RealEstate extends AuditAbstract implements Serializable {
         return realEstatePrice;
     }
 
-    public void setRealEstatePrice(BigDecimal realEstatePrice) {
+    public RealEstate setRealEstatePrice(BigDecimal realEstatePrice) {
         this.realEstatePrice = realEstatePrice;
+        return this;
     }
 
 
@@ -168,12 +169,12 @@ public class RealEstate extends AuditAbstract implements Serializable {
         return this;
     }
 
-    public String getRealEstateType() {
-        return realEstateType;
+    public String getRealEstateSource() {
+        return realEstateSource;
     }
 
-    public RealEstate setRealEstateType(String realEstateType) {
-        this.realEstateType = realEstateType;
+    public RealEstate setRealEstateSource(String realEstateSource) {
+        this.realEstateSource = realEstateSource;
         return this;
     }
 
@@ -229,7 +230,7 @@ public class RealEstate extends AuditAbstract implements Serializable {
 		result = prime * result + ((realEstateName == null) ? 0 : realEstateName.hashCode());
 		result = prime * result + ((realEstatePrice == null) ? 0 : realEstatePrice.hashCode());
 		result = prime * result + ((realEstateStatus == null) ? 0 : realEstateStatus.hashCode());
-		result = prime * result + ((realEstateType == null) ? 0 : realEstateType.hashCode());
+		result = prime * result + ((realEstateSource == null) ? 0 : realEstateSource.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -298,10 +299,10 @@ public class RealEstate extends AuditAbstract implements Serializable {
 				return false;
 		} else if (!realEstateStatus.equals(other.realEstateStatus))
 			return false;
-		if (realEstateType == null) {
-			if (other.realEstateType != null)
+		if (realEstateSource == null) {
+			if (other.realEstateSource != null)
 				return false;
-		} else if (!realEstateType.equals(other.realEstateType))
+		} else if (!realEstateSource.equals(other.realEstateSource))
 			return false;
 		if (user == null) {
 			if (other.user != null)

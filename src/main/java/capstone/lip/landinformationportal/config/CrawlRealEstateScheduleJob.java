@@ -42,10 +42,10 @@ public class CrawlRealEstateScheduleJob implements Job {
 		header.set("Authorization", "Token f992ddf15c9d3d30dac1358e918a5693d85d174c");
 
 		Map<String, String> map = new HashMap<>();
-//		map.put("type", "reo");
+		map.put("type", "reo");
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-//		        .queryParam("type", "reo")
+		        .queryParam("type", "reo")
 //		        .queryParam("daily", "true")
 		        ;
 
@@ -53,11 +53,11 @@ public class CrawlRealEstateScheduleJob implements Job {
 		System.out.println(restTemplate.toString());
 
 		// code done here
-//		ResponseEntity<RealEstateObjectCrawl[]> responseEntity = 
-//				restTemplate.exchange(builder.toUriString(),HttpMethod.GET,entity,RealEstateObjectCrawl[].class);
-//		List<RealEstateObjectCrawl> listCrawl = Arrays.asList(responseEntity.getBody());
+		ResponseEntity<RealEstateObjectCrawl[]> responseEntity = 
+				restTemplate.exchange(builder.toUriString(),HttpMethod.GET,entity,RealEstateObjectCrawl[].class);
+		List<RealEstateObjectCrawl> listCrawl = Arrays.asList(responseEntity.getBody());
 		// temp comment
-//		crawlReoService.saveRealEstateCrawl(listCrawl);
+		crawlReoService.saveRealEstateCrawl(listCrawl);
 	}
 
 }

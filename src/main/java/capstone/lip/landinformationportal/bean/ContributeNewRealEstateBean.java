@@ -175,11 +175,16 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     }
 
     public void saveDataUploadToDB() {
+        
+        nextLocatePoint();
+        
+        
         //save to DB RE
+        
         User tempUser = new User();
         List<User> userListAll = userService.findAll();
         for (int i = 0; i < userListAll.size(); i++) {
-            if (userListAll.get(i).getUserId().equals(userId)) {
+            if (userListAll.get(i).getUserId().toString().equals(userId)) {
                 tempUser.setUserId(userListAll.get(i).getUserId());
                 tempUser.setUsername(userListAll.get(i).getUsername());
                 tempUser.setPassword(userListAll.get(i).getPassword());
@@ -189,6 +194,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
                 tempUser.setPhone(userListAll.get(i).getPhone());
             }
         }
+        System.out.println(realEstateLat + " sss  " + realEstateLng);
         RealEstate newUploadRealEstate = new RealEstate().setRealEstateName(realEstateName)
                 .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
                 .setRealEstateAddress(realEstateAddress);

@@ -67,8 +67,7 @@
                                         <div class="col-md-6">
                                             <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{contributeNewRealEstateBean.segmentStreetIdSelected}">
                                                 <p:ajax	listener="#{contributeNewRealEstateBean.segmentStreetChange}" update="panel-form" 
-                                                        onstart="clearDataMap()"
-                                                        oncomplete="drawPath()"></p:ajax>
+                                                        onstart="clearDataMap()" ></p:ajax>
                                                 <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
                                                 <f:selectItems value="#{contributeNewRealEstateBean.listSegmentOfStreet}" var="element"
                                                                itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>

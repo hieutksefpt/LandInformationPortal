@@ -35,6 +35,7 @@
 .header-list{
     background-color: black;
     color: white;
+    width: 100%;
 }
 .element-list{
     padding-top: 10px;
@@ -47,4 +48,41 @@
     padding: .5rem 1rem;
     color: #fff;
     background-color: #56c6c6;
+}
+.realestate-type-other{
+    color: #008542;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: -12px;
+}
+.realestate-type-contributor{
+    color: #ea2402;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: -12px;
+}
+.filter-realestae{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.txt-search-name{
+    margin-right: -18px;
+    width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.lbl-real-estate-name-search{
+    padding-right: 0px;
+    margin-right: -5px
+}
+.btn-search{
+    padding-left: 0px
+}
+.text-combobox{
+}
+.search-aria{
+    margin-bottom: 8px;
+}
+.combobox-common{
+    width: 100%;
 }

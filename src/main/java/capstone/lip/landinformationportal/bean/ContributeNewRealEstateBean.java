@@ -193,6 +193,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
                 .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
                 .setRealEstateAddress(realEstateAddress);
         newUploadRealEstate.setRealEstatePrice(realEstatePrice);
+//        newUploadRealEstate.set                               Land 
         newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateType(realEstateType).setUser(tempUser);
         realEstateService.save(newUploadRealEstate);
 

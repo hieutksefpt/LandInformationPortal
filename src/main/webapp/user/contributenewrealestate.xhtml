@@ -124,6 +124,13 @@
 
                                 <div id="landBox" class="landbox col-5">
                                     <table class="landUpload">
+                                        <tr>
+                                            <td><span class="title-mandatory">Tên phần Đất</span></td>
+                                            <td>
+                                                <h:inputText id="txtInputLandName" value="#{contributeNewRealEstateBean.newLandName}">
+                                                </h:inputText>
+                                            </td>
+                                        </tr>
                                         <tr><td><span class="title-mandatory">Giá trị phần Đất</span></td>
                                             <td>
                                                 <h:inputText id="txtInputLandMoney" value="#{contributeNewRealEstateBean.newLandMoney}">
@@ -167,8 +174,9 @@
                                                                 <td>${i.landFeature.landsFeatureName}</td>
                                                                 <td>${i.value}</td>
                                                                 <td>
-                                                                    <h:commandButton class="ibtnDel btn btn-md btn-danger " onclick="deleteRowFeature(this)" value="X">
-                                                                        <p:ajax listener="#{contributeNewRealEstateBean.deleteLandRowInsert(i.landFeature.landsFeatureName)}" process="msform"/>
+                                                                    <h:commandButton class="ibtnDel btn btn-md btn-danger " value="X">
+                                                                        <p:ajax listener="#{contributeNewRealEstateBean.deleteLandRowInsert(i.landFeature.landsFeatureName)}" 
+                                                                                process="msform" update="panel-UploadLandform"/>
                                                                     </h:commandButton>
                                                                 </td>
                                                             </tr>
@@ -181,6 +189,13 @@
                                 </div>
                                 <div id="houseBox" class="housebox col-5">
                                     <table class="houseUpload row">
+                                        <tr>
+                                            <td><span class="title-mandatory">Tên phần Nhà</span></td>
+                                            <td>
+                                                <h:inputText id="txtInputHouseName" value="#{contributeNewRealEstateBean.newHouseName}">
+                                                </h:inputText>
+                                            </td>
+                                        </tr>
                                         <tr><td><span class="title-mandatory">Giá trị phần Nhà</span></td><td>
                                                 <h:inputText id="txtInputHouseMoney" value="#{contributeNewRealEstateBean.newHouseMoney}">
                                                     <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
@@ -221,8 +236,9 @@
                                                                 <td>${i.housesFeature.housesFeatureName}</td>
                                                                 <td>${i.value}</td>
                                                                 <td>
-                                                                    <h:commandButton class="ibtnDel btn btn-md btn-danger " onclick="deleteRowFeature(this)" value="X">
-                                                                        <ui:remove><p:ajax listener="#{contributeNewRealEstateBean.deleteHouseRowInsert()}" process="msform"/></ui:remove>
+                                                                    <h:commandButton class="ibtnDel btn btn-md btn-danger " value="X">
+                                                                        <p:ajax listener="#{contributeNewRealEstateBean.deleteHouseRowInsert(i.housesFeature.housesFeatureName)}" 
+                                                                                process="msform" update="panel-UploadHouseform"/>
                                                                     </h:commandButton>
                                                                 </td>
                                                             </tr>

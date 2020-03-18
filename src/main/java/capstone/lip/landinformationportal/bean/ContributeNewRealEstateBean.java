@@ -146,8 +146,10 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     //submit data
     private BigDecimal realEstatePriceSubmit;
     private String realEstateNameSubmit;
-    private String nameLandsFeatureDelete;
-
+    private String newLandName;
+    private String newHouseName;
+    
+    
     @PostConstruct
     public void init() {
         processType = "1";
@@ -162,7 +164,9 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         realEstateStatus = String.valueOf(CONFUSED);
         realEstateType = CONTRIBUTOR;
         userId = "1";
-        nameLandsFeatureDelete = "";
+        realEstatePrice = BigDecimal.ZERO;
+        newHouseMoney = BigDecimal.ZERO;
+        newLandMoney = BigDecimal.ZERO;
 
     }
 
@@ -252,17 +256,16 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     // delete element in listLandFeatureValue has Name equal Name in Row Delete Selected
     public void deleteLandRowInsert(String landFeatureName){
         for (int i = 0; i < listLandFeatureValue.size(); i++) {
-            if (listLandFeatureValue.get(i).getLandFeature().getLandsFeatureName().toString().equals(landFeatureName)) {
+            if (listLandFeatureValue.get(i).getLandFeature().getLandsFeatureName().equals(landFeatureName)) {
                 listLandFeatureValue.remove(listLandFeatureValue.get(i));
             }
         }
-        System.out.println("ssssss");
     }
     
-    public void deleteHouseRowInsert(){
-        for (int i = 0; i < listHousesFeature.size(); i++) {
-            if (listHousesFeature.get(i).getHousesFeatureID().toString().equals(houseFeatureIdSelected)) {
-                newHouseFeatureValue = "";
+    public void deleteHouseRowInsert(String houseFeatureName){
+        for (int i = 0; i < listHouseFeatureValue.size(); i++) {
+            if (listHouseFeatureValue.get(i).getHousesFeature().getHousesFeatureName().equals(houseFeatureName)) {
+                listHouseFeatureValue.remove(listHouseFeatureValue.get(i));
             }
         }
     }
@@ -855,13 +858,22 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         this.newLandMoney = newLandMoney;
     }
 
-    public String getNameLandsFeatureDelete() {
-        return nameLandsFeatureDelete;
+    public String getNewLandName() {
+        return newLandName;
     }
 
-    public void setNameLandsFeatureDelete(String nameLandsFeatureDelete) {
-        this.nameLandsFeatureDelete = nameLandsFeatureDelete;
+    public void setNewLandName(String newLandName) {
+        this.newLandName = newLandName;
     }
+
+    public String getNewHouseName() {
+        return newHouseName;
+    }
+
+    public void setNewHouseName(String newHouseName) {
+        this.newHouseName = newHouseName;
+    }
+
     
     
 

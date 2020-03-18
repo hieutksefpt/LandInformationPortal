@@ -37,4 +37,9 @@ public class HousesDetailService implements IHousesDetailService {
         housesDetailRepository.deleteInBatch(listHousesDetail);
     }
 
+	@Override
+	public void delete(HousesDetail housesDetail) {
+		housesDetailRepository.delete(housesDetail);
+	}
+
 }

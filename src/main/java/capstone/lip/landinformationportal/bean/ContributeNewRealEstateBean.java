@@ -193,8 +193,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
                 .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
                 .setRealEstateAddress(realEstateAddress);
         newUploadRealEstate.setRealEstatePrice(realEstatePrice);
-//        newUploadRealEstate.set                               Land 
-        newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateType(realEstateType).setUser(tempUser);
+        newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
         realEstateService.save(newUploadRealEstate);
 
         // save to Table REAS
@@ -221,19 +220,16 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
             tempLand.setLandPrice(Double.parseDouble(newLandMoney.toString()));
             tempLand.setRealEstate(newUploadRealEstate);
 
-//            landService.save(tempLand);
-            // 
+            tempLand = landService.save(tempLand);
+
             for (int i = 0; i < listLandFeatureValue.size(); i++) {
                 LandsDetailId tempLDI = new LandsDetailId();
                 tempLDI.setLandId(tempLand.getLandId());
                 tempLDI.setLandsFeatureId(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureID());
+
                 LandsDetail tempLD = new LandsDetail();
-                LandsFeature lf = new LandsFeature();
-                lf.setLandsFeatureID(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureID());
-                lf.setLandsFeatureName(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureName());
-                lf.setLandsFeatureUnit(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureUnit());
-       //        lf.setListLandsDetail();           // set list Detail ở đây thế nào khi 
-                tempLD.setId(tempLDI).setLand(tempLand).setLandsFeature(lf);
+                tempLD.setId(tempLDI)
+                	.setValue(listLandFeatureValue.get(i).getValue());
                 landsDetailService.save(tempLD);
             }
 

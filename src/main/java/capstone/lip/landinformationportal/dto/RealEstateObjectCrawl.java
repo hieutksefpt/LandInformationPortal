@@ -35,6 +35,7 @@ public class RealEstateObjectCrawl implements Serializable{
     private String projectName;
     private String projectSize;
     private String projectOwner;
+    private String source;
     private Timestamp startDatePost;
     private Timestamp endDatePost;
 	public String getIdCrawlerJob() {
@@ -205,9 +206,13 @@ public class RealEstateObjectCrawl implements Serializable{
 	public void setEndDatePost(Timestamp endDatePost) {
 		this.endDatePost = endDatePost;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getSource() {
+		return source;
 	}
+	public void setSource(String source) {
+		this.source = source;
+	}
+	
     
     
 }

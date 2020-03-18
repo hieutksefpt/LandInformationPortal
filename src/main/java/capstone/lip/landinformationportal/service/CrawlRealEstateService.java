@@ -1,15 +1,28 @@
 package capstone.lip.landinformationportal.service;
 
+import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.quartz.JobBuilder;
+import org.quartz.JobDataMap;
+import org.quartz.JobDetail;
+import org.quartz.JobKey;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.SimpleScheduleBuilder;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import capstone.lip.landinformationportal.common.HousesFeatureNameConstant;
 import capstone.lip.landinformationportal.common.LandsFeatureNameConstant;
 import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
+import capstone.lip.landinformationportal.config.CrawlRealEstateNowJob;
+import capstone.lip.landinformationportal.config.CrawlRealEstateScheduleJob;
 import capstone.lip.landinformationportal.dto.RealEstateObjectCrawl;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.HousesDetail;
@@ -58,27 +71,40 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 	@Autowired
 	private LandsDetailRepository landsDetailRepository;
 	
-	public void printRandom() {
-        System.out.println(ThreadLocalRandom.current().nextInt());
-    }
+	private JobKey jobKey = new JobKey("crawlerJob", "crawler");
+	@Autowired
+	Scheduler scheduler;
 	
 	private List<HousesFeature> listHouseFeature;
 	private List<LandsFeature> listLandsFeature;
+	
+	private Trigger trigger;
+	private JobDetail job;
 	
 	@Override
 	public void saveRealEstateCrawl(List<RealEstateObjectCrawl> listReoCrawl) {
 		listHouseFeature = housesFeatureRepository.findAll();
 		listLandsFeature = landsFeatureRepository.findAll();
 		User user = userRepository.findAll().get(0);
+		int i = 1;
 		for (RealEstateObjectCrawl reoCrawl : listReoCrawl) {
 			RealEstate reo = new RealEstate();
+			String link = reoCrawl.getLink();
+			RealEstate reoSearch = realEstateRepository.findByRealEstateLink(link);
+			System.out.println(i+" "+link);
+			i++;
+			if (reoSearch != null) {
+				continue;
+			}
+
 			reo.setRealEstateName(reoCrawl.getTitle())
 				.setRealEstateLat(reoCrawl.getLatitude())
 				.setRealEstateLng(reoCrawl.getLongitude())
-				.setRealEstatePrice(Double.valueOf(reoCrawl.getPrice().toString()))
-				.setRealEstateType(reoCrawl.getType())
+				.setRealEstatePrice(reoCrawl.getPrice())
+				.setRealEstateSource(reoCrawl.getSource())
 				.setRealEstateLink(reoCrawl.getLink())
 				.setRealEstateAddress(reoCrawl.getAddress())
+				.setUser(user)
 				.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.NOT_VERIFIED));
 			reo = realEstateRepository.save(reo);
 			House house = new House();
@@ -98,18 +124,14 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 			house.setListHousesDetail(listHousesDetail);
 			land.setListLandsDetail(listLandsDetail);
 			List<House> listHouse = new ArrayList<House>();listHouse.add(house);
-			List<Land> listLand = new ArrayList<Land>();listLand.add(land);
+			
 			reo.setListHouse(listHouse);
-			reo.setListLand(listLand);
-			reo.setUser(user);
+			reo.setLand(land);
 			
-			
+
 			housesDetailRepository.saveAll(listHousesDetail);
 			landsDetailRepository.saveAll(listLandsDetail);
 		}
-		int i = 1;
-		i++;
-		i--;
 	}
 	private String getStringCheckNull(String string) {
 		if (string == null) {
@@ -199,4 +221,75 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 		}
 		return listLandDetail;
 	}
+	
+	public String initCrawlJob() {
+		String timeCrawl = "";
+		JobDetail jobDetail;
+		try {
+			//find current job if exist
+			jobDetail = scheduler.getJobDetail(jobKey);
+			if (jobDetail == null) return timeCrawl;
+			List<? extends Trigger> triggers = scheduler.getTriggersOfJob(jobDetail.getKey());
+		    for (Trigger trigger : triggers) {
+		    	
+		        SimpleScheduleBuilder scheduleBuilder = (SimpleScheduleBuilder)trigger.getScheduleBuilder();
+		        if (scheduleBuilder != null) {
+		        	
+		        	Field privateStringField = SimpleScheduleBuilder.class.
+		        	            getDeclaredField("interval");
+
+		        	privateStringField.setAccessible(true);
+		        	Long fieldValue = ((Long) privateStringField.get(scheduleBuilder))/1000;
+		        	System.out.println("fieldValue = " + fieldValue);
+		        	timeCrawl = String.valueOf(fieldValue);
+		        }
+		    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return timeCrawl;
+	}
+	public void setTimeCrawlJob(int value) {
+
+		trigger = TriggerBuilder.newTrigger().withIdentity("crawlerTriggler", "crawler")
+				.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(value).repeatForever()).build();
+
+		job = JobBuilder.newJob(CrawlRealEstateScheduleJob.class).withIdentity("crawlerJob", "crawler").build();
+	}
+	public void turnOffCrawler() {
+		try {
+			if (scheduler!= null) {
+				scheduler.standby();
+				scheduler.shutdown();
+			}
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
+	}
+	public void turnOnCrawler() {
+		try {
+			if (scheduler!= null) {
+				scheduler.clear();
+				scheduler.start();
+				scheduler.scheduleJob(job, trigger);
+			}
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
+	}
+	public void crawlNow() {
+		JobKey jobKeyNow = JobKey.jobKey("crawlerNowJob", "crawler");
+		JobDetail jobNow = JobBuilder.newJob(CrawlRealEstateNowJob.class).storeDurably(true).withIdentity("crawlerNowJob", "crawler").build();
+		try {
+			scheduler.addJob(jobNow, true);
+			scheduler.getContext().put("crawlnow", "true");
+			scheduler.triggerJob(jobKeyNow);
+			scheduler.deleteJob(jobKeyNow);
+			scheduler.getContext().remove("crawlnow");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 }

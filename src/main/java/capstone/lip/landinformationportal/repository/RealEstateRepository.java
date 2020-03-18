@@ -6,6 +6,9 @@
 package capstone.lip.landinformationportal.repository;
 
 import capstone.lip.landinformationportal.entity.RealEstate;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -13,5 +16,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Admin
  */
 public interface RealEstateRepository extends JpaRepository<RealEstate, Long>{
-    
+	RealEstate findByRealEstateLink(String link);
+	List<RealEstate> findByRealEstateStatus(String status);
 }

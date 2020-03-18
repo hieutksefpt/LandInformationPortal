@@ -19,6 +19,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -50,8 +54,8 @@ public class RealEstate extends AuditAbstract implements Serializable {
     private String realEstateStatus;
     @Column(name = "RealEstateLink")
     private String realEstateLink;
-    @Column(name = "RealEstateType")
-    private String realEstateType;
+    @Column(name = "RealEstateSource")
+    private String realEstateSource;
 
     @Basic(fetch = FetchType.LAZY)
     @ManyToOne
@@ -59,26 +63,26 @@ public class RealEstate extends AuditAbstract implements Serializable {
     private User user;
 
     @Basic(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "realEstate")
-    private List<Land> listLand;
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne(mappedBy = "realEstate")
+    private Land land;
     
     @Basic(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToMany(mappedBy = "realEstate")
     private List<House> listHouse;
     
     @Basic(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToMany(mappedBy = "realEstate")
     private List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment;
-
     
-
     public RealEstate() {
     }
 
-    public RealEstate(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice, String realEstateStatus, String realEstateLink, String realEstateType, User user, List<Land> listLand, List<House> listHouse) {
+    public RealEstate(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice, String realEstateStatus, String realEstateLink, String realEstateSource, User user, Land land, List<House> listHouse) {
         this.realEstateName = realEstateName;
         this.realEstateLat = realEstateLat;
         this.realEstateLng = realEstateLng;
@@ -86,9 +90,9 @@ public class RealEstate extends AuditAbstract implements Serializable {
         this.realEstatePrice = realEstatePrice;
         this.realEstateStatus = realEstateStatus;
         this.realEstateLink = realEstateLink;
-        this.realEstateType = realEstateType;
+        this.realEstateSource = realEstateSource;
         this.user = user;
-        this.listLand = listLand;
+        this.land = land;
         this.listHouse = listHouse;
     }
 
@@ -141,8 +145,9 @@ public class RealEstate extends AuditAbstract implements Serializable {
         return realEstatePrice;
     }
 
-    public void setRealEstatePrice(BigDecimal realEstatePrice) {
+    public RealEstate setRealEstatePrice(BigDecimal realEstatePrice) {
         this.realEstatePrice = realEstatePrice;
+        return this;
     }
 
 
@@ -164,12 +169,12 @@ public class RealEstate extends AuditAbstract implements Serializable {
         return this;
     }
 
-    public String getRealEstateType() {
-        return realEstateType;
+    public String getRealEstateSource() {
+        return realEstateSource;
     }
 
-    public RealEstate setRealEstateType(String realEstateType) {
-        this.realEstateType = realEstateType;
+    public RealEstate setRealEstateSource(String realEstateSource) {
+        this.realEstateSource = realEstateSource;
         return this;
     }
 
@@ -179,15 +184,6 @@ public class RealEstate extends AuditAbstract implements Serializable {
 
     public RealEstate setUser(User user) {
         this.user = user;
-        return this;
-    }
-
-    public List<Land> getListLand() {
-        return listLand;
-    }
-
-    public RealEstate setListLand(List<Land> listLand) {
-        this.listLand = listLand;
         return this;
     }
 
@@ -209,12 +205,21 @@ public class RealEstate extends AuditAbstract implements Serializable {
         return this;
     }
 
+
+	public Land getLand() {
+		return land;
+	}
+
+	public void setLand(Land land) {
+		this.land = land;
+	}
+    
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((listHouse == null) ? 0 : listHouse.hashCode());
-		result = prime * result + ((listLand == null) ? 0 : listLand.hashCode());
+		result = prime * result + ((land == null) ? 0 : land.hashCode());
 		result = prime * result
 				+ ((listRealEstateAdjacentSegment == null) ? 0 : listRealEstateAdjacentSegment.hashCode());
 		result = prime * result + ((realEstateAddress == null) ? 0 : realEstateAddress.hashCode());
@@ -225,7 +230,7 @@ public class RealEstate extends AuditAbstract implements Serializable {
 		result = prime * result + ((realEstateName == null) ? 0 : realEstateName.hashCode());
 		result = prime * result + ((realEstatePrice == null) ? 0 : realEstatePrice.hashCode());
 		result = prime * result + ((realEstateStatus == null) ? 0 : realEstateStatus.hashCode());
-		result = prime * result + ((realEstateType == null) ? 0 : realEstateType.hashCode());
+		result = prime * result + ((realEstateSource == null) ? 0 : realEstateSource.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -244,10 +249,10 @@ public class RealEstate extends AuditAbstract implements Serializable {
 				return false;
 		} else if (!listHouse.equals(other.listHouse))
 			return false;
-		if (listLand == null) {
-			if (other.listLand != null)
+		if (land == null) {
+			if (other.land != null)
 				return false;
-		} else if (!listLand.equals(other.listLand))
+		} else if (!land.equals(other.land))
 			return false;
 		if (listRealEstateAdjacentSegment == null) {
 			if (other.listRealEstateAdjacentSegment != null)
@@ -294,10 +299,10 @@ public class RealEstate extends AuditAbstract implements Serializable {
 				return false;
 		} else if (!realEstateStatus.equals(other.realEstateStatus))
 			return false;
-		if (realEstateType == null) {
-			if (other.realEstateType != null)
+		if (realEstateSource == null) {
+			if (other.realEstateSource != null)
 				return false;
-		} else if (!realEstateType.equals(other.realEstateType))
+		} else if (!realEstateSource.equals(other.realEstateSource))
 			return false;
 		if (user == null) {
 			if (other.user != null)
@@ -306,6 +311,5 @@ public class RealEstate extends AuditAbstract implements Serializable {
 			return false;
 		return true;
 	}
-    
-    
+
 }

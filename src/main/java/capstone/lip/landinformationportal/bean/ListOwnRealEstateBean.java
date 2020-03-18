@@ -26,11 +26,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @Named
 @ViewScoped
-public class ListOwnRealEstateBean implements Serializable{
+public class ListOwnRealEstateBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Autowired
+    @Autowired
     private IUserService userService;
 
     private List<RealEstate> listUserRealEstate;
@@ -51,9 +51,9 @@ public class ListOwnRealEstateBean implements Serializable{
         ec.redirect(ec.getRequestContextPath() + "/user/viewrealestatedetail.xhtml?userId=" + userId + "&realEstateId=" + realEstateId);
     }
 
-    public void transferListCoordinate(){
+    public void transferListCoordinate() {
         List<Coordinate> listCoordinate = new ArrayList<>();
-        for(RealEstate re : listUserRealEstate){
+        for (RealEstate re : listUserRealEstate) {
             listCoordinate.add(new Coordinate().setLatitude(re.getRealEstateLat()).setLongitude(re.getRealEstateLng()));
         }
         Gson gson = new Gson();
@@ -67,7 +67,7 @@ public class ListOwnRealEstateBean implements Serializable{
     public void setJsonMultipleCoordinate(String jsonMultipleCoordinate) {
         this.jsonMultipleCoordinate = jsonMultipleCoordinate;
     }
-    
+
     public List<RealEstate> getListUserRealEstate() {
         return listUserRealEstate;
     }

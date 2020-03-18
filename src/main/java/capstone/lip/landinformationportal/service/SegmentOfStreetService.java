@@ -43,4 +43,9 @@ public class SegmentOfStreetService implements ISegmentOfStreetService {
 	public void delete(SegmentOfStreet segmentOfStreet) {
 		segmentOfStreetRepository.delete(segmentOfStreet);
 	}
+
+    @Override
+    public List<SegmentOfStreet> findAll() {
+        return segmentOfStreetRepository.findAll();
+    }
 }

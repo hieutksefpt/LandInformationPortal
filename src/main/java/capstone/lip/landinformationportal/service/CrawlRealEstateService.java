@@ -1,6 +1,7 @@
 package capstone.lip.landinformationportal.service;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -99,8 +100,8 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 			reo.setRealEstateName(reoCrawl.getTitle())
 				.setRealEstateLat(reoCrawl.getLatitude())
 				.setRealEstateLng(reoCrawl.getLongitude())
-				.setRealEstatePrice(Double.valueOf(reoCrawl.getPrice().toString()))
-				.setRealEstateType(reoCrawl.getType())
+//				.setRealEstatePrice(reoCrawl.getPrice())
+//				.setRealEstateSource(reoCrawl.getSource())
 				.setRealEstateLink(reoCrawl.getLink())
 				.setRealEstateAddress(reoCrawl.getAddress())
 				.setUser(user)

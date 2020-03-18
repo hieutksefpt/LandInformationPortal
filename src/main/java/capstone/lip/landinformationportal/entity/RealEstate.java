@@ -6,6 +6,7 @@
 package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -48,7 +49,7 @@ public class RealEstate extends AuditAbstract implements Serializable {
     @Column(name = "RealEstateAddress")
     private String realEstateAddress;
     @Column(name = "RealEstatePrice")
-    private Double realEstatePrice;
+    private BigDecimal realEstatePrice;
     @Column(name = "RealEstateStatus")
     private String realEstateStatus;
     @Column(name = "RealEstateLink")
@@ -81,7 +82,7 @@ public class RealEstate extends AuditAbstract implements Serializable {
     public RealEstate() {
     }
 
-    public RealEstate(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, Double realEstatePrice, String realEstateStatus, String realEstateLink, String realEstateType, User user, Land land, List<House> listHouse) {
+    public RealEstate(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice, String realEstateStatus, String realEstateLink, String realEstateType, User user, List<Land> listLand, List<House> listHouse) {
         this.realEstateName = realEstateName;
         this.realEstateLat = realEstateLat;
         this.realEstateLng = realEstateLng;
@@ -140,14 +141,14 @@ public class RealEstate extends AuditAbstract implements Serializable {
         return this;
     }
 
-    public Double getRealEstatePrice() {
+    public BigDecimal getRealEstatePrice() {
         return realEstatePrice;
     }
 
-    public RealEstate setRealEstatePrice(Double realEstatePrice) {
+    public void setRealEstatePrice(BigDecimal realEstatePrice) {
         this.realEstatePrice = realEstatePrice;
-        return this;
     }
+
 
     public String getRealEstateStatus() {
         return realEstateStatus;

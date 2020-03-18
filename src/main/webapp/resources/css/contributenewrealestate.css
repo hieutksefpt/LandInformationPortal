@@ -85,6 +85,11 @@ body {
     /*position: relative;*/
 }
 
+.completeUploadInfor .completeUpload{
+    margin: 25px;
+    border-collapse: separate;
+    border-spacing: 0 1em;
+}
 
 .landUpload , .houseUpload{
     /*margin: auto;*/

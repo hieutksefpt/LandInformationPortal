@@ -273,16 +273,23 @@
                                         <h:inputText id="realEstatePriceSubmit" value="#{contributeNewRealEstateBean.realEstatePriceSubmit}"></h:inputText>
                                         <span class="unit"><i>(VND)</i></span></td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <span class="title">Loại bất động sản</span>
-                                    </td>
-                                    <td>
-                                        <h:inputText id="realEstateTypeSubmit" value="#{contributeNewRealEstateBean.realEstateType}"></h:inputText>
-                                    </td>
-                                </tr>
+                                <c:forEach items="#{contributeNewRealEstateBean.listLandFeatureValue}" var="i">
+                                    <tr>
+                                        <td>${i.landFeature.landsFeatureName}</td>
+                                        <td>${i.value} ${i.landFeature.landsFeatureUnit}</td>
+                                    </tr>
+                                </c:forEach>
+                                <c:forEach items="#{contributeNewRealEstateBean.listHouseFeatureValue}" var="k">
+                                    <tr>
+                                        <td>${k.housesFeature.housesFeatureName}</td>
+                                        <td>${k.value}${k.housesFeature.housesFeatureUnit}</td>
+                                    </tr>
+                                </c:forEach>
                             </table>
                         </div>
+
+
+
 
                         <h:commandButton class="submit action-button" value="Hoàn tất">
                             <p:ajax listener="#{contributeNewRealEstateBean.submitUploadInformation()}"/>

@@ -1,8 +1,6 @@
 package capstone.lip.landinformationportal.bean;
 
 import capstone.lip.landinformationportal.dto.Coordinate;
-import capstone.lip.landinformationportal.entity.HousesFeature;
-import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
@@ -11,9 +9,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -26,54 +22,41 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @Named
 @ViewScoped
-public class ListOwnRealEstateBean implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class ListAllRealEstateBean implements Serializable {
 
     @Autowired
-    private IUserService userService;
+    private IRealEstateService realEstateService;
 
-    private List<RealEstate> listUserRealEstate;
+    private List<RealEstate> listAllRealEstate;
     private RealEstate realEstateClicked;
     private String jsonMultipleCoordinate;
 
     @PostConstruct
     public void init() {
-        //Ham init nay phai truyen vao userId
-        listUserRealEstate = new ArrayList<>();
-        //truyen userId vao ham ben duoi, �ang hard code
-        listUserRealEstate = userService.getListRealEstate(1L);
+        this.listAllRealEstate = realEstateService.findAll();
         transferListCoordinate();
-    }
-
-    public void goToDetails(long realEstateId) throws IOException {
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        ec.redirect(ec.getRequestContextPath() + "/user/viewrealestatedetail.xhtml?realEstateId=" + realEstateId);
     }
 
     public void transferListCoordinate() {
         List<Coordinate> listCoordinate = new ArrayList<>();
-        listUserRealEstate.stream().forEach((re) -> {
+        listAllRealEstate.stream().forEach((re) -> {
             listCoordinate.add(new Coordinate().setLatitude(re.getRealEstateLat()).setLongitude(re.getRealEstateLng()));
         });
         Gson gson = new Gson();
         jsonMultipleCoordinate = gson.toJson(listCoordinate);
     }
-
-    public String getJsonMultipleCoordinate() {
-        return jsonMultipleCoordinate;
+    
+    public void goToDetails(long realEstateId) throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath() + "/user/viewrealestatedetail.xhtml?realEstateId=" + realEstateId);
     }
 
-    public void setJsonMultipleCoordinate(String jsonMultipleCoordinate) {
-        this.jsonMultipleCoordinate = jsonMultipleCoordinate;
+    public List<RealEstate> getListAllRealEstate() {
+        return listAllRealEstate;
     }
 
-    public List<RealEstate> getListUserRealEstate() {
-        return listUserRealEstate;
-    }
-
-    public void setListUserRealEstate(List<RealEstate> listUserRealEstate) {
-        this.listUserRealEstate = listUserRealEstate;
+    public void setListAllRealEstate(List<RealEstate> listAllRealEstate) {
+        this.listAllRealEstate = listAllRealEstate;
     }
 
     public RealEstate getRealEstateClicked() {
@@ -82,5 +65,13 @@ public class ListOwnRealEstateBean implements Serializable {
 
     public void setRealEstateClicked(RealEstate realEstateClicked) {
         this.realEstateClicked = realEstateClicked;
+    }
+
+    public String getJsonMultipleCoordinate() {
+        return jsonMultipleCoordinate;
+    }
+
+    public void setJsonMultipleCoordinate(String jsonMultipleCoordinate) {
+        this.jsonMultipleCoordinate = jsonMultipleCoordinate;
     }
 }

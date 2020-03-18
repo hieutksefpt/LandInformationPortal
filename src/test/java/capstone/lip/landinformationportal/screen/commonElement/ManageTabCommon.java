@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.lip.landinformationportal.screen.element;
+package capstone.lip.landinformationportal.screen.commonElement;
 
 /**
  *
  * @author Phong
  */
-public interface AdminLeftBar {
+public interface ManageTabCommon {
     final String BTN_LOGO = "//button[contains(@id,'btn-Logo')]";
     final String BTN_MANAGE_USER = "//button[contains(@id,'btn-ManageUser')]";
     final String BTN_MANAGE_WEB_CRAWLED = "//button[contains(@id,'btn-ManageRepCrawled')]";

@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.lip.landinformationportal.screen;
+package capstone.lip.landinformationportal.screen.admin.mig;
 
 import capstone.lip.landinformationportal.common.AdminUITest;
-import capstone.lip.landinformationportal.screen.element.IPGType;
+import capstone.lip.landinformationportal.common.SitePath;
+import capstone.lip.landinformationportal.screen.commonElement.IPGType;
 import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +17,7 @@ import static org.junit.Assert.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import capstone.lip.landinformationportal.screen.element.GroupLocation;
+import capstone.lip.landinformationportal.screen.commonElement.ComboboxGeographyCommon;
 
 /**
  *
@@ -24,95 +25,79 @@ import capstone.lip.landinformationportal.screen.element.GroupLocation;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ManageGeoInfoTest extends AdminUITest 
-        implements GroupLocation, IPGType {
+public class ManageGeoInfo_Test extends AdminUITest 
+        implements ManageGeoInfo_Skeleton, ComboboxGeographyCommon, IPGType {
 
-    private final String TXT_NAME = "//input[contains(@id,'txtInput-Name')]";
-    private final String LBL_COORDINATE = "//input[contains(@id,'lbl-Coordinate')]";
-    private final String TXT_LAT = "//input[contains(@id,'txtInput-Latitude')]";
-    private final String TXT_LNG = "//input[contains(@id,'txtInput-Longitude')]";
-
-    private final String BTN_ADD_NEW = "//button[contains(@id,'btn-AddNew')]";
-    private final String BTN_SAVE = "//button[contains(@id,'btn-Save')]";
-    private final String BTN_DELETE = "//button[contains(@id,'btn-Delete')]";
-    private final String BTN_CLEAR = "//button[contains(@id,'btn-Clear')]";
-
-    private final String TXT_SEGMENT = "//button[contains(@id,'txtInput-SegmentName')]";
-    private final String LBL_FORMED_COORDINATE = "//input[contains(@id,'lbl-FormedCoordinate')]";
-    private final String TXT_FORMED_LAT = "//button[contains(@id,'txtInput-FormedLatitude')]";
-    private final String TXT_FORMED_LNG = "//button[contains(@id,'txtInput-FormedLongitude')]";
-    private final String BTN_SAVE_SEGMENT = "//button[contains(@id,'btn-SaveSegmentStreet')]";
-    private final String BTN_CLEAR_SEGMENT = "//button[contains(@id,'btn-ClearSegment')]";
-
-    private void openSite() throws InterruptedException {
-        driver.get("http://" + HOST + "/admin/managegeoinfo.xhtml");
+    @Override
+    protected void openSite() throws InterruptedException {
+        driver.get(SitePath.MIG);
         Thread.currentThread().sleep(200);
     }
 
     @Override
-    public void checkGroupLocation() {
-        checkExistItem(SEARCHBOX_ADDRESS);
-        checkExistItem(CBB_PROVINCE);
-        checkExistItem(CBB_DISTRICT);
-        checkExistItem(CBB_STREET);
-        checkExistItem(CBB_SEGMENT);
+    public void testComboboxGeographyCommon() {
+        testOnlyOneExisted(SEARCHBOX_ADDRESS);
+        testOnlyOneExisted(CBB_PROVINCE);
+        testOnlyOneExisted(CBB_DISTRICT);
+        testOnlyOneExisted(CBB_STREET);
+        testOnlyOneExisted(CBB_SEGMENT);
     }
     
-    private void checkItemNormalState() {
-        checkExistItem(TXT_NAME);
+    private void testItemInNormalState() {
+        testOnlyOneExisted(TXT_NAME);
         
-        checkExistItem(LBL_COORDINATE);
-        checkExistItem(TXT_LAT);
-        checkExistItem(TXT_LNG);
+        testOnlyOneExisted(LBL_COORDINATE);
+        testOnlyOneExisted(TXT_LAT);
+        testOnlyOneExisted(TXT_LNG);
     }
     
-    private void checkCommonButton() {
-        checkExistItem(LBL_DO_WITH);
-        checkExistItem(CBB_IPGTYPE);
+    private void testCommonButton() {
+        testOnlyOneExisted(LBL_DO_WITH);
+        testOnlyOneExisted(CBB_IPGTYPE);
         
-        checkExistItem(BTN_ADD_NEW);
-        checkExistItem(BTN_SAVE);
-        checkExistItem(BTN_DELETE);
-        checkExistItem(BTN_CLEAR);
+        testOnlyOneExisted(BTN_ADD_NEW);
+        testOnlyOneExisted(BTN_SAVE);
+        testOnlyOneExisted(BTN_DELETE);
+        testOnlyOneExisted(BTN_CLEAR);
     }
 
-    private void checkSegmentItem() {
-        checkExistItem(TXT_SEGMENT);
+    private void testSegmentItem() {
+        testOnlyOneExisted(TXT_SEGMENT);
         
-        checkExistItem(LBL_FORMED_COORDINATE);
-        checkExistItem(TXT_FORMED_LAT);
-        checkExistItem(TXT_FORMED_LNG);
+        testOnlyOneExisted(LBL_FORMED_COORDINATE);
+        testOnlyOneExisted(TXT_FORMED_LAT);
+        testOnlyOneExisted(TXT_FORMED_LNG);
         
-        checkExistItem(BTN_SAVE_SEGMENT);
-        checkExistItem(BTN_CLEAR_SEGMENT);
+        testOnlyOneExisted(BTN_SAVE_SEGMENT);
+        testOnlyOneExisted(BTN_CLEAR_SEGMENT);
     }
 
     /*
-    * GUI_MIG_01: Contain admin navigation bar
+    * UI_MIG_01: Contain admin navigation bar
      */
     @Test
-    public void GUI_MIG_01() throws Exception {
+    public void UI_MIG_01() throws Exception {
         openSite();
-        checkAdminLeftBarItem();
+        testManageTabCommon();
     }
 
     /*
-    * GUI_MIC_02: Normal state
+    * UI_MIC_02: Normal state
      */
     @Test
-    public void GUI_MIC_02() throws Exception {
+    public void UI_MIC_02() throws Exception {
         openSite();
         
-        checkGroupLocation();
-        checkItemNormalState();
-        checkCommonButton();
+        testComboboxGeographyCommon();
+        testItemInNormalState();
+        testCommonButton();
     }
 
     /*
-    * GUI_MIC_03: Verify value of combo box type
+    * UI_MIC_03: Verify value of combo box type
      */
     @Test
-    public void GUI_MIC_03() throws Exception {
+    public void UI_MIC_03() throws Exception {
         openSite();
         Select cbbIpgType = new Select(driver.findElement(By.xpath(CBB_IPGTYPE)));
         List<WebElement> cbbs = cbbIpgType.getOptions();
@@ -131,66 +116,66 @@ public class ManageGeoInfoTest extends AdminUITest
     }
 
     /*
-    * GUI_MIC_04: Normal state when interact with province
+    * UI_MIC_04: Normal state when interact with province
      */
     @Test
-    public void GUI_MIC_04() throws Exception {
+    public void UI_MIC_04() throws Exception {
         openSite();
         Select cbbIpgType = new Select(driver.findElement(By.xpath(CBB_IPGTYPE)));
         cbbIpgType.selectByValue(CBB_IPGTYPE_PROVINCE_VALUE);
         
-        checkGroupLocation();
-        checkItemNormalState();
-        checkCommonButton();
+        testComboboxGeographyCommon();
+        testItemInNormalState();
+        testCommonButton();
     }
 
     /*
-    * GUI_MIC_05: Normal state when interact with district
+    * UI_MIC_05: Normal state when interact with district
      */
     @Test
-    public void GUI_MIC_05() throws Exception {
+    public void UI_MIC_05() throws Exception {
         openSite();
         Select cbbIpgType = new Select(driver.findElement(By.xpath(CBB_IPGTYPE)));
         cbbIpgType.selectByValue(CBB_IPGTYPE_DISTRICT_VALUE);
         
-        checkGroupLocation();
-        checkItemNormalState();
-        checkCommonButton();
+        testComboboxGeographyCommon();
+        testItemInNormalState();
+        testCommonButton();
     }
 
     /*
-    * GUI_MIC_06: Normal state when interact with street
+    * UI_MIC_06: Normal state when interact with street
      */
     @Test
-    public void GUI_MIC_06() throws Exception {
+    public void UI_MIC_06() throws Exception {
         openSite();
         Select cbbIpgType = new Select(driver.findElement(By.xpath(CBB_IPGTYPE)));
         cbbIpgType.selectByValue(CBB_IPGTYPE_STREET_VALUE);
         
-        checkGroupLocation();
-        checkItemNormalState();
-        checkCommonButton();
+        testComboboxGeographyCommon();
+        testItemInNormalState();
+        testCommonButton();
     }
 
     /*
-    * GUI_MIC_07: Segment state when interact with segment
+    * UI_MIC_07: Segment state when interact with segment
      */
     @Test
-    public void GUI_MIC_07() throws Exception {
+    public void UI_MIC_07() throws Exception {
         openSite();
         Select cbbIpgType = new Select(driver.findElement(By.xpath(CBB_IPGTYPE)));
         cbbIpgType.selectByValue(CBB_IPGTYPE_SEGMENT_VALUE);
         
-        checkGroupLocation();
-        checkSegmentItem();
-        checkCommonButton();
+        testComboboxGeographyCommon();
+        testSegmentItem();
+        testCommonButton();
     }
 
     /*
-    * GUI_MIC_08: Street state when add new street
+    * UI_MIC_08: Street state when add new street
      */
     @Test
-    public void GUI_MIC_08() throws Exception {
+    public void UI_MIC_08() throws Exception {
         //Open MIG site
         openSite();
         
@@ -214,16 +199,16 @@ public class ManageGeoInfoTest extends AdminUITest
         Thread.currentThread().sleep(100);
         
         //ASSERT normal state items are visible
-        checkItemNormalState();
+        testItemInNormalState();
         //ASSERT segment items are visible
-        checkSegmentItem();
+        testSegmentItem();
     }
 
     /*
-    * GUI_MIC_09: Clear button clear text input in normal state
+    * UI_MIC_09: Clear button clear text input in normal state
      */
     @Test
-    public void GUI_MIC_09() throws Exception {
+    public void UI_MIC_09() throws Exception {
         openSite();
 
         //Add value
@@ -247,10 +232,10 @@ public class ManageGeoInfoTest extends AdminUITest
     }
 
     /*
-    * GUI_MIC_10: Clear button clear text input in street state
+    * UI_MIC_10: Clear button clear text input in street state
      */
     @Test
-    public void GUI_MIC_10() throws Exception {
+    public void UI_MIC_10() throws Exception {
         openSite();
 
         //Select street
@@ -281,10 +266,10 @@ public class ManageGeoInfoTest extends AdminUITest
     }
 
     /*
-    * GUI_MIC_11: Clear button clear text input in segment state
+    * UI_MIC_11: Clear button clear text input in segment state
      */
     @Test
-    public void GUI_MIC_11() throws Exception {
+    public void UI_MIC_11() throws Exception {
         openSite();
 
         //Select street
@@ -315,10 +300,10 @@ public class ManageGeoInfoTest extends AdminUITest
     }
     
     /*
-    * GUI_MIC_12: Clear button clear input only
+    * UI_MIC_12: Clear button clear input only
      */
     @Test
-    public void GUI_MIC_12() throws Exception {
+    public void UI_MIC_12() throws Exception {
         //Open MIG site
         openSite();
         

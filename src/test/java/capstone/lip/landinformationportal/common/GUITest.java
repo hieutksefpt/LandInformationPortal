@@ -13,6 +13,7 @@ import org.junit.BeforeClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import static org.junit.Assert.assertFalse;
 
 /**
  *
@@ -20,8 +21,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
  */
 public abstract class GUITest {
 
-    protected final String HOST = "localhost:8080";
-    
     protected WebDriver driver;
 
     @BeforeClass
@@ -41,10 +40,17 @@ public abstract class GUITest {
         }
     }
     
-    protected void checkExistItem(String xpath) {
+    protected abstract void openSite() throws InterruptedException;
+    
+    protected void testOnlyOneExisted(String xpath) {
         assertFalse("MISSING " + xpath, driver.findElements(
                 By.xpath(xpath))
                 .size() != 1);
     }
 
+    protected void testExisted(String xpath) {
+        assertFalse("MISSING " + xpath, driver.findElements(
+                By.xpath(xpath))
+                .size() < 1);
+    }
 }

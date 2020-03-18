@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.lip.landinformationportal.screen.element;
+package capstone.lip.landinformationportal.screen.commonElement;
 
 /**
  *
@@ -18,8 +18,8 @@ public interface IPGType {
     final String CBB_IPGTYPE_STREET_VALUE = "3";
     final String CBB_IPGTYPE_SEGMENT_VALUE = "4";
     
-    final String CBB_IPGTYPE_PROVINCE_TEXT = "Tỉnh thành";
-    final String CBB_IPGTYPE_DISTRICT_TEXT = "Quận huyện";
+    final String CBB_IPGTYPE_PROVINCE_TEXT = "Tỉnh/Thành";
+    final String CBB_IPGTYPE_DISTRICT_TEXT = "Quận/Huyện";
     final String CBB_IPGTYPE_STREET_TEXT = "Tuyến đường";
     final String CBB_IPGTYPE_SEGMENT_TEXT = "Đoạn đường";
 }

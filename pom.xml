@@ -222,9 +222,14 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8.5</version>
+        </dependency>
     </dependencies>
     <!-- TEST REPORT -->
-    <reporting>
+<!--    <reporting>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -241,7 +246,7 @@
                 </reportSets>
             </plugin>
         </plugins>
-    </reporting>
+    </reporting>-->
 
     <build>
         <plugins>

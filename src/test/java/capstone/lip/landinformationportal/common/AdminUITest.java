@@ -5,23 +5,23 @@
  */
 package capstone.lip.landinformationportal.common;
 
-import capstone.lip.landinformationportal.screen.element.AdminLeftBar;
+import capstone.lip.landinformationportal.screen.commonElement.ManageTabCommon;
 
 /**
  *
  * @author Phong
  */
-public abstract class AdminUITest extends GUITest implements AdminLeftBar{
+public abstract class AdminUITest extends GUITest implements ManageTabCommon {
     
-    protected void checkAdminLeftBarItem() {
-        checkExistItem(BTN_LOGO);
-        checkExistItem(BTN_MANAGE_USER);
-        checkExistItem(BTN_MANAGE_WEB_CRAWLED);
-        checkExistItem(BTN_MANAGE_NEWS_CRAWLED);
-        checkExistItem(BTN_MANAGE_NEWS);
-        checkExistItem(BTN_MANAGE_IPG);
-        checkExistItem(BTN_MANAGE_LAWS);
-        checkExistItem(BTN_CHECK_REP_CONTRIBUTE);
-        checkExistItem(BTN_UPDATE_PROFILE);
+    protected void testManageTabCommon() {
+        testOnlyOneExisted(BTN_LOGO);
+        testOnlyOneExisted(BTN_MANAGE_USER);
+        testOnlyOneExisted(BTN_MANAGE_WEB_CRAWLED);
+        testOnlyOneExisted(BTN_MANAGE_NEWS_CRAWLED);
+        testOnlyOneExisted(BTN_MANAGE_NEWS);
+        testOnlyOneExisted(BTN_MANAGE_IPG);
+        testOnlyOneExisted(BTN_MANAGE_LAWS);
+        testOnlyOneExisted(BTN_CHECK_REP_CONTRIBUTE);
+        testOnlyOneExisted(BTN_UPDATE_PROFILE);
     }
 }

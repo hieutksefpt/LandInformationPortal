@@ -5,6 +5,7 @@
  */
 package capstone.lip.landinformationportal.service;
 
+//import org.testng.annotations.Test;
 import capstone.lip.landinformationportal.common.CRUDTest;
 import capstone.lip.landinformationportal.entity.District;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -17,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Phong
  */
-public class DistrictServiceTest extends CRUDTest{
+public class DistrictServiceTest extends CRUDTest {
     
     @Autowired
     private DistrictService instance;

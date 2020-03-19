@@ -33,6 +33,9 @@ import capstone.lip.landinformationportal.dto.HouseFeatureValue;
 import capstone.lip.landinformationportal.dto.LandFeatureValue;
 import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.FormedCoordinate;
+import capstone.lip.landinformationportal.entity.House;
+import capstone.lip.landinformationportal.entity.HousesDetail;
+import capstone.lip.landinformationportal.entity.HousesDetailId;
 import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.LandsDetail;
@@ -47,6 +50,8 @@ import capstone.lip.landinformationportal.entity.Street;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IDistrictService;
 import capstone.lip.landinformationportal.service.Interface.IFormedCoordinate;
+import capstone.lip.landinformationportal.service.Interface.IHouseService;
+import capstone.lip.landinformationportal.service.Interface.IHousesDetailService;
 import capstone.lip.landinformationportal.service.Interface.IHousesFeatureService;
 import capstone.lip.landinformationportal.service.Interface.ILandService;
 import capstone.lip.landinformationportal.service.Interface.ILandsDetailService;
@@ -82,10 +87,16 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     private ILandsDetailService landsDetailService;
 
     @Autowired
+    private IHousesDetailService housesDetailService;
+    
+    @Autowired
     private IUserService userService;
 
     @Autowired
     private ILandService landService;
+    
+    @Autowired
+    private IHouseService houseService;
 
     @Autowired
     private ISegmentOfStreetService segmentOfStreetService;
@@ -178,8 +189,6 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     public void saveDataUploadToDB() {
         
         nextLocatePoint();
-        
-        
         //save to DB RE
         
         User tempUser = new User();
@@ -195,7 +204,6 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
                 tempUser.setPhone(userListAll.get(i).getPhone());
             }
         }
-        System.out.println(realEstateLat + " sss  " + realEstateLng);
         RealEstate newUploadRealEstate = new RealEstate().setRealEstateName(realEstateName)
                 .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
                 .setRealEstateAddress(realEstateAddress);
@@ -205,7 +213,6 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 
         // save to Table REAS
         RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
-       
         
         newRealEstateAdjacentSegment.setRealEstate(newUploadRealEstate);
         SegmentOfStreet tempSos = new SegmentOfStreet();
@@ -239,7 +246,6 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
                 LandsDetailId tempLDI = new LandsDetailId();
                 tempLDI.setLandId(tempLand.getLandId());
                 tempLDI.setLandsFeatureId(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureID());
-
                 LandsDetail tempLD = new LandsDetail();
                 tempLD.setId(tempLDI)
                 	.setValue(listLandFeatureValue.get(i).getValue());
@@ -249,7 +255,25 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         }
 
         // save to Table House & House Detail tương tự Land :(( 
-        
+        if (newHouseMoney.compareTo(BigDecimal.ZERO) != 0) {
+            House tempHouse = new House();
+            tempHouse.setHouseName(realEstateName);
+            tempHouse.setHousePrice(Double.parseDouble(newHouseMoney.toString()));
+            tempHouse.setRealEstate(newUploadRealEstate);
+
+            tempHouse = houseService.save(tempHouse);
+
+            for (int i = 0; i < listHouseFeatureValue.size(); i++) {
+                HousesDetailId tempHDI = new HousesDetailId();
+                tempHDI.setHouseId(tempHouse.getHouseId());
+                tempHDI.setHousesFeatureId(listHouseFeatureValue.get(i).getHousesFeature().getHousesFeatureID());
+                HousesDetail tempHD = new HousesDetail();
+                tempHD.setId(tempHDI)
+                	.setValue(listHouseFeatureValue.get(i).getValue());
+                housesDetailService.save(tempHD);
+            }
+
+        }
     }
 
     // function call when Ajax listener (textbox Price change value)
@@ -315,7 +339,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
                 segmentStreetAddress = listSegmentOfStreet.get(i).getSegmentName();
             }
         }
-        realEstateAddress = streetAddress + districtAddress + provinceAddress; // Address of Real Estate show just only Street.
+        realEstateAddress = streetAddress + ", "+ districtAddress + ", " + provinceAddress; // Address of Real Estate show just only Street.
         try {
             realEstateLng = Double.parseDouble(lngSingleCoordinate);
             realEstateLat = Double.parseDouble(latSingleCoordinate);

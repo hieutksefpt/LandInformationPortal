@@ -35,7 +35,11 @@ public interface IRealEstateService {
     
     List<RealEstate> findByRealEstateStatus(String status);
     
-    Page<RealEstate> findByRealEstateStatus(String status, Pageable page);
+    List<String> listRealEstateSource();
+    
+    List<RealEstate> listFilterRealEstate(String realEstateName);
+
+	Page<RealEstate> findByRealEstateStatus(String status, Pageable page);
     
     long count();
 }

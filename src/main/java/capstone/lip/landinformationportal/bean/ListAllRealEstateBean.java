@@ -30,6 +30,7 @@ public class ListAllRealEstateBean implements Serializable {
     private List<RealEstate> listAllRealEstate;
     private RealEstate realEstateClicked;
     private String jsonMultipleCoordinate;
+    private String txtSearchBox;
 
     @PostConstruct
     public void init() {
@@ -46,11 +47,28 @@ public class ListAllRealEstateBean implements Serializable {
         jsonMultipleCoordinate = gson.toJson(listCoordinate);
     }
     
+    public void listFilterRealEstate(){
+        this.listAllRealEstate = realEstateService.listFilterRealEstate(this.txtSearchBox);
+        transferListCoordinate();
+    }
+    
+    public List<String> getListRealEstateSource(){
+        return realEstateService.listRealEstateSource();
+    }
+    
     public void goToDetails(long realEstateId) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.redirect(ec.getRequestContextPath() + "/user/viewrealestatedetail.xhtml?realEstateId=" + realEstateId);
     }
 
+    public String getTxtSearchBox() {
+        return txtSearchBox;
+    }
+
+    public void setTxtSearchBox(String txtSearchBox) {
+        this.txtSearchBox = txtSearchBox;
+    }
+    
     public List<RealEstate> getListAllRealEstate() {
         return listAllRealEstate;
     }

@@ -22,28 +22,30 @@
                                 <h:form id="form-Search">
                                     <div class="row search-aria">
                                         <div class="col-3 col-lg-3 lbl-real-estate-name-search">Tên BĐS</div>
-                                        <div class="col-7 col-lg-7 txt-search-name"><h:inputText id="txt-SearchName" class=""></h:inputText></div>
-                                        <div class="col-2 col-lg-2 btn-search"><h:commandButton id="btn-ButtonSearch" class="" value="Tìm kiếm"></h:commandButton></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6 col-lg-6 text-combobox">Nguồn BĐS</div>
-                                        <div class="col-6 col-lg-6 text-combobox">Trạng thái BĐS</div>
+                                        <div class="col-7 col-lg-7 txt-search-name"><h:inputText id="txt-SearchName" class="" value="#{listAllRealEstateBean.txtSearchBox}"></h:inputText></div>
+                                        <div class="col-2 col-lg-2 btn-search">
+                                            <h:commandButton id="btn-ButtonSearch"
+                                                             value="Tìm kiếm"
+                                                             action="#{listAllRealEstateBean.listFilterRealEstate()}">
+                                                <p:ajax process="@form" update="form-ViewList"></p:ajax>
+                                            </h:commandButton>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-6 col-lg-6">
                                             <h:selectOneMenu id="combobox-RealEstateSource" class="combobox-common">
-                                                <f:selectItem itemLabel="Select One" itemValue="" />
-                                                <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
-                                                <f:selectItem itemLabel="PS4" itemValue="PS4" />
-                                                <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                                                <f:selectItem itemLabel="Nguồn BĐS" itemValue="Nguồn BĐS" />
+                                                <c:forEach items="#{listAllRealEstateBean.listRealEstateSource}" var="realEstateSource">
+                                                    <f:selectItem itemLabel="#{realEstateSource}" itemValue="#{realEstateSource}" />
+                                                </c:forEach> 
                                             </h:selectOneMenu>
                                         </div>
                                         <div class="col-6 col-lg-6">
                                             <h:selectOneMenu id="combobox-RealEstateStatus" class="combobox-common">
-                                                <f:selectItem itemLabel="Select One" itemValue="" />
-                                                <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
-                                                <f:selectItem itemLabel="PS4" itemValue="PS4" />
-                                                <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                                                <f:selectItem itemLabel="Trạng thái BĐS" itemValue="Trạng thái BĐS" />
+                                                <f:selectItem itemLabel="CONFUSED" itemValue="-1" />
+                                                <f:selectItem itemLabel="NOT_VERIFIED" itemValue="0" />
+                                                <f:selectItem itemLabel="VERIFIED" itemValue="1" />
                                             </h:selectOneMenu>
                                         </div>
                                     </div>
@@ -54,11 +56,11 @@
                                 <h:form id="form-ViewList">
                                     <c:forEach items="#{listAllRealEstateBean.listAllRealEstate}" var="i">
                                         <div class="row">
-                                            <c:if test="#{i.realEstateType == 'Contributor'}">
-                                                <div id="lbl-RealEstateType" class="realestate-type-contributor col-12 col-lg-12">#{i.realEstateType}</div>
+                                            <c:if test="#{i.realEstateSource == 'Contributor'}">
+                                                <div id="lbl-RealEstateSource" class="realestate-source-contributor col-12 col-lg-12">#{i.realEstateSource}</div>
                                             </c:if>
-                                            <c:if test="#{i.realEstateType != 'Contributor'}">
-                                                <div id="lbl-RealEstateType" class="realestate-type-other col-12 col-lg-12">#{i.realEstateType}</div>
+                                            <c:if test="#{i.realEstateSource != 'Contributor'}">
+                                                <div id="lbl-RealEstateSource" class="realestate-source-other col-12 col-lg-12">#{i.realEstateSource}</div>
                                             </c:if>
                                         </div>
                                         <div class="row">

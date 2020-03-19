@@ -21,8 +21,6 @@ import org.springframework.stereotype.Service;
 import capstone.lip.landinformationportal.common.StatusCrawledNewsConstant;
 import capstone.lip.landinformationportal.config.CrawlNewsNowJob;
 import capstone.lip.landinformationportal.config.CrawlNewsScheduleJob;
-import capstone.lip.landinformationportal.config.CrawlRealEstateNowJob;
-import capstone.lip.landinformationportal.config.CrawlRealEstateScheduleJob;
 import capstone.lip.landinformationportal.dto.NewsCrawl;
 import capstone.lip.landinformationportal.entity.CrawledNews;
 import capstone.lip.landinformationportal.repository.CrawledNewsRepository;
@@ -164,7 +162,7 @@ public class CrawledNewsService implements ICrawledNewsService{
 
 	@Override
 	public Page<CrawledNews> findByCrawledNewsStatus(Integer status, Pageable page) {
-		return crawledNewsRepository.findAll(page);
+		return crawledNewsRepository.findByCrawledNewsStatus(status, page);
 	}
 
 	@Override

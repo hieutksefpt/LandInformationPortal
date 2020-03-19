@@ -38,8 +38,8 @@
             </h:form>
             <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px">
             	<p:growl id="msgs" showDetail="true"/>
-	            <p:dataTable value="#{manageCrawlRealEstateBean.listRealEstate}" var="element"
-		           	rows="10" paginator="true"
+	            <p:dataTable value="#{manageCrawlRealEstateBean.lazyReo}" var="element"
+		           	rows="10" paginator="true" lazy="true"
 		            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
 		            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
 		            >

@@ -19,8 +19,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import capstone.lip.landinformationportal.dto.NewsCrawl;
-import capstone.lip.landinformationportal.dto.RealEstateObjectCrawl;
-import capstone.lip.landinformationportal.service.Interface.ICrawlRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.ICrawledNewsService;
 @Component
 public class CrawlNewsNowJob implements Job {
@@ -40,7 +38,7 @@ public class CrawlNewsNowJob implements Job {
 		header.set("WWW-Authenticate", "Token");
 		header.set("Content-Type", "application/json");
 		header.set("Authorization", token);
-		String temp = (String)context.get("crawlnow");
+//		String temp = (String)context.get("crawlnow");
 		Map<String, String> map = new HashMap<>();
 //		map.put("type", "reo");
 

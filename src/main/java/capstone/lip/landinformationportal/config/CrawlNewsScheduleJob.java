@@ -19,7 +19,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import capstone.lip.landinformationportal.dto.NewsCrawl;
-import capstone.lip.landinformationportal.dto.RealEstateObjectCrawl;
 import capstone.lip.landinformationportal.service.Interface.ICrawledNewsService;
 @Component
 public class CrawlNewsScheduleJob implements Job {

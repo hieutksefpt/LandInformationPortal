@@ -32,4 +32,8 @@ public interface IRealEstateService {
     void delete(RealEstate realEstate);
     
     List<RealEstate> findByRealEstateStatus(String status);
+    
+    List<String> listRealEstateSource();
+    
+    List<RealEstate> listFilterRealEstate(String realEstateName);
 }

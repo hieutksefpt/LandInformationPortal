@@ -65,9 +65,19 @@ public class RealEstateService implements IRealEstateService {
         return realEstateRepository.findById(realEstateId).get();
     }
 
-	@Override
-	public List<RealEstate> findByRealEstateStatus(String status) {
-		return realEstateRepository.findByRealEstateStatus(status);
-	}
+    @Override
+    public List<RealEstate> findByRealEstateStatus(String status) {
+        return realEstateRepository.findByRealEstateStatus(status);
+    }
+
+    @Override
+    public List<String> listRealEstateSource() {
+        return realEstateRepository.listRealEstateSource();
+    }
+
+    @Override
+    public List<RealEstate> listFilterRealEstate(String realEstateName) {
+        return realEstateRepository.listFilterRealEstate(realEstateName);
+    }
 
 }

@@ -49,13 +49,13 @@
     color: #fff;
     background-color: #56c6c6;
 }
-.realestate-type-other{
+.realestate-source-other{
     color: #008542;
     font-size: 14px;
     margin-top: 5px;
     margin-bottom: -12px;
 }
-.realestate-type-contributor{
+.realestate-source-contributor{
     color: #ea2402;
     font-size: 14px;
     margin-top: 5px;
@@ -77,8 +77,6 @@
 }
 .btn-search{
     padding-left: 0px
-}
-.text-combobox{
 }
 .search-aria{
     margin-bottom: 8px;

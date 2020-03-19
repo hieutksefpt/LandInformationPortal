@@ -9,6 +9,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -22,18 +23,23 @@ import capstone.lip.landinformationportal.service.Interface.ICrawlRealEstateServ
 @Component
 public class CrawlRealEstateNowJob implements Job {
 
-	static final String URL = "http://127.0.0.1:8000/realestateobject/";	
+	@Value("${service.crawl.url}")
+	private String URL;	
+	
+	@Value("${service.crawl.token}")
+	private String token;
+	
+		
 	@Autowired
 	private ICrawlRealEstateService crawlReoService;
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-//		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		System.out.println("crawling");
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders header = new HttpHeaders();
 		header.set("WWW-Authenticate", "Token");
 		header.set("Content-Type", "application/json");
-		header.set("Authorization", "Token f992ddf15c9d3d30dac1358e918a5693d85d174c");
+		header.set("Authorization", token);
 
 		Map<String, String> map = new HashMap<>();
 //		map.put("type", "reo");

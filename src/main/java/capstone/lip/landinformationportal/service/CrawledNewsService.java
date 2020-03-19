@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import capstone.lip.landinformationportal.common.StatusCrawledNewsConstant;
+import capstone.lip.landinformationportal.config.CrawlNewsNowJob;
 import capstone.lip.landinformationportal.config.CrawlNewsScheduleJob;
 import capstone.lip.landinformationportal.config.CrawlRealEstateNowJob;
 import capstone.lip.landinformationportal.config.CrawlRealEstateScheduleJob;
@@ -124,7 +125,7 @@ public class CrawledNewsService implements ICrawledNewsService{
 	@Override
 	public void crawlNow() {
 		JobKey jobKeyNow = JobKey.jobKey("crawlerNowJob", "crawler");
-		JobDetail jobNow = JobBuilder.newJob(CrawlRealEstateNowJob.class).storeDurably(true).withIdentity("crawlerNowJob", "crawler").build();
+		JobDetail jobNow = JobBuilder.newJob(CrawlNewsNowJob.class).storeDurably(true).withIdentity("crawlerNowJob", "crawler").build();
 		try {
 			scheduler.addJob(jobNow, true);
 			scheduler.getContext().put("crawlnow", "true");

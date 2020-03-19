@@ -102,6 +102,7 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 				.setRealEstateLng(reoCrawl.getLongitude())
 				.setRealEstatePrice(reoCrawl.getPrice())
 				.setRealEstateSource(reoCrawl.getSource())
+//				.setRealEstateSource("https://batdongsan.com.vn")
 				.setRealEstateLink(reoCrawl.getLink())
 				.setRealEstateAddress(reoCrawl.getAddress())
 				.setUser(user)

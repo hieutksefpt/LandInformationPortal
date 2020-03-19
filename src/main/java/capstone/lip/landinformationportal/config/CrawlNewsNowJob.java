@@ -16,52 +16,49 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import capstone.lip.landinformationportal.dto.NewsCrawl;
 import capstone.lip.landinformationportal.dto.RealEstateObjectCrawl;
-import capstone.lip.landinformationportal.service.CrawlRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.ICrawlRealEstateService;
-
+import capstone.lip.landinformationportal.service.Interface.ICrawledNewsService;
 @Component
-public class CrawlRealEstateScheduleJob implements Job {
-	
+public class CrawlNewsNowJob implements Job {
 	@Value("${service.crawl.url}")
 	private String URL;	
 	
 	@Value("${service.crawl.token}")
 	private String token;
 	@Autowired
-	private ICrawlRealEstateService crawlReoService;
-	
+	private ICrawledNewsService crawlNewsService;
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		
 //		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		System.out.println("crawling");
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders header = new HttpHeaders();
 		header.set("WWW-Authenticate", "Token");
 		header.set("Content-Type", "application/json");
-		header.set("Authorization", "Token f992ddf15c9d3d30dac1358e918a5693d85d174c");
-
+		header.set("Authorization", token);
+		String temp = (String)context.get("crawlnow");
 		Map<String, String> map = new HashMap<>();
-		map.put("type", "reo");
+//		map.put("type", "reo");
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-		        .queryParam("type", "reo")
+		        .queryParam("type", "news")
 //		        .queryParam("daily", "true")
+		        .queryParam("crawlnow","true")
 		        ;
 
 		HttpEntity<Map<String, String>> entity = new HttpEntity<>(map, header);
 		System.out.println(restTemplate.toString());
 
 		// code done here
-		ResponseEntity<RealEstateObjectCrawl[]> responseEntity = 
-				restTemplate.exchange(builder.toUriString(),HttpMethod.GET,entity,RealEstateObjectCrawl[].class);
-		List<RealEstateObjectCrawl> listCrawl = Arrays.asList(responseEntity.getBody());
+		ResponseEntity<NewsCrawl[]> responseEntity = 
+				restTemplate.exchange(builder.toUriString(),HttpMethod.GET,entity,NewsCrawl[].class);
+		List<NewsCrawl> listCrawl = Arrays.asList(responseEntity.getBody());
 		// temp comment
-		crawlReoService.saveRealEstateCrawl(listCrawl);
+		crawlNewsService.save(listCrawl);
 	}
 
 }

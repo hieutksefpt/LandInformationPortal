@@ -41,6 +41,7 @@ import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegment;
+import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegmentId;
 import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 import capstone.lip.landinformationportal.entity.Street;
 import capstone.lip.landinformationportal.entity.User;
@@ -200,23 +201,29 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
                 .setRealEstateAddress(realEstateAddress);
         newUploadRealEstate.setRealEstatePrice(realEstatePrice);
         newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
-        realEstateService.save(newUploadRealEstate);
+        newUploadRealEstate = realEstateService.save(newUploadRealEstate);
 
         // save to Table REAS
         RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
+       
+        
         newRealEstateAdjacentSegment.setRealEstate(newUploadRealEstate);
         SegmentOfStreet tempSos = new SegmentOfStreet();
         List<SegmentOfStreet> segmentOfStreetListAll = segmentOfStreetService.findAll();
         for (int i = 0; i < segmentOfStreetListAll.size(); i++) {
-            if (segmentOfStreetListAll.get(i).getSegmentId().equals(segmentStreetIdSelected)) {
+            if (segmentOfStreetListAll.get(i).getSegmentId().toString().equals(segmentStreetIdSelected)) {
                 tempSos.setSegmentName(segmentOfStreetListAll.get(i).getSegmentName())
-                        .setSegmentLat(segmentOfStreetListAll.get(i).getSegmentLng()).setSegmentLng(segmentOfStreetListAll.get(i).getSegmentLng())
-                        .setDistrict(selectedDistrict).setStreet(selectedStreet);
+                        .setSegmentLat(segmentOfStreetListAll.get(i).getSegmentLng())
+                        .setSegmentLng(segmentOfStreetListAll.get(i).getSegmentLng())
+                        .setDistrict(selectedDistrict).setStreet(selectedStreet)
+                        .setSegmentId(segmentOfStreetListAll.get(i).getSegmentId());
             }
         }
 
-        newRealEstateAdjacentSegment.setSegmentOfStreet(tempSos);
-        newRealEstateAdjacentSegment.setRealEstate(newUploadRealEstate);
+        newRealEstateAdjacentSegment.setId(new RealEstateAdjacentSegmentId(tempSos.getSegmentId(), newUploadRealEstate.getRealEstateId()));
+
+        
+        
         realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);
 
         // save to Table Land & save to Table LandsDetail

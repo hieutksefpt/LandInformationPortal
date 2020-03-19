@@ -212,6 +212,197 @@ public class RealEstateObjectCrawl implements Serializable{
 	public void setSource(String source) {
 		this.source = source;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((area == null) ? 0 : area.hashCode());
+		result = prime * result + ((balconyDirection == null) ? 0 : balconyDirection.hashCode());
+		result = prime * result + ((codePost == null) ? 0 : codePost.hashCode());
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((endDatePost == null) ? 0 : endDatePost.hashCode());
+		result = prime * result + ((homeDirection == null) ? 0 : homeDirection.hashCode());
+		result = prime * result + ((idCrawlerJob == null) ? 0 : idCrawlerJob.hashCode());
+		result = prime * result + ((interior == null) ? 0 : interior.hashCode());
+		result = prime * result + ((latitude == null) ? 0 : latitude.hashCode());
+		result = prime * result + ((link == null) ? 0 : link.hashCode());
+		result = prime * result + ((longitude == null) ? 0 : longitude.hashCode());
+		result = prime * result + ((mobile == null) ? 0 : mobile.hashCode());
+		result = prime * result + ((nameOwner == null) ? 0 : nameOwner.hashCode());
+		result = prime * result + ((numberBedrooms == null) ? 0 : numberBedrooms.hashCode());
+		result = prime * result + ((numberFloor == null) ? 0 : numberFloor.hashCode());
+		result = prime * result + ((numberToilets == null) ? 0 : numberToilets.hashCode());
+		result = prime * result + ((price == null) ? 0 : price.hashCode());
+		result = prime * result + ((projectName == null) ? 0 : projectName.hashCode());
+		result = prime * result + ((projectOwner == null) ? 0 : projectOwner.hashCode());
+		result = prime * result + ((projectSize == null) ? 0 : projectSize.hashCode());
+		result = prime * result + ((sizeFront == null) ? 0 : sizeFront.hashCode());
+		result = prime * result + ((source == null) ? 0 : source.hashCode());
+		result = prime * result + ((startDatePost == null) ? 0 : startDatePost.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + ((typePost == null) ? 0 : typePost.hashCode());
+		result = prime * result + ((wardin == null) ? 0 : wardin.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RealEstateObjectCrawl other = (RealEstateObjectCrawl) obj;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (area == null) {
+			if (other.area != null)
+				return false;
+		} else if (!area.equals(other.area))
+			return false;
+		if (balconyDirection == null) {
+			if (other.balconyDirection != null)
+				return false;
+		} else if (!balconyDirection.equals(other.balconyDirection))
+			return false;
+		if (codePost == null) {
+			if (other.codePost != null)
+				return false;
+		} else if (!codePost.equals(other.codePost))
+			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (endDatePost == null) {
+			if (other.endDatePost != null)
+				return false;
+		} else if (!endDatePost.equals(other.endDatePost))
+			return false;
+		if (homeDirection == null) {
+			if (other.homeDirection != null)
+				return false;
+		} else if (!homeDirection.equals(other.homeDirection))
+			return false;
+		if (idCrawlerJob == null) {
+			if (other.idCrawlerJob != null)
+				return false;
+		} else if (!idCrawlerJob.equals(other.idCrawlerJob))
+			return false;
+		if (interior == null) {
+			if (other.interior != null)
+				return false;
+		} else if (!interior.equals(other.interior))
+			return false;
+		if (latitude == null) {
+			if (other.latitude != null)
+				return false;
+		} else if (!latitude.equals(other.latitude))
+			return false;
+		if (link == null) {
+			if (other.link != null)
+				return false;
+		} else if (!link.equals(other.link))
+			return false;
+		if (longitude == null) {
+			if (other.longitude != null)
+				return false;
+		} else if (!longitude.equals(other.longitude))
+			return false;
+		if (mobile == null) {
+			if (other.mobile != null)
+				return false;
+		} else if (!mobile.equals(other.mobile))
+			return false;
+		if (nameOwner == null) {
+			if (other.nameOwner != null)
+				return false;
+		} else if (!nameOwner.equals(other.nameOwner))
+			return false;
+		if (numberBedrooms == null) {
+			if (other.numberBedrooms != null)
+				return false;
+		} else if (!numberBedrooms.equals(other.numberBedrooms))
+			return false;
+		if (numberFloor == null) {
+			if (other.numberFloor != null)
+				return false;
+		} else if (!numberFloor.equals(other.numberFloor))
+			return false;
+		if (numberToilets == null) {
+			if (other.numberToilets != null)
+				return false;
+		} else if (!numberToilets.equals(other.numberToilets))
+			return false;
+		if (price == null) {
+			if (other.price != null)
+				return false;
+		} else if (!price.equals(other.price))
+			return false;
+		if (projectName == null) {
+			if (other.projectName != null)
+				return false;
+		} else if (!projectName.equals(other.projectName))
+			return false;
+		if (projectOwner == null) {
+			if (other.projectOwner != null)
+				return false;
+		} else if (!projectOwner.equals(other.projectOwner))
+			return false;
+		if (projectSize == null) {
+			if (other.projectSize != null)
+				return false;
+		} else if (!projectSize.equals(other.projectSize))
+			return false;
+		if (sizeFront == null) {
+			if (other.sizeFront != null)
+				return false;
+		} else if (!sizeFront.equals(other.sizeFront))
+			return false;
+		if (source == null) {
+			if (other.source != null)
+				return false;
+		} else if (!source.equals(other.source))
+			return false;
+		if (startDatePost == null) {
+			if (other.startDatePost != null)
+				return false;
+		} else if (!startDatePost.equals(other.startDatePost))
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		if (type == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
+			return false;
+		if (typePost == null) {
+			if (other.typePost != null)
+				return false;
+		} else if (!typePost.equals(other.typePost))
+			return false;
+		if (wardin == null) {
+			if (other.wardin != null)
+				return false;
+		} else if (!wardin.equals(other.wardin))
+			return false;
+		return true;
+	}
 	
     
     

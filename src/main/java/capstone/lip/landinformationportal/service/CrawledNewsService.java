@@ -1,6 +1,7 @@
 package capstone.lip.landinformationportal.service;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.quartz.JobBuilder;
@@ -11,11 +12,17 @@ import org.quartz.SchedulerException;
 import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
+import org.quartz.TriggerKey;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import capstone.lip.landinformationportal.common.StatusCrawledNewsConstant;
+import capstone.lip.landinformationportal.config.CrawlNewsScheduleJob;
 import capstone.lip.landinformationportal.config.CrawlRealEstateNowJob;
 import capstone.lip.landinformationportal.config.CrawlRealEstateScheduleJob;
+import capstone.lip.landinformationportal.dto.NewsCrawl;
 import capstone.lip.landinformationportal.entity.CrawledNews;
 import capstone.lip.landinformationportal.repository.CrawledNewsRepository;
 import capstone.lip.landinformationportal.service.Interface.ICrawledNewsService;
@@ -23,7 +30,8 @@ import capstone.lip.landinformationportal.service.Interface.ICrawledNewsService;
 @Service
 public class CrawledNewsService implements ICrawledNewsService{
 
-	private JobKey jobKey = new JobKey("crawlerJob", "crawler");
+	private JobKey jobKey = new JobKey("crawlerNewsJob", "crawlerNews");
+	private TriggerKey triggerKey = new TriggerKey("crawlerNewsTriggler", "crawlerNews");
 	
 	@Autowired
 	Scheduler scheduler;
@@ -35,8 +43,19 @@ public class CrawledNewsService implements ICrawledNewsService{
 	private CrawledNewsRepository crawledNewsRepository;
 	
 	@Override
-	public List<CrawledNews> saveNews(List<CrawledNews> listCrawledNews) {
-		return crawledNewsRepository.saveAll(listCrawledNews);
+	public List<CrawledNews> save(List<NewsCrawl> listCrawledNews) {
+		List list = new ArrayList();
+		for (NewsCrawl element : listCrawledNews) {
+			CrawledNews news = new CrawledNews()
+					.setCrawledNewsLink(element.getLink())
+					.setCrawledNewsShortDescription(element.getDescription())
+					.setCrawledNewsTitle(element.getTitle())
+					.setCrawledNewsWebsite(element.getDomain())
+					.setCrawledNewsTime(element.getDate())
+					.setCrawledNewsStatus(StatusCrawledNewsConstant.NON_DISPLAY);
+			list.add(news);
+		}
+		return crawledNewsRepository.saveAll(list);
 	}
 
 	@Override
@@ -71,10 +90,10 @@ public class CrawledNewsService implements ICrawledNewsService{
 	@Override
 	public void setTimeCrawlJob(int value) {
 
-		trigger = TriggerBuilder.newTrigger().withIdentity("crawlerTriggler", "crawler")
+		trigger = TriggerBuilder.newTrigger().withIdentity(triggerKey)
 				.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(value).repeatForever()).build();
 
-		job = JobBuilder.newJob(CrawlRealEstateScheduleJob.class).withIdentity("crawlerJob", "crawler").build();
+		job = JobBuilder.newJob(CrawlNewsScheduleJob.class).withIdentity(jobKey).build();
 	}
 
 	@Override
@@ -130,5 +149,25 @@ public class CrawledNewsService implements ICrawledNewsService{
 	@Override
 	public CrawledNews findByCrawledNewsLink(String link) {
 		return crawledNewsRepository.findByCrawledNewsLink(link);
+	}
+
+	@Override
+	public void delete(CrawledNews news) {
+		crawledNewsRepository.delete(news);
+	}
+
+	@Override
+	public CrawledNews save(CrawledNews news) {
+		return crawledNewsRepository.save(news);
+	}
+
+	@Override
+	public Page<CrawledNews> findByCrawledNewsStatus(Integer status, Pageable page) {
+		return crawledNewsRepository.findAll(page);
+	}
+
+	@Override
+	public long count() {
+		return crawledNewsRepository.count();
 	}
 }

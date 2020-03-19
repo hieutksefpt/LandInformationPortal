@@ -9,7 +9,9 @@ import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import java.util.List;
-import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  *
@@ -32,4 +34,8 @@ public interface IRealEstateService {
     void delete(RealEstate realEstate);
     
     List<RealEstate> findByRealEstateStatus(String status);
+    
+    Page<RealEstate> findByRealEstateStatus(String status, Pageable page);
+    
+    long count();
 }

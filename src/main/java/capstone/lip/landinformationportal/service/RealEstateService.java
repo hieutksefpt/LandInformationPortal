@@ -12,6 +12,8 @@ import capstone.lip.landinformationportal.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -68,6 +70,16 @@ public class RealEstateService implements IRealEstateService {
 	@Override
 	public List<RealEstate> findByRealEstateStatus(String status) {
 		return realEstateRepository.findByRealEstateStatus(status);
+	}
+
+	@Override
+	public Page<RealEstate> findByRealEstateStatus(String status, Pageable page) {
+		return realEstateRepository.findByRealEstateStatus(status, page);
+	}
+
+	@Override
+	public long count() {
+		return realEstateRepository.count();
 	}
 
 }

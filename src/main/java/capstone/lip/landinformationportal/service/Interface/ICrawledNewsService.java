@@ -10,16 +10,29 @@ import capstone.lip.landinformationportal.entity.CrawledNews;
 
 public interface ICrawledNewsService{
 	List<CrawledNews> findAll();
-	List<CrawledNews> findByCrawledNewsStatus(Integer status);
+	
 	CrawledNews findByCrawledNewsLink(String link);
+	
 	List<CrawledNews> save(List<NewsCrawl> listCrawledNews);
+	
 	String initCrawlJob();
+	
 	void setTimeCrawlJob(int value);
+	
 	void turnOnCrawler();
+	
 	void turnOffCrawler();
+	
 	void crawlNow();
+	
 	void delete(CrawledNews news);
+	
 	CrawledNews save(CrawledNews news);
+	
+	List<CrawledNews> findByCrawledNewsStatus(Integer status);
+	
 	Page<CrawledNews> findByCrawledNewsStatus(Integer status, Pageable page);
+	
 	long count();
+	
 }

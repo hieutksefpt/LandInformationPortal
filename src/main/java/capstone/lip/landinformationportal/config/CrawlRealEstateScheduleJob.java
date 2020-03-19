@@ -16,11 +16,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import capstone.lip.landinformationportal.dto.RealEstateObjectCrawl;
-import capstone.lip.landinformationportal.service.CrawlRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.ICrawlRealEstateService;
 
 @Component

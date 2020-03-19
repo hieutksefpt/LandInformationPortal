@@ -1,29 +1,9 @@
 package capstone.lip.landinformationportal;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-
-import capstone.lip.landinformationportal.entity.House;
-import capstone.lip.landinformationportal.entity.HousesDetail;
-import capstone.lip.landinformationportal.entity.HousesDetailId;
-import capstone.lip.landinformationportal.entity.HousesFeature;
-import capstone.lip.landinformationportal.entity.Land;
-import capstone.lip.landinformationportal.entity.LandsDetailId;
-import capstone.lip.landinformationportal.entity.LandsDetail;
-import capstone.lip.landinformationportal.entity.LandsFeature;
-import capstone.lip.landinformationportal.repository.HouseRepository;
-import capstone.lip.landinformationportal.repository.HousesDetailRepository;
-import capstone.lip.landinformationportal.repository.HousesFeatureRepository;
-import capstone.lip.landinformationportal.repository.LandRepository;
-import capstone.lip.landinformationportal.repository.LandsDetailRepository;
-import capstone.lip.landinformationportal.repository.LandsFeatureRepository;
-import capstone.lip.landinformationportal.service.LandsDetailService;
 
 @EnableJpaAuditing
 @SpringBootApplication

@@ -8,8 +8,6 @@ package capstone.lip.landinformationportal.service;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.HousesDetail;
 import capstone.lip.landinformationportal.entity.HousesFeature;
-import capstone.lip.landinformationportal.entity.LandsDetail;
-import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.repository.HouseRepository;
 import capstone.lip.landinformationportal.service.Interface.IHouseService;
 

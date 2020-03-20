@@ -78,18 +78,28 @@ public class RealEstateService implements IRealEstateService {
     }
 
     @Override
-    public List<RealEstate> listFilterRealEstate(String realEstateName) {
-        return realEstateRepository.listFilterRealEstate(realEstateName);
+    public Page<RealEstate> findByRealEstateStatus(String status, Pageable page) {
+        return realEstateRepository.findByRealEstateStatus(status, page);
     }
 
-	@Override
-	public Page<RealEstate> findByRealEstateStatus(String status, Pageable page) {
-		return realEstateRepository.findByRealEstateStatus(status, page);
-	}
+    @Override
+    public long count() {
+        return realEstateRepository.count();
+    }
 
-	@Override
-	public long count() {
-		return realEstateRepository.count();
-	}
+    @Override
+    public List<RealEstate> listFilterRealEstateName(String realEstateName) {
+        return realEstateRepository.listFilterRealEstateName(realEstateName);
+    }
+
+    @Override
+    public List<RealEstate> listFilterRealSource(String realEstateSource) {
+        return realEstateRepository.listFilterRealEstateSource(realEstateSource);
+    }
+
+    @Override
+    public List<RealEstate> listFilterRealStatus(String realEstateStatus) {
+        return realEstateRepository.listFilterRealEstateStatus(realEstateStatus);
+    }
 
 }

@@ -20,26 +20,30 @@ import org.springframework.data.domain.Pageable;
 public interface IRealEstateService {
 
     List<RealEstate> findAll();
-    
+
     RealEstate findById(long realEstateId);
-    
+
     RealEstate save(RealEstate realEstate);
 
     void delete(List<RealEstate> listRealEstate);
 
     Land getLand(Long realEstateId);
-    
+
     List<House> getListHouse(Long realEstateId);
 
     void delete(RealEstate realEstate);
-    
-    List<RealEstate> findByRealEstateStatus(String status);
-    
-    List<String> listRealEstateSource();
-    
-    List<RealEstate> listFilterRealEstate(String realEstateName);
 
-	Page<RealEstate> findByRealEstateStatus(String status, Pageable page);
+    List<RealEstate> findByRealEstateStatus(String status);
+
+    List<String> listRealEstateSource();
+
+    List<RealEstate> listFilterRealEstateName(String realEstateName);
+
+    List<RealEstate> listFilterRealSource(String realEstateSource);
     
+    List<RealEstate> listFilterRealStatus(String realEstateStatus);
+    
+    Page<RealEstate> findByRealEstateStatus(String status, Pageable page);
+
     long count();
 }

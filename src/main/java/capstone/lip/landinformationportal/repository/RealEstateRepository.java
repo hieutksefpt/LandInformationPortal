@@ -29,6 +29,13 @@ public interface RealEstateRepository extends JpaRepository<RealEstate, Long> {
     List<String> listRealEstateSource();
 
     @Query("SELECT re FROM RealEstate re WHERE re.realEstateName like \'%Phố%\'")
-    List<RealEstate> listFilterRealEstate(String realEstateName);
-	Page<RealEstate> findByRealEstateStatus(String status, Pageable page);
+    List<RealEstate> listFilterRealEstateName(String realEstateName);
+
+    @Query("SELECT re FROM RealEstate re WHERE re.realEstateSource like \'Contributor\'")
+    List<RealEstate> listFilterRealEstateSource(String realEstateSource);
+    
+    @Query("SELECT re FROM RealEstate re WHERE re.realEstateStatus like \'-1\'")
+    List<RealEstate> listFilterRealEstateStatus(String realEstateStatus);
+    
+    Page<RealEstate> findByRealEstateStatus(String status, Pageable page);
 }

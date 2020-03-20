@@ -31,6 +31,8 @@ public class ListAllRealEstateBean implements Serializable {
     private RealEstate realEstateClicked;
     private String jsonMultipleCoordinate;
     private String txtSearchBox;
+    private String txtComboBoxSource;
+    private String txtComboBoxStatus;
 
     @PostConstruct
     public void init() {
@@ -48,7 +50,19 @@ public class ListAllRealEstateBean implements Serializable {
     }
     
     public void listFilterRealEstate(){
-        this.listAllRealEstate = realEstateService.listFilterRealEstate(this.txtSearchBox);
+        
+    }
+    
+    public void listFilterRealEstateSource(){
+        this.listAllRealEstate = realEstateService.listFilterRealSource(this.txtComboBoxSource);
+    }
+    
+    public void listFilterRealEstateStatus(){
+        this.listAllRealEstate = realEstateService.listFilterRealStatus(this.txtComboBoxStatus);
+    }
+    
+    public void listFilterRealEstateName(){
+        this.listAllRealEstate = realEstateService.listFilterRealEstateName(this.txtSearchBox);
         transferListCoordinate();
     }
     
@@ -91,5 +105,21 @@ public class ListAllRealEstateBean implements Serializable {
 
     public void setJsonMultipleCoordinate(String jsonMultipleCoordinate) {
         this.jsonMultipleCoordinate = jsonMultipleCoordinate;
+    }
+
+    public String getTxtComboBoxSource() {
+        return txtComboBoxSource;
+    }
+
+    public void setTxtComboBoxSource(String txtComboBoxSource) {
+        this.txtComboBoxSource = txtComboBoxSource;
+    }
+
+    public String getTxtComboBoxStatus() {
+        return txtComboBoxStatus;
+    }
+
+    public void setTxtComboBoxStatus(String txtComboBoxStatus) {
+        this.txtComboBoxStatus = txtComboBoxStatus;
     }
 }

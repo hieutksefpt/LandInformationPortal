@@ -26,14 +26,14 @@
                                         <div class="col-2 col-lg-2 btn-search">
                                             <h:commandButton id="btn-ButtonSearch"
                                                              value="Tìm kiếm"
-                                                             action="#{listAllRealEstateBean.listFilterRealEstate()}">
+                                                             action="#{listAllRealEstateBean.listFilterRealEstateSource()}">
                                                 <p:ajax process="@form" update="form-ViewList"></p:ajax>
                                             </h:commandButton>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-6 col-lg-6">
-                                            <h:selectOneMenu id="combobox-RealEstateSource" class="combobox-common">
+                                            <h:selectOneMenu id="combobox-RealEstateSource" class="combobox-common" value="#{listAllRealEstateBean.txtComboBoxSource}">
                                                 <f:selectItem itemLabel="Nguồn BĐS" itemValue="Nguồn BĐS" />
                                                 <c:forEach items="#{listAllRealEstateBean.listRealEstateSource}" var="realEstateSource">
                                                     <f:selectItem itemLabel="#{realEstateSource}" itemValue="#{realEstateSource}" />
@@ -41,7 +41,7 @@
                                             </h:selectOneMenu>
                                         </div>
                                         <div class="col-6 col-lg-6">
-                                            <h:selectOneMenu id="combobox-RealEstateStatus" class="combobox-common">
+                                            <h:selectOneMenu id="combobox-RealEstateStatus" class="combobox-common" value="#{listAllRealEstateBean.txtComboBoxStatus}">
                                                 <f:selectItem itemLabel="Trạng thái BĐS" itemValue="Trạng thái BĐS" />
                                                 <f:selectItem itemLabel="CONFUSED" itemValue="-1" />
                                                 <f:selectItem itemLabel="NOT_VERIFIED" itemValue="0" />

@@ -67,8 +67,7 @@
                                         <div class="col-md-6">
                                             <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{contributeNewRealEstateBean.segmentStreetIdSelected}">
                                                 <p:ajax	listener="#{contributeNewRealEstateBean.segmentStreetChange}" update="panel-form" 
-                                                        onstart="clearDataMap()"
-                                                        oncomplete="drawPath()"></p:ajax>
+                                                        onstart="clearDataMap()" ></p:ajax>
                                                 <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
                                                 <f:selectItems value="#{contributeNewRealEstateBean.listSegmentOfStreet}" var="element"
                                                                itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
@@ -104,19 +103,7 @@
                                     </h:inputText>
                                     <span class="unit"><i>(VND)</i></span></td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <span class="title">Loại bất động sản</span>
-                                </td>
-                                <td>
-                                    <h:selectOneMenu id="optionList" value="#{contributeNewRealEstateBean.realEstateType}" onchange="display_div(document.getElementById('optionList').value);">
-                                        <f:selectItem itemLabel="---" itemValue=""/>
-                                        <f:selectItem itemLabel="Đất" itemValue="1"/>
-                                        <f:selectItem itemLabel="Nhà" itemValue="2"/>
-                                        <f:selectItem itemLabel="Nhà và Đất" itemValue="3"/>
-                                    </h:selectOneMenu>
-                                </td>
-                            </tr>
+                            
                         </table>
 
                         <div class="flexCommon row">

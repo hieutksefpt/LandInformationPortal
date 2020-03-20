@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -19,7 +20,7 @@ import org.springframework.data.repository.query.Param;
  *
  * @author Admin
  */
-public interface RealEstateRepository extends JpaRepository<RealEstate, Long> {
+public interface RealEstateRepository extends JpaRepository<RealEstate, Long>, JpaSpecificationExecutor<RealEstate>{
 
     RealEstate findByRealEstateLink(String link);
 
@@ -28,14 +29,16 @@ public interface RealEstateRepository extends JpaRepository<RealEstate, Long> {
     @Query("SELECT DISTINCT(re.realEstateSource) FROM RealEstate re")
     List<String> listRealEstateSource();
 
-    @Query("SELECT re FROM RealEstate re WHERE re.realEstateName like \'%Phố%\'")
+    @Query("SELECT re FROM RealEstate re WHERE re.realEstateName like \'%Đường%\'")
     List<RealEstate> listFilterRealEstateName(String realEstateName);
 
-    @Query("SELECT re FROM RealEstate re WHERE re.realEstateSource like \'Contributor\'")
-    List<RealEstate> listFilterRealEstateSource(String realEstateSource);
+    @Query("SELECT re FROM RealEstate re WHERE re.realEstateSource like :source")
+    List<RealEstate> listFilterRealEstateSource( @Param("source") String realEstateSource);
     
     @Query("SELECT re FROM RealEstate re WHERE re.realEstateStatus like \'-1\'")
     List<RealEstate> listFilterRealEstateStatus(String realEstateStatus);
     
     Page<RealEstate> findByRealEstateStatus(String status, Pageable page);
+    
+    
 }

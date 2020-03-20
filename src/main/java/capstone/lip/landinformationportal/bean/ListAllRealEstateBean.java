@@ -55,6 +55,9 @@ public class ListAllRealEstateBean implements Serializable {
     
     public void listFilterRealEstateSource(){
         this.listAllRealEstate = realEstateService.listFilterRealSource(this.txtComboBoxSource);
+        int i = 1;
+        i++;
+        i--;
     }
     
     public void listFilterRealEstateStatus(){

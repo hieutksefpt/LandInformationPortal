@@ -35,15 +35,13 @@ public interface IRealEstateService {
 
     List<RealEstate> findByRealEstateStatus(String status);
 
-    List<String> listRealEstateSource();
-
-    List<RealEstate> listFilterRealEstateName(String realEstateName);
-
-    List<RealEstate> listFilterRealSource(String realEstateSource);
-    
-    List<RealEstate> listFilterRealStatus(String realEstateStatus);
-    
     Page<RealEstate> findByRealEstateStatus(String status, Pageable page);
-
+    
     long count();
+    
+    //Search man hinh listallrealestate.xhtml
+    List<String> listRealEstateSource();
+    
+    List<RealEstate> listFilterRealEstate(String realEstateName, String realEstateSource, String realEstateStatus);
+    //
 }

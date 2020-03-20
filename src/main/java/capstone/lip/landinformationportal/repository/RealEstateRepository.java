@@ -29,16 +29,5 @@ public interface RealEstateRepository extends JpaRepository<RealEstate, Long>, J
     @Query("SELECT DISTINCT(re.realEstateSource) FROM RealEstate re")
     List<String> listRealEstateSource();
 
-    @Query("SELECT re FROM RealEstate re WHERE re.realEstateName like \'%Đường%\'")
-    List<RealEstate> listFilterRealEstateName(String realEstateName);
-
-    @Query("SELECT re FROM RealEstate re WHERE re.realEstateSource like :source")
-    List<RealEstate> listFilterRealEstateSource( @Param("source") String realEstateSource);
-    
-    @Query("SELECT re FROM RealEstate re WHERE re.realEstateStatus like \'-1\'")
-    List<RealEstate> listFilterRealEstateStatus(String realEstateStatus);
-    
     Page<RealEstate> findByRealEstateStatus(String status, Pageable page);
-    
-    
 }

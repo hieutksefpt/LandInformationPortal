@@ -18,25 +18,25 @@ import capstone.lip.landinformationportal.specification.SearchCriteria;
 @EnableJpaAuditing
 @SpringBootApplication
 @ComponentScan
-public class Application implements CommandLineRunner{
+public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
         
     }
     
-    
-    @Autowired
-    private RealEstateRepository repo;
-    
-	  @Override
-	  public void run(String... args) {
-	
-	      System.out.print("hello");
-	      RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", "dự"));
-	      RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":", "contributor"));
-	      List<RealEstate> list = repo.findAll(Specification.where(spec1).and(spec2));
-	      int i = 1;
-	      i++;
-	      i--;
-	  }
+//    
+//    @Autowired
+//    private RealEstateRepository repo;
+//    
+//	  @Override
+//	  public void run(String... args) {
+//	
+//	      System.out.print("hello");
+//	      RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", "dự"));
+//	      RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":", "contributor"));
+//	      List<RealEstate> list = repo.findAll(Specification.where(spec1).and(spec2));
+//	      int i = 1;
+//	      i++;
+//	      i--;
+//	  }
 }

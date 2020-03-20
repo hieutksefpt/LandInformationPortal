@@ -33,10 +33,12 @@ public class ListAllRealEstateBean implements Serializable {
     private String txtSearchBox;
     private String txtComboBoxSource;
     private String txtComboBoxStatus;
+    private List<String> listRealEstateSource;
 
     @PostConstruct
     public void init() {
         this.listAllRealEstate = realEstateService.findAll();
+        this.listRealEstateSource = realEstateService.listRealEstateSource();
         transferListCoordinate();
     }
 
@@ -48,31 +50,21 @@ public class ListAllRealEstateBean implements Serializable {
         Gson gson = new Gson();
         jsonMultipleCoordinate = gson.toJson(listCoordinate);
     }
-    
-    public void listFilterRealEstate(){
-        
+
+    public void listFilterRealEstate() {
+        String tempStatus = txtComboBoxStatus;
+        if (txtComboBoxStatus.equalsIgnoreCase("2")) {
+            tempStatus = null;
+        }
+        if (txtComboBoxSource.equalsIgnoreCase("Nguồn BĐS")) {
+            this.txtComboBoxSource = null;
+        }
+        if (txtComboBoxStatus.equalsIgnoreCase("Trạng thái BĐS")) {
+            this.txtComboBoxStatus = null;
+        }
+        listAllRealEstate = realEstateService.listFilterRealEstate(txtSearchBox, txtComboBoxSource, tempStatus);
     }
-    
-    public void listFilterRealEstateSource(){
-        this.listAllRealEstate = realEstateService.listFilterRealSource(this.txtComboBoxSource);
-        int i = 1;
-        i++;
-        i--;
-    }
-    
-    public void listFilterRealEstateStatus(){
-        this.listAllRealEstate = realEstateService.listFilterRealStatus(this.txtComboBoxStatus);
-    }
-    
-    public void listFilterRealEstateName(){
-        this.listAllRealEstate = realEstateService.listFilterRealEstateName(this.txtSearchBox);
-        transferListCoordinate();
-    }
-    
-    public List<String> getListRealEstateSource(){
-        return realEstateService.listRealEstateSource();
-    }
-    
+
     public void goToDetails(long realEstateId) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.redirect(ec.getRequestContextPath() + "/user/viewrealestatedetail.xhtml?realEstateId=" + realEstateId);
@@ -85,7 +77,7 @@ public class ListAllRealEstateBean implements Serializable {
     public void setTxtSearchBox(String txtSearchBox) {
         this.txtSearchBox = txtSearchBox;
     }
-    
+
     public List<RealEstate> getListAllRealEstate() {
         return listAllRealEstate;
     }
@@ -124,5 +116,13 @@ public class ListAllRealEstateBean implements Serializable {
 
     public void setTxtComboBoxStatus(String txtComboBoxStatus) {
         this.txtComboBoxStatus = txtComboBoxStatus;
+    }
+
+    public List<String> getListRealEstateSource() {
+        return listRealEstateSource;
+    }
+
+    public void setListRealEstateSource(List<String> listRealEstateSource) {
+        this.listRealEstateSource = listRealEstateSource;
     }
 }

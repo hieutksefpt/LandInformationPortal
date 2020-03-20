@@ -10,10 +10,14 @@ import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
+import capstone.lip.landinformationportal.specification.RealEstateSpecifications;
+import capstone.lip.landinformationportal.specification.SearchCriteria;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 /**
@@ -78,18 +82,36 @@ public class RealEstateService implements IRealEstateService {
     }
 
     @Override
-    public List<RealEstate> listFilterRealEstate(String realEstateName) {
-        return realEstateRepository.listFilterRealEstate(realEstateName);
+    public Page<RealEstate> findByRealEstateStatus(String status, Pageable page) {
+        return realEstateRepository.findByRealEstateStatus(status, page);
     }
 
-	@Override
-	public Page<RealEstate> findByRealEstateStatus(String status, Pageable page) {
-		return realEstateRepository.findByRealEstateStatus(status, page);
-	}
+    @Override
+    public long count() {
+        return realEstateRepository.count();
+    }
 
-	@Override
-	public long count() {
-		return realEstateRepository.count();
-	}
-
+    @Override
+    public List<RealEstate> listFilterRealEstate(String realEstateName, String realEstateSource, String realEstateStatus) {
+        List<RealEstateSpecifications> listSpec = new ArrayList<>();
+        if(realEstateName!=null){
+            listSpec.add(new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateName)));
+        }
+        if(realEstateSource!=null){
+            listSpec.add(new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", realEstateSource)));
+        }
+        if(realEstateStatus!=null){
+            listSpec.add(new RealEstateSpecifications(new SearchCriteria("realEstateStatus", ":=", realEstateStatus)));
+        }
+        switch (listSpec.size()) {
+            case 1:
+                return realEstateRepository.findAll(Specification.where(listSpec.get(0)));
+            case 2:
+                return realEstateRepository.findAll(Specification.where(listSpec.get(0).and(listSpec.get(1))));
+            case 3:
+                return realEstateRepository.findAll(Specification.where(listSpec.get(0).and(listSpec.get(1).and(listSpec.get(2)))));
+            default:
+                return realEstateRepository.findAll();
+        }
+    }
 }

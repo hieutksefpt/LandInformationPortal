@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -19,7 +20,7 @@ import org.springframework.data.repository.query.Param;
  *
  * @author Admin
  */
-public interface RealEstateRepository extends JpaRepository<RealEstate, Long> {
+public interface RealEstateRepository extends JpaRepository<RealEstate, Long>, JpaSpecificationExecutor<RealEstate>{
 
     RealEstate findByRealEstateLink(String link);
 
@@ -28,7 +29,5 @@ public interface RealEstateRepository extends JpaRepository<RealEstate, Long> {
     @Query("SELECT DISTINCT(re.realEstateSource) FROM RealEstate re")
     List<String> listRealEstateSource();
 
-    @Query("SELECT re FROM RealEstate re WHERE re.realEstateName like \'%Phố%\'")
-    List<RealEstate> listFilterRealEstate(String realEstateName);
-	Page<RealEstate> findByRealEstateStatus(String status, Pageable page);
+    Page<RealEstate> findByRealEstateStatus(String status, Pageable page);
 }

@@ -169,4 +169,9 @@ public class CrawledNewsService implements ICrawledNewsService{
 	public long count() {
 		return crawledNewsRepository.count();
 	}
+
+	@Override
+	public long countByStatus(Integer status) {
+		return crawledNewsRepository.countByCrawledNewsStatus(status);
+	}
 }

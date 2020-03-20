@@ -30,7 +30,7 @@ public class LazyCrawledNew extends LazyDataModel<CrawledNews> implements Serial
 	
 	public LazyCrawledNew(ICrawledNewsService service) {
 		this.crawledNewService = service;
-		this.setRowCount((int)crawledNewService.count());
+		this.setRowCount((int)crawledNewService.countByStatus(StatusCrawledNewsConstant.NON_DISPLAY));
 	}
 	@Override
 	public List<CrawledNews> load(int first, int pageSize, String sortField, SortOrder sortOrder,

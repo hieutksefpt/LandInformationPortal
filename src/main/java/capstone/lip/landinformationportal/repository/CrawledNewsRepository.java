@@ -13,4 +13,5 @@ public interface CrawledNewsRepository extends JpaRepository<CrawledNews, Long>{
 	CrawledNews findByCrawledNewsLink(String link);
 	List<CrawledNews> findByCrawledNewsStatus(Integer status);
 	Page<CrawledNews> findByCrawledNewsStatus(Integer status, Pageable page);
+	Long countByCrawledNewsStatus(Integer status);
 }

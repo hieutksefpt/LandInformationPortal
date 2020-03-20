@@ -35,4 +35,5 @@ public interface ICrawledNewsService{
 	
 	long count();
 	
+	long countByStatus(Integer status);
 }

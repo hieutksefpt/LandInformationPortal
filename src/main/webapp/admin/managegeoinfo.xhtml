@@ -152,12 +152,12 @@
 	               	<div class="row">
 	               		<div class="col text-center">
 	               			<h:commandButton value="Có" action="#{manageGeoInfoBean.addButtonClick()}" 
-	               			onclick="PF('dlgAdd').hide()" styleClass="btn btn-primary">
+	               			onclick="PF('dlgAdd').hide()" styleClass="btn btn-primary btn-lg">
 	                               <f:ajax execute="form" render="form"></f:ajax>
 	               			</h:commandButton>
 	               		</div>
 	               		<div class="col text-center">
-	               			<h:commandButton value="Không" onclick="PF('dlgAdd').hide()" styleClass="btn btn-secondary">
+	               			<h:commandButton value="Không" onclick="PF('dlgAdd').hide()" styleClass="btn btn-secondary btn-lg">
 	                               <f:ajax execute="form" render="form"></f:ajax>
 	               			</h:commandButton>
 	               		</div>
@@ -172,13 +172,13 @@
 	               	</div>
 	               	<div class="row">
 	               		<div class="col text-center">
-	               			<h:commandButton value="Có" styleClass="btn btn-primary"
+	               			<h:commandButton value="Có" styleClass="btn btn-primary btn-lg"
                              action="#{manageGeoInfoBean.deleteButtonClick()}" onclick="PF('dlgDelete').hide(),clearAllInput(), clearDataMap()">
                                 <f:ajax execute="form" render="form"></f:ajax>
                             </h:commandButton>
 	               		</div>
 	               		<div class="col text-center">
-	               			<h:commandButton value="Không" onclick="PF('dlgDelete').hide()" styleClass="btn btn-secondary">
+	               			<h:commandButton value="Không" onclick="PF('dlgDelete').hide()" styleClass="btn btn-secondary btn-lg">
 	                               <f:ajax execute="form" render="form"></f:ajax>
 	               			</h:commandButton>
 	               		</div>
@@ -192,13 +192,13 @@
 	               	</div>
 	               	<div class="row">
 	               		<div class="col text-center">
-	               			<h:commandButton value="Có" styleClass="btn btn-primary"
+	               			<h:commandButton value="Có" styleClass="btn btn-primary btn-lg"
                              action="#{manageGeoInfoBean.updateButtonClick()}" onclick="PF('dlgUpdate').hide()">
                                 <f:ajax execute="form" render="form"></f:ajax>
                             </h:commandButton>
 	               		</div>
 	               		<div class="col text-center">
-	               			<h:commandButton value="Không" onclick="PF('dlgUpdate').hide()" styleClass="btn btn-secondary">
+	               			<h:commandButton value="Không" onclick="PF('dlgUpdate').hide()" styleClass="btn btn-secondary btn-lg">
 	                               <f:ajax execute="form" render="form"></f:ajax>
 	               			</h:commandButton>
 	               		</div>

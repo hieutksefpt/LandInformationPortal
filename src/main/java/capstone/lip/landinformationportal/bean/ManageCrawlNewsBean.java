@@ -71,13 +71,22 @@ public class ManageCrawlNewsBean implements Serializable{
 		return listCrawledNews;
 	}
 
-	public void acceptNews(CrawledNews news) {
-		news.setCrawledNewsStatus(StatusCrawledNewsConstant.DISPLAY);
-		crawledNewService.save(news);
+	CrawledNews newsClick;
+	public void setNews(CrawledNews news) {
+		newsClick = news;
+	}
+	
+	public void acceptNews() {
+		CrawledNews newsTemp = newsClick;
+		if (newsTemp == null) return;
+		newsClick.setCrawledNewsStatus(StatusCrawledNewsConstant.DISPLAY);
+		crawledNewService.save(newsClick);
 		refreshData();
 	}
-	public void deleteNews(CrawledNews news) {
-		crawledNewService.delete(news);
+	public void deleteNews() {
+		CrawledNews newsTemp = newsClick;
+		if (newsTemp == null) return;
+		crawledNewService.delete(newsTemp);
 		refreshData();
 	}
 

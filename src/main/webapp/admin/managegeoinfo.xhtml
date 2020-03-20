@@ -122,12 +122,12 @@
                                 <p:separator />
                                 <div class="form-group row">
                                     <div class="col-md">
-                                        <h:commandButton value="Thêm mới" action="#{manageGeoInfoBean.addButtonClick()}">
-                                            <f:ajax execute="@form" render="@form"></f:ajax>
+                                        <h:commandButton value="Thêm mới" onclick="PF('dlgAdd').show();">
+                                        
                                         </h:commandButton>
                                     </div>
                                     <div class="col-md">
-                                        <h:commandButton value="Lưu"></h:commandButton>
+                                        <h:commandButton value="Lưu" onclick="PF('dlgUpdate').show()"></h:commandButton>
                                     </div>
                                     <div class="col-md">
                                         <h:commandButton value="Clear" onclick="clearAllInput(), clearDataMap()" action="#{manageGeoInfoBean.resetButtonClick()}">
@@ -135,8 +135,7 @@
                                         </h:commandButton>
                                     </div>
                                     <div class="col-md">
-                                        <h:commandButton value="Xóa" action="#{manageGeoInfoBean.deleteButtonClick}" onclick="clearAllInput(), clearDataMap()">
-                                            <f:ajax execute="@form" render="@form"></f:ajax>
+                                        <h:commandButton value="Xóa" onclick="PF('dlgDelete').show()">
                                         </h:commandButton>
                                     </div>
                                 </div>
@@ -144,6 +143,67 @@
                         </h:form>
                     </p:panel>
                 </div>
+                <p:dialog header="Thêm dữ liệu" widgetVar="dlgAdd" modal="true" resizable="false">
+	               	<div class="row">
+	               		<div class="col">
+	               			<strong>Bạn có chắc chắn muốn thêm thông tin địa lý này không?</strong>
+	               		</div>
+	               	</div>
+	               	<div class="row">
+	               		<div class="col text-center">
+	               			<h:commandButton value="Có" action="#{manageGeoInfoBean.addButtonClick()}" 
+	               			onclick="PF('dlgAdd').hide()" styleClass="btn btn-primary">
+	                               <f:ajax execute="form" render="form"></f:ajax>
+	               			</h:commandButton>
+	               		</div>
+	               		<div class="col text-center">
+	               			<h:commandButton value="Không" onclick="PF('dlgAdd').hide()" styleClass="btn btn-secondary">
+	                               <f:ajax execute="form" render="form"></f:ajax>
+	               			</h:commandButton>
+	               		</div>
+	               	</div>
+               	</p:dialog>
+               	
+               	<p:dialog header="Xóa dữ liệu" widgetVar="dlgDelete" modal="true" resizable="false">
+	               	<div class="row">
+	               		<div class="col">
+	               			<strong>Bạn có chắc chắn muốn xóa thông tin địa lý này không?</strong>
+	               		</div>
+	               	</div>
+	               	<div class="row">
+	               		<div class="col text-center">
+	               			<h:commandButton value="Có" styleClass="btn btn-primary"
+                             action="#{manageGeoInfoBean.deleteButtonClick()}" onclick="PF('dlgDelete').hide(),clearAllInput(), clearDataMap()">
+                                <f:ajax execute="form" render="form"></f:ajax>
+                            </h:commandButton>
+	               		</div>
+	               		<div class="col text-center">
+	               			<h:commandButton value="Không" onclick="PF('dlgDelete').hide()" styleClass="btn btn-secondary">
+	                               <f:ajax execute="form" render="form"></f:ajax>
+	               			</h:commandButton>
+	               		</div>
+	               	</div>
+               	</p:dialog>
+               	<p:dialog header="Cập nhật dữ liệu" widgetVar="dlgUpdate" modal="true" resizable="false">
+	               	<div class="row">
+	               		<div class="col">
+	               			<strong>Bạn có chắc chắn muốn cập nhật thông tin địa lý này không?</strong>
+	               		</div>
+	               	</div>
+	               	<div class="row">
+	               		<div class="col text-center">
+	               			<h:commandButton value="Có" styleClass="btn btn-primary"
+                             action="#{manageGeoInfoBean.updateButtonClick()}" onclick="PF('dlgUpdate').hide()">
+                                <f:ajax execute="form" render="form"></f:ajax>
+                            </h:commandButton>
+	               		</div>
+	               		<div class="col text-center">
+	               			<h:commandButton value="Không" onclick="PF('dlgUpdate').hide()" styleClass="btn btn-secondary">
+	                               <f:ajax execute="form" render="form"></f:ajax>
+	               			</h:commandButton>
+	               		</div>
+	               	</div>
+               	</p:dialog>
                 <div id="map" style="height:80%"></div>
 
             </ui:define>

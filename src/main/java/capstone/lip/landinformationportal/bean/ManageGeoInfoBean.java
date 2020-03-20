@@ -295,6 +295,9 @@ public class ManageGeoInfoBean implements Serializable {
 				return;
 			}
 			Province province = listProvince.stream().filter(x->x.getProvinceId().equals(Long.valueOf(provinceIdSelected))).collect(Collectors.toList()).get(0);
+			if (province.getListDistrict() == null) {
+				province.setListDistrict(new ArrayList());
+			}
 			List<District> listDistrict = province.getListDistrict();
 			List<SegmentOfStreet> listSegmentStreet = listDistrict.stream().map(x->x.getListSegmentOfStreet())
 					.flatMap(List::stream).collect(Collectors.toList());
@@ -424,7 +427,9 @@ public class ManageGeoInfoBean implements Serializable {
 			break;
 		}
 	}
-	
+	public void updateButtonClick() {
+		
+	}
 	public void resetButtonClick() {
 		processType = "1";
 		nameInput = "";

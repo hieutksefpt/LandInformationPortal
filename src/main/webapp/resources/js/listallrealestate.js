@@ -20,3 +20,10 @@ function initMap() {
         var marker = new google.maps.Marker({position: latLng, map: map});
     }
 }
+
+function openConfirmDeletePopup1() {
+    $('#confirmDeletePopup').modal('show');
+}
+function hideConfirmDeletePopup1() {
+    $('#confirmDeletePopup').modal('hide');
+}

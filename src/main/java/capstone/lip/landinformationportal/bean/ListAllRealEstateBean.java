@@ -1,7 +1,15 @@
 package capstone.lip.landinformationportal.bean;
 
 import capstone.lip.landinformationportal.dto.Coordinate;
+import capstone.lip.landinformationportal.entity.House;
+import capstone.lip.landinformationportal.entity.HousesDetail;
+import capstone.lip.landinformationportal.entity.Land;
+import capstone.lip.landinformationportal.entity.LandsDetail;
 import capstone.lip.landinformationportal.entity.RealEstate;
+import capstone.lip.landinformationportal.service.Interface.IHouseService;
+import capstone.lip.landinformationportal.service.Interface.IHousesDetailService;
+import capstone.lip.landinformationportal.service.Interface.ILandService;
+import capstone.lip.landinformationportal.service.Interface.ILandsDetailService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import com.google.gson.Gson;
@@ -9,6 +17,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -27,6 +36,18 @@ public class ListAllRealEstateBean implements Serializable {
     @Autowired
     private IRealEstateService realEstateService;
 
+    @Autowired
+    private ILandService landService;
+
+    @Autowired
+    private IHouseService houseService;
+
+    @Autowired
+    private ILandsDetailService landsDetailService;
+
+    @Autowired
+    private IHousesDetailService housesDetailService;
+
     private List<RealEstate> listAllRealEstate;
     private RealEstate realEstateClicked;
     private String jsonMultipleCoordinate;
@@ -40,6 +61,36 @@ public class ListAllRealEstateBean implements Serializable {
         this.listAllRealEstate = realEstateService.findAll();
         this.listRealEstateSource = realEstateService.listRealEstateSource();
         transferListCoordinate();
+    }
+
+    public void clickButtonDeleteOnRow(long realEstateId) {
+        this.realEstateClicked = realEstateService.findById(realEstateId);
+    }
+
+    public void deleteRealEstate() {
+        List<LandsDetail> listLandDetail = realEstateClicked.getLand().getListLandsDetail();
+        landsDetailService.delete(listLandDetail);
+        Land land = realEstateClicked.getLand();
+        landService.delete(land);
+
+        List<House> listHouse = realEstateClicked.getListHouse();
+        List<HousesDetail> listHouseDetail = listHouse.stream()
+                .map(x -> x.getListHousesDetail()).flatMap(List::stream).collect(Collectors.toList());
+
+        housesDetailService.delete(listHouseDetail);
+        houseService.delete(listHouse);
+
+        realEstateService.delete(realEstateClicked);
+        System.out.println(listAllRealEstate.remove(findRealEstateIndexInList(realEstateClicked.getRealEstateId())).getRealEstateName());
+    }
+    
+    public int findRealEstateIndexInList(long realEstateId){
+        for(int i=0; i<listAllRealEstate.size(); i++){
+            if(listAllRealEstate.get(i).getRealEstateId() == realEstateId){
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void transferListCoordinate() {

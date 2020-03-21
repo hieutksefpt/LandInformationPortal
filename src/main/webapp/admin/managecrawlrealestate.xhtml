@@ -163,10 +163,8 @@
                                 </h:panelGroup>	
                                 <div class="form-group row" style="padding-top:40px;">
 			                    	<div class="col text-center">
-			                    		<h:commandButton value="Lưu" 
-			                    			action="#{beanPopup.saveSegmentToReo()}">
-					                        <f:ajax render="tabledata"/> 
-					                        <f:actionListener binding="#{manageCrawlRealEstateBean.refreshData()}"></f:actionListener>
+			                    		<h:commandButton value="Lưu" onclick="PF('dlgSegSegment').show()">
+					                        
 					                    </h:commandButton>
 			                    	</div>
 			                    	<div class="col text-center">
@@ -182,6 +180,28 @@
 	                    </div>
 	                </div>
 	            </h:panelGroup>
+	            <p:dialog header="Xóa tin tức" widgetVar="dlgSegSegment" modal="true" resizable="false">
+	               	<div class="row">
+	               		<div class="col">
+	               			<strong>Bạn có chắc chắn muốn thêm đoạn đường này không?</strong>
+	               		</div>
+	               	</div>
+	               	<div class="row">
+	               		<div class="col text-center">
+	               			<h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
+	               				<p:ajax listener="#{beanPopup.saveSegmentToReo()}" update="tabledata" 
+	               				oncomplete="PF('dlgSegSegment').hide()"></p:ajax>
+	               				<f:actionListener binding="#{beanPopup.hidePopup()}"></f:actionListener>
+	               				<f:actionListener binding="#{manageCrawlRealEstateBean.refreshData()}"></f:actionListener>
+	               			</h:commandButton>
+	               				               			
+	               		</div>
+	               		<div class="col text-center">
+	               			<h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgSegSegment').hide()">
+	               			</h:commandButton>
+	               		</div>
+	               	</div>
+	           	</p:dialog>
             </h:form>
             
 		</ui:define>

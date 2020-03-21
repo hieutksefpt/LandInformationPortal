@@ -53,8 +53,12 @@ public class ManageCrawlRealEstateBean implements Serializable{
 	}
 	
 	public void setTimerButtonClick() {
-		int timer= Integer.valueOf(timerCrawl);
-		crawlReoService.setTimeCrawlJob(timer);
+		try {
+			int timer= Integer.valueOf(timerCrawl);
+			crawlReoService.setTimeCrawlJob(timer);
+		}catch(Exception e) {
+			setMessage(FacesMessage.SEVERITY_ERROR, "Thời gian không phù hợp");
+		}
 	}
 
 	public void turnOffCrawler() {
@@ -69,7 +73,8 @@ public class ManageCrawlRealEstateBean implements Serializable{
 		}
 		crawlReoService.initCrawlJob();
 		crawlReoService.turnOnCrawler();
-		statusCrawlSchedule = true;
+		statusCrawlSchedule = true; 
+		int i= 1;
 	}
 	
 	public void setMessage(FacesMessage.Severity severityType, String message) {

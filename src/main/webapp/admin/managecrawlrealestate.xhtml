@@ -15,17 +15,17 @@
 		<ui:define name="content">
 			<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
 			<h:outputStylesheet name="managecrawlrealestate.css" library="css"></h:outputStylesheet>
-            <h:form onsubmit="return false;">
+            <h:form onsubmit="return false;" prependId="false">
             	<p:growl id="msgs" showDetail="true"/>
             	<div class="row form-group">
             		<div class="col-3">
             			
             			<div class="row">
             				<div class="col-3">
-            					<h:inputText title="#{manageCrawlRealEstateBean.timerCrawl} s" value="#{manageCrawlRealEstateBean.timerCrawl}"></h:inputText>
+            					<h:inputText id="txtInput-time" title="#{manageCrawlRealEstateBean.timerCrawl} s" value="#{manageCrawlRealEstateBean.timerCrawl}"></h:inputText>
             				</div>
             				<div class="col-9">
-            					<h:commandButton value="Cài thời gian crawler">
+            					<h:commandButton id="btn-SetTime" value="Cài thời gian crawler">
 				            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.setTimerButtonClick()}"></p:ajax>
 				            	</h:commandButton>
             				</div>
@@ -33,17 +33,17 @@
             			</div>
             		</div>
             		<div class="col-3 text-center">
-          				<h:commandButton value="Bật crawler" rendered="#{not manageCrawlRealEstateBean.statusCrawlSchedule}">
+          				<h:commandButton id="btn-TurnOnCrawl" value="Bật crawler" rendered="#{not manageCrawlRealEstateBean.statusCrawlSchedule}">
 		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.turnOnCrawler()}"></p:ajax>
 		            	</h:commandButton>
 		            	
-		            	<h:commandButton value="Tắt crawler" rendered="#{manageCrawlRealEstateBean.statusCrawlSchedule}">
+		            	<h:commandButton id="btn-TurnOffCrawl" value="Tắt crawler" rendered="#{manageCrawlRealEstateBean.statusCrawlSchedule}">
 		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.turnOffCrawler()}"></p:ajax>
 		            	</h:commandButton>
             		</div>
 	            	<div class="col-3">
 	            		<div class="row">
-	            			<h:commandButton value="Crawl ngay">
+	            			<h:commandButton id="btn-CrawlNow" value="Crawl ngay">
 			            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.crawlNow()}"
 			            		onstart="updateCrawlNowLabel('on')"
 			            		oncomplete="updateCrawlNowLabel('off')"></p:ajax>
@@ -52,8 +52,8 @@
 	            	</div>
 	            	<div class="col-3">
 	            		<div class="row text-center">
-		            		<label id="lb-crawlnow"></label>
-		            		<h:outputText rendered="#{manageCrawlRealEstateBean.statusCrawlSchedule}" 
+		            		<label id="lb-CrawlNow"></label>
+		            		<h:outputText id="lb-CrawlSchedule" rendered="#{manageCrawlRealEstateBean.statusCrawlSchedule}" 
 	            				value="Đang chạy crawl tự động"></h:outputText>
 		            	</div>
 	            	</div>
@@ -61,14 +61,14 @@
 
             </h:form>
             <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px">
-            	<p:growl id="msgs" showDetail="true"/>
 	            <p:dataTable value="#{manageCrawlRealEstateBean.lazyReo}" var="element"
 		           	rows="10" paginator="true" lazy="true"
 		            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
 		            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+		            
 		            >
 		            <f:facet name="paginatorTopLeft">
-			            <p:commandButton icon="pi pi-refresh" update="tabledata"
+			            <p:commandButton icon="pi pi-refresh" update="tabledata" 
 			            action="#{manageCrawlRealEstateBean.refreshData()}"/>
 			        </f:facet>
 	            	<p:column width="95%">

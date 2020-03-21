@@ -14,7 +14,7 @@
 		<ui:define name="content">
 			<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
 			<h:outputStylesheet name="managecrawlnews.css" library="css"></h:outputStylesheet>
-            <h:form onsubmit="return false;">
+            <h:form onsubmit="return false;" prependId="false">
             	<p:growl id="msgs" showDetail="true"/>
             	<div class="row form-group">
             		<div class="col-3">
@@ -58,7 +58,6 @@
             	
             </h:form>
             <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px">
-            	<p:growl id="msgs" showDetail="true"/>
 	            <p:dataTable value="#{manageCrawlNewsBean.lazyNews}" var="element"
 		           	rows="10" paginator="true"
 		            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"

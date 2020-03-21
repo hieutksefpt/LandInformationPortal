@@ -69,7 +69,8 @@ public class ManageCrawlRealEstateBean implements Serializable{
 		}
 		crawlReoService.initCrawlJob();
 		crawlReoService.turnOnCrawler();
-		statusCrawlSchedule = true;
+		statusCrawlSchedule = true; 
+		int i= 1;
 	}
 	
 	public void setMessage(FacesMessage.Severity severityType, String message) {

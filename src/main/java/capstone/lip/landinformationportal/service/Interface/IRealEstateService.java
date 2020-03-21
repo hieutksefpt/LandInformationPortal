@@ -42,4 +42,6 @@ public interface IRealEstateService {
 	Page<RealEstate> findByRealEstateStatus(String status, Pageable page);
     
     long count();
+    
+    long countByRealEstateStatus(String status);
 }

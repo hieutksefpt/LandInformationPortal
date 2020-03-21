@@ -1,9 +1,10 @@
 package capstone.lip.landinformationportal.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -26,16 +27,20 @@ public class ManageCrawlNewsBean implements Serializable{
 	@Autowired 
 	private ICrawledNewsService crawledNewService;
 	
-	private List<CrawledNews> listCrawledNews;
-	
 	private LazyDataModel<CrawledNews> lazyNews;
 	
+	private boolean statusCrawlSchedule;
 	
 	@PostConstruct
 	public void init() {
 		timerCrawl = "";
 		timerCrawl = crawledNewService.initCrawlJob();
-		listCrawledNews = crawledNewService.findAll();
+		if (timerCrawl.isEmpty()) {
+			statusCrawlSchedule = false;
+		}
+		else {
+			statusCrawlSchedule = true;
+		}
 		lazyNews = new LazyCrawledNew(crawledNewService);
 	}
 	
@@ -46,11 +51,29 @@ public class ManageCrawlNewsBean implements Serializable{
 
 	public void turnOffCrawler() {
 		crawledNewService.turnOffCrawler();
+		statusCrawlSchedule = false;
 	}
 	public void turnOnCrawler() {
+		if (timerCrawl.isEmpty()) {
+			setMessage(FacesMessage.SEVERITY_ERROR, "Chưa cài đặt thời gian");
+			return;
+		}
+		crawledNewService.initCrawlJob();
 		crawledNewService.turnOnCrawler();
+		statusCrawlSchedule = true;
 	}
-	
+	public void setMessage(FacesMessage.Severity severityType, String message) {
+		
+		FacesMessage msg = new FacesMessage();
+		if (severityType == FacesMessage.SEVERITY_ERROR) {
+			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Lỗi", message);
+		} else if (severityType == FacesMessage.SEVERITY_WARN) {
+			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Lưu ý", message);
+		} else {
+			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Thành công", message);
+		}
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
 	public void crawlNow() {
 		crawledNewService.crawlNow();
 	}
@@ -65,10 +88,6 @@ public class ManageCrawlNewsBean implements Serializable{
 
 	public void refreshData() {
 		lazyNews = new LazyCrawledNew(crawledNewService);
-	}
-
-	public List<CrawledNews> getListCrawledNews() {
-		return listCrawledNews;
 	}
 
 	CrawledNews newsClick;
@@ -94,4 +113,16 @@ public class ManageCrawlNewsBean implements Serializable{
 		return lazyNews;
 	}
 
+	public boolean isStatusCrawlSchedule() {
+		return statusCrawlSchedule;
+	}
+
+	public void setStatusCrawlSchedule(boolean statusCrawlSchedule) {
+		this.statusCrawlSchedule = statusCrawlSchedule;
+	}
+
+	public void setLazyNews(LazyDataModel<CrawledNews> lazyNews) {
+		this.lazyNews = lazyNews;
+	}
+	
 }

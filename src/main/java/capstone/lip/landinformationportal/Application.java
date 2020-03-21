@@ -1,9 +1,20 @@
 package capstone.lip.landinformationportal;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+import capstone.lip.landinformationportal.entity.Land;
+import capstone.lip.landinformationportal.entity.LandsFeature;
+import capstone.lip.landinformationportal.entity.RealEstate;
+import capstone.lip.landinformationportal.repository.LandRepository;
+import capstone.lip.landinformationportal.repository.LandsFeatureRepository;
+import capstone.lip.landinformationportal.repository.RealEstateRepository;
 
 @EnableJpaAuditing
 @SpringBootApplication
@@ -15,47 +26,25 @@ public class Application{
     }
 //    
 //    
-//    @Autowired
-//    private LandsDetailRepository landDetailRepo;
+//    
 //	  @Autowired
-//	  private LandRepository landRepo;
-//	  @Autowired
-//	  private LandsFeatureRepository featureRepo;
+//	  private RealEstateRepository reoRepo;
 //	  
 //	  @Autowired
-//	  private HousesDetailRepository housesDetailRepo;
+//	  private LandRepository landRepo;
+//	  
 //	  @Autowired
-//	  private HouseRepository houseRepo;
-//	  @Autowired
-//	  private HousesFeatureRepository houseFeatureRepo;
+//	  private LandsFeatureRepository lfRepo;
 //	  
 //	  @Override
 //	  public void run(String... args) {
 //	
 //	      System.out.print("hello");
-//	      
-//	      Land land = landRepo.getOne(56L);
-//	      LandsFeature feature = featureRepo.getOne(1L);
-//	      
-//	      LandsDetail landsDetail = new LandsDetail();
-//	      landsDetail.setId(new LandsDetailId(land.getLandId(), feature.getLandsFeatureID()));
-//	      landsDetail.setLand(land);
-//	      landsDetail.setLandsFeature(feature);
-//	      landsDetail.setValue("tuan test");
-//	      
-//	      land.getListLandsDetail().add(landsDetail);
-//	      
-//	      landDetailRepo.save(landsDetail);
-//	      
-//	      HousesFeature houseFeature = houseFeatureRepo.getOne(2L);
-//	      House house = houseRepo.getOne(59L);
-//	      HousesDetail housesDetail = new HousesDetail();
-//	      housesDetail.setId(new HousesDetailId(house.getHouseId(), houseFeature.getHousesFeatureID()));
-//	      housesDetail.setHouse(house);
-//	      housesDetail.setHousesFeature(houseFeature);
-//	      housesDetail.setValue("test12345");
-//	      housesDetailRepo.save(housesDetail);
-//	      List<HousesDetail> listDetail = house.getListHousesDetail();
-//
+//	      reoRepo.findAll();
+////	      List<Land> listLand = landRepo.findAll();
+////	      List<LandsFeature> listLf = lfRepo.findAll();
+//	      int i = 1;
+//	      i++;
+//	      i--;
 //	  }
 }

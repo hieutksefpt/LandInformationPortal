@@ -37,3 +37,10 @@ function drawPath(json){
 	element.setMap(map);
 	path.push(element);
 }
+function updateCrawlNowLabel(status){
+	if (status == 'on'){
+		$('#lb-crawlnow').text("Đang chạy crawl now")
+	}else{
+		$('#lb-crawlnow').text("")
+	}
+}

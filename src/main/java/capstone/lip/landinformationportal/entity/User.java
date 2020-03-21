@@ -47,7 +47,7 @@ public class User extends AuditAbstract implements Serializable {
 
     @Basic(fetch = FetchType.LAZY)
     @OneToMany(mappedBy = "user")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<RealEstate> listRealEstate;
 
     

@@ -31,4 +31,5 @@ public interface RealEstateRepository extends JpaRepository<RealEstate, Long> {
     @Query("SELECT re FROM RealEstate re WHERE re.realEstateName like \'%Phố%\'")
     List<RealEstate> listFilterRealEstate(String realEstateName);
 	Page<RealEstate> findByRealEstateStatus(String status, Pageable page);
+	long countByRealEstateStatus(String status);
 }

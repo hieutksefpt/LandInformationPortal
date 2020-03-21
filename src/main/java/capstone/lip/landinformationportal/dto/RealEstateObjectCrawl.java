@@ -36,6 +36,7 @@ public class RealEstateObjectCrawl implements Serializable{
     private String projectSize;
     private String projectOwner;
     private String source;
+    private String domain;
     private Timestamp startDatePost;
     private Timestamp endDatePost;
 	public String getIdCrawlerJob() {
@@ -212,6 +213,12 @@ public class RealEstateObjectCrawl implements Serializable{
 	public void setSource(String source) {
 		this.source = source;
 	}
+	public String getDomain() {
+		return domain;
+	}
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -221,6 +228,7 @@ public class RealEstateObjectCrawl implements Serializable{
 		result = prime * result + ((balconyDirection == null) ? 0 : balconyDirection.hashCode());
 		result = prime * result + ((codePost == null) ? 0 : codePost.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((domain == null) ? 0 : domain.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((endDatePost == null) ? 0 : endDatePost.hashCode());
 		result = prime * result + ((homeDirection == null) ? 0 : homeDirection.hashCode());
@@ -280,6 +288,11 @@ public class RealEstateObjectCrawl implements Serializable{
 			if (other.date != null)
 				return false;
 		} else if (!date.equals(other.date))
+			return false;
+		if (domain == null) {
+			if (other.domain != null)
+				return false;
+		} else if (!domain.equals(other.domain))
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -404,6 +417,5 @@ public class RealEstateObjectCrawl implements Serializable{
 		return true;
 	}
 	
-    
     
 }

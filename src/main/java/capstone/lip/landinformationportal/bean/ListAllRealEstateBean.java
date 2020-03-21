@@ -23,6 +23,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -60,11 +61,16 @@ public class ListAllRealEstateBean implements Serializable {
     public void init() {
         this.listAllRealEstate = realEstateService.findAll();
         this.listRealEstateSource = realEstateService.listRealEstateSource();
-        transferListCoordinate();
+        drawMarkers();
     }
 
     public void clickButtonDeleteOnRow(long realEstateId) {
         this.realEstateClicked = realEstateService.findById(realEstateId);
+    }
+
+    public void drawMarkers() {
+        transferListCoordinate();
+        PrimeFaces.current().executeScript("drawMarkers(" + this.jsonMultipleCoordinate + ")");
     }
 
     public void deleteRealEstate() {
@@ -82,11 +88,12 @@ public class ListAllRealEstateBean implements Serializable {
 
         realEstateService.delete(realEstateClicked);
         System.out.println(listAllRealEstate.remove(findRealEstateIndexInList(realEstateClicked.getRealEstateId())).getRealEstateName());
+        drawMarkers();
     }
-    
-    public int findRealEstateIndexInList(long realEstateId){
-        for(int i=0; i<listAllRealEstate.size(); i++){
-            if(listAllRealEstate.get(i).getRealEstateId() == realEstateId){
+
+    public int findRealEstateIndexInList(long realEstateId) {
+        for (int i = 0; i < listAllRealEstate.size(); i++) {
+            if (listAllRealEstate.get(i).getRealEstateId() == realEstateId) {
                 return i;
             }
         }
@@ -114,6 +121,7 @@ public class ListAllRealEstateBean implements Serializable {
             this.txtComboBoxStatus = null;
         }
         listAllRealEstate = realEstateService.listFilterRealEstate(txtSearchBox, txtComboBoxSource, tempStatus);
+        drawMarkers();
     }
 
     public void goToDetails(long realEstateId) throws IOException {

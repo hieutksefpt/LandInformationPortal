@@ -36,7 +36,7 @@ public class CrawlRealEstateScheduleJob implements Job {
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		
 //		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-		System.out.println("crawling");
+		System.out.println("crawl real estate schedule");
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders header = new HttpHeaders();
 		header.set("WWW-Authenticate", "Token");
@@ -54,12 +54,15 @@ public class CrawlRealEstateScheduleJob implements Job {
 		HttpEntity<Map<String, String>> entity = new HttpEntity<>(map, header);
 		System.out.println(restTemplate.toString());
 
-		// code done here
-		ResponseEntity<RealEstateObjectCrawl[]> responseEntity = 
-				restTemplate.exchange(builder.toUriString(),HttpMethod.GET,entity,RealEstateObjectCrawl[].class);
-		List<RealEstateObjectCrawl> listCrawl = Arrays.asList(responseEntity.getBody());
-		// temp comment
-		crawlReoService.saveRealEstateCrawl(listCrawl);
+		try {
+			ResponseEntity<RealEstateObjectCrawl[]> responseEntity = 
+					restTemplate.exchange(builder.toUriString(),HttpMethod.GET,entity,RealEstateObjectCrawl[].class);
+			List<RealEstateObjectCrawl> listCrawl = Arrays.asList(responseEntity.getBody());
+			crawlReoService.saveRealEstateCrawl(listCrawl);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

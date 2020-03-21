@@ -32,7 +32,7 @@ public class Application {
 //	  public void run(String... args) {
 //	
 //	      System.out.print("hello");
-//	      RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", "dự"));
+//	      RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", "d?"));
 //	      RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":", "contributor"));
 //	      List<RealEstate> list = repo.findAll(Specification.where(spec1).and(spec2));
 //	      int i = 1;

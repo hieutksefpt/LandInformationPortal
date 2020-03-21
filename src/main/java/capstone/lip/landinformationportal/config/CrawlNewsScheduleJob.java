@@ -35,7 +35,7 @@ public class CrawlNewsScheduleJob implements Job {
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 //		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-		System.out.println("crawling");
+		System.out.println("crawl news schedule");
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders header = new HttpHeaders();
 		header.set("WWW-Authenticate", "Token");
@@ -52,13 +52,15 @@ public class CrawlNewsScheduleJob implements Job {
 		        ;
 
 		HttpEntity<Map<String, String>> entity = new HttpEntity<>(map, header);
-		System.out.println(restTemplate.toString());
-
-		ResponseEntity<NewsCrawl[]> responseEntity = 
-				restTemplate.exchange(builder.toUriString(),HttpMethod.GET,entity,NewsCrawl[].class);
-		List<NewsCrawl> listCrawl = Arrays.asList(responseEntity.getBody());
-
-		crawlNewsService.save(listCrawl);
+		try {
+			ResponseEntity<NewsCrawl[]> responseEntity = 
+					restTemplate.exchange(builder.toUriString(),HttpMethod.GET,entity,NewsCrawl[].class);
+			List<NewsCrawl> listCrawl = Arrays.asList(responseEntity.getBody());
+			crawlNewsService.save(listCrawl);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

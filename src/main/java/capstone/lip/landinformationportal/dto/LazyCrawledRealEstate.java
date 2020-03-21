@@ -30,14 +30,17 @@ public class LazyCrawledRealEstate extends LazyDataModel<RealEstate> implements 
 	
 	public LazyCrawledRealEstate(IRealEstateService service) {
 		this.realEstateService = service;
-		this.setRowCount((int)realEstateService.count());
+		this.setRowCount((int)realEstateService.countByRealEstateStatus(String.valueOf(StatusRealEstateConstant.CONFUSED)));
+		int i = 1;
+		i++;
+		i--;
 	}
 	@Override
 	public List<RealEstate> load(int first, int pageSize, String sortField, SortOrder sortOrder,
 			Map<String, Object> filters) {
 
 		Page<RealEstate> list = 
-				realEstateService.findByRealEstateStatus(String.valueOf(StatusRealEstateConstant.NOT_VERIFIED),
+				realEstateService.findByRealEstateStatus(String.valueOf(StatusRealEstateConstant.CONFUSED),
 						PageRequest.of(first/pageSize, pageSize));
 		List<RealEstate> list1 = list.stream().map(x->x).collect(Collectors.toList());
 		return list1;

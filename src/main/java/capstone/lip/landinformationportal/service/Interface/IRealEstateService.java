@@ -44,4 +44,6 @@ public interface IRealEstateService {
     
     List<RealEstate> listFilterRealEstate(String realEstateName, String realEstateSource, String realEstateStatus);
     //
+    
+    long countByRealEstateStatus(String status);
 }

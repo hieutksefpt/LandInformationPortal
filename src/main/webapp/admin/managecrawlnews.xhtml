@@ -14,27 +14,48 @@
 		<ui:define name="content">
 			<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
 			<h:outputStylesheet name="managecrawlnews.css" library="css"></h:outputStylesheet>
-            <h:form>
+            <h:form onsubmit="return false;">
+            	<p:growl id="msgs" showDetail="true"/>
+            	<div class="row form-group">
+            		<div class="col-3">
+            			<div class="row">
+            				<div class="col-3">
+	            				<h:inputText title="#{manageCrawlNewsBean.timerCrawl} s" value="#{manageCrawlNewsBean.timerCrawl}"></h:inputText>
+	            			</div>
+	            			<div class="col-9">
+	            				<h:commandButton value="Cài thời gian crawler">
+				            		<p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.setTimerButtonClick()}"></p:ajax>
+				            	</h:commandButton>
+	            			</div>
+            			</div>
+            			
+            		</div>
+            		<div class="col-3 text-center">
+            			<h:commandButton value="Bật crawler" rendered="#{not manageCrawlNewsBean.statusCrawlSchedule}">
+		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.turnOnCrawler()}"></p:ajax>
+		            	</h:commandButton>
+		            	
+		            	<h:commandButton value="Tắt crawler" rendered="#{manageCrawlNewsBean.statusCrawlSchedule}">
+		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.turnOffCrawler()}"></p:ajax>
+		            	</h:commandButton>
+            		</div>
+            		<div class="col-3">
+            			<h:commandButton value="Crawl ngay">
+		            		<p:ajax process="@form" listener="#{manageCrawlNewsBean.crawlNow()}"></p:ajax>
+		           		</h:commandButton>
+            		</div>
+            		<div class="col-3">
+            			<div class="row text-center">
+		            		<label id="lb-crawlnow"></label>
+		            		<h:outputText rendered="#{manageCrawlNewsBean.statusCrawlSchedule}" 
+	            				value="Đang chạy crawl tự động"></h:outputText>
+		            	</div>
+            		</div>
+            	</div>
+
             	
-            	<h:outputText value="Khoảng thời gian crawl"></h:outputText>
-            	<h:inputText value="#{manageCrawlNewsBean.timerCrawl}"></h:inputText>
-            	
-            	<h:commandButton value="Cài thời gian crawler">
-            		<p:ajax process="@form" listener="#{manageCrawlNewsBean.setTimerButtonClick()}"></p:ajax>
-            	</h:commandButton>
-            	
-            	<h:commandButton value="Bật crawler">
-            		<p:ajax process="@form" listener="#{manageCrawlNewsBean.turnOnCrawler()}"></p:ajax>
-            	</h:commandButton>
-            	
-            	<h:commandButton value="Tắt crawler">
-            		<p:ajax process="@form" listener="#{manageCrawlNewsBean.turnOffCrawler()}"></p:ajax>
-            	</h:commandButton>
             	
             	
-            	<h:commandButton value="Crawl ngay">
-            		<p:ajax process="@form" listener="#{manageCrawlNewsBean.crawlNow()}"></p:ajax>
-           		</h:commandButton>
             </h:form>
             <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px">
             	<p:growl id="msgs" showDetail="true"/>

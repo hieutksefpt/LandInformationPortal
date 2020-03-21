@@ -114,4 +114,8 @@ public class RealEstateService implements IRealEstateService {
                 return realEstateRepository.findAll();
         }
     }
+	@Override
+	public long countByRealEstateStatus(String status) {
+		return realEstateRepository.countByRealEstateStatus(status);
+	}
 }

@@ -52,7 +52,9 @@ public class CrawledNewsService implements ICrawledNewsService{
 					.setCrawledNewsWebsite(element.getDomain())
 					.setCrawledNewsTime(element.getDate())
 					.setCrawledNewsStatus(StatusCrawledNewsConstant.NON_DISPLAY);
-			list.add(news);
+			if (crawledNewsRepository.findByCrawledNewsLink(element.getLink()) == null) {
+				list.add(news);
+			}
 		}
 		return crawledNewsRepository.saveAll(list);
 	}
@@ -112,8 +114,9 @@ public class CrawledNewsService implements ICrawledNewsService{
 	public void turnOffCrawler() {
 		try {
 			if (scheduler!= null) {
+				scheduler.clear();
 				scheduler.standby();
-				scheduler.shutdown();
+//				scheduler.shutdown();
 			}
 		} catch (SchedulerException e) {
 			e.printStackTrace();
@@ -123,13 +126,11 @@ public class CrawledNewsService implements ICrawledNewsService{
 	@Override
 	public void crawlNow() {
 		JobKey jobKeyNow = JobKey.jobKey("crawlerNowJob", "crawler");
-		JobDetail jobNow = JobBuilder.newJob(CrawlNewsNowJob.class).storeDurably(true).withIdentity("crawlerNowJob", "crawler").build();
+		JobDetail jobNow = JobBuilder.newJob(CrawlNewsNowJob.class).storeDurably(true).withIdentity(jobKeyNow).build();
 		try {
 			scheduler.addJob(jobNow, true);
-			scheduler.getContext().put("crawlnow", "true");
 			scheduler.triggerJob(jobKeyNow);
 			scheduler.deleteJob(jobKeyNow);
-			scheduler.getContext().remove("crawlnow");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

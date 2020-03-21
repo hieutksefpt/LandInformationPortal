@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.PrimeFaces;
 import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,15 +34,20 @@ public class ManageCrawlRealEstateBean implements Serializable{
 	@Autowired
 	private ICrawlRealEstateService crawlReoService;
 	
-	private List<RealEstate> listRealEstate;
-	
 	private LazyDataModel<RealEstate> lazyReo;
+	
+	private boolean statusCrawlSchedule;
 	@PostConstruct
 	public void init() {
 		
 		timerCrawl = "";
 		timerCrawl = crawlReoService.initCrawlJob();
-		listRealEstate = realEstateService.findByRealEstateStatus(String.valueOf(StatusRealEstateConstant.NOT_VERIFIED));
+		if (timerCrawl.isEmpty()) {
+			statusCrawlSchedule = false;
+		}
+		else {
+			statusCrawlSchedule = true;
+		}
 		
 		lazyReo = new LazyCrawledRealEstate(realEstateService);
 	}
@@ -51,11 +59,31 @@ public class ManageCrawlRealEstateBean implements Serializable{
 
 	public void turnOffCrawler() {
 		crawlReoService.turnOffCrawler();
+		statusCrawlSchedule = false;
+		
 	}
 	public void turnOnCrawler() {
+		if (timerCrawl.isEmpty()) {
+			setMessage(FacesMessage.SEVERITY_ERROR, "Chưa cài đặt thời gian");
+			return;
+		}
+		crawlReoService.initCrawlJob();
 		crawlReoService.turnOnCrawler();
+		statusCrawlSchedule = true;
 	}
 	
+	public void setMessage(FacesMessage.Severity severityType, String message) {
+		
+		FacesMessage msg = new FacesMessage();
+		if (severityType == FacesMessage.SEVERITY_ERROR) {
+			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Lỗi", message);
+		} else if (severityType == FacesMessage.SEVERITY_WARN) {
+			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Lưu ý", message);
+		} else {
+			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Thành công", message);
+		}
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
 	public void crawlNow() {
 		crawlReoService.crawlNow();
 	}
@@ -69,19 +97,9 @@ public class ManageCrawlRealEstateBean implements Serializable{
 	}
 
 	public void refreshData() {
-		listRealEstate = realEstateService.findByRealEstateStatus(String.valueOf(StatusRealEstateConstant.NOT_VERIFIED));
-		int i = 1;
-		i++;
+		lazyReo = new LazyCrawledRealEstate(realEstateService);
 	}
-	public List<RealEstate> getListRealEstate() {
-		return listRealEstate;
-	}
-
-
-	public void setListRealEstate(List<RealEstate> listRealEstate) {
-		this.listRealEstate = listRealEstate;
-	}
-
+	
 	public LazyDataModel<RealEstate> getLazyReo() {
 		return lazyReo;
 	}
@@ -89,5 +107,13 @@ public class ManageCrawlRealEstateBean implements Serializable{
 	public void setLazyReo(LazyDataModel<RealEstate> lazyReo) {
 		this.lazyReo = lazyReo;
 	}
-	
+
+	public boolean isStatusCrawlSchedule() {
+		return statusCrawlSchedule;
+	}
+
+	public void setStatusCrawlSchedule(boolean statusCrawlSchedule) {
+		this.statusCrawlSchedule = statusCrawlSchedule;
+	}
+
 }

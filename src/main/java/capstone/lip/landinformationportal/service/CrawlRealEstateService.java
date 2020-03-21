@@ -101,12 +101,11 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 				.setRealEstateLat(reoCrawl.getLatitude())
 				.setRealEstateLng(reoCrawl.getLongitude())
 				.setRealEstatePrice(reoCrawl.getPrice())
-				.setRealEstateSource(reoCrawl.getSource())
-//				.setRealEstateSource("https://batdongsan.com.vn")
+				.setRealEstateSource(reoCrawl.getDomain())
 				.setRealEstateLink(reoCrawl.getLink())
 				.setRealEstateAddress(reoCrawl.getAddress())
 				.setUser(user)
-				.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.NOT_VERIFIED));
+				.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.CONFUSED));
 			reo = realEstateRepository.save(reo);
 			House house = new House();
 			house.setRealEstate(reo)
@@ -260,8 +259,10 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 	public void turnOffCrawler() {
 		try {
 			if (scheduler!= null) {
+				scheduler.clear();
 				scheduler.standby();
-				scheduler.shutdown();
+//				scheduler.shutdown();
+				
 			}
 		} catch (SchedulerException e) {
 			e.printStackTrace();

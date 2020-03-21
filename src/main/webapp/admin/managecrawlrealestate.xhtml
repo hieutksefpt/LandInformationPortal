@@ -6,7 +6,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:body>
 	
 	<ui:composition template="/template/admin/adminLayout.xhtml">
@@ -14,27 +15,50 @@
 		<ui:define name="content">
 			<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
 			<h:outputStylesheet name="managecrawlrealestate.css" library="css"></h:outputStylesheet>
-            <h:form>
-            	
-            	<h:outputText value="Khoảng thời gian crawl"></h:outputText>
-            	<h:inputText value="#{manageCrawlRealEstateBean.timerCrawl}"></h:inputText>
-            	
-            	<h:commandButton value="Cài thời gian crawler">
-            		<p:ajax process="@form" listener="#{manageCrawlRealEstateBean.setTimerButtonClick()}"></p:ajax>
-            	</h:commandButton>
-            	
-            	<h:commandButton value="Bật crawler">
-            		<p:ajax process="@form" listener="#{manageCrawlRealEstateBean.turnOnCrawler()}"></p:ajax>
-            	</h:commandButton>
-            	
-            	<h:commandButton value="Tắt crawler">
-            		<p:ajax process="@form" listener="#{manageCrawlRealEstateBean.turnOffCrawler()}"></p:ajax>
-            	</h:commandButton>
-            	
-            	
-            	<h:commandButton value="Crawl ngay">
-            		<p:ajax process="@form" listener="#{manageCrawlRealEstateBean.crawlNow()}"></p:ajax>
-           		</h:commandButton>
+            <h:form onsubmit="return false;">
+            	<p:growl id="msgs" showDetail="true"/>
+            	<div class="row form-group">
+            		<div class="col-3">
+            			
+            			<div class="row">
+            				<div class="col-3">
+            					<h:inputText title="#{manageCrawlRealEstateBean.timerCrawl} s" value="#{manageCrawlRealEstateBean.timerCrawl}"></h:inputText>
+            				</div>
+            				<div class="col-9">
+            					<h:commandButton value="Cài thời gian crawler">
+				            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.setTimerButtonClick()}"></p:ajax>
+				            	</h:commandButton>
+            				</div>
+            				
+            			</div>
+            		</div>
+            		<div class="col-3 text-center">
+          				<h:commandButton value="Bật crawler" rendered="#{not manageCrawlRealEstateBean.statusCrawlSchedule}">
+		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.turnOnCrawler()}"></p:ajax>
+		            	</h:commandButton>
+		            	
+		            	<h:commandButton value="Tắt crawler" rendered="#{manageCrawlRealEstateBean.statusCrawlSchedule}">
+		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.turnOffCrawler()}"></p:ajax>
+		            	</h:commandButton>
+            		</div>
+	            	<div class="col-3">
+	            		<div class="row">
+	            			<h:commandButton value="Crawl ngay">
+			            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.crawlNow()}"
+			            		onstart="updateCrawlNowLabel('on')"
+			            		oncomplete="updateCrawlNowLabel('off')"></p:ajax>
+			           		</h:commandButton>
+	            		</div>
+	            	</div>
+	            	<div class="col-3">
+	            		<div class="row text-center">
+		            		<label id="lb-crawlnow"></label>
+		            		<h:outputText rendered="#{manageCrawlRealEstateBean.statusCrawlSchedule}" 
+	            				value="Đang chạy crawl tự động"></h:outputText>
+		            	</div>
+	            	</div>
+            	</div>
+
             </h:form>
             <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px">
             	<p:growl id="msgs" showDetail="true"/>
@@ -44,7 +68,7 @@
 		            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
 		            >
 		            <f:facet name="paginatorTopLeft">
-			            <p:commandButton icon="pi pi-refresh" 
+			            <p:commandButton icon="pi pi-refresh" update="tabledata"
 			            action="#{manageCrawlRealEstateBean.refreshData()}"/>
 			        </f:facet>
 	            	<p:column width="95%">
@@ -53,7 +77,7 @@
 	            	</p:column>
 	     
 	            	<p:column style="text-align: center">
-			             <p:commandButton icon="pi pi-search" title="View" update="tabledata"
+			             <p:commandButton icon="pi pi-search" title="View" update="tabledata" style="width:30px"
 			             action="#{manageCrawlRealEstateSetRoadSegmentBean.showPopup(element.realEstateId)}" >
 			             	
 			            </p:commandButton>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
+    <head>
+        <h:outputStylesheet name="bootstrap.min.css" library="css" />
+    </head>
+    <body>
+        <ui:composition>
+            <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Land Information Portal</a>
+                    <button data-toggle="collapse" class="navbar-toggler"
+                            data-target="#navcol-1">
+                        <span class="sr-only">Toggle navigation</span><span
+                            class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navcol-1">
+                        <ul class="nav navbar-nav mr-auto">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" href="#">Giới thiệu về L.I.P</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" href="#">Thư viện pháp luật</a>
+                            </li>
+                        </ul>
+                        <span class="actions">
+                            <a class="btnOnNav btnAddRealEstate" role="button" href="#" data-toggle="modal" data-target="#modalLoginForm">BĐS đóng góp</a> 
+                            <a class="btnOnNav btnUser" role="button" href="#" data-toggle="modal" data-target="#modalLoginForm">Từ Khắc Hiếu</a> 
+                            <a class="btnOnNav btnLogOut" role="button" href="#" data-toggle="modal" data-target="#modalLoginForm">Đăng xuất</a>
+                        </span>
+                    </div>
+                </div>
+            </nav>
+        </ui:composition>
+    </body>
+</html>
+
+

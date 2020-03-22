@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <head>
+    </head>
+    <body>
+        <ui:composition template="/template/common/commonLayout.xhtml">
+            <ui:define name="content">
+                <h:outputStylesheet name="listownrealestate.css" library="css"></h:outputStylesheet>
+                <div class="container">
+                    <div class="row">
+                        <div id="map" class="col-9 col-lg-9"></div>
+                        <div id="content-RightMap" class="col-3 col-lg-3 right-map">
+                            <div class="row">
+                                <div class="col-8 col-lg-8 header-list title-header">Danh sách BĐS đóng góp</div>
+                                <div class="col-4 col-lg-4 header-list"><a id="link-AddNewRealEstate" class="label-add-new-real-estate" href="#">+ New</a></div>
+                                <h:form id="form-ViewList">
+                                    <div class="row">
+                                        <c:forEach items="#{listOwnRealEstateBean.listUserRealEstate}" var="i">
+                                            <div id="lbl-RealEstateAddress" class="col-9 col-lg-9 element-list">
+                                                ${i.realEstateAddress}
+                                            </div>
+                                            <div class="col-3 col-lg-3 element-list">
+                                                <h:commandButton id="btn-ButtonView" class="btn-view" value="Xem" action="#{listOwnRealEstateBean.goToDetails(i.realEstateId)}">
+                                                    <!--biến realEstateId đầu tiên thưc chất là biến userId, truyền vào dựa trên user đang đăng nhập -->
+                                                    <p:ajax process="@form"></p:ajax>
+                                                </h:commandButton>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </h:form>
+                                <h:inputHidden id="txtInput_multipleCoordinate_listOwnRealEstate" value="#{listOwnRealEstateBean.jsonMultipleCoordinate}"></h:inputHidden>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </ui:define>
+
+            <ui:define name="footer">
+                <h:outputScript name="listownrealestate.js" library="js" />
+                <script type="text/javascript"
+                        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
+                async="true" defer="true"></script>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

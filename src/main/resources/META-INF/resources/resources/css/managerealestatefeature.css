@@ -1,0 +1,79 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 5, 2020, 2:44:54 PM
+    Author     : Administrator
+*/
+
+.title{
+    
+}
+
+.tabelFeature{
+   
+}
+
+.tabelFeature .headerRow{
+    
+}
+
+.addFeature{
+    float: right;
+}
+
+.tabelFeature .headerRow .headerColumn{
+    padding-right: 40px;
+    float: left;
+}
+
+.buttonEdit{
+    background-color: blue;
+}
+
+.buttonDelete{
+    background-color: red;
+}
+
+.headerFeature{
+    font-weight: bold;
+}
+
+.buttonEdit{
+    margin-right: 5px;
+    text-decoration: none;
+    background-color: #428bca;
+    color: white;
+    border-radius: 10px;
+}
+
+.buttonDelete{
+    text-decoration: none;
+    background-color: #d9534f;
+    color: white;
+    border-radius: 10px;
+}
+
+.buttonEdit:hover{
+    text-decoration: underline;
+    background-color: #428bca;
+}
+
+.buttonDelete:hover{
+    text-decoration: underline;
+    background-color: #d9534f;
+}
+
+#buttonAddFeature{
+    color: white;
+    margin-bottom: 5px;
+    background-color: #d9534f;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+#buttonAddFeature:hover{
+    text-decoration: underline;
+}

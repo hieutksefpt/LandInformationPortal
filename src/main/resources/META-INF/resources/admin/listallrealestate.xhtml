@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <head>
+    </head>
+    <body>
+        <ui:composition template="/template/admin/adminLayout.xhtml">
+            <ui:define name="content">
+                <h:outputStylesheet name="listallrealestate.css" library="css" />
+                <h:outputStylesheet name="bootstrap.min.css" library="css" />
+                <div class="container">
+                    <div class="row">
+                        <div id="map" class="col-9 col-lg-9"></div>
+                        <div id="content-RightMap" class="col-3 col-lg-3 right-map">
+                            <div class="filter-realestae">
+                                <h:form id="form-Search">
+                                    <div class="row search-aria">
+                                        <div class="col-3 col-lg-3 lbl-real-estate-name-search">Tên BĐS</div>
+                                        <div class="col-7 col-lg-7 txt-search-name"><h:inputText id="txt-SearchName" class="" value="#{listAllRealEstateBean.txtSearchBox}"></h:inputText></div>
+                                        <div class="col-2 col-lg-2 btn-search">
+                                            <h:commandButton id="btn-ButtonSearch"
+                                                             value="Tìm kiếm"
+                                                             action="#{listAllRealEstateBean.listFilterRealEstate()}">
+                                                <p:ajax process="@form" update="form-ViewList"></p:ajax>
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 col-lg-6">
+                                            <h:selectOneMenu id="combobox-RealEstateSource" class="combobox-common">
+                                                <f:selectItem itemLabel="Nguồn BĐS" itemValue="Nguồn BĐS" />
+                                                <c:forEach items="#{listAllRealEstateBean.listRealEstateSource}" var="realEstateSource">
+                                                    <f:selectItem itemLabel="#{realEstateSource}" itemValue="#{realEstateSource}" />
+                                                </c:forEach> 
+                                            </h:selectOneMenu>
+                                        </div>
+                                        <div class="col-6 col-lg-6">
+                                            <h:selectOneMenu id="combobox-RealEstateStatus" class="combobox-common">
+                                                <f:selectItem itemLabel="Trạng thái BĐS" itemValue="Trạng thái BĐS" />
+                                                <f:selectItem itemLabel="CONFUSED" itemValue="-1" />
+                                                <f:selectItem itemLabel="NOT_VERIFIED" itemValue="0" />
+                                                <f:selectItem itemLabel="VERIFIED" itemValue="1" />
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                </h:form>
+                            </div>
+                            <div class="row">
+                                <div class="header-list title-header">Danh sách BĐS hệ thống</div>
+                                <h:form id="form-ViewList">
+                                    <c:forEach items="#{listAllRealEstateBean.listAllRealEstate}" var="i">
+                                        <div class="row">
+                                            <c:if test="#{i.realEstateSource == 'Contributor'}">
+                                                <div id="lbl-RealEstateSource" class="realestate-source-contributor col-12 col-lg-12">#{i.realEstateSource}</div>
+                                            </c:if>
+                                            <c:if test="#{i.realEstateSource != 'Contributor'}">
+                                                <div id="lbl-RealEstateSource" class="realestate-source-other col-12 col-lg-12">#{i.realEstateSource}</div>
+                                            </c:if>
+                                        </div>
+                                        <div class="row">
+                                            <div id="lbl-RealEstateAddress" class="col-9 col-lg-9 element-list">
+                                                ${i.realEstateAddress}
+                                            </div>
+                                            <div class="col-3 col-lg-3 element-list">
+                                                <h:commandButton id="btn-ButtonView" class="btn-view" value="Xem" action="#{listAllRealEstateBean.goToDetails(i.realEstateId)}">
+                                                    <p:ajax process="@form"></p:ajax>
+                                                </h:commandButton>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </h:form>
+                                <h:inputHidden id="txtInput_multipleCoordinate_listAllRealEstate" value="#{listAllRealEstateBean.jsonMultipleCoordinate}"></h:inputHidden>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </ui:define>
+
+            <ui:define name="footer">
+                <h:outputScript name="listallrealestate.js" library="js" />
+                <script type="text/javascript"
+                        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
+                async="true" defer="true"></script>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

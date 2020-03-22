@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>
+
+        <ui:composition template="/template/common/commonLayout.xhtml">
+
+            <ui:define name="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div id="map" style="height: 510px"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>Tuyến đường:</strong>
+                                </div>
+                                <div class="col-md-6">
+	                                <h:inputHidden id="gjsonRoad" 
+	                                    value="#{showLayerBean.gjsonRoad}"/>
+                                    <h:inputHidden id="jsonLayer"
+                                    	value="#{showLayerBean.jsonLayer}"/>
+                                    
+                                    
+                                    <h:form id="form-search"> 
+                                    	<ui:remove>
+                                        <p:autoComplete value="${showLayerBean.roadId}" 
+                                                        id="autocompleteValue"
+                                                        completeMethod="${showLayerBean.listRoadByHint}"
+                                                        var="element" itemLabel="#{element.name}"
+                                                        itemValue="#{element.roadId}"
+                                                        forceSelection="true">
+                                            <p:ajax event="itemSelect" 
+                                                    listener="${showLayerBean.changeRoadViewById()}" 
+                                                    process="@form" update="gjsonRoad jsonLayer" 
+                                                    oncomplete="drawRoad(), drawLayer()"/>
+                                        </p:autoComplete>
+                                        </ui:remove>
+                                        <p:selectOneMenu value="#{showLayerBean.roadId}" style="padding-right:0">
+                                        	<f:selectItem itemLabel="" itemValue="" />
+                                        	<f:selectItems value="#{showLayerBean.listRoadByHint}"
+                                        	var="element" itemLabel="#{element.name}" 
+                                        	itemValue="#{element.roadId}"></f:selectItems>
+                                        	<p:ajax event="itemSelect" 
+                                                    listener="${showLayerBean.changeRoadViewById()}" 
+                                                    process="@form" update="gjsonRoad jsonLayer" 
+                                                    oncomplete="drawRoad(), drawLayer()"/>
+                                        	
+                                        </p:selectOneMenu>
+                                    </h:form>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="row" id="inforPanel" style="display:none">
+                            	<div class="form-group" style="padding-top:10px;padding-left:60px;">
+                            		<div>
+                            			<p class="text-center"><strong>Thông tin lớp</strong></p>
+                            		</div>
+                            		<div class="row">
+	                            		<label class="col-md-6">Đoạn đường</label>
+	                            		<input class="form-control col-md-6" id="roadSegmentNameInfor" readonly="true"></input>
+                            		</div>
+                            		<div class="row">
+	                            		<label class="col-md-6">Lớp</label>
+	                            		<input class="form-control col-md-6" id="layerInfor" readonly="true"></input>
+                            		</div>
+                            		<div class="row">
+	                            		<label class="col-md-6">Giá quy định</label>
+	                            		<input class="form-control col-md-6" id="priceInfor" readonly="true"></input>
+                            		</div>
+                            		<div class="row">
+	                            		<label class="col-md-6">Hệ số K</label>
+	                            		<input class="form-control col-md-6" id="kInfor" readonly="true"></input>
+                            		</div>
+                            		<div class="row">
+	                            		<label class="col-md-6">Giá thị trường</label>
+	                            		<input class="form-control col-md-6" id="priceMarketInfor" readonly="true"></input>
+                            		</div>
+                            	</div>
+                            </div>
+                            
+                            <div class="row">
+							    <div class="col-md-3 text-white" style="background-color: red !important">Lớp 1</div>
+							    <div  class="col-md-9">
+							    	<span>
+							    		Chỉ giới hè đường vào 100 m, giá 100%
+							    	</span>
+							    </div>
+                            </div>
+                            <div class="row">
+							    <div class="col-md-3 text-white" style="background-color: orange !important">Lớp 2</div>
+							    <div class="col-md-9">
+							    	<span>
+							    		Chỉ giới hè đường từ trên 100m đến 200m, giá giảm 10%
+							    	</span>
+							    </div>
+                            </div>
+                            <div class="row">
+							    <div class="col-md-3 text-white" style="background-color: blue !important">Lớp 3</div>
+							    <div class="col-md-9">
+							    	<span>
+							    		Chỉ giới hè đường từ trên 200m đến 300m, giá giảm 20%
+							    	</span>
+							    </div>
+                            </div>
+                            <div class="row">
+							    <div class="col-md-3 text-white" style="background-color: pink !important">Lớp 4</div>
+							    <div class="col-md-9">
+							    	<span>
+							    		Chỉ giới hè đường từ trên 300m, giá giảm 30%
+							    	</span>
+							    </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </ui:define>
+            <ui:define name="footer">
+                <h:outputScript name="showlayer.js" library="js" />
+                <script type="text/javascript"
+                        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
+                async="true" defer="true"></script>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+
+</html>

@@ -101,6 +101,17 @@
 }
 .btn-delete{
     background-color: #d9534f;
+}
+.btn-in-list-all{
     border-radius: 10px;
     color: white;
+}
+.btn-change-status{
+    background-color: #47a529;
+}
+.btn-on-change-status-dialog{
+    border-radius: 20px;
+}
+.btn-on-change-status-dialog:hover{
+    background-color: black;
 }

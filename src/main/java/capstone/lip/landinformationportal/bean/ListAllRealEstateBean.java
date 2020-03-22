@@ -61,13 +61,23 @@ public class ListAllRealEstateBean implements Serializable {
     public void init() {
         this.listAllRealEstate = realEstateService.findAll();
         this.listRealEstateSource = realEstateService.listRealEstateSource();
-        drawMarkers();
+        transferListCoordinate();
     }
 
     public void clickButtonDeleteOnRow(long realEstateId) {
         this.realEstateClicked = realEstateService.findById(realEstateId);
     }
+    
+    public void clickButtonChangeStatusOnRow(long realEstateId){
+        this.realEstateClicked = realEstateService.findById(realEstateId);
+    }
 
+    public void changeRealEstateStatus(String status){
+        realEstateClicked.setRealEstateStatus(status);
+        realEstateService.save(realEstateClicked);
+        listAllRealEstate.get(findRealEstateIndexInList(realEstateClicked.getRealEstateId())).setRealEstateStatus(status);
+    }
+    
     public void drawMarkers() {
         transferListCoordinate();
         PrimeFaces.current().executeScript("drawMarkers(" + this.jsonMultipleCoordinate + ")");

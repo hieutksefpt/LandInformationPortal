@@ -15,6 +15,51 @@
                 <h:outputStylesheet name="listallrealestate.css" library="css" />
                 <h:outputStylesheet name="bootstrap.min.css" library="css" />
                 <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+                <f:ajax event="load" listener="#{listAllRealEstateBean.drawMarkers()}" />
+
+                <div class="modal fade" id="changeRealEstatePopup" tabindex="-1" role="dialog"
+                     aria-labelledby="changeRealEstatePopup" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Thay đổi trạng thái bất động sản</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <h:form>
+                                <div class="modal-body row">
+                                    <div class="col-4 col-lg-4 icon-status status-verified btn-on-change-status-dialog">
+                                        <h:commandLink id="btn-LinkChangeRealEstateStatusVerified"
+                                                       action="#{listAllRealEstateBean.changeRealEstateStatus('1')}"
+                                                       onclick="hideChangeRealEstateStatusPopup()">
+                                            <span class="pi pi-check"/>
+                                            Đã kiểm duyệt
+                                            <p:ajax process="@form" update="form-ViewList"/>
+                                        </h:commandLink>
+                                    </div>
+                                    <div class="col-4 col-lg-4 icon-status status-confused btn-on-change-status-dialog">
+                                        <h:commandLink id="btn-LinkChangeRealEstateStatusConfused"
+                                                       action="#{listAllRealEstateBean.changeRealEstateStatus('-1')}"
+                                                       onclick="hideChangeRealEstateStatusPopup()">
+                                            <span class="pi pi-times"/>
+                                            Chưa chuẩn dữ liệu
+                                            <p:ajax process="@form" update="form-ViewList"/>
+                                        </h:commandLink>
+                                    </div>
+                                    <div class="col-4 col-lg-4 icon-status status-not-verified btn-on-change-status-dialog">
+                                        <h:commandLink id="btn-LinkChangeRealEstateStatusNotVerified"
+                                                       action="#{listAllRealEstateBean.changeRealEstateStatus('0')}"
+                                                       onclick="hideChangeRealEstateStatusPopup()">
+                                            <span class="pi pi-question"/>
+                                            Chưa kiểm duyệt
+                                            <p:ajax process="@form" update="form-ViewList"/>
+                                        </h:commandLink>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="modal fade" id="confirmDeletePopup" tabindex="-1" role="dialog"
                      aria-labelledby="confirmDeletePopup" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -83,7 +128,6 @@
                                 <h:form id="form-ViewList">
                                     <c:forEach items="#{listAllRealEstateBean.listAllRealEstate}" var="realEstate">
                                         <div class="row">
-
                                             <c:if test="#{realEstate.realEstateStatus == '1'}">
                                                 <div class="col-1 col-lg-1 icon-status status-verified">
                                                     <span class="pi pi-check"/>
@@ -115,18 +159,27 @@
                                             </div>
 
                                             <div class="col-4 col-lg-4 element-list">
-                                                <h:commandButton id="btn-ButtonDelete"
-                                                                 class="btn-delete"
-                                                                 value="Xóa" 
-                                                                 action="#{listAllRealEstateBean.clickButtonDeleteOnRow(realEstate.realEstateId)}"
-                                                                 onclick="openConfirmDeletePopup1()">
-                                                    <f:ajax execute="@form" render="confirmDeletePopup" />
+                                                <c:if test="#{realEstate.realEstateSource != 'Contributor'}">
+                                                    <h:commandButton id="btn-ButtonDelete"
+                                                                     class="btn-in-list-all btn-delete"
+                                                                     value="Xóa" 
+                                                                     action="#{listAllRealEstateBean.clickButtonDeleteOnRow(realEstate.realEstateId)}"
+                                                                     onclick="openConfirmDeletePopup1()">
+                                                        <f:ajax execute="@form" render="confirmDeletePopup" />
+                                                    </h:commandButton>
+                                                </c:if>
+                                                <h:commandButton id="btn-ButtonChangeStatus"
+                                                                 class="btn-in-list-all btn-change-status"
+                                                                 value="Thay đổi trạng thái"
+                                                                 action="#{listAllRealEstateBean.clickButtonChangeStatusOnRow(realEstate.realEstateId)}"
+                                                                 onclick="openChangeRealEstateStatusPopup()">
+                                                    <f:ajax execute="@form" render="changeRealEstatePopup" />
                                                 </h:commandButton>
                                             </div>
-
                                         </div>
                                     </c:forEach>
                                 </h:form>
+                                <h:inputHidden id="txtInput_multipleCoordinate_listAllRealEstate" value="#{listAllRealEstateBean.jsonMultipleCoordinate}"></h:inputHidden>
                             </div>
                         </div>    
                     </div>

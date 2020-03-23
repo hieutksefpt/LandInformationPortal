@@ -16,6 +16,10 @@ public class HouseFeatureValue implements Serializable{
     private HousesFeature housesFeature;
     private String value;
 
+    public HouseFeatureValue() {
+    }
+
+    
     public HouseFeatureValue(HousesFeature housesFeature, String value) {
         this.housesFeature = housesFeature;
         this.value = value;

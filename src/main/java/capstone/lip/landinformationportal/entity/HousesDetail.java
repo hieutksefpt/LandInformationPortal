@@ -17,6 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+
 /**
  *
  * @author Admin
@@ -36,8 +39,8 @@ public class HousesDetail extends AuditAbstract implements Serializable{
     @JoinColumn(name = "HouseID")
     private House house;
     
-    @Basic(fetch = FetchType.LAZY)
-    @ManyToOne
+    @LazyToOne(LazyToOneOption.NO_PROXY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("HousesFeatureID")
     @JoinColumn(name = "HousesFeatureID")
     private HousesFeature housesFeature;

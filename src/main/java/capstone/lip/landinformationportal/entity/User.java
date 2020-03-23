@@ -16,6 +16,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -45,9 +48,8 @@ public class User extends AuditAbstract implements Serializable {
     @Column(name = "Phone")
     private String phone;
 
-    @Basic(fetch = FetchType.LAZY)
-    @OneToMany(mappedBy = "user")
-//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @LazyToOne(LazyToOneOption.NO_PROXY)
     private List<RealEstate> listRealEstate;
 
     

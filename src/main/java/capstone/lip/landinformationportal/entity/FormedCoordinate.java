@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 @Entity
@@ -29,8 +31,8 @@ public class FormedCoordinate extends AuditAbstract implements Serializable {
 	@Column(name="FormedLng")
 	private Double formedLng;
 	
-	@Basic(fetch = FetchType.LAZY)
-	@ManyToOne
+	@LazyToOne(LazyToOneOption.NO_PROXY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="SegmentID")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private SegmentOfStreet segmentOfStreet;

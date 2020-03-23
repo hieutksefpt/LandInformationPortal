@@ -18,13 +18,13 @@ import capstone.lip.landinformationportal.specification.SearchCriteria;
 @EnableJpaAuditing
 @SpringBootApplication
 @ComponentScan
-public class Application {
+public class Application{
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
         
     }
     
-//    
+    
 //    @Autowired
 //    private RealEstateRepository repo;
 //    
@@ -32,9 +32,7 @@ public class Application {
 //	  public void run(String... args) {
 //	
 //	      System.out.print("hello");
-//	      RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", "d?"));
-//	      RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":", "contributor"));
-//	      List<RealEstate> list = repo.findAll(Specification.where(spec1).and(spec2));
+//	      List<RealEstate> list = repo.findAll();
 //	      int i = 1;
 //	      i++;
 //	      i--;

@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
@@ -37,9 +39,9 @@ public class Street extends AuditAbstract implements Serializable {
 		return streetId;
 	}
 	
-	@Basic(fetch = FetchType.LAZY)
+	@LazyToOne(LazyToOneOption.NO_PROXY)
 	@NotFound(action = NotFoundAction.IGNORE)
-	@OneToMany(mappedBy="street",cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy="street",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<SegmentOfStreet> listSegmentOfStreet;
 	

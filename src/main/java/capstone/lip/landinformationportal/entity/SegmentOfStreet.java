@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
@@ -38,28 +40,26 @@ public class SegmentOfStreet extends AuditAbstract implements Serializable {
     @Column(name = "SegmentLng")
     private Double segmentLng;
 
-    @Basic(fetch = FetchType.LAZY)
-    @ManyToOne
+    @LazyToOne(LazyToOneOption.NO_PROXY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DistrictID")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private District district;
 
-    @Basic(fetch = FetchType.LAZY)
-//	@ManyToOne(cascade=CascadeType.REMOVE)
-    @ManyToOne()
+    @LazyToOne(LazyToOneOption.NO_PROXY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "StreetID")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
     private Street street;
 
-    @Basic(fetch = FetchType.LAZY)
+    @LazyToOne(LazyToOneOption.NO_PROXY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "segmentOfStreet", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "segmentOfStreet", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<FormedCoordinate> listFormedCoordinate;
 
-    @Basic(fetch = FetchType.LAZY)
+    @LazyToOne(LazyToOneOption.NO_PROXY)
     @NotFound(action = NotFoundAction.IGNORE)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "segmentOfStreet")
+    @OneToMany(mappedBy = "segmentOfStreet", fetch = FetchType.LAZY)
     private List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment;
 
    

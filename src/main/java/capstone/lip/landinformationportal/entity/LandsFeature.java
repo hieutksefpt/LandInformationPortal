@@ -17,6 +17,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
@@ -41,9 +44,8 @@ public class LandsFeature extends AuditAbstract implements Serializable {
     @Column(name = "LandsFeatureUnit")
     private String landsFeatureUnit;
     
-//    @Basic(fetch = FetchType.LAZY)
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "landsFeature")
+    @LazyToOne(LazyToOneOption.NO_PROXY)
+    @OneToMany(mappedBy = "landsFeature", fetch=FetchType.LAZY)
     private List<LandsDetail> listLandsDetail;
     
     public LandsFeature() {

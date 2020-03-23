@@ -19,6 +19,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -41,15 +43,14 @@ public class Land extends AuditAbstract implements Serializable {
     @Column(name = "LandPrice")
     private Double landPrice;
     
-    @Basic(fetch = FetchType.LAZY)
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RealEstateID")
+    @LazyToOne(LazyToOneOption.NO_PROXY)
     private RealEstate realEstate;
     
-    @Basic(fetch = FetchType.LAZY)
-//    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotFound(action = NotFoundAction.IGNORE)
-    @OneToMany(mappedBy = "land")
+    @OneToMany(mappedBy = "land", fetch = FetchType.LAZY)
+    @LazyToOne(LazyToOneOption.NO_PROXY)
     private List<LandsDetail> listLandsDetail;
 
     public Land() {

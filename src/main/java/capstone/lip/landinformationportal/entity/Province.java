@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -37,8 +39,8 @@ public class Province extends AuditAbstract implements Serializable{
 	@Column(name = "ProvinceLng")
 	private Double provinceLng;
 	
-	@Basic(fetch = FetchType.LAZY)
-	@OneToMany(mappedBy="province")
+	@LazyToOne(LazyToOneOption.NO_PROXY)
+	@OneToMany(mappedBy="province", fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<District> listDistrict;
 	

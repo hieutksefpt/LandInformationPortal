@@ -17,6 +17,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+
 /**
  *
  * @author Admin
@@ -35,9 +38,8 @@ public class HousesFeature extends AuditAbstract implements Serializable {
     @Column(name = "HousesFeatureUnit")
     private String housesFeatureUnit;
 
-    
-    @Basic(fetch = FetchType.LAZY)
-    @OneToMany(mappedBy = "housesFeature")
+    @LazyToOne(LazyToOneOption.NO_PROXY)
+    @OneToMany(mappedBy = "housesFeature", fetch = FetchType.LAZY)
     private List<HousesDetail> listHousesDetail;
 
     public List<HousesDetail> getListHousesDetail() {

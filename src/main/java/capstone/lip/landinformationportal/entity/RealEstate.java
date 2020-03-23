@@ -21,6 +21,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 /**
@@ -54,26 +56,23 @@ public class RealEstate extends AuditAbstract implements Serializable {
     @Column(name = "RealEstateSource")
     private String realEstateSource;
 
-    @Basic(fetch = FetchType.LAZY)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UserID")
+    @LazyToOne(LazyToOneOption.NO_PROXY)
     private User user;
 
-    @Basic(fetch = FetchType.LAZY)
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToOne(mappedBy = "realEstate")
+    @OneToOne(mappedBy = "realEstate",fetch = FetchType.LAZY)
+    @LazyToOne(LazyToOneOption.NO_PROXY)
     private Land land;
     
-    @Basic(fetch = FetchType.LAZY)
-//    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotFound(action = NotFoundAction.IGNORE)
-    @OneToMany(mappedBy = "realEstate")
+    @OneToMany(mappedBy = "realEstate", fetch = FetchType.LAZY)
+    @LazyToOne(LazyToOneOption.NO_PROXY)
     private List<House> listHouse;
     
-    @Basic(fetch = FetchType.LAZY)
-//    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotFound(action = NotFoundAction.IGNORE)
-    @OneToMany(mappedBy = "realEstate")
+    @OneToMany(mappedBy = "realEstate", fetch = FetchType.LAZY)
+    @LazyToOne(LazyToOneOption.NO_PROXY)
     private List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment;
     
     public RealEstate() {

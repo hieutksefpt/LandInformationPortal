@@ -1,0 +1,7 @@
+.scrollable{
+	height:550px;
+  	overflow-y: scroll;
+}
+.image-parent {
+  max-width: 40px;
+}

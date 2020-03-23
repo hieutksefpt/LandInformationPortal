@@ -2,7 +2,7 @@
 var map;
 var listMarkers = [];
 
-function initMap() {
+function initMap(json) {
     var markers = JSON.parse($('#txtInput_multipleCoordinate_listAllRealEstate').val());
     var latitude = markers[0].latitude;
     var longitude = markers[0].longitude;
@@ -22,6 +22,9 @@ function initMap() {
         var marker = new google.maps.Marker({position: latLng, map: map});
         listMarkers.push(marker);
     }
+    
+//    var markerCluster = new MarkerClusterer(map, listMarkers,
+//            {imagePath: "url('#{'resource[img/']}')"});
 }
 
 function openChangeRealEstateStatusPopup(){

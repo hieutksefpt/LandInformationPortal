@@ -200,7 +200,10 @@ public class UpdateContributeRealEstateBean implements Serializable {
 
     public void updateDataUploadToDB() {
 
-        nextLocatePoint();
+        if (!segmentStreetIdSelected.equals("")  && !provinceIdSelected.equals("") && !districtIdSelected.equals("") && !streetIdSelected.equals("")) {
+            nextLocatePoint();
+        }
+        else realEstateAddress = realEstateClicked.getRealEstateAddress();
         //Update to DB RE
 
         User tempUser = new User();
@@ -216,31 +219,21 @@ public class UpdateContributeRealEstateBean implements Serializable {
                 tempUser.setPhone(userListAll.get(i).getPhone());
             }
         }
-        RealEstate newUploadRealEstate = new RealEstate().setRealEstateId(tempRealEstateId).setRealEstateName(realEstateName)
+        realEstateClicked.setRealEstateName(realEstateName)
                 .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
                 .setRealEstateAddress(realEstateAddress);
-        newUploadRealEstate.setRealEstatePrice(realEstatePrice);
-        newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
-        newUploadRealEstate = realEstateService.save(newUploadRealEstate);
+        realEstateClicked.setRealEstatePrice(realEstatePrice);
+        realEstateClicked.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
+        realEstateClicked = realEstateService.save(realEstateClicked);
 
         // Update to Table REAS if combobox value of Map != Null
-        if (segmentStreetIdSelected != null && provinceIdSelected != null && districtIdSelected != null && streetIdSelected != null) {
+        if (!segmentStreetIdSelected.equals("")  && !provinceIdSelected.equals("") && !districtIdSelected.equals("") && !streetIdSelected.equals("")) {
             RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
 
-            newRealEstateAdjacentSegment.setRealEstate(newUploadRealEstate);
-            SegmentOfStreet tempSos = new SegmentOfStreet();
-            List<SegmentOfStreet> segmentOfStreetListAll = segmentOfStreetService.findAll();
-            for (int i = 0; i < segmentOfStreetListAll.size(); i++) {
-                if (segmentOfStreetListAll.get(i).getSegmentId().toString().equals(segmentStreetIdSelected)) {
-                    tempSos.setSegmentName(segmentOfStreetListAll.get(i).getSegmentName())
-                            .setSegmentLat(segmentOfStreetListAll.get(i).getSegmentLng())
-                            .setSegmentLng(segmentOfStreetListAll.get(i).getSegmentLng())
-                            .setDistrict(selectedDistrict).setStreet(selectedStreet)
-                            .setSegmentId(segmentOfStreetListAll.get(i).getSegmentId());
-                }
-            }
+            newRealEstateAdjacentSegment.setRealEstate(realEstateClicked);
 
-            newRealEstateAdjacentSegment.setId(new RealEstateAdjacentSegmentId(tempSos.getSegmentId(), newUploadRealEstate.getRealEstateId()));
+            Long segmentID = Long.parseLong(segmentStreetIdSelected);
+            newRealEstateAdjacentSegment.setId(new RealEstateAdjacentSegmentId(segmentID, realEstateClicked.getRealEstateId()));
             realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);
         }
 
@@ -249,7 +242,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
 //            Land tempLand = new Land();
             currentLand.setLandName(newLandName);
             currentLand.setLandPrice(Double.parseDouble(newLandMoney.toString()));
-            currentLand.setRealEstate(newUploadRealEstate);
+            currentLand.setRealEstate(realEstateClicked);
 
             currentLand = landService.save(currentLand);
 
@@ -271,7 +264,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
 
             currentListHouse.get(0).setHouseName(realEstateName);
             currentListHouse.get(0).setHousePrice(Double.parseDouble(newHouseMoney.toString()));
-            currentListHouse.get(0).setRealEstate(newUploadRealEstate);
+            currentListHouse.get(0).setRealEstate(realEstateClicked);
 
             for (int i = 0; i < listHouseFeatureValue.size(); i++) {
                 HousesDetail tempHD = currentListHouse.get(0).getListHousesDetail().get(i);

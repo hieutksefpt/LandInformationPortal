@@ -12,6 +12,7 @@ var deleteOld = true;
 var path = [];
 var searchBox;
 var saveRow = [];
+var marker;
 
 //jQuery time
 var current_fs, next_fs, previous_fs; //fieldsets
@@ -21,8 +22,10 @@ var animating; //flag to prevent quick multi-click glitches
 
 function initMap() {
     //FPT 
-    var latitude = 21.012633;
-    var longitude = 105.527423;
+    var longitude = parseFloat($('#msform\\:txtinput-lngSingleCoordinate').val());
+    var latitude = parseFloat($('#msform\\:txtinput-latSingleCoordinate').val());
+
+
 
     var myLatLng = {lat: latitude, lng: longitude};
 
@@ -34,15 +37,12 @@ function initMap() {
         disableDoubleClickZoom: true,
         fullscreenControl: false
     });
-    
-    
-    let marker = new google.maps.Marker({
-            position: event.latLng,
-            map: map,
-            title: event.latLng.lat() + ', ' + event.latLng.lng()
-        });
-        
-        
+
+    marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+    });
+
     map.addListener('bounds_changed', function () {
         searchBox.setBounds(map.getBounds());
     });
@@ -50,7 +50,6 @@ function initMap() {
     var formControl = $('#formControl')[0];
     map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(formControl);
 
-    var markers = [];
     var input = $('#searchbox-Address')[0];
 
     searchBox = new google.maps.places.SearchBox(input);
@@ -96,6 +95,7 @@ function initMap() {
     });
 
     google.maps.event.addListener(map, 'click', function (event) {
+        removeMarker();
         let selectedType = $("#form\\:cbb-IpgType option:selected").val();
 
         let marker = new google.maps.Marker({
@@ -117,6 +117,12 @@ function initMap() {
 
     });
 }
+
+function removeMarker(){
+     marker.setMap(null);
+}
+
+
 let countRow = 0;
 function addDataToNewRow(marker) {
     $('#lng-' + (countRow - 1)).val(marker.getPosition().lng());
@@ -245,18 +251,18 @@ function clearAllInput() {
     $('#form\\:txtinput-latSingleCoordinate').val("");
 }
 
-function display_div(show){
-    if(document.getElementById('optionList').value == 1){
+function display_div(show) {
+    if (document.getElementById('optionList').value == 1) {
 //        document.getElementById('houseBox').blur();
         document.getElementById('houseBox').readOnly = true;
 //        document.getElementById('txtInputHouseFeatureNew').readOnly = true;
     }
-   if(document.getElementById('optionList').value == 2){
+    if (document.getElementById('optionList').value == 2) {
 //        document.getElementById('landBox').blur();
         document.getElementById('landBox').readOnly = true;
 //        document.getElementById('txtInputLandFeatureNew').readOnly = true;
     }
-    if(document.getElementById('optionList').value == 3){
+    if (document.getElementById('optionList').value == 3) {
         document.getElementById('houseBox').readOnly = false;
 //        document.getElementById('txtInputHouseFeatureNew').readOnly = false;
         document.getElementById('landBox').readOnly = false;
@@ -265,88 +271,90 @@ function display_div(show){
 
 }
 
-function loadLandUnit(landUnit){
-    document.getElementById("landUnit").textContent="(" + landUnit+")";
+function loadLandUnit(landUnit) {
+    document.getElementById("landUnit").textContent = "(" + landUnit + ")";
 }
 
-function loadHouseUnit(houseUnit){
-    document.getElementById("houseUnit").textContent="(" + houseUnit+")";
+function loadHouseUnit(houseUnit) {
+    document.getElementById("houseUnit").textContent = "(" + houseUnit + ")";
 }
 
 // đoạn này bắt đầu test MultiForm
-$(".next").click(function(){
-	if(animating) return false;
-	animating = true;
-	
-	current_fs = $(this).parent();
-	next_fs = $(this).parent().next();
-	
-	//activate next step on progressbar using the index of next_fs
-	$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-	
-	//show the next fieldset
-	next_fs.show(); 
-	//hide the current fieldset with style
-	current_fs.animate({opacity: 0}, {
-		step: function(now, mx) {
-			//as the opacity of current_fs reduces to 0 - stored in "now"
-			//1. scale current_fs down to 80%
-			scale = 1 - (1 - now) * 0.2;
-			//2. bring next_fs from the right(50%)
-			left = (now * 50)+"%";
-			//3. increase opacity of next_fs to 1 as it moves in
-			opacity = 1 - now;
-			current_fs.css({
-        'transform': 'scale('+scale+')'
-      });
-			next_fs.css({'left': left, 'opacity': opacity});
-		}, 
-		duration: 800, 
-		complete: function(){
-			current_fs.hide();
-			animating = false;
-		}, 
-		//this comes from the custom easing plugin
-		easing: 'easeInOutBack'
-	});
+$(".next").click(function () {
+    if (animating)
+        return false;
+    animating = true;
+
+    current_fs = $(this).parent();
+    next_fs = $(this).parent().next();
+
+    //activate next step on progressbar using the index of next_fs
+    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+    //show the next fieldset
+    next_fs.show();
+    //hide the current fieldset with style
+    current_fs.animate({opacity: 0}, {
+        step: function (now, mx) {
+            //as the opacity of current_fs reduces to 0 - stored in "now"
+            //1. scale current_fs down to 80%
+            scale = 1 - (1 - now) * 0.2;
+            //2. bring next_fs from the right(50%)
+            left = (now * 50) + "%";
+            //3. increase opacity of next_fs to 1 as it moves in
+            opacity = 1 - now;
+            current_fs.css({
+                'transform': 'scale(' + scale + ')'
+            });
+            next_fs.css({'left': left, 'opacity': opacity});
+        },
+        duration: 800,
+        complete: function () {
+            current_fs.hide();
+            animating = false;
+        },
+        //this comes from the custom easing plugin
+        easing: 'easeInOutBack'
+    });
 });
 
-$(".previous").click(function(){
-	if(animating) return false;
-	animating = true;
-	
-	current_fs = $(this).parent();
-	previous_fs = $(this).parent().prev();
-	
-	//de-activate current step on progressbar
-	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-	
-	//show the previous fieldset
-	previous_fs.show(); 
-	//hide the current fieldset with style
-	current_fs.animate({opacity: 0}, {
-		step: function(now, mx) {
-			//as the opacity of current_fs reduces to 0 - stored in "now"
-			//1. scale previous_fs from 80% to 100%
-			scale = 0.8 + (1 - now) * 0.2;
-			//2. take current_fs to the right(50%) - from 0%
-			left = ((1-now) * 50)+"%";
-			//3. increase opacity of previous_fs to 1 as it moves in
-			opacity = 1 - now;
-			current_fs.css({'left': left});
-			previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
-		}, 
-		duration: 800, 
-		complete: function(){
-			current_fs.hide();
-			animating = false;
-		}, 
-		//this comes from the custom easing plugin
-		easing: 'easeInOutBack'
-	});
+$(".previous").click(function () {
+    if (animating)
+        return false;
+    animating = true;
+
+    current_fs = $(this).parent();
+    previous_fs = $(this).parent().prev();
+
+    //de-activate current step on progressbar
+    $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+    //show the previous fieldset
+    previous_fs.show();
+    //hide the current fieldset with style
+    current_fs.animate({opacity: 0}, {
+        step: function (now, mx) {
+            //as the opacity of current_fs reduces to 0 - stored in "now"
+            //1. scale previous_fs from 80% to 100%
+            scale = 0.8 + (1 - now) * 0.2;
+            //2. take current_fs to the right(50%) - from 0%
+            left = ((1 - now) * 50) + "%";
+            //3. increase opacity of previous_fs to 1 as it moves in
+            opacity = 1 - now;
+            current_fs.css({'left': left});
+            previous_fs.css({'transform': 'scale(' + scale + ')', 'opacity': opacity});
+        },
+        duration: 800,
+        complete: function () {
+            current_fs.hide();
+            animating = false;
+        },
+        //this comes from the custom easing plugin
+        easing: 'easeInOutBack'
+    });
 });
 
-$(".submit").click(function(){
-	return false;
+$(".submit").click(function () {
+    return false;
 })
 

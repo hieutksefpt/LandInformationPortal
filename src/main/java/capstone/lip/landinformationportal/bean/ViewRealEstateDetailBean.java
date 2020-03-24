@@ -15,6 +15,7 @@ import capstone.lip.landinformationportal.service.Interface.ILandsDetailService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import com.google.gson.Gson;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -57,15 +58,23 @@ public class ViewRealEstateDetailBean implements Serializable {
 
     @Autowired
     private IUserService userService;
+    
+    private long tempRealEstateId;
 
     @PostConstruct
     public void init() {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         long realEstateId = Long.parseLong(params.get("realEstateId"));
+        tempRealEstateId = realEstateId;
         realEstateClicked = realEstateService.findById(realEstateId);
         currentLand = realEstateService.getLand(realEstateId);
         currentListHouse = realEstateService.getListHouse(realEstateId);
         transferCoordinate();
+    }
+    
+    public void goToDetails(long realEstateId) throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath() + "/user/updatecontributerealestate.xhtml?realEstateId=" + realEstateId);
     }
 
     public void deleteRealEstate() {
@@ -136,4 +145,14 @@ public class ViewRealEstateDetailBean implements Serializable {
     public void setRealEstateClicked(RealEstate realEstateClicked) {
         this.realEstateClicked = realEstateClicked;
     }
+
+    public long getTempRealEstateId() {
+        return tempRealEstateId;
+    }
+
+    public void setTempRealEstateId(long tempRealEstateId) {
+        this.tempRealEstateId = tempRealEstateId;
+    }
+    
+    
 }

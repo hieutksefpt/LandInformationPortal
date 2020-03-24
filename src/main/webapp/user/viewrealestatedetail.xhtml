@@ -57,7 +57,7 @@
                                                          onclick="openConfirmDeletePopup()">
                                             <f:ajax execute="@form" render="confirmDeletePopup" />
                                         </h:commandButton>
-                                        <h:commandButton id="btn-ButtonEdit" class="btn-edit btn-in-detai-page" value="Sửa">
+                                        <h:commandButton id="btn-ButtonEdit" class="btn-edit btn-in-detai-page" value="Sửa" action="#{viewRealEstateDetailBean.goToDetails(viewRealEstateDetailBean.tempRealEstateId)}">
                                             <p:ajax process="@form"></p:ajax>
                                         </h:commandButton>
                                     </h:form>

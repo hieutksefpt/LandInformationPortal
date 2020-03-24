@@ -5,29 +5,6 @@
  */
 package capstone.lip.landinformationportal.bean;
 
-import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
-import static capstone.lip.landinformationportal.common.StatusRealEstateConstant.CONFUSED;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
-import org.primefaces.PrimeFaces;
-import org.primefaces.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import capstone.lip.landinformationportal.dto.Coordinate;
 import capstone.lip.landinformationportal.dto.HouseFeatureValue;
 import capstone.lip.landinformationportal.dto.LandFeatureValue;
@@ -62,9 +39,20 @@ import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.ISegmentOfStreetService;
 import capstone.lip.landinformationportal.service.Interface.IStreetService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
+import com.google.gson.Gson;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import org.primefaces.PrimeFaces;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -72,31 +60,36 @@ import java.util.UUID;
  */
 @Named
 @ViewScoped
-public class ContributeNewRealEstateBean implements Serializable, StatusRealEstateConstant {
+public class UpdateContributeRealEstateBean implements Serializable {
+
+    private RealEstate realEstateClicked;
+    private String jsonCoordinate;
+    private Land currentLand;
+    private List<House> currentListHouse;
 
     @Autowired
     private IRealEstateService realEstateService;
+
+    @Autowired
+    private ILandService landService;
+
+    @Autowired
+    private IHouseService houseService;
+
+    @Autowired
+    private ILandsDetailService landsDetailService;
+
+    @Autowired
+    private IHousesDetailService housesDetailService;
+
+    @Autowired
+    private IUserService userService;
 
     @Autowired
     private IProvinceService provinceService;
 
     @Autowired
     private IDistrictService districtService;
-    
-    @Autowired
-    private ILandsDetailService landsDetailService;
-
-    @Autowired
-    private IHousesDetailService housesDetailService;
-    
-    @Autowired
-    private IUserService userService;
-
-    @Autowired
-    private ILandService landService;
-    
-    @Autowired
-    private IHouseService houseService;
 
     @Autowired
     private ISegmentOfStreetService segmentOfStreetService;
@@ -158,7 +151,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     private BigDecimal realEstatePrice;
     private String realEstateStatus;
     private String realEstateLink;
-    private String realEstateType;
+    private String realEstateSource;
     private String userId;
     //submit data
     private BigDecimal realEstatePriceSubmit;
@@ -166,31 +159,68 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     private String newLandName;
     private String newHouseName;
 
+    private long tempRealEstateId;
+    private House tempHouse;
+
     @PostConstruct
     public void init() {
-        processType = "1";
-        listCoordinate = new ArrayList();
-        listProvince = new ArrayList<Province>();
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        long realEstateId = Long.parseLong(params.get("realEstateId"));
         listProvince = provinceService.findAll();
         listDistrict = new ArrayList<>();
         listSegmentOfStreet = new ArrayList<>();
         listStreet = new ArrayList<>();
         listLandsFeature = landFeatureService.findAll();
         listHousesFeature = housesFeatureService.findAll();
-        realEstateStatus = String.valueOf(CONFUSED);
-        realEstateType = CONTRIBUTOR;
-        userId = "1";
-        realEstatePrice = BigDecimal.ZERO;
-        newHouseMoney = BigDecimal.ZERO;
-        newLandMoney = BigDecimal.ZERO;
+        realEstateClicked = realEstateService.findById(realEstateId);
+        currentLand = realEstateService.getLand(realEstateId);
+        currentListHouse = realEstateService.getListHouse(realEstateId);
+        tempHouse = currentListHouse.get(0);
 
+        lngSingleCoordinate = realEstateClicked.getRealEstateLng().toString();
+        latSingleCoordinate = realEstateClicked.getRealEstateLat().toString();
+
+        realEstateStatus = realEstateClicked.getRealEstateStatus();
+        realEstateLink = realEstateClicked.getRealEstateLink();
+        realEstateSource = realEstateClicked.getRealEstateSource();
+//        PrimeFaces.current().executeScript("focusMap(" + latSingleCoordinate + ", " + lngSingleCoordinate + ");");
+
+        realEstateName = realEstateClicked.getRealEstateName();
+        realEstatePrice = realEstateClicked.getRealEstatePrice();
+        newLandName = currentLand.getLandName();
+        newLandMoney = new BigDecimal(currentLand.getLandPrice());
+        List<LandsDetail> landsDetailContribute = currentLand.getListLandsDetail();
+        for (int i = 0; i < landsDetailContribute.size(); i++) {
+            listLandFeatureValue.add(new LandFeatureValue(landsDetailContribute.get(i).getLandsFeature(), landsDetailContribute.get(i).getValue()));
+        }
+
+        newHouseName = currentListHouse.get(0).getHouseName();
+        newHouseMoney = new BigDecimal(currentListHouse.get(0).getHousePrice());
+        List<HousesDetail> housesDetailContribute = currentListHouse.get(0).getListHousesDetail();
+        for (int i = 0; i < housesDetailContribute.size(); i++) {
+            listHouseFeatureValue.add(new HouseFeatureValue(housesDetailContribute.get(i).getHousesFeature(), housesDetailContribute.get(i).getValue()));
+        }
+
+        realEstateStatus = "0";   // Set tạm
+        userId = "1";
+        
+        segmentStreetIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getSegmentId().toString();
+        districtIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getDistrictId().toString();
+        streetIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getStreet().getStreetId().toString();
+        provinceIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getProvince().getProvinceId().toString();
     }
 
-    public void saveDataUploadToDB() {
-        
-        nextLocatePoint();
-        //save to DB RE
-        
+    public void updateDataUploadToDB() {
+
+        if (!segmentStreetIdSelected.equals("") && !provinceIdSelected.equals("") && !districtIdSelected.equals("") && !streetIdSelected.equals("")) {
+            nextLocatePoint();
+        } else {
+            realEstateAddress = realEstateClicked.getRealEstateAddress();
+            realEstateLat = Double.parseDouble(latSingleCoordinate);
+            realEstateLng = Double.parseDouble(lngSingleCoordinate);
+        }
+        //Update to DB RE
+
         User tempUser = new User();
         List<User> userListAll = userService.findAll();
         for (int i = 0; i < userListAll.size(); i++) {
@@ -204,72 +234,55 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
                 tempUser.setPhone(userListAll.get(i).getPhone());
             }
         }
-        RealEstate newUploadRealEstate = new RealEstate().setRealEstateName(realEstateName)
-                .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
+        realEstateClicked.setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
                 .setRealEstateAddress(realEstateAddress);
-        newUploadRealEstate.setRealEstatePrice(realEstatePrice);
-        newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
-        newUploadRealEstate = realEstateService.save(newUploadRealEstate);
+        realEstateClicked.setRealEstatePrice(realEstatePrice);
+        realEstateClicked.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
+        realEstateClicked = realEstateService.save(realEstateClicked);
 
-        // save to Table REAS
-        RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
-        
-        newRealEstateAdjacentSegment.setRealEstate(newUploadRealEstate);
-        SegmentOfStreet tempSos = new SegmentOfStreet();
-        List<SegmentOfStreet> segmentOfStreetListAll = segmentOfStreetService.findAll();
-        for (int i = 0; i < segmentOfStreetListAll.size(); i++) {
-            if (segmentOfStreetListAll.get(i).getSegmentId().toString().equals(segmentStreetIdSelected)) {
-                tempSos.setSegmentName(segmentOfStreetListAll.get(i).getSegmentName())
-                        .setSegmentLat(segmentOfStreetListAll.get(i).getSegmentLng())
-                        .setSegmentLng(segmentOfStreetListAll.get(i).getSegmentLng())
-                        .setDistrict(selectedDistrict).setStreet(selectedStreet)
-                        .setSegmentId(segmentOfStreetListAll.get(i).getSegmentId());
-            }
+        // Update to Table REAS if combobox value of Map != Null
+        if (!segmentStreetIdSelected.equals("") && !provinceIdSelected.equals("") && !districtIdSelected.equals("") && !streetIdSelected.equals("")) {
+            RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
+
+            newRealEstateAdjacentSegment.setRealEstate(realEstateClicked);
+
+            Long segmentID = Long.parseLong(segmentStreetIdSelected);
+            newRealEstateAdjacentSegment.setId(new RealEstateAdjacentSegmentId(segmentID, realEstateClicked.getRealEstateId()));
+            realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);
         }
 
-        newRealEstateAdjacentSegment.setId(new RealEstateAdjacentSegmentId(tempSos.getSegmentId(), newUploadRealEstate.getRealEstateId()));
+        // Update to Table Land & Update to Table LandsDetail
+        if (currentLand.getLandId() != null || !currentLand.getLandId().equals("")) {
+            currentLand.setLandName(newLandName);
+            currentLand.setLandPrice(Double.parseDouble(newLandMoney.toString()));
+            currentLand.setRealEstate(realEstateClicked);
 
-        
-        
-        realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);
-
-        // save to Table Land & save to Table LandsDetail
-        if (newLandMoney.compareTo(BigDecimal.ZERO) != 0) {
-            Land tempLand = new Land();
-            tempLand.setLandName(newLandName);
-            tempLand.setLandPrice(Double.parseDouble(newLandMoney.toString()));
-            tempLand.setRealEstate(newUploadRealEstate);
-
-            tempLand = landService.save(tempLand);
+            currentLand = landService.save(currentLand);
 
             for (int i = 0; i < listLandFeatureValue.size(); i++) {
-                LandsDetailId tempLDI = new LandsDetailId();
-                tempLDI.setLandId(tempLand.getLandId());
+                LandsDetail tempLD = currentLand.getListLandsDetail().get(i);
+                LandsDetailId tempLDI = tempLD.getId();
+                tempLDI.setLandId(currentLand.getLandId());
                 tempLDI.setLandsFeatureId(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureID());
-                LandsDetail tempLD = new LandsDetail();
                 tempLD.setId(tempLDI)
-                	.setValue(listLandFeatureValue.get(i).getValue());
+                        .setValue(listLandFeatureValue.get(i).getValue());
                 landsDetailService.save(tempLD);
             }
-
         }
-
-        // save to Table House & House Detail tương tự Land :(( 
-        if (newHouseMoney.compareTo(BigDecimal.ZERO) != 0) {
-            House tempHouse = new House();
-            tempHouse.setHouseName(newHouseName);
-            tempHouse.setHousePrice(Double.parseDouble(newHouseMoney.toString()));
-            tempHouse.setRealEstate(newUploadRealEstate);
-
-            tempHouse = houseService.save(tempHouse);
+        // Update to Table House & House Detail tương tự Land 
+        if (currentListHouse.get(0).getHouseId() != null || !currentListHouse.get(0).getHouseId().equals("")) {
+            currentListHouse.get(0).setHouseName(newHouseName);
+            currentListHouse.get(0).setHouseName(realEstateName);
+            currentListHouse.get(0).setHousePrice(Double.parseDouble(newHouseMoney.toString()));
+            currentListHouse.get(0).setRealEstate(realEstateClicked);
 
             for (int i = 0; i < listHouseFeatureValue.size(); i++) {
-                HousesDetailId tempHDI = new HousesDetailId();
-                tempHDI.setHouseId(tempHouse.getHouseId());
+                HousesDetail tempHD = currentListHouse.get(0).getListHousesDetail().get(i);
+                HousesDetailId tempHDI = tempHD.getId();
+                tempHDI.setHouseId(currentListHouse.get(0).getHouseId());
                 tempHDI.setHousesFeatureId(listHouseFeatureValue.get(i).getHousesFeature().getHousesFeatureID());
-                HousesDetail tempHD = new HousesDetail();
                 tempHD.setId(tempHDI)
-                	.setValue(listHouseFeatureValue.get(i).getValue());
+                        .setValue(listHouseFeatureValue.get(i).getValue());
                 housesDetailService.save(tempHD);
             }
 
@@ -339,7 +352,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
                 segmentStreetAddress = listSegmentOfStreet.get(i).getSegmentName();
             }
         }
-        realEstateAddress = streetAddress + ", "+ districtAddress + ", " + provinceAddress; // Address of Real Estate show just only Street.
+        realEstateAddress = streetAddress + ", " + districtAddress + ", " + provinceAddress; // Address of Real Estate show just only Street.
         try {
             realEstateLng = Double.parseDouble(lngSingleCoordinate);
             realEstateLat = Double.parseDouble(latSingleCoordinate);
@@ -352,7 +365,6 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 //                // this case will show for user to warning about empty address of Combobox 
 //        }
     }
-
 
     public void onChangeLandUnit() {
         for (int i = 0; i < listLandsFeature.size(); i++) {
@@ -539,6 +551,94 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         }
     }
 
+    public RealEstate getRealEstateClicked() {
+        return realEstateClicked;
+    }
+
+    public void setRealEstateClicked(RealEstate realEstateClicked) {
+        this.realEstateClicked = realEstateClicked;
+    }
+
+    public String getJsonCoordinate() {
+        return jsonCoordinate;
+    }
+
+    public void setJsonCoordinate(String jsonCoordinate) {
+        this.jsonCoordinate = jsonCoordinate;
+    }
+
+    public Land getCurrentLand() {
+        return currentLand;
+    }
+
+    public void setCurrentLand(Land currentLand) {
+        this.currentLand = currentLand;
+    }
+
+    public List<House> getCurrentListHouse() {
+        return currentListHouse;
+    }
+
+    public void setCurrentListHouse(List<House> currentListHouse) {
+        this.currentListHouse = currentListHouse;
+    }
+
+    public ILandService getLandService() {
+        return landService;
+    }
+
+    public void setLandService(ILandService landService) {
+        this.landService = landService;
+    }
+
+    public IHouseService getHouseService() {
+        return houseService;
+    }
+
+    public void setHouseService(IHouseService houseService) {
+        this.houseService = houseService;
+    }
+
+    public ILandsDetailService getLandsDetailService() {
+        return landsDetailService;
+    }
+
+    public void setLandsDetailService(ILandsDetailService landsDetailService) {
+        this.landsDetailService = landsDetailService;
+    }
+
+    public IHousesDetailService getHousesDetailService() {
+        return housesDetailService;
+    }
+
+    public void setHousesDetailService(IHousesDetailService housesDetailService) {
+        this.housesDetailService = housesDetailService;
+    }
+
+    public IUserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(IUserService userService) {
+        this.userService = userService;
+    }
+
+    public IFormedCoordinate getFormedCoordinateService() {
+        return formedCoordinateService;
+    }
+
+    public void setFormedCoordinateService(IFormedCoordinate formedCoordinateService) {
+        this.formedCoordinateService = formedCoordinateService;
+    }
+
+    public ILandsFeatureService getLandFeatureService() {
+        return landFeatureService;
+    }
+
+    public void setLandFeatureService(ILandsFeatureService landFeatureService) {
+        this.landFeatureService = landFeatureService;
+    }
+
     public List<Province> getListProvince() {
         return listProvince;
     }
@@ -565,46 +665,6 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 
     public List<Street> getListStreet() {
         return listStreet;
-    }
-
-    public String getHouseFeatureIdSelected() {
-        return houseFeatureIdSelected;
-    }
-
-    public void setHouseFeatureIdSelected(String houseFeatureIdSelected) {
-        this.houseFeatureIdSelected = houseFeatureIdSelected;
-    }
-
-    public List<HouseFeatureValue> getListHouseFeatureValue() {
-        return listHouseFeatureValue;
-    }
-
-    public void setListHouseFeatureValue(List<HouseFeatureValue> listHouseFeatureValue) {
-        this.listHouseFeatureValue = listHouseFeatureValue;
-    }
-
-    public List<HousesFeature> getListHousesFeature() {
-        return listHousesFeature;
-    }
-
-    public void setListHousesFeature(List<HousesFeature> listHousesFeature) {
-        this.listHousesFeature = listHousesFeature;
-    }
-
-    public String getNewLandFeatureValue() {
-        return newLandFeatureValue;
-    }
-
-    public void setNewLandFeatureValue(String newLandFeatureValue) {
-        this.newLandFeatureValue = newLandFeatureValue;
-    }
-
-    public String getNewHouseFeatureValue() {
-        return newHouseFeatureValue;
-    }
-
-    public void setNewHouseFeatureValue(String newHouseFeatureValue) {
-        this.newHouseFeatureValue = newHouseFeatureValue;
     }
 
     public void setListStreet(List<Street> listStreet) {
@@ -691,44 +751,36 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         this.jsonMultipleCoordinate = jsonMultipleCoordinate;
     }
 
-    public Province getSelectedProvince() {
-        return selectedProvince;
-    }
-
-    public void setSelectedProvince(Province selectedProvince) {
-        this.selectedProvince = selectedProvince;
-    }
-
-    public District getSelectedDistrict() {
-        return selectedDistrict;
-    }
-
-    public void setSelectedDistrict(District selectedDistrict) {
-        this.selectedDistrict = selectedDistrict;
-    }
-
-    public Street getSelectedStreet() {
-        return selectedStreet;
-    }
-
-    public void setSelectedStreet(Street selectedStreet) {
-        this.selectedStreet = selectedStreet;
-    }
-
-    public SegmentOfStreet getSegmentOfStreet() {
-        return segmentOfStreet;
-    }
-
-    public void setSegmentOfStreet(SegmentOfStreet segmentOfStreet) {
-        this.segmentOfStreet = segmentOfStreet;
-    }
-
     public String getLandFeatureIdSelected() {
         return landFeatureIdSelected;
     }
 
     public void setLandFeatureIdSelected(String landFeatureIdSelected) {
         this.landFeatureIdSelected = landFeatureIdSelected;
+    }
+
+    public String getHouseFeatureIdSelected() {
+        return houseFeatureIdSelected;
+    }
+
+    public void setHouseFeatureIdSelected(String houseFeatureIdSelected) {
+        this.houseFeatureIdSelected = houseFeatureIdSelected;
+    }
+
+    public List<LandFeatureValue> getListLandFeatureValue() {
+        return listLandFeatureValue;
+    }
+
+    public void setListLandFeatureValue(List<LandFeatureValue> listLandFeatureValue) {
+        this.listLandFeatureValue = listLandFeatureValue;
+    }
+
+    public List<HouseFeatureValue> getListHouseFeatureValue() {
+        return listHouseFeatureValue;
+    }
+
+    public void setListHouseFeatureValue(List<HouseFeatureValue> listHouseFeatureValue) {
+        this.listHouseFeatureValue = listHouseFeatureValue;
     }
 
     public List<LandsFeature> getListLandsFeature() {
@@ -739,12 +791,28 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         this.listLandsFeature = listLandsFeature;
     }
 
-    public List<LandFeatureValue> getListLandFeatureValue() {
-        return listLandFeatureValue;
+    public List<HousesFeature> getListHousesFeature() {
+        return listHousesFeature;
     }
 
-    public void setListLandFeatureValue(List<LandFeatureValue> listLandFeatureValue) {
-        this.listLandFeatureValue = listLandFeatureValue;
+    public void setListHousesFeature(List<HousesFeature> listHousesFeature) {
+        this.listHousesFeature = listHousesFeature;
+    }
+
+    public String getNewLandFeatureValue() {
+        return newLandFeatureValue;
+    }
+
+    public void setNewLandFeatureValue(String newLandFeatureValue) {
+        this.newLandFeatureValue = newLandFeatureValue;
+    }
+
+    public String getNewHouseFeatureValue() {
+        return newHouseFeatureValue;
+    }
+
+    public void setNewHouseFeatureValue(String newHouseFeatureValue) {
+        this.newHouseFeatureValue = newHouseFeatureValue;
     }
 
     public String getLandUnit() {
@@ -761,6 +829,30 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 
     public void setHouseUnit(String houseUnit) {
         this.houseUnit = houseUnit;
+    }
+
+    public BigDecimal getNewHouseMoney() {
+        return newHouseMoney;
+    }
+
+    public void setNewHouseMoney(BigDecimal newHouseMoney) {
+        this.newHouseMoney = newHouseMoney;
+    }
+
+    public BigDecimal getNewLandMoney() {
+        return newLandMoney;
+    }
+
+    public void setNewLandMoney(BigDecimal newLandMoney) {
+        this.newLandMoney = newLandMoney;
+    }
+
+    public String getRealEstateName() {
+        return realEstateName;
+    }
+
+    public void setRealEstateName(String realEstateName) {
+        this.realEstateName = realEstateName;
     }
 
     public String getProvinceAddress() {
@@ -844,11 +936,11 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     }
 
     public String getRealEstateType() {
-        return realEstateType;
+        return realEstateSource;
     }
 
-    public void setRealEstateType(String realEstateType) {
-        this.realEstateType = realEstateType;
+    public void setRealEstateType(String realEstateSource) {
+        this.realEstateSource = realEstateSource;
     }
 
     public String getUserId() {
@@ -857,14 +949,6 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public String getRealEstateName() {
-        return realEstateName;
-    }
-
-    public void setRealEstateName(String realEstateName) {
-        this.realEstateName = realEstateName;
     }
 
     public BigDecimal getRealEstatePriceSubmit() {
@@ -883,22 +967,6 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         this.realEstateNameSubmit = realEstateNameSubmit;
     }
 
-    public BigDecimal getNewHouseMoney() {
-        return newHouseMoney;
-    }
-
-    public void setNewHouseMoney(BigDecimal newHouseMoney) {
-        this.newHouseMoney = newHouseMoney;
-    }
-
-    public BigDecimal getNewLandMoney() {
-        return newLandMoney;
-    }
-
-    public void setNewLandMoney(BigDecimal newLandMoney) {
-        this.newLandMoney = newLandMoney;
-    }
-
     public String getNewLandName() {
         return newLandName;
     }
@@ -913,6 +981,54 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 
     public void setNewHouseName(String newHouseName) {
         this.newHouseName = newHouseName;
+    }
+
+    public Province getSelectedProvince() {
+        return selectedProvince;
+    }
+
+    public void setSelectedProvince(Province selectedProvince) {
+        this.selectedProvince = selectedProvince;
+    }
+
+    public District getSelectedDistrict() {
+        return selectedDistrict;
+    }
+
+    public void setSelectedDistrict(District selectedDistrict) {
+        this.selectedDistrict = selectedDistrict;
+    }
+
+    public Street getSelectedStreet() {
+        return selectedStreet;
+    }
+
+    public void setSelectedStreet(Street selectedStreet) {
+        this.selectedStreet = selectedStreet;
+    }
+
+    public SegmentOfStreet getSegmentOfStreet() {
+        return segmentOfStreet;
+    }
+
+    public void setSegmentOfStreet(SegmentOfStreet segmentOfStreet) {
+        this.segmentOfStreet = segmentOfStreet;
+    }
+
+    public long getTempRealEstateId() {
+        return tempRealEstateId;
+    }
+
+    public void setTempRealEstateId(long tempRealEstateId) {
+        this.tempRealEstateId = tempRealEstateId;
+    }
+
+    public House getTempHouse() {
+        return tempHouse;
+    }
+
+    public void setTempHouse(House tempHouse) {
+        this.tempHouse = tempHouse;
     }
 
 }

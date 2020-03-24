@@ -25,6 +25,7 @@ import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+
 /**
  *
  * @author Admin
@@ -61,20 +62,20 @@ public class RealEstate extends AuditAbstract implements Serializable {
     @LazyToOne(LazyToOneOption.NO_PROXY)
     private User user;
 
-    @OneToOne(mappedBy = "realEstate",fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "realEstate", fetch = FetchType.LAZY)
     @LazyToOne(LazyToOneOption.NO_PROXY)
     private Land land;
-    
+
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToMany(mappedBy = "realEstate", fetch = FetchType.LAZY)
     @LazyToOne(LazyToOneOption.NO_PROXY)
     private List<House> listHouse;
-    
+
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToMany(mappedBy = "realEstate", fetch = FetchType.LAZY)
     @LazyToOne(LazyToOneOption.NO_PROXY)
     private List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment;
-    
+
     public RealEstate() {
     }
 
@@ -110,6 +111,13 @@ public class RealEstate extends AuditAbstract implements Serializable {
         return this;
     }
 
+    public String getRealEstateNameGetOnly() {
+        return this.realEstateName;
+    }
+
+    public void setRealEstateNameGetOnly(String realEstateName) {
+         realEstateName = realEstateName;
+    }
     public Double getRealEstateLat() {
         return realEstateLat;
     }
@@ -145,7 +153,6 @@ public class RealEstate extends AuditAbstract implements Serializable {
         this.realEstatePrice = realEstatePrice;
         return this;
     }
-
 
     public String getRealEstateStatus() {
         return realEstateStatus;
@@ -201,111 +208,139 @@ public class RealEstate extends AuditAbstract implements Serializable {
         return this;
     }
 
+    public Land getLand() {
+        return land;
+    }
 
-	public Land getLand() {
-		return land;
-	}
+    public void setLand(Land land) {
+        this.land = land;
+    }
 
-	public void setLand(Land land) {
-		this.land = land;
-	}
-    
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((listHouse == null) ? 0 : listHouse.hashCode());
-		result = prime * result + ((land == null) ? 0 : land.hashCode());
-		result = prime * result
-				+ ((listRealEstateAdjacentSegment == null) ? 0 : listRealEstateAdjacentSegment.hashCode());
-		result = prime * result + ((realEstateAddress == null) ? 0 : realEstateAddress.hashCode());
-		result = prime * result + ((realEstateId == null) ? 0 : realEstateId.hashCode());
-		result = prime * result + ((realEstateLat == null) ? 0 : realEstateLat.hashCode());
-		result = prime * result + ((realEstateLink == null) ? 0 : realEstateLink.hashCode());
-		result = prime * result + ((realEstateLng == null) ? 0 : realEstateLng.hashCode());
-		result = prime * result + ((realEstateName == null) ? 0 : realEstateName.hashCode());
-		result = prime * result + ((realEstatePrice == null) ? 0 : realEstatePrice.hashCode());
-		result = prime * result + ((realEstateStatus == null) ? 0 : realEstateStatus.hashCode());
-		result = prime * result + ((realEstateSource == null) ? 0 : realEstateSource.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((listHouse == null) ? 0 : listHouse.hashCode());
+        result = prime * result + ((land == null) ? 0 : land.hashCode());
+        result = prime * result
+                + ((listRealEstateAdjacentSegment == null) ? 0 : listRealEstateAdjacentSegment.hashCode());
+        result = prime * result + ((realEstateAddress == null) ? 0 : realEstateAddress.hashCode());
+        result = prime * result + ((realEstateId == null) ? 0 : realEstateId.hashCode());
+        result = prime * result + ((realEstateLat == null) ? 0 : realEstateLat.hashCode());
+        result = prime * result + ((realEstateLink == null) ? 0 : realEstateLink.hashCode());
+        result = prime * result + ((realEstateLng == null) ? 0 : realEstateLng.hashCode());
+        result = prime * result + ((realEstateName == null) ? 0 : realEstateName.hashCode());
+        result = prime * result + ((realEstatePrice == null) ? 0 : realEstatePrice.hashCode());
+        result = prime * result + ((realEstateStatus == null) ? 0 : realEstateStatus.hashCode());
+        result = prime * result + ((realEstateSource == null) ? 0 : realEstateSource.hashCode());
+        result = prime * result + ((user == null) ? 0 : user.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RealEstate other = (RealEstate) obj;
-		if (listHouse == null) {
-			if (other.listHouse != null)
-				return false;
-		} else if (!listHouse.equals(other.listHouse))
-			return false;
-		if (land == null) {
-			if (other.land != null)
-				return false;
-		} else if (!land.equals(other.land))
-			return false;
-		if (listRealEstateAdjacentSegment == null) {
-			if (other.listRealEstateAdjacentSegment != null)
-				return false;
-		} else if (!listRealEstateAdjacentSegment.equals(other.listRealEstateAdjacentSegment))
-			return false;
-		if (realEstateAddress == null) {
-			if (other.realEstateAddress != null)
-				return false;
-		} else if (!realEstateAddress.equals(other.realEstateAddress))
-			return false;
-		if (realEstateId == null) {
-			if (other.realEstateId != null)
-				return false;
-		} else if (!realEstateId.equals(other.realEstateId))
-			return false;
-		if (realEstateLat == null) {
-			if (other.realEstateLat != null)
-				return false;
-		} else if (!realEstateLat.equals(other.realEstateLat))
-			return false;
-		if (realEstateLink == null) {
-			if (other.realEstateLink != null)
-				return false;
-		} else if (!realEstateLink.equals(other.realEstateLink))
-			return false;
-		if (realEstateLng == null) {
-			if (other.realEstateLng != null)
-				return false;
-		} else if (!realEstateLng.equals(other.realEstateLng))
-			return false;
-		if (realEstateName == null) {
-			if (other.realEstateName != null)
-				return false;
-		} else if (!realEstateName.equals(other.realEstateName))
-			return false;
-		if (realEstatePrice == null) {
-			if (other.realEstatePrice != null)
-				return false;
-		} else if (!realEstatePrice.equals(other.realEstatePrice))
-			return false;
-		if (realEstateStatus == null) {
-			if (other.realEstateStatus != null)
-				return false;
-		} else if (!realEstateStatus.equals(other.realEstateStatus))
-			return false;
-		if (realEstateSource == null) {
-			if (other.realEstateSource != null)
-				return false;
-		} else if (!realEstateSource.equals(other.realEstateSource))
-			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
-			return false;
-		return true;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        RealEstate other = (RealEstate) obj;
+        if (listHouse == null) {
+            if (other.listHouse != null) {
+                return false;
+            }
+        } else if (!listHouse.equals(other.listHouse)) {
+            return false;
+        }
+        if (land == null) {
+            if (other.land != null) {
+                return false;
+            }
+        } else if (!land.equals(other.land)) {
+            return false;
+        }
+        if (listRealEstateAdjacentSegment == null) {
+            if (other.listRealEstateAdjacentSegment != null) {
+                return false;
+            }
+        } else if (!listRealEstateAdjacentSegment.equals(other.listRealEstateAdjacentSegment)) {
+            return false;
+        }
+        if (realEstateAddress == null) {
+            if (other.realEstateAddress != null) {
+                return false;
+            }
+        } else if (!realEstateAddress.equals(other.realEstateAddress)) {
+            return false;
+        }
+        if (realEstateId == null) {
+            if (other.realEstateId != null) {
+                return false;
+            }
+        } else if (!realEstateId.equals(other.realEstateId)) {
+            return false;
+        }
+        if (realEstateLat == null) {
+            if (other.realEstateLat != null) {
+                return false;
+            }
+        } else if (!realEstateLat.equals(other.realEstateLat)) {
+            return false;
+        }
+        if (realEstateLink == null) {
+            if (other.realEstateLink != null) {
+                return false;
+            }
+        } else if (!realEstateLink.equals(other.realEstateLink)) {
+            return false;
+        }
+        if (realEstateLng == null) {
+            if (other.realEstateLng != null) {
+                return false;
+            }
+        } else if (!realEstateLng.equals(other.realEstateLng)) {
+            return false;
+        }
+        if (realEstateName == null) {
+            if (other.realEstateName != null) {
+                return false;
+            }
+        } else if (!realEstateName.equals(other.realEstateName)) {
+            return false;
+        }
+        if (realEstatePrice == null) {
+            if (other.realEstatePrice != null) {
+                return false;
+            }
+        } else if (!realEstatePrice.equals(other.realEstatePrice)) {
+            return false;
+        }
+        if (realEstateStatus == null) {
+            if (other.realEstateStatus != null) {
+                return false;
+            }
+        } else if (!realEstateStatus.equals(other.realEstateStatus)) {
+            return false;
+        }
+        if (realEstateSource == null) {
+            if (other.realEstateSource != null) {
+                return false;
+            }
+        } else if (!realEstateSource.equals(other.realEstateSource)) {
+            return false;
+        }
+        if (user == null) {
+            if (other.user != null) {
+                return false;
+            }
+        } else if (!user.equals(other.user)) {
+            return false;
+        }
+        return true;
+    }
 
 }

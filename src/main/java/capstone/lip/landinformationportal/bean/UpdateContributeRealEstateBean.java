@@ -238,8 +238,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
         }
 
         // Update to Table Land & Update to Table LandsDetail
-        if (newLandMoney.compareTo(BigDecimal.ZERO) != 0) {
-//            Land tempLand = new Land();
+        if (currentLand.getLandId() != null || !currentLand.getLandId().equals("")) {
             currentLand.setLandName(newLandName);
             currentLand.setLandPrice(Double.parseDouble(newLandMoney.toString()));
             currentLand.setRealEstate(realEstateClicked);
@@ -255,13 +254,10 @@ public class UpdateContributeRealEstateBean implements Serializable {
                         .setValue(listLandFeatureValue.get(i).getValue());
                 landsDetailService.save(tempLD);
             }
-
         }
-
         // Update to Table House & House Detail tương tự Land 
-        if (newHouseMoney.compareTo(BigDecimal.ZERO) != 0) {
+        if (currentListHouse.get(0).getHouseId() != null || !currentListHouse.get(0).getHouseId().equals("")) {
             currentListHouse.get(0).setHouseName(newHouseName);
-
             currentListHouse.get(0).setHouseName(realEstateName);
             currentListHouse.get(0).setHousePrice(Double.parseDouble(newHouseMoney.toString()));
             currentListHouse.get(0).setRealEstate(realEstateClicked);

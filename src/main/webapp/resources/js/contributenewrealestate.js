@@ -34,6 +34,15 @@ function initMap() {
         disableDoubleClickZoom: true,
         fullscreenControl: false
     });
+    
+    
+    let marker = new google.maps.Marker({
+            position: event.latLng,
+            map: map,
+            title: event.latLng.lat() + ', ' + event.latLng.lng()
+        });
+        
+        
     map.addListener('bounds_changed', function () {
         searchBox.setBounds(map.getBounds());
     });

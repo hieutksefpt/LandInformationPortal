@@ -176,15 +176,14 @@ public class UpdateContributeRealEstateBean implements Serializable {
         currentLand = realEstateService.getLand(realEstateId);
         currentListHouse = realEstateService.getListHouse(realEstateId);
         tempHouse = currentListHouse.get(0);
-        
+
         lngSingleCoordinate = realEstateClicked.getRealEstateLng().toString();
         latSingleCoordinate = realEstateClicked.getRealEstateLat().toString();
-        realEstateLat = Double.parseDouble(latSingleCoordinate);
-        realEstateLng = Double.parseDouble(lngSingleCoordinate);
+
         realEstateStatus = realEstateClicked.getRealEstateStatus();
         realEstateLink = realEstateClicked.getRealEstateLink();
         realEstateSource = realEstateClicked.getRealEstateSource();
-        PrimeFaces.current().executeScript("focusMap(" + latSingleCoordinate + ", " + lngSingleCoordinate + ");");
+//        PrimeFaces.current().executeScript("focusMap(" + latSingleCoordinate + ", " + lngSingleCoordinate + ");");
 
         realEstateName = realEstateClicked.getRealEstateName();
         realEstatePrice = realEstateClicked.getRealEstatePrice();
@@ -204,14 +203,22 @@ public class UpdateContributeRealEstateBean implements Serializable {
 
         realEstateStatus = "0";   // Set tạm
         userId = "1";
+        
+        segmentStreetIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getSegmentId().toString();
+        districtIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getDistrictId().toString();
+        streetIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getStreet().getStreetId().toString();
+        provinceIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getProvince().getProvinceId().toString();
     }
 
     public void updateDataUploadToDB() {
 
-        if (!segmentStreetIdSelected.equals("")  && !provinceIdSelected.equals("") && !districtIdSelected.equals("") && !streetIdSelected.equals("")) {
+        if (!segmentStreetIdSelected.equals("") && !provinceIdSelected.equals("") && !districtIdSelected.equals("") && !streetIdSelected.equals("")) {
             nextLocatePoint();
+        } else {
+            realEstateAddress = realEstateClicked.getRealEstateAddress();
+            realEstateLat = Double.parseDouble(latSingleCoordinate);
+            realEstateLng = Double.parseDouble(lngSingleCoordinate);
         }
-        else realEstateAddress = realEstateClicked.getRealEstateAddress();
         //Update to DB RE
 
         User tempUser = new User();
@@ -234,7 +241,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
         realEstateClicked = realEstateService.save(realEstateClicked);
 
         // Update to Table REAS if combobox value of Map != Null
-        if (!segmentStreetIdSelected.equals("")  && !provinceIdSelected.equals("") && !districtIdSelected.equals("") && !streetIdSelected.equals("")) {
+        if (!segmentStreetIdSelected.equals("") && !provinceIdSelected.equals("") && !districtIdSelected.equals("") && !streetIdSelected.equals("")) {
             RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
 
             newRealEstateAdjacentSegment.setRealEstate(realEstateClicked);
@@ -1023,6 +1030,5 @@ public class UpdateContributeRealEstateBean implements Serializable {
     public void setTempHouse(House tempHouse) {
         this.tempHouse = tempHouse;
     }
-    
-    
+
 }

@@ -113,13 +113,13 @@
                                     <tr>
                                         <td><span class="title-mandatory">Tên phần Đất</span></td>
                                         <td>
-                                            <h:inputText id="txtInputLandName" value="#{updateContributeRealEstateBean.landName}">
+                                            <h:inputText id="txtInputLandName" value="#{updateContributeRealEstateBean.newLandName}">
                                             </h:inputText>
                                         </td>
                                     </tr>
                                     <tr><td><span class="title-mandatory">Giá trị phần Đất</span></td>
                                         <td>
-                                            <h:inputText id="txtInputLandMoney" value="#{updateContributeRealEstateBean.landPrice}">
+                                            <h:inputText id="txtInputLandMoney" value="#{updateContributeRealEstateBean.newLandMoney}">
                                                 <p:ajax listener="#{updateContributeRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
                                             </h:inputText>
                                             <span class="unit"><i>(VND)</i></span>

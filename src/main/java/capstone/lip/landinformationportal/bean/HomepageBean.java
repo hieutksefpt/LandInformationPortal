@@ -6,19 +6,32 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.New;
 import javax.faces.component.UICommand;
 import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import com.google.gson.Gson;
+
 import capstone.lip.landinformationportal.common.StatusCrawledNewsConstant;
+import capstone.lip.landinformationportal.dto.Coordinate;
 import capstone.lip.landinformationportal.dto.Pagination;
 import capstone.lip.landinformationportal.entity.CrawledNews;
+import capstone.lip.landinformationportal.entity.District;
+import capstone.lip.landinformationportal.entity.FormedCoordinate;
+import capstone.lip.landinformationportal.entity.Province;
+import capstone.lip.landinformationportal.entity.RealEstate;
+import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegment;
+import capstone.lip.landinformationportal.entity.SegmentOfStreet;
+import capstone.lip.landinformationportal.entity.Street;
 import capstone.lip.landinformationportal.service.Interface.ICrawledNewsService;
+import capstone.lip.landinformationportal.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 
 @Named
@@ -28,15 +41,30 @@ public class HomepageBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private ICrawledNewsService crawledNewService;
-	
+	private ICrawledNewsService crawledNewService;	
 	@Autowired
 	private IRealEstateService realEstateService;
+	@Autowired
+	private IProvinceService provinceService;
 	
 	private Pagination pageNews;
+	private Page<CrawledNews> listNewsPage;
+	private List<CrawledNews> listNews;
+	private List<Province> listProvince;
+	private List<District> listDistrict;
+	private List<SegmentOfStreet> listSegmentOfStreet;
+	private List<Street> listStreet;
+	private String provinceIdSelected;
+	private String districtIdSelected;
+	private String streetIdSelected;
+	private String segmentIdSelected;
 	
-	Page<CrawledNews> listNewsPage;
-	List<CrawledNews> listNews;
+	private Province provinceSelected;
+	private District districtSelected;
+	private SegmentOfStreet segmentSelected;
+	private Street streetSelected;
+	
+	private List<RealEstate> listRealEstate;
 	@PostConstruct
 	public void init() {
 		pageNews = new Pagination()
@@ -47,6 +75,7 @@ public class HomepageBean implements Serializable{
 		pageNews.setTotalPages(pageNews.getTotalRow()/pageNews.getRowsPerPage());
 		
 		openPage(0);
+		listProvince = provinceService.findAll();
 	}
 	
 	public void openPage(int page) {
@@ -56,7 +85,40 @@ public class HomepageBean implements Serializable{
 
 		listNews = listNewsPage.stream().map(x->x).collect(Collectors.toList());
 	}
-
+	
+	public void provinceChange() {
+		listDistrict = provinceSelected.getListDistrict();
+		districtIdSelected = "";
+		listSegmentOfStreet= new ArrayList();
+		segmentIdSelected = "";
+		listStreet = new ArrayList();
+		streetIdSelected = "";
+	}
+	public void districtChange() {
+		List<SegmentOfStreet>listTemp = districtSelected.getListSegmentOfStreet();
+		listStreet = listTemp.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
+		
+		streetIdSelected = "";
+		listSegmentOfStreet = new ArrayList();
+		segmentIdSelected = "";
+		
+		List<RealEstateAdjacentSegment> listAdjByDistrict = listTemp.stream().map(x->x.getListRealEstateAdjacentSegment())
+				.flatMap(List::stream).collect(Collectors.toList());
+		List<RealEstate> listReoByDistrict = listAdjByDistrict.stream().map(x->x.getRealEstate()).collect(Collectors.toList());
+		
+		List<RealEstate> listReoSearch = realEstateService.listFilterRealEstate(districtSelected.getDistrictName());
+		
+		listRealEstate = new ArrayList();
+		listRealEstate.addAll(listReoSearch);
+		listRealEstate.addAll(listReoByDistrict);
+	}
+	public void streetChange() {
+		listSegmentOfStreet = streetSelected.getListSegmentOfStreet();
+		segmentIdSelected = "";
+	}
+	public void segmentOfStreetChange() {
+		
+	}
 	public void firstPageNews() {
 		openPage(0);
 	}
@@ -84,6 +146,138 @@ public class HomepageBean implements Serializable{
 		this.listNews = listNews;
 	}
 
+	public List<Province> getListProvince() {
+		return listProvince;
+	}
 
+	public void setListProvince(List<Province> listProvince) {
+		this.listProvince = listProvince;
+	}
+
+	public List<District> getListDistrict() {
+		return listDistrict;
+	}
+
+	public void setListDistrict(List<District> listDistrict) {
+		this.listDistrict = listDistrict;
+	}
+
+	public List<SegmentOfStreet> getListSegmentOfStreet() {
+		return listSegmentOfStreet;
+	}
+
+	public void setListSegmentOfStreet(List<SegmentOfStreet> listSegmentOfStreet) {
+		this.listSegmentOfStreet = listSegmentOfStreet;
+	}
+
+	public List<Street> getListStreet() {
+		return listStreet;
+	}
+
+	public void setListStreet(List<Street> listStreet) {
+		this.listStreet = listStreet;
+	}
+
+	public Province getProvinceSelected() {
+		return provinceSelected;
+	}
+
+	public void setProvinceSelected(Province provinceSelected) {
+		this.provinceSelected = provinceSelected;
+	}
+
+	public String getProvinceIdSelected() {
+		return provinceIdSelected;
+	}
+
+	public void setProvinceIdSelected(String provinceIdSelected) {
+		this.provinceIdSelected = provinceIdSelected;
+		if (provinceIdSelected != null && !provinceIdSelected.isEmpty()) {
+			provinceSelected = listProvince.stream()
+				.filter(x -> x.getProvinceId().equals(Long.parseLong(provinceIdSelected))).collect(Collectors.toList()).get(0);
+			PrimeFaces.current().executeScript("focusMap(" + provinceSelected.getProvinceLat() + ", " + provinceSelected.getProvinceLng() + ");");
+			
+		}
+	}
+
+	public String getDistrictIdSelected() {
+		return districtIdSelected;
+	}
+
+	public void setDistrictIdSelected(String districtIdSelected) {
+		this.districtIdSelected = districtIdSelected;
+		if (districtIdSelected != null && !districtIdSelected.isEmpty()) {
+			districtSelected = listDistrict.stream()
+				.filter(x -> x.getDistrictId().equals(Long.parseLong(districtIdSelected))).collect(Collectors.toList()).get(0);
+			PrimeFaces.current().executeScript("focusMap(" + districtSelected.getDistrictLat() + ", " + districtSelected.getDistrictLng() + ");");
+		}
+	}
+
+	public String getStreetIdSelected() {
+		return streetIdSelected;
+	}
+
+	public void setStreetIdSelected(String streetIdSelected) {
+		this.streetIdSelected = streetIdSelected;
+		if (streetIdSelected != null && !streetIdSelected.isEmpty()) {
+			streetSelected = listStreet.stream()
+				.filter(x -> x.getStreetId().equals(Long.parseLong(streetIdSelected))).collect(Collectors.toList()).get(0);
+			PrimeFaces.current().executeScript("focusMap(" + streetSelected.getStreetLat() + ", " + streetSelected.getStreetLng() + ");");
+		}
+	}
+
+	public String getSegmentIdSelected() {
+		return segmentIdSelected;
+	}
+
+	public void setSegmentIdSelected(String segmentIdSelected) {
+		this.segmentIdSelected = segmentIdSelected;
+		if (segmentIdSelected != null && !segmentIdSelected.isEmpty()) {
+			segmentSelected = listSegmentOfStreet.stream()
+				.filter(x -> x.getSegmentId().equals(Long.parseLong(segmentIdSelected))).collect(Collectors.toList()).get(0);
+			List<FormedCoordinate> listFormedCoordinate = segmentSelected.getListFormedCoordinate();
+			List<Coordinate> listCoordinate = listFormedCoordinate.stream().map(x->{
+				return new Coordinate(x.getFormedLng(), x.getFormedLat());
+			}).collect(Collectors.toList());
+			Gson gson = new Gson();
+			PrimeFaces.current().executeScript("drawPath(" + gson.toJson(listCoordinate) + ");");
+			
+		}
+	}
+
+	public District getDistrictSelected() {
+		return districtSelected;
+	}
+
+	public void setDistrictSelected(District districtSelected) {
+		this.districtSelected = districtSelected;
+	}
+
+	public SegmentOfStreet getSegmentSelected() {
+		return segmentSelected;
+	}
+
+	public void setSegmentSelected(SegmentOfStreet segmentSelected) {
+		this.segmentSelected = segmentSelected;
+	}
+
+	public Street getStreetSelected() {
+		return streetSelected;
+	}
+
+	public void setStreetSelected(Street streetSelected) {
+		this.streetSelected = streetSelected;
+	}
+
+	public List<RealEstate> getListRealEstate() {
+		return listRealEstate;
+	}
+
+	public void setListRealEstate(List<RealEstate> listRealEstate) {
+		this.listRealEstate = listRealEstate;
+	}
+	
+	
+	
 	
 }

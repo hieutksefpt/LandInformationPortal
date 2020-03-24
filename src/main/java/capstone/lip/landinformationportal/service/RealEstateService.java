@@ -118,4 +118,11 @@ public class RealEstateService implements IRealEstateService {
 	public long countByRealEstateStatus(String status) {
 		return realEstateRepository.countByRealEstateStatus(status);
 	}
+
+	@Override
+	public List<RealEstate> listFilterRealEstate(String realEstateAddress) {
+		RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
+		RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
+		return realEstateRepository.findAll(Specification.where(spec1).or(spec2));
+	}
 }

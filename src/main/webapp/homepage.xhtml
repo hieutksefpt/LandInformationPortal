@@ -19,11 +19,12 @@
 					<div class="col-9">
 						<div class="h-100 d-flex flex-column">
 							<div class="row flex-grow-1" >
-								
 								<div id="map" class="h-100 w-100"></div>
 							</div>
 						</div>
 					</div>
+					
+					
 					<div class="col-3">
 						<div class="h-100 d-flex flex-column">
 
@@ -99,23 +100,78 @@
 					</div>
 				</div>
 			</div>
-			<ui:remove>
-			<div class="container-fluid" style="height:calc(100% - 70px)">
-			  <div class="row justify-content-center h-100">
-			    <div class="col-4 bg-red">
-			      <div class="h-100 d-flex flex-column">
-			        
-			        <div class="row justify-content-center bg-blue flex-grow-1">
-			          
-			        </div>
-			      </div>
-			    </div>
-			    <div class="col-8 bg-gray text-white">
-			        <p>Hey, neighbor.</p>
-			    </div>
-			  </div>
+			<div id="formControl">
+	            <p:panel id="container">
+	                <div class="form-group row">
+	                    <div class="col-md">
+	                        <input id="searchbox-Address" class="controls" type="text" style="width: 100%;" placeholder="Search Box"/>
+	                    </div>
+	                </div>
+	
+	                <h:form id="form" onsubmit="return false;" prependId="false">
+	                    <p:growl id="msgs" showDetail="true"/>
+	
+	
+	                    <p:panel id="panel-form" style="margin-bottom:10px;">
+	                        <h:panelGroup id="combobox_data">
+	                            <div class="form-group row">
+	                                <div class="col-md-6">
+	                                    <h:selectOneMenu id="cbb-Province" value="#{homepageBean.provinceIdSelected}">
+	                                        <p:ajax listener="#{homepageBean.provinceChange}" update="@form panel-list-reo" oncomplete="clearDataMap()"/>
+	                                        <f:selectItem itemLabel="Tỉnh/Thành phố" itemValue=""/>
+	                                        <f:selectItems value="#{homepageBean.listProvince}" var="element"
+	                                                       itemLabel="#{element.provinceName}" itemValue="#{element.provinceId}"/>
+	                                    </h:selectOneMenu>
+	                                </div>
+	                                <div class="col-md-6">
+	                                    <h:selectOneMenu id="cbb-District" value="#{homepageBean.districtIdSelected}">
+	                                        <p:ajax listener="#{homepageBean.districtChange}" update="form panel-list-reo" oncomplete="clearDataMap()"></p:ajax>
+	                                        <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
+	                                        <f:selectItems value="#{homepageBean.listDistrict}" var="element"
+	                                                       itemLabel="#{element.districtName}" itemValue="#{element.districtId}"/>
+	                                    </h:selectOneMenu>
+	                                </div>
+	                            </div>
+	                            <div class="form-group row">
+	                                <div class="col-md-6">
+	                                    <h:selectOneMenu id="cbb-Street" value="#{homepageBean.streetIdSelected}">
+	                                        <p:ajax	listener="#{homepageBean.streetChange}" update="form panel-list-reo" oncomplete="clearDataMap()"></p:ajax>
+	
+	                                        <f:selectItem itemLabel="Đường phố" itemValue=""/>
+	                                        <f:selectItems value="#{homepageBean.listStreet}" var="element"
+	                                                       itemLabel="#{element.streetName}" itemValue="#{element.streetId}"/>
+	                                    </h:selectOneMenu>
+	                                </div>
+	                                <div class="col-md-6">
+	                                    <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{homepageBean.segmentIdSelected}">
+	                                        <p:ajax	listener="#{homepageBean.segmentOfStreetChange}" update="form panel-list-reo"></p:ajax>
+	                                        <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
+	                                        <f:selectItems value="#{homepageBean.listSegmentOfStreet}" var="element"
+	                                                       itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
+	                                    </h:selectOneMenu>
+	                                </div>
+	                            </div>
+	                        </h:panelGroup>
+	                        <p:separator />
+	                    </p:panel>
+	                </h:form>
+	            </p:panel>
+	        </div>
+			<div id="list-reo">
+				
+				<p:panel id="panel-list-reo" rendered="#{homepageBean.listRealEstate.size() != 0}"> 
+					<c:forEach items="${homepageBean.listRealEstate}" var="element">
+						<li	class="list-group-item row d-flex">
+							
+							<div class="col">
+								#{element.realEstateName}
+							</div>
+							
+							
+						</li>
+					</c:forEach>
+				</p:panel>
 			</div>
-			</ui:remove>
 		</ui:define>
 
 		<ui:define name="footer">

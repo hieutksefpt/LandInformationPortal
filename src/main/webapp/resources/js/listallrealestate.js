@@ -2,7 +2,7 @@
 var map;
 var listMarkers = [];
 
-function initMap(json) {
+function initMap() {
     var markers = JSON.parse($('#txtInput_multipleCoordinate_listAllRealEstate').val());
     var latitude = markers[0].latitude;
     var longitude = markers[0].longitude;

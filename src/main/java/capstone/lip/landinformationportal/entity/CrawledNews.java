@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.CreatedDate;
-
 @Entity
 @Table(name="CrawledNews")
 public class CrawledNews extends AuditAbstract  implements Serializable {
@@ -29,7 +27,7 @@ public class CrawledNews extends AuditAbstract  implements Serializable {
 	@Column(name="CrawledNewsShortDescription")
 	private String crawledNewsShortDescription;
 	@Column(name="CrawledNewsStatus")
-	private Integer crawledNewsStatus;
+	private String crawledNewsStatus;
 	@Column(name = "CrawledNewsTime")
     private Timestamp crawledNewsTime;
 	@Column(name = "CrawledNewsImageUrl")
@@ -74,10 +72,10 @@ public class CrawledNews extends AuditAbstract  implements Serializable {
 		this.crawledNewsShortDescription = crawledNewsShortDescription;
 		return this;
 	}
-	public Integer getCrawledNewsStatus() {
+	public String getCrawledNewsStatus() {
 		return crawledNewsStatus;
 	}
-	public CrawledNews setCrawledNewsStatus(Integer crawledNewsStatus) {
+	public CrawledNews setCrawledNewsStatus(String crawledNewsStatus) {
 		this.crawledNewsStatus = crawledNewsStatus;
 		return this;
 	}

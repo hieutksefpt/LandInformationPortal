@@ -11,7 +11,7 @@ import capstone.lip.landinformationportal.entity.CrawledNews;
 @Repository
 public interface CrawledNewsRepository extends JpaRepository<CrawledNews, Long>{
 	CrawledNews findByCrawledNewsLink(String link);
-	List<CrawledNews> findByCrawledNewsStatus(Integer status);
-	Page<CrawledNews> findByCrawledNewsStatus(Integer status, Pageable page);
-	Long countByCrawledNewsStatus(Integer status);
+	List<CrawledNews> findByCrawledNewsStatus(String status);
+	Page<CrawledNews> findByCrawledNewsStatus(String status, Pageable page);
+	Long countByCrawledNewsStatus(String status);
 }

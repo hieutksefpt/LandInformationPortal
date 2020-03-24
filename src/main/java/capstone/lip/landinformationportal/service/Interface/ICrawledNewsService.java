@@ -29,11 +29,11 @@ public interface ICrawledNewsService{
 	
 	CrawledNews save(CrawledNews news);
 	
-	List<CrawledNews> findByCrawledNewsStatus(Integer status);
+	List<CrawledNews> findByCrawledNewsStatus(String status);
 	
-	Page<CrawledNews> findByCrawledNewsStatus(Integer status, Pageable page);
+	Page<CrawledNews> findByCrawledNewsStatus(String status, Pageable page);
 	
 	long count();
 	
-	long countByStatus(Integer status);
+	long countByStatus(String status);
 }

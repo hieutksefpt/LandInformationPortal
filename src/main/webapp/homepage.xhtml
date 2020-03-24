@@ -13,77 +13,109 @@
 	<ui:composition template="/template/common/commonLayout.xhtml">
 		<ui:define name="content">
 			<h:outputStylesheet name="homepage.css" library="css"></h:outputStylesheet>
-
-			<div class="row">
-				<div class="col-9">
-					<div id="map" style="height: 750px"></div>
-				</div>
-				<div class="col-3">
-					<h:form id="form-news" prependId="false" onsubmit="return false;">
-
-						<div>
-							<ul class="list-group scrollable">
-								<c:forEach items="${homepageBean.listNews}" var="element">
-									<li	class="list-group-item d-flex justify-content-between align-items-center">
-										#{element.crawledNewsTitle}
-										<div class="image-parent">
-											<img src="https://file4.batdongsan.com.vn/crop/350x232/2020/02/23/20200223201352-ee38_wm.jpg"
-												class="img-fluid"/>
-										</div>
-									</li>
-								</c:forEach>
-							</ul>
-
-							<div class="row">
-								<div class="col text-center">
-									<nav aria-label="Page navigation example"
-										style="display:inline-block">
-									<ul class="pagination" style="">
-										<li class="page-item"><h:commandLink class="page-link"
-												href="#" aria-label="Previous">
-												<span aria-hidden="true">&laquo;</span>
-												<p:ajax listener="#{homepageBean.previousPage}"
-													process="@form" update="@form"></p:ajax>
-											</h:commandLink></li>
-										<li class="page-item"><a class="page-link" href="#">1</a>
-										</li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<li class="page-item"><h:commandLink class="page-link"
-												href="#" aria-label="Next">
-												<span aria-hidden="true">&raquo;</span>
-												<p:ajax listener="#{homepageBean.nextPage}" process="@form"
-													update="@form"></p:ajax>
-											</h:commandLink></li>
-									</ul>
-									</nav>
-								</div>
-								<div class="row">
-									<h:commandButton value="first"
-										action="#{homepageBean.firstPage}">
-										<p:ajax process="@form" update="@form"></p:ajax>
-									</h:commandButton>
-									<h:commandButton value="prev"
-										action="#{homepageBean.previousPage}">
-										<p:ajax process="@form" update="@form"></p:ajax>
-									</h:commandButton>
-									<h:outputText value="&amp;nbsp;" escape="false" />
-									<h:commandButton value="next" action="#{homepageBean.nextPage}">
-										<p:ajax process="@form" update="@form"></p:ajax>
-									</h:commandButton>
-									<h:outputText value="&amp;nbsp;" escape="false" />
-									<h:commandButton value="last" action="#{homepageBean.lastPage}">
-										<p:ajax process="@form" update="@form"></p:ajax>
-									</h:commandButton>
-									<h:outputText value="&amp;nbsp;" escape="false" />
-									<h:outputText
-										value="Page #{homepageBean.pageNews.currentPage} / #{homepageBean.pageNews.totalPages}" />
-								</div>
+			
+			<div class="container-fluid" style="height:calc(100% - 70px)">
+				<div class="row justify-content-center h-100">
+					<div class="col-9">
+						<div class="h-100 d-flex flex-column">
+							<div class="row flex-grow-1" >
+								
+								<div id="map" class="h-100 w-100"></div>
 							</div>
 						</div>
-					</h:form>
+					</div>
+					<div class="col-3">
+						<div class="h-100 d-flex flex-column">
+
+							<div class="row flex-grow-1" >
+								<h:form id="form-news" prependId="false" onsubmit="return false;" styleClass="h-100">
+									<div class="row">
+										<div class="col text-center">
+											<strong>Tin nổi bật	</strong>
+										</div>
+									</div>
+									<div>
+										<ul class="list-group scrollable list img-list">
+											
+											<c:forEach items="${homepageBean.listNews}" var="element">
+												<li	class="list-group-item row d-flex">
+													
+													<div class="col-8">
+														<a href="#{element.crawledNewsLink}" target="_blank">#{element.crawledNewsTitle}</a>
+													</div>
+													<div class="col-4">
+														<div class="image-parent">
+															<img src="https://file4.batdongsan.com.vn/crop/350x232/2020/02/23/20200223201352-ee38_wm.jpg"
+																class="img-fluid"/>
+														</div>
+													</div>
+													
+												</li>
+											</c:forEach>
+										</ul>
+										<div class="row" style="margin-top: 10px">
+											<div class="col text-center">
+												<nav style="display:inline-block">
+													<ul class="pagination" style="">
+														<li class="page-item"><h:commandLink class="page-link"
+																href="#" aria-label="Previous">
+																<span aria-hidden="true">&laquo;</span>
+																<p:ajax listener="#{homepageBean.firstPageNews}"
+																	process="@form" update="@form"></p:ajax>
+															</h:commandLink>
+														</li>
+														
+														<ui:repeat value="#{homepageBean.pageNews.pages}" var="page">
+										                	<h:panelGroup rendered="#{page != homepageBean.pageNews.currentPage + 1}">
+										                		<li class="page-item">
+										                			<h:commandLink value="#{page}" styleClass="page-link" actionListener="#{homepageBean.pageNewsAt}">
+										                				<p:ajax process="@form" update="@form"></p:ajax>
+										                			</h:commandLink>
+																</li>
+										                	</h:panelGroup>
+										                	<h:panelGroup rendered="#{page == homepageBean.pageNews.currentPage + 1}">
+										                		<li class="page-item active">
+										                			<h:commandLink value="#{page}" styleClass="page-link">
+										                			</h:commandLink>
+										                		</li>
+										                	</h:panelGroup>
+											            </ui:repeat>
+														
+														<li class="page-item"><h:commandLink class="page-link"
+																href="#" aria-label="Next">
+																<span aria-hidden="true">&raquo;</span>
+																<p:ajax listener="#{homepageBean.lastPageNews}" process="@form"
+																	update="@form"></p:ajax>
+															</h:commandLink></li>
+													</ul>
+												</nav>
+											</div>
+										</div>
+										
+									</div>
+								</h:form>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
+			<ui:remove>
+			<div class="container-fluid" style="height:calc(100% - 70px)">
+			  <div class="row justify-content-center h-100">
+			    <div class="col-4 bg-red">
+			      <div class="h-100 d-flex flex-column">
+			        
+			        <div class="row justify-content-center bg-blue flex-grow-1">
+			          
+			        </div>
+			      </div>
+			    </div>
+			    <div class="col-8 bg-gray text-white">
+			        <p>Hey, neighbor.</p>
+			    </div>
+			  </div>
+			</div>
+			</ui:remove>
 		</ui:define>
 
 		<ui:define name="footer">

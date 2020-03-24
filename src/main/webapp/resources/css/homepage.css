@@ -1,7 +1,17 @@
+html,body{height:100%;}
+.main{
+	height:100%;
+	width:100%;
+	overflow: auto;
+	overflow-x: hidden;
+}
 .scrollable{
-	height:550px;
-  	overflow-y: scroll;
+	height: 550px;
+ 	overflow-y: auto;
+ 	overflow-x: hidden;
 }
-.image-parent {
-  max-width: 40px;
+.navbar{
+	height:70px;
+	margin-bottom:0;
 }
+

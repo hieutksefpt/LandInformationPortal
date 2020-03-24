@@ -1,6 +1,7 @@
 package capstone.lip.landinformationportal.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Pagination implements Serializable{
 
@@ -62,8 +63,20 @@ public class Pagination implements Serializable{
 	}
 	public Pagination setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
+		
+		int pageLength = Math.min(pageRange, totalPages);
+		
+		Integer[] pages = new Integer[pageLength];
+		
+		int firstPage = Math.min(Math.max(0, currentPage - (pageRange / 2)), totalPages - pageLength);
+
+		ArrayList<Integer> listPage = new ArrayList<>();
+		for (int i = 0; i < pageLength; i++) {
+			pages[i] = ++firstPage;
+		}
+		
+		setPages(pages);
 		return this;
 	}
-	
-	
+
 }

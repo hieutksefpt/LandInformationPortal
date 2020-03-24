@@ -1,10 +1,13 @@
 package capstone.lip.landinformationportal.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.faces.component.UICommand;
+import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -38,40 +41,31 @@ public class HomepageBean implements Serializable{
 	public void init() {
 		pageNews = new Pagination()
 				.setTotalRow((int)crawledNewService.countByStatus(StatusCrawledNewsConstant.DISPLAY))
-				.setRowsPerPage(5)
-				.setPageRange(10)
+				.setRowsPerPage(10)
+				.setPageRange(3)
 				.setCurrentPage(0);
 		pageNews.setTotalPages(pageNews.getTotalRow()/pageNews.getRowsPerPage());
-				
+		
 		openPage(0);
-		int i= 1;
-		i++;
-		i--;
 	}
 	
 	public void openPage(int page) {
 		pageNews.setCurrentPage(page);
 		listNewsPage = crawledNewService.findByCrawledNewsStatus(StatusCrawledNewsConstant.DISPLAY, 
 				PageRequest.of(pageNews.getCurrentPage(), pageNews.getRowsPerPage()));
-		
+
 		listNews = listNewsPage.stream().map(x->x).collect(Collectors.toList());
 	}
 
-	public void firstPage() {
+	public void firstPageNews() {
 		openPage(0);
 	}
-	public void lastPage() {
-		openPage(pageNews.getTotalPages());
+	public void lastPageNews() {
+		openPage(pageNews.getTotalPages()-1);
 	}
-	public void previousPage() {
-		if (pageNews.getCurrentPage()!=0) {
-			openPage(pageNews.getCurrentPage()-1);
-		}
-	}
-	public void nextPage() {
-		if (pageNews.getCurrentPage()!=pageNews.getTotalPages()) {
-			openPage(pageNews.getCurrentPage()+1);
-		}
+
+	public void pageNewsAt(ActionEvent event) {
+		openPage(((Integer) ((UICommand) event.getComponent()).getValue() - 1));
 	}
 	
 	public Pagination getPageNews() {

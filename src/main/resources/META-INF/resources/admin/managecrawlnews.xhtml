@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:body>
+	
+	<ui:composition template="/template/admin/adminLayout.xhtml">
+		
+		<ui:define name="content">
+			<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+			<h:outputStylesheet name="managecrawlnews.css" library="css"></h:outputStylesheet>
+            <h:form onsubmit="return false;" prependId="false">
+            	<p:growl id="msgs" showDetail="true"/>
+            	<div class="row form-group">
+            		<div class="col-3">
+            			<div class="row">
+            				<div class="col-3">
+	            				<h:inputText title="#{manageCrawlNewsBean.timerCrawl} s" value="#{manageCrawlNewsBean.timerCrawl}"></h:inputText>
+	            			</div>
+	            			<div class="col-9">
+	            				<h:commandButton value="Cài thời gian crawler">
+				            		<p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.setTimerButtonClick()}"></p:ajax>
+				            	</h:commandButton>
+	            			</div>
+            			</div>
+            			
+            		</div>
+            		<div class="col-3 text-center">
+            			<h:commandButton value="Bật crawler" rendered="#{not manageCrawlNewsBean.statusCrawlSchedule}">
+		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.turnOnCrawler()}"></p:ajax>
+		            	</h:commandButton>
+		            	
+		            	<h:commandButton value="Tắt crawler" rendered="#{manageCrawlNewsBean.statusCrawlSchedule}">
+		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.turnOffCrawler()}"></p:ajax>
+		            	</h:commandButton>
+            		</div>
+            		<div class="col-3">
+            			<h:commandButton value="Crawl ngay">
+		            		<p:ajax process="@form" listener="#{manageCrawlNewsBean.crawlNow()}"></p:ajax>
+		           		</h:commandButton>
+            		</div>
+            		<div class="col-3">
+            			<div class="row text-center">
+		            		<label id="lb-crawlnow"></label>
+		            		<h:outputText rendered="#{manageCrawlNewsBean.statusCrawlSchedule}" 
+	            				value="Đang chạy crawl tự động"></h:outputText>
+		            	</div>
+            		</div>
+            	</div>
+
+            	
+            	
+            	
+            </h:form>
+            <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px">
+	            <p:dataTable value="#{manageCrawlNewsBean.lazyNews}" var="element"
+		           	rows="10" paginator="true"
+		            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+		            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+		            lazy="true">
+		            <f:facet name="paginatorTopLeft">
+			            <p:commandButton icon="pi pi-refresh" 
+			            action="#{manageCrawlNewsBean.refreshData()}" update="tabledata"/>
+			        </f:facet>
+	            	<p:column width="90%">
+	            		<f:facet name="header">Tiêu đề</f:facet>
+	            		#{element.crawledNewsTitle}
+	            		<a href="#{element.crawledNewsLink}" target="_blank">#{element.crawledNewsTitle}</a>
+	            	</p:column>
+	            	<p:column style="text-align: center">
+	            		<div class="row">
+	            			<div class="col-6">
+		            			<p:commandButton icon="pi pi-check" title="Accept" update="tabledata" style="width:30px"
+					             action="#{manageCrawlNewsBean.setNews(element)}" oncomplete="PF('dlgShow').show()">
+					             	
+					            </p:commandButton>
+	            			</div>
+	            			<div class="col-6">
+		            			<p:commandButton icon="pi pi-times" title="Delete" update="tabledata" style="width:30px"
+				             	action="#{manageCrawlNewsBean.setNews(element)}" oncomplete="PF('dlgDelete').show()">
+				             	
+				            	</p:commandButton>
+	            			</div>
+	            		</div>
+			        </p:column>
+	            </p:dataTable>
+	            <p:dialog header="Hiển thị tin tức" widgetVar="dlgShow" modal="true" resizable="false">
+	               	<div class="row">
+	               		<div class="col">
+	               			<strong>Bạn có chắc chắn muốn hiển thị tin tức này không?</strong>
+	               		</div>
+	               	</div>
+	               	<div class="row">
+	               		<div class="col text-center">
+	               			<h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
+	               				<p:ajax listener="#{manageCrawlNewsBean.acceptNews()}" update="tabledata" 
+	               				oncomplete="PF('dlgShow').hide()"></p:ajax>
+	               			</h:commandButton>
+	               		</div>
+	               		<div class="col text-center">
+	               			<h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgShow').hide()">
+	               				
+	               			</h:commandButton>
+	               		</div>
+	               	</div>
+	           	</p:dialog>
+	           	<p:dialog header="Xóa tin tức" widgetVar="dlgDelete" modal="true" resizable="false">
+	               	<div class="row">
+	               		<div class="col">
+	               			<strong>Bạn có chắc chắn muốn xóa tin tức này không?</strong>
+	               		</div>
+	               	</div>
+	               	<div class="row">
+	               		<div class="col text-center">
+	               			<h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
+	               				<p:ajax listener="#{manageCrawlNewsBean.deleteNews()}" update="tabledata" 
+	               				oncomplete="PF('dlgDelete').hide()"></p:ajax>
+	               			</h:commandButton>
+	               		</div>
+	               		<div class="col text-center">
+	               			<h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgDelete').hide()">
+	               				
+	               			</h:commandButton>
+	               		</div>
+	               	</div>
+	           	</p:dialog>
+            </h:form>
+            
+		</ui:define>
+		<ui:define name="footer">
+			<h:outputScript name="managecrawlnews.js" library="js" />
+				<script type="text/javascript"
+                        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;initMap(0,0)"
+                async="true" defer="true"></script>	
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

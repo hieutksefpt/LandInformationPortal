@@ -94,12 +94,12 @@
                             <tr>
                                 <td><span class="title-mandatory">Tên bất động sản</span></td>
                                 <td>
-                                    <h:inputText id="realEstateName" value="#{updateContributeRealEstateBean.realEstateName}">
+                                    <h:inputText id="realEstateName" value="#{updateContributeRealEstateBean.realEstateClicked.realEstateName}">
                                     </h:inputText></td>
                             </tr>
                             <tr>
                                 <td><span class="title-mandatory">Giá trị</span></td><td>
-                                    <h:inputText id="realEstatePrice" value="#{updateContributeRealEstateBean.realEstatePrice}">
+                                    <h:inputText id="realEstatePrice" value="#{updateContributeRealEstateBean.realEstateClicked.realEstatePrice}">
                                     </h:inputText>
                                     <span class="unit"><i>(VND)</i></span></td>
                             </tr>
@@ -113,13 +113,13 @@
                                     <tr>
                                         <td><span class="title-mandatory">Tên phần Đất</span></td>
                                         <td>
-                                            <h:inputText id="txtInputLandName" value="#{updateContributeRealEstateBean.newLandName}">
+                                            <h:inputText id="txtInputLandName" value="#{updateContributeRealEstateBean.realEstateClicked.land.landName}">
                                             </h:inputText>
                                         </td>
                                     </tr>
                                     <tr><td><span class="title-mandatory">Giá trị phần Đất</span></td>
                                         <td>
-                                            <h:inputText id="txtInputLandMoney" value="#{updateContributeRealEstateBean.newLandMoney}">
+                                            <h:inputText id="txtInputLandMoney" value="#{updateContributeRealEstateBean.realEstateClicked.land.landPrice}">
                                                 <p:ajax listener="#{updateContributeRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
                                             </h:inputText>
                                             <span class="unit"><i>(VND)</i></span>
@@ -178,12 +178,12 @@
                                     <tr>
                                         <td><span class="title-mandatory">Tên phần Nhà</span></td>
                                         <td>
-                                            <h:inputText id="txtInputHouseName" value="#{updateContributeRealEstateBean.newHouseName}">
+                                            <h:inputText id="txtInputHouseName" value="#{updateContributeRealEstateBean.tempHouse.houseName}">
                                             </h:inputText>
                                         </td>
                                     </tr>
                                     <tr><td><span class="title-mandatory">Giá trị phần Nhà</span></td><td>
-                                            <h:inputText id="txtInputHouseMoney" value="#{updateContributeRealEstateBean.newHouseMoney}">
+                                            <h:inputText id="txtInputHouseMoney" value="#{updateContributeRealEstateBean.tempHouse.housePrice}">
                                                 <p:ajax listener="#{updateContributeRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
                                             </h:inputText><span class="unit"><i>(VND)</i></span></td></tr>
                                     <tr>

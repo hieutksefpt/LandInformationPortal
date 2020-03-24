@@ -160,6 +160,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
     private String newHouseName;
 
     private long tempRealEstateId;
+    private House tempHouse;
 
     @PostConstruct
     public void init() {
@@ -174,8 +175,13 @@ public class UpdateContributeRealEstateBean implements Serializable {
         realEstateClicked = realEstateService.findById(realEstateId);
         currentLand = realEstateService.getLand(realEstateId);
         currentListHouse = realEstateService.getListHouse(realEstateId);
+        tempHouse = currentListHouse.get(0);
+        
         lngSingleCoordinate = realEstateClicked.getRealEstateLng().toString();
         latSingleCoordinate = realEstateClicked.getRealEstateLat().toString();
+        realEstateLat = Double.parseDouble(latSingleCoordinate);
+        realEstateLng = Double.parseDouble(lngSingleCoordinate);
+        
         PrimeFaces.current().executeScript("focusMap(" + latSingleCoordinate + ", " + lngSingleCoordinate + ");");
 
         realEstateName = realEstateClicked.getRealEstateName();
@@ -219,8 +225,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
                 tempUser.setPhone(userListAll.get(i).getPhone());
             }
         }
-        realEstateClicked.setRealEstateName(realEstateName)
-                .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
+        realEstateClicked.setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
                 .setRealEstateAddress(realEstateAddress);
         realEstateClicked.setRealEstatePrice(realEstatePrice);
         realEstateClicked.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
@@ -1008,4 +1013,14 @@ public class UpdateContributeRealEstateBean implements Serializable {
     public void setTempRealEstateId(long tempRealEstateId) {
         this.tempRealEstateId = tempRealEstateId;
     }
+
+    public House getTempHouse() {
+        return tempHouse;
+    }
+
+    public void setTempHouse(House tempHouse) {
+        this.tempHouse = tempHouse;
+    }
+    
+    
 }

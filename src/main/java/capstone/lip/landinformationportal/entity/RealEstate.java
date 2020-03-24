@@ -111,6 +111,13 @@ public class RealEstate extends AuditAbstract implements Serializable {
         return this;
     }
 
+    public String getRealEstateNameGetOnly() {
+        return this.realEstateName;
+    }
+
+    public void setRealEstateNameGetOnly(String realEstateName) {
+         realEstateName = realEstateName;
+    }
     public Double getRealEstateLat() {
         return realEstateLat;
     }

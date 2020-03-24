@@ -151,7 +151,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
     private BigDecimal realEstatePrice;
     private String realEstateStatus;
     private String realEstateLink;
-    private String realEstateType;
+    private String realEstateSource;
     private String userId;
     //submit data
     private BigDecimal realEstatePriceSubmit;
@@ -181,7 +181,9 @@ public class UpdateContributeRealEstateBean implements Serializable {
         latSingleCoordinate = realEstateClicked.getRealEstateLat().toString();
         realEstateLat = Double.parseDouble(latSingleCoordinate);
         realEstateLng = Double.parseDouble(lngSingleCoordinate);
-        
+        realEstateStatus = realEstateClicked.getRealEstateStatus();
+        realEstateLink = realEstateClicked.getRealEstateLink();
+        realEstateSource = realEstateClicked.getRealEstateSource();
         PrimeFaces.current().executeScript("focusMap(" + latSingleCoordinate + ", " + lngSingleCoordinate + ");");
 
         realEstateName = realEstateClicked.getRealEstateName();
@@ -927,11 +929,11 @@ public class UpdateContributeRealEstateBean implements Serializable {
     }
 
     public String getRealEstateType() {
-        return realEstateType;
+        return realEstateSource;
     }
 
-    public void setRealEstateType(String realEstateType) {
-        this.realEstateType = realEstateType;
+    public void setRealEstateType(String realEstateSource) {
+        this.realEstateSource = realEstateSource;
     }
 
     public String getUserId() {

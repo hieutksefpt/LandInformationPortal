@@ -67,28 +67,19 @@ public class Land extends AuditAbstract implements Serializable {
         return landId;
     }
 
-    public Land setLandId(Long landId) {
-        this.landId = landId;
-        return this;
-    }
+    
 
     public String getLandName() {
         return landName;
     }
 
-    public Land setLandName(String landName) {
-        this.landName = landName;
-        return this;
-    }
+    
 
     public Double getLandPrice() {
         return landPrice;
     }
 
-    public Land setLandPrice(Double landPrice) {
-        this.landPrice = landPrice;
-        return this;
-    }
+    
 
     public RealEstate getRealEstate() {
         return realEstate;
@@ -106,6 +97,37 @@ public class Land extends AuditAbstract implements Serializable {
     public Land setListLandsDetail(List<LandsDetail> listLandsDetail) {
         this.listLandsDetail = listLandsDetail;
         return this;
+    }
+    
+    public Land setLandId(Long landId) {
+        this.landId = landId;
+        return this;
+    }
+    
+    public Land setLandName(String landName) {
+        this.landName = landName;
+        return this;
+    }
+    
+    public Land setLandPrice(Double landPrice) {
+        this.landPrice = landPrice;
+        return this;
+    }
+    
+    public void setListLandsDetailGetOnly(List<LandsDetail> listLandsDetail) {
+        this.listLandsDetail = listLandsDetail;
+    }
+    
+    public void setLandIdGetOnly(Long landId) {
+        this.landId = landId;
+    }
+    
+    public void setLandNameGetOnly(String landName) {
+        this.landName = landName;
+    }
+    
+    public void setLandPriceGetOnly(Double landPrice) {
+        this.landPrice = landPrice;
     }
 
 	@Override

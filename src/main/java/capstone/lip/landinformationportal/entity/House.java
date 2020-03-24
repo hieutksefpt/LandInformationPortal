@@ -68,19 +68,13 @@ public class House extends AuditAbstract implements Serializable{
         return houseId;
     }
 
-    public House setHouseId(Long houseId) {
-        this.houseId = houseId;
-        return this;
-    }
+    
 
     public String getHouseName() {
         return houseName;
     }
 
-    public House setHouseName(String houseName) {
-        this.houseName = houseName;
-        return this;
-    }
+    
 
     public Double getHousePrice() {
         return housePrice;
@@ -95,10 +89,7 @@ public class House extends AuditAbstract implements Serializable{
         return realEstate;
     }
 
-    public House setRealEstate(RealEstate realEstate) {
-        this.realEstate = realEstate;
-        return this;
-    }
+    
 
     public List<HousesDetail> getListHousesDetail() {
         return listHousesDetail;
@@ -108,7 +99,33 @@ public class House extends AuditAbstract implements Serializable{
         this.listHousesDetail = listHousesDetail;
         return this;
     }
-
+    
+    public House setHouseId(Long houseId) {
+        this.houseId = houseId;
+        return this;
+    }
+    public House setHouseName(String houseName) {
+        this.houseName = houseName;
+        return this;
+    }
+    public House setRealEstate(RealEstate realEstate) {
+        this.realEstate = realEstate;
+        return this;
+    }
+    
+    public void setListHousesDetailGetOnly(List<HousesDetail> listHousesDetail) {
+        this.listHousesDetail = listHousesDetail;
+    }
+    
+    public void setHouseIdGetOnly(Long houseId) {
+        this.houseId = houseId;
+    }
+    public void setHouseNameGetOnly(String houseName) {
+        this.houseName = houseName;
+    }
+    public void setRealEstateGetOnly(RealEstate realEstate) {
+        this.realEstate = realEstate;
+    }
 	@Override
 	public int hashCode() {
 		final int prime = 31;

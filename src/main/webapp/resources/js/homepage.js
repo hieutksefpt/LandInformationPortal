@@ -1,4 +1,6 @@
 var path = [];
+var listMarker = [];
+var map;
 function initMap() {
 	let latitude = 21.012633;
     let longitude = 105.527423;
@@ -79,4 +81,17 @@ function drawPath(json){
 	  });
 	element.setMap(map);
 	path.push(element);
+}
+function drawListMarker(list){
+	list.forEach(drawEachPoint)
+	
+	function drawEachPoint(item, index, arr){
+		var marker = new google.maps.Marker({
+            position: {lat: item.latitude, lng: item.longitude},
+            map: map
+        });
+		listMarker.push(marker);
+	}
+	i=1;
+	i++;
 }

@@ -135,7 +135,8 @@
 	                            <div class="form-group row">
 	                                <div class="col-md-6">
 	                                    <h:selectOneMenu id="cbb-Street" value="#{homepageBean.streetIdSelected}">
-	                                        <p:ajax	listener="#{homepageBean.streetChange}" update="form panel-list-reo" oncomplete="clearDataMap()"></p:ajax>
+	                                        <p:ajax	listener="#{homepageBean.streetChange}" update="form panel-list-reo panel-list-reo"
+	                                         oncomplete="clearDataMap()"></p:ajax>
 	
 	                                        <f:selectItem itemLabel="Đường phố" itemValue=""/>
 	                                        <f:selectItems value="#{homepageBean.listStreet}" var="element"
@@ -158,19 +159,67 @@
 	            </p:panel>
 	        </div>
 			<div id="list-reo">
-				
-				<p:panel id="panel-list-reo" rendered="#{homepageBean.listRealEstate.size() != 0}"> 
-					<c:forEach items="${homepageBean.listRealEstate}" var="element">
-						<li	class="list-group-item row d-flex">
-							
-							<div class="col">
-								#{element.realEstateName}
+				<h:form prependId="false" onsubmit="return false;">
+					#{homepageBean.districtIdSelected}
+					#{homepageBean.districtIdSelected != null}
+					<p:panel id="panel-list-reo"  rendered="#{homepageBean.districtIdSelected != null}"> 
+						<h:selectOneMenu id="cbb-type-reo" value="#{homepageBean.typeReo}" 
+						styleClass="browser-default custom-select custom-select-lg mb-3">
+							<p:ajax	listener="#{homepageBean.openPageReo(0)}" process="@form" update="@form"></p:ajax>
+							<f:selectItem itemLabel="Tất cả các đối tượng" itemValue="0"></f:selectItem>
+							<f:selectItem itemLabel="Do người dùng đóng góp" itemValue="1"></f:selectItem>
+							<f:selectItem itemLabel="Crawl từ các websites" itemValue="2"></f:selectItem>
+						</h:selectOneMenu>
+						<div class="scroll-y-only">
+							<c:forEach items="${homepageBean.listRealEstate}" var="element">
+								<li	class="list-group-item row d-flex">
+									
+									<div class="col" id="#{element.realEstateName}">
+										#{element.realEstateName}
+									</div>
+								</li>
+							</c:forEach>
+						</div>
+						<div class="row" style="margin-top: 10px">
+							<div class="col text-center">
+								<nav style="display:inline-block">
+									<ul class="pagination" style="">
+										<li class="page-item"><h:commandLink class="page-link"
+												href="#" aria-label="Previous">
+												<span aria-hidden="true">&laquo;</span>
+												<p:ajax listener="#{homepageBean.firstPageReo}"
+													process="@form" update="@form"></p:ajax>
+											</h:commandLink>
+										</li>
+										
+										<ui:repeat value="#{homepageBean.pageReo.pages}" var="page">
+						                	<h:panelGroup rendered="#{page != homepageBean.pageReo.currentPage + 1}">
+						                		<li class="page-item">
+						                			<h:commandLink value="#{page}" styleClass="page-link" actionListener="#{homepageBean.pageReoAt}">
+						                				<p:ajax process="@form" update="@form"></p:ajax>
+						                			</h:commandLink>
+												</li>
+						                	</h:panelGroup>
+						                	<h:panelGroup rendered="#{page == homepageBean.pageReo.currentPage + 1}">
+						                		<li class="page-item active">
+						                			<h:commandLink value="#{page}" styleClass="page-link">
+						                			</h:commandLink>
+						                		</li>
+						                	</h:panelGroup>
+							            </ui:repeat>
+										
+										<li class="page-item"><h:commandLink class="page-link"
+												href="#" aria-label="Next">
+												<span aria-hidden="true">&raquo;</span>
+												<p:ajax listener="#{homepageBean.lastPageReo}" process="@form"
+													update="@form"></p:ajax>
+											</h:commandLink></li>
+									</ul>
+								</nav>
 							</div>
-							
-							
-						</li>
-					</c:forEach>
-				</p:panel>
+						</div>
+					</p:panel>
+				</h:form>
 			</div>
 		</ui:define>
 

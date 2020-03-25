@@ -1,13 +1,17 @@
 package capstone.lip.landinformationportal.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.New;
 import javax.faces.component.UICommand;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -20,6 +24,7 @@ import org.springframework.data.domain.PageRequest;
 import com.google.gson.Gson;
 
 import capstone.lip.landinformationportal.common.StatusCrawledNewsConstant;
+import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
 import capstone.lip.landinformationportal.dto.Coordinate;
 import capstone.lip.landinformationportal.dto.Pagination;
 import capstone.lip.landinformationportal.entity.CrawledNews;
@@ -48,7 +53,8 @@ public class HomepageBean implements Serializable{
 	private IProvinceService provinceService;
 	
 	private Pagination pageNews;
-	private Page<CrawledNews> listNewsPage;
+	private Pagination pageReo;
+	
 	private List<CrawledNews> listNews;
 	private List<Province> listProvince;
 	private List<District> listDistrict;
@@ -65,6 +71,8 @@ public class HomepageBean implements Serializable{
 	private Street streetSelected;
 	
 	private List<RealEstate> listRealEstate;
+	private String typeReo;
+	private boolean isDisplayReoPanel;
 	@PostConstruct
 	public void init() {
 		pageNews = new Pagination()
@@ -74,18 +82,65 @@ public class HomepageBean implements Serializable{
 				.setCurrentPage(0);
 		pageNews.setTotalPages(pageNews.getTotalRow()/pageNews.getRowsPerPage());
 		
-		openPage(0);
+		openPageNews(0);
+
+		isDisplayReoPanel = false;
+		districtIdSelected = provinceIdSelected = segmentIdSelected = streetIdSelected = "";
 		listProvince = provinceService.findAll();
 	}
 	
-	public void openPage(int page) {
+	private void openPageNews(int page) {
 		pageNews.setCurrentPage(page);
-		listNewsPage = crawledNewService.findByCrawledNewsStatus(StatusCrawledNewsConstant.DISPLAY, 
+		Page<CrawledNews> listNewsPage = crawledNewService.findByCrawledNewsStatus(StatusCrawledNewsConstant.DISPLAY, 
 				PageRequest.of(pageNews.getCurrentPage(), pageNews.getRowsPerPage()));
 
 		listNews = listNewsPage.stream().map(x->x).collect(Collectors.toList());
 	}
 	
+	public void openPageReo(int page) {
+		isDisplayReoPanel = true;
+		if (typeReo == null) {
+			setTypeReo("0");
+		}
+		pageReo.setCurrentPage(page);
+		Page<RealEstate> listPageReo = null;
+		String address = districtSelected.getDistrictName();
+		if (streetSelected != null) {
+			address = streetSelected.getStreetName();
+		}
+		if (segmentSelected != null) {
+			address = segmentSelected.getSegmentName();
+		}
+		switch (typeReo) {
+		case "0":
+			listPageReo = realEstateService.listFilterRealEstateByAddress(address, 
+					PageRequest.of(pageReo.getCurrentPage(), pageReo.getRowsPerPage()));
+			break;
+		case "1":
+			listPageReo = realEstateService.listFilterRealEstateByAddressAndSource(address, 
+					StatusRealEstateConstant.CONTRIBUTOR,
+					PageRequest.of(pageReo.getCurrentPage(), pageReo.getRowsPerPage()));
+			break;
+		case "2":
+			listPageReo = realEstateService.listFilterRealEstateByAddressAndSourceNot(address, 
+					StatusRealEstateConstant.CONTRIBUTOR,
+					PageRequest.of(pageReo.getCurrentPage(), pageReo.getRowsPerPage()));
+			break;
+		default:
+			break;
+		}
+		if (listPageReo != null)
+			listRealEstate = listPageReo.stream().map(x->x).collect(Collectors.toList());
+		List<Coordinate> listCoordinate = listRealEstate.stream().map(x->{
+			return new Coordinate().setId(x.getRealEstateId())
+					.setLatitude(x.getRealEstateLat())
+					.setLongitude(x.getRealEstateLng())
+					.setSource(x.getRealEstateSource());
+		}).collect(Collectors.toList());
+		Gson gson = new Gson();
+		PrimeFaces.current().executeScript("drawListMarker("+gson.toJson(listCoordinate)+")");
+	}
+
 	public void provinceChange() {
 		listDistrict = provinceSelected.getListDistrict();
 		districtIdSelected = "";
@@ -101,33 +156,40 @@ public class HomepageBean implements Serializable{
 		streetIdSelected = "";
 		listSegmentOfStreet = new ArrayList();
 		segmentIdSelected = "";
-		
-		List<RealEstateAdjacentSegment> listAdjByDistrict = listTemp.stream().map(x->x.getListRealEstateAdjacentSegment())
-				.flatMap(List::stream).collect(Collectors.toList());
-		List<RealEstate> listReoByDistrict = listAdjByDistrict.stream().map(x->x.getRealEstate()).collect(Collectors.toList());
-		
-		List<RealEstate> listReoSearch = realEstateService.listFilterRealEstate(districtSelected.getDistrictName());
-		
-		listRealEstate = new ArrayList();
-		listRealEstate.addAll(listReoSearch);
-		listRealEstate.addAll(listReoByDistrict);
+				
+		openPageReo(0);
 	}
 	public void streetChange() {
 		listSegmentOfStreet = streetSelected.getListSegmentOfStreet();
 		segmentIdSelected = "";
+		openPageReo(0);
 	}
 	public void segmentOfStreetChange() {
-		
+//		TODO
 	}
+	public void goToDetails(long realEstateId) throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath() + "/viewrealestatedetail.xhtml?realEstateId=" + realEstateId);
+    }
 	public void firstPageNews() {
-		openPage(0);
+		openPageNews(0);
 	}
 	public void lastPageNews() {
-		openPage(pageNews.getTotalPages()-1);
+		openPageNews(pageNews.getTotalPages()-1);
 	}
 
 	public void pageNewsAt(ActionEvent event) {
-		openPage(((Integer) ((UICommand) event.getComponent()).getValue() - 1));
+		openPageNews(((Integer) ((UICommand) event.getComponent()).getValue() - 1));
+	}
+	
+	public void pageReoAt(ActionEvent event) {
+		openPageReo(((Integer) ((UICommand) event.getComponent()).getValue() - 1));
+	}
+	public void firstPageReo() {
+		openPageReo(0);
+	}
+	public void lastPageReo() {
+		openPageReo(pageReo.getTotalPages()-1);
 	}
 	
 	public Pagination getPageNews() {
@@ -137,7 +199,7 @@ public class HomepageBean implements Serializable{
 	public void setPageNews(Pagination pageNews) {
 		this.pageNews = pageNews;
 	}
-
+	
 	public List<CrawledNews> getListNews() {
 		return listNews;
 	}
@@ -275,6 +337,59 @@ public class HomepageBean implements Serializable{
 
 	public void setListRealEstate(List<RealEstate> listRealEstate) {
 		this.listRealEstate = listRealEstate;
+	}
+
+	public String getTypeReo() {
+		return typeReo;
+	}
+
+	public void setTypeReo(String typeReo) {
+		if (typeReo == null) typeReo = "0";
+		this.typeReo = typeReo;
+		switch (typeReo) {
+		case "0":
+			pageReo = new Pagination()
+					.setTotalRow((int)realEstateService.countByRealEstateAddress(districtSelected.getDistrictName()))
+					.setRowsPerPage(10)
+					.setPageRange(3)
+					.setCurrentPage(0);
+			pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage());
+			break;
+		case "1":
+			pageReo = new Pagination()
+					.setTotalRow((int)realEstateService.countByRealEstateSource(districtSelected.getDistrictName(),StatusRealEstateConstant.CONTRIBUTOR))
+					.setRowsPerPage(10)
+					.setPageRange(3)
+					.setCurrentPage(0);
+			pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage());
+			break;
+		case "2":
+			pageReo = new Pagination()
+					.setTotalRow((int)realEstateService.countByRealEstateSourceNot(districtSelected.getDistrictName(),StatusRealEstateConstant.CONTRIBUTOR))
+					.setRowsPerPage(10)
+					.setPageRange(3)
+					.setCurrentPage(0);
+			pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage());
+			break;
+		default:
+			break;
+		}
+	}
+
+	public Pagination getPageReo() {
+		return pageReo;
+	}
+
+	public void setPageReo(Pagination pageReo) {
+		this.pageReo = pageReo;
+	}
+
+	public boolean isDisplayReoPanel() {
+		return isDisplayReoPanel;
+	}
+
+	public void setDisplayReoPanel(boolean isDisplayReoPanel) {
+		this.isDisplayReoPanel = isDisplayReoPanel;
 	}
 	
 	

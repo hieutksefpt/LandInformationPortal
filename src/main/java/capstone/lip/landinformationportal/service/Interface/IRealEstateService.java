@@ -47,5 +47,21 @@ public interface IRealEstateService {
     
     long countByRealEstateStatus(String status);
     
-    List<RealEstate> listFilterRealEstate(String realEstateAddress);
+    Page<RealEstate> listFilterRealEstateByAddress(String realEstateAddress, Pageable page);
+    
+    long countByRealEstateSource(String realEstateAddress, String realEstateSource);
+    
+    long countByRealEstateSourceNot(String realEstateAddress, String realEstateSource);
+    
+    Page<RealEstate> findByRealEstateSource(String source, Pageable page);
+    
+    Page<RealEstate> findByRealEstateSourceNot(String source, Pageable page);
+    
+    Page<RealEstate> findAll(Pageable page);
+    
+    Page<RealEstate> listFilterRealEstateByAddressAndSource(String realEstateAddress, String realEstateSource, Pageable page);
+    
+    Page<RealEstate> listFilterRealEstateByAddressAndSourceNot(String realEstateAddress, String realEstateSource, Pageable page);
+    
+    long countByRealEstateAddress(String address);
 }

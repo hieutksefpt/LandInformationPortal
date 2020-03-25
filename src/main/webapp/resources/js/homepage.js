@@ -1,4 +1,6 @@
 var path = [];
+var listMarker = [];
+var map;
 function initMap() {
 	let latitude = 21.012633;
     let longitude = 105.527423;
@@ -79,4 +81,37 @@ function drawPath(json){
 	  });
 	element.setMap(map);
 	path.push(element);
+}
+function drawListMarker(list){
+	
+    listMarker.forEach(x=>{x.setMap(null)});
+	listMarker = [];
+    list.forEach(drawEachPoint)
+	
+	function drawEachPoint(item, index, arr){
+    	let marker;
+    	if (item.source=='CONTRIBUTOR'){
+			marker = new google.maps.Marker({
+	            position: {lat: item.latitude, lng: item.longitude},
+	            map: map,
+	            icon: urlBlueMarker,
+	            info: item
+	        });
+    	}else{
+    		marker = new google.maps.Marker({
+	            position: {lat: item.latitude, lng: item.longitude},
+	            map: map,
+	            info: item
+	        });
+    	}
+    	
+    	google.maps.event.addListener(marker, 'click', function () {
+            // you know you'd be better off with 
+            // marker.getPosition().lat(), right?
+    		$('#row-'+marker.info.id).effect("highlight", {}, 3000);
+        });
+    	
+    	listMarker.push(marker);
+    	
+	}
 }

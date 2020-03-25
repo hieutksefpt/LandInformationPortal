@@ -9,8 +9,12 @@ import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.repository.UserRepository;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
+import capstone.lip.landinformationportal.utils.EmailSender;
 import capstone.lip.landinformationportal.utils.PasswordGenerator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,6 +69,7 @@ public class UserService implements IUserService {
         String newPassword = PasswordGenerator.generate(passwordLength);
         user.setPassword(newPassword);
         userRepository.save(user);
+        EmailSender.sendMailChangePassword(user.getEmail(), newPassword);
         return newPassword;
     }
 

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+        <meta content="" name="descriptison"/>
+        <meta content="" name="keywords"/>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"/>
+
+        <!-- Vendor CSS Files -->
+
+
+
+
+    </h:head>
+
+    <h:body>
+
+        <!-- ======= Header ======= -->
+        <ui:composition template="/template/common/commonLayout.xhtml">
+            <ui:define name="content">
+                <h:outputStylesheet name="bootstrap.min.css" library="css"/>
+                <h:outputStylesheet name="icofont.min.css" library="css"/>
+                <h:outputStylesheet name="boxicons.min.css" library="css"/>
+                <h:outputStylesheet name="venobox.css" library="css"/>
+                <ui:remove>
+                    <h:outputStylesheet name="owl.carousel.min.css" library="css"/>
+                </ui:remove>
+                <!-- Template Main CSS File -->
+                <h:outputStylesheet name="viewmyprofile.css" library="css"/>
+                <header id="header">
+                    <div class="d-flex flex-column">
+
+                        <div class="profile">
+                            <h1 class="text-light"><a href="viewmyprofile.xhtml">Từ Khắc Hiếu</a></h1>
+                        </div>
+
+                        <nav class="nav-menu">
+                            <ul>
+                                <li class="active"><a href="#profileInfor"><span>Thông tin cá nhân</span></a></li>
+                                <li><a href="#changepass"> <span>Thay đổi mật khẩu</span></a></li>
+                                <li><a href="#profileUpdate"><span>Cập nhật thông tin cá nhân</span></a></li>
+                            </ul>
+                        </nav><!-- .nav-menu -->
+                        <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+                    </div>
+                </header><!-- End Header -->
+
+                <main id="main">
+
+                    <!-- ======= Profile Section ======= -->
+                    <section id="profileInfor" class="profileInfor">
+                        <div class="container">
+
+                            <div class="section-title">
+                                <h2>Thông tin cá nhân</h2>
+                                <p><i>Hãy bảo toàn thông tin cá nhân kín đáo, tránh bị người hại lợi dụng.</i></p>
+                            </div>
+
+                            <div class="row" data-aos="fade-in">
+
+                                <div class="col-lg-6">
+                                    <div class="info">
+                                        <div class="informationOriginal">
+                                            <!--<i class="icofont-envelope"></i>-->
+                                            <table>
+                                                <tr>
+                                                    <td class="col-lg-2"><h5><b>Tên đăng nhập: </b></h5></td>
+                                                    <td class="col-lg-5"><h5>hieutkse</h5></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-lg-2"><h5><b>Họ và tên:</b> </h5></td>
+                                                    <td class="col-lg-5"><h5>Từ Khắc Hiếu</h5></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-lg-2"><h5><b>Email:</b></h5></td>
+                                                    <td class="col-lg-5"><h5>info@example.com</h5></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-lg-2"><h5><b>Số điện thoại:</b></h5></td>
+                                                    <td class="col-lg-5"><h5>+84 945120798</h5></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+                            <h:inputHidden id="txtInput_multipleCoordinate_listOwnRealEstate" value="#{listOwnRealEstateBean.jsonMultipleCoordinate}"></h:inputHidden>
+
+
+                        </div>
+
+
+
+                    </section>
+
+                    <section id="contributerep" class="profileInfor section-bg">
+                        <div class="container">
+                            <div class="section-title">
+                                <h2>Bất động sản đã đóng góp</h2>
+                                <p><i>Di chuyển bản đồ để xem các bất động sản đã đóng góp.</i></p>
+                            </div>
+                            <div id="map" class="col-10 col-lg-10"></div>
+                        </div>
+                    </section>
+
+
+                    <section id="changepass" class="changepass ">
+                        <div class="container">
+
+                            <div class="section-title">
+                                <h2>Thay đổi mật khẩu</h2>
+                                <p><i>Mật khẩu nên chứa ký tự đặc biệt, chữ hoa và số để tăng cường độ bảo mật</i></p>
+                            </div>
+
+                            <div class="row changepass-content">
+                                <form action="#" method="post" role="form" class="updateInfor">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="name">Mật khẩu cũ</label>
+                                            <input type="text" name="oldPass" class="form-control" id="name" data-rule="minlen:6" data-msg="Mật khẩu có tối thiểu 6 ký tự" />
+                                            <div class="validate"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="name">Mật khẩu mới</label>
+                                            <input type="text" name="newPass" class="form-control" id="name" data-rule="minlen:6" data-msg="Mật khẩu có tối thiểu 6 ký tự" />
+                                            <div class="validate"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="name">Xác nhận mật khẩu mới</label>
+                                            <input type="text" name="confirmNewPass" class="form-control" id="name" data-rule="minlen:6" data-msg="Mật khẩu có tối thiểu 6 ký tự" />
+                                            <div class="validate"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h:commandButton class="next action-button" value="Thay đổi mật khẩu">
+                                        </h:commandButton>
+                                    </div>
+                                </form>
+
+
+
+
+                            </div>
+
+                        </div>
+                    </section><!-- End Contact Section -->
+
+                    <section id="profileUpdate" class="profileInforUpdate section-bg">
+                        <div class="container">
+
+                            <div class="section-title">
+                                <h2>Cập nhật thông tin cá nhân</h2>
+                                <p><i>Các thông tin cá nhân dưới đây sẽ được bảo toàn kín đáo, sau khi được bạn chỉnh sửa sẽ được cập nhật vào hệ thống.</i></p>
+                            </div>
+
+                            <div class="col-lg-6 mt-5 mt-lg-0 d-flex align-items-stretch">
+                                <form action="#" method="post" role="form" class="updateInfor">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="name">Tên của bạn</label>
+                                            <input type="text" name="name" class="form-control" id="name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                            <div class="validate"></div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="name">Email</label>
+                                            <input type="email" class="form-control" name="email" id="email" data-rule="email" data-msg="Please enter a valid email" />
+                                            <div class="validate"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Số điện thoại</label>
+                                        <input type="text" class="form-control" name="subject" id="subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                                        <div class="validate"></div>
+                                    </div>
+                                    <div>
+                                        <h:commandButton class="next action-button" value="Cập nhật">
+                                        </h:commandButton>
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </main><!-- End #main -->
+
+                <!-- =======Have Already Footer ======= -->
+                <footer id="footer">
+                    <div class="container">
+                        <div class="copyright">
+                            &copy; Copyright <strong><span>Land Information Portal</span></strong>
+                        </div>
+                    </div>
+                </footer><!-- End  Footer -->
+
+
+                <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+                <!-- Vendor JS Files -->
+                <h:outputScript name="jquery.min.js" library="js" />
+                <h:outputScript name="bootstrap.bundle.min.js" library="js" />
+                <h:outputScript name="jquery.easing.min.js" library="js" />
+                <h:outputScript name="jquery.waypoints.min.js" library="js" />
+                <h:outputScript name="counterup.min.js" library="js" />
+                <h:outputScript name="isotope.pkgd.min.js" library="js" />
+                <h:outputScript name="venobox.min.js" library="js" />
+                <h:outputScript name="owl.carousel.min.js" library="js" />
+                <h:outputScript name="typed.min.js" library="js" />
+                <h:outputScript name="aos.js" library="js" />
+
+
+                <!-- Template Main JS File -->
+                <h:outputScript name="viewmyprofile.js" library="js"/>
+                <h:outputScript name="listownrealestate.js" library="js"/>
+                <script type="text/javascript"
+                        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
+                async="true" defer="true"></script>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+
+
+
+</html>

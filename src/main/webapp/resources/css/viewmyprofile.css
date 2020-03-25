@@ -38,14 +38,10 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
   transition: display 0.5s ease-in-out;
   z-index: 99999;
+  text-align: center;
+  padding-top: 10px;
 }
 
-.back-to-top i {
-  font-size: 24px;
-  position: absolute;
-  top: 7px;
-  left: 8px;
-}
 
 .back-to-top:hover {
   color: #fff;

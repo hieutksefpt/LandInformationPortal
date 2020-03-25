@@ -9,6 +9,7 @@ import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.repository.UserRepository;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
+import capstone.lip.landinformationportal.utils.PasswordGenerator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,15 @@ public class UserService implements IUserService {
     @Override
     public User findById(Long userId) {
         return userRepository.findById(userId).get();
+    }
+
+    @Override
+    public String resetPassword(long userId, int passwordLength) {
+        User user = userRepository.findById(userId).get();
+        String newPassword = PasswordGenerator.generate(passwordLength);
+        user.setPassword(newPassword);
+        userRepository.save(user);
+        return newPassword;
     }
 
 }

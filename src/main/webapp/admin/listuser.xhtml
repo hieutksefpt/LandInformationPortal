@@ -12,20 +12,50 @@
     <body>
         <h:outputStylesheet name="listallrealestate.css" library="css" />
         <h:outputStylesheet name="bootstrap.min.css" library="css" />
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
         <ui:composition template="/template/admin/adminLayout.xhtml">
             <ui:define name="content">
                 <h:form id="table-user" prependId="false">
-                    <p:dataTable var="user" value="#{listUserBean.listUser}">
-                        <p:column headerText="CheckBox">
-                            
-                        </p:column>
-                        <p:column headerText="ID">
+
+                    <h:commandButton id="btn-UnbanUser"
+                                     value="Vô hiệu"
+                                     action="#{listUserBean.banUser()}">
+                        <p:ajax process="@form" update="table-user"/>
+                    </h:commandButton>
+                    <h:commandButton id="btn-BanUser"
+                                     value="Kích hoạt"
+                                     action="#{listUserBean.unbanUser()}">
+                        <p:ajax process="@form" update="table-user"/>
+                    </h:commandButton>
+                    <h:commandButton id="btn-ChangeUserRoleAdmin"
+                                     value="Phân quyền Admin"
+                                     action="#{listUserBean.changeUserRole('Admin')}">
+                        <p:ajax process="@form" update="table-user"/>
+                    </h:commandButton>
+                    <h:commandButton id="btn-ChangeUserRoleContributor"
+                                     value="Phân quyền Contributor"
+                                     action="#{listUserBean.changeUserRole('Contributor')}">
+                        <p:ajax process="@form" update="table-user"/>
+                    </h:commandButton>
+                    <h:commandButton id="btn-ResetPassword"
+                                     value="Đặt lại mật khẩu"
+                                     action="#{listUserBean.resetPassword()}">
+                        <p:ajax process="@form" update="table-user"/>
+                    </h:commandButton>
+
+                    <p:dataTable var="user"
+                                 value="#{listUserBean.listUser}"
+                                 rowKey="#{user.userId}"
+                                 selection="#{listUserBean.selectedUser}"
+                                 disabledSelection="#{user.userId == 4}">
+                        <p:column selectionMode="multiple" style="width:5%;text-align:center"/>
+                        <p:column headerText="ID" style="width: 5%;text-align:center">
                             <h:outputText value="#{user.userId}" />
                         </p:column>
-                        <p:column headerText="Username">
+                        <p:column headerText="Username" style="width: 10%;">
                             <h:outputText value="#{user.username}" />
                         </p:column>
-                        <p:column headerText="Password">
+                        <p:column headerText="Password" style="width: 10%;">
                             <h:outputText value="#{user.password}" />
                         </p:column>
                         <p:column headerText="Full Name">
@@ -37,11 +67,12 @@
                         <p:column headerText="Phone">
                             <h:outputText value="#{user.phone}" />
                         </p:column>
-                        <p:column headerText="Role">
-                            <h:outputText value="#{user.role}" />
+                        <p:column headerText="Role" style="width: 10%;text-align:center">
+                            <h:outputText value="#{user.role}"/>
                         </p:column>
-                        <p:column headerText="Status">
-                            <h:outputText value="status" />
+                        <p:column headerText="Status" style="width: 10%;text-align:center">
+                            <h:outputText value="Active" rendered="#{user.userStatus == '1'}"/>
+                            <h:outputText value="Ban" rendered="#{user.userStatus == '0'}"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>

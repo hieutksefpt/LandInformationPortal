@@ -37,6 +37,8 @@ public interface RealEstateRepository extends JpaRepository<RealEstate, Long>, J
 	
 	long countByRealEstateSourceNot(String source);
 	
+	long countByRealEstateAddress(String address);
+	
 	Page<RealEstate> findByRealEstateSource(String source, Pageable page);
 	
 	Page<RealEstate> findByRealEstateSourceNot(String source, Pageable page);

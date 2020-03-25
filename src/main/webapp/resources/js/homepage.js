@@ -83,15 +83,35 @@ function drawPath(json){
 	path.push(element);
 }
 function drawListMarker(list){
-	list.forEach(drawEachPoint)
+	
+    listMarker.forEach(x=>{x.setMap(null)});
+	listMarker = [];
+    list.forEach(drawEachPoint)
 	
 	function drawEachPoint(item, index, arr){
-		var marker = new google.maps.Marker({
-            position: {lat: item.latitude, lng: item.longitude},
-            map: map
+    	let marker;
+    	if (item.source=='CONTRIBUTOR'){
+			marker = new google.maps.Marker({
+	            position: {lat: item.latitude, lng: item.longitude},
+	            map: map,
+	            icon: urlBlueMarker,
+	            info: item
+	        });
+    	}else{
+    		marker = new google.maps.Marker({
+	            position: {lat: item.latitude, lng: item.longitude},
+	            map: map,
+	            info: item
+	        });
+    	}
+    	
+    	google.maps.event.addListener(marker, 'click', function () {
+            // you know you'd be better off with 
+            // marker.getPosition().lat(), right?
+    		$('#row-'+marker.info.id).effect("highlight", {}, 3000);
         });
-		listMarker.push(marker);
+    	
+    	listMarker.push(marker);
+    	
 	}
-	i=1;
-	i++;
 }

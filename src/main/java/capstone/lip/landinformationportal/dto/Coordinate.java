@@ -10,7 +10,7 @@ public class Coordinate implements Serializable{
 	private Double longitude;
 	private Double latitude;
 	private Long id;
-	
+	private String source;
 	public Coordinate() {
 		super();
 	}
@@ -38,6 +38,13 @@ public class Coordinate implements Serializable{
 	}
 	public Coordinate setId(Long id) {
 		this.id = id;
+		return this;
+	}
+	public String getSource() {
+		return source;
+	}
+	public Coordinate setSource(String source) {
+		this.source = source;
 		return this;
 	}
 	

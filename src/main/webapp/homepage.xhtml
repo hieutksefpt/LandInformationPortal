@@ -117,7 +117,7 @@
 	                            <div class="form-group row">
 	                                <div class="col-md-6">
 	                                    <h:selectOneMenu id="cbb-Province" value="#{homepageBean.provinceIdSelected}">
-	                                        <p:ajax listener="#{homepageBean.provinceChange}" update="@form panel-list-reo" oncomplete="clearDataMap()"/>
+	                                        <p:ajax listener="#{homepageBean.provinceChange}" update="@form form-list-reo" oncomplete="clearDataMap()"/>
 	                                        <f:selectItem itemLabel="Tỉnh/Thành phố" itemValue=""/>
 	                                        <f:selectItems value="#{homepageBean.listProvince}" var="element"
 	                                                       itemLabel="#{element.provinceName}" itemValue="#{element.provinceId}"/>
@@ -125,17 +125,19 @@
 	                                </div>
 	                                <div class="col-md-6">
 	                                    <h:selectOneMenu id="cbb-District" value="#{homepageBean.districtIdSelected}">
-	                                        <p:ajax listener="#{homepageBean.districtChange}" update="form panel-list-reo" oncomplete="clearDataMap()"></p:ajax>
+	                                        <p:ajax listener="#{homepageBean.districtChange}" update="form form-list-reo"  
+	                                        oncomplete="clearDataMap()"></p:ajax>
 	                                        <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
 	                                        <f:selectItems value="#{homepageBean.listDistrict}" var="element"
 	                                                       itemLabel="#{element.districtName}" itemValue="#{element.districtId}"/>
 	                                    </h:selectOneMenu>
 	                                </div>
 	                            </div>
+	                            #{homepageBean.districtIdSelected != ''}
 	                            <div class="form-group row">
 	                                <div class="col-md-6">
 	                                    <h:selectOneMenu id="cbb-Street" value="#{homepageBean.streetIdSelected}">
-	                                        <p:ajax	listener="#{homepageBean.streetChange}" update="form panel-list-reo panel-list-reo"
+	                                        <p:ajax	listener="#{homepageBean.streetChange}" update="form form-list-reo"
 	                                         oncomplete="clearDataMap()"></p:ajax>
 	
 	                                        <f:selectItem itemLabel="Đường phố" itemValue=""/>
@@ -145,7 +147,7 @@
 	                                </div>
 	                                <div class="col-md-6">
 	                                    <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{homepageBean.segmentIdSelected}">
-	                                        <p:ajax	listener="#{homepageBean.segmentOfStreetChange}" update="form panel-list-reo"></p:ajax>
+	                                        <p:ajax	listener="#{homepageBean.segmentOfStreetChange}" update="form form-list-reo"></p:ajax>
 	                                        <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
 	                                        <f:selectItems value="#{homepageBean.listSegmentOfStreet}" var="element"
 	                                                       itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
@@ -159,10 +161,9 @@
 	            </p:panel>
 	        </div>
 			<div id="list-reo">
-				<h:form prependId="false" onsubmit="return false;">
-					#{homepageBean.districtIdSelected}
-					#{homepageBean.districtIdSelected != null}
-					<p:panel id="panel-list-reo"  rendered="#{homepageBean.districtIdSelected != null}"> 
+				<h:form prependId="false" onsubmit="return false;" id="form-list-reo">
+					
+					<p:panel id="panel-list-reo">
 						<h:selectOneMenu id="cbb-type-reo" value="#{homepageBean.typeReo}" 
 						styleClass="browser-default custom-select custom-select-lg mb-3">
 							<p:ajax	listener="#{homepageBean.openPageReo(0)}" process="@form" update="@form"></p:ajax>
@@ -172,10 +173,13 @@
 						</h:selectOneMenu>
 						<div class="scroll-y-only">
 							<c:forEach items="${homepageBean.listRealEstate}" var="element">
-								<li	class="list-group-item row d-flex">
+								<li	class="list-group-item row d-flex" id="row-${element.realEstateId}">
 									
 									<div class="col" id="#{element.realEstateName}">
-										#{element.realEstateName}
+										<h:commandLink action="#{homepageBean.goToDetails(element.realEstateId)}" value="#{element.realEstateName}">
+											<p:ajax process="@form"></p:ajax>
+										</h:commandLink>
+										
 									</div>
 								</li>
 							</c:forEach>
@@ -224,6 +228,7 @@
 		</ui:define>
 
 		<ui:define name="footer">
+			<h:outputScript>var urlBlueMarker = "${resource['img/blue-dot.png']}" </h:outputScript>
 			<h:outputScript name="homepage.js" library="js" />
 			<script type="text/javascript"
 				src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"

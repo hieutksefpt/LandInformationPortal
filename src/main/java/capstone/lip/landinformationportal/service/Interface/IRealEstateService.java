@@ -62,4 +62,6 @@ public interface IRealEstateService {
     Page<RealEstate> listFilterRealEstateByAddressAndSource(String realEstateAddress, String realEstateSource, Pageable page);
     
     Page<RealEstate> listFilterRealEstateByAddressAndSourceNot(String realEstateAddress, String realEstateSource, Pageable page);
+    
+    long countByRealEstateAddress(String address);
 }

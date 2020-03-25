@@ -63,8 +63,8 @@ public class ViewRealEstateDetailBean implements Serializable {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         long realEstateId = Long.parseLong(params.get("realEstateId"));
         realEstateClicked = realEstateService.findById(realEstateId);
-        currentLand = realEstateService.getLand(realEstateId);
-        currentListHouse = realEstateService.getListHouse(realEstateId);
+        currentLand = realEstateClicked.getLand();
+        currentListHouse = realEstateClicked.getListHouse();
         transferCoordinate();
     }
 

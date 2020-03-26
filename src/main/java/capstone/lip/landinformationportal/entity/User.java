@@ -47,24 +47,71 @@ public class User extends AuditAbstract implements Serializable {
     private String email;
     @Column(name = "Phone")
     private String phone;
+    @Column(name = "UserStatus")
+    private String userStatus;
+    @Column(name = "DateOfBirth")
+    private String dateOfBirth;
+    @Column(name = "Gender")
+    private String gender;
+    @Column(name = "Address")
+    private String address;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @LazyToOne(LazyToOneOption.NO_PROXY)
     private List<RealEstate> listRealEstate;
 
-    
-
     public User() {
     }
 
-    public User(String username, String password, String fullName, String role, String email, String phone) {
+    public User(Long userId, String username, String password, String fullName, String role, String email, String phone, String userStatus, String dateOfBirth, String gender, String address) {
+        this.userId = userId;
         this.username = username;
         this.password = password;
         this.fullName = fullName;
         this.role = role;
         this.email = email;
         this.phone = phone;
+        this.userStatus = userStatus;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.address = address;
     }
+
+    public String getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(String userStatus) {
+        this.userStatus = userStatus;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    
+    
+    
 
     public Long getUserId() {
         return userId;
@@ -86,8 +133,8 @@ public class User extends AuditAbstract implements Serializable {
         return password;
     }
 
-    public void setPassword(String password) { 
-       this.password = password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFullName() {
@@ -121,7 +168,7 @@ public class User extends AuditAbstract implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    
+
     public List<RealEstate> getListRealEstate() {
         return listRealEstate;
     }

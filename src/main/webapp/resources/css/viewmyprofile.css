@@ -126,6 +126,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*--------------------------------------------------------------
+
 # Navigation Menu
 --------------------------------------------------------------*/
 /* Desktop Navigation */
@@ -189,6 +190,25 @@ h1, h2, h3, h4, h5, h6 {
   color: #149ddd;
 }
 
+.form-group .gender-group { 
+    margin-left: -15px;
+    
+    
+}
+
+.form-group #txtEmail, #txtfullname, #dateevent_input, #txtaddress, #txtPhone, #cbb-gender{ 
+    border-radius: 3px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.4);
+}
+.form-group #cbb-gender { 
+    padding: 7px;
+    
+}
+
+.form-group #dateevent {  
+    /*padding-left: 3px;*/
+    width: 100%;
+}
 .mobile-nav-active {
   overflow: hidden;
 }
@@ -416,6 +436,8 @@ section {
 
 .contact .info .email p {
   padding-top: 5px;
+  border-radius: 3px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.4);
 }
 
 .contact .info .social-links {

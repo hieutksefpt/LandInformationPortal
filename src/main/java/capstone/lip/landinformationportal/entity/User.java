@@ -6,6 +6,7 @@
 package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -50,7 +51,7 @@ public class User extends AuditAbstract implements Serializable {
     @Column(name = "UserStatus")
     private String userStatus;
     @Column(name = "DateOfBirth")
-    private String dateOfBirth;
+    private Date dateOfBirth;
     @Column(name = "Gender")
     private String gender;
     @Column(name = "Address")
@@ -63,7 +64,7 @@ public class User extends AuditAbstract implements Serializable {
     public User() {
     }
 
-    public User(Long userId, String username, String password, String fullName, String role, String email, String phone, String userStatus, String dateOfBirth, String gender, String address) {
+    public User(Long userId, String username, String password, String fullName, String role, String email, String phone, String userStatus, Date dateOfBirth, String gender, String address) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -85,13 +86,15 @@ public class User extends AuditAbstract implements Serializable {
         this.userStatus = userStatus;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+
+    
 
     public String getGender() {
         return gender;
@@ -109,8 +112,6 @@ public class User extends AuditAbstract implements Serializable {
         this.address = address;
     }
 
-    
-    
     
 
     public Long getUserId() {

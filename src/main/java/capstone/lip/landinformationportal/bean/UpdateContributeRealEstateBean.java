@@ -654,6 +654,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
     public void setListDistrict(List<District> listDistrict) {
         this.listDistrict = listDistrict;
     }
+    
 
     public List<SegmentOfStreet> getListSegmentOfStreet() {
         return listSegmentOfStreet;

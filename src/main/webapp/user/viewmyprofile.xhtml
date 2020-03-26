@@ -50,7 +50,6 @@
                             <ul>
                                 <li class="active"><a href="#profileInfor"><span>Thông tin cá nhân</span></a></li>
                                 <li><a href="#changepass"> <span>Thay đổi mật khẩu</span></a></li>
-                                <li><a href="#profileUpdate"><span>Cập nhật thông tin cá nhân</span></a></li>
                             </ul>
                         </nav><!-- .nav-menu -->
                         <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
@@ -60,49 +59,77 @@
                 <main id="main">
 
                     <!-- ======= Profile Section ======= -->
-                    <section id="profileInfor" class="profileInfor">
+                    <section id="profileInfor" class="profileInforUpdate">
                         <div class="container">
 
                             <div class="section-title">
                                 <h2>Thông tin cá nhân</h2>
-                                <p><i>Hãy bảo toàn thông tin cá nhân kín đáo, tránh bị người hại lợi dụng.</i></p>
+                                <p><i>Các thông tin cá nhân dưới đây sẽ được bảo toàn kín đáo, sau khi bạn chỉnh sửa sẽ được cập nhật vào hệ thống.</i></p>
                             </div>
 
-                            <div class="row" data-aos="fade-in">
-
-                                <div class="col-lg-6">
-                                    <div class="info">
-                                        <div class="informationOriginal">
-                                            <!--<i class="icofont-envelope"></i>-->
-                                            <table>
-                                                <tr>
-                                                    <td class="col-lg-2"><h5><b>Tên đăng nhập: </b></h5></td>
-                                                    <td class="col-lg-5"><h5>hieutkse</h5></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="col-lg-2"><h5><b>Họ và tên:</b> </h5></td>
-                                                    <td class="col-lg-5"><h5>Từ Khắc Hiếu</h5></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="col-lg-2"><h5><b>Email:</b></h5></td>
-                                                    <td class="col-lg-5"><h5>info@example.com</h5></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="col-lg-2"><h5><b>Số điện thoại:</b></h5></td>
-                                                    <td class="col-lg-5"><h5>+84 945120798</h5></td>
-                                                </tr>
-                                            </table>
+                            <div class="col-lg-6 mt-5 mt-lg-0 d-flex align-items-stretch">
+                                <form id="updateform" action="#" method="post" role="form" class="updateInfor">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="name">Tên của bạn</label>
+                                            <h:inputText id="fullname" value="#{manageMyProfileBean.fullname}"  class="form-control">
+                                                
+                                            </h:inputText>
+                                            <!--                                            <input type="text" name="name" class="form-control" id="name" data-rule="minlen:6" data-msg="Please enter at least 6 chars" />-->
+                                            <div class="validate"></div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="name">Email</label>
+                                            <h:inputText id="email" value="#{manageMyProfileBean.email}"  class="form-control">
+                                            </h:inputText>
+                                            <!--<input type="email" class="form-control" name="email" id="email" data-rule="email" data-msg="Please enter a valid email" />-->
+                                            <div class="validate"></div>
                                         </div>
                                     </div>
 
-                                </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="name">Giới tính</label>
+                                            <h:selectOneMenu id="cbb-gender" value="#{manageMyProfileBean.genderSelected}">
+                                                <f:selectItem itemLabel="-- Giới tính --" itemValue=""/>
+                                                <f:selectItem itemLabel="Nam" itemValue="Nam"/>
+                                                <f:selectItem itemLabel="Nữ" itemValue="Nữ"/>
+                                                <f:selectItem itemLabel="Khác" itemValue="Khác"/>
+                                            </h:selectOneMenu>
+                                            <div class="validate"></div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="name">Ngày sinh</label>
+                                            <p:calendar id="event" value="#{manageMyProfileBean.dateOfBirth}">
+                                                <ui:remove>
+                                                    <p:ajax event="dateSelect" listener="#{manageMyProfileBean.dateOfBirth}" update="updateform" />
+                                                </ui:remove>
+                                                
+                                            </p:calendar>
+                                        </div>
+                                    </div>
 
+                                    <div class="form-group">
+                                        <label for="name">Địa chỉ</label>
+                                        <h:inputText id="address" value="#{manageMyProfileBean.address}"  class="form-control">
+                                        </h:inputText>
+                                        <!--<input type="text" class="form-control" name="address" id="address" data-rule="minlen:8" data-msg="Please enter at least 8 chars" />-->
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Số điện thoại</label>
+                                        <h:inputText id="phone" value="#{manageMyProfileBean.phone}"  class="form-control">
+                                        </h:inputText>
+                                        <!--<input type="text" class="form-control" name="phone" id="phone" data-rule="minlen:8" data-msg="Please enter at least 8 chars" />-->
+                                    </div>
 
+                                    <div>
+                                        <h:commandButton class="next action-button" value="Cập nhật">
+                                        </h:commandButton>
+                                    </div>
 
+                                </form>
                             </div>
                             <h:inputHidden id="txtInput_multipleCoordinate_listOwnRealEstate" value="#{listOwnRealEstateBean.jsonMultipleCoordinate}"></h:inputHidden>
-
-
                         </div>
 
 
@@ -165,44 +192,7 @@
                         </div>
                     </section><!-- End Contact Section -->
 
-                    <section id="profileUpdate" class="profileInforUpdate section-bg">
-                        <div class="container">
 
-                            <div class="section-title">
-                                <h2>Cập nhật thông tin cá nhân</h2>
-                                <p><i>Các thông tin cá nhân dưới đây sẽ được bảo toàn kín đáo, sau khi được bạn chỉnh sửa sẽ được cập nhật vào hệ thống.</i></p>
-                            </div>
-
-                            <div class="col-lg-6 mt-5 mt-lg-0 d-flex align-items-stretch">
-                                <form action="#" method="post" role="form" class="updateInfor">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="name">Tên của bạn</label>
-                                            <input type="text" name="name" class="form-control" id="name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                            <div class="validate"></div>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="name">Email</label>
-                                            <input type="email" class="form-control" name="email" id="email" data-rule="email" data-msg="Please enter a valid email" />
-                                            <div class="validate"></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="name">Số điện thoại</label>
-                                        <input type="text" class="form-control" name="subject" id="subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                                        <div class="validate"></div>
-                                    </div>
-                                    <div>
-                                        <h:commandButton class="next action-button" value="Cập nhật">
-                                        </h:commandButton>
-                                    </div>
-
-                                </form>
-                            </div>
-
-                        </div>
-
-                    </section>
 
                 </main><!-- End #main -->
 

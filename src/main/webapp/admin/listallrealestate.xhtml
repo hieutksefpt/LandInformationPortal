@@ -15,181 +15,82 @@
                 <h:outputStylesheet name="listallrealestate.css" library="css" />
                 <h:outputStylesheet name="bootstrap.min.css" library="css" />
                 <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
-                <div class="modal fade" id="changeRealEstatePopup" tabindex="-1" role="dialog"
-                     aria-labelledby="changeRealEstatePopup" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Thay đổi trạng thái bất động sản</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <h:form>
-                                <div class="modal-body row">
-                                    <div class="col-4 col-lg-4 icon-status status-verified btn-on-change-status-dialog">
-                                        <h:commandLink id="btn-LinkChangeRealEstateStatusVerified"
-                                                       action="#{listAllRealEstateBean.changeRealEstateStatus('1')}"
-                                                       onclick="hideChangeRealEstateStatusPopup()">
-                                            <span class="pi pi-check"/>
-                                            Đã kiểm duyệt
-                                            <p:ajax process="@form" update="form-ViewList"/>
-                                        </h:commandLink>
-                                    </div>
-                                    <div class="col-4 col-lg-4 icon-status status-confused btn-on-change-status-dialog">
-                                        <h:commandLink id="btn-LinkChangeRealEstateStatusConfused"
-                                                       action="#{listAllRealEstateBean.changeRealEstateStatus('-1')}"
-                                                       onclick="hideChangeRealEstateStatusPopup()">
-                                            <span class="pi pi-times"/>
-                                            Chưa chuẩn dữ liệu
-                                            <p:ajax process="@form" update="form-ViewList"/>
-                                        </h:commandLink>
-                                    </div>
-                                    <div class="col-4 col-lg-4 icon-status status-not-verified btn-on-change-status-dialog">
-                                        <h:commandLink id="btn-LinkChangeRealEstateStatusNotVerified"
-                                                       action="#{listAllRealEstateBean.changeRealEstateStatus('0')}"
-                                                       onclick="hideChangeRealEstateStatusPopup()">
-                                            <span class="pi pi-question"/>
-                                            Chưa kiểm duyệt
-                                            <p:ajax process="@form" update="form-ViewList"/>
-                                        </h:commandLink>
-                                    </div>
-                                </div>
-                            </h:form>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="modal fade" id="confirmDeletePopup" tabindex="-1" role="dialog"
-                     aria-labelledby="confirmDeletePopup" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận xóa bất động sản</h5>
-                                <button type="button" class="close" data-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">Bạn có chắc chắn muốn xóa bất động sản này ?</div>
-                            <div class="modal-footer">
-                                <h:form>
-                                    <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Đóng</button>
-                                    <h:commandButton id="btn-ButtonDelete"
-                                                     styleClass="btn btn-primary btn-delete" 
-                                                     onclick="hideConfirmDeletePopup1()" 
-                                                     value="Xóa"
-                                                     action="#{listAllRealEstateBean.deleteRealEstate()}">
-                                        <p:ajax process="@form" update="form-ViewList"></p:ajax>
-                                    </h:commandButton>
-                                </h:form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div id="map" class="col-7 col-lg-7"></div>
-                        <div id="content-RightMap" class="col-5 col-lg-5 right-map">
-                            <div class="filter-realestae">
-                                <h:form id="form-Search">
-                                    <div class="row search-aria">
-                                        <div class="col-3 col-lg-3 lbl-real-estate-name-search">Tên BĐS</div>
-                                        <div class="col-7 col-lg-7 txt-search-name"><h:inputText id="txt-SearchName" class="" value="#{listAllRealEstateBean.txtSearchBox}"></h:inputText></div>
-                                        <div class="col-2 col-lg-2 btn-search">
-                                            <h:commandButton id="btn-ButtonSearch"
-                                                             value="Tìm kiếm"
-                                                             action="#{listAllRealEstateBean.listFilterRealEstate()}">
-                                                <p:ajax process="@form" update="form-ViewList"></p:ajax>
-                                            </h:commandButton>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6 col-lg-6">
-                                            <h:selectOneMenu id="combobox-RealEstateSource" class="combobox-common" value="#{listAllRealEstateBean.txtComboBoxSource}">
-                                                <f:selectItem itemLabel="Nguồn BĐS" itemValue="Nguồn BĐS" />
-                                                <c:forEach items="#{listAllRealEstateBean.listRealEstateSource}" var="realEstateSource">
-                                                    <f:selectItem itemLabel="#{realEstateSource}" itemValue="#{realEstateSource}" />
-                                                </c:forEach> 
-                                            </h:selectOneMenu>
-                                        </div>
-                                        <div class="col-6 col-lg-6">
-                                            <h:selectOneMenu id="combobox-RealEstateStatus" class="combobox-common" value="#{listAllRealEstateBean.txtComboBoxStatus}">
-                                                <f:selectItem itemLabel="Trạng thái BĐS" itemValue="2" />
-                                                <f:selectItem itemLabel="CONFUSED" itemValue="-1" />
-                                                <f:selectItem itemLabel="NOT_VERIFIED" itemValue="0" />
-                                                <f:selectItem itemLabel="VERIFIED" itemValue="1" />
-                                            </h:selectOneMenu>
-                                        </div>
-                                    </div>
-                                </h:form>
-                            </div>
-                            <div class="row">
-                                <div class="header-list title-header">Danh sách BĐS hệ thống</div>
-                                <h:form id="form-ViewList">
-                                    <c:forEach items="#{listAllRealEstateBean.listAllRealEstate}" var="realEstate">
-                                        <div class="row">
-                                            <c:if test="#{realEstate.realEstateStatus == '1'}">
-                                                <div class="col-1 col-lg-1 icon-status status-verified">
-                                                    <span class="pi pi-check"/>
-                                                </div>
-                                            </c:if>
-                                            <c:if test="#{realEstate.realEstateStatus == '-1'}">
-                                                <div class="col-1 col-lg-1 icon-status status-confused">
-                                                    <span class="pi pi-times"/>
-                                                </div>
-                                            </c:if>
-                                            <c:if test="#{realEstate.realEstateStatus == '0'}">
-                                                <div class="col-1 col-lg-1 icon-status status-not-verified">
-                                                    <span class="pi pi-question"/>
-                                                </div>
-                                            </c:if>
+                <h:form id="form-AllRealEstate" prependId="false">
 
-                                            <c:if test="#{realEstate.realEstateSource == 'Contributor'}">
-                                                <div id="lbl-RealEstateSource" class="realestate-source-contributor col-11 col-lg-11">#{realEstate.realEstateSource}</div>
-                                            </c:if>
-                                            <c:if test="#{realEstate.realEstateSource != 'Contributor'}">
-                                                <div id="lbl-RealEstateSource" class="realestate-source-other col-11 col-lg-11">#{realEstate.realEstateSource}</div>
-                                            </c:if>
-                                        </div>
-                                        <div class="row">
-                                            <div id="lbl-RealEstateAddress" class="col-8 col-lg-8 element-list">
-                                                <h:commandLink id="link-ViewDetail" class="blue-link" value="#{realEstate.realEstateAddress}" action="#{listAllRealEstateBean.goToDetails(realEstate.realEstateId)}">
-                                                    <p:ajax process="@form"/>
-                                                </h:commandLink>
-                                            </div>
+                    <h:commandButton id="btn-ChangeRealEstateStatusConfused"
+                                     value="CONFUSED"
+                                     action="#{listAllRealEstateBean.changeRealEstateStatusToConfused()}">
+                        <p:ajax process="@form" update="form-AllRealEstate"/>
+                    </h:commandButton>
+                    <h:commandButton id="btn-ChangeRealEstateStatusNotVerified"
+                                     value="NOT VERIFIED"
+                                     action="#{listAllRealEstateBean.changeRealEstateStatusToNotVerified()}">
+                        <p:ajax process="@form" update="form-AllRealEstate"/>
+                    </h:commandButton>
+                    <h:commandButton id="btn-ChangeRealEstateStatusVerified"
+                                     value="VERIFIED"
+                                     action="#{listAllRealEstateBean.changeRealEstateStatusToVerified()}">
+                        <p:ajax process="@form" update="form-AllRealEstate"/>
+                    </h:commandButton>
+                    <h:commandButton id="btn-DeleteSelectedRealEstate"
+                                     value="DELETE"
+                                     action="#{listAllRealEstateBean.deleteSelectedRealEstate()}">
+                        <p:ajax process="@form" update="form-AllRealEstate"/>
+                    </h:commandButton>
+                   
+                    
 
-                                            <div class="col-4 col-lg-4 element-list">
-                                                <c:if test="#{realEstate.realEstateSource != 'Contributor'}">
-                                                    <h:commandButton id="btn-ButtonDelete"
-                                                                     class="btn-in-list-all btn-delete"
-                                                                     value="Xóa" 
-                                                                     action="#{listAllRealEstateBean.clickButtonDeleteOnRow(realEstate.realEstateId)}"
-                                                                     onclick="openConfirmDeletePopup1()">
-                                                        <f:ajax execute="@form" render="confirmDeletePopup" />
-                                                    </h:commandButton>
-                                                </c:if>
-                                                <h:commandButton id="btn-ButtonChangeStatus"
-                                                                 class="btn-in-list-all btn-change-status"
-                                                                 value="Thay đổi trạng thái"
-                                                                 action="#{listAllRealEstateBean.clickButtonChangeStatusOnRow(realEstate.realEstateId)}"
-                                                                 onclick="openChangeRealEstateStatusPopup()">
-                                                    <f:ajax execute="@form" render="changeRealEstatePopup" />
-                                                </h:commandButton>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
-                                </h:form>
-                                <h:inputHidden id="txtInput_multipleCoordinate_listAllRealEstate" value="#{listAllRealEstateBean.jsonMultipleCoordinate}"></h:inputHidden>
-                            </div>
-                        </div>    
-                    </div>
-                </div>
+                    <p:dataTable var="realEstate"
+                                 value="#{listAllRealEstateBean.listAllRealEstate}"
+                                 rowKey="#{realEstate.realEstateId}"
+                                 selection="#{listAllRealEstateBean.listSelectedRealEstate}"
+                                 widgetVar="table-real-estate">
+
+                        <p:column selectionMode="multiple" style="width:5%;text-align:center"/>
+                        <p:column headerText="ID" style="width: 5%;text-align:center">
+                            <h:outputText value="#{realEstate.realEstateId}"/>
+                        </p:column>
+                        <p:column headerText="Name">
+                            <a href="#{realEstate.realEstateLink}" target="_blank"><h:outputText value="#{realEstate.realEstateName}" /></a>
+                        </p:column>
+                        <p:column headerText="Price">
+                            <h:outputText value="#{realEstate.realEstatePrice}" />
+                        </p:column>
+                        <p:column headerText="Coordinate">
+                            <h:outputText value="#{realEstate.realEstateLat}" /> , <h:outputText value="#{realEstate.realEstateLng}" />
+                        </p:column>
+                        <p:column headerText="Address">
+                            <h:outputText value="#{realEstate.realEstateAddress}" />
+                        </p:column>
+                        <p:column filterBy="#{realEstate.realEstateSource}" filterMatchMode="exact" style="width: 15%;text-align:center">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('table-real-estate').filter()" styleClass="custom-filter">
+                                    <f:selectItem itemLabel="All Source" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItems value="#{listAllRealEstateBean.listRealEstateSource}" />
+                                </p:selectOneMenu>
+                            </f:facet>
+                            <h:outputText value="#{realEstate.realEstateSource}" />
+                        </p:column>
+                        <p:column filterBy="#{realEstate.realEstateStatus}" filterMatchMode="exact" style="width: 10%;text-align:center">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('table-real-estate').filter()" styleClass="custom-filter">
+                                    <f:selectItem itemLabel="All Status" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="CONFUSED" itemValue="-1" />
+                                    <f:selectItem itemLabel="NOT VERIFIED" itemValue="0" />
+                                    <f:selectItem itemLabel="VERIFIED" itemValue="1" />
+                                </p:selectOneMenu>
+                            </f:facet>
+                            <h:outputText value="CONFUSED" style="color: red" rendered="#{realEstate.realEstateStatus == '-1'}"/>
+                            <h:outputText value="NOT VERIFIED" style="color: #f6b102" rendered="#{realEstate.realEstateStatus == '0'}"/>
+                            <h:outputText value="VERIFIED" style="color: green" rendered="#{realEstate.realEstateStatus == '1'}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
             </ui:define>
-
             <ui:define name="footer">
                 <h:outputScript name="markerclustererplus.min.js" library="js"></h:outputScript>
                 <h:outputScript name="listallrealestate.js" library="js" />
-                <script type="text/javascript"
-                        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
-                async="true" defer="true"></script>
             </ui:define>
         </ui:composition>
     </body>

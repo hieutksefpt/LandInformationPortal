@@ -4,6 +4,7 @@ import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -66,6 +67,29 @@ public class ListUserBean implements Serializable {
             }
         }
         return -1;
+    }
+
+    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+        if (filterText == null || filterText.equals("")) {
+            return true;
+        }
+        int filterInt = getInteger(filterText);
+
+        User user = (User) value;
+        return user.getUserId().toString().toLowerCase().contains(filterText)
+                || user.getUsername().toLowerCase().contains(filterText)
+                || user.getFullName().toLowerCase().contains(filterText)
+                || user.getEmail().toLowerCase().contains(filterText)
+                || user.getPhone().toLowerCase().contains(filterText);
+    }
+
+    private int getInteger(String string) {
+        try {
+            return Integer.valueOf(string);
+        } catch (NumberFormatException ex) {
+            return 0;
+        }
     }
 
     public List<User> getListUser() {

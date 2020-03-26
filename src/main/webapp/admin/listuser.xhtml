@@ -47,7 +47,8 @@
                                  value="#{listUserBean.listUser}"
                                  rowKey="#{user.userId}"
                                  selection="#{listUserBean.selectedUser}"
-                                 disabledSelection="#{user.userId == 4}">
+                                 disabledSelection="#{user.userId == 4}"
+                                 widgetVar="table-user">
                         <p:column selectionMode="multiple" style="width:5%;text-align:center"/>
                         <p:column headerText="ID" style="width: 5%;text-align:center">
                             <h:outputText value="#{user.userId}" />
@@ -67,13 +68,31 @@
                         <p:column headerText="Phone">
                             <h:outputText value="#{user.phone}" />
                         </p:column>
-                        <p:column headerText="Role" style="width: 10%;text-align:center">
+
+
+                        <p:column filterBy="#{user.role}" filterMatchMode="exact" style="width: 10%;text-align:center">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('table-user').filter()" styleClass="custom-filter">
+                                    <f:selectItem itemLabel="All Role" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Admin" itemValue="Admin" />
+                                    <f:selectItem itemLabel="Contributor" itemValue="Contributor" />
+                                </p:selectOneMenu>
+                            </f:facet>
                             <h:outputText value="#{user.role}"/>
                         </p:column>
-                        <p:column headerText="Status" style="width: 10%;text-align:center">
+
+                        <p:column filterBy="#{user.userStatus}" filterMatchMode="exact" style="width: 10%;text-align:center">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('table-user').filter()" styleClass="custom-filter">
+                                    <f:selectItem itemLabel="All Status" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Ban" itemValue="0" />
+                                    <f:selectItem itemLabel="Active" itemValue="1" />
+                                </p:selectOneMenu>
+                            </f:facet>
                             <h:outputText value="Active" rendered="#{user.userStatus == '1'}"/>
                             <h:outputText value="Ban" rendered="#{user.userStatus == '0'}"/>
                         </p:column>
+
                     </p:dataTable>
                 </h:form>
             </ui:define>

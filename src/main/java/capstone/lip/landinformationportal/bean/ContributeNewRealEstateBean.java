@@ -177,7 +177,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         listStreet = new ArrayList<>();
         listLandsFeature = landFeatureService.findAll();
         listHousesFeature = housesFeatureService.findAll();
-        realEstateStatus = String.valueOf(CONFUSED);
+        realEstateStatus = String.valueOf(NOT_VERIFIED);
         realEstateType = CONTRIBUTOR;
         userId = "1";
         realEstatePrice = BigDecimal.ZERO;

@@ -92,7 +92,6 @@
 												</nav>
 											</div>
 										</div>
-										
 									</div>
 								</h:form>
 							</div>
@@ -133,7 +132,6 @@
 	                                    </h:selectOneMenu>
 	                                </div>
 	                            </div>
-	                            #{homepageBean.districtIdSelected != ''}
 	                            <div class="form-group row">
 	                                <div class="col-md-6">
 	                                    <h:selectOneMenu id="cbb-Street" value="#{homepageBean.streetIdSelected}">
@@ -156,6 +154,33 @@
 	                            </div>
 	                        </h:panelGroup>
 	                        <p:separator />
+	                        <h:panelGroup rendered="#{homepageBean.districtIdSelected != ''}">
+	                        	<div class="row col">
+	                        		<strong>Giá cao nhất:</strong>
+	                        		<h:outputText value="${homepageBean.maxMinAvg.max}">	
+	                        			<f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
+	                        		</h:outputText>  VND
+	                        		
+	                        	</div>
+	                        	<div class="row col">
+	                        		<strong>Giá thấp nhất:</strong>
+	                        		<h:outputText value="${homepageBean.maxMinAvg.min}">	
+	                        			<f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
+	                        		</h:outputText> VND
+	                        	</div>
+	                        	<div class="row col">
+	                        		<strong>Giá trung bình:</strong>
+	                        		<h:outputText value="${homepageBean.maxMinAvg.avg}">	
+	                        			<f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
+	                        		</h:outputText> VND
+	                        	</div>
+	                        	<div class="row col">
+	                        		<p:chart type="line" model="#{homepageBean.lineChartModel}" style="height:300px;"/>
+	                        	</div>
+	                        	
+	                        </h:panelGroup>
+	                        <p:separator />
+	                        
 	                    </p:panel>
 	                </h:form>
 	            </p:panel>

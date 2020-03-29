@@ -5,6 +5,8 @@
  */
 package capstone.lip.landinformationportal.service;
 
+import capstone.lip.landinformationportal.dto.GroupByDateMaxMinCreate;
+import capstone.lip.landinformationportal.dto.MaxMinAvg;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.RealEstate;
@@ -12,8 +14,13 @@ import capstone.lip.landinformationportal.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.specification.RealEstateSpecifications;
 import capstone.lip.landinformationportal.specification.SearchCriteria;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -178,5 +185,15 @@ public class RealEstateService implements IRealEstateService {
 		RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", address));
 		RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", address));
 		return realEstateRepository.count(Specification.where(spec1).or(spec2));
+	}
+
+	@Override
+	public MaxMinAvg listMaxMinAvg(String address) {
+		return realEstateRepository.getMaxMinAvg(address);
+	}
+
+	@Override
+	public List<GroupByDateMaxMinCreate> listGroupByDateAndValue(String address) {
+		return realEstateRepository.getGroupTimeAndPrice(address);
 	}
 }

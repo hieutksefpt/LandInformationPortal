@@ -2,9 +2,13 @@ package capstone.lip.landinformationportal.bean;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +21,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.primefaces.PrimeFaces;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.CategoryAxis;
+import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.LineChartModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +34,8 @@ import com.google.gson.Gson;
 import capstone.lip.landinformationportal.common.StatusCrawledNewsConstant;
 import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
 import capstone.lip.landinformationportal.dto.Coordinate;
+import capstone.lip.landinformationportal.dto.GroupByDateMaxMinCreate;
+import capstone.lip.landinformationportal.dto.MaxMinAvg;
 import capstone.lip.landinformationportal.dto.Pagination;
 import capstone.lip.landinformationportal.entity.CrawledNews;
 import capstone.lip.landinformationportal.entity.District;
@@ -73,6 +83,8 @@ public class HomepageBean implements Serializable{
 	private List<RealEstate> listRealEstate;
 	private String typeReo;
 	private boolean isDisplayReoPanel;
+	private MaxMinAvg maxMinAvg;
+	private LineChartModel lineChartModel;
 	@PostConstruct
 	public void init() {
 		pageNews = new Pagination()
@@ -83,7 +95,8 @@ public class HomepageBean implements Serializable{
 		pageNews.setTotalPages(pageNews.getTotalRow()/pageNews.getRowsPerPage());
 		
 		openPageNews(0);
-
+		provinceIdSelected = streetIdSelected = segmentIdSelected = districtIdSelected = "";
+		
 		isDisplayReoPanel = false;
 		districtIdSelected = provinceIdSelected = segmentIdSelected = streetIdSelected = "";
 		listProvince = provinceService.findAll();
@@ -156,7 +169,7 @@ public class HomepageBean implements Serializable{
 		streetIdSelected = "";
 		listSegmentOfStreet = new ArrayList();
 		segmentIdSelected = "";
-				
+		viewStatistic();
 		openPageReo(0);
 	}
 	public void streetChange() {
@@ -166,6 +179,36 @@ public class HomepageBean implements Serializable{
 	}
 	public void segmentOfStreetChange() {
 //		TODO
+	}
+	public void viewStatistic() {
+		String address = districtSelected.getDistrictName();
+		MaxMinAvg maxMinAvgTemp = realEstateService.listMaxMinAvg(address);
+		maxMinAvg = maxMinAvgTemp;
+		
+		List<GroupByDateMaxMinCreate> listStat = realEstateService.listGroupByDateAndValue(address);
+		lineChartModel = createChart(listStat);
+		lineChartModel.setLegendPosition("e");
+		lineChartModel.setTitle("Biểu đồ giá");
+		lineChartModel.setShowPointLabels(true);
+		lineChartModel.getAxes().put(AxisType.X, new CategoryAxis("Ngày"));
+	}
+	private LineChartModel createChart(List<GroupByDateMaxMinCreate> listStat) {
+		LineChartModel model = new LineChartModel();
+		ChartSeries max = new ChartSeries();max.setLabel("Cao nhất");
+		ChartSeries min = new ChartSeries();min.setLabel("Thấp nhất");
+		ChartSeries avg = new ChartSeries();avg.setLabel("Trung bình");
+		for (GroupByDateMaxMinCreate element : listStat) {
+			Timestamp key = element.getDateCreated();
+			MaxMinAvg value = element.getMaxMinAvg();
+			max.set(key, value.getMax());
+			min.set(key, value.getMin());
+			avg.set(key, value.getAvg());
+		}
+
+		model.addSeries(max);
+		model.addSeries(min);
+		model.addSeries(avg);
+		return model;
 	}
 	public void goToDetails(long realEstateId) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
@@ -391,8 +434,23 @@ public class HomepageBean implements Serializable{
 	public void setDisplayReoPanel(boolean isDisplayReoPanel) {
 		this.isDisplayReoPanel = isDisplayReoPanel;
 	}
-	
-	
+
+	public MaxMinAvg getMaxMinAvg() {
+		return maxMinAvg;
+	}
+
+	public void setMaxMinAvg(MaxMinAvg maxMinAvg) {
+		this.maxMinAvg = maxMinAvg;
+	}
+
+	public LineChartModel getLineChartModel() {
+		return lineChartModel;
+	}
+
+	public void setLineChartModel(LineChartModel lineChartModel) {
+		this.lineChartModel = lineChartModel;
+	}
+
 	
 	
 }

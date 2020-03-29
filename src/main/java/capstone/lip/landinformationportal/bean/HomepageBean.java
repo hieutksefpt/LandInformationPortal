@@ -34,6 +34,7 @@ import com.google.gson.Gson;
 import capstone.lip.landinformationportal.common.StatusCrawledNewsConstant;
 import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
 import capstone.lip.landinformationportal.dto.Coordinate;
+import capstone.lip.landinformationportal.dto.GroupByDateMaxMinCreate;
 import capstone.lip.landinformationportal.dto.MaxMinAvg;
 import capstone.lip.landinformationportal.dto.Pagination;
 import capstone.lip.landinformationportal.entity.CrawledNews;
@@ -94,7 +95,8 @@ public class HomepageBean implements Serializable{
 		pageNews.setTotalPages(pageNews.getTotalRow()/pageNews.getRowsPerPage());
 		
 		openPageNews(0);
-
+		provinceIdSelected = streetIdSelected = segmentIdSelected = districtIdSelected = "";
+		
 		isDisplayReoPanel = false;
 		districtIdSelected = provinceIdSelected = segmentIdSelected = streetIdSelected = "";
 		listProvince = provinceService.findAll();
@@ -183,30 +185,26 @@ public class HomepageBean implements Serializable{
 		MaxMinAvg maxMinAvgTemp = realEstateService.listMaxMinAvg(address);
 		maxMinAvg = maxMinAvgTemp;
 		
-		List<Map<Timestamp, MaxMinAvg>> listStat = realEstateService.listGroupByDateAndValue(address);
+		List<GroupByDateMaxMinCreate> listStat = realEstateService.listGroupByDateAndValue(address);
 		lineChartModel = createChart(listStat);
 		lineChartModel.setLegendPosition("e");
 		lineChartModel.setTitle("Biểu đồ giá");
 		lineChartModel.setShowPointLabels(true);
 		lineChartModel.getAxes().put(AxisType.X, new CategoryAxis("Ngày"));
 	}
-	private LineChartModel createChart(List<Map<Timestamp, MaxMinAvg>> listStat) {
+	private LineChartModel createChart(List<GroupByDateMaxMinCreate> listStat) {
 		LineChartModel model = new LineChartModel();
 		ChartSeries max = new ChartSeries();max.setLabel("Cao nhất");
 		ChartSeries min = new ChartSeries();min.setLabel("Thấp nhất");
 		ChartSeries avg = new ChartSeries();avg.setLabel("Trung bình");
-		for (Map map : listStat) {
-			map.entrySet().stream().forEach(e -> {
-//				String temp = k;
-				int i = 1;
-				i++;
-//				Timestamp time = Timestamp.valueOf(k.toString());
-//				MaxMinAvg value = (MaxMinAvg)v;
-//				max.set(time, value.getMax());
-//				min.set(time, value.getMin());
-//				avg.set(time, value.getAvg());
-			});
+		for (GroupByDateMaxMinCreate element : listStat) {
+			Timestamp key = element.getDateCreated();
+			MaxMinAvg value = element.getMaxMinAvg();
+			max.set(key, value.getMax());
+			min.set(key, value.getMin());
+			avg.set(key, value.getAvg());
 		}
+
 		model.addSeries(max);
 		model.addSeries(min);
 		model.addSeries(avg);

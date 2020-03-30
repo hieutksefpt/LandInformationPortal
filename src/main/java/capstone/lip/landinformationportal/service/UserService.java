@@ -73,4 +73,14 @@ public class UserService implements IUserService {
         return newPassword;
     }
 
+	@Override
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+
+	@Override
+	public User findByUsernamePassword(String username, String password) {
+		return userRepository.findByUsernamePassword(username, password);
+	}
+
 }

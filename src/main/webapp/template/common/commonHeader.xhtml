@@ -3,6 +3,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:sec="http://www.springframework.org/security/tags">
@@ -28,11 +29,71 @@
                                 <a class="nav-link" href="#">Thư viện pháp luật</a>
                             </li>
                         </ul>
-                        <span class="actions">
-                            <a class="btnOnNav btnAddRealEstate" role="button" href="#" data-toggle="modal" data-target="#modalLoginForm">BĐS đóng góp</a> 
-                            <a class="btnOnNav btnUser" role="button" href="#" data-toggle="modal" data-target="#modalLoginForm">Từ Khắc Hiếu</a> 
-                            <a class="btnOnNav btnLogOut" role="button" href="#" data-toggle="modal" data-target="#modalLoginForm">Đăng xuất</a>
-                        </span>
+                        <h:form>  
+                        	<sec:anonymous>
+	                        	<span class="actions">
+		                            <h:outputLink class="btnOnNav btnUser" onclick="PF('dlgSignup').show();" value="javascript:void(0)">Đăng kí</h:outputLink>
+		                            <h:outputLink class="btnOnNav btnUser" onclick="PF('dlgSignin').show();" value="javascript:void(0)">Đăng nhập</h:outputLink>
+		                        </span>
+	                        </sec:anonymous>
+	                        <sec:authenticated>
+	                        	
+	                        </sec:authenticated>
+	                        <sec:authorize access="hasRole('ADMIN')">
+
+	                        	<span class="actions">
+		                            <h:commandLink class="btnOnNav btnUser" value="Quản lý hệ thống">
+		                            	<p:ajax process="@form" listener="#{authenticationBean.redirectAdminManage()}"></p:ajax>
+		                            </h:commandLink>
+		                        </span>
+	                        </sec:authorize>
+	                        <sec:authorize access="hasRole('USER')">
+	                        	<span class="actions">
+		                            <a class="btnOnNav btnAddRealEstate" role="button" href="#" data-toggle="modal" data-target="#modalLoginForm">BĐS đóng góp</a> 
+		                            <a class="btnOnNav btnUser" role="button" href="#" data-toggle="modal" data-target="#modalLoginForm">
+		                            	#{authenticationBean.currentUser.fullName}
+		                            </a>
+		                            <h:commandLink class="btnOnNav btnLogOut" value="Đăng xuất">
+		                            	<p:ajax process="@form" listener="#{authenticationBean.signout()}"></p:ajax>
+		                            </h:commandLink>
+		                        </span>
+	                        </sec:authorize>
+	                        
+						    <h:outputLink value="javascript:void(0)" onclick="PF('dlg').show();" title="login">
+						        <p:graphicImage name="/demo/images/login.png" />
+						    </h:outputLink>
+						     
+						    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+						     
+						    <p:dialog modal="true" header="Đăng kí" widgetVar="dlgSignup" resizable="false">
+						        <h:panelGrid columns="2" cellpadding="5">
+						            <h:outputLabel for="username" value="Username:" />
+						            <p:inputText id="username" value="#{authenticationBean.usernameSignup}"  label="username" />
+						             
+						            <h:outputLabel for="password" value="Password:" />
+						            <p:password id="password" value="#{authenticationBean.passwordSignup}"  label="password" />
+						             
+						            <f:facet name="footer">
+						                <p:commandButton value="Đăng kí" update="growl" action="#{authenticationBean.signup()}"
+						                                  />
+						            </f:facet>  
+						        </h:panelGrid>
+						    </p:dialog>
+						    <p:dialog modal="true"  header="Đăng nhập" widgetVar="dlgSignin" resizable="false">
+						        <h:panelGrid columns="2" cellpadding="5">
+
+						            <h:outputLabel for="username_signin" value="Username:" />
+						            <p:inputText id="username_signin" value="#{authenticationBean.usernameSignin}" label="username" />
+						             
+						            <h:outputLabel for="password_signin" value="Password:" />
+						            <p:password id="password_signin" value="#{authenticationBean.passwordSignin}" label="password" />
+
+						            <f:facet name="footer">
+						                <p:commandButton value="Đăng nhập" update="growl" action="#{authenticationBean.signin}" />
+						            </f:facet>  
+						        </h:panelGrid>
+						    </p:dialog>        
+						</h:form>
                     </div>
                 </div>
             </nav>

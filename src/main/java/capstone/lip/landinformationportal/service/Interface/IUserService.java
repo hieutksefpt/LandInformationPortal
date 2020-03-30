@@ -28,4 +28,8 @@ public interface IUserService {
     List<RealEstate> getListRealEstate(Long userId);
 
     String resetPassword(long userId, int passwordLength);
+    
+    User findByUsername(String username);
+    
+    User findByUsernamePassword(String username, String password);
 }

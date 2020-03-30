@@ -196,10 +196,10 @@ h1, h2, h3, h4, h5, h6 {
     
 }
 
-.form-group #txtEmail, #txtfullname, #dateevent_input, #txtaddress, #txtPhone, #cbb-gender{ 
-    border-radius: 3px;
-    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.4);
+.action-button:hover, .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
 }
+
 .form-group #cbb-gender { 
     padding: 7px;
     

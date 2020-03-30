@@ -12,6 +12,7 @@ import capstone.lip.landinformationportal.entity.HousesDetail;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.LandsDetail;
 import capstone.lip.landinformationportal.entity.RealEstate;
+import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegment;
 import capstone.lip.landinformationportal.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.specification.RealEstateSpecifications;
@@ -213,6 +214,9 @@ public class RealEstateService implements IRealEstateService {
     @Autowired
     HouseService houseService;
     
+    @Autowired
+    RealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
+    
     @Override
     public void delete(long realEstateId) {
         RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
@@ -233,6 +237,10 @@ public class RealEstateService implements IRealEstateService {
                 }
                 houseService.delete(listHouse);
             }
+        }
+        List<RealEstateAdjacentSegment> listAdjacentSegment = realEstate.getListRealEstateAdjacentSegment();
+        if(listAdjacentSegment != null){
+            realEstateAdjacentSegmentService.delete(listAdjacentSegment);
         }
         realEstateRepository.delete(realEstate);
     }

@@ -1,6 +1,7 @@
 package capstone.lip.landinformationportal.bean;
 
 import capstone.lip.landinformationportal.dto.Coordinate;
+import capstone.lip.landinformationportal.dto.LazyListAllRealEstate;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.HousesDetail;
 import capstone.lip.landinformationportal.entity.Land;
@@ -24,6 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.primefaces.PrimeFaces;
+import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -49,6 +51,7 @@ public class ListAllRealEstateBean implements Serializable {
     @Autowired
     private IHousesDetailService housesDetailService;
 
+    private LazyDataModel<RealEstate> lazyReo;
     private List<RealEstate> listAllRealEstate;
     private List<String> listRealEstateSource;
     private List<RealEstate> listSelectedRealEstate;
@@ -65,32 +68,33 @@ public class ListAllRealEstateBean implements Serializable {
     public void init() {
         this.listAllRealEstate = realEstateService.findAll();
         this.listRealEstateSource = realEstateService.listRealEstateSource();
+        this.lazyReo = new LazyListAllRealEstate(realEstateService);
     }
 
     public void changeRealEstateStatusToConfused() {
         for (int i = 0; i < listSelectedRealEstate.size(); i++) {
             listSelectedRealEstate.get(i).setRealEstateStatus("-1");
             realEstateService.save(listSelectedRealEstate.get(i));
-            listAllRealEstate.get(findRealEstateIndexInList(listSelectedRealEstate.get(i).getRealEstateId())).setRealEstateStatus("-1");
         }
+        this.lazyReo = new LazyListAllRealEstate(realEstateService);
     }
 
     public void changeRealEstateStatusToNotVerified() {
         for (int i = 0; i < listSelectedRealEstate.size(); i++) {
-            listSelectedRealEstate.get(i).setRealEstateStatus("-1");
+            listSelectedRealEstate.get(i).setRealEstateStatus("0");
             realEstateService.save(listSelectedRealEstate.get(i));
-            listAllRealEstate.get(findRealEstateIndexInList(listSelectedRealEstate.get(i).getRealEstateId())).setRealEstateStatus("0");
         }
+        this.lazyReo = new LazyListAllRealEstate(realEstateService);
     }
 
     public void changeRealEstateStatusToVerified() {
         for (int i = 0; i < listSelectedRealEstate.size(); i++) {
-            listSelectedRealEstate.get(i).setRealEstateStatus("-1");
+            listSelectedRealEstate.get(i).setRealEstateStatus("1");
             realEstateService.save(listSelectedRealEstate.get(i));
-            listAllRealEstate.get(findRealEstateIndexInList(listSelectedRealEstate.get(i).getRealEstateId())).setRealEstateStatus("1");
         }
+        this.lazyReo = new LazyListAllRealEstate(realEstateService);
     }
-    
+
     public void deleteSelectedRealEstate() {
         for (int i = 0; i < listSelectedRealEstate.size(); i++) {
             realEstateService.delete(listSelectedRealEstate.get(i).getRealEstateId());
@@ -127,4 +131,13 @@ public class ListAllRealEstateBean implements Serializable {
     public void setListRealEstateSource(List<String> listRealEstateSource) {
         this.listRealEstateSource = listRealEstateSource;
     }
+
+    public LazyDataModel<RealEstate> getLazyReo() {
+        return lazyReo;
+    }
+
+    public void setLazyReo(LazyDataModel<RealEstate> lazyReo) {
+        this.lazyReo = lazyReo;
+    }
+
 }

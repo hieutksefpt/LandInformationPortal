@@ -38,14 +38,19 @@
                                      action="#{listAllRealEstateBean.deleteSelectedRealEstate()}">
                         <p:ajax process="@form" update="form-AllRealEstate"/>
                     </h:commandButton>
-                   
-                    
+
+
 
                     <p:dataTable var="realEstate"
-                                 value="#{listAllRealEstateBean.listAllRealEstate}"
+                                 value="#{listAllRealEstateBean.lazyReo}"
                                  rowKey="#{realEstate.realEstateId}"
                                  selection="#{listAllRealEstateBean.listSelectedRealEstate}"
-                                 widgetVar="table-real-estate">
+                                 widgetVar="table-real-estate"
+                                 rows="10"
+                                 paginator="true"
+                                 lazy="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records">
 
                         <p:column selectionMode="multiple" style="width:5%;text-align:center"/>
                         <p:column headerText="ID" style="width: 5%;text-align:center">

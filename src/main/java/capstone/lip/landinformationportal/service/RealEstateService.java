@@ -204,42 +204,42 @@ public class RealEstateService implements IRealEstateService {
 
     @Autowired
     LandsDetailService landsDetailService;
-    
+
     @Autowired
     LandService landService;
-    
+
     @Autowired
     HousesDetailService housesDetailService;
-    
+
     @Autowired
     HouseService houseService;
-    
+
     @Autowired
     RealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
-    
+
     @Override
     public void delete(long realEstateId) {
         RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
-        List<LandsDetail> listLandDetail = realEstate.getLand().getListLandsDetail();
-        if(listLandDetail != null){
-            landsDetailService.delete(listLandDetail);
-        }
         Land land = realEstate.getLand();
-        if(land != null){
+        if (land != null) {
+            List<LandsDetail> listLandDetail = realEstate.getLand().getListLandsDetail();
+            if (listLandDetail != null) {
+                landsDetailService.delete(listLandDetail);
+            }
             landService.delete(land);
         }
         List<House> listHouse = realEstate.getListHouse();
-        if(listHouse != null){
-            for(House house : listHouse){
+        if (listHouse != null) {
+            for (House house : listHouse) {
                 List<HousesDetail> listHousesDetails = house.getListHousesDetail();
-                if(listHousesDetails != null){
+                if (listHousesDetails != null) {
                     housesDetailService.delete(listHousesDetails);
                 }
                 houseService.delete(listHouse);
             }
         }
         List<RealEstateAdjacentSegment> listAdjacentSegment = realEstate.getListRealEstateAdjacentSegment();
-        if(listAdjacentSegment != null){
+        if (listAdjacentSegment != null) {
             realEstateAdjacentSegmentService.delete(listAdjacentSegment);
         }
         realEstateRepository.delete(realEstate);

@@ -5,8 +5,11 @@
  */
 package capstone.lip.landinformationportal.bean;
 
+import capstone.lip.landinformationportal.common.UserRoleConstant;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
+import capstone.lip.landinformationportal.utils.EncryptedPassword;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.annotation.PostConstruct;
@@ -57,12 +60,12 @@ public class SignUpBean implements Serializable{
         newUser.setEmail(email);
         newUser.setFullName(fullname);
         newUser.setGender(gender);
-        newUser.setPassword(password);
+        newUser.setPassword(EncryptedPassword.encrytePassword(password));
         newUser.setPhone(phone);
         newUser.setUsername(username);
 //        newUser.setDateOfBirth();
         newUser.setUserStatus("1");
-        newUser.setRole("Contributor");
+        newUser.setRole(UserRoleConstant.USER);
         newUser = userService.save(newUser);
         
     }

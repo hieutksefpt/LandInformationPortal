@@ -54,14 +54,21 @@ public class AuthenticationBean implements Serializable{
 	}
 	
 	public void signup() {
-		if (!validate()) {
-			return;
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+			ec.redirect(ec.getRequestContextPath() + "/signup.xhtml");
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		String encryptPass = EncryptedPassword.encrytePassword(passwordSignup);
-		userService.save(new User()
-				.setUsername(usernameSignup).
-				setPassword(encryptPass).setRole(UserRoleConstant.USER));
-		setMessage(FacesMessage.SEVERITY_INFO, "Tạo tài khoản thành công");
+		
+//		if (!validate()) {
+//			return;
+//		}
+//		String encryptPass = EncryptedPassword.encrytePassword(passwordSignup);
+//		userService.save(new User()
+//				.setUsername(usernameSignup).
+//				setPassword(encryptPass).setRole(UserRoleConstant.USER));
+//		setMessage(FacesMessage.SEVERITY_INFO, "Tạo tài khoản thành công");
 	}
 	
 	public void signin() {

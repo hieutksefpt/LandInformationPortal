@@ -32,7 +32,9 @@
                         <h:form>  
                         	<sec:anonymous>
 	                        	<span class="actions">
-		                            <h:outputLink class="btnOnNav btnUser" onclick="PF('dlgSignup').show();" value="javascript:void(0)">Đăng kí</h:outputLink>
+		                            <h:commandLink class="btnOnNav btnUser" action="#{authenticationBean.signup()}" value="Đăng kí" >
+		                            
+		                            </h:commandLink>
 		                            <h:outputLink class="btnOnNav btnUser" onclick="PF('dlgSignin').show();" value="javascript:void(0)">Đăng nhập</h:outputLink>
 		                        </span>
 	                        </sec:anonymous>

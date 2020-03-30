@@ -80,16 +80,19 @@ public class User extends AuditAbstract implements Serializable {
         return userStatus;
     }
 
-    public void setUserStatus(String userStatus) {
+    public User setUserStatus(String userStatus) {
         this.userStatus = userStatus;
+        return this;
+        
     }
 
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public User setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+        return this;
     }
 
     
@@ -98,16 +101,18 @@ public class User extends AuditAbstract implements Serializable {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public User setGender(String gender) {
         this.gender = gender;
+        return this;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public User setAddress(String address) {
         this.address = address;
+        return this;
     }
 
     
@@ -134,8 +139,9 @@ public class User extends AuditAbstract implements Serializable {
         return password;
     }
 
-    public void setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
+        return this;
     }
 
     public String getFullName() {

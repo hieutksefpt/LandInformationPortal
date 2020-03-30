@@ -54,8 +54,6 @@ public class User extends AuditAbstract implements Serializable {
     @Column(name = "Address")
     private String address;
 
-    @Column(name= "UserStatus")
-    private String userStatus;
     
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @LazyToOne(LazyToOneOption.NO_PROXY)
@@ -138,7 +136,6 @@ public class User extends AuditAbstract implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-		return this;
     }
 
     public String getFullName() {
@@ -186,14 +183,6 @@ public class User extends AuditAbstract implements Serializable {
 		return this;
     }
 
-	public String getUserStatus() {
-		return userStatus;
-	}
-
-	public User setUserStatus(String userStatus) {
-		this.userStatus = userStatus;
-		return this;
-	}
 
 	@Override
 	public int hashCode() {

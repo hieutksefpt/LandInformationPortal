@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+        <meta content="" name="descriptison"/>
+        <meta content="" name="keywords"/>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    </h:head>
+
+
+    <h:body>
+        <ui:composition template="/template/common/commonLayout.xhtml">
+            <ui:define name="content">
+                <h:outputStylesheet name="material-design-iconic-font.min.css" library="css"/>
+                <h:outputStylesheet name="signup.css" library="css"/>
+                <h:outputStylesheet name="common-style.css" library="css"/>
+
+                <div class="main">
+                    <div class="container">
+                        <h:form class="appointment-form" id="appointment-form">
+                            <h2>Cổng thông tin bất động sản</h2>
+                            <div class="form-group-1">
+                                <h:inputText id="txtInputHouseName" value="#{updateContributeRealEstateBean.newHouseName}">
+                                <input type="text" name="title" id="title" placeholder="Title" required="" />
+                                <input type="text" name="name" id="name" placeholder="Your Name" required="" />
+                                <input type="email" name="email" id="email" placeholder="Email" required="" />
+                                <input type="number" name="phone_number" id="phone_number" placeholder="Phone number" required="" />
+                                <h:selectOneMenu id="cbb-1" value="">
+                                    <f:selectItem itemLabel="-- Giới tính --" itemValue=""/>
+                                    <f:selectItem itemLabel="Nam" itemValue="Nam"/>
+                                    <f:selectItem itemLabel="Nữ" itemValue="Nữ"/>
+                                    <f:selectItem itemLabel="Khác" itemValue="Khác"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="form-group-2">
+                                <h3>How would you like to bo located ?</h3>
+                                <div class="select-list">
+                                    <h:selectOneMenu id="cbb-2" value="">
+                                        <f:selectItem itemLabel="-- Giới tính --" itemValue=""/>
+                                        <f:selectItem itemLabel="Nam" itemValue="Nam"/>
+                                        <f:selectItem itemLabel="Nữ" itemValue="Nữ"/>
+                                        <f:selectItem itemLabel="Khác" itemValue="Khác"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree to the  <a href="#" class="term-service">Terms and Conditions</a></label>
+                            </div>
+                            <div class="form-submit">
+                                <input type="submit" name="submit" id="submit" class="submit" value="Request an appointment" />
+                            </div>
+                        </h:form>
+                    </div>
+
+                </div>
+
+                <!-- JS -->
+                <h:outputScript name="jquery.min.js" library="js" />
+            </ui:define>     
+        </ui:composition>
+    </h:body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

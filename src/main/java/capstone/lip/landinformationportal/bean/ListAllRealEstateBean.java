@@ -93,25 +93,9 @@ public class ListAllRealEstateBean implements Serializable {
     
     public void deleteSelectedRealEstate() {
         for (int i = 0; i < listSelectedRealEstate.size(); i++) {
-            deleteRealEstate(listSelectedRealEstate.get(i));
+            realEstateService.delete(listSelectedRealEstate.get(i).getRealEstateId());
             listAllRealEstate.remove(findRealEstateIndexInList(listSelectedRealEstate.get(i).getRealEstateId()));
         }
-    }
-    
-    public void deleteRealEstate(RealEstate realEstate) {
-        List<LandsDetail> listLandDetail = realEstate.getLand().getListLandsDetail();
-        landsDetailService.delete(listLandDetail);
-        Land land = realEstate.getLand();
-        landService.delete(land);
-
-        List<House> listHouse = realEstate.getListHouse();
-        List<HousesDetail> listHouseDetail = listHouse.stream()
-                .map(x -> x.getListHousesDetail()).flatMap(List::stream).collect(Collectors.toList());
-
-        housesDetailService.delete(listHouseDetail);
-        houseService.delete(listHouse);
-
-        realEstateService.delete(realEstate);
     }
 
     public int findRealEstateIndexInList(long realEstateId) {

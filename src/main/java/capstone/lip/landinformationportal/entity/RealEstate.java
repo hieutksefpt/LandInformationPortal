@@ -62,6 +62,7 @@ public class RealEstate extends AuditAbstract implements Serializable {
     @LazyToOne(LazyToOneOption.NO_PROXY)
     private User user;
 
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(mappedBy = "realEstate", fetch = FetchType.LAZY)
     @LazyToOne(LazyToOneOption.NO_PROXY)
     private Land land;

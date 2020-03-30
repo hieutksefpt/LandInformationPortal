@@ -38,6 +38,8 @@ public interface IRealEstateService {
     List<House> getListHouse(Long realEstateId);
 
     void delete(RealEstate realEstate);
+    
+    void delete(long realEstateId);
 
     List<RealEstate> findByRealEstateStatus(String status);
 

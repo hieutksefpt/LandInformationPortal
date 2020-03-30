@@ -40,6 +40,13 @@ public class RealEstateSpecifications implements Specification<RealEstate> {
             } else {
                 return criteriaBuilder.equal(root.get(criteria.getKey()), criteria.getValue());
             }
+        } else if (criteria.getOperation().equalsIgnoreCase("!=")) {
+        	if (root.get(criteria.getKey()).getJavaType() == String.class) {
+                return criteriaBuilder.notEqual(
+                        criteriaBuilder.lower(root.<String>get(criteria.getKey())), criteria.getValue().toString().toLowerCase());
+            } else {
+                return criteriaBuilder.equal(root.get(criteria.getKey()), criteria.getValue());
+            }
         }
         return null;
     }

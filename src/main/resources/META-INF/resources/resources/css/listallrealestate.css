@@ -1,0 +1,117 @@
+/* 
+    Created on : Mar 17, 2020, 11:01:28 PM
+    Author     : AnhHao
+*/
+
+#map{
+    width: 100%;
+    height: 1000px;
+    border: groove black 1px;
+}
+.container {
+    max-width: 100%;
+    margin:0px !important;
+    padding: 0px !important;
+}
+.row {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+.right-map{
+    border: 1px black groove;
+    padding-left: 0px;
+    padding-right: 0px;
+    max-height: 1000px;
+    overflow: auto;
+}
+.title-header{
+    font-weight: bold;
+}
+.header-list{
+    background-color: black;
+    color: white;
+    width: 100%;
+}
+.element-list{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px black groove;
+    width: 100%;
+}
+.btn-view{
+    border-radius: 20px;
+    padding: .5rem 1rem;
+    color: #fff;
+    background-color: #56c6c6;
+}
+.realestate-source-other{
+    color: #008542;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: -12px;
+    margin-left: -8px;
+}
+.realestate-source-contributor{
+    color: #ea2402;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: -12px;
+    margin-left: -8px;
+}
+.filter-realestae{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.txt-search-name{
+    margin-right: -18px;
+    width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.lbl-real-estate-name-search{
+    padding-right: 0px;
+    margin-right: -5px
+}
+.btn-search{
+    padding-left: 0px
+}
+.search-aria{
+    margin-bottom: 8px;
+}
+.combobox-common{
+    width: 100%;
+}
+.icon-status{
+    font-size: 20px;
+    margin-bottom: -10px;
+}
+.status-verified{
+    color: #3578e5;
+}
+.status-confused{
+    color: #f70000;
+}
+.status-not-verified{
+    color: #f6b102;
+}
+.btn-delete{
+    background-color: #d9534f;
+}
+.btn-in-list-all{
+    border-radius: 10px;
+    color: white;
+}
+.btn-change-status{
+    background-color: #47a529;
+}
+.btn-on-change-status-dialog{
+    border-radius: 20px;
+}
+.btn-on-change-status-dialog:hover{
+    background-color: black;
+}

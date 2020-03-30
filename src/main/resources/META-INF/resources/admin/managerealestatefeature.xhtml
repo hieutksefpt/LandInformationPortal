@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    </h:head>
+    <h:body>
+        <ui:composition template="/template/admin/adminLayout.xhtml">
+            <ui:define name="content">
+                <h:outputStylesheet name="managerealestatefeature.css" library="css" />
+                <h:outputStylesheet name="bootstrap.min.css" library="css" />
+                <div>
+                    <h2>Danh sách thuộc tính</h2>
+                    <h:commandButton id="buttonAddFeature" value="+ Thêm thuộc tính"
+                                     type="button" onclick="openAddFeaturePopup()" />
+
+                    <div class="modal fade" id="addLandFeaturePopup" tabindex="-1"
+                         role="dialog" aria-labelledby="addLandFeaturePopupTitle"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Thêm
+                                        thuộc tính của đất</h5>
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <h:form id="addLandsFeature">
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md">Tên thuộc tính</div>
+                                            <div class="col-md">
+                                                <h:inputText id="landsFeatureName" value="#{manageRealEstateFeatureBean.landsFeatureName}"></h:inputText>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md">Đơn vị</div>
+                                            <div class="col-md">
+                                                <h:inputText id="landsFeatureUnit" value="#{manageRealEstateFeatureBean.landsFeatureUnit}"></h:inputText>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Đóng</button>
+                                        <h:commandButton class="btn btn-primary" value="Lưu" onclick="hideAddFeaturePopup()"
+                                                         action="#{manageRealEstateFeatureBean.saveLandsFeature}">
+                                            <p:ajax process="addLandsFeature" update="view view:formListLandFeature "></p:ajax>
+                                        </h:commandButton>
+                                    </div>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="addHouseFeaturePopup" tabindex="-1"
+                         role="dialog" aria-labelledby="addHouseFeaturePopupTitle"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Thêm
+                                        thuộc tính của nhà</h5>
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <h:form id="addHouseFeature">
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md">Tên thuộc tính</div>
+                                            <div class="col-md">
+                                                <h:inputText value="#{manageRealEstateFeatureBean.housesFeatureName}"></h:inputText>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md">Đơn vị</div>
+                                            <div class="col-md">
+                                                <h:inputText value="#{manageRealEstateFeatureBean.housesFeatureUnit}"></h:inputText>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Đóng</button>
+                                        <h:commandButton class="btn btn-primary" value="Lưu " onclick="hideAddFeaturePopup()">
+                                            <p:ajax process="addHouseFeature" update="@(.ui-tabs-panel:visible .tab-content)" 
+                                            listener="#{manageRealEstateFeatureBean.saveHousesFeature}" 
+                                            ></p:ajax>
+                                        </h:commandButton>
+                                    </div>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p:tabView widgetVar="view" id="view" dynamic="true">
+                    <p:tab title="Thuộc tính của Đất" id="landFeature">
+
+                        <h:panelGroup id="formListLandFeature" styleClass="tab-content">
+                            <div class="row">
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Tên thuộc tính" />
+                                </div>
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Đơn vị" />
+                                </div>
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Tác vụ" />
+                                </div>
+                            </div>
+                            <h:form>
+                                <c:forEach items="#{manageRealEstateFeatureBean.listLandsFeature}" var="i">
+                                    <div class="row">
+                                        <h:inputHidden value="${i.landsFeatureID}">
+
+                                        </h:inputHidden>
+                                        <div class="col-md">
+                                            <h:outputText value="${i.landsFeatureName}" />
+                                        </div>
+                                        <div class="col-md">
+                                            <h:outputText value="${i.landsFeatureUnit}" />
+                                        </div>
+                                        <div class="col-md">
+                                            <h:commandButton value="Chỉnh sửa" type="button"
+                                                             class="btn btn-primary buttonEdit" 
+                                                             action="#{manageRealEstateFeatureBean.clickOnButtonRowLandsFeature(i.landsFeatureID)}" 
+                                                             onclick="openEditPopup()">
+
+                                                <f:ajax execute="@form" render="edit-form" />
+
+                                            </h:commandButton>
+                                            <h:commandButton value="Xóa" type="button"
+                                                             class="btn btn-primary buttonDelete"
+                                                             action="#{manageRealEstateFeatureBean.clickOnButtonRowLandsFeature(i.landsFeatureID)}"
+                                                             onclick="openDeletePopup()">
+                                                <f:ajax execute="@form" render="deletePopup" />
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </h:form>
+                        </h:panelGroup>
+                    </p:tab>
+
+                    <p:tab title="Thuộc tính của Nhà" id="houseFeature">
+                        <h:panelGroup id="formListHouseFeature" styleClass="tab-content">
+                            <div class="row">
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Tên thuộc tính" />
+                                </div>
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Đơn vị" />
+                                </div>
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Tác vụ" />
+                                </div>
+                            </div>
+                            <h:form>
+                                <c:forEach items="#{manageRealEstateFeatureBean.listHousesFeature}" var="i">
+                                    <div class="row">
+                                        <h:inputHidden value="${i.housesFeatureID}">
+
+                                        </h:inputHidden>
+                                        <div class="col-md">
+                                            <h:outputText value="${i.housesFeatureName}" />
+                                        </div>
+                                        <div class="col-md">
+                                            <h:outputText value="${i.housesFeatureUnit}" />
+                                        </div>
+                                        <div class="col-md">
+                                            <h:commandButton value="Chỉnh sửa" type="button"
+                                                             class="btn btn-primary buttonEdit" 
+                                                             action="#{manageRealEstateFeatureBean.clickOnButtonRowHousesFeature(i.housesFeatureID)}" 
+                                                             onclick="openEditPopup2()">
+
+                                                <f:ajax execute="@form" render="edit-form1" />
+
+                                            </h:commandButton>
+                                            <h:commandButton value="Xóa" type="button"
+                                                             class="btn btn-primary buttonDelete"
+                                                             action="#{manageRealEstateFeatureBean.clickOnButtonRowHousesFeature(i.housesFeatureID)}"
+                                                             onclick="openDeletePopup2()">
+                                                <f:ajax execute="@form" render="deletePopup2" />
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </h:form>
+                        </h:panelGroup>
+                    </p:tab>
+                </p:tabView>
+
+                <div class="modal fade" id="editPopup" tabindex="-1" role="dialog"
+                     aria-labelledby="editPopupTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Chỉnh sửa thuộc tính của Đất</h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <h:form id="edit-form">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md">Tên thuộc tính</div>
+                                        <div class="col-md">
+                                            <p:inputText value="${manageRealEstateFeatureBean.landsFeatureClicked.landsFeatureName}"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md">Đơn vị</div>
+                                        <div class="col-md">
+                                            <p:inputText value="${manageRealEstateFeatureBean.landsFeatureClicked.landsFeatureUnit}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Đóng</button>
+                                    <h:commandButton value="Lưu thay đổi" styleClass="btn btn-primary" 
+                                    onclick="hideEditPopup()" action="#{manageRealEstateFeatureBean.updateLandsFeature()}">
+                                        <p:ajax process="@form" update="view view:formListLandFeature"></p:ajax>
+                                    </h:commandButton>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="deletePopup" tabindex="-1" role="dialog"
+                     aria-labelledby="deletePopup" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận xóa thuộc tính của đất</h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">Bạn có chắc chắn muốn xóa thuộc tính này ?</div>
+                            <div class="modal-footer">
+                                <h:form>
+                                    <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Đóng</button>
+                                    <h:commandButton styleClass="btn btn-primary buttonDelete" 
+                                    onclick="hideDeletePopup()" 
+                                    value="Xóa" 
+                                    action="#{manageRealEstateFeatureBean.deleteLandsFeature()}">
+                                        <p:ajax process="@this" update="view view:formListLandFeature"></p:ajax>
+                                    </h:commandButton>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="editPopup2" tabindex="-1" role="dialog"
+                     aria-labelledby="editPopupTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Chỉnh sửa thuộc tính của Nhà</h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <h:form id="edit-form1">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md">Tên thuộc tính 123</div>
+                                        <div class="col-md">
+                                            <p:inputText value="${manageRealEstateFeatureBean.housesFeatureClicked.housesFeatureName}"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md">Đơn vị</div>
+                                        <div class="col-md">
+                                            <p:inputText value="${manageRealEstateFeatureBean.housesFeatureClicked.housesFeatureUnit}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Đóng</button>
+                                    <h:commandButton value="Lưu thay đổi" styleClass="btn btn-primary" 
+                                    onclick="hideEditPopup2()" >
+                                    	<p:ajax listener="#{manageRealEstateFeatureBean.updateHousesFeature()}" process="@form" 
+                                    	update="@(.ui-tabs-panel:visible .tab-content)"></p:ajax>
+                                    </h:commandButton>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="deletePopup2" tabindex="-1" role="dialog"
+                     aria-labelledby="deletePopup" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận xóa thuộc tính của nhà</h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">Bạn có chắc chắn muốn xóa thuộc tính này ?</div>
+                            <div class="modal-footer">
+                                <h:form>
+                                    <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Đóng</button>
+                                    <h:commandButton styleClass="btn btn-primary buttonDelete" onclick="hideDeletePopup2()" value="Xóa">
+                                        <p:ajax listener="#{manageRealEstateFeatureBean.deleteHousesFeature()}" process="@form" 
+                                    	update="@(.ui-tabs-panel:visible .tab-content)"></p:ajax>
+                                    </h:commandButton>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h:outputScript name="manageRealEstateFeature.js" library="js"></h:outputScript>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

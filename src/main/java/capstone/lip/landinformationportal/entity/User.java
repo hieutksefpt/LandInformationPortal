@@ -8,7 +8,6 @@ package capstone.lip.landinformationportal.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,8 +19,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 /**
  *
@@ -57,6 +54,9 @@ public class User extends AuditAbstract implements Serializable {
     @Column(name = "Address")
     private String address;
 
+    @Column(name= "UserStatus")
+    private String userStatus;
+    
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @LazyToOne(LazyToOneOption.NO_PROXY)
     private List<RealEstate> listRealEstate;
@@ -118,16 +118,18 @@ public class User extends AuditAbstract implements Serializable {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public User setUserId(Long userId) {
         this.userId = userId;
+		return this;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public User setUsername(String username) {
         this.username = username;
+		return this;
     }
 
     public String getPassword() {
@@ -136,46 +138,135 @@ public class User extends AuditAbstract implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+		return this;
     }
 
     public String getFullName() {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
+    public User setFullName(String fullName) {
         this.fullName = fullName;
+		return this;
     }
 
     public String getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public User setRole(String role) {
         this.role = role;
+		return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public User setEmail(String email) {
         this.email = email;
+		return this;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public User setPhone(String phone) {
         this.phone = phone;
+		return this;
     }
 
     public List<RealEstate> getListRealEstate() {
         return listRealEstate;
     }
 
-    public void setListRealEstate(List<RealEstate> listRealEstate) {
+    public User setListRealEstate(List<RealEstate> listRealEstate) {
         this.listRealEstate = listRealEstate;
+		return this;
     }
 
+	public String getUserStatus() {
+		return userStatus;
+	}
+
+	public User setUserStatus(String userStatus) {
+		this.userStatus = userStatus;
+		return this;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((fullName == null) ? 0 : fullName.hashCode());
+		result = prime * result + ((listRealEstate == null) ? 0 : listRealEstate.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((userStatus == null) ? 0 : userStatus.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (fullName == null) {
+			if (other.fullName != null)
+				return false;
+		} else if (!fullName.equals(other.fullName))
+			return false;
+		if (listRealEstate == null) {
+			if (other.listRealEstate != null)
+				return false;
+		} else if (!listRealEstate.equals(other.listRealEstate))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (phone == null) {
+			if (other.phone != null)
+				return false;
+		} else if (!phone.equals(other.phone))
+			return false;
+		if (role == null) {
+			if (other.role != null)
+				return false;
+		} else if (!role.equals(other.role))
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		if (userStatus == null) {
+			if (other.userStatus != null)
+				return false;
+		} else if (!userStatus.equals(other.userStatus))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
+	}
+
+    
 }

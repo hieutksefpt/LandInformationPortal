@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.CreatedDate;
-
 @Entity
 @Table(name="CrawledNews")
 public class CrawledNews extends AuditAbstract  implements Serializable {
@@ -29,10 +27,11 @@ public class CrawledNews extends AuditAbstract  implements Serializable {
 	@Column(name="CrawledNewsShortDescription")
 	private String crawledNewsShortDescription;
 	@Column(name="CrawledNewsStatus")
-	private Integer crawledNewsStatus;
+	private String crawledNewsStatus;
 	@Column(name = "CrawledNewsTime")
     private Timestamp crawledNewsTime;
-	
+	@Column(name = "CrawledNewsImageUrl")
+	private String crawledNewsImageUrl;
 	
 	
 	public CrawledNews() {
@@ -73,10 +72,10 @@ public class CrawledNews extends AuditAbstract  implements Serializable {
 		this.crawledNewsShortDescription = crawledNewsShortDescription;
 		return this;
 	}
-	public Integer getCrawledNewsStatus() {
+	public String getCrawledNewsStatus() {
 		return crawledNewsStatus;
 	}
-	public CrawledNews setCrawledNewsStatus(Integer crawledNewsStatus) {
+	public CrawledNews setCrawledNewsStatus(String crawledNewsStatus) {
 		this.crawledNewsStatus = crawledNewsStatus;
 		return this;
 	}
@@ -87,11 +86,19 @@ public class CrawledNews extends AuditAbstract  implements Serializable {
 		this.crawledNewsTime = crawledNewsTime;
 		return this;
 	}
+	public String getCrawledNewsImageUrl() {
+		return crawledNewsImageUrl;
+	}
+	public CrawledNews setCrawledNewsImageUrl(String crawledNewsImageUrl) {
+		this.crawledNewsImageUrl = crawledNewsImageUrl;
+		return this;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((crawledNewsID == null) ? 0 : crawledNewsID.hashCode());
+		result = prime * result + ((crawledNewsImageUrl == null) ? 0 : crawledNewsImageUrl.hashCode());
 		result = prime * result + ((crawledNewsLink == null) ? 0 : crawledNewsLink.hashCode());
 		result = prime * result + ((crawledNewsShortDescription == null) ? 0 : crawledNewsShortDescription.hashCode());
 		result = prime * result + ((crawledNewsStatus == null) ? 0 : crawledNewsStatus.hashCode());
@@ -113,6 +120,11 @@ public class CrawledNews extends AuditAbstract  implements Serializable {
 			if (other.crawledNewsID != null)
 				return false;
 		} else if (!crawledNewsID.equals(other.crawledNewsID))
+			return false;
+		if (crawledNewsImageUrl == null) {
+			if (other.crawledNewsImageUrl != null)
+				return false;
+		} else if (!crawledNewsImageUrl.equals(other.crawledNewsImageUrl))
 			return false;
 		if (crawledNewsLink == null) {
 			if (other.crawledNewsLink != null)

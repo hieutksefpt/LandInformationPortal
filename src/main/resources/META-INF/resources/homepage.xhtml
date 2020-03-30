@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<head>
+</head>
+<body>
+	<ui:composition template="/template/common/commonLayout.xhtml">
+		<ui:define name="content">
+			<h:outputStylesheet name="homepage.css" library="css"></h:outputStylesheet>
+			
+			<div class="container-fluid" style="height:calc(100% - 70px)">
+				<div class="row justify-content-center h-100">
+					<div class="col-9">
+						<div class="h-100 d-flex flex-column">
+							<div class="row flex-grow-1" >
+								
+								<div id="map" class="h-100 w-100"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="h-100 d-flex flex-column">
+
+							<div class="row flex-grow-1" >
+								<h:form id="form-news" prependId="false" onsubmit="return false;" styleClass="h-100">
+									<div class="row">
+										<div class="col text-center">
+											<strong>Tin nổi bật	</strong>
+										</div>
+									</div>
+									<div>
+										<ul class="list-group scrollable list img-list">
+											
+											<c:forEach items="${homepageBean.listNews}" var="element">
+												<li	class="list-group-item row d-flex">
+													
+													<div class="col-8">
+														<a href="#{element.crawledNewsLink}" target="_blank">#{element.crawledNewsTitle}</a>
+													</div>
+													<div class="col-4">
+														<div class="image-parent">
+															<img src="https://file4.batdongsan.com.vn/crop/350x232/2020/02/23/20200223201352-ee38_wm.jpg"
+																class="img-fluid"/>
+														</div>
+													</div>
+													
+												</li>
+											</c:forEach>
+										</ul>
+										<div class="row" style="margin-top: 10px">
+											<div class="col text-center">
+												<nav style="display:inline-block">
+													<ul class="pagination" style="">
+														<li class="page-item"><h:commandLink class="page-link"
+																href="#" aria-label="Previous">
+																<span aria-hidden="true">&laquo;</span>
+																<p:ajax listener="#{homepageBean.firstPageNews}"
+																	process="@form" update="@form"></p:ajax>
+															</h:commandLink>
+														</li>
+														
+														<ui:repeat value="#{homepageBean.pageNews.pages}" var="page">
+										                	<h:panelGroup rendered="#{page != homepageBean.pageNews.currentPage + 1}">
+										                		<li class="page-item">
+										                			<h:commandLink value="#{page}" styleClass="page-link" actionListener="#{homepageBean.pageNewsAt}">
+										                				<p:ajax process="@form" update="@form"></p:ajax>
+										                			</h:commandLink>
+																</li>
+										                	</h:panelGroup>
+										                	<h:panelGroup rendered="#{page == homepageBean.pageNews.currentPage + 1}">
+										                		<li class="page-item active">
+										                			<h:commandLink value="#{page}" styleClass="page-link">
+										                			</h:commandLink>
+										                		</li>
+										                	</h:panelGroup>
+											            </ui:repeat>
+														
+														<li class="page-item"><h:commandLink class="page-link"
+																href="#" aria-label="Next">
+																<span aria-hidden="true">&raquo;</span>
+																<p:ajax listener="#{homepageBean.lastPageNews}" process="@form"
+																	update="@form"></p:ajax>
+															</h:commandLink></li>
+													</ul>
+												</nav>
+											</div>
+										</div>
+										
+									</div>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<ui:remove>
+			<div class="container-fluid" style="height:calc(100% - 70px)">
+			  <div class="row justify-content-center h-100">
+			    <div class="col-4 bg-red">
+			      <div class="h-100 d-flex flex-column">
+			        
+			        <div class="row justify-content-center bg-blue flex-grow-1">
+			          
+			        </div>
+			      </div>
+			    </div>
+			    <div class="col-8 bg-gray text-white">
+			        <p>Hey, neighbor.</p>
+			    </div>
+			  </div>
+			</div>
+			</ui:remove>
+		</ui:define>
+
+		<ui:define name="footer">
+			<h:outputScript name="homepage.js" library="js" />
+			<script type="text/javascript"
+				src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
+				async="true" defer="true"></script>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

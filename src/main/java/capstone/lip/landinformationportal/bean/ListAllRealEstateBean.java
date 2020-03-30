@@ -50,55 +50,68 @@ public class ListAllRealEstateBean implements Serializable {
     private IHousesDetailService housesDetailService;
 
     private List<RealEstate> listAllRealEstate;
-    private RealEstate realEstateClicked;
-    private String jsonMultipleCoordinate;
-    private String txtSearchBox;
-    private String txtComboBoxSource;
-    private String txtComboBoxStatus;
     private List<String> listRealEstateSource;
+    private List<RealEstate> listSelectedRealEstate;
+
+    public List<RealEstate> getListSelectedRealEstate() {
+        return listSelectedRealEstate;
+    }
+
+    public void setListSelectedRealEstate(List<RealEstate> listSelectedRealEstate) {
+        this.listSelectedRealEstate = listSelectedRealEstate;
+    }
 
     @PostConstruct
     public void init() {
         this.listAllRealEstate = realEstateService.findAll();
         this.listRealEstateSource = realEstateService.listRealEstateSource();
-        transferListCoordinate();
     }
 
-    public void clickButtonDeleteOnRow(long realEstateId) {
-        this.realEstateClicked = realEstateService.findById(realEstateId);
+    public void changeRealEstateStatusToConfused() {
+        for (int i = 0; i < listSelectedRealEstate.size(); i++) {
+            listSelectedRealEstate.get(i).setRealEstateStatus("-1");
+            realEstateService.save(listSelectedRealEstate.get(i));
+            listAllRealEstate.get(findRealEstateIndexInList(listSelectedRealEstate.get(i).getRealEstateId())).setRealEstateStatus("-1");
+        }
+    }
+
+    public void changeRealEstateStatusToNotVerified() {
+        for (int i = 0; i < listSelectedRealEstate.size(); i++) {
+            listSelectedRealEstate.get(i).setRealEstateStatus("-1");
+            realEstateService.save(listSelectedRealEstate.get(i));
+            listAllRealEstate.get(findRealEstateIndexInList(listSelectedRealEstate.get(i).getRealEstateId())).setRealEstateStatus("0");
+        }
+    }
+
+    public void changeRealEstateStatusToVerified() {
+        for (int i = 0; i < listSelectedRealEstate.size(); i++) {
+            listSelectedRealEstate.get(i).setRealEstateStatus("-1");
+            realEstateService.save(listSelectedRealEstate.get(i));
+            listAllRealEstate.get(findRealEstateIndexInList(listSelectedRealEstate.get(i).getRealEstateId())).setRealEstateStatus("1");
+        }
     }
     
-    public void clickButtonChangeStatusOnRow(long realEstateId){
-        this.realEstateClicked = realEstateService.findById(realEstateId);
-    }
-
-    public void changeRealEstateStatus(String status){
-        realEstateClicked.setRealEstateStatus(status);
-        realEstateService.save(realEstateClicked);
-        listAllRealEstate.get(findRealEstateIndexInList(realEstateClicked.getRealEstateId())).setRealEstateStatus(status);
+    public void deleteSelectedRealEstate() {
+        for (int i = 0; i < listSelectedRealEstate.size(); i++) {
+            deleteRealEstate(listSelectedRealEstate.get(i));
+            listAllRealEstate.remove(findRealEstateIndexInList(listSelectedRealEstate.get(i).getRealEstateId()));
+        }
     }
     
-    public void drawMarkers() {
-        transferListCoordinate();
-        PrimeFaces.current().executeScript("drawMarkers(" + this.jsonMultipleCoordinate + ")");
-    }
-
-    public void deleteRealEstate() {
-        List<LandsDetail> listLandDetail = realEstateClicked.getLand().getListLandsDetail();
+    public void deleteRealEstate(RealEstate realEstate) {
+        List<LandsDetail> listLandDetail = realEstate.getLand().getListLandsDetail();
         landsDetailService.delete(listLandDetail);
-        Land land = realEstateClicked.getLand();
+        Land land = realEstate.getLand();
         landService.delete(land);
 
-        List<House> listHouse = realEstateClicked.getListHouse();
+        List<House> listHouse = realEstate.getListHouse();
         List<HousesDetail> listHouseDetail = listHouse.stream()
                 .map(x -> x.getListHousesDetail()).flatMap(List::stream).collect(Collectors.toList());
 
         housesDetailService.delete(listHouseDetail);
         houseService.delete(listHouse);
 
-        realEstateService.delete(realEstateClicked);
-        System.out.println(listAllRealEstate.remove(findRealEstateIndexInList(realEstateClicked.getRealEstateId())).getRealEstateName());
-        drawMarkers();
+        realEstateService.delete(realEstate);
     }
 
     public int findRealEstateIndexInList(long realEstateId) {
@@ -110,41 +123,9 @@ public class ListAllRealEstateBean implements Serializable {
         return -1;
     }
 
-    public void transferListCoordinate() {
-        List<Coordinate> listCoordinate = new ArrayList<>();
-        listAllRealEstate.stream().forEach((re) -> {
-            listCoordinate.add(new Coordinate().setLatitude(re.getRealEstateLat()).setLongitude(re.getRealEstateLng()));
-        });
-        Gson gson = new Gson();
-        jsonMultipleCoordinate = gson.toJson(listCoordinate);
-    }
-
-    public void listFilterRealEstate() {
-        String tempStatus = txtComboBoxStatus;
-        if (txtComboBoxStatus.equalsIgnoreCase("2")) {
-            tempStatus = null;
-        }
-        if (txtComboBoxSource.equalsIgnoreCase("Nguồn BĐS")) {
-            this.txtComboBoxSource = null;
-        }
-        if (txtComboBoxStatus.equalsIgnoreCase("Trạng thái BĐS")) {
-            this.txtComboBoxStatus = null;
-        }
-        listAllRealEstate = realEstateService.listFilterRealEstate(txtSearchBox, txtComboBoxSource, tempStatus);
-        drawMarkers();
-    }
-
     public void goToDetails(long realEstateId) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        ec.redirect(ec.getRequestContextPath() + "/user/viewrealestatedetail.xhtml?realEstateId=" + realEstateId);
-    }
-
-    public String getTxtSearchBox() {
-        return txtSearchBox;
-    }
-
-    public void setTxtSearchBox(String txtSearchBox) {
-        this.txtSearchBox = txtSearchBox;
+        ec.redirect(ec.getRequestContextPath() + "/viewrealestatedetail.xhtml?realEstateId=" + realEstateId);
     }
 
     public List<RealEstate> getListAllRealEstate() {
@@ -153,38 +134,6 @@ public class ListAllRealEstateBean implements Serializable {
 
     public void setListAllRealEstate(List<RealEstate> listAllRealEstate) {
         this.listAllRealEstate = listAllRealEstate;
-    }
-
-    public RealEstate getRealEstateClicked() {
-        return realEstateClicked;
-    }
-
-    public void setRealEstateClicked(RealEstate realEstateClicked) {
-        this.realEstateClicked = realEstateClicked;
-    }
-
-    public String getJsonMultipleCoordinate() {
-        return jsonMultipleCoordinate;
-    }
-
-    public void setJsonMultipleCoordinate(String jsonMultipleCoordinate) {
-        this.jsonMultipleCoordinate = jsonMultipleCoordinate;
-    }
-
-    public String getTxtComboBoxSource() {
-        return txtComboBoxSource;
-    }
-
-    public void setTxtComboBoxSource(String txtComboBoxSource) {
-        this.txtComboBoxSource = txtComboBoxSource;
-    }
-
-    public String getTxtComboBoxStatus() {
-        return txtComboBoxStatus;
-    }
-
-    public void setTxtComboBoxStatus(String txtComboBoxStatus) {
-        this.txtComboBoxStatus = txtComboBoxStatus;
     }
 
     public List<String> getListRealEstateSource() {

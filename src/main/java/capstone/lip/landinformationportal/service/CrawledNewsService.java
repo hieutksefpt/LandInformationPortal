@@ -142,7 +142,7 @@ public class CrawledNewsService implements ICrawledNewsService{
 	}
 
 	@Override
-	public List<CrawledNews> findByCrawledNewsStatus(Integer status) {
+	public List<CrawledNews> findByCrawledNewsStatus(String status) {
 		return crawledNewsRepository.findByCrawledNewsStatus(status);
 	}
 
@@ -162,7 +162,7 @@ public class CrawledNewsService implements ICrawledNewsService{
 	}
 
 	@Override
-	public Page<CrawledNews> findByCrawledNewsStatus(Integer status, Pageable page) {
+	public Page<CrawledNews> findByCrawledNewsStatus(String status, Pageable page) {
 		return crawledNewsRepository.findByCrawledNewsStatus(status, page);
 	}
 
@@ -172,7 +172,7 @@ public class CrawledNewsService implements ICrawledNewsService{
 	}
 
 	@Override
-	public long countByStatus(Integer status) {
+	public long countByStatus(String status) {
 		return crawledNewsRepository.countByCrawledNewsStatus(status);
 	}
 }

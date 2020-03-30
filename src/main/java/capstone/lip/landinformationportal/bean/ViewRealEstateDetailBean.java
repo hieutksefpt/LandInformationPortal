@@ -67,8 +67,8 @@ public class ViewRealEstateDetailBean implements Serializable {
         long realEstateId = Long.parseLong(params.get("realEstateId"));
         tempRealEstateId = realEstateId;
         realEstateClicked = realEstateService.findById(realEstateId);
-        currentLand = realEstateService.getLand(realEstateId);
-        currentListHouse = realEstateService.getListHouse(realEstateId);
+        currentLand = realEstateClicked.getLand();
+        currentListHouse = realEstateClicked.getListHouse();
         transferCoordinate();
     }
     

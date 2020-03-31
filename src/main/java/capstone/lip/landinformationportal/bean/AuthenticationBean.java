@@ -12,6 +12,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -73,6 +74,14 @@ public class AuthenticationBean implements Serializable{
 	
 	public void signin() {
 		User user = userService.findByUsername(usernameSignin);
+		if (user == null) {
+			PrimeFaces.current().executeScript("setMessageError('Tài khoản không tồn tại')");
+			return;
+		}
+		if (!EncryptedPassword.checkPassword(passwordSignin, user.getPassword())) {
+			PrimeFaces.current().executeScript("setMessageError('Mật khẩu không chính xác')");
+			return;
+		}
 		if (user!= null && EncryptedPassword.checkPassword(passwordSignin, user.getPassword())) {
 			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(usernameSignin, passwordSignin);
 			SecurityContextHolder.getContext().setAuthentication(token);
@@ -119,6 +128,14 @@ public class AuthenticationBean implements Serializable{
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
 			ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void redirectListOwnReo() {
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+			ec.redirect(ec.getRequestContextPath() + "/user/listownrealestate.xhtml");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -16,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -82,5 +84,15 @@ public class UserService implements IUserService {
 	public User findByUsernamePassword(String username, String password) {
 		return userRepository.findByUsernamePassword(username, password);
 	}
+
+    @Override
+    public long count() {
+        return userRepository.count();
+    }
+
+    @Override
+    public Page<User> findAll(Pageable page) {
+        return userRepository.findAll(page);
+    }
 
 }

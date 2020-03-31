@@ -27,8 +27,6 @@ public class LazyListAllRealEstate extends LazyDataModel<RealEstate> implements 
     @Autowired
     private IRealEstateService realEstateService;
 
-    private List<RealEstate> datasource;
-
     public LazyListAllRealEstate(IRealEstateService service) {
         this.realEstateService = service;
         this.setRowCount((int) realEstateService.count());

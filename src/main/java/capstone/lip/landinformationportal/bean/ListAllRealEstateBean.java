@@ -66,7 +66,6 @@ public class ListAllRealEstateBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        this.listAllRealEstate = realEstateService.findAll();
         this.listRealEstateSource = realEstateService.listRealEstateSource();
         this.lazyReo = new LazyListAllRealEstate(realEstateService);
     }

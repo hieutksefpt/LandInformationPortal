@@ -44,11 +44,16 @@
                     </h:commandButton>
 
                     <p:dataTable var="user"
-                                 value="#{listUserBean.listUser}"
+                                 value="#{listUserBean.lazyUser}"
                                  rowKey="#{user.userId}"
                                  selection="#{listUserBean.selectedUser}"
                                  disabledSelection="#{user.userId == 4}"
-                                 widgetVar="table-user">
+                                 widgetVar="table-user"
+                                 rows="10"
+                                 paginator="true"
+                                 lazy="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records">
                         <p:column selectionMode="multiple" style="width:5%;text-align:center"/>
                         <p:column headerText="ID" style="width: 5%;text-align:center">
                             <h:outputText value="#{user.userId}" />

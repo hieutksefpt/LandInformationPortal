@@ -7,6 +7,8 @@ package capstone.lip.landinformationportal.bean;
 
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
+import capstone.lip.landinformationportal.utils.EncryptedPassword;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
@@ -92,8 +94,8 @@ public class ManageMyProfileBean implements Serializable{
     }
     
     public void changePassword(){
-        if(oldPass.equals(userSelected.getPassword()) && newPass.equals(confirmNewPass)){
-            userSelected.setPassword(confirmNewPass);
+        if(EncryptedPassword.checkPassword(oldPass, userSelected.getPassword()) && newPass.equals(confirmNewPass)){
+            userSelected.setPassword(EncryptedPassword.encrytePassword(newPass));
             userSelected = userService.save(userSelected);
         }
     }

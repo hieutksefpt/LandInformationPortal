@@ -4,6 +4,7 @@ import capstone.lip.landinformationportal.dto.Coordinate;
 import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.entity.RealEstate;
+import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import com.google.gson.Gson;
@@ -19,6 +20,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -36,13 +39,23 @@ public class ListOwnRealEstateBean implements Serializable {
     private List<RealEstate> listUserRealEstate;
     private RealEstate realEstateClicked;
     private String jsonMultipleCoordinate;
-
+    private User currentUser;
+    
     @PostConstruct
     public void init() {
+    	
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	String username="";
+		if (auth!= null) {
+			username = (String)auth.getPrincipal();
+		}
+    	
+		currentUser = userService.findByUsername(username);
+		
         //Ham init nay phai truyen vao userId
         listUserRealEstate = new ArrayList<>();
         //truyen userId vao ham ben duoi, �ang hard code
-        listUserRealEstate = userService.getListRealEstate(1L);
+        listUserRealEstate = userService.getListRealEstate(currentUser.getUserId());
         transferListCoordinate();
     }
 

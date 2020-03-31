@@ -19,11 +19,12 @@ import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.specification.RealEstateSpecifications;
 import capstone.lip.landinformationportal.specification.SearchCriteria;
+import capstone.lip.landinformationportal.utils.EmailSender;
 
 @EnableJpaAuditing
 @SpringBootApplication
 @ComponentScan
-public class Application {
+public class Application{
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
         
@@ -37,9 +38,8 @@ public class Application {
 //	  public void run(String... args) {
 //	
 //	      System.out.print("hello");
-//	      MaxMinAvg max = repo.getMaxMinAvg("hà đông");
-//	      List<GroupByDateMaxMinCreate> list = repo.getGroupTimeAndPrice("hà đông");
-//	      int i = 1;
+//	      EmailSender.sendMailChangePassword("tuansu2021998@gmail.com", "tuan1234");
+//	      int i= 1;
 //	      i++;
 //	      i--;
 //	  }

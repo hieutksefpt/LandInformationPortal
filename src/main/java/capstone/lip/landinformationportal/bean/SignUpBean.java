@@ -9,10 +9,14 @@ import capstone.lip.landinformationportal.common.UserRoleConstant;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import capstone.lip.landinformationportal.utils.EncryptedPassword;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.Date;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +58,7 @@ public class SignUpBean implements Serializable{
         
     }
     
-    public void registerUser(){
+    public void registerUser() throws IOException{
         newUser = new User();
         newUser.setAddress(address);
         newUser.setEmail(email);
@@ -68,11 +72,36 @@ public class SignUpBean implements Serializable{
         newUser.setRole(UserRoleConstant.USER);
         newUser = userService.save(newUser);
         
+        
+        FacesMessage msg = new FacesMessage();
+            msg = new FacesMessage("Thành công", "Đăng ký thành công");
+	    FacesContext.getCurrentInstance().addMessage(null, msg);
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
     }
     
     
     
+    public void signUpSuccess() throws IOException{
+            FacesMessage msg = new FacesMessage();
+            msg = new FacesMessage("Thành công", "Đăng ký thành công");
+	    FacesContext.getCurrentInstance().addMessage(null, msg);
+             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
+    }
     
+    public void setMessage(FacesMessage.Severity severityType, String message) {
+		
+		FacesMessage msg = new FacesMessage();
+		if (severityType == FacesMessage.SEVERITY_ERROR) {
+			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Lỗi", message);
+		} else if (severityType == FacesMessage.SEVERITY_WARN) {
+			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Lưu ý", message);
+		} else {
+			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Thành công", message);
+		}
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
 
     public User getNewUser() {
         return newUser;

@@ -58,13 +58,11 @@
                                 <p:password id="feedback2" value="#{signUpBean.confirmpassword}" feedback="true" /><div class="validate"></div>
                             </div>
 
-                            <div class="form-check">
-                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                                <label for="agree-term" class="label-agree-term"><span><span></span></span>Tôi đồng ý với <a href="#" class="term-service">Điều khoản Sử dụng Cổng thông tin</a></label>
-                            </div>
+                            
                             <div class="form-submit">
-                                <h:commandButton class="next action-button" value="Đăng ký tài khoản">
+                                <h:commandButton class="next action-button"  value="Đăng ký tài khoản">
                                     <p:ajax listener="#{signUpBean.registerUser()}" process="registerUser"/>
+                                    
                                 </h:commandButton>
                             </div>
                         </h:form>

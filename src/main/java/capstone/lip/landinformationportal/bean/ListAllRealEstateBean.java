@@ -98,8 +98,8 @@ public class ListAllRealEstateBean implements Serializable {
     public void deleteSelectedRealEstate() {
         for (int i = 0; i < listSelectedRealEstate.size(); i++) {
             realEstateService.delete(listSelectedRealEstate.get(i).getRealEstateId());
-            listAllRealEstate.remove(findRealEstateIndexInList(listSelectedRealEstate.get(i).getRealEstateId()));
         }
+        this.lazyReo = new LazyListAllRealEstate(realEstateService);
     }
 
     public int findRealEstateIndexInList(long realEstateId) {

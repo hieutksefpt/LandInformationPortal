@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,7 +24,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import capstone.lip.landinformationportal.common.UserRoleConstant;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
+import capstone.lip.landinformationportal.utils.EmailSender;
 import capstone.lip.landinformationportal.utils.EncryptedPassword;
+import capstone.lip.landinformationportal.utils.PasswordGenerator;
 
 @Named
 @ViewScoped
@@ -37,6 +40,9 @@ public class AuthenticationBean implements Serializable{
 	private User currentUser;
 	@Autowired
 	private IUserService userService;
+	
+	@Value("${password.reset.length}")
+	private int passwordLength;
 	
 	@PostConstruct
     public void init() {
@@ -139,6 +145,15 @@ public class AuthenticationBean implements Serializable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	public void forgetPass() {
+		String newPass = PasswordGenerator.generate(passwordLength);
+		User user = userService.findByUsername(usernameSignin);
+		EmailSender.sendMailChangePassword(user.getEmail(), newPass);
+		
+		newPass = EncryptedPassword.encrytePassword(newPass);
+		user.setPassword(newPass);
+		userService.save(user);
 	}
 	public String getUsernameSignup() {
 		return usernameSignup;

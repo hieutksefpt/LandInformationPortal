@@ -21,6 +21,8 @@ import javax.inject.Named;
 import org.primefaces.PrimeFaces;
 import org.primefaces.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -159,7 +161,6 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     private String realEstateStatus;
     private String realEstateLink;
     private String realEstateType;
-    private String userId;
     //submit data
     private BigDecimal realEstatePriceSubmit;
     private String realEstateNameSubmit;
@@ -179,7 +180,6 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         listHousesFeature = housesFeatureService.findAll();
         realEstateStatus = String.valueOf(NOT_VERIFIED);
         realEstateType = CONTRIBUTOR;
-        userId = "1";
         realEstatePrice = BigDecimal.ZERO;
         newHouseMoney = BigDecimal.ZERO;
         newLandMoney = BigDecimal.ZERO;
@@ -191,19 +191,14 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         nextLocatePoint();
         //save to DB RE
         
-        User tempUser = new User();
-        List<User> userListAll = userService.findAll();
-        for (int i = 0; i < userListAll.size(); i++) {
-            if (userListAll.get(i).getUserId().toString().equals(userId)) {
-                tempUser.setUserId(userListAll.get(i).getUserId());
-                tempUser.setUsername(userListAll.get(i).getUsername());
-                tempUser.setPassword(userListAll.get(i).getPassword());
-                tempUser.setFullName(userListAll.get(i).getFullName());
-                tempUser.setRole(userListAll.get(i).getRole());
-                tempUser.setEmail(userListAll.get(i).getEmail());
-                tempUser.setPhone(userListAll.get(i).getPhone());
-            }
-        }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	String username="";
+		if (auth!= null) {
+			username = (String)auth.getPrincipal();
+		}
+    	
+		User tempUser = userService.findByUsername(username);
+        
         RealEstate newUploadRealEstate = new RealEstate().setRealEstateName(realEstateName)
                 .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
                 .setRealEstateAddress(realEstateAddress);
@@ -849,14 +844,6 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 
     public void setRealEstateType(String realEstateType) {
         this.realEstateType = realEstateType;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getRealEstateName() {

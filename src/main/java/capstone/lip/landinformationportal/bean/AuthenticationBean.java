@@ -12,7 +12,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,7 +24,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import capstone.lip.landinformationportal.common.UserRoleConstant;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
+import capstone.lip.landinformationportal.utils.EmailSender;
 import capstone.lip.landinformationportal.utils.EncryptedPassword;
+import capstone.lip.landinformationportal.utils.PasswordGenerator;
 
 @Named
 @ViewScoped
@@ -36,6 +40,9 @@ public class AuthenticationBean implements Serializable{
 	private User currentUser;
 	@Autowired
 	private IUserService userService;
+	
+	@Value("${password.reset.length}")
+	private int passwordLength;
 	
 	@PostConstruct
     public void init() {
@@ -73,6 +80,14 @@ public class AuthenticationBean implements Serializable{
 	
 	public void signin() {
 		User user = userService.findByUsername(usernameSignin);
+		if (user == null) {
+			PrimeFaces.current().executeScript("setMessageError('Tài khoản không tồn tại')");
+			return;
+		}
+		if (!EncryptedPassword.checkPassword(passwordSignin, user.getPassword())) {
+			PrimeFaces.current().executeScript("setMessageError('Mật khẩu không chính xác')");
+			return;
+		}
 		if (user!= null && EncryptedPassword.checkPassword(passwordSignin, user.getPassword())) {
 			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(usernameSignin, passwordSignin);
 			SecurityContextHolder.getContext().setAuthentication(token);
@@ -122,6 +137,26 @@ public class AuthenticationBean implements Serializable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	public void redirectListOwnReo() {
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+			ec.redirect(ec.getRequestContextPath() + "/user/listownrealestate.xhtml");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void forgetPass() {
+		PrimeFaces.current().executeScript("setMessageForgetpass()");
+		String newPass = PasswordGenerator.generate(passwordLength);
+		User user = userService.findByUsername(usernameSignin);
+		EmailSender.sendMailChangePassword(user.getEmail(), newPass);
+		
+		newPass = EncryptedPassword.encrytePassword(newPass);
+		user.setPassword(newPass);
+		userService.save(user);
+		
+		
 	}
 	public String getUsernameSignup() {
 		return usernameSignup;

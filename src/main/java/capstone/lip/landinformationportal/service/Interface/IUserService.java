@@ -8,6 +8,8 @@ package capstone.lip.landinformationportal.service.Interface;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.User;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  *
@@ -28,8 +30,12 @@ public interface IUserService {
     List<RealEstate> getListRealEstate(Long userId);
 
     String resetPassword(long userId, int passwordLength);
-    
+
     User findByUsername(String username);
-    
+
+    long count();
+
     User findByUsernamePassword(String username, String password);
+
+    Page<User> findAll(Pageable page);
 }

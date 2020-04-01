@@ -7,6 +7,8 @@ package capstone.lip.landinformationportal.bean;
 
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
+import capstone.lip.landinformationportal.utils.EncryptedPassword;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
@@ -16,6 +18,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.text.SimpleDateFormat;  
 import java.util.Calendar;
 import org.primefaces.component.password.Password;
@@ -52,7 +57,15 @@ public class ManageMyProfileBean implements Serializable{
 //        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 //        long userId = Long.parseLong(params.get("userId"));
 //        userSelected = userService.findById(userId);                          // get User from UserID
-        userSelected = userService.findById(userIdTemp);
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	String usernameInToken="";
+		if (auth!= null) {
+			usernameInToken = (String)auth.getPrincipal();
+		}
+    	
+        userSelected = userService.findByUsername(usernameInToken);
+        
         username = userSelected.getUsername();
         fullname = userSelected.getFullName();
         email = userSelected.getEmail();
@@ -81,8 +94,8 @@ public class ManageMyProfileBean implements Serializable{
     }
     
     public void changePassword(){
-        if(oldPass.equals(userSelected.getPassword()) && newPass.equals(confirmNewPass)){
-            userSelected.setPassword(confirmNewPass);
+        if(EncryptedPassword.checkPassword(oldPass, userSelected.getPassword()) && newPass.equals(confirmNewPass)){
+            userSelected.setPassword(EncryptedPassword.encrytePassword(newPass));
             userSelected = userService.save(userSelected);
         }
     }

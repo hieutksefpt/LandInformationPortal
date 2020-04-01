@@ -1,5 +1,6 @@
 package capstone.lip.landinformationportal.bean;
 
+import capstone.lip.landinformationportal.dto.LazyListUser;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import java.io.Serializable;
@@ -8,6 +9,7 @@ import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -23,41 +25,43 @@ public class ListUserBean implements Serializable {
 
     private List<User> listUser;
     private List<User> selectedUser;
+    private LazyDataModel<User> lazyUser;
 
     @PostConstruct
     public void init() {
         this.listUser = userService.findAll();
+        this.lazyUser = new LazyListUser(userService);
     }
 
     public void resetPassword() {
         for (int i = 0; i < selectedUser.size(); i++) {
             String newPassword = userService.resetPassword(selectedUser.get(i).getUserId(), 8);
-            listUser.get(findUserIndexInList(selectedUser.get(i).getUserId())).setPassword(newPassword);
         }
+        this.lazyUser = new LazyListUser(userService);
     }
 
     public void changeUserRole(String role) {
         for (int i = 0; i < selectedUser.size(); i++) {
             selectedUser.get(i).setRole(role);
             userService.save(selectedUser.get(i));
-            listUser.get(findUserIndexInList(selectedUser.get(i).getUserId())).setRole(role);
         }
+        this.lazyUser = new LazyListUser(userService);
     }
 
     public void banUser() {
         for (int i = 0; i < selectedUser.size(); i++) {
             selectedUser.get(i).setUserStatus("0");
             userService.save(selectedUser.get(i));
-            listUser.get(findUserIndexInList(selectedUser.get(i).getUserId())).setUserStatus("0");
         }
+        this.lazyUser = new LazyListUser(userService);
     }
 
     public void unbanUser() {
         for (int i = 0; i < selectedUser.size(); i++) {
             selectedUser.get(i).setUserStatus("1");
             userService.save(selectedUser.get(i));
-            listUser.get(findUserIndexInList(selectedUser.get(i).getUserId())).setUserStatus("1");
         }
+        this.lazyUser = new LazyListUser(userService);
     }
 
     public int findUserIndexInList(long userId) {
@@ -106,6 +110,14 @@ public class ListUserBean implements Serializable {
 
     public void setSelectedUser(List<User> selectedUser) {
         this.selectedUser = selectedUser;
+    }
+
+    public LazyDataModel<User> getLazyUser() {
+        return lazyUser;
+    }
+
+    public void setLazyUser(LazyDataModel<User> lazyUser) {
+        this.lazyUser = lazyUser;
     }
 
 }

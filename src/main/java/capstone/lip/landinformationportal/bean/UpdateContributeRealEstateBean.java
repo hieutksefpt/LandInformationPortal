@@ -53,6 +53,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -152,7 +154,6 @@ public class UpdateContributeRealEstateBean implements Serializable {
     private String realEstateStatus;
     private String realEstateLink;
     private String realEstateSource;
-    private String userId;
     //submit data
     private BigDecimal realEstatePriceSubmit;
     private String realEstateNameSubmit;
@@ -202,7 +203,6 @@ public class UpdateContributeRealEstateBean implements Serializable {
         }
 
         realEstateStatus = "0";   // Set tạm
-        userId = "1";
         
         segmentStreetIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getSegmentId().toString();
         districtIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getDistrictId().toString();
@@ -220,20 +220,15 @@ public class UpdateContributeRealEstateBean implements Serializable {
             realEstateLng = Double.parseDouble(lngSingleCoordinate);
         }
         //Update to DB RE
-
-        User tempUser = new User();
-        List<User> userListAll = userService.findAll();
-        for (int i = 0; i < userListAll.size(); i++) {
-            if (userListAll.get(i).getUserId().toString().equals(userId)) {
-                tempUser.setUserId(userListAll.get(i).getUserId());
-                tempUser.setUsername(userListAll.get(i).getUsername());
-                tempUser.setPassword(userListAll.get(i).getPassword());
-                tempUser.setFullName(userListAll.get(i).getFullName());
-                tempUser.setRole(userListAll.get(i).getRole());
-                tempUser.setEmail(userListAll.get(i).getEmail());
-                tempUser.setPhone(userListAll.get(i).getPhone());
-            }
-        }
+       
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	String username="";
+		if (auth!= null) {
+			username = (String)auth.getPrincipal();
+		}
+    	
+        User tempUser = userService.findByUsername(username);
+        
         realEstateClicked.setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
                 .setRealEstateAddress(realEstateAddress);
         realEstateClicked.setRealEstatePrice(realEstatePrice);
@@ -942,14 +937,6 @@ public class UpdateContributeRealEstateBean implements Serializable {
 
     public void setRealEstateType(String realEstateSource) {
         this.realEstateSource = realEstateSource;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public BigDecimal getRealEstatePriceSubmit() {

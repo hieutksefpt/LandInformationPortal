@@ -29,12 +29,12 @@
                     </h:commandButton>
                     <h:commandButton id="btn-ChangeUserRoleAdmin"
                                      value="Phân quyền Admin"
-                                     action="#{listUserBean.changeUserRole('Admin')}">
+                                     action="#{listUserBean.changeUserRoleAdmin()}">
                         <p:ajax process="@form" update="table-user"/>
                     </h:commandButton>
                     <h:commandButton id="btn-ChangeUserRoleContributor"
-                                     value="Phân quyền Contributor"
-                                     action="#{listUserBean.changeUserRole('Contributor')}">
+                                     value="Phân quyền User"
+                                     action="#{listUserBean.changeUserRoleUser()}">
                         <p:ajax process="@form" update="table-user"/>
                     </h:commandButton>
                     <h:commandButton id="btn-ResetPassword"
@@ -47,7 +47,7 @@
                                  value="#{listUserBean.lazyUser}"
                                  rowKey="#{user.userId}"
                                  selection="#{listUserBean.selectedUser}"
-                                 disabledSelection="#{user.userId == 4}"
+                                 disabledSelection="#{user.userId == listUserBean.currentUser.userId}"
                                  widgetVar="table-user"
                                  rows="10"
                                  paginator="true"
@@ -60,9 +60,6 @@
                         </p:column>
                         <p:column headerText="Username" style="width: 10%;">
                             <h:outputText value="#{user.username}" />
-                        </p:column>
-                        <p:column headerText="Password" style="width: 10%;">
-                            <h:outputText value="#{user.password}" />
                         </p:column>
                         <p:column headerText="Full Name">
                             <h:outputText value="#{user.fullName}" />

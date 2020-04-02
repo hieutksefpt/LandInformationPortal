@@ -1,5 +1,6 @@
 package capstone.lip.landinformationportal.bean;
 
+import capstone.lip.landinformationportal.common.UserRoleConstant;
 import capstone.lip.landinformationportal.dto.LazyListUser;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
@@ -11,6 +12,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -26,9 +29,16 @@ public class ListUserBean implements Serializable {
     private List<User> listUser;
     private List<User> selectedUser;
     private LazyDataModel<User> lazyUser;
+    private User currentUser;
 
     @PostConstruct
     public void init() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = "";
+        if (auth != null) {
+            username = (String) auth.getPrincipal();
+        }
+        currentUser = userService.findByUsername(username);
         this.listUser = userService.findAll();
         this.lazyUser = new LazyListUser(userService);
     }
@@ -39,10 +49,18 @@ public class ListUserBean implements Serializable {
         }
         this.lazyUser = new LazyListUser(userService);
     }
-
-    public void changeUserRole(String role) {
+    
+    public void changeUserRoleAdmin() {
         for (int i = 0; i < selectedUser.size(); i++) {
-            selectedUser.get(i).setRole(role);
+            selectedUser.get(i).setRole(UserRoleConstant.ADMIN);
+            userService.save(selectedUser.get(i));
+        }
+        this.lazyUser = new LazyListUser(userService);
+    }
+
+    public void changeUserRoleUser() {
+        for (int i = 0; i < selectedUser.size(); i++) {
+            selectedUser.get(i).setRole(UserRoleConstant.USER);
             userService.save(selectedUser.get(i));
         }
         this.lazyUser = new LazyListUser(userService);
@@ -120,4 +138,12 @@ public class ListUserBean implements Serializable {
         this.lazyUser = lazyUser;
     }
 
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+    
 }

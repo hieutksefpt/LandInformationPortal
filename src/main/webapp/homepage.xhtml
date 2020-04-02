@@ -46,7 +46,7 @@
 													</div>
 													<div class="col-4">
 														<div class="image-parent">
-															<img src="https://file4.batdongsan.com.vn/crop/350x232/2020/02/23/20200223201352-ee38_wm.jpg"
+															<img src="#{element.crawledNewsImageUrl}"
 																class="img-fluid"/>
 														</div>
 													</div>
@@ -153,8 +153,9 @@
 	                                </div>
 	                            </div>
 	                        </h:panelGroup>
-	                        <p:separator />
+	                        
 	                        <h:panelGroup rendered="#{homepageBean.districtIdSelected != ''}">
+	                        	<p:separator />
 	                        	<div class="row col">
 	                        		<strong>Giá cao nhất:</strong>
 	                        		<h:outputText value="${homepageBean.maxMinAvg.max}">	
@@ -179,13 +180,12 @@
 	                        	</div>
 	                        	
 	                        </h:panelGroup>
-	                        <p:separator />
 	                        
 	                    </p:panel>
 	                </h:form>
 	            </p:panel>
 	        </div>
-			<div id="list-reo">
+			<div id="list-reo" style="display:none">
 				<h:form prependId="false" onsubmit="return false;" id="form-list-reo">
 					
 					<p:panel id="panel-list-reo">

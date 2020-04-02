@@ -11,7 +11,8 @@ public class MaxMinAvg {
 		super();
 		this.max = max;
 		this.min = min;
-		this.avg = new BigDecimal(avg);
+		if (avg != null)
+			this.avg = new BigDecimal(avg);
 	}
 	public BigDecimal getMax() {
 		return max;

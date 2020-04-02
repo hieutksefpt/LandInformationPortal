@@ -106,6 +106,7 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 				.setRealEstateAddress(reoCrawl.getAddress())
 				.setUser(user)
 				.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.CONFUSED));
+			reo.setModifiedDate(reoCrawl.getStartDatePost());
 			reo = realEstateRepository.save(reo);
 			House house = new House();
 			house.setRealEstate(reo)

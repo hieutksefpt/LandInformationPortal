@@ -51,6 +51,7 @@ public class CrawledNewsService implements ICrawledNewsService{
 					.setCrawledNewsTitle(element.getTitle())
 					.setCrawledNewsWebsite(element.getDomain())
 					.setCrawledNewsTime(element.getDate())
+					.setCrawledNewsImageUrl(element.getImageLink())
 					.setCrawledNewsStatus(StatusCrawledNewsConstant.NON_DISPLAY);
 			if (crawledNewsRepository.findByCrawledNewsLink(element.getLink()) == null) {
 				list.add(news);

@@ -32,7 +32,7 @@
 	                    </ul>
 	                    <h:form prependId="false" onsubmit="return false;">
 		                    <span class="navbar-text actions">
-		                        <a class="btn btn-light action-button" role="button" href="#" data-toggle="modal" data-target="#modalLoginForm">
+		                        <a class="btn btn-light action-button" href="/user/viewmyprofile.xhtml">
 		                      		#{authenticationBean.currentUser.fullName}
 		                        </a>
 			                    <h:commandLink class="btnOnNav" value="Đăng xuất">
@@ -54,45 +54,6 @@
             </sec:authorize>
         </div>
         </ui:remove>
-        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog"
-             aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
-                        <button type="button" class="close" data-dismiss="modal"
-                                aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <h:form>
-                        <div class="modal-body mx-3">
-                            <div class="md-form mb-5">
-                                <i class="fas fa-envelope prefix grey-text"></i>
-                                <h:outputLabel data-error="wrong" data-success="right"
-                                               for="defaultForm-email">Your email</h:outputLabel>
-                                <h:inputText id="defaultForm-email"
-                                             class="form-control validate" value="#{loginBean.username}"></h:inputText>
-                            </div>
-
-                            <div class="md-form mb-4">
-                                <i class="fas fa-lock prefix grey-text"></i>
-                                <h:outputLabel data-error="wrong" data-success="right"
-                                               for="defaultForm-pass">Your password</h:outputLabel>
-                                <h:inputSecret type="password" id="defaultForm-pass"
-                                               class="form-control validate" value="#{loginBean.password}"></h:inputSecret>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center">
-                            <h:commandButton class="btn btn-default" type="button" value="Lưu">
-                                <p:ajax event="click" process="@form"
-                                        listener="${loginBean.loginAction()}"></p:ajax>
-                            </h:commandButton>
-                        </div>
-                    </h:form>
-                </div>
-            </div>
-        </div>
+        
     </h:body>
 </html>

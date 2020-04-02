@@ -69,8 +69,10 @@ public class ManageGeoInfoBean implements Serializable {
 	private String latSingleCoordinate;
 	private List<Coordinate> listCoordinate;
 	private String jsonMultipleCoordinate;
-	
-	
+	private String vt1;
+	private String vt2;
+	private String vt3;
+	private String vt4;
 	@PostConstruct
 	public void init() {
 		processType = "1";
@@ -144,7 +146,7 @@ public class ManageGeoInfoBean implements Serializable {
 	}
 	SegmentOfStreet segmentOfStreet;
 	public void segmentStreetChange() {
-		if (provinceIdSelected != null && !provinceIdSelected.equals("")) {
+		if (segmentStreetIdSelected != null && !segmentStreetIdSelected.equals("")) {
 			processType = "4";
 			segmentOfStreet = listSegmentOfStreet.stream().filter(x->x.getSegmentId().equals(Long.parseLong(segmentStreetIdSelected))).collect(Collectors.toList()).get(0);
 			PrimeFaces.current().executeScript("focusMap(" + segmentOfStreet.getSegmentLat() + ", " + segmentOfStreet.getSegmentLng() + ");");
@@ -229,47 +231,53 @@ public class ManageGeoInfoBean implements Serializable {
 					street = listStreet.stream().filter(x->x.getStreetId().equals(Long.valueOf(streetIdSelected))).collect(Collectors.toList()).get(0);
 				}
 				SegmentOfStreet segmentStreet = new SegmentOfStreet();
-				segmentStreet.setStreet(street);
+				segmentStreet.setStreet(street)
+					.setDistrict(selectedDistrict)
+					.setSegmentName(nameInput)
+					.setVT1(Double.valueOf(vt1))
+					.setVT2(Double.valueOf(vt2))
+					.setVT3(Double.valueOf(vt3))
+					.setVT4(Double.parseDouble(vt4));
 				
-				JsonParser jsonParser = new JsonParser();
-				JsonArray jsonArray = (JsonArray) jsonParser.parse(jsonMultipleCoordinate);
-				List<FormedCoordinate> listFormedCoordinate = new ArrayList<>();
-				
-				for (JsonElement jsonElement : jsonArray) {
-					JsonObject temp = (JsonObject)jsonElement;
-					segmentStreet.setSegmentLat(Double.parseDouble(temp.get("latitude").toString()))
-						.setSegmentLng(Double.parseDouble(temp.get("longitude").toString()));
-					break;
-				}
-				
-				segmentStreet.setDistrict(selectedDistrict).setStreet(street)
-					.setSegmentName(nameInput).setListFormedCoordinate(listFormedCoordinate);
+				List<FormedCoordinate> listFormedCoordinate = setListFormedCoordinate(segmentStreet);
 				segmentStreet = segmentOfStreetService.save(segmentStreet);
-				
-				
-				for (JsonElement jsonElement : jsonArray) {
-					JsonObject temp = (JsonObject)jsonElement;
-					FormedCoordinate coordinate = new FormedCoordinate()
-							.setFormedLat(Double.parseDouble(temp.get("latitude").toString()))
-							.setFormedLng(Double.parseDouble(temp.get("longitude").toString()))
-							.setSegmentOfStreet(segmentStreet);
-					listFormedCoordinate.add(coordinate);
-				}
-				
 				listFormedCoordinate = formedCoordinateService.saveAll(listFormedCoordinate);
 				if (listSegmentOfStreet == null) {
 					listSegmentOfStreet = new ArrayList<>();
 				}
-
 				listSegmentOfStreet.add(segmentStreet);
 				PrimeFaces.current().executeScript("drawPath()");
 				break;
 			default:
 				break;
 		}
-		
 		msg = new FacesMessage("Thành công", "Thêm địa điểm thành công");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+	
+	private List<FormedCoordinate> setListFormedCoordinate(SegmentOfStreet segmentStreet) {
+		JsonParser jsonParser = new JsonParser();
+		JsonArray jsonArray = (JsonArray) jsonParser.parse(jsonMultipleCoordinate);
+		List<FormedCoordinate> listFormedCoordinate = new ArrayList<>();
+		
+		for (JsonElement jsonElement : jsonArray) {
+			JsonObject temp = (JsonObject)jsonElement;
+			segmentStreet.setSegmentLat(Double.parseDouble(temp.get("latitude").toString()))
+				.setSegmentLng(Double.parseDouble(temp.get("longitude").toString()));
+			break;
+		}
+				
+		segmentStreet.setListFormedCoordinate(listFormedCoordinate);
+		
+		for (JsonElement jsonElement : jsonArray) {
+			JsonObject temp = (JsonObject)jsonElement;
+			FormedCoordinate coordinate = new FormedCoordinate()
+					.setFormedLat(Double.parseDouble(temp.get("latitude").toString()))
+					.setFormedLng(Double.parseDouble(temp.get("longitude").toString()))
+					.setSegmentOfStreet(segmentStreet);
+			listFormedCoordinate.add(coordinate);
+		}
+		return listFormedCoordinate;
 	}
 	
 	public void setMessage(FacesMessage.Severity severityType, String message) {
@@ -429,6 +437,103 @@ public class ManageGeoInfoBean implements Serializable {
 	}
 	public void updateButtonClick() {
 		
+		FacesMessage msg = new FacesMessage();
+		String error = findErrorInput();
+		PrimeFaces.current().executeScript("renderTable()");
+		
+		if (!error.equals("")) {
+			setMessage(FacesMessage.SEVERITY_ERROR, error);
+			return;
+		}
+		
+		switch (processType) {
+		case "1":
+			try {
+				Long selected = Long.parseLong(provinceIdSelected);
+			}catch(Exception ex){
+				setMessage(FacesMessage.SEVERITY_ERROR, "Chưa lựa chọn tỉnh thành");
+				return;
+			}
+			Province province = listProvince.stream().filter(x->x.getProvinceId().equals(Long.valueOf(provinceIdSelected))).collect(Collectors.toList()).get(0);
+			province.setProvinceName(nameInput)
+				.setProvinceLat(Double.parseDouble(latSingleCoordinate))
+				.setProvinceLng(Double.parseDouble(lngSingleCoordinate));
+			provinceService.save(province);
+			for (Province element:listProvince) {
+				if (element.equals(province)) {
+					element = province;
+					break;
+				}
+			}
+			break;
+		case "2":
+			try {
+				Long selected = Long.parseLong(districtIdSelected);
+			}catch(Exception ex){
+				setMessage(FacesMessage.SEVERITY_ERROR, "Chưa lựa chọn quận huyện");
+				return;
+			}
+			District district = this.listDistrict.stream().filter(x->x.getDistrictId().equals(Long.parseLong(districtIdSelected))).collect(Collectors.toList()).get(0);
+			district.setDistrictName(nameInput)
+				.setDistrictLat(Double.parseDouble(latSingleCoordinate))
+				.setDistrictLng(Double.parseDouble(lngSingleCoordinate));
+			districtService.save(district);
+			for (District element:listDistrict) {
+				if (element.equals(district)) {
+					element = district;
+					break;
+				}
+			}
+			break;
+		case "3":
+			try {
+				Long selected = Long.parseLong(streetIdSelected);
+			}catch(Exception ex){
+				setMessage(FacesMessage.SEVERITY_ERROR, "Chưa lựa chọn đường phố");
+				return;
+			}
+			Street street = this.listStreet.stream().filter(x->x.getStreetId().equals(Long.parseLong(streetIdSelected))).collect(Collectors.toList()).get(0);
+			street.setStreetName(nameInput)
+				.setStreetLat(Double.parseDouble(latSingleCoordinate))
+				.setStreetLng(Double.parseDouble(lngSingleCoordinate));
+			streetService.save(street);
+			for (Street element:listStreet) {
+				if (element.equals(street)) {
+					element = street;
+					break;
+				}
+			}
+			break;
+		case "4":
+			try {
+				Long selected = Long.parseLong(segmentStreetIdSelected);
+			}catch(Exception ex){
+				setMessage(FacesMessage.SEVERITY_ERROR, "Chưa lựa chọn đoạn đường");
+				return;
+			}
+			SegmentOfStreet segment = this.listSegmentOfStreet.stream().filter(x->x.getSegmentId().equals(Long.parseLong(segmentStreetIdSelected))).collect(Collectors.toList()).get(0);
+			segment.setSegmentName(nameInput)
+				.setVT1(Double.parseDouble(vt1))
+				.setVT2(Double.parseDouble(vt2))
+				.setVT3(Double.parseDouble(vt3))
+				.setVT4(Double.parseDouble(vt4));
+			
+			List<FormedCoordinate> listFormed = segment.getListFormedCoordinate();
+			formedCoordinateService.delete(listFormed);
+			listFormed = setListFormedCoordinate(segment);
+			segmentOfStreetService.save(segment);
+			formedCoordinateService.saveAll(listFormed);
+			for (SegmentOfStreet element:listSegmentOfStreet) {
+				if (element.equals(segment)) {
+					element = segment;
+					break;
+				}
+			}
+			
+			break;
+		default:
+			break;
+		}
 	}
 	public void resetButtonClick() {
 		processType = "1";
@@ -446,9 +551,21 @@ public class ManageGeoInfoBean implements Serializable {
 			}
 		}
 		if (processType.equals("4")) {
+			if (vt1 == null || vt2 == null || vt3 == null || vt4 == null) {
+				return "Bảng giá đất không được để trống";
+			}
+			try {
+				Double.parseDouble(vt1);
+				Double.parseDouble(vt2);
+				Double.parseDouble(vt3);
+				Double.parseDouble(vt4);
+			}catch(Exception e) {
+				return "Giá trị bảng giá đất không hợp lệ";
+			}
 			if (jsonMultipleCoordinate == null || jsonMultipleCoordinate.isEmpty()) {
 				return "Tọa độ không được để trống";
 			}
+			
 		}else if (lngSingleCoordinate == null || latSingleCoordinate ==null|| lngSingleCoordinate.isEmpty() || latSingleCoordinate.isEmpty()) {
 			return "Tọa độ không được để trống";
 		}
@@ -575,6 +692,38 @@ public class ManageGeoInfoBean implements Serializable {
 
 	public void setJsonMultipleCoordinate(String jsonMultipleCoordinate) {
 		this.jsonMultipleCoordinate = jsonMultipleCoordinate;
+	}
+
+	public String getVt1() {
+		return vt1;
+	}
+
+	public void setVt1(String vt1) {
+		this.vt1 = vt1;
+	}
+
+	public String getVt2() {
+		return vt2;
+	}
+
+	public void setVt2(String vt2) {
+		this.vt2 = vt2;
+	}
+
+	public String getVt3() {
+		return vt3;
+	}
+
+	public void setVt3(String vt3) {
+		this.vt3 = vt3;
+	}
+
+	public String getVt4() {
+		return vt4;
+	}
+
+	public void setVt4(String vt4) {
+		this.vt4 = vt4;
 	}
 	
 }

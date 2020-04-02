@@ -17,21 +17,34 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  *
  * @author AnhHao
  */
 public class EmailSender {
 
+	@Value("${mail.username}")
+	private static String username;
+	@Value("${mail.password}")
+	private static String password;
+	@Value("${mail.smtp.auth}")
+	private static String auth;
+	@Value("${mail.smtp.starttls.enable}")
+	private static String enable;
+	@Value("${mail.smtp.host}")
+	private static String host;
+	@Value("${mail.smtp.port}")
+	private static String port;
+	
     public static void sendMailChangePassword(String to, String newPassword) {
-        final String username = "lipsystem.capstone@gmail.com";
-        final String password = "123@123ab";
-
+        
         Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", auth);
+        props.put("mail.smtp.starttls.enable", enable);
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", port);
 
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {

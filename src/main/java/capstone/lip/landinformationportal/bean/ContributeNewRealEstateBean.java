@@ -204,6 +204,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
                 .setRealEstateAddress(realEstateAddress);
         newUploadRealEstate.setRealEstatePrice(realEstatePrice);
         newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
+        
         newUploadRealEstate = realEstateService.save(newUploadRealEstate);
 
         // save to Table REAS

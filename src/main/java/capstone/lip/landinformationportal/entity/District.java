@@ -107,6 +107,61 @@ public class District extends AuditAbstract  implements Serializable{
 		this.province = province;
 		return this;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((districtId == null) ? 0 : districtId.hashCode());
+		result = prime * result + ((districtLat == null) ? 0 : districtLat.hashCode());
+		result = prime * result + ((districtLng == null) ? 0 : districtLng.hashCode());
+		result = prime * result + ((districtName == null) ? 0 : districtName.hashCode());
+		result = prime * result + ((listSegmentOfStreet == null) ? 0 : listSegmentOfStreet.hashCode());
+		result = prime * result + ((province == null) ? 0 : province.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		District other = (District) obj;
+		if (districtId == null) {
+			if (other.districtId != null)
+				return false;
+		} else if (!districtId.equals(other.districtId))
+			return false;
+		if (districtLat == null) {
+			if (other.districtLat != null)
+				return false;
+		} else if (!districtLat.equals(other.districtLat))
+			return false;
+		if (districtLng == null) {
+			if (other.districtLng != null)
+				return false;
+		} else if (!districtLng.equals(other.districtLng))
+			return false;
+		if (districtName == null) {
+			if (other.districtName != null)
+				return false;
+		} else if (!districtName.equals(other.districtName))
+			return false;
+		if (listSegmentOfStreet == null) {
+			if (other.listSegmentOfStreet != null)
+				return false;
+		} else if (!listSegmentOfStreet.equals(other.listSegmentOfStreet))
+			return false;
+		if (province == null) {
+			if (other.province != null)
+				return false;
+		} else if (!province.equals(other.province))
+			return false;
+		return true;
+	}
     
 	
 	

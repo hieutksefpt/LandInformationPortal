@@ -94,6 +94,8 @@ public class HomepageBean implements Serializable{
 				.setCurrentPage(0);
 		pageNews.setTotalPages(pageNews.getTotalRow()/pageNews.getRowsPerPage());
 		
+		pageReo = new Pagination().setTotalRow(0).setTotalPages(0);
+		
 		openPageNews(0);
 		provinceIdSelected = streetIdSelected = segmentIdSelected = districtIdSelected = "";
 		
@@ -115,8 +117,12 @@ public class HomepageBean implements Serializable{
 		if (typeReo == null) {
 			setTypeReo("0");
 		}
+		if (pageReo == null) {
+			return;
+		}
 		pageReo.setCurrentPage(page);
 		Page<RealEstate> listPageReo = null;
+		if (districtSelected == null) return;
 		String address = districtSelected.getDistrictName();
 		if (streetSelected != null) {
 			address = streetSelected.getStreetName();
@@ -143,7 +149,13 @@ public class HomepageBean implements Serializable{
 			break;
 		}
 		if (listPageReo != null)
+		{
 			listRealEstate = listPageReo.stream().map(x->x).collect(Collectors.toList());
+			PrimeFaces.current().executeScript("displayReoList(true)");
+		}else {
+			PrimeFaces.current().executeScript("displayReoList(false)");
+		}
+			
 		List<Coordinate> listCoordinate = listRealEstate.stream().map(x->{
 			return new Coordinate().setId(x.getRealEstateId())
 					.setLatitude(x.getRealEstateLat())
@@ -389,6 +401,9 @@ public class HomepageBean implements Serializable{
 	public void setTypeReo(String typeReo) {
 		if (typeReo == null) typeReo = "0";
 		this.typeReo = typeReo;
+		if (districtSelected == null) {
+			return;
+		}
 		switch (typeReo) {
 		case "0":
 			pageReo = new Pagination()

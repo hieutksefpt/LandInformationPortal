@@ -115,3 +115,10 @@ function drawListMarker(list){
     	
 	}
 }
+function displayReoList(isDisplay){
+	if (isDisplay){
+		$("#list-reo").css("display","block");
+	}else{
+		$("#list-reo").css("display","none");
+	}
+}

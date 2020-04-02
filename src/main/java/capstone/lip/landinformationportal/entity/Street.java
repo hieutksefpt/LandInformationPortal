@@ -78,12 +78,52 @@ public class Street extends AuditAbstract implements Serializable {
 		this.streetLng = streetLng;
 		return this;
 	}
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((listSegmentOfStreet == null) ? 0 : listSegmentOfStreet.hashCode());
+		result = prime * result + ((streetId == null) ? 0 : streetId.hashCode());
+		result = prime * result + ((streetLat == null) ? 0 : streetLat.hashCode());
+		result = prime * result + ((streetLng == null) ? 0 : streetLng.hashCode());
+		result = prime * result + ((streetName == null) ? 0 : streetName.hashCode());
+		return result;
+	}
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) return false;
-		Street temp = (Street) obj;
-		return temp.streetId.equals(this.streetId);
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Street other = (Street) obj;
+		if (listSegmentOfStreet == null) {
+			if (other.listSegmentOfStreet != null)
+				return false;
+		} else if (!listSegmentOfStreet.equals(other.listSegmentOfStreet))
+			return false;
+		if (streetId == null) {
+			if (other.streetId != null)
+				return false;
+		} else if (!streetId.equals(other.streetId))
+			return false;
+		if (streetLat == null) {
+			if (other.streetLat != null)
+				return false;
+		} else if (!streetLat.equals(other.streetLat))
+			return false;
+		if (streetLng == null) {
+			if (other.streetLng != null)
+				return false;
+		} else if (!streetLng.equals(other.streetLng))
+			return false;
+		if (streetName == null) {
+			if (other.streetName != null)
+				return false;
+		} else if (!streetName.equals(other.streetName))
+			return false;
+		return true;
 	}
 	
 	

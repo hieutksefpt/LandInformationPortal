@@ -79,4 +79,52 @@ public class Province extends AuditAbstract implements Serializable{
 		this.provinceLng = provinceLng;
 		return this;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((listDistrict == null) ? 0 : listDistrict.hashCode());
+		result = prime * result + ((provinceId == null) ? 0 : provinceId.hashCode());
+		result = prime * result + ((provinceLat == null) ? 0 : provinceLat.hashCode());
+		result = prime * result + ((provinceLng == null) ? 0 : provinceLng.hashCode());
+		result = prime * result + ((provinceName == null) ? 0 : provinceName.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Province other = (Province) obj;
+		if (listDistrict == null) {
+			if (other.listDistrict != null)
+				return false;
+		} else if (!listDistrict.equals(other.listDistrict))
+			return false;
+		if (provinceId == null) {
+			if (other.provinceId != null)
+				return false;
+		} else if (!provinceId.equals(other.provinceId))
+			return false;
+		if (provinceLat == null) {
+			if (other.provinceLat != null)
+				return false;
+		} else if (!provinceLat.equals(other.provinceLat))
+			return false;
+		if (provinceLng == null) {
+			if (other.provinceLng != null)
+				return false;
+		} else if (!provinceLng.equals(other.provinceLng))
+			return false;
+		if (provinceName == null) {
+			if (other.provinceName != null)
+				return false;
+		} else if (!provinceName.equals(other.provinceName))
+			return false;
+		return true;
+	}
+	
 }

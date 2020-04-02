@@ -41,7 +41,7 @@ public class CrawlRealEstateScheduleJob implements Job {
 		HttpHeaders header = new HttpHeaders();
 		header.set("WWW-Authenticate", "Token");
 		header.set("Content-Type", "application/json");
-		header.set("Authorization", "Token f992ddf15c9d3d30dac1358e918a5693d85d174c");
+		header.set("Authorization", token);
 
 		Map<String, String> map = new HashMap<>();
 		map.put("type", "reo");

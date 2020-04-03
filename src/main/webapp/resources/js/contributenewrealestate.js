@@ -279,7 +279,7 @@ $(".next").click(function () {
     if (animating)
         return false;
     animating = true;
-    $('#msform\\:checkLocation').val(tempCheck);
+    tempCheck = $('#msform\\:checkLocation').val();
     
     if (tempCheck === "OK") {
         current_fs = $(this).parent();

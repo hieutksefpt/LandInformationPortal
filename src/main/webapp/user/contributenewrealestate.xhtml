@@ -77,6 +77,7 @@
                                             </div>
                                             <h:inputHidden id="txtinput-lngSingleCoordinate" value="#{contributeNewRealEstateBean.lngSingleCoordinate}"></h:inputHidden>
                                             <h:inputHidden id="txtinput-latSingleCoordinate" value="#{contributeNewRealEstateBean.latSingleCoordinate}"></h:inputHidden>
+                                            <h:inputHidden id="checkLocation" value="#{contributeNewRealEstateBean.checkLocationLocate}"/>
                                         </div>
                                     </h:panelGroup>
 
@@ -87,8 +88,9 @@
 
                         </div>
                         <h:commandButton class="next action-button" value="Tiếp theo">
-                            <p:ajax listener="#{contributeNewRealEstateBean.nextLocatePoint()}"/>
+                            <p:ajax listener="#{contributeNewRealEstateBean.locateSuccess()}"/>
                         </h:commandButton>
+                        
                     </fieldset>
 
                     <fieldset>

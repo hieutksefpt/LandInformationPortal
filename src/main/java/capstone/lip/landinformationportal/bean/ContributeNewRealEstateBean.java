@@ -166,6 +166,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     private String realEstateNameSubmit;
     private String newLandName;
     private String newHouseName;
+    private String checkLocationLocate;
 
     @PostConstruct
     public void init() {
@@ -183,6 +184,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         realEstatePrice = BigDecimal.ZERO;
         newHouseMoney = BigDecimal.ZERO;
         newLandMoney = BigDecimal.ZERO;
+        checkLocationLocate = "";
 
     }
 
@@ -342,13 +344,35 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         } catch (Exception e) {
 
         }
-//        if(provinceAddress.equals("") || districtAddress.equals("") 
-//                || streetAddress.equals("") || segmentStreetAddress.equals("") 
-//                || realEstateLng.equals("") || realEstateLat.equals("")){
-//                // this case will show for user to warning about empty address of Combobox 
-//        }
+    }
+    
+    public void locateSuccess(){
+        nextLocatePoint();
+        if(checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("OK")){
+            checkLocationLocate = "OK";
+        }
+        else if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("TP"))
+            checkLocationLocate = "TP";
+        else if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("QH"))
+            checkLocationLocate = "QH";
+        else if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("DP"))
+            checkLocationLocate = "DP";
+        else if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("DD"))
+            checkLocationLocate = "DD";
     }
 
+    private String checkLocation(String provinceIdSelected, String districtIdSelected, String streetIdSelected, String segmentStreetIdSelected){
+        if(provinceIdSelected.equals(""))
+            return "TP";
+        else if(districtIdSelected.equals(""))
+            return "QH";
+        else if(streetIdSelected.equals(""))
+            return "DP";
+        else if(segmentStreetIdSelected.equals(""))
+            return "DD";
+        else 
+            return "OK";
+    }
 
     public void onChangeLandUnit() {
         for (int i = 0; i < listLandsFeature.size(); i++) {
@@ -903,4 +927,13 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         this.newHouseName = newHouseName;
     }
 
+    public String getCheckLocationLocate() {
+        return checkLocationLocate;
+    }
+
+    public void setCheckLocationLocate(String checkLocationLocate) {
+        this.checkLocationLocate = checkLocationLocate;
+    }
+
+    
 }

@@ -275,15 +275,18 @@ function loadHouseUnit(houseUnit) {
 }
 
 // đoạn này bắt đầu test MultiForm
-$(".next").click(function () {
-    if (animating)
+function validateMap() {
+
+    
+    tempCheck = $('#msform\\:checkLocation').val();
+
+    if (tempCheck === "OK") {
+        if (animating)
         return false;
     animating = true;
-    tempCheck = $('#msform\\:checkLocation').val();
-    
-    if (tempCheck === "OK") {
-        current_fs = $(this).parent();
-        next_fs = $(this).parent().next();
+        next_button = $('.next')[0];
+        current_fs = $(next_button).parent();
+        next_fs = $(next_button).parent().next();
 
         //activate next step on progressbar using the index of next_fs
         $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
@@ -313,22 +316,16 @@ $(".next").click(function () {
             //this comes from the custom easing plugin
             easing: 'easeInOutBack'
         });
-    }
-    else if(tempCheck === "TP"){
+    } else if (tempCheck === "TP") {
         alert("Vui lòng cung cấp địa chỉ Tỉnh/Thành phố của bất động sản");
-    }
-    else if(tempCheck === "QH"){
+    } else if (tempCheck === "QH") {
         alert("Vui lòng cung cấp địa chỉ Quận/Huyện của bất động sản");
-    }
-    else if(tempCheck === "DP"){
+    } else if (tempCheck === "DP") {
         alert("Vui lòng cung cấp địa chỉ đường phố của bất động sản");
-    }
-    else if(tempCheck === "DD"){
+    } else if (tempCheck === "DD") {
         alert("Vui lòng cung cấp địa chỉ đoạn đường của bất động sản");
     }
-    
-
-});
+}
 
 $(".previous").click(function () {
     if (animating)

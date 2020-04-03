@@ -359,6 +359,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
             checkLocationLocate = "DP";
         else if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("DD"))
             checkLocationLocate = "DD";
+        PrimeFaces.current().executeScript("validateMap()");
     }
 
     private String checkLocation(String provinceIdSelected, String districtIdSelected, String streetIdSelected, String segmentStreetIdSelected){

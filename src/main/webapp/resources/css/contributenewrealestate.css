@@ -29,7 +29,7 @@ and open the template in the editor.
     width: 100%;
 }
 #table-feature{
-    width: 90%;	
+    width: 90%;
 }
 
 #table-feature th{
@@ -40,6 +40,7 @@ and open the template in the editor.
 }
 .scrolldata{
     width: 100%;
+    height: 90%;
 }
 
 #map{
@@ -50,7 +51,9 @@ and open the template in the editor.
     border-radius: 3px;
     box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);     
 }
-
+.panel-UploadLandform {
+    height: 180px;
+}
 
 /*  Đoạn này test Multi Form 
 html {
@@ -106,6 +109,14 @@ body {
     border-radius: 3px;
     box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
     box-sizing: border-box;
+    margin-top: 25px;
+    margin-left: 25px;
+}
+
+.landboxTotal , .houseboxTotal {
+    border-radius: 3px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
     margin: auto;
 }
 
@@ -113,7 +124,7 @@ body {
     border-radius: 3px;
     /*box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);*/
     box-sizing: border-box;
-    height: 150px;
+    height: 250px;
     margin: auto;
     margin-bottom: 15px;
     width: 95%;
@@ -198,7 +209,7 @@ body {
     color: #000;
     text-transform: uppercase;
     font-size: 20px;
-    width: 33.33%;
+    width: 50%;
     float: left;
     position: relative;
     text-align: center;

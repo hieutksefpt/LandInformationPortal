@@ -162,6 +162,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
 
     private long tempRealEstateId;
     private House tempHouse;
+    private String typeRealEstate;
 
     @PostConstruct
     public void init() {
@@ -208,6 +209,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
         districtIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getDistrictId().toString();
         streetIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getStreet().getStreetId().toString();
         provinceIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getProvince().getProvinceId().toString();
+        typeRealEstate = "Đất và Nhà";
     }
 
     public void updateDataUploadToDB() {
@@ -1018,5 +1020,15 @@ public class UpdateContributeRealEstateBean implements Serializable {
     public void setTempHouse(House tempHouse) {
         this.tempHouse = tempHouse;
     }
+
+    public String getTypeRealEstate() {
+        return typeRealEstate;
+    }
+
+    public void setTypeRealEstate(String typeRealEstate) {
+        this.typeRealEstate = typeRealEstate;
+    }
+    
+    
 
 }

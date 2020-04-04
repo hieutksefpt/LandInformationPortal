@@ -277,7 +277,6 @@ function loadHouseUnit(houseUnit) {
 // đoạn này bắt đầu test MultiForm
 function validateMap() {
 
-    
     tempCheck = $('#msform\\:checkLocation').val();
 
     if (tempCheck === "OK") {

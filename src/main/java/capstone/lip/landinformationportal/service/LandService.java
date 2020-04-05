@@ -5,11 +5,16 @@
  */
 package capstone.lip.landinformationportal.service;
 
+import capstone.lip.landinformationportal.dto.LandFeatureValue;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.LandsDetail;
+import capstone.lip.landinformationportal.entity.LandsDetailId;
 import capstone.lip.landinformationportal.entity.LandsFeature;
+import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.repository.LandRepository;
+import capstone.lip.landinformationportal.repository.LandsDetailRepository;
 import capstone.lip.landinformationportal.service.Interface.ILandService;
+import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +29,9 @@ import org.springframework.stereotype.Service;
 public class LandService implements ILandService{
     @Autowired
     private LandRepository landRepository;
+    
+    @Autowired
+    private LandsDetailRepository landsDetailRepository;
 
     @Override
     public List<Land> findAll() {
@@ -55,4 +63,25 @@ public class LandService implements ILandService{
         }
         return listLandsFeature;
     }
+    
+    @Override
+    public void saveLandInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney, List<LandFeatureValue> listLandFeatureValue) {
+        Land tempLand = new Land();
+        tempLand.setLandName(newLandName);
+        tempLand.setLandPrice(Double.parseDouble(newLandMoney.toString()));
+        tempLand.setRealEstate(newUploadRealEstate);
+
+        tempLand = landRepository.save(tempLand);
+
+        for (int i = 0; i < listLandFeatureValue.size(); i++) {
+            LandsDetailId tempLDI = new LandsDetailId();
+            tempLDI.setLandId(tempLand.getLandId());
+            tempLDI.setLandsFeatureId(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureID());
+            LandsDetail tempLD = new LandsDetail();
+            tempLD.setId(tempLDI)
+                    .setValue(listLandFeatureValue.get(i).getValue());
+            landsDetailRepository.save(tempLD);
+        }
+    } 
+
 }

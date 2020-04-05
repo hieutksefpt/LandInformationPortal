@@ -5,8 +5,11 @@
  */
 package capstone.lip.landinformationportal.service.Interface;
 
+import capstone.lip.landinformationportal.dto.HouseFeatureValue;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.HousesFeature;
+import capstone.lip.landinformationportal.entity.RealEstate;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -23,4 +26,6 @@ public interface IHouseService {
     void deleteById(Long houseID);
     
     List<HousesFeature> getListHousesFeature(Long houseId);
+    
+    void saveHouseInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney,List<HouseFeatureValue> listLandFeatureValue);
 }

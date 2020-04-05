@@ -351,9 +351,12 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 
     public void locateSuccess() {
         nextLocatePoint();
-        if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("OK") && !latSingleCoordinate.equals("") && !lngSingleCoordinate.equals("")) {
+        if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("OK") && latSingleCoordinate != null && lngSingleCoordinate != null && !latSingleCoordinate.isEmpty() && !lngSingleCoordinate.isEmpty() ) {
             checkLocationLocate = "OK";
-        } else if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("TP")) {
+        } else if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("OK") && ((latSingleCoordinate == null && lngSingleCoordinate == null) || (latSingleCoordinate.isEmpty() && lngSingleCoordinate.isEmpty()))) {
+            checkLocationLocate = "Marker";
+        } 
+        else if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("TP")) {
             checkLocationLocate = "TP";
         } else if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("QH")) {
             checkLocationLocate = "QH";
@@ -438,13 +441,13 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
             streetIdSelected = "";
             segmentStreetIdSelected = "";
             nameInput = selectedProvince.getProvinceName();
-            latSingleCoordinate = selectedProvince.getProvinceLat().toString();
-            lngSingleCoordinate = selectedProvince.getProvinceLng().toString();
 
             PrimeFaces.current().executeScript("focusMap(" + selectedProvince.getProvinceLat() + ", " + selectedProvince.getProvinceLng() + ");");
         } else {
             listDistrict = new ArrayList<>();
             listStreet = new ArrayList<>();
+            lngSingleCoordinate = "";
+            latSingleCoordinate = "";
         }
 
     }
@@ -467,6 +470,8 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         } else {
             listStreet = new ArrayList<>();
             listSegmentOfStreet = new ArrayList<>();
+            lngSingleCoordinate = "";
+            latSingleCoordinate = "";
         }
     }
     Street selectedStreet;
@@ -484,13 +489,15 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
             listSegmentOfStreet = selectedStreet.getListSegmentOfStreet();
         } else {
             listSegmentOfStreet = new ArrayList<>();
+            lngSingleCoordinate = "";
+            latSingleCoordinate = "";
         }
 
     }
     SegmentOfStreet segmentOfStreet;
 
     public void segmentStreetChange() {
-        if (provinceIdSelected != null && !provinceIdSelected.equals("")) {
+        if (segmentStreetIdSelected != null && !segmentStreetIdSelected.equals("")) {
             processType = "4";
             segmentOfStreet = listSegmentOfStreet.stream().filter(x -> x.getSegmentId().equals(Long.parseLong(segmentStreetIdSelected))).collect(Collectors.toList()).get(0);
             PrimeFaces.current().executeScript("focusMap(" + segmentOfStreet.getSegmentLat() + ", " + segmentOfStreet.getSegmentLng() + ");");
@@ -498,40 +505,15 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
                     + segmentOfStreet.getSegmentLng() + ")");
 
             PrimeFaces.current().executeScript("updateDeleteOld()");
-            List<FormedCoordinate> listFormedCoordinate = segmentOfStreet.getListFormedCoordinate();
-            List<Coordinate> listCoordinate = listFormedCoordinate.stream()
-                    .map(x -> {
-                        Coordinate coor = new Coordinate(x.getFormedLng(), x.getFormedLat());
-                        return coor;
-                    }).collect(Collectors.toList());
-            int i = 1;
-            i++;
-            Gson gson = new Gson();
-            jsonMultipleCoordinate = gson.toJson(listCoordinate);
-        } else {
-
+        }
+        else{
+            segmentStreetIdSelected = "";
+            segmentOfStreet = null;
+            lngSingleCoordinate = "";
+            latSingleCoordinate = "";
         }
     }
 
-    private String findErrorInput() {
-        if (nameInput == null || nameInput.isEmpty()) {
-            return "Tên không được để trống";
-        }
-        if (processType.equals("1")) {
-            if (!listProvince.stream().filter(x -> x.getProvinceName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()) {
-                return "Trùng tên";
-            }
-        }
-        if (processType.equals("4")) {
-            if (jsonMultipleCoordinate == null || jsonMultipleCoordinate.isEmpty()) {
-                return "Tọa độ không được để trống";
-            }
-        } else if (lngSingleCoordinate == null || latSingleCoordinate == null || lngSingleCoordinate.isEmpty() || latSingleCoordinate.isEmpty()) {
-            return "Tọa độ không được để trống";
-        }
-
-        return "";
-    }
 
     public void setMessage(FacesMessage.Severity severityType, String message) {
 

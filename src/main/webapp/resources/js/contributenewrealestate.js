@@ -105,7 +105,7 @@ function initMap() {
             title: event.latLng.lat() + ', ' + event.latLng.lng()
         });
 
-
+        
 
         if (deleteOld) {
             clearOldMarkers();
@@ -118,71 +118,6 @@ function initMap() {
 
     });
 }
-let countRow = 0;
-function addDataToNewRow(marker) {
-    $('#lng-' + (countRow - 1)).val(marker.getPosition().lng());
-    $('#lat-' + (countRow - 1)).val(marker.getPosition().lat());
-    $('#form\\:txtInput_multipleCoordinate').val(JSON.stringify(
-            selectedMarkers.map(x => {
-                let obj = {};
-                obj.latitude = x.getPosition().lat();
-                obj.longitude = x.getPosition().lng();
-                return obj
-            })
-            ));
-}
-function addNewRowCoordinate() {
-    var newRow = $("<tr>");
-    var cols = "";
-    cols += '<td class="td-lng"><input type="text" name="longitude" id="lng-' + countRow + '" class="form-control longitude-multi""/></td>';
-    cols += '<td class="td-lat"><input type="text" name="latitude"  id="lat-' + countRow + '" class="form-control latitude-multi"/></td>';
-    countRow++;
-    cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger " onclick="deleteRowFeature(this)" value="X"></td>';
-    newRow.append(cols);
-    saveRow.push(newRow);
-    $("#table-coordinate").append(newRow);
-}
-function renderTable() {
-    saveRow.forEach(x => {
-        $("#table-coordinate").append(x);
-    });
-}
-
-function deleteRowFeature(element) {
-    console.log($(element).closest("tr"));
-    $(element).closest("tr").remove();
-}
-function deleteRow(element) {
-    console.log($(element).closest("tr"));
-    $(element).closest("tr").remove();
-    let lng = $($(element).parent().parent().children()[0]).children().val()
-    let lat = $($(element).parent().parent().children()[1]).children().val()
-    saveRow = saveRow.filter(x => {
-        return ($($($($(x).children())[0].children)[0]).val() != lng && $($($($(x).children())[1].children)[0]).val() != lat);
-    });
-    selectedMarkers = selectedMarkers.filter(x => {
-        if (x.getPosition().lat() == lat && x.getPosition().lng() == lng) {
-            x.setMap(null);
-        }
-        return x.getPosition().lat() != lat && x.getPosition().lng() != lng
-    });
-    $('#form\\:txtInput_multipleCoordinate').val(JSON.stringify(
-            selectedMarkers.map(x => {
-                let obj = {};
-                obj.lat = x.getPosition().lat();
-                obj.lng = x.getPosition().lng();
-                return obj
-            }))
-            );
-
-
-
-    countRow--;
-}
-$("#table-coordinate").on("click", ".ibtnDel", function (event) {
-    $(this).closest("tr").remove();
-    countRow--;
-});
 
 function updateDeleteOld() {
     let selectedType = $("#form\\:cbb-IpgType option:selected").val();
@@ -204,6 +139,24 @@ function clearOldMarkers() {
     }
     selectedMarkers = [];
 }
+let countRow = 0;
+
+function renderTable() {
+    saveRow.forEach(x => {
+        $("#table-coordinate").append(x);
+    });
+}
+
+function deleteRowFeature(element) {
+    console.log($(element).closest("tr"));
+    $(element).closest("tr").remove();
+}
+$("#table-coordinate").on("click", ".ibtnDel", function (event) {
+    $(this).closest("tr").remove();
+    countRow--;
+});
+
+
 
 function drawPath() {
     let fromJson = JSON.parse($('#form\\:txtInput_multipleCoordinate').val());
@@ -281,8 +234,8 @@ function validateMap() {
 
     if (tempCheck === "OK") {
         if (animating)
-        return false;
-    animating = true;
+            return false;
+        animating = true;
         next_button = $('.next')[0];
         current_fs = $(next_button).parent();
         next_fs = $(next_button).parent().next();
@@ -315,6 +268,8 @@ function validateMap() {
             //this comes from the custom easing plugin
             easing: 'easeInOutBack'
         });
+    } else if (tempCheck === "Marker") {
+        alert("Vui lòng thả điểm để định vị bất động sản trên bản đồ");
     } else if (tempCheck === "TP") {
         alert("Vui lòng cung cấp địa chỉ Tỉnh/Thành phố của bất động sản");
     } else if (tempCheck === "QH") {

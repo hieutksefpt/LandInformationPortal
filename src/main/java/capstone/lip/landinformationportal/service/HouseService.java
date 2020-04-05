@@ -5,11 +5,16 @@
  */
 package capstone.lip.landinformationportal.service;
 
+import capstone.lip.landinformationportal.dto.HouseFeatureValue;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.HousesDetail;
+import capstone.lip.landinformationportal.entity.HousesDetailId;
 import capstone.lip.landinformationportal.entity.HousesFeature;
+import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.repository.HouseRepository;
+import capstone.lip.landinformationportal.repository.HousesDetailRepository;
 import capstone.lip.landinformationportal.service.Interface.IHouseService;
+import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +30,9 @@ public class HouseService implements IHouseService {
 
     @Autowired
     private HouseRepository houseRepository;
+    
+    @Autowired
+    private HousesDetailRepository housesDetailRepository;
 
     @Override
     public List<House> findAll() {
@@ -56,6 +64,26 @@ public class HouseService implements IHouseService {
         	listHousesFeature.add(housesDetail.getHousesFeature());
         }
         return listHousesFeature;
+    }
+
+    @Override
+    public void saveHouseInfor(RealEstate newUploadRealEstate, String newHouseName, BigDecimal newHouseMoney, List<HouseFeatureValue> listHouseFeatureValue) {
+        House tempHouse = new House();
+        tempHouse.setHouseName(newHouseName);
+        tempHouse.setHousePrice(Double.parseDouble(newHouseMoney.toString()));
+        tempHouse.setRealEstate(newUploadRealEstate);
+
+        tempHouse = houseRepository.save(tempHouse);
+
+        for (int i = 0; i < listHouseFeatureValue.size(); i++) {
+            HousesDetailId tempHDI = new HousesDetailId();
+            tempHDI.setHouseId(tempHouse.getHouseId());
+            tempHDI.setHousesFeatureId(listHouseFeatureValue.get(i).getHousesFeature().getHousesFeatureID());
+            HousesDetail tempHD = new HousesDetail();
+            tempHD.setId(tempHDI)
+                    .setValue(listHouseFeatureValue.get(i).getValue());
+            housesDetailRepository.save(tempHD);
+        }
     }
 
 

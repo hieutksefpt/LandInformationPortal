@@ -13,6 +13,8 @@ var path = [];
 var searchBox;
 var saveRow = [];
 var tempCheck = "";
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
 
 //jQuery time
 var current_fs, next_fs, previous_fs; //fieldsets
@@ -105,7 +107,7 @@ function initMap() {
             title: event.latLng.lat() + ', ' + event.latLng.lng()
         });
 
-        
+
 
         if (deleteOld) {
             clearOldMarkers();
@@ -201,20 +203,14 @@ function clearAllInput() {
 
 function display_div(show) {
     if (document.getElementById('optionList').value == 1) {
-//        document.getElementById('houseBox').blur();
         document.getElementById('houseBox').readOnly = true;
-//        document.getElementById('txtInputHouseFeatureNew').readOnly = true;
     }
     if (document.getElementById('optionList').value == 2) {
-//        document.getElementById('landBox').blur();
         document.getElementById('landBox').readOnly = true;
-//        document.getElementById('txtInputLandFeatureNew').readOnly = true;
     }
     if (document.getElementById('optionList').value == 3) {
         document.getElementById('houseBox').readOnly = false;
-//        document.getElementById('txtInputHouseFeatureNew').readOnly = false;
         document.getElementById('landBox').readOnly = false;
-//        document.getElementById('txtInputLandFeatureNew').readOnly = false;
     }
 
 }
@@ -281,6 +277,43 @@ function validateMap() {
     }
 }
 
+function showModalMandatory() {
+    tempRealEstateName = $('#msform\\:realEstateName').val();
+    tempRealEstateValue = $('#msform\\:realEstatePrice').val();
+    tempRealEstateType = $('#msform\\:cbb-Type').val();
+
+
+    tempLandFeature = $('#msform\\:cbb-landFeature').val();
+    tempLandFeatureValue = $('#msform\\:txtInputLandFeatureNew').val();
+
+    tempHouseFeature = $('#msform\\:cbb-houseFeature').val();
+    tempHouseFeatureValue = $('#msform\\:txtInputHouseFeatureNew').val();
+    if (tempRealEstateName === '') {
+        alert("Tên của bất động sản không được để trống");
+    } else if (tempRealEstateValue <= 0) {
+        alert("Giá trị của bất động sản phải lớn hơn 0 VND.\nĐồng thời phải lớn hơn hoặc bằng tổng giá trị của các bất động sản thành phần");
+    }
+    else if (tempRealEstateType === 'Đất và Nhà'){                  // to validate when choosing combobox Type RE.
+        if (tempLandFeature !== '' && tempLandFeatureValue === '') {                    // If choose Land Feature --> have to contribute Land Value
+            alert("Vui lòng cung cấp giá trị của thuộc tính Đất đang khai báo");
+        }else if (tempHouseFeature !== '' && tempHouseFeatureValue === '') {            // If choose House Feature --> have to contribute House Value
+            alert("Vui lòng cung cấp giá trị của thuộc tính Nhà đang khai báo");
+        }
+    }
+    else if (tempRealEstateType === 'Đất'){                             // If choose Land Feature --> have to contribute Land Value
+        if (tempLandFeature !== '' && tempLandFeatureValue === '') {
+            alert("Vui lòng cung cấp giá trị của thuộc tính Đất đang khai báo");
+        }
+    }
+    else if (tempRealEstateType === 'Nhà'){                             // If choose House Feature --> have to contribute House Value
+        if (tempHouseFeature !== '' && tempHouseFeatureValue === '') {                  
+            alert("Vui lòng cung cấp giá trị của thuộc tính Nhà đang khai báo");
+        }
+    }
+}
+
+
+
 $(".previous").click(function () {
     if (animating)
         return false;
@@ -319,5 +352,6 @@ $(".previous").click(function () {
 
 $(".submit").click(function () {
     return false;
-})
+}
+)
 

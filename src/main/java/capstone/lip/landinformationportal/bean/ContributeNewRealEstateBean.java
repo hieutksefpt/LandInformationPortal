@@ -65,9 +65,11 @@ import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.ISegmentOfStreetService;
 import capstone.lip.landinformationportal.service.Interface.IStreetService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
+import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.UUID;
+import javax.faces.context.ExternalContext;
 
 /**
  *
@@ -198,7 +200,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         PrimeFaces.current().executeScript("showModalMandatory()");
     }
 
-    public void saveDataUploadToDB() {
+    public void saveDataUploadToDB() throws IOException {
 
         nextLocatePoint();
         //save to DB RE
@@ -232,6 +234,9 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
             House newHouse = new House();
             newHouse = houseService.saveHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
         }
+        
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
     }
 
     // function call when Ajax listener (textbox Price change value)
@@ -345,7 +350,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
             }
         }
         if (landUnit == null) {
-            landUnit = "đơn vị";
+            landUnit = RealEstateTypeConstant.unit;
         }
         PrimeFaces.current().executeScript("loadLandUnit('" + landUnit + "')");
 
@@ -362,7 +367,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
             }
         }
         if (houseUnit == null) {
-            houseUnit = "đơn vị";
+            houseUnit = RealEstateTypeConstant.unit;
         }
         PrimeFaces.current().executeScript("loadHouseUnit('" + houseUnit + "')");
     }

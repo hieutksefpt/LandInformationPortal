@@ -215,11 +215,11 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         newUploadRealEstate = realEstateService.save(realEstateName, realEstateLat, realEstateLng, realEstateAddress, realEstatePrice, realEstateStatus, tempUser);
 
         // save to Table REAS
-        RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
-
-        RealEstateAdjacentSegmentId realEstateAdjacentSegmentId = new RealEstateAdjacentSegmentId(Long.parseLong(segmentStreetIdSelected), newUploadRealEstate.getRealEstateId());
-
-        newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.save(newUploadRealEstate, realEstateAdjacentSegmentId);
+        if (newUploadRealEstate != null) {
+            RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
+            RealEstateAdjacentSegmentId realEstateAdjacentSegmentId = new RealEstateAdjacentSegmentId(Long.parseLong(segmentStreetIdSelected), newUploadRealEstate.getRealEstateId());
+            newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.save(newUploadRealEstate, realEstateAdjacentSegmentId);
+        }
 
         // save to Table Land & save to Table LandsDetail
         if (typeRealEstate.equals(RealEstateTypeConstant.landType) || typeRealEstate.equals(RealEstateTypeConstant.landHouseType)) {

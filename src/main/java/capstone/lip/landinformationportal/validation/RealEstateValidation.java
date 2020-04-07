@@ -27,7 +27,7 @@ public class RealEstateValidation {
             return "LatEmpty";
         } else if (newUploadRealEstate.getRealEstateLng().equals("")) {
             return "LngEmpty";
-        } else if (newUploadRealEstate.getRealEstatePrice().equals(BigDecimal.ZERO)) {
+        } else if (newUploadRealEstate.getRealEstatePrice().equals(BigDecimal.ZERO) || newUploadRealEstate.getRealEstatePrice() == null) {
             return "ZeroPrice";
         } else if (newUploadRealEstate.getUser() == null) {
             return "UserError";

@@ -10,6 +10,7 @@ import capstone.lip.landinformationportal.dto.MaxMinAvg;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.RealEstate;
+import capstone.lip.landinformationportal.entity.User;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -29,8 +30,10 @@ public interface IRealEstateService {
 
     RealEstate findById(long realEstateId);
 
-    RealEstate save(RealEstate realEstate);
+    RealEstate save(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice,String realEstateStatus, User tempUser);
 
+    RealEstate save(RealEstate realEstate);
+    
     void delete(List<RealEstate> listRealEstate);
 
     Land getLand(Long realEstateId);

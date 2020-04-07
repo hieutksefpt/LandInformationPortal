@@ -5,9 +5,12 @@
  */
 package capstone.lip.landinformationportal.service;
 
+import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegment;
+import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegmentId;
 import capstone.lip.landinformationportal.repository.RealEstateAdjacentSegmentRepository;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateAdjacentSegmentService;
+import capstone.lip.landinformationportal.validation.RealEstateValidation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +31,15 @@ public class RealEstateAdjacentSegmentService implements IRealEstateAdjacentSegm
     }
 
     @Override
-    public RealEstateAdjacentSegment save(RealEstateAdjacentSegment realEstateAdjacentSegment) {
-        return realEstateAdjacentSegmentRepository.save(realEstateAdjacentSegment);
+    public RealEstateAdjacentSegment save(RealEstate newUploadRealEstate, RealEstateAdjacentSegmentId realEstateAdjacentSegmentId) {
+        RealEstateValidation rev = new RealEstateValidation();
+        if (rev.checkRealEstateSegmentValidation(newUploadRealEstate)) {
+            RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
+            newRealEstateAdjacentSegment.setRealEstate(newUploadRealEstate);
+            newRealEstateAdjacentSegment.setId(realEstateAdjacentSegmentId);
+            return realEstateAdjacentSegmentRepository.save(newRealEstateAdjacentSegment);
+        }
+        return null;
     }
 
     @Override
@@ -42,9 +52,9 @@ public class RealEstateAdjacentSegmentService implements IRealEstateAdjacentSegm
         realEstateAdjacentSegmentRepository.deleteById(realEstateAdjacentSegmentId);
     }
 
-	@Override
-	public List<RealEstateAdjacentSegment> save(List<RealEstateAdjacentSegment> listReoAdjacentSegment) {
-		return realEstateAdjacentSegmentRepository.saveAll(listReoAdjacentSegment);
-	}
+    @Override
+    public List<RealEstateAdjacentSegment> save(List<RealEstateAdjacentSegment> listReoAdjacentSegment) {
+        return realEstateAdjacentSegmentRepository.saveAll(listReoAdjacentSegment);
+    }
 
 }

@@ -14,6 +14,7 @@ import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.repository.HouseRepository;
 import capstone.lip.landinformationportal.repository.HousesDetailRepository;
 import capstone.lip.landinformationportal.service.Interface.IHouseService;
+import capstone.lip.landinformationportal.validation.RealEstateValidation;
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class HouseService implements IHouseService {
 
     @Autowired
     private HouseRepository houseRepository;
-    
+
     @Autowired
     private HousesDetailRepository housesDetailRepository;
 
@@ -60,31 +61,37 @@ public class HouseService implements IHouseService {
 //        List<HousesFeature> listHousesFeature = house.getListHousesFeatures();   // đhs chỗ này lỗi ?
         List<HousesFeature> listHousesFeature = new ArrayList<>();
         List<HousesDetail> listHouseDetail = house.getListHousesDetail();
-        for (HousesDetail housesDetail: listHouseDetail) {
-        	listHousesFeature.add(housesDetail.getHousesFeature());
+        for (HousesDetail housesDetail : listHouseDetail) {
+            listHousesFeature.add(housesDetail.getHousesFeature());
         }
         return listHousesFeature;
     }
 
     @Override
-    public void saveHouseInfor(RealEstate newUploadRealEstate, String newHouseName, BigDecimal newHouseMoney, List<HouseFeatureValue> listHouseFeatureValue) {
+    public House saveHouseInfor(RealEstate newUploadRealEstate, String newHouseName, BigDecimal newHouseMoney, List<HouseFeatureValue> listHouseFeatureValue) {
+        RealEstateValidation rev = new RealEstateValidation();
         House tempHouse = new House();
         tempHouse.setHouseName(newHouseName);
         tempHouse.setHousePrice(Double.parseDouble(newHouseMoney.toString()));
         tempHouse.setRealEstate(newUploadRealEstate);
 
-        tempHouse = houseRepository.save(tempHouse);
-
-        for (int i = 0; i < listHouseFeatureValue.size(); i++) {
-            HousesDetailId tempHDI = new HousesDetailId();
-            tempHDI.setHouseId(tempHouse.getHouseId());
-            tempHDI.setHousesFeatureId(listHouseFeatureValue.get(i).getHousesFeature().getHousesFeatureID());
-            HousesDetail tempHD = new HousesDetail();
-            tempHD.setId(tempHDI)
-                    .setValue(listHouseFeatureValue.get(i).getValue());
-            housesDetailRepository.save(tempHD);
+        if (rev.checkHouseValidation(tempHouse)) {
+            tempHouse = houseRepository.save(tempHouse);
+        } else {
+            tempHouse = null;
         }
+
+        if (rev.checkHouseDetailValidation(tempHouse)) {
+            for (int i = 0; i < listHouseFeatureValue.size(); i++) {
+                HousesDetailId tempHDI = new HousesDetailId();
+                tempHDI.setHouseId(tempHouse.getHouseId());
+                tempHDI.setHousesFeatureId(listHouseFeatureValue.get(i).getHousesFeature().getHousesFeatureID());
+                HousesDetail tempHD = new HousesDetail();
+                tempHD.setId(tempHDI)
+                        .setValue(listHouseFeatureValue.get(i).getValue());
+                housesDetailRepository.save(tempHD);
+            }
+        }
+        return tempHouse;
     }
-
-
 }

@@ -5,6 +5,7 @@
  */
 package capstone.lip.landinformationportal.bean;
 
+import capstone.lip.landinformationportal.common.RealEstateTypeConstant;
 import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
 import static capstone.lip.landinformationportal.common.StatusRealEstateConstant.CONFUSED;
 import java.util.ArrayList;
@@ -190,7 +191,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         newHouseMoney = BigDecimal.ZERO;
         newLandMoney = BigDecimal.ZERO;
         checkLocationLocate = "";
-        typeRealEstate = "Đất và Nhà";
+        typeRealEstate = RealEstateTypeConstant.landHouseType;
     }
 
     public void showModalMandatory() {
@@ -210,45 +211,28 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 
         User tempUser = userService.findByUsername(username);
 
-        RealEstate newUploadRealEstate = new RealEstate().setRealEstateName(realEstateName)
-                .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
-                .setRealEstateAddress(realEstateAddress);
-        newUploadRealEstate.setRealEstatePrice(realEstatePrice);
-        newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
-
-        newUploadRealEstate = realEstateService.save(newUploadRealEstate);
+        RealEstate newUploadRealEstate = new RealEstate();
+        newUploadRealEstate = realEstateService.save(realEstateName, realEstateLat, realEstateLng, realEstateAddress, realEstatePrice, realEstateStatus, tempUser);
 
         // save to Table REAS
         RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
 
-        newRealEstateAdjacentSegment.setRealEstate(newUploadRealEstate);
-        SegmentOfStreet tempSos = new SegmentOfStreet();
-        List<SegmentOfStreet> segmentOfStreetListAll = segmentOfStreetService.findAll();
-        for (int i = 0; i < segmentOfStreetListAll.size(); i++) {
-            if (segmentOfStreetListAll.get(i).getSegmentId().toString().equals(segmentStreetIdSelected)) {
-                tempSos.setSegmentName(segmentOfStreetListAll.get(i).getSegmentName())
-                        .setSegmentLat(segmentOfStreetListAll.get(i).getSegmentLng())
-                        .setSegmentLng(segmentOfStreetListAll.get(i).getSegmentLng())
-                        .setDistrict(selectedDistrict).setStreet(selectedStreet)
-                        .setSegmentId(segmentOfStreetListAll.get(i).getSegmentId());
-            }
-        }
+        RealEstateAdjacentSegmentId realEstateAdjacentSegmentId = new RealEstateAdjacentSegmentId(Long.parseLong(segmentStreetIdSelected), newUploadRealEstate.getRealEstateId());
 
-        newRealEstateAdjacentSegment.setId(new RealEstateAdjacentSegmentId(tempSos.getSegmentId(), newUploadRealEstate.getRealEstateId()));
-
-        realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);
+        newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.save(newUploadRealEstate, realEstateAdjacentSegmentId);
 
         // save to Table Land & save to Table LandsDetail
-        if (typeRealEstate.equals("Đất") || typeRealEstate.equals("Đất và Nhà")) {
-               landService.saveLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
+        if (typeRealEstate.equals(RealEstateTypeConstant.landType) || typeRealEstate.equals(RealEstateTypeConstant.landHouseType)) {
+            Land newLand = new Land();
+            newLand = landService.saveLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
         }
 
         // save to Table House & House Detail tương tự Land :(( 
-        if (typeRealEstate.equals("Nhà") || typeRealEstate.equals("Đất và Nhà")) {
-               houseService.saveHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
+        if (typeRealEstate.equals(RealEstateTypeConstant.houseType) || typeRealEstate.equals(RealEstateTypeConstant.landHouseType)) {
+            House newHouse = new House();
+            newHouse = houseService.saveHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
         }
     }
-
 
     // function call when Ajax listener (textbox Price change value)
     public void calculateRealEstateValue() {

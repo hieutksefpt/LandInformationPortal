@@ -27,5 +27,5 @@ public interface IHouseService {
     
     List<HousesFeature> getListHousesFeature(Long houseId);
     
-    void saveHouseInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney,List<HouseFeatureValue> listLandFeatureValue);
+    House saveHouseInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney,List<HouseFeatureValue> listLandFeatureValue);
 }

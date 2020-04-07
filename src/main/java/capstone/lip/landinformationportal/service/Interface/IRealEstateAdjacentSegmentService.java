@@ -5,7 +5,9 @@
  */
 package capstone.lip.landinformationportal.service.Interface;
 
+import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegment;
+import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegmentId;
 import java.util.List;
 
 /**
@@ -15,7 +17,7 @@ import java.util.List;
 public interface IRealEstateAdjacentSegmentService {
     List<RealEstateAdjacentSegment> findAll();
 
-    RealEstateAdjacentSegment save(RealEstateAdjacentSegment realEstateAdjacentSegment);
+    RealEstateAdjacentSegment save(RealEstate newUploadRealEstate, RealEstateAdjacentSegmentId realEstateAdjacentSegmentId);
 
     void delete(List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment);
 

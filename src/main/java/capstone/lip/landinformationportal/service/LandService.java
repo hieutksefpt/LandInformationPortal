@@ -14,6 +14,7 @@ import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.repository.LandRepository;
 import capstone.lip.landinformationportal.repository.LandsDetailRepository;
 import capstone.lip.landinformationportal.service.Interface.ILandService;
+import capstone.lip.landinformationportal.validation.RealEstateValidation;
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
@@ -26,10 +27,11 @@ import org.springframework.stereotype.Service;
  * @author Admin
  */
 @Service
-public class LandService implements ILandService{
+public class LandService implements ILandService {
+
     @Autowired
     private LandRepository landRepository;
-    
+
     @Autowired
     private LandsDetailRepository landsDetailRepository;
 
@@ -52,36 +54,44 @@ public class LandService implements ILandService{
     public void deleteById(Long landId) {
         landRepository.deleteById(landId);
     }
-    
+
     @Override
     public List<LandsFeature> getListLandsFeature(Long landId) {
         Land land = landRepository.findById(landId).get();
         List<LandsDetail> listLandDetail = land.getListLandsDetail();
         List<LandsFeature> listLandsFeature = new ArrayList<LandsFeature>();
         for (LandsDetail landDetail : listLandDetail) {
-        	listLandsFeature.add(landDetail.getLandsFeature());
+            listLandsFeature.add(landDetail.getLandsFeature());
         }
         return listLandsFeature;
     }
-    
+
     @Override
-    public void saveLandInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney, List<LandFeatureValue> listLandFeatureValue) {
+    public Land saveLandInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney, List<LandFeatureValue> listLandFeatureValue) {
+        RealEstateValidation rev = new RealEstateValidation();
         Land tempLand = new Land();
         tempLand.setLandName(newLandName);
         tempLand.setLandPrice(Double.parseDouble(newLandMoney.toString()));
         tempLand.setRealEstate(newUploadRealEstate);
-
-        tempLand = landRepository.save(tempLand);
-
-        for (int i = 0; i < listLandFeatureValue.size(); i++) {
-            LandsDetailId tempLDI = new LandsDetailId();
-            tempLDI.setLandId(tempLand.getLandId());
-            tempLDI.setLandsFeatureId(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureID());
-            LandsDetail tempLD = new LandsDetail();
-            tempLD.setId(tempLDI)
-                    .setValue(listLandFeatureValue.get(i).getValue());
-            landsDetailRepository.save(tempLD);
+        if (rev.checkLandValidation(tempLand)) {
+            tempLand = landRepository.save(tempLand);
+        } else {
+            tempLand = null;
         }
-    } 
+
+        if (rev.checkLandDetailValidation(tempLand)) {
+            for (int i = 0; i < listLandFeatureValue.size(); i++) {
+                LandsDetailId tempLDI = new LandsDetailId();
+                tempLDI.setLandId(tempLand.getLandId());
+                tempLDI.setLandsFeatureId(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureID());
+                LandsDetail tempLD = new LandsDetail();
+                tempLD.setId(tempLDI)
+                        .setValue(listLandFeatureValue.get(i).getValue());
+                landsDetailRepository.save(tempLD);
+            }
+        }
+
+        return tempLand;
+    }
 
 }

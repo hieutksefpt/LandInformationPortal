@@ -3,6 +3,7 @@ package capstone.lip.landinformationportal.service;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
@@ -175,5 +176,24 @@ public class CrawledNewsService implements ICrawledNewsService{
 	@Override
 	public long countByStatus(String status) {
 		return crawledNewsRepository.countByCrawledNewsStatus(status);
+	}
+
+	@Override
+	public void delete(List<CrawledNews> listNews) {
+		crawledNewsRepository.deleteAll(listNews);
+	}
+
+	@Override
+	public List<CrawledNews> saveAll(List<CrawledNews> listNews) {
+		return crawledNewsRepository.saveAll(listNews);
+	}
+
+	@Override
+	public CrawledNews findById(Long newsId) {
+		Optional<CrawledNews> news = crawledNewsRepository.findById(newsId);
+		if (news.isPresent()) {
+			return news.get();
+		}
+		return null;
 	}
 }

@@ -1,6 +1,7 @@
 package capstone.lip.landinformationportal.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -30,6 +31,8 @@ public class ManageCrawlNewsBean implements Serializable{
 	private LazyDataModel<CrawledNews> lazyNews;
 	
 	private boolean statusCrawlSchedule;
+	
+	private List<CrawledNews> listNewsSelected;
 	
 	@PostConstruct
 	public void init() {
@@ -113,6 +116,19 @@ public class ManageCrawlNewsBean implements Serializable{
 		crawledNewService.delete(newsTemp);
 		refreshData();
 	}
+	
+	public void acceptListNews() {
+		for (CrawledNews news:listNewsSelected) {
+			news.setCrawledNewsStatus(StatusCrawledNewsConstant.DISPLAY);
+		}
+		crawledNewService.saveAll(listNewsSelected);
+		refreshData();
+	}
+	
+	public void deleteListNews() {
+		crawledNewService.delete(listNewsSelected);
+		refreshData();
+	}
 
 	public LazyDataModel<CrawledNews> getLazyNews() {
 		return lazyNews;
@@ -128,6 +144,14 @@ public class ManageCrawlNewsBean implements Serializable{
 
 	public void setLazyNews(LazyDataModel<CrawledNews> lazyNews) {
 		this.lazyNews = lazyNews;
+	}
+
+	public List<CrawledNews> getListNewsSelected() {
+		return listNewsSelected;
+	}
+
+	public void setListNewsSelected(List<CrawledNews> listNewsSelected) {
+		this.listNewsSelected = listNewsSelected;
 	}
 	
 }

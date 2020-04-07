@@ -24,8 +24,6 @@ public class LazyCrawledNew extends LazyDataModel<CrawledNews> implements Serial
 	@Autowired 
 	private ICrawledNewsService crawledNewService;
 	
-	Page<CrawledNews> listData;
-	
 	public LazyCrawledNew(ICrawledNewsService service) {
 		this.crawledNewService = service;
 		this.setRowCount((int)crawledNewService.countByStatus(StatusCrawledNewsConstant.NON_DISPLAY));
@@ -45,13 +43,7 @@ public class LazyCrawledNew extends LazyDataModel<CrawledNews> implements Serial
 	}
 	@Override
     public CrawledNews getRowData(String rowKey) {
-        for (CrawledNews news : listData) {
-            if (news.getCrawledNewsID().equals(rowKey)) {
-                return news;
-            }
-        }
- 
-        return null;
+        return crawledNewService.findById(Long.parseLong(rowKey));
     }
 	@Override
 	public int getRowCount() {

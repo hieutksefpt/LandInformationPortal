@@ -27,7 +27,11 @@ public interface ICrawledNewsService{
 	
 	void delete(CrawledNews news);
 	
+	void delete(List<CrawledNews> listNews);
+	
 	CrawledNews save(CrawledNews news);
+	
+	List<CrawledNews> saveAll(List<CrawledNews> listNews);
 	
 	List<CrawledNews> findByCrawledNewsStatus(String status);
 	
@@ -36,4 +40,6 @@ public interface ICrawledNewsService{
 	long count();
 	
 	long countByStatus(String status);
+	
+	CrawledNews findById(Long newsId);
 }

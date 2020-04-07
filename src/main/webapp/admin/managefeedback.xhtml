@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:body>
+	
+	<ui:composition template="/template/admin/adminLayout.xhtml">
+		
+		<ui:define name="content">
+			<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+			<h:outputStylesheet name="managefeedback.css" library="css"></h:outputStylesheet>
+            <h:form onsubmit="return false;" prependId="false">
+            	<p:growl id="msgs" showDetail="true"/>
+            	<div class="row form-group">
+            	</div>
+            </h:form>
+            <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px">
+	            <p:dataTable value="#{manageFeedbackBean.lazyFeedback}" var="element"
+		           	rows="10" paginator="true" lazy="true"
+		            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+		            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+		            rowKey="#{element.feedBackID}"
+		            >
+		            
+	            	<p:column>
+	            		<f:facet name="header">Tiêu đề</f:facet>
+	            		<h:outputText value="#{element.feedbackTitle}"></h:outputText>
+	            	</p:column>
+	     
+	            	<p:column>
+			            <f:facet name="header">User</f:facet>
+	            		<h:outputText value="#{element.user.username}"></h:outputText>
+			        </p:column>
+			        <p:column style="text-align: center">
+	            		<div class="row">
+	            			<div class="col-6">
+		            			<p:commandButton icon="pi pi-search" title="Chi tiết" update="tabledata" style="width:25px"
+					             oncomplete="PF('dlgFeedback').show()">
+					            	<f:setPropertyActionListener value="#{element}" target="#{manageFeedbackBean.feedbackClick}"></f:setPropertyActionListener>
+					            </p:commandButton>
+	            			</div>
+	            			<div class="col-6">
+		            			<p:commandButton icon="pi pi-times" title="Xóa" update="tabledata" style="width:25px"
+				             	action="#{manageFeedbackBean.setFeedback(element)}" oncomplete="PF('dlgDelete').show()">
+				             	
+				            	</p:commandButton>
+	            			</div>
+	            		</div>
+			        </p:column>
+	            </p:dataTable>
+	            <p:dialog header="Nội dung Feedback" widgetVar="dlgFeedback" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+	            	<div class="row">
+	            		<div class="col-3">
+	            			Tiêu đề
+	            		</div>
+	            		<div class="col-9">
+	            			<h:outputText value="#{manageFeedbackBean.feedbackClick.feedbackTitle}"></h:outputText>
+	            		</div>
+	            	</div>
+	            	<div class="row">
+	            		<div class="col-3">
+	            			User
+	            		</div>
+	            		<div class="col-9">
+	            			<h:outputText value="#{manageFeedbackBean.feedbackClick.user.username}"></h:outputText>
+	            		</div>
+	            	</div>
+	            	<div class="row">
+	            		<div class="col-3">
+	            			Nội dung
+	            		</div>
+	            		<div class="col-9">
+	            			<h:outputText value="#{manageFeedbackBean.feedbackClick.feedbackContent}"></h:outputText>
+	            		</div>
+	            	</div>
+	            	
+	            </p:dialog>
+            </h:form>
+            
+		</ui:define>
+		<ui:define name="footer">
+			<h:outputScript name="managefeedback.js" library="js" />
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

@@ -31,9 +31,9 @@
 				<h:form onsubmit="return false;" prependId="false">
 					<sec:anonymous>
 						<span class="actions"> <h:commandLink
-								class="btnOnNav btnUser" action="#{authenticationBean.signup()}"
+								class="btnOnNav btnUser" 
 								value="Đăng kí">
-
+								<p:ajax listener="#{authenticationBean.signup()}" process="@form"></p:ajax>
 							</h:commandLink> <h:outputLink class="btnOnNav btnUser"
 								onclick="$('#modalLogin').modal('show');" value="javascript:void(0)">Đăng nhập</h:outputLink>
 						</span>

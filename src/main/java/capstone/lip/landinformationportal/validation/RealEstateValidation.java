@@ -5,6 +5,7 @@
  */
 package capstone.lip.landinformationportal.validation;
 
+import capstone.lip.landinformationportal.dto.HouseFeatureValue;
 import capstone.lip.landinformationportal.dto.LandFeatureValue;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.Land;
@@ -35,8 +36,8 @@ public class RealEstateValidation {
         return "AcceptRealEstate";
     }
 
-    public boolean checkLandValidation(Land tempLand) {                     // check Land if Null RealState Condition
-        if (tempLand.getRealEstate() == null) {
+    public boolean checkLandValidation(Land tempLand, List<LandFeatureValue> listLandFeatureValue) {                     // check Land if Null RealState Condition
+        if (tempLand.getRealEstate() == null || (tempLand.getLandName().equals("") && tempLand.getLandPrice().equals(BigDecimal.ZERO) && listLandFeatureValue.size() == 0)) {
             return false;
         } else {
             return true;
@@ -49,8 +50,8 @@ public class RealEstateValidation {
         return true;
     }
     
-    public boolean checkHouseValidation(House tempHouse) {
-        if (tempHouse.getRealEstate() == null) {
+    public boolean checkHouseValidation(House tempHouse, List<HouseFeatureValue> listHouseFeatureValue) {
+        if (tempHouse.getRealEstate() == null || (tempHouse.getHouseName().equals("") && tempHouse.getHousePrice().equals(BigDecimal.ZERO) && listHouseFeatureValue.size() == 0)) {
             return false;
         } else {
             return true;

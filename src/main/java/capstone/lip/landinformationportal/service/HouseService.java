@@ -75,13 +75,13 @@ public class HouseService implements IHouseService {
         tempHouse.setHousePrice(Double.parseDouble(newHouseMoney.toString()));
         tempHouse.setRealEstate(newUploadRealEstate);
 
-        if (rev.checkHouseValidation(tempHouse)) {
+        if (rev.checkHouseValidation(tempHouse,listHouseFeatureValue)) {
             tempHouse = houseRepository.save(tempHouse);
         } else {
             tempHouse = null;
         }
 
-        if (rev.checkHouseDetailValidation(tempHouse)) {
+        if (rev.checkHouseDetailValidation(tempHouse) && rev.checkHouseValidation(tempHouse,listHouseFeatureValue)) {
             for (int i = 0; i < listHouseFeatureValue.size(); i++) {
                 HousesDetailId tempHDI = new HousesDetailId();
                 tempHDI.setHouseId(tempHouse.getHouseId());

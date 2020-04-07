@@ -73,13 +73,13 @@ public class LandService implements ILandService {
         tempLand.setLandName(newLandName);
         tempLand.setLandPrice(Double.parseDouble(newLandMoney.toString()));
         tempLand.setRealEstate(newUploadRealEstate);
-        if (rev.checkLandValidation(tempLand)) {
+        if (rev.checkLandValidation(tempLand,listLandFeatureValue)) {
             tempLand = landRepository.save(tempLand);
         } else {
             tempLand = null;
         }
 
-        if (rev.checkLandDetailValidation(tempLand)) {
+        if (rev.checkLandDetailValidation(tempLand) && rev.checkLandValidation(tempLand,listLandFeatureValue)) {
             for (int i = 0; i < listLandFeatureValue.size(); i++) {
                 LandsDetailId tempLDI = new LandsDetailId();
                 tempLDI.setLandId(tempLand.getLandId());

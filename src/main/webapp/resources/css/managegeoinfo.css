@@ -3,9 +3,7 @@
     overflow-x: hidden;
     height:80px;
 }
-.ui-growl-message p{
-	color: white;
-}
+
 #formControl{
 	max-width: 400px;
 }

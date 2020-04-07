@@ -152,7 +152,10 @@ public class ManageGeoInfoBean implements Serializable {
 			PrimeFaces.current().executeScript("focusMap(" + segmentOfStreet.getSegmentLat() + ", " + segmentOfStreet.getSegmentLng() + ");");
 			PrimeFaces.current().executeScript("changeInfo(\""+segmentOfStreet.getSegmentName()+"\", "+segmentOfStreet.getSegmentLat()+", "+
 					segmentOfStreet.getSegmentLng()+")");
-			
+			vt1 = segmentOfStreet.getVT1().toString();
+			vt2 = segmentOfStreet.getVT2().toString();
+			vt3 = segmentOfStreet.getVT3().toString();
+			vt4 = segmentOfStreet.getVT4().toString();
 			PrimeFaces.current().executeScript("updateDeleteOld()");
 			List<FormedCoordinate> listFormedCoordinate = segmentOfStreet.getListFormedCoordinate();
 			List<Coordinate> listCoordinate = listFormedCoordinate.stream()
@@ -172,7 +175,7 @@ public class ManageGeoInfoBean implements Serializable {
 	
 	public void addButtonClick() {
 		FacesMessage msg = new FacesMessage();
-		String error = findErrorInput();
+		String error = findErrorInput("Add");
 		PrimeFaces.current().executeScript("renderTable()");
 		
 		if (!error.equals("")) {
@@ -438,7 +441,7 @@ public class ManageGeoInfoBean implements Serializable {
 	public void updateButtonClick() {
 		
 		FacesMessage msg = new FacesMessage();
-		String error = findErrorInput();
+		String error = findErrorInput("Update");
 		PrimeFaces.current().executeScript("renderTable()");
 		
 		if (!error.equals("")) {
@@ -465,6 +468,7 @@ public class ManageGeoInfoBean implements Serializable {
 					break;
 				}
 			}
+			setMessage(FacesMessage.SEVERITY_INFO, "Cập nhật thành công");
 			break;
 		case "2":
 			try {
@@ -484,6 +488,7 @@ public class ManageGeoInfoBean implements Serializable {
 					break;
 				}
 			}
+			setMessage(FacesMessage.SEVERITY_INFO, "Cập nhật thành công");
 			break;
 		case "3":
 			try {
@@ -503,6 +508,7 @@ public class ManageGeoInfoBean implements Serializable {
 					break;
 				}
 			}
+			setMessage(FacesMessage.SEVERITY_INFO, "Cập nhật thành công");
 			break;
 		case "4":
 			try {
@@ -529,7 +535,7 @@ public class ManageGeoInfoBean implements Serializable {
 					break;
 				}
 			}
-			
+			setMessage(FacesMessage.SEVERITY_INFO, "Cập nhật thành công");
 			break;
 		default:
 			break;
@@ -541,12 +547,13 @@ public class ManageGeoInfoBean implements Serializable {
 		lngSingleCoordinate = "";
 		latSingleCoordinate = "";
 	}
-	private String findErrorInput() {
+	private String findErrorInput(String action) {
 		if (nameInput == null || nameInput.isEmpty()) {
 			return "Tên không được để trống";
 		}
 		if (processType.equals("1")) {
-			if (!listProvince.stream().filter(x->x.getProvinceName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()) {
+			if (!listProvince.stream().filter(x->x.getProvinceName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()
+					&& action.equals("Add")) {
 				return "Trùng tên";
 			}
 		}

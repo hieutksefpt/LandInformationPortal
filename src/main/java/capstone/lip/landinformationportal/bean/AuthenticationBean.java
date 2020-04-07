@@ -22,6 +22,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import capstone.lip.landinformationportal.common.UserRoleConstant;
+import capstone.lip.landinformationportal.common.UserStatusConstant;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import capstone.lip.landinformationportal.utils.EmailSender;
@@ -86,6 +87,10 @@ public class AuthenticationBean implements Serializable{
 		}
 		if (!EncryptedPassword.checkPassword(passwordSignin, user.getPassword())) {
 			PrimeFaces.current().executeScript("setMessageError('Mật khẩu không chính xác')");
+			return;
+		}
+		if (user.getUserStatus().equals(UserStatusConstant.BAN)) {
+			PrimeFaces.current().executeScript("setMessageError('Tài khoản bị khóa, hãy liên hệ admin')");
 			return;
 		}
 		if (user!= null && EncryptedPassword.checkPassword(passwordSignin, user.getPassword())) {

@@ -1,6 +1,6 @@
 package capstone.lip.landinformationportal.common;
 
-public interface StatusCrawledNewsConstant {
-	final String NON_DISPLAY = "0";
-	final String DISPLAY = "1";
+public class StatusCrawledNewsConstant {
+	public static final String NON_DISPLAY = "0";
+	public static final String DISPLAY = "1";
 }

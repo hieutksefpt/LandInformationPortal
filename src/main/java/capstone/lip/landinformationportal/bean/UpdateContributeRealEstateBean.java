@@ -245,7 +245,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
 
             Long segmentID = Long.parseLong(segmentStreetIdSelected);
             newRealEstateAdjacentSegment.setId(new RealEstateAdjacentSegmentId(segmentID, realEstateClicked.getRealEstateId()));
-            realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);
+//            realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);
         }
 
         // Update to Table Land & Update to Table LandsDetail

@@ -25,10 +25,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Admin
  */
-
 @Named
 @ViewScoped
-public class SignUpBean implements Serializable{
+public class SignUpBean implements Serializable {
+
     private User newUser;
     private String gender;
     private String username;
@@ -40,13 +40,12 @@ public class SignUpBean implements Serializable{
     private String role;
     private String password;
     private String confirmpassword;
-    
+
     @Autowired
     private IUserService userService;
-    
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         address = "";
         email = "";
         fullname = "";
@@ -55,10 +54,10 @@ public class SignUpBean implements Serializable{
         phone = "";
         username = "";
         address = "";
-        
+
     }
-    
-    public void registerUser() throws IOException{
+
+    public void registerUser() throws IOException {
         newUser = new User();
         newUser.setAddress(address);
         newUser.setEmail(email);
@@ -71,37 +70,34 @@ public class SignUpBean implements Serializable{
         newUser.setUserStatus("1");
         newUser.setRole(UserRoleConstant.USER);
         newUser = userService.save(newUser);
-        
-        
+
         FacesMessage msg = new FacesMessage();
-            msg = new FacesMessage("Thành công", "Đăng ký thành công");
-	    FacesContext.getCurrentInstance().addMessage(null, msg);
-            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-            ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
+        msg = new FacesMessage("Thành công", "Đăng ký thành công");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
     }
-    
-    
-    
-    public void signUpSuccess() throws IOException{
-            FacesMessage msg = new FacesMessage();
-            msg = new FacesMessage("Thành công", "Đăng ký thành công");
-	    FacesContext.getCurrentInstance().addMessage(null, msg);
-             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-            ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
+
+    public void signUpSuccess() throws IOException {
+        FacesMessage msg = new FacesMessage();
+        msg = new FacesMessage("Thành công", "Đăng ký thành công");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
     }
-    
+
     public void setMessage(FacesMessage.Severity severityType, String message) {
-		
-		FacesMessage msg = new FacesMessage();
-		if (severityType == FacesMessage.SEVERITY_ERROR) {
-			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Lỗi", message);
-		} else if (severityType == FacesMessage.SEVERITY_WARN) {
-			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Lưu ý", message);
-		} else {
-			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Thành công", message);
-		}
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
+
+        FacesMessage msg = new FacesMessage();
+        if (severityType == FacesMessage.SEVERITY_ERROR) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Lỗi", message);
+        } else if (severityType == FacesMessage.SEVERITY_WARN) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Lưu ý", message);
+        } else {
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Thành công", message);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 
     public User getNewUser() {
         return newUser;
@@ -190,6 +186,5 @@ public class SignUpBean implements Serializable{
     public void setConfirmpassword(String confirmpassword) {
         this.confirmpassword = confirmpassword;
     }
-    
-    
+
 }

@@ -13,10 +13,12 @@ import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.LandsDetail;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegment;
+import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.specification.RealEstateSpecifications;
 import capstone.lip.landinformationportal.specification.SearchCriteria;
+import capstone.lip.landinformationportal.validation.RealEstateValidation;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -50,6 +52,21 @@ public class RealEstateService implements IRealEstateService {
     @Override
     public RealEstate save(RealEstate realEstate) {
         return realEstateRepository.save(realEstate);
+    }
+    
+    
+    @Override
+    public RealEstate save(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice,String realEstateStatus, User tempUser) {
+        RealEstateValidation rev = new RealEstateValidation();
+        RealEstate newUploadRealEstate = new RealEstate().setRealEstateName(realEstateName)
+                .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
+                .setRealEstateAddress(realEstateAddress);
+        newUploadRealEstate.setRealEstatePrice(realEstatePrice);
+        newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
+        if(rev.checkRealEstateValidation(newUploadRealEstate).equals("AcceptRealEstate")){
+            return realEstateRepository.save(newUploadRealEstate);
+        }
+        else return null;
     }
 
     @Override
@@ -249,4 +266,7 @@ public class RealEstateService implements IRealEstateService {
         }
         realEstateRepository.delete(realEstate);
     }
+
+    
+
 }

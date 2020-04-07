@@ -28,5 +28,5 @@ public interface ILandService {
 
     List<LandsFeature> getListLandsFeature(Long landId);
     
-    void saveLandInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney,List<LandFeatureValue> listLandFeatureValue);
+    Land saveLandInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney,List<LandFeatureValue> listLandFeatureValue);
 }

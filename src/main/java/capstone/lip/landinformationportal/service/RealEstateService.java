@@ -64,7 +64,8 @@ public class RealEstateService implements IRealEstateService {
         newUploadRealEstate.setRealEstatePrice(realEstatePrice);
         newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
         if(rev.checkRealEstateValidation(newUploadRealEstate).equals("AcceptRealEstate")){
-            return realEstateRepository.save(newUploadRealEstate);
+//            return realEstateRepository.save(newUploadRealEstate);
+              return newUploadRealEstate;
         }
         else return null;
     }

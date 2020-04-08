@@ -37,7 +37,7 @@ public class RealEstateValidation {
     }
 
     public boolean checkLandValidation(Land tempLand, List<LandFeatureValue> listLandFeatureValue) {                     // check Land if Null RealState Condition
-        if (tempLand.getRealEstate() == null || (tempLand.getLandName().equals("") || tempLand.getLandPrice() == 0 ||  listLandFeatureValue.isEmpty())) {
+        if (tempLand.getRealEstate() == null || tempLand.getLandName().equals("") || tempLand.getLandPrice() == 0 ||  listLandFeatureValue.isEmpty()) {
             return false;
         } else {
             return true;
@@ -51,7 +51,7 @@ public class RealEstateValidation {
     }
     
     public boolean checkHouseValidation(House tempHouse, List<HouseFeatureValue> listHouseFeatureValue) {
-        if (tempHouse.getRealEstate() == null || (tempHouse.getHouseName().equals("") || tempHouse.getHousePrice() == 0 || listHouseFeatureValue.isEmpty())) {
+        if (tempHouse.getRealEstate() == null || tempHouse.getHouseName().equals("") || tempHouse.getHousePrice() == 0 || listHouseFeatureValue.isEmpty()) {
             return false;
         } else {
             return true;

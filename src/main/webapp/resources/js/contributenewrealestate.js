@@ -288,6 +288,15 @@ function showModalMandatory() {
 
     tempHouseFeature = $('#msform\\:cbb-houseFeature').val();
     tempHouseFeatureValue = $('#msform\\:txtInputHouseFeatureNew').val();
+    
+    
+    tempNewLandName = $('#msform\\:txtInputLandName').val();
+    tempNewLandValue = $('#msform\\:txtInputLandMoney').val();
+    
+    tempNewHouseName = $('#msform\\:txtInputHouseName').val();
+    tempNewHouseValue = $('#msform\\:txtInputHouseMoney').val();
+    
+    
     if (tempRealEstateName === '') {
         alert("Tên của bất động sản không được để trống");
     } else if (tempRealEstateValue <= 0) {
@@ -298,16 +307,24 @@ function showModalMandatory() {
             alert("Vui lòng cung cấp giá trị của thuộc tính Đất đang khai báo");
         }else if (tempHouseFeature !== '' && tempHouseFeatureValue === '') {            // If choose House Feature --> have to contribute House Value
             alert("Vui lòng cung cấp giá trị của thuộc tính Nhà đang khai báo");
+        }else if (tempNewLandName === '' || tempNewLandValue === '') {            // If choose House Feature --> have to contribute House Value
+            alert("Vui lòng cung cấp tên và giá trị phần Đất");
+        }else if (tempNewHouseName === '' || tempNewHouseValue === '') {            // If choose House Feature --> have to contribute House Value
+            alert("Vui lòng cung cấp tên và giá trị phần Nhà");
         }
     }
     else if (tempRealEstateType === 'Đất'){                             // If choose Land Feature --> have to contribute Land Value
         if (tempLandFeature !== '' && tempLandFeatureValue === '') {
             alert("Vui lòng cung cấp giá trị của thuộc tính Đất đang khai báo");
+        }else if (tempNewLandName === '' || tempNewLandValue === '') {            // If choose House Feature --> have to contribute House Value
+            alert("Vui lòng cung cấp tên và giá trị phần Đất");
         }
     }
     else if (tempRealEstateType === 'Nhà'){                             // If choose House Feature --> have to contribute House Value
         if (tempHouseFeature !== '' && tempHouseFeatureValue === '') {                  
             alert("Vui lòng cung cấp giá trị của thuộc tính Nhà đang khai báo");
+        }else if (tempNewHouseName === '' || tempNewHouseValue === '') {            // If choose House Feature --> have to contribute House Value
+            alert("Vui lòng cung cấp tên và giá trị phần Nhà");
         }
     }
 }

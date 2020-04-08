@@ -216,9 +216,10 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         RealEstate newUploadRealEstate = new RealEstate();
         newUploadRealEstate = realEstateService.save(realEstateName, realEstateLat, realEstateLng, realEstateAddress, realEstatePrice, realEstateStatus, tempUser);
         countSuccess++;
+        
+        RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
         // save to Table REAS
         if (newUploadRealEstate != null) {
-            RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
             RealEstateAdjacentSegmentId realEstateAdjacentSegmentId = new RealEstateAdjacentSegmentId(Long.parseLong(segmentStreetIdSelected), newUploadRealEstate.getRealEstateId());
             newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.save(newUploadRealEstate, realEstateAdjacentSegmentId);
             countSuccess++;
@@ -227,12 +228,16 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         // save to Table Land & save to Table LandsDetail
         if (typeRealEstate.equals(RealEstateTypeConstant.landType) || typeRealEstate.equals(RealEstateTypeConstant.landHouseType)) {
             Land newLand = new Land();
+            newUploadRealEstate = realEstateService.save(newUploadRealEstate);
+            newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);
             newLand = landService.saveLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
             countSuccess++;
         }
 
         // save to Table House & House Detail tương tự Land :(( 
-        if (typeRealEstate.equals(RealEstateTypeConstant.houseType) || typeRealEstate.equals(RealEstateTypeConstant.landHouseType)) {
+        if (typeRealEstate.equals(RealEstateTypeConstant.houseType)) {
+            newUploadRealEstate = realEstateService.save(newUploadRealEstate);
+            newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);
             House newHouse = new House();
             newHouse = houseService.saveHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
             countSuccess++;

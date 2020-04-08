@@ -37,7 +37,8 @@ public class RealEstateAdjacentSegmentService implements IRealEstateAdjacentSegm
             RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
             newRealEstateAdjacentSegment.setRealEstate(newUploadRealEstate);
             newRealEstateAdjacentSegment.setId(realEstateAdjacentSegmentId);
-            return realEstateAdjacentSegmentRepository.save(newRealEstateAdjacentSegment);
+            return newRealEstateAdjacentSegment;
+//                    realEstateAdjacentSegmentRepository.save(newRealEstateAdjacentSegment);
         }
         return null;
     }
@@ -55,6 +56,11 @@ public class RealEstateAdjacentSegmentService implements IRealEstateAdjacentSegm
     @Override
     public List<RealEstateAdjacentSegment> save(List<RealEstateAdjacentSegment> listReoAdjacentSegment) {
         return realEstateAdjacentSegmentRepository.saveAll(listReoAdjacentSegment);
+    }
+
+    @Override
+    public RealEstateAdjacentSegment save(RealEstateAdjacentSegment realEstateAdjacentSegment) {
+        return realEstateAdjacentSegmentRepository.save(realEstateAdjacentSegment);
     }
 
 }

@@ -212,31 +212,37 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         }
 
         User tempUser = userService.findByUsername(username);
-
+        int countSuccess = 0;
         RealEstate newUploadRealEstate = new RealEstate();
         newUploadRealEstate = realEstateService.save(realEstateName, realEstateLat, realEstateLng, realEstateAddress, realEstatePrice, realEstateStatus, tempUser);
-
+        countSuccess++;
         // save to Table REAS
         if (newUploadRealEstate != null) {
             RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
             RealEstateAdjacentSegmentId realEstateAdjacentSegmentId = new RealEstateAdjacentSegmentId(Long.parseLong(segmentStreetIdSelected), newUploadRealEstate.getRealEstateId());
             newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.save(newUploadRealEstate, realEstateAdjacentSegmentId);
+            countSuccess++;
         }
 
         // save to Table Land & save to Table LandsDetail
         if (typeRealEstate.equals(RealEstateTypeConstant.landType) || typeRealEstate.equals(RealEstateTypeConstant.landHouseType)) {
             Land newLand = new Land();
             newLand = landService.saveLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
+            countSuccess++;
         }
 
         // save to Table House & House Detail tương tự Land :(( 
         if (typeRealEstate.equals(RealEstateTypeConstant.houseType) || typeRealEstate.equals(RealEstateTypeConstant.landHouseType)) {
             House newHouse = new House();
             newHouse = houseService.saveHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
+            countSuccess++;
         }
-        
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
+
+        if (countSuccess >= 3) {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
+        }
+
     }
 
     // function call when Ajax listener (textbox Price change value)

@@ -7,6 +7,7 @@ package capstone.lip.landinformationportal.service.Interface;
 
 import capstone.lip.landinformationportal.dto.LandFeatureValue;
 import capstone.lip.landinformationportal.entity.Land;
+import capstone.lip.landinformationportal.entity.LandsDetail;
 import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import java.math.BigDecimal;
@@ -28,5 +29,7 @@ public interface ILandService {
 
     List<LandsFeature> getListLandsFeature(Long landId);
     
-    Land saveLandInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney,List<LandFeatureValue> listLandFeatureValue);
+    Land validateLandInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney,List<LandFeatureValue> listLandFeatureValue);
+    
+    List<LandsDetail> validateLandDetailInfor(Land tempLand,List<LandFeatureValue> listLandFeatureValue );
 }

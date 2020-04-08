@@ -31,7 +31,7 @@ public class RealEstateAdjacentSegmentService implements IRealEstateAdjacentSegm
     }
 
     @Override
-    public RealEstateAdjacentSegment save(RealEstate newUploadRealEstate, RealEstateAdjacentSegmentId realEstateAdjacentSegmentId) {
+    public RealEstateAdjacentSegment validateRealEstateAdjacentInfor(RealEstate newUploadRealEstate, RealEstateAdjacentSegmentId realEstateAdjacentSegmentId) {
         RealEstateValidation rev = new RealEstateValidation();
         if (rev.checkRealEstateSegmentValidation(newUploadRealEstate)) {
             RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();

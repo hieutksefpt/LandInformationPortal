@@ -56,7 +56,7 @@ public class Land extends AuditAbstract implements Serializable {
     public Land() {
     }
 
-    public Land( String landName, Double landPrice, RealEstate realEstate, List<LandsDetail> listLandsDetail) {
+    public Land(String landName, Double landPrice, RealEstate realEstate, List<LandsDetail> listLandsDetail) {
         this.landName = landName;
         this.landPrice = landPrice;
         this.realEstate = realEstate;

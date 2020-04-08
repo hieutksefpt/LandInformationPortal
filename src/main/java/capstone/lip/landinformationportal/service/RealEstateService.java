@@ -56,7 +56,7 @@ public class RealEstateService implements IRealEstateService {
     
     
     @Override
-    public RealEstate save(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice,String realEstateStatus, User tempUser) {
+    public RealEstate validateInfor(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice,String realEstateStatus, User tempUser) {
         RealEstateValidation rev = new RealEstateValidation();
         RealEstate newUploadRealEstate = new RealEstate().setRealEstateName(realEstateName)
                 .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)

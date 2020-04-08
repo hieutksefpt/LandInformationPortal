@@ -68,19 +68,27 @@ public class HouseService implements IHouseService {
     }
 
     @Override
-    public House saveHouseInfor(RealEstate newUploadRealEstate, String newHouseName, BigDecimal newHouseMoney, List<HouseFeatureValue> listHouseFeatureValue) {
+    public House validateHouseInfor(RealEstate newUploadRealEstate, String newHouseName, BigDecimal newHouseMoney, List<HouseFeatureValue> listHouseFeatureValue) {
         RealEstateValidation rev = new RealEstateValidation();
         House tempHouse = new House();
         tempHouse.setHouseName(newHouseName);
         tempHouse.setHousePrice(Double.parseDouble(newHouseMoney.toString()));
         tempHouse.setRealEstate(newUploadRealEstate);
-
+        
         if (rev.checkHouseValidation(tempHouse,listHouseFeatureValue)) {
-            tempHouse = houseRepository.save(tempHouse);
+            return tempHouse;
+//            landRepository.save(tempLand);
         } else {
             tempHouse = null;
         }
 
+        return tempHouse;
+    }
+    
+    @Override
+    public List<HousesDetail> validateHouseDetailInfor(House tempHouse, List<HouseFeatureValue> listHouseFeatureValue){
+        RealEstateValidation rev = new RealEstateValidation();
+        ArrayList<HousesDetail> ahd = new ArrayList<>();
         if (rev.checkHouseDetailValidation(tempHouse) && rev.checkHouseValidation(tempHouse,listHouseFeatureValue)) {
             for (int i = 0; i < listHouseFeatureValue.size(); i++) {
                 HousesDetailId tempHDI = new HousesDetailId();
@@ -89,9 +97,10 @@ public class HouseService implements IHouseService {
                 HousesDetail tempHD = new HousesDetail();
                 tempHD.setId(tempHDI)
                         .setValue(listHouseFeatureValue.get(i).getValue());
-                housesDetailRepository.save(tempHD);
+//                landsDetailRepository.save(tempLD);
+                ahd.add(tempHD);
             }
         }
-        return tempHouse;
+        return ahd;
     }
 }

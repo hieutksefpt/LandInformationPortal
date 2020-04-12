@@ -16,11 +16,11 @@
 			<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
 			<h:outputStylesheet name="managefeedback.css" library="css"></h:outputStylesheet>
             <h:form onsubmit="return false;" prependId="false">
-            	<p:growl id="msgs" showDetail="true"/>
-            	<div class="row form-group">
-            	</div>
+            	
+
             </h:form>
             <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px">
+            	<p:growl id="msgs" showDetail="true"/>
 	            <p:dataTable value="#{manageFeedbackBean.lazyFeedback}" var="element"
 		           	rows="10" paginator="true" lazy="true"
 		            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
@@ -37,7 +37,15 @@
 			            <f:facet name="header">User</f:facet>
 	            		<h:outputText value="#{element.user.username}"></h:outputText>
 			        </p:column>
-			        <p:column style="text-align: center">
+			        <p:column>
+			            <f:facet name="header">Email</f:facet>
+	            		<h:outputText value="#{element.user.email}"></h:outputText>
+			        </p:column>
+			        <p:column>
+			            <f:facet name="header">Nội dung</f:facet>
+	            		<h:outputText value="#{element.feedbackContent}"></h:outputText>
+			        </p:column>
+			        <p:column style="text-align: center" width="10%">
 	            		<div class="row">
 	            			<div class="col-6">
 		            			<p:commandButton icon="pi pi-search" title="Chi tiết" update="tabledata" style="width:25px"
@@ -47,14 +55,14 @@
 	            			</div>
 	            			<div class="col-6">
 		            			<p:commandButton icon="pi pi-times" title="Xóa" update="tabledata" style="width:25px"
-				             	action="#{manageFeedbackBean.setFeedback(element)}" oncomplete="PF('dlgDelete').show()">
-				             	
+				             	 oncomplete="PF('dlgDelete').show()">
+				             		<f:setPropertyActionListener value="#{element}" target="#{manageFeedbackBean.feedbackClick}"></f:setPropertyActionListener>
 				            	</p:commandButton>
 	            			</div>
 	            		</div>
 			        </p:column>
 	            </p:dataTable>
-	            <p:dialog header="Nội dung Feedback" widgetVar="dlgFeedback" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+	            <p:dialog header="Nội dung Feedback" widgetVar="dlgFeedback" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="500px">
 	            	<div class="row">
 	            		<div class="col-3">
 	            			Tiêu đề
@@ -73,14 +81,58 @@
 	            	</div>
 	            	<div class="row">
 	            		<div class="col-3">
+	            			Email
+	            		</div>
+	            		<div class="col-9">
+	            			<h:outputText value="#{manageFeedbackBean.feedbackClick.user.email}"></h:outputText>
+	            		</div>
+	            	</div>
+	            	<div class="row">
+	            		<div class="col-3">
 	            			Nội dung
 	            		</div>
 	            		<div class="col-9">
 	            			<h:outputText value="#{manageFeedbackBean.feedbackClick.feedbackContent}"></h:outputText>
 	            		</div>
 	            	</div>
-	            	
+	            	<div class="row">
+	            		<div class="col-3">
+	            			Trả lời phản hồi
+	            		</div>
+	            		<div class="col-9">
+	            			<h:inputTextarea value="#{manageFeedbackBean.replyMessage}" style="width:100%;">
+	            				
+	            			</h:inputTextarea>
+	            		</div>
+	            	</div>
+	            	<div class="row">
+	            		<div class="col text-center">
+	            			<h:commandButton value="Gửi phản hồi" action="#{manageFeedbackBean.replyFeedbackClick}">
+	            				<p:ajax process="@form" update="@form"></p:ajax>
+	            			</h:commandButton>
+	            		</div>
+	            	</div>
 	            </p:dialog>
+	            <p:dialog header="Xóa feedback" widgetVar="dlgDelete" modal="true" resizable="false">
+	               	<div class="row">
+	               		<div class="col">
+	               			<strong>Bạn có chắc chắn muốn xóa feedback này không?</strong>
+	               		</div>
+	               	</div>
+	               	<div class="row">
+	               		<div class="col text-center">
+	               			<h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
+	               				<p:ajax listener="#{manageFeedbackBean.deleteFeedback}" update="@form" 
+	               				oncomplete="PF('dlgDelete').hide()"></p:ajax>
+	               			</h:commandButton>
+	               		</div>
+	               		<div class="col text-center">
+	               			<h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgDelete').hide()">
+	               				
+	               			</h:commandButton>
+	               		</div>
+	               	</div>
+	           	</p:dialog>
             </h:form>
             
 		</ui:define>

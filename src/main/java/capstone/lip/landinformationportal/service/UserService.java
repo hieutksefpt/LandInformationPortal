@@ -10,12 +10,14 @@ import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.repository.UserRepository;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import capstone.lip.landinformationportal.utils.EmailSender;
+import capstone.lip.landinformationportal.utils.EncryptedPassword;
 import capstone.lip.landinformationportal.utils.PasswordGenerator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,9 @@ public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EmailSender emailSender;
+    
     @Override
     public List<User> findAll() {
         return userRepository.findAll();
@@ -64,14 +69,19 @@ public class UserService implements IUserService {
     public User findById(Long userId) {
         return userRepository.findById(userId).get();
     }
-
+    
+    @Value("${mail.username}")
+	private String username;
+    
     @Override
     public String resetPassword(long userId, int passwordLength) {
+    	String usernameTemp = username;
         User user = userRepository.findById(userId).get();
         String newPassword = PasswordGenerator.generate(passwordLength);
-        user.setPassword(newPassword);
+        String encryptedPassword = EncryptedPassword.encrytePassword(newPassword);
+        user.setPassword(encryptedPassword);
         userRepository.save(user);
-        EmailSender.sendMailChangePassword(user.getEmail(), newPassword);
+        emailSender.sendMailChangePassword(user.getEmail(), newPassword);
         return newPassword;
     }
 

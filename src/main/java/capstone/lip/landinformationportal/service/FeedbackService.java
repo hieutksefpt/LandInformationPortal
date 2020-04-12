@@ -11,12 +11,16 @@ import org.springframework.stereotype.Service;
 import capstone.lip.landinformationportal.entity.Feedback;
 import capstone.lip.landinformationportal.repository.FeedbackRepository;
 import capstone.lip.landinformationportal.service.Interface.IFeedbackService;
+import capstone.lip.landinformationportal.utils.EmailSender;
 
 @Service
 public class FeedbackService implements IFeedbackService {
 
 	@Autowired
-	FeedbackRepository feedbackRepository;
+	private FeedbackRepository feedbackRepository;
+	
+	@Autowired
+	private EmailSender emailSender;
 	
 	@Override
 	public List<Feedback> findAll() {
@@ -60,6 +64,12 @@ public class FeedbackService implements IFeedbackService {
 	@Override
 	public Page<Feedback> findAll(Pageable page) {
 		return feedbackRepository.findAll(page);
+	}
+
+	@Override
+	public void sendFeedbackReply(Feedback feedback) throws Exception {
+		feedbackRepository.save(feedback);
+		emailSender.sendMailFeedback(feedback);
 	}
 
 }

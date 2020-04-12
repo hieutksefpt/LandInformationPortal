@@ -23,4 +23,6 @@ public interface IFeedbackService {
 	Feedback findById(Long id);
 	
 	long count();
+	
+	void sendFeedbackReply(Feedback feedback) throws Exception;
 }

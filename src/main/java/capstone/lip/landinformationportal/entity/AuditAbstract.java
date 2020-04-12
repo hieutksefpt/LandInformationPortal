@@ -1,6 +1,9 @@
 package capstone.lip.landinformationportal.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import capstone.lip.landinformationportal.config.CustomAuditConfig;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -10,10 +13,11 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(CustomAuditConfig.class)
 @JsonIgnoreProperties(
         value = {"createdDate", "modifiedDate"},
-        allowGetters = true
+        allowGetters = true,
+        allowSetters = true
 )
 public abstract class AuditAbstract implements Serializable {
 
@@ -25,7 +29,7 @@ public abstract class AuditAbstract implements Serializable {
     private Timestamp createdDate;
 
 
-    @Column(name = "modifiedDate", nullable = false)
+    @Column(name = "modifiedDate", nullable = false, updatable = true)
     @LastModifiedDate
     private Timestamp modifiedDate;
 

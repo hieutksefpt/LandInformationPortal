@@ -55,9 +55,9 @@ public interface RealEstateRepository extends JpaRepository<RealEstate, Long>, J
 			+ "and (re.realEstatePrice != -1)" )
 	MaxMinAvg getMaxMinAvg(@Param("address")String address);
 	
-	@Query("SELECT new capstone.lip.landinformationportal.dto.GroupByDateMaxMinCreate(DATE_TRUNC('day',re.createdDate), MAX(re.realEstatePrice), MIN(re.realEstatePrice), AVG(re.realEstatePrice)) FROM RealEstate re where "
+	@Query("SELECT new capstone.lip.landinformationportal.dto.GroupByDateMaxMinCreate(DATE_TRUNC('day',re.modifiedDate), MAX(re.realEstatePrice), MIN(re.realEstatePrice), AVG(re.realEstatePrice)) FROM RealEstate re where "
 			+ "(LOWER(re.realEstateName) LIKE CONCAT('%',LOWER(:address),'%') or LOWER(re.realEstateAddress) LIKE CONCAT('%',LOWER(:address),'%') ) "
-			+ "and (re.realEstatePrice != -1) GROUP BY DATE_TRUNC('day', re.createdDate)" )
+			+ "and (re.realEstatePrice != -1) GROUP BY DATE_TRUNC('day', re.modifiedDate)" )
 //	@Query(value="select date_trunc('day', re.\"createdDate\"), max(re.\"RealEstatePrice\"), min(re.\"RealEstatePrice\"), avg(re.\"RealEstatePrice\")  from \"RealEstate\" re " + 
 //			"where (lower(re.\"RealEstateName\") like CONCAT('%',lower(:address),'%') or lower(re.\"RealEstateAddress\") like CONCAT('%',lower(:address),'%')) and (re.\"RealEstatePrice\" != -1) " + 
 //			"group by date_trunc('day', re.\"createdDate\")", nativeQuery=true )

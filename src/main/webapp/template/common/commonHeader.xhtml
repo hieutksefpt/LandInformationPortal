@@ -98,11 +98,11 @@
 								<div class="modal-footer">
 									<h:commandLink styleClass="pull-right text-muted">
 										<small>Quên mật khẩu?
-											<p:ajax process="@form" listener="#{authenticationBean.forgetPass()}"></p:ajax>
+											<p:ajax process="@form" onstart="setMessageForgetpass()" listener="#{authenticationBean.forgetPass()}"></p:ajax>
 										</small>
 									</h:commandLink>
 									<h:commandLink value="Đăng nhập" styleClass="btn btn-primary pull-right">
-										<p:ajax process="@form" listener="#{authenticationBean.signin}"></p:ajax>
+										<p:ajax process="@form"  listener="#{authenticationBean.signin}"></p:ajax>
 									</h:commandLink>
 								</div>
 							</div>

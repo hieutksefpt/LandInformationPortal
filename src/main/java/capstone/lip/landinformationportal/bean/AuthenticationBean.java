@@ -152,16 +152,8 @@ public class AuthenticationBean implements Serializable{
 		}
 	}
 	public void forgetPass() {
-		PrimeFaces.current().executeScript("setMessageForgetpass()");
-		String newPass = PasswordGenerator.generate(passwordLength);
 		User user = userService.findByUsername(usernameSignin);
-		EmailSender.sendMailChangePassword(user.getEmail(), newPass);
-		
-		newPass = EncryptedPassword.encrytePassword(newPass);
-		user.setPassword(newPass);
-		userService.save(user);
-		
-		
+		userService.resetPassword(user.getUserId(), passwordLength);
 	}
 	public String getUsernameSignup() {
 		return usernameSignup;

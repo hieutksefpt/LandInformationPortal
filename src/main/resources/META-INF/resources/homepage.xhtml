@@ -19,11 +19,12 @@
 					<div class="col-9">
 						<div class="h-100 d-flex flex-column">
 							<div class="row flex-grow-1" >
-								
 								<div id="map" class="h-100 w-100"></div>
 							</div>
 						</div>
 					</div>
+					
+					
 					<div class="col-3">
 						<div class="h-100 d-flex flex-column">
 
@@ -45,7 +46,7 @@
 													</div>
 													<div class="col-4">
 														<div class="image-parent">
-															<img src="https://file4.batdongsan.com.vn/crop/350x232/2020/02/23/20200223201352-ee38_wm.jpg"
+															<img src="#{element.crawledNewsImageUrl}"
 																class="img-fluid"/>
 														</div>
 													</div>
@@ -91,7 +92,6 @@
 												</nav>
 											</div>
 										</div>
-										
 									</div>
 								</h:form>
 							</div>
@@ -99,26 +99,161 @@
 					</div>
 				</div>
 			</div>
-			<ui:remove>
-			<div class="container-fluid" style="height:calc(100% - 70px)">
-			  <div class="row justify-content-center h-100">
-			    <div class="col-4 bg-red">
-			      <div class="h-100 d-flex flex-column">
-			        
-			        <div class="row justify-content-center bg-blue flex-grow-1">
-			          
-			        </div>
-			      </div>
-			    </div>
-			    <div class="col-8 bg-gray text-white">
-			        <p>Hey, neighbor.</p>
-			    </div>
-			  </div>
+			<div id="formControl">
+	            <p:panel id="container">
+	                <div class="form-group row">
+	                    <div class="col-md">
+	                        <input id="searchbox-Address" class="controls" type="text" style="width: 100%;" placeholder="Search Box"/>
+	                    </div>
+	                </div>
+	
+	                <h:form id="form" onsubmit="return false;" prependId="false">
+	                    <p:growl id="msgs" showDetail="true"/>
+	
+	
+	                    <p:panel id="panel-form" style="margin-bottom:10px;">
+	                        <h:panelGroup id="combobox_data">
+	                            <div class="form-group row">
+	                                <div class="col-md-6">
+	                                    <h:selectOneMenu id="cbb-Province" value="#{homepageBean.provinceIdSelected}">
+	                                        <p:ajax listener="#{homepageBean.provinceChange}" update="@form form-list-reo" oncomplete="clearDataMap()"/>
+	                                        <f:selectItem itemLabel="Tỉnh/Thành phố" itemValue=""/>
+	                                        <f:selectItems value="#{homepageBean.listProvince}" var="element"
+	                                                       itemLabel="#{element.provinceName}" itemValue="#{element.provinceId}"/>
+	                                    </h:selectOneMenu>
+	                                </div>
+	                                <div class="col-md-6">
+	                                    <h:selectOneMenu id="cbb-District" value="#{homepageBean.districtIdSelected}">
+	                                        <p:ajax listener="#{homepageBean.districtChange}" update="form form-list-reo"  
+	                                        oncomplete="clearDataMap()"></p:ajax>
+	                                        <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
+	                                        <f:selectItems value="#{homepageBean.listDistrict}" var="element"
+	                                                       itemLabel="#{element.districtName}" itemValue="#{element.districtId}"/>
+	                                    </h:selectOneMenu>
+	                                </div>
+	                            </div>
+	                            <div class="form-group row">
+	                                <div class="col-md-6">
+	                                    <h:selectOneMenu id="cbb-Street" value="#{homepageBean.streetIdSelected}">
+	                                        <p:ajax	listener="#{homepageBean.streetChange}" update="form form-list-reo"
+	                                         oncomplete="clearDataMap()"></p:ajax>
+	
+	                                        <f:selectItem itemLabel="Đường phố" itemValue=""/>
+	                                        <f:selectItems value="#{homepageBean.listStreet}" var="element"
+	                                                       itemLabel="#{element.streetName}" itemValue="#{element.streetId}"/>
+	                                    </h:selectOneMenu>
+	                                </div>
+	                                <div class="col-md-6">
+	                                    <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{homepageBean.segmentIdSelected}">
+	                                        <p:ajax	listener="#{homepageBean.segmentOfStreetChange}" update="form form-list-reo"></p:ajax>
+	                                        <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
+	                                        <f:selectItems value="#{homepageBean.listSegmentOfStreet}" var="element"
+	                                                       itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
+	                                    </h:selectOneMenu>
+	                                </div>
+	                            </div>
+	                        </h:panelGroup>
+	                        
+	                        <h:panelGroup rendered="#{homepageBean.districtIdSelected != ''}">
+	                        	<p:separator />
+	                        	<div class="row col">
+	                        		<strong>Giá cao nhất:</strong>
+	                        		<h:outputText value="${homepageBean.maxMinAvg.max}">	
+	                        			<f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
+	                        		</h:outputText>  VND
+	                        		
+	                        	</div>
+	                        	<div class="row col">
+	                        		<strong>Giá thấp nhất:</strong>
+	                        		<h:outputText value="${homepageBean.maxMinAvg.min}">	
+	                        			<f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
+	                        		</h:outputText> VND
+	                        	</div>
+	                        	<div class="row col">
+	                        		<strong>Giá trung bình:</strong>
+	                        		<h:outputText value="${homepageBean.maxMinAvg.avg}">	
+	                        			<f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
+	                        		</h:outputText> VND
+	                        	</div>
+	                        	<div class="row col">
+	                        		<p:chart type="line" model="#{homepageBean.lineChartModel}" style="height:300px;"/>
+	                        	</div>
+	                        	
+	                        </h:panelGroup>
+	                        
+	                    </p:panel>
+	                </h:form>
+	            </p:panel>
+	        </div>
+			<div id="list-reo" style="display:none">
+				<h:form prependId="false" onsubmit="return false;" id="form-list-reo">
+					
+					<p:panel id="panel-list-reo">
+						<h:selectOneMenu id="cbb-type-reo" value="#{homepageBean.typeReo}" 
+						styleClass="browser-default custom-select custom-select-lg mb-3">
+							<p:ajax	listener="#{homepageBean.openPageReo(0)}" process="@form" update="@form"></p:ajax>
+							<f:selectItem itemLabel="Tất cả các đối tượng" itemValue="0"></f:selectItem>
+							<f:selectItem itemLabel="Do người dùng đóng góp" itemValue="1"></f:selectItem>
+							<f:selectItem itemLabel="Crawl từ các websites" itemValue="2"></f:selectItem>
+						</h:selectOneMenu>
+						<div class="scroll-y-only">
+							<c:forEach items="${homepageBean.listRealEstate}" var="element">
+								<li	class="list-group-item row d-flex" id="row-${element.realEstateId}">
+									
+									<div class="col" id="#{element.realEstateName}">
+										<h:commandLink action="#{homepageBean.goToDetails(element.realEstateId)}" value="#{element.realEstateName}">
+											<p:ajax process="@form"></p:ajax>
+										</h:commandLink>
+										
+									</div>
+								</li>
+							</c:forEach>
+						</div>
+						<div class="row" style="margin-top: 10px">
+							<div class="col text-center">
+								<nav style="display:inline-block">
+									<ul class="pagination" style="">
+										<li class="page-item"><h:commandLink class="page-link"
+												href="#" aria-label="Previous">
+												<span aria-hidden="true">&laquo;</span>
+												<p:ajax listener="#{homepageBean.firstPageReo}"
+													process="@form" update="@form"></p:ajax>
+											</h:commandLink>
+										</li>
+										
+										<ui:repeat value="#{homepageBean.pageReo.pages}" var="page">
+						                	<h:panelGroup rendered="#{page != homepageBean.pageReo.currentPage + 1}">
+						                		<li class="page-item">
+						                			<h:commandLink value="#{page}" styleClass="page-link" actionListener="#{homepageBean.pageReoAt}">
+						                				<p:ajax process="@form" update="@form"></p:ajax>
+						                			</h:commandLink>
+												</li>
+						                	</h:panelGroup>
+						                	<h:panelGroup rendered="#{page == homepageBean.pageReo.currentPage + 1}">
+						                		<li class="page-item active">
+						                			<h:commandLink value="#{page}" styleClass="page-link">
+						                			</h:commandLink>
+						                		</li>
+						                	</h:panelGroup>
+							            </ui:repeat>
+										
+										<li class="page-item"><h:commandLink class="page-link"
+												href="#" aria-label="Next">
+												<span aria-hidden="true">&raquo;</span>
+												<p:ajax listener="#{homepageBean.lastPageReo}" process="@form"
+													update="@form"></p:ajax>
+											</h:commandLink></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</p:panel>
+				</h:form>
 			</div>
-			</ui:remove>
 		</ui:define>
 
 		<ui:define name="footer">
+			<h:outputScript>var urlBlueMarker = "${resource['img/blue-dot.png']}" </h:outputScript>
 			<h:outputScript name="homepage.js" library="js" />
 			<script type="text/javascript"
 				src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"

@@ -10,33 +10,41 @@
         <nav
             class="navbar navbar-light navbar-expand-md navigation-clean-button">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Land Information Portal</a>
+                <a class="navbar-brand" href="#">Quản lý hệ thống</a>
                 <button data-toggle="collapse" class="navbar-toggler"
                         data-target="#navcol-1">
                     <span class="sr-only">Toggle navigation</span><span
                         class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navcol-1">
-                    <ul class="nav navbar-nav mr-auto">
-                        <li class="nav-item" role="presentation"><a
-                                class="nav-link active" href="#">First Item</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link"
-                                                                    href="#">Second Item</a></li>
-                        <li class="nav-item dropdown"><a
-                                class="dropdown-toggle nav-link" data-toggle="dropdown"
-                                aria-expanded="false" href="#">Dropdown </a>
-                            <div class="dropdown-menu" role="menu">
-                                <a class="dropdown-item" role="presentation" href="#">First Item</a>
-                                <a class="dropdown-item" role="presentation" href="#">Second Item</a>
-                                <a class="dropdown-item" role="presentation" href="#">Third Item</a>
-                            </div></li>
-                    </ul>
-                    <span class="navbar-text actions"><a class="login" href="#">Log
-                            In</a> <a class="btn btn-light action-button" role="button" href=""
-                                  data-toggle="modal" data-target="#modalLoginForm">Sign Up</a></span>
-                </div>
+                
+	                <div class="collapse navbar-collapse" id="navcol-1">
+	                	
+	                    
+	                    <ul class="nav navbar-nav mr-auto">
+	                        <li class="nav-item" role="presentation">
+	                        	<h:form prependId="false" onsubmit="return false;">
+	                            	<h:commandLink class="nav-link" value="Màn hình user"> 
+	                            		<p:ajax process="@form" listener="#{authenticationBean.redirectHomepage()}"></p:ajax>
+	                            	</h:commandLink>
+                            	</h:form>
+                            </li>
+	                       
+	                    </ul>
+	                    <h:form prependId="false" onsubmit="return false;">
+		                    <span class="navbar-text actions">
+		                        <a class="btn btn-light action-button" href="/user/viewmyprofile.xhtml">
+		                      		#{authenticationBean.currentUser.fullName}
+		                        </a>
+			                    <h:commandLink class="btnOnNav" value="Đăng xuất">
+			                    	<p:ajax process="@form" listener="#{authenticationBean.signout()}"></p:ajax>
+			                    </h:commandLink>
+		                    </span>
+	                    </h:form>
+	                </div>
+                
             </div>
         </nav>
+        <ui:remove>
         <div class="authorization-div">
             <sec:authorize access="hasRole('ROLE_USER')">
                 <p:outputLabel value="You have the USER role" />
@@ -45,45 +53,7 @@
                 <p:outputLabel value="You have the ADMIN role" />
             </sec:authorize>
         </div>
-        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog"
-             aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
-                        <button type="button" class="close" data-dismiss="modal"
-                                aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <h:form>
-                        <div class="modal-body mx-3">
-                            <div class="md-form mb-5">
-                                <i class="fas fa-envelope prefix grey-text"></i>
-                                <h:outputLabel data-error="wrong" data-success="right"
-                                               for="defaultForm-email">Your email</h:outputLabel>
-                                <h:inputText id="defaultForm-email"
-                                             class="form-control validate" value="#{loginBean.username}"></h:inputText>
-                            </div>
-
-                            <div class="md-form mb-4">
-                                <i class="fas fa-lock prefix grey-text"></i>
-                                <h:outputLabel data-error="wrong" data-success="right"
-                                               for="defaultForm-pass">Your password</h:outputLabel>
-                                <h:inputSecret type="password" id="defaultForm-pass"
-                                               class="form-control validate" value="#{loginBean.password}"></h:inputSecret>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center">
-                            <h:commandButton class="btn btn-default" type="button" value="Lưu">
-                                <p:ajax event="click" process="@form"
-                                        listener="${loginBean.loginAction()}"></p:ajax>
-                            </h:commandButton>
-                        </div>
-                    </h:form>
-                </div>
-            </div>
-        </div>
+        </ui:remove>
+        
     </h:body>
 </html>

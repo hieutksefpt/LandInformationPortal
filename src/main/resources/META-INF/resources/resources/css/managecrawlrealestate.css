@@ -21,6 +21,3 @@ select{
     height:100px;
     overflow-x: hidden;
 }
-.ui-growl-message p{
-	color: white;
-}

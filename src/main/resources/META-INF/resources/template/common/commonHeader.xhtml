@@ -2,42 +2,118 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:sec="http://www.springframework.org/security/tags">
-    <head>
-        <h:outputStylesheet name="bootstrap.min.css" library="css" />
-    </head>
-    <body>
-        <ui:composition>
-            <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Land Information Portal</a>
-                    <button data-toggle="collapse" class="navbar-toggler"
-                            data-target="#navcol-1">
-                        <span class="sr-only">Toggle navigation</span><span
-                            class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navcol-1">
-                        <ul class="nav navbar-nav mr-auto">
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link" href="#">Giới thiệu về L.I.P</a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link" href="#">Thư viện pháp luật</a>
-                            </li>
-                        </ul>
-                        <span class="actions">
-                            <a class="btnOnNav btnAddRealEstate" role="button" href="#" data-toggle="modal" data-target="#modalLoginForm">BĐS đóng góp</a> 
-                            <a class="btnOnNav btnUser" role="button" href="#" data-toggle="modal" data-target="#modalLoginForm">Từ Khắc Hiếu</a> 
-                            <a class="btnOnNav btnLogOut" role="button" href="#" data-toggle="modal" data-target="#modalLoginForm">Đăng xuất</a>
-                        </span>
-                    </div>
-                </div>
-            </nav>
-        </ui:composition>
-    </body>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+<head>
+<h:outputStylesheet name="bootstrap.min.css" library="css" />
+</head>
+<body>
+	<ui:composition>
+		<nav
+			class="navbar navbar-light navbar-expand-md navigation-clean-button">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/homepage.xhtml">Land Information Portal</a>
+			<button data-toggle="collapse" class="navbar-toggler"
+				data-target="#navcol-1">
+				<span class="sr-only">Toggle navigation</span><span
+					class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navcol-1">
+				<ul class="nav navbar-nav mr-auto">
+					<li class="nav-item" role="presentation"><a class="nav-link"
+						href="#">Giới thiệu về L.I.P</a></li>
+					<li class="nav-item" role="presentation"><a class="nav-link"
+						href="#">Thư viện pháp luật</a></li>
+				</ul>
+				<h:form onsubmit="return false;" prependId="false">
+					<sec:anonymous>
+						<span class="actions"> <h:commandLink
+								class="btnOnNav btnUser" 
+								value="Đăng kí">
+								<p:ajax listener="#{authenticationBean.signup()}" process="@form"></p:ajax>
+							</h:commandLink> <h:outputLink class="btnOnNav btnUser"
+								onclick="$('#modalLogin').modal('show');" value="javascript:void(0)">Đăng nhập</h:outputLink>
+						</span>
+					</sec:anonymous>
+					<sec:authenticated>
+
+					</sec:authenticated>
+					<sec:authorize access="hasRole('ADMIN')">
+
+						<span class="actions"> <h:commandLink
+								class="btnOnNav btnUser" value="Quản lý hệ thống">
+								<p:ajax process="@form"
+									listener="#{authenticationBean.redirectAdminManage()}"></p:ajax>
+							</h:commandLink>
+						</span>
+					</sec:authorize>
+					<sec:authorize access="hasRole('USER')">
+						<span class="actions"> 
+							<h:commandLink styleClass="btnOnNav btnAddRealEstate" value="BĐS đóng góp" action="#{authenticationBean.redirectListOwnReo}">
+								<p:ajax process="@form"></p:ajax>
+							</h:commandLink>	
+							<a
+							class="btnOnNav btnUser" role="button" href="/user/viewmyprofile.xhtml"
+							>
+								#{authenticationBean.currentUser.fullName} </a> 
+							
+							<h:commandLink
+								class="btnOnNav btnLogOut" value="Đăng xuất">
+								<p:ajax process="@form"
+									listener="#{authenticationBean.signout()}"></p:ajax>
+							</h:commandLink>
+						</span>
+					</sec:authorize>
+
+
+					<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+					
+					<div id="modalLogin" class="modal fade">
+						<div class="modal-dialog modal-login">
+							<div class="modal-content">
+								<div class="modal-header">				
+									<h4 class="modal-title">Đăng nhập</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">				
+									<div class="form-group">
+										<label>Tài khoản</label>
+										<h:inputText id="username_signin" value="#{authenticationBean.usernameSignin}" styleClass="form-control"></h:inputText>
+									</div>
+									<div class="form-group">
+										<label>Mật khẩu</label>
+										<h:inputSecret id="password_signin" value="#{authenticationBean.passwordSignin}" styleClass="form-control"></h:inputSecret>
+									</div>
+								</div>
+								<div id="panel-error" class="alert alert-danger" style="display:none">
+								  	
+								</div>
+								<div id="panel-forgetpass" class="alert alert-primary" style="display:none">
+								  	Đã gửi mail reset mật khẩu
+								</div>
+								<div class="modal-footer">
+									<h:commandLink styleClass="pull-right text-muted">
+										<small>Quên mật khẩu?
+											<p:ajax process="@form" onstart="setMessageForgetpass()" listener="#{authenticationBean.forgetPass()}"></p:ajax>
+										</small>
+									</h:commandLink>
+									<h:commandLink value="Đăng nhập" styleClass="btn btn-primary pull-right">
+										<p:ajax process="@form"  listener="#{authenticationBean.signin}"></p:ajax>
+									</h:commandLink>
+								</div>
+							</div>
+						</div>
+					</div>     
+				</h:form>
+			</div>
+		</div>
+		</nav>
+	</ui:composition>
+</body>
 </html>
 
 

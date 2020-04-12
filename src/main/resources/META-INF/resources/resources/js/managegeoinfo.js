@@ -110,10 +110,10 @@ function addDataToNewRow(marker){
 function addNewRowCoordinate(){
 	var newRow = $("<tr>");
     var cols = "";
-	cols+= '<td class="td-lng"><input type="text" name="longitude" id="lng-'+countRow+'" class="form-control longitude-multi""/></td>';
-	cols+= '<td class="td-lat"><input type="text" name="latitude"  id="lat-'+countRow+'" class="form-control latitude-multi"/></td>';
+	cols+= '<td class="td-lng"><input type="text" readonly name="longitude" id="lng-'+countRow+'" class="form-control longitude-multi""/></td>';
+	cols+= '<td class="td-lat"><input type="text" readonly name="latitude"  id="lat-'+countRow+'" class="form-control latitude-multi"/></td>';
 	countRow++;
-	cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger " onclick="deleteRow(this)" value="X"></td>';
+	cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger" onclick="deleteRow(this)" value="X"></td>';
     newRow.append(cols);
     saveRow.push(newRow);
     $("#table-coordinate").append(newRow);

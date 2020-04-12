@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+        <meta content="" name="descriptison"/>
+        <meta content="" name="keywords"/>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    </h:head>
+
+
+    <h:body>
+        <ui:composition template="/template/common/commonLayout.xhtml">
+        	<ui:define name="header">
+        	</ui:define>
+            <ui:define name="content">
+                <h:outputStylesheet name="material-design-iconic-font.min.css" library="css"/>
+                <h:outputStylesheet name="signup.css" library="css"/>
+                <h:outputStylesheet name="common-style.css" library="css"/>
+
+                <div class="main">
+                    <div class="container">
+                        <h:form class="appointment-form" id="registerUser">
+                            <h2>Cổng thông tin đất đai</h2>
+                            <div class="form-group-1">
+                                <label for="username">Tên đăng nhập</label>
+                                <h:inputText id="txtInputUsername" value="#{signUpBean.username}"/>
+                                <label for="fullname">Họ và tên</label>
+                                <h:inputText id="name" value="#{signUpBean.fullname}"/>
+                                <label for="Email">Email</label>
+                                <h:inputText id="email" value="#{signUpBean.email}"/>
+                                <label for="address">Địa chỉ</label>
+                                <h:inputText id="address" value="#{signUpBean.address}"/>
+                                <label for="phone">Số điện thoại</label>
+                                <h:inputText id="phone_number" value="#{signUpBean.phone}"/>
+                                <label for="phone">Giới tính</label>
+                                <h:selectOneMenu id="cbb-gender" value="#{signUpBean.gender}">
+                                    <f:selectItem itemLabel=" " itemValue=""/>
+                                    <f:selectItem itemLabel="Nam" itemValue="Nam"/>
+                                    <f:selectItem itemLabel="Nữ" itemValue="Nữ"/>
+                                    <f:selectItem itemLabel="Khác" itemValue="Khác"/>
+                                </h:selectOneMenu>
+
+                                <label for="password">Mật khẩu</label>
+                                <p:password id="feedback1" value="#{signUpBean.password}" feedback="true" /><div class="validate"></div>
+                                <label for="confirmpassword">Xác nhận lại mật khẩu</label>
+                                <p:password id="feedback2" value="#{signUpBean.confirmpassword}" feedback="true" /><div class="validate"></div>
+                            </div>
+
+                            
+                            <div class="form-submit">
+                                <h:commandButton class="next action-button"  value="Đăng ký tài khoản">
+                                    <p:ajax listener="#{signUpBean.registerUser()}" process="registerUser"/>
+                                    
+                                </h:commandButton>
+                            </div>
+                        </h:form>
+                    </div>
+
+                </div>
+
+                <!-- JS -->
+                <h:outputScript name="jquery.min.js" library="js" />
+                <h:outputScript name="signup.js" library="js"/>
+            </ui:define>     
+        </ui:composition>
+    </h:body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

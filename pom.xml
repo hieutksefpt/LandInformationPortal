@@ -5,7 +5,7 @@
     <groupId>capstone.lip</groupId>
     <artifactId>LandInformationPortal</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>LandInformationPortal</name>
 

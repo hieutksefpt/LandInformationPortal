@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+        <meta content="" name="descriptison"/>
+        <meta content="" name="keywords"/>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <!-- Vendor CSS Files -->
+
+
+
+
+    </h:head>
+
+    <h:body>
+
+        <!-- ======= Header ======= -->
+        <ui:composition template="/template/common/commonLayout.xhtml">
+            <ui:define name="content">
+                <h:outputStylesheet name="bootstrap.min.css" library="css"/>
+                <h:outputStylesheet name="icofont.min.css" library="css"/>
+                <h:outputStylesheet name="boxicons.min.css" library="css"/>
+                <h:outputStylesheet name="venobox.css" library="css"/>
+                <!-- Template Main CSS File -->
+                <h:outputStylesheet name="viewmyprofile.css" library="css"/>
+                <header id="header">
+                    <div class="d-flex flex-column">
+
+                        <div class="profile">
+                            <h1 class="text-light"><a href="viewmyprofile.xhtml">Từ Khắc Hiếu</a></h1>
+                        </div>
+
+                        <nav class="nav-menu">
+                            <ul>
+                                <li class="active"><a href="#profileInfor"><span>Thông tin cá nhân</span></a></li>
+                                <li><a href="#changepass"> <span>Thay đổi mật khẩu</span></a></li>
+                            </ul>
+                        </nav><!-- .nav-menu -->
+                        <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+                    </div>
+                </header><!-- End Header -->
+
+                <main id="main">
+
+                    <!-- ======= Profile Section ======= -->
+                    <section id="profileInfor" class="profileInforUpdate">
+                        <div class="container">
+
+                            <div class="section-title">
+                                <h2>Thông tin cá nhân</h2>
+                                <p><i>Các thông tin cá nhân dưới đây sẽ được bảo toàn kín đáo, sau khi bạn chỉnh sửa sẽ được cập nhật vào hệ thống.</i></p>
+                            </div>
+
+                            <div class="col-lg-6 mt-5 mt-lg-0 d-flex align-items-stretch">
+                                <h:form id="updateform" role="form" class="updateInfor">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="name">Tên của bạn</label>
+                                            <h:inputText id="txtfullname" value="#{manageMyProfileBean.fullname}"  class="form-control">
+
+                                            </h:inputText>
+                                            <div class="validate"></div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="name">Email</label>
+                                            <h:inputText id="txtEmail" value="#{manageMyProfileBean.email}"  class="form-control">
+                                            </h:inputText>
+                                            <div class="validate"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <div class="gender-group col-md-6"><label for="name">Giới tính</label></div>
+                                            <div class="gender-group col-md-6">
+                                                
+                                                    <h:selectOneMenu id="cbb-gender" value="#{manageMyProfileBean.genderSelected}">
+                                                        <f:selectItem itemLabel="-- Giới tính --" itemValue=""/>
+                                                        <f:selectItem itemLabel="Nam" itemValue="Nam"/>
+                                                        <f:selectItem itemLabel="Nữ" itemValue="Nữ"/>
+                                                        <f:selectItem itemLabel="Khác" itemValue="Khác"/>
+                                                    </h:selectOneMenu>
+                                                
+                                                
+                                            </div>
+
+                                            <div class="validate"></div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="name">Ngày sinh</label>
+                                            <div class="gender-group col-md-6">
+                                                <p:calendar id="dateevent" value="#{manageMyProfileBean.dateOfBirth}">
+                                                </p:calendar>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="name">Địa chỉ</label>
+                                        <h:inputText id="txtaddress" value="#{manageMyProfileBean.address}"  class="form-control">
+                                        </h:inputText>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Số điện thoại</label>
+                                        <h:inputText id="txtPhone" value="#{manageMyProfileBean.phone}"  class="form-control">
+                                        </h:inputText>
+                                    </div>
+                                    <div>
+                                        <h:commandButton class="next action-button" value="Cập nhật">
+                                            <p:ajax listener="#{manageMyProfileBean.updateMyProfile()}" process="updateform"/>
+                                        </h:commandButton>
+                                    </div>
+
+
+                                </h:form>
+
+                            </div>
+                            <h:inputHidden id="txtInput_multipleCoordinate_listOwnRealEstate" value="#{listOwnRealEstateBean.jsonMultipleCoordinate}"></h:inputHidden>
+                        </div>
+
+
+
+                    </section>
+
+                    <section id="contributerep" class="profileInfor section-bg">
+                        <div class="container">
+                            <div class="section-title">
+                                <h2>Bất động sản đã đóng góp</h2>
+                                <p><i>Di chuyển bản đồ để xem các bất động sản đã đóng góp.</i></p>
+                            </div>
+                            <div id="map" class="col-10 col-lg-10"></div>
+                        </div>
+                    </section>
+
+
+                    <section id="changepass" class="changepass ">
+                        <div class="container">
+
+                            <div class="section-title">
+                                <h2>Thay đổi mật khẩu</h2>
+                                <p><i>Mật khẩu nên chứa ký tự đặc biệt, chữ hoa và số để tăng cường độ bảo mật</i></p>
+                            </div>
+
+                            <div class="row changepass-content">
+                                <h:form id="changePassword" role="form" class="updateInfor">
+
+                                    <table class="col-lg-12 form-row form-group">
+                                        <tr><label for="name">Mật khẩu cũ</label></tr>
+                                        <tr><p:password id="feedback" value="#{manageMyProfileBean.oldPass}" feedback="true" /><div class="validate"></div></tr>
+                                        <tr>
+                                            <label for="name">Mật khẩu mới</label>
+                                        </tr>
+                                        <tr>
+                                            <p:password id="feedback2" value="#{manageMyProfileBean.newPass}"  />
+                                            <div class="validate"></div>
+                                        </tr>
+                                        <tr>
+                                            <label for="name">Xác nhận mật khẩu mới</label>
+                                        </tr>
+                                        <tr>
+                                            <p:password id="feedback3" value="#{manageMyProfileBean.confirmNewPass}" />
+                                            <div class="validate"></div>
+                                        </tr>
+                                    </table>
+
+                                    <div>
+                                        <h:commandButton class="next action-button" value="Thay đổi mật khẩu">
+                                            <p:ajax listener="#{manageMyProfileBean.changePassword()}" process="changePassword"/>
+                                        </h:commandButton>
+                                    </div>
+                                </h:form>
+                            </div>
+
+                        </div>
+                    </section><!-- End Contact Section -->
+
+
+
+                </main><!-- End #main -->
+
+                <!-- =======Have Already Footer ======= -->
+                <footer id="footer">
+                    <div class="container">
+                        <div class="copyright">
+                            &copy; Copyright <strong><span>Land Information Portal</span></strong>
+                        </div>
+                    </div>
+                </footer><!-- End  Footer -->
+
+
+                <a href="#" class="back-to-top"><i>^</i></a>
+
+                <!-- Vendor JS Files -->
+                <h:outputScript name="jquery.min.js" library="js" />
+                <h:outputScript name="bootstrap.bundle.min.js" library="js" />
+                <h:outputScript name="jquery.easing.min.js" library="js" />
+                <h:outputScript name="jquery.waypoints.min.js" library="js" />
+                <h:outputScript name="counterup.min.js" library="js" />
+                <h:outputScript name="isotope.pkgd.min.js" library="js" />
+                <h:outputScript name="venobox.min.js" library="js" />
+                <h:outputScript name="owl.carousel.min.js" library="js" />
+                <h:outputScript name="typed.min.js" library="js" />
+                <h:outputScript name="aos.js" library="js" />
+
+
+                <!-- Template Main JS File -->
+                <h:outputScript name="viewmyprofile.js" library="js"/>
+                <h:outputScript name="listownrealestate.js" library="js"/>
+                <script type="text/javascript"
+                        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"
+                async="true" defer="true"></script>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+
+
+
+</html>

@@ -18,5 +18,5 @@ public interface ILandsFeatureService {
 
     public LandsFeature save(LandsFeature landsFeature);
     
-    public void delete(Long landsfeatureID);
+    public boolean delete(Long landsfeatureID);
 }

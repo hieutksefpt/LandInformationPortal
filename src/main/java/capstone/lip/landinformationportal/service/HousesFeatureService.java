@@ -19,24 +19,43 @@ import org.springframework.stereotype.Service;
  * @author Admin
  */
 @Service
-public class HousesFeatureService implements IHousesFeatureService{
-    
+public class HousesFeatureService implements IHousesFeatureService {
+
     @Autowired
     private HousesFeatureRepository houseFeatureRepository;
 
     @Override
     public List<HousesFeature> findAll() {
-        return houseFeatureRepository.findAll();
+        try {
+            return houseFeatureRepository.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override
     public HousesFeature save(HousesFeature housesfeature) {
-        return houseFeatureRepository.save(housesfeature);
+        try {
+            return houseFeatureRepository.save(housesfeature);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override
-    public void delete(Long housesfeatureID) {
-        houseFeatureRepository.deleteById(housesfeatureID);
+    public boolean delete(Long housesfeatureID) {
+        try {
+            houseFeatureRepository.deleteById(housesfeatureID);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
-    
+
 }

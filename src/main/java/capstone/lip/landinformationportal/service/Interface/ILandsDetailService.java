@@ -16,8 +16,8 @@ public interface ILandsDetailService {
 
     LandsDetail save(LandsDetail landsDetail);
 
-    void delete(List<LandsDetail> listLandsDetail);
+    boolean delete(List<LandsDetail> listLandsDetail);
 
-    void deleteById(Long landsDetailId);
+    boolean deleteById(Long landsDetailId);
     
 }

@@ -265,9 +265,8 @@ public class RealEstateService implements IRealEstateService {
         if (listAdjacentSegment != null) {
             realEstateAdjacentSegmentService.delete(listAdjacentSegment);
         }
-        realEstateRepository.delete(realEstate);
+        realEstateRepository.deleteById(realEstateId);
+        int i=1;
+        i++;
     }
-
-    
-
 }

@@ -8,7 +8,7 @@ function initMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
-        zoom: 14,
+        zoom: 18,
         mapTypeId: 'roadmap',
         clickableIcons: false,
         disableDoubleClickZoom: true,

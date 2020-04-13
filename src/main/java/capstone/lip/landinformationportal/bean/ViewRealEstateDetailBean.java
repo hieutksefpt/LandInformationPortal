@@ -58,7 +58,7 @@ public class ViewRealEstateDetailBean implements Serializable {
 
     @Autowired
     private IUserService userService;
-    
+
     private long tempRealEstateId;
 
     @PostConstruct
@@ -71,32 +71,15 @@ public class ViewRealEstateDetailBean implements Serializable {
         currentListHouse = realEstateClicked.getListHouse();
         transferCoordinate();
     }
-    
+
     public void goToDetails(long realEstateId) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.redirect(ec.getRequestContextPath() + "/user/updatecontributerealestate.xhtml?realEstateId=" + realEstateId);
     }
 
     public void deleteRealEstate() {
-        List<LandsDetail> listLandDetail = realEstateClicked.getLand().getListLandsDetail();
-        landsDetailService.delete(listLandDetail);
-        Land land = realEstateClicked.getLand();
-        landService.delete(land);
-
-        List<House> listHouse = realEstateClicked.getListHouse();
-        List<HousesDetail> listHouseDetail = listHouse.stream()
-                .map(x -> x.getListHousesDetail()).flatMap(List::stream).collect(Collectors.toList());
-
-        housesDetailService.delete(listHouseDetail);
-        houseService.delete(listHouse);
-
-        realEstateService.delete(realEstateClicked);
-        try {
-            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-            ec.redirect(ec.getRequestContextPath() + "/user/listownrealestate.xhtml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        realEstateService.delete(tempRealEstateId);
+        redirectListOwnReo();
     }
 
     public void transferCoordinate() {
@@ -104,6 +87,15 @@ public class ViewRealEstateDetailBean implements Serializable {
         coordinate = new Coordinate().setLatitude(realEstateClicked.getRealEstateLat()).setLongitude(realEstateClicked.getRealEstateLng());
         Gson gson = new Gson();
         jsonCoordinate = gson.toJson(coordinate);
+    }
+
+    public void redirectListOwnReo() {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath() + "/user/listownrealestate.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<HousesDetail> getListHousesDetail(House house) {
@@ -153,6 +145,5 @@ public class ViewRealEstateDetailBean implements Serializable {
     public void setTempRealEstateId(long tempRealEstateId) {
         this.tempRealEstateId = tempRealEstateId;
     }
-    
-    
+
 }

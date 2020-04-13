@@ -97,7 +97,7 @@
 
                         <!-- fieldset 2 : cung cấp thông tin -->
                         <div id="UploadInfor">
-                            
+
                             <table class="formUploadInfor">
                                 <tr>
                                     <td><span class="title-mandatory">Tên bất động sản</span></td>
@@ -162,13 +162,10 @@
                                             <tr>
                                                 <td></td>
                                                 <td>
-                                                </td>
-                                                <td>
                                                     <h:commandButton class="add action-button2" value="Thêm thuộc tính Đất" id="addLandFeature">
                                                         <p:ajax listener="#{contributeNewRealEstateBean.addNewLandFeatureValue()}" process="msform" update="panel-UploadLandform"/>
                                                     </h:commandButton>
                                                 </td>
-
                                             </tr>
                                         </table>
                                         <div class="boxAreaInput">
@@ -230,8 +227,6 @@
                                             <tr>
                                                 <td></td>
                                                 <td>
-                                                </td>
-                                                <td>
                                                     <h:commandButton class="add action-button2" value="Thêm thuộc tính Nhà" id="addHouseFeature">
                                                         <p:ajax listener="#{contributeNewRealEstateBean.addNewHousesFeatureValue()}" process="msform" update="panel-UploadHouseform"/>
                                                     </h:commandButton>
@@ -267,7 +262,7 @@
 
                                 <c:if test="#{contributeNewRealEstateBean.typeRealEstate== 'Đất và Nhà'}">
                                     <div class="flexCommon row">
-                                        <div id="landBox" class="landboxTotal col-5">
+                                        <div id="landBox" class="landbox col-5">
                                             <table class="landUpload">
                                                 <tr>
                                                     <td><span class="title-mandatory">Tên phần Đất</span></td>
@@ -302,13 +297,10 @@
                                                 <tr>
                                                     <td></td>
                                                     <td>
-                                                    </td>
-                                                    <td>
                                                         <h:commandButton class="add action-button2" value="Thêm thuộc tính Đất" id="addLandFeature">
                                                             <p:ajax listener="#{contributeNewRealEstateBean.addNewLandFeatureValue()}" process="msform" update="panel-UploadLandform"/>
                                                         </h:commandButton>
                                                     </td>
-
                                                 </tr>
                                             </table>
                                             <div class="boxAreaInput">
@@ -337,7 +329,7 @@
                                             </div>
                                         </div>
 
-                                        <div id="houseBox" class="houseboxTotal col-5">
+                                        <div id="houseBox" class="housebox col-5">
                                             <table class="houseUpload row">
                                                 <tr>
                                                     <td><span class="title-mandatory">Tên phần Nhà</span></td>
@@ -367,8 +359,6 @@
                                                 </tr>
                                                 <tr>
                                                     <td></td>
-                                                    <td>
-                                                    </td>
                                                     <td>
                                                         <h:commandButton class="add action-button2" value="Thêm thuộc tính Nhà" id="addHouseFeature">
                                                             <p:ajax listener="#{contributeNewRealEstateBean.addNewHousesFeatureValue()}" process="msform" update="panel-UploadHouseform"/>

@@ -247,13 +247,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
             newHouse = houseService.validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
             listHousesDetail = houseService.validateHouseDetailInfor(newHouse, listHouseFeatureValue);
 
-            if (newUploadRealEstate != null && newLand != null && newHouse == null) {
-                saveDataNewLandSigleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail);
-                variableSuccess = true;
-            } else if (newUploadRealEstate != null && newHouse != null && newLand == null) {
-                saveDataNewHouseSingleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newHouse, listHousesDetail);
-                variableSuccess = true;
-            } else if (newUploadRealEstate != null && newHouse != null && newLand != null) {
+            if (newUploadRealEstate != null && newHouse != null && newLand != null) {
                 saveDataNewLandHouseTotalToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail, newHouse, listHousesDetail);
                 variableSuccess = true;
             }
@@ -318,25 +312,29 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 
     // function call when Ajax listener (textbox Price change value)
     public void calculateRealEstateValue() {
-        // when new House Price not null but Total Null (Null is different Zero)
-        if (realEstatePrice.equals(BigDecimal.ZERO) && !newHouseMoney.equals(BigDecimal.ZERO) && !newLandMoney.equals(BigDecimal.ZERO)) {
-            realEstatePrice = newHouseMoney.add(newLandMoney);
-        } // when new Land Price not null but Total Null (Null is different Zero)
-        else if (realEstatePrice.equals(BigDecimal.ZERO) && !newHouseMoney.equals(BigDecimal.ZERO) && newLandMoney.equals(BigDecimal.ZERO)) {
-            realEstatePrice = newHouseMoney.add(BigDecimal.ZERO);
-        } // when new House & Land Price not null but Total Null (Null is different Zero)
-        else if (realEstatePrice.equals(BigDecimal.ZERO) && newHouseMoney.equals(BigDecimal.ZERO) && !newLandMoney.equals(BigDecimal.ZERO)) {
-            realEstatePrice = newLandMoney.add(BigDecimal.ZERO);
-        }
-        //khi mà cả 3 trường đều có giá trị 
         try {
-            if (realEstatePrice.equals(newHouseMoney.add(newLandMoney)) || realEstatePrice.compareTo(newHouseMoney.add(newLandMoney)) > 0) {
-                //nothing 
-            } else {
+            // when new House Price not null but Total Null (Null is different Zero)
+            if (realEstatePrice.equals(BigDecimal.ZERO) && !newHouseMoney.equals(BigDecimal.ZERO) && !newLandMoney.equals(BigDecimal.ZERO)) {
                 realEstatePrice = newHouseMoney.add(newLandMoney);
+            } // when new Land Price not null but Total Null (Null is different Zero)
+            else if (realEstatePrice.equals(BigDecimal.ZERO) && !newHouseMoney.equals(BigDecimal.ZERO) && newLandMoney.equals(BigDecimal.ZERO)) {
+                realEstatePrice = newHouseMoney.add(BigDecimal.ZERO);
+            } // when new House & Land Price not null but Total Null (Null is different Zero)
+            else if (realEstatePrice.equals(BigDecimal.ZERO) && newHouseMoney.equals(BigDecimal.ZERO) && !newLandMoney.equals(BigDecimal.ZERO)) {
+                realEstatePrice = newLandMoney.add(BigDecimal.ZERO);
+            }
+            //khi mà cả 3 trường đều có giá trị 
+            try {
+                if (realEstatePrice.equals(newHouseMoney.add(newLandMoney)) || realEstatePrice.compareTo(newHouseMoney.add(newLandMoney)) > 0) {
+                    //nothing 
+                } else {
+                    realEstatePrice = newHouseMoney.add(newLandMoney);
+                }
+            } catch (Exception e) {
+                // Math Exception BigDecimal
             }
         } catch (Exception e) {
-            // Math Exception BigDecimal
+                // typing number to get Null Pointer Exception
         }
 
     }

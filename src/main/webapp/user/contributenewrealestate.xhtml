@@ -107,7 +107,7 @@
                                 </tr>
                                 <tr>
                                     <td><span class="title-mandatory">Giá trị</span></td><td>
-                                        <h:inputText id="realEstatePrice" value="#{contributeNewRealEstateBean.realEstatePrice}">
+                                        <h:inputText id="realEstatePrice" value="#{contributeNewRealEstateBean.realEstatePrice}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;">
                                         </h:inputText>
                                         <span class="unit"><i>(VND)</i></span></td>
                                 </tr>
@@ -138,7 +138,7 @@
                                             </tr>
                                             <tr><td><span class="title-mandatory">Giá trị phần Đất</span></td>
                                                 <td>
-                                                    <h:inputText id="txtInputLandMoney" value="#{contributeNewRealEstateBean.newLandMoney}">
+                                                    <h:inputText id="txtInputLandMoney" value="#{contributeNewRealEstateBean.newLandMoney}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;">
                                                         <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
                                                     </h:inputText>
                                                     <span class="unit"><i>(VND)</i></span>
@@ -206,7 +206,7 @@
                                                 </td>
                                             </tr>
                                             <tr><td><span class="title-mandatory">Giá trị phần Nhà</span></td><td>
-                                                    <h:inputText id="txtInputHouseMoney" value="#{contributeNewRealEstateBean.newHouseMoney}">
+                                                    <h:inputText id="txtInputHouseMoney" value="#{contributeNewRealEstateBean.newHouseMoney}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;">
                                                         <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
                                                     </h:inputText><span class="unit"><i>(VND)</i></span></td></tr>
                                             <tr>
@@ -273,7 +273,7 @@
                                                 </tr>
                                                 <tr><td><span class="title-mandatory">Giá trị phần Đất</span></td>
                                                     <td>
-                                                        <h:inputText id="txtInputLandMoney" value="#{contributeNewRealEstateBean.newLandMoney}">
+                                                        <h:inputText id="txtInputLandMoney" value="#{contributeNewRealEstateBean.newLandMoney}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;">
                                                             <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
                                                         </h:inputText>
                                                         <span class="unit"><i>(VND)</i></span>
@@ -339,7 +339,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr><td><span class="title-mandatory">Giá trị phần Nhà</span></td><td>
-                                                        <h:inputText id="txtInputHouseMoney" value="#{contributeNewRealEstateBean.newHouseMoney}">
+                                                        <h:inputText id="txtInputHouseMoney" value="#{contributeNewRealEstateBean.newHouseMoney}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;">
                                                             <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
                                                         </h:inputText><span class="unit"><i>(VND)</i></span></td></tr>
                                                 <tr>
@@ -400,10 +400,10 @@
 
                         </div>
 
-                        <h:commandButton class="next action-button" value="Hoàn tất">
+                        <h:commandButton id="btn-ContributeSuccess" class="next action-button" value="Hoàn tất">
                             <p:ajax listener="#{contributeNewRealEstateBean.saveDataUploadToDB()}" process="msform"/>
                         </h:commandButton>
-                        <h:commandButton class="previous action-button" value="Quay lại" />
+                        <h:commandButton id="btn-Back" class="previous action-button" value="Quay lại" />
 
                     </fieldset>
 

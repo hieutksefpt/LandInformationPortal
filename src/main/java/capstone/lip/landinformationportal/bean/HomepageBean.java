@@ -93,9 +93,8 @@ public class HomepageBean implements Serializable{
 		pageNews = new Pagination()
 				.setTotalRow((int)crawledNewService.countByStatus(StatusCrawledNewsConstant.DISPLAY))
 				.setRowsPerPage(10)
-				.setPageRange(3)
-				.setCurrentPage(0);
-		pageNews.setTotalPages(pageNews.getTotalRow()/pageNews.getRowsPerPage());
+				.setPageRange(3);
+		pageNews.setTotalPages(pageNews.getTotalRow()/pageNews.getRowsPerPage()).setCurrentPage(0);
 		
 		pageReo = new Pagination().setTotalRow(0).setTotalPages(0);
 		
@@ -117,9 +116,7 @@ public class HomepageBean implements Serializable{
 	
 	public void openPageReo(int page) {
 		isDisplayReoPanel = true;
-		if (typeReo == null) {
-			setTypeReo("0");
-		}
+		
 		if (pageReo == null) {
 			return;
 		}
@@ -133,6 +130,8 @@ public class HomepageBean implements Serializable{
 		if (segmentSelected != null) {
 			address = segmentSelected.getSegmentName();
 		}
+		
+		
 		switch (typeReo) {
 		case "0":
 			listPageReo = realEstateService.listFilterRealEstateByAddress(address, 
@@ -170,33 +169,49 @@ public class HomepageBean implements Serializable{
 	}
 
 	public void provinceChange() {
-		listDistrict = provinceSelected.getListDistrict();
-		districtIdSelected = "";
+		setDistrictIdSelected("");
 		listSegmentOfStreet= new ArrayList();
-		segmentIdSelected = "";
+		setSegmentIdSelected("");
 		listStreet = new ArrayList();
-		streetIdSelected = "";
+		setStreetIdSelected("");
+		if (provinceSelected == null) {
+			return;
+		}
+		listDistrict = provinceSelected.getListDistrict();
+		
 	}
 	public void districtChange() {
+		setStreetIdSelected("");
+		listSegmentOfStreet = new ArrayList();
+		setSegmentIdSelected("");
+		if (districtSelected == null) {
+			return;
+		}
 		List<SegmentOfStreet>listTemp = districtSelected.getListSegmentOfStreet();
 		listStreet = listTemp.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
 		
-		streetIdSelected = "";
-		listSegmentOfStreet = new ArrayList();
-		segmentIdSelected = "";
-		viewStatistic();
+		
+		viewStatistic(districtSelected.getDistrictName());
+		setTypeReo("0");
 		openPageReo(0);
+		
 	}
 	public void streetChange() {
+		setSegmentIdSelected("");
+		if (streetSelected == null) {
+			return;
+		}
 		listSegmentOfStreet = streetSelected.getListSegmentOfStreet();
-		segmentIdSelected = "";
+		
+		viewStatistic(streetSelected.getStreetName());
+		setTypeReo("0");
 		openPageReo(0);
+		
 	}
 	public void segmentOfStreetChange() {
 //		TODO
 	}
-	public void viewStatistic() {
-		String address = districtSelected.getDistrictName();
+	public void viewStatistic(String address) {
 		MaxMinAvg maxMinAvgTemp = realEstateService.listMaxMinAvg(address);
 		maxMinAvg = maxMinAvgTemp;
 
@@ -323,6 +338,8 @@ public class HomepageBean implements Serializable{
 				.filter(x -> x.getProvinceId().equals(Long.parseLong(provinceIdSelected))).collect(Collectors.toList()).get(0);
 			PrimeFaces.current().executeScript("focusMap(" + provinceSelected.getProvinceLat() + ", " + provinceSelected.getProvinceLng() + ");");
 			
+		}else {
+			provinceSelected = null;
 		}
 	}
 
@@ -336,6 +353,8 @@ public class HomepageBean implements Serializable{
 			districtSelected = listDistrict.stream()
 				.filter(x -> x.getDistrictId().equals(Long.parseLong(districtIdSelected))).collect(Collectors.toList()).get(0);
 			PrimeFaces.current().executeScript("focusMap(" + districtSelected.getDistrictLat() + ", " + districtSelected.getDistrictLng() + ");");
+		}else {
+			districtSelected = null;
 		}
 	}
 
@@ -349,6 +368,8 @@ public class HomepageBean implements Serializable{
 			streetSelected = listStreet.stream()
 				.filter(x -> x.getStreetId().equals(Long.parseLong(streetIdSelected))).collect(Collectors.toList()).get(0);
 			PrimeFaces.current().executeScript("focusMap(" + streetSelected.getStreetLat() + ", " + streetSelected.getStreetLng() + ");");
+		}else {
+			streetSelected = null;
 		}
 	}
 
@@ -368,6 +389,9 @@ public class HomepageBean implements Serializable{
 			Gson gson = new Gson();
 			PrimeFaces.current().executeScript("drawPath(" + gson.toJson(listCoordinate) + ");");
 			
+		}
+		else {
+			segmentSelected = null;
 		}
 	}
 
@@ -410,33 +434,35 @@ public class HomepageBean implements Serializable{
 	public void setTypeReo(String typeReo) {
 		if (typeReo == null) typeReo = "0";
 		this.typeReo = typeReo;
-		if (districtSelected == null) {
+		if (districtSelected == null && streetSelected == null) {
 			return;
+		}
+		String address = districtSelected.getDistrictName();
+		if (streetSelected != null) {
+			address = streetSelected.getStreetName();
 		}
 		switch (typeReo) {
 		case "0":
 			pageReo = new Pagination()
-					.setTotalRow((int)realEstateService.countByRealEstateAddress(districtSelected.getDistrictName()))
+					.setTotalRow((int)realEstateService.countByRealEstateAddress(address))
 					.setRowsPerPage(10)
-					.setPageRange(3)
-					.setCurrentPage(0);
-			pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage());
+					.setPageRange(3);
+			pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage())
+				.setCurrentPage(0);
 			break;
 		case "1":
 			pageReo = new Pagination()
-					.setTotalRow((int)realEstateService.countByRealEstateSource(districtSelected.getDistrictName(),StatusRealEstateConstant.CONTRIBUTOR))
+					.setTotalRow((int)realEstateService.countByRealEstateSource(address,StatusRealEstateConstant.CONTRIBUTOR))
 					.setRowsPerPage(10)
-					.setPageRange(3)
-					.setCurrentPage(0);
-			pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage());
+					.setPageRange(3);
+			pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage()).setCurrentPage(0);
 			break;
 		case "2":
 			pageReo = new Pagination()
-					.setTotalRow((int)realEstateService.countByRealEstateSourceNot(districtSelected.getDistrictName(),StatusRealEstateConstant.CONTRIBUTOR))
+					.setTotalRow((int)realEstateService.countByRealEstateSourceNot(address,StatusRealEstateConstant.CONTRIBUTOR))
 					.setRowsPerPage(10)
-					.setPageRange(3)
-					.setCurrentPage(0);
-			pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage());
+					.setPageRange(3);
+			pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage()).setCurrentPage(0);
 			break;
 		default:
 			break;

@@ -5,8 +5,8 @@ import java.util.List;
 import capstone.lip.landinformationportal.entity.Street;
 
 public interface IStreetService {
-        List<Street> findAll();
+    List<Street> findAll();
 	Street save(Street street);
-	void delete(List<Street> listStreet);
-	void delete(Street street);
+	boolean delete(List<Street> listStreet);
+	boolean delete(Street street);
 }

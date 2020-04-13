@@ -37,37 +37,71 @@ public class UserService implements IUserService {
     
     @Override
     public List<User> findAll() {
-        return userRepository.findAll();
+    	try {
+    		return userRepository.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public User save(User user) {
-        return userRepository.save(user);
+    	try {
+    		return userRepository.save(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
-    public void delete(Long userID) {
-        userRepository.deleteById(userID);
+    public boolean delete(Long userID) {
+    	try {
+    		userRepository.deleteById(userID);
+    		return true;
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		return false;
+    	}
+        
     }
 
     // search User theo username
     @Override
     public List<User> search(String userNamePart) {
-
-        return userRepository.findByUsernameContaining(userNamePart);
+    	try {
+    		return userRepository.findByUsernameContaining(userNamePart);
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		return null;
+    	}
     }
 
     // Hàm này get List Real Estate theo ID của User
     @Override
     public List<RealEstate> getListRealEstate(Long userId) {
-        User user = userRepository.findById(userId).get();
-        List<RealEstate> listRealEstate = user.getListRealEstate();
-        return listRealEstate;
+    	try {
+	        User user = userRepository.findById(userId).get();
+	        List<RealEstate> listRealEstate = user.getListRealEstate();
+	        return listRealEstate;	
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		return null;
+    	}
     }
 
     @Override
     public User findById(Long userId) {
-        return userRepository.findById(userId).get();
+    	try {
+    		return userRepository.findById(userId).get();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
     
     @Value("${mail.username}")
@@ -75,34 +109,61 @@ public class UserService implements IUserService {
     
     @Override
     public String resetPassword(long userId, int passwordLength) {
-    	String usernameTemp = username;
-        User user = userRepository.findById(userId).get();
-        String newPassword = PasswordGenerator.generate(passwordLength);
-        String encryptedPassword = EncryptedPassword.encrytePassword(newPassword);
-        user.setPassword(encryptedPassword);
-        userRepository.save(user);
-        emailSender.sendMailChangePassword(user.getEmail(), newPassword);
-        return newPassword;
+    	try {
+	    	String usernameTemp = username;
+	        User user = userRepository.findById(userId).get();
+	        String newPassword = PasswordGenerator.generate(passwordLength);
+	        String encryptedPassword = EncryptedPassword.encrytePassword(newPassword);
+	        user.setPassword(encryptedPassword);
+	        userRepository.save(user);
+	        emailSender.sendMailChangePassword(user.getEmail(), newPassword);
+	        return newPassword;
+        }catch(Exception e) {
+        	e.printStackTrace();
+        	return null;
+        }
     }
 
 	@Override
 	public User findByUsername(String username) {
-		return userRepository.findByUsername(username);
+		try {
+			return userRepository.findByUsername(username);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 
 	@Override
 	public User findByUsernamePassword(String username, String password) {
-		return userRepository.findByUsernamePassword(username, password);
+		try {
+			return userRepository.findByUsername(username);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
     @Override
     public long count() {
-        return userRepository.count();
+        try {
+        	return userRepository.count();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
     }
 
     @Override
     public Page<User> findAll(Pageable page) {
-        return userRepository.findAll(page);
+    	try {
+    		return userRepository.findAll(page);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
 }

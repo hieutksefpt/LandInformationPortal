@@ -126,7 +126,7 @@
 	                                </div>
 	                                <div class="col-md-6">
 	                                    <h:selectOneMenu id="cbb-District" value="#{homepageBean.districtIdSelected}" styleClass="w-100">
-	                                        <p:ajax listener="#{homepageBean.districtChange}" update="form form-list-reo"  
+	                                        <p:ajax listener="#{homepageBean.districtChange}" update="@form form-list-reo"  
 	                                        oncomplete="clearDataMap()"></p:ajax>
 	                                        <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
 	                                        <f:selectItems value="#{homepageBean.listDistrict}" var="element"
@@ -137,7 +137,7 @@
 	                            <div class="form-group row">
 	                                <div class="col-md-6">
 	                                    <h:selectOneMenu id="cbb-Street" value="#{homepageBean.streetIdSelected}" styleClass="w-100">
-	                                        <p:ajax	listener="#{homepageBean.streetChange}" update="form form-list-reo"
+	                                        <p:ajax	listener="#{homepageBean.streetChange}" update="@form form-list-reo"
 	                                         oncomplete="clearDataMap()"></p:ajax>
 	
 	                                        <f:selectItem itemLabel="Đường phố" itemValue=""/>
@@ -147,7 +147,7 @@
 	                                </div>
 	                                <div class="col-md-6">
 	                                    <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{homepageBean.segmentIdSelected}" styleClass="w-100">
-	                                        <p:ajax	listener="#{homepageBean.segmentOfStreetChange}" update="form form-list-reo"></p:ajax>
+	                                        <p:ajax	listener="#{homepageBean.segmentOfStreetChange}" update="@form form-list-reo"></p:ajax>
 	                                        <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
 	                                        <f:selectItems value="#{homepageBean.listSegmentOfStreet}" var="element"
 	                                                       itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>

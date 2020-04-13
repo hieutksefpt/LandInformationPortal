@@ -44,28 +44,33 @@ public class CrawledNewsService implements ICrawledNewsService{
 	
 	@Override
 	public List<CrawledNews> save(List<NewsCrawl> listCrawledNews) {
-		List list = new ArrayList();
-		for (NewsCrawl element : listCrawledNews) {
-			CrawledNews news = new CrawledNews()
-					.setCrawledNewsLink(element.getLink())
-					.setCrawledNewsShortDescription(element.getDescription())
-					.setCrawledNewsTitle(element.getTitle())
-					.setCrawledNewsWebsite(element.getDomain())
-					.setCrawledNewsTime(element.getDate())
-					.setCrawledNewsImageUrl(element.getImageLink())
-					.setCrawledNewsStatus(StatusCrawledNewsConstant.NON_DISPLAY);
-			if (crawledNewsRepository.findByCrawledNewsLink(element.getLink()) == null) {
-				list.add(news);
+		try {
+			List list = new ArrayList();
+			for (NewsCrawl element : listCrawledNews) {
+				CrawledNews news = new CrawledNews()
+						.setCrawledNewsLink(element.getLink())
+						.setCrawledNewsShortDescription(element.getDescription())
+						.setCrawledNewsTitle(element.getTitle())
+						.setCrawledNewsWebsite(element.getDomain())
+						.setCrawledNewsTime(element.getDate())
+						.setCrawledNewsImageUrl(element.getImageLink())
+						.setCrawledNewsStatus(StatusCrawledNewsConstant.NON_DISPLAY);
+				if (crawledNewsRepository.findByCrawledNewsLink(element.getLink()) == null) {
+					list.add(news);
+				}
 			}
+			return crawledNewsRepository.saveAll(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
-		return crawledNewsRepository.saveAll(list);
 	}
 
 	@Override
 	public String initCrawlJob() {
-		String timeCrawl = "";
-		JobDetail jobDetail;
 		try {
+			String timeCrawl = "";
+			JobDetail jobDetail;
 			//find current job if exist
 			jobDetail = scheduler.getJobDetail(jobKey);
 			if (jobDetail == null) return timeCrawl;
@@ -84,108 +89,175 @@ public class CrawledNewsService implements ICrawledNewsService{
 		        	timeCrawl = String.valueOf(fieldValue);
 		        }
 		    }
+		    return timeCrawl;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
-		return timeCrawl;
+		
 	}
 
 	@Override
-	public void setTimeCrawlJob(int value) {
-
-		trigger = TriggerBuilder.newTrigger().withIdentity(triggerKey)
-				.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(value).repeatForever()).build();
-
-		job = JobBuilder.newJob(CrawlNewsScheduleJob.class).withIdentity(jobKey).build();
+	public boolean setTimeCrawlJob(int value) {
+		try {
+			trigger = TriggerBuilder.newTrigger().withIdentity(triggerKey)
+					.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(value).repeatForever()).build();
+	
+			job = JobBuilder.newJob(CrawlNewsScheduleJob.class).withIdentity(jobKey).build();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
-	public void turnOnCrawler() {
+	public boolean turnOnCrawler() {
 		try {
 			if (scheduler!= null) {
 				scheduler.clear();
 				scheduler.start();
 				scheduler.scheduleJob(job, trigger);
 			}
+			return true;
 		} catch (SchedulerException e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 
 	@Override
-	public void turnOffCrawler() {
+	public boolean turnOffCrawler() {
 		try {
 			if (scheduler!= null) {
 				scheduler.clear();
 				scheduler.standby();
 //				scheduler.shutdown();
 			}
+			return true;
 		} catch (SchedulerException e) {
 			e.printStackTrace();
+			return false;
 		}
+		
 	}
 
 	@Override
-	public void crawlNow() {
+	public boolean crawlNow() {
 		JobKey jobKeyNow = JobKey.jobKey("crawlerNowJob", "crawler");
 		JobDetail jobNow = JobBuilder.newJob(CrawlNewsNowJob.class).storeDurably(true).withIdentity(jobKeyNow).build();
 		try {
 			scheduler.addJob(jobNow, true);
 			scheduler.triggerJob(jobKeyNow);
 			scheduler.deleteJob(jobKeyNow);
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 
 	@Override
 	public List<CrawledNews> findAll() {
-		return crawledNewsRepository.findAll();
+		try {
+			return crawledNewsRepository.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public List<CrawledNews> findByCrawledNewsStatus(String status) {
-		return crawledNewsRepository.findByCrawledNewsStatus(status);
+		try {
+			return crawledNewsRepository.findByCrawledNewsStatus(status);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public CrawledNews findByCrawledNewsLink(String link) {
-		return crawledNewsRepository.findByCrawledNewsLink(link);
+		try {
+			return crawledNewsRepository.findByCrawledNewsLink(link);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
-	public void delete(CrawledNews news) {
-		crawledNewsRepository.delete(news);
+	public boolean delete(CrawledNews news) {
+		try {
+			crawledNewsRepository.delete(news);
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	public CrawledNews save(CrawledNews news) {
-		return crawledNewsRepository.save(news);
+		try {
+			return crawledNewsRepository.save(news);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
-	public Page<CrawledNews> findByCrawledNewsStatus(String status, Pageable page) {
-		return crawledNewsRepository.findByCrawledNewsStatus(status, page);
+	public Page<CrawledNews> findByCrawledNewsStatus(String status, Pageable page) {	
+		try {
+			return crawledNewsRepository.findByCrawledNewsStatus(status, page);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public long count() {
-		return crawledNewsRepository.count();
+		try {
+			return crawledNewsRepository.count();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 	@Override
 	public long countByStatus(String status) {
-		return crawledNewsRepository.countByCrawledNewsStatus(status);
+		try {
+			return crawledNewsRepository.countByCrawledNewsStatus(status);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		
 	}
 
 	@Override
-	public void delete(List<CrawledNews> listNews) {
-		crawledNewsRepository.deleteAll(listNews);
+	public boolean delete(List<CrawledNews> listNews) {
+		try {
+			crawledNewsRepository.deleteAll(listNews);
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	public List<CrawledNews> saveAll(List<CrawledNews> listNews) {
-		return crawledNewsRepository.saveAll(listNews);
+		try {
+			return crawledNewsRepository.saveAll(listNews);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

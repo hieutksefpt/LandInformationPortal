@@ -23,7 +23,7 @@ public interface IUserService {
 
     User save(User user);
 
-    void delete(Long userID);
+    boolean delete(Long userID);
 
     User findById(Long userId);
 

@@ -15,31 +15,58 @@ public class ProvinceService implements IProvinceService{
 	
 	@Autowired 
 	ProvinceRepository provinceRepository;
-	
-//	EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
-	
+
 	public List<Province> findAll(){
-		return provinceRepository.findAll();
+		try {
+			return provinceRepository.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public Province save(Province province) {
-		return provinceRepository.save(province);
+		
+		try {
+			return provinceRepository.save(province);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	@Override
-	public void deleteById(Long id) {
-		provinceRepository.deleteById(id);
+	public boolean deleteById(Long id) {
+		try {
+			provinceRepository.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	@Override
 	public List<District> getListDistrictByProvinceId(Long provinceId) {
-		Province province = provinceRepository.findById(provinceId).get();
-		List<District> list = province.getListDistrict();
-		return list;
+		try {
+			Province province = provinceRepository.findById(provinceId).get();
+			List<District> list = province.getListDistrict();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
-	public void delete(Province province) {
-		provinceRepository.delete(province);
+	public boolean delete(Province province) {
+		
+		try {
+			provinceRepository.delete(province);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

@@ -9,8 +9,8 @@ public interface ISegmentOfStreetService {
 	
 	SegmentOfStreet save(SegmentOfStreet segmentOfStreet);
 	List<Street> getListStreetByListSegment(List<SegmentOfStreet> listSegment);
-	void delete(List<SegmentOfStreet> listSegment);
-	void delete(SegmentOfStreet segmentOfStreet);
+	boolean delete(List<SegmentOfStreet> listSegment);
+	boolean delete(SegmentOfStreet segmentOfStreet);
         
         // need this function
         List<SegmentOfStreet> findAll();

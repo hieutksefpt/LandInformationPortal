@@ -20,32 +20,60 @@ public class SegmentOfStreetService implements ISegmentOfStreetService {
 	
 	@Override
 	public List<Street> getListStreetByListSegment(List<SegmentOfStreet> listSegmentOfStreet) {
-		List<Street> listStreet = new ArrayList<Street>();
-		for (SegmentOfStreet segment : listSegmentOfStreet) {
-			Street temp = segment.getStreet();
-			if (listStreet.isEmpty() || !listStreet.contains(temp))
-				listStreet.add(temp);
+		try {
+			List<Street> listStreet = new ArrayList<Street>();
+			for (SegmentOfStreet segment : listSegmentOfStreet) {
+				Street temp = segment.getStreet();
+				if (listStreet.isEmpty() || !listStreet.contains(temp))
+					listStreet.add(temp);
+			}
+			listStreet.stream().distinct().collect(Collectors.toList());
+			return listStreet;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
 		}
-		listStreet.stream().distinct().collect(Collectors.toList());
-		return listStreet;
 	}
 
 	@Override
 	public SegmentOfStreet save(SegmentOfStreet segmentOfStreet) {
-		return segmentOfStreetRepository.save(segmentOfStreet);
+		try {
+			return segmentOfStreetRepository.save(segmentOfStreet);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	@Override
-	public void delete(List<SegmentOfStreet> listSegment) {
-		segmentOfStreetRepository.deleteInBatch(listSegment);
+	public boolean delete(List<SegmentOfStreet> listSegment) {
+		try {
+			segmentOfStreetRepository.deleteInBatch(listSegment);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
-	public void delete(SegmentOfStreet segmentOfStreet) {
-		segmentOfStreetRepository.delete(segmentOfStreet);
+	public boolean delete(SegmentOfStreet segmentOfStreet) {
+		
+		try {
+			segmentOfStreetRepository.delete(segmentOfStreet);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
     @Override
     public List<SegmentOfStreet> findAll() {
-        return segmentOfStreetRepository.findAll();
+        try {
+        	return segmentOfStreetRepository.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
     }
 }

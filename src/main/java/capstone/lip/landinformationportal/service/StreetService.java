@@ -16,21 +16,46 @@ public class StreetService implements IStreetService{
 	
 	@Override
 	public Street save(Street street) {
-		return streetRepository.save(street);
+		try {
+			return streetRepository.save(street);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
-	public void delete(List<Street> listStreet) {
-		streetRepository.deleteInBatch(listStreet);
+	public boolean delete(List<Street> listStreet) {
+		try {
+			streetRepository.deleteInBatch(listStreet);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 	
-	public void delete(Street street) {
-		streetRepository.delete(street);
+	public boolean delete(Street street) {
+		try {
+			streetRepository.delete(street);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 
     @Override
     public List<Street> findAll() {
-        return streetRepository.findAll();
+    	try {
+    		return streetRepository.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
 }

@@ -8,6 +8,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
 	<ui:composition template="/template/common/commonLayout.xhtml">
@@ -35,7 +36,7 @@
 											<strong>Tin nổi bật	</strong>
 										</div>
 									</div>
-									<div>
+									<div class="row" style="padding-left:15px">
 										<ul class="list-group scrollable list img-list">
 											
 											<c:forEach items="${homepageBean.listNews}" var="element">
@@ -54,43 +55,44 @@
 												</li>
 											</c:forEach>
 										</ul>
-										<div class="row" style="margin-top: 10px">
-											<div class="col text-center">
-												<nav style="display:inline-block">
-													<ul class="pagination" style="">
-														<li class="page-item"><h:commandLink class="page-link"
-																href="#" aria-label="Previous">
-																<span aria-hidden="true">&laquo;</span>
-																<p:ajax listener="#{homepageBean.firstPageNews}"
-																	process="@form" update="@form"></p:ajax>
-															</h:commandLink>
-														</li>
-														
-														<ui:repeat value="#{homepageBean.pageNews.pages}" var="page">
-										                	<h:panelGroup rendered="#{page != homepageBean.pageNews.currentPage + 1}">
-										                		<li class="page-item">
-										                			<h:commandLink value="#{page}" styleClass="page-link" actionListener="#{homepageBean.pageNewsAt}">
-										                				<p:ajax process="@form" update="@form"></p:ajax>
-										                			</h:commandLink>
-																</li>
-										                	</h:panelGroup>
-										                	<h:panelGroup rendered="#{page == homepageBean.pageNews.currentPage + 1}">
-										                		<li class="page-item active">
-										                			<h:commandLink value="#{page}" styleClass="page-link">
-										                			</h:commandLink>
-										                		</li>
-										                	</h:panelGroup>
-											            </ui:repeat>
-														
-														<li class="page-item"><h:commandLink class="page-link"
-																href="#" aria-label="Next">
-																<span aria-hidden="true">&raquo;</span>
-																<p:ajax listener="#{homepageBean.lastPageNews}" process="@form"
-																	update="@form"></p:ajax>
-															</h:commandLink></li>
-													</ul>
-												</nav>
-											</div>
+										
+									</div>
+									<div class="row" style="margin-top: 10px">
+										<div class="col text-center">
+											<nav style="display:inline-block">
+												<ul class="pagination" style="">
+													<li class="page-item"><h:commandLink class="page-link"
+															href="#" aria-label="Previous">
+															<span aria-hidden="true">&laquo;</span>
+															<p:ajax listener="#{homepageBean.firstPageNews}"
+																process="@form" update="@form"></p:ajax>
+														</h:commandLink>
+													</li>
+													
+													<ui:repeat value="#{homepageBean.pageNews.pages}" var="page">
+									                	<h:panelGroup rendered="#{page != homepageBean.pageNews.currentPage + 1}">
+									                		<li class="page-item">
+									                			<h:commandLink value="#{page}" styleClass="page-link" actionListener="#{homepageBean.pageNewsAt}">
+									                				<p:ajax process="@form" update="@form"></p:ajax>
+									                			</h:commandLink>
+															</li>
+									                	</h:panelGroup>
+									                	<h:panelGroup rendered="#{page == homepageBean.pageNews.currentPage + 1}">
+									                		<li class="page-item active">
+									                			<h:commandLink value="#{page}" styleClass="page-link">
+									                			</h:commandLink>
+									                		</li>
+									                	</h:panelGroup>
+										            </ui:repeat>
+													
+													<li class="page-item"><h:commandLink class="page-link"
+															href="#" aria-label="Next">
+															<span aria-hidden="true">&raquo;</span>
+															<p:ajax listener="#{homepageBean.lastPageNews}" process="@form"
+																update="@form"></p:ajax>
+														</h:commandLink></li>
+												</ul>
+											</nav>
 										</div>
 									</div>
 								</h:form>
@@ -115,7 +117,7 @@
 	                        <h:panelGroup id="combobox_data">
 	                            <div class="form-group row">
 	                                <div class="col-md-6">
-	                                    <h:selectOneMenu id="cbb-Province" value="#{homepageBean.provinceIdSelected}">
+	                                    <h:selectOneMenu id="cbb-Province" value="#{homepageBean.provinceIdSelected}" styleClass="w-100">
 	                                        <p:ajax listener="#{homepageBean.provinceChange}" update="@form form-list-reo" oncomplete="clearDataMap()"/>
 	                                        <f:selectItem itemLabel="Tỉnh/Thành phố" itemValue=""/>
 	                                        <f:selectItems value="#{homepageBean.listProvince}" var="element"
@@ -123,8 +125,8 @@
 	                                    </h:selectOneMenu>
 	                                </div>
 	                                <div class="col-md-6">
-	                                    <h:selectOneMenu id="cbb-District" value="#{homepageBean.districtIdSelected}">
-	                                        <p:ajax listener="#{homepageBean.districtChange}" update="form form-list-reo"  
+	                                    <h:selectOneMenu id="cbb-District" value="#{homepageBean.districtIdSelected}" styleClass="w-100">
+	                                        <p:ajax listener="#{homepageBean.districtChange}" update="@form form-list-reo"  
 	                                        oncomplete="clearDataMap()"></p:ajax>
 	                                        <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
 	                                        <f:selectItems value="#{homepageBean.listDistrict}" var="element"
@@ -134,8 +136,8 @@
 	                            </div>
 	                            <div class="form-group row">
 	                                <div class="col-md-6">
-	                                    <h:selectOneMenu id="cbb-Street" value="#{homepageBean.streetIdSelected}">
-	                                        <p:ajax	listener="#{homepageBean.streetChange}" update="form form-list-reo"
+	                                    <h:selectOneMenu id="cbb-Street" value="#{homepageBean.streetIdSelected}" styleClass="w-100">
+	                                        <p:ajax	listener="#{homepageBean.streetChange}" update="@form form-list-reo"
 	                                         oncomplete="clearDataMap()"></p:ajax>
 	
 	                                        <f:selectItem itemLabel="Đường phố" itemValue=""/>
@@ -144,8 +146,8 @@
 	                                    </h:selectOneMenu>
 	                                </div>
 	                                <div class="col-md-6">
-	                                    <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{homepageBean.segmentIdSelected}">
-	                                        <p:ajax	listener="#{homepageBean.segmentOfStreetChange}" update="form form-list-reo"></p:ajax>
+	                                    <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{homepageBean.segmentIdSelected}" styleClass="w-100">
+	                                        <p:ajax	listener="#{homepageBean.segmentOfStreetChange}" update="@form form-list-reo"></p:ajax>
 	                                        <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
 	                                        <f:selectItems value="#{homepageBean.listSegmentOfStreet}" var="element"
 	                                                       itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
@@ -176,7 +178,7 @@
 	                        		</h:outputText> VND
 	                        	</div>
 	                        	<div class="row col">
-	                        		<p:chart type="line" model="#{homepageBean.lineChartModel}" style="height:300px;"/>
+	                        		<p:chart type="line" model="#{homepageBean.lineChartModel}"  style="height:300px;"/>
 	                        	</div>
 	                        	
 	                        </h:panelGroup>

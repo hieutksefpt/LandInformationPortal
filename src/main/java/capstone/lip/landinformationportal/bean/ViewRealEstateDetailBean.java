@@ -27,6 +27,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -40,7 +42,8 @@ public class ViewRealEstateDetailBean implements Serializable {
     private String jsonCoordinate;
     private Land currentLand;
     private List<House> currentListHouse;
-
+    private boolean ownRealEstate;
+    
     @Autowired
     private IRealEstateService realEstateService;
 
@@ -65,8 +68,26 @@ public class ViewRealEstateDetailBean implements Serializable {
     public void init() {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         long realEstateId = Long.parseLong(params.get("realEstateId"));
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = "";
+        if (auth != null) {
+            username = (String) auth.getPrincipal();
+        }
+
+        User currentUser = userService.findByUsername(username);
+        
+        
         tempRealEstateId = realEstateId;
         realEstateClicked = realEstateService.findById(realEstateId);
+        
+        if (realEstateClicked.getUser().equals(currentUser)) {
+        	ownRealEstate = true;
+        }else {
+        	ownRealEstate = false;
+        }
+        
+        
         currentLand = realEstateClicked.getLand();
         currentListHouse = realEstateClicked.getListHouse();
         transferCoordinate();
@@ -146,4 +167,13 @@ public class ViewRealEstateDetailBean implements Serializable {
         this.tempRealEstateId = tempRealEstateId;
     }
 
+	public boolean isOwnRealEstate() {
+		return ownRealEstate;
+	}
+
+	public void setOwnRealEstate(boolean ownRealEstate) {
+		this.ownRealEstate = ownRealEstate;
+	}
+    
+    
 }

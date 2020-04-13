@@ -17,17 +17,17 @@ public interface ICrawledNewsService{
 	
 	String initCrawlJob();
 	
-	void setTimeCrawlJob(int value);
+	boolean setTimeCrawlJob(int value);
 	
-	void turnOnCrawler();
+	boolean turnOnCrawler();
 	
-	void turnOffCrawler();
+	boolean turnOffCrawler();
 	
-	void crawlNow();
+	boolean crawlNow();
 	
-	void delete(CrawledNews news);
+	boolean delete(CrawledNews news);
 	
-	void delete(List<CrawledNews> listNews);
+	boolean delete(List<CrawledNews> listNews);
 	
 	CrawledNews save(CrawledNews news);
 	

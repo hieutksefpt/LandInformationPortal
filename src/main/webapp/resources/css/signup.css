@@ -84,7 +84,7 @@ input[type=radio] {
   -ms-appearance: radio !important; }
 
 img {
-  max-width: 100%;
+  max-width: auto;
   height: auto; }
 
 figure {
@@ -106,8 +106,8 @@ h2 {
   padding: 0;
   font-weight: bold;
   color: #222;
-  font-family: 'Roboto Slab';
-  font-size: 20px;
+  font-family: serif    ;
+  font-size: 22px;
   margin-bottom: 30px;
   text-transform: uppercase; }
 
@@ -134,8 +134,10 @@ body {
   -ms-background-size: cover;
   background-position: center center;
   font-weight: 400;
-  font-family: 'Roboto Slab';
-  margin: 0px; }
+  font-family: serif;
+  margin: 0px; 
+  width: 100%;
+}
 
 .main {
   padding: 60px 0;
@@ -144,7 +146,7 @@ body {
 .container {
   width: 586px;
   background: #fff;
-  margin-left: 1000px;
+  margin-left: 50%;
   border-radius: 10px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -162,7 +164,7 @@ input, select {
   padding: 5px 0;
   color: #222;
   margin-bottom: 31px;
-  font-family: 'Roboto Slab'; }
+  font-family: serif; }
   input:focus, select:focus {
     color: #222;
     border-bottom: 2px solid #4966b1; }
@@ -171,7 +173,7 @@ input[type=checkbox]:not(old) {
   width: 2em;
   margin: 0;
   padding: 0;
-  font-size: 1em;
+  font-size: 2em;
   display: none; }
 
 input[type=checkbox]:not(old) + label {
@@ -205,7 +207,7 @@ input[type=checkbox]:not(old):checked + label > span:before {
   content: '\f26b';
   display: block;
   color: #222;
-  font-size: 11px;
+  font-size: 18px;
   line-height: 1.2;
   text-align: center;
   font-family: 'Material-Design-Iconic-Font';
@@ -222,7 +224,7 @@ input[type=checkbox]:not(old):checked + label > span:before {
   background: #4966b1;
   color: #fff;
   padding: 16px 17px;
-  font-size: 13px;
+  font-size: 18px;
   border: none;
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -283,7 +285,7 @@ li.init {
 #confirm_type {
   margin-bottom: 30px; }
 
-.form-group-2 {
+.form-group-1 {
   margin-top: 15px;
   margin-bottom: 30px; }
 

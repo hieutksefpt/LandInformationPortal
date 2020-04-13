@@ -247,13 +247,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
             newHouse = houseService.validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
             listHousesDetail = houseService.validateHouseDetailInfor(newHouse, listHouseFeatureValue);
 
-            if (newUploadRealEstate != null && newLand != null && newHouse == null) {
-                saveDataNewLandSigleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail);
-                variableSuccess = true;
-            } else if (newUploadRealEstate != null && newHouse != null && newLand == null) {
-                saveDataNewHouseSingleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newHouse, listHousesDetail);
-                variableSuccess = true;
-            } else if (newUploadRealEstate != null && newHouse != null && newLand != null) {
+            if (newUploadRealEstate != null && newHouse != null && newLand != null) {
                 saveDataNewLandHouseTotalToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail, newHouse, listHousesDetail);
                 variableSuccess = true;
             }

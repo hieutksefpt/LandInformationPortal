@@ -201,19 +201,7 @@ function clearAllInput() {
     $('#form\\:txtinput-latSingleCoordinate').val("");
 }
 
-function display_div(show) {
-    if (document.getElementById('optionList').value == 1) {
-        document.getElementById('houseBox').readOnly = true;
-    }
-    if (document.getElementById('optionList').value == 2) {
-        document.getElementById('landBox').readOnly = true;
-    }
-    if (document.getElementById('optionList').value == 3) {
-        document.getElementById('houseBox').readOnly = false;
-        document.getElementById('landBox').readOnly = false;
-    }
 
-}
 
 function loadLandUnit(landUnit) {
     document.getElementById("landUnit").textContent = "(" + landUnit + ")";
@@ -306,7 +294,7 @@ function showModalMandatory() {
             alert("Vui lòng cung cấp giá trị của thuộc tính Đất đang khai báo");
         } else if (tempHouseFeature !== '' && tempHouseFeatureValue === '') {            // If choose House Feature --> have to contribute House Value
             alert("Vui lòng cung cấp giá trị của thuộc tính Nhà đang khai báo");
-        } else if (tempNewLandName === '' && tempNewHouseName === '') {            // If choose House Feature --> have to contribute House Value
+        } else if (tempNewLandName === '' || tempNewHouseName === '') {            // If choose House Feature --> have to contribute House Value
             alert("Vui lòng cung cấp tên và giá trị phần Đất hoặc phần Nhà\nGiá trị của phần Đất và Nhà phải lớn hơn 0 VND.");
         } else if (tempNewLandName !== '' && tempNewLandValue <= 0) {   
             alert("Giá trị của phần Đất phải lớn hơn 0 VND.");
@@ -314,17 +302,13 @@ function showModalMandatory() {
             alert("Giá trị của phần Nhà phải lớn hơn 0 VND.");
         }
     } else if (tempRealEstateType === 'Đất') {                             // If choose Land Feature --> have to contribute Land Value
-        if (tempLandFeature !== '' && tempLandFeatureValue === '') {
-            alert("Vui lòng cung cấp giá trị của thuộc tính Đất đang khai báo");
-        } else if (tempNewLandName === '') {            // If choose House Feature --> have to contribute House Value
+        if (tempNewLandName === '') {            // If choose House Feature --> have to contribute House Value
             alert("Vui lòng cung cấp tên và giá trị phần Đất");
         }else if (tempNewLandValue <= 0) {
             alert("Giá trị của phần Đất phải lớn hơn 0 VND.");
         }
     } else if (tempRealEstateType === 'Nhà') {                             // If choose House Feature --> have to contribute House Value
-        if (tempHouseFeature !== '' && tempHouseFeatureValue === '') {
-            alert("Vui lòng cung cấp giá trị của thuộc tính Nhà đang khai báo");
-        } else if (tempNewHouseName === '') {            // If choose House Feature --> have to contribute House Value
+        if (tempNewHouseName === '') {            // If choose House Feature --> have to contribute House Value
             alert("Vui lòng cung cấp tên và giá trị phần Nhà");
         }else if (tempNewHouseValue <= 0) {
             alert("Giá trị của phần Nhà phải lớn hơn 0 VND.");

@@ -224,7 +224,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         if (typeRealEstate.equals(RealEstateTypeConstant.landType)) {
             Land newLand = new Land();
             newLand = landService.validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
-            listLandDetail = landService.validateLandDetailInfor(newLand, listLandFeatureValue);
+//            listLandDetail = landService.validateLandDetailInfor(newLand, listLandFeatureValue);
             if (newUploadRealEstate != null && newLand != null) {
                 saveDataNewLandSigleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail);
                 variableSuccess = true;
@@ -233,7 +233,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         } else if (typeRealEstate.equals(RealEstateTypeConstant.houseType)) {
             House newHouse = new House();
             newHouse = houseService.validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
-            listHousesDetail = houseService.validateHouseDetailInfor(newHouse, listHouseFeatureValue);
+//            listHousesDetail = houseService.validateHouseDetailInfor(newHouse, listHouseFeatureValue);
             if (newUploadRealEstate != null && newHouse != null) {
                 saveDataNewHouseSingleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newHouse, listHousesDetail);
                 variableSuccess = true;
@@ -272,6 +272,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.validateRealEstateAdjacentInfor(newUploadRealEstate, realEstateAdjacentSegmentId);
         newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);                         // save REAS to DB 
         newLand = landService.save(newLand);
+        listLandDetail = landService.validateLandDetailInfor(newLand, listLandFeatureValue);
         if (!listLandDetail.isEmpty()) {                                                                                             // save Land to DB 
             for (int i = 0; i < listLandDetail.size(); i++) {
                 landsDetailService.save(listLandDetail.get(i));
@@ -285,6 +286,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.validateRealEstateAdjacentInfor(newUploadRealEstate, realEstateAdjacentSegmentId);
         newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);                         // save REAS to DB 
         newHouse = houseService.save(newHouse);
+        listHousesDetail = houseService.validateHouseDetailInfor(newHouse, listHouseFeatureValue);
         if (!listHousesDetail.isEmpty()) {                                                                                             // save Land to DB 
             for (int i = 0; i < listHousesDetail.size(); i++) {
                 housesDetailService.save(listHousesDetail.get(i));
@@ -298,6 +300,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.validateRealEstateAdjacentInfor(newUploadRealEstate, realEstateAdjacentSegmentId);
         newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);                         // save REAS to DB 
         newLand = landService.save(newLand);
+        listLandDetail = landService.validateLandDetailInfor(newLand, listLandFeatureValue);
         if (!listLandDetail.isEmpty()) {                                                                                             // save Land to DB 
             for (int i = 0; i < listLandDetail.size(); i++) {
                 landsDetailService.save(listLandDetail.get(i));
@@ -305,6 +308,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         }
 
         newHouse = houseService.save(newHouse);
+        listHousesDetail = houseService.validateHouseDetailInfor(newHouse, listHouseFeatureValue);
         if (!listHousesDetail.isEmpty()) {                                                                                             // save Land to DB 
             for (int i = 0; i < listHousesDetail.size(); i++) {
                 housesDetailService.save(listHousesDetail.get(i));

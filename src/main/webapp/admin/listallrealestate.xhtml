@@ -57,7 +57,7 @@
                             <h:outputText value="#{realEstate.realEstateId}"/>
                         </p:column>
                         <p:column headerText="Name">
-                            <a href="#{realEstate.realEstateLink}" target="_blank"><h:outputText value="#{realEstate.realEstateName}" /></a>
+                            <a href="/viewrealestatedetail.xhtml?realEstateId=#{realEstate.realEstateId}" target="_blank"><h:outputText value="#{realEstate.realEstateName}" /></a>
                         </p:column>
                         <p:column headerText="Price">
                             <h:outputText value="#{realEstate.realEstatePrice}" />

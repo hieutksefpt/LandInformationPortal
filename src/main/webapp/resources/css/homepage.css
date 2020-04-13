@@ -6,9 +6,18 @@ html,body{height:100%;}
 	overflow-x: hidden;
 }
 .scrollable{
-	height: 550px;
+	max-height: 700px;
  	overflow-y: auto;
  	overflow-x: hidden;
+}
+
+@media only screen and (max-height: 750px) {
+	
+	.scrollable{
+		max-height: 550px;
+	 	overflow-y: auto;
+	 	overflow-x: hidden;
+	}
 }
 .navbar{
 	height:70px;

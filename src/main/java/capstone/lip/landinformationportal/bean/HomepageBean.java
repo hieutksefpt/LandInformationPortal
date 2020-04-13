@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.primefaces.PrimeFaces;
+import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.ChartSeries;
@@ -196,12 +199,12 @@ public class HomepageBean implements Serializable{
 		String address = districtSelected.getDistrictName();
 		MaxMinAvg maxMinAvgTemp = realEstateService.listMaxMinAvg(address);
 		maxMinAvg = maxMinAvgTemp;
-		
+
 		List<GroupByDateMaxMinCreate> listStat = realEstateService.listGroupByDateAndValue(address);
 		lineChartModel = createChart(listStat);
 		lineChartModel.setLegendPosition("e");
 		lineChartModel.setTitle("Biểu đồ giá");
-		lineChartModel.setShowPointLabels(true);
+		lineChartModel.setAnimate(true);
 		lineChartModel.getAxes().put(AxisType.X, new CategoryAxis("Ngày"));
 	}
 	private LineChartModel createChart(List<GroupByDateMaxMinCreate> listStat) {
@@ -212,14 +215,20 @@ public class HomepageBean implements Serializable{
 		for (GroupByDateMaxMinCreate element : listStat) {
 			Timestamp key = element.getDateCreated();
 			MaxMinAvg value = element.getMaxMinAvg();
-			max.set(key, value.getMax());
-			min.set(key, value.getMin());
-			avg.set(key, value.getAvg());
+			Date date = new Date(key.getTime());
+			SimpleDateFormat format = new SimpleDateFormat("dd-MM");
+			String dateString = format.format(date);
+			max.set(dateString, value.getMax().divideToIntegralValue(new BigDecimal(1000000)));
+			min.set(dateString, value.getMin().divideToIntegralValue(new BigDecimal(1000000)));
+			avg.set(dateString, value.getAvg().divideToIntegralValue(new BigDecimal(1000000)));
 		}
-
+		
 		model.addSeries(max);
 		model.addSeries(min);
 		model.addSeries(avg);
+		
+		Axis yaxis = model.getAxis(AxisType.Y);
+		yaxis.setMin(0);
 		return model;
 	}
 	public void goToDetails(long realEstateId) throws IOException {

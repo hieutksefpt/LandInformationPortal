@@ -49,7 +49,7 @@
                                 <div id="lbl-DetailRealEstate" class="title-header">Chi tiết Bất Động Sản</div>
                                 <h:inputHidden id="txtInput_coordinate_detailRealEstate" value="#{viewRealEstateDetailBean.jsonCoordinate}"></h:inputHidden>
                                 <div>
-                                    <h:form>
+                                    <h:form rendered="#{viewRealEstateDetailBean.ownRealEstate}">
                                         <h:commandButton id="btn-ButtonDelete" 
                                                          type="button" 
                                                          class="btn-delete btn-in-detai-page" 

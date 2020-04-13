@@ -44,13 +44,17 @@
 					<sec:authorize access="hasRole('ADMIN')">
 
 						<span class="actions"> <h:commandLink
-								class="btnOnNav btnUser" value="Quản lý hệ thống">
+								class="btnOnNav bg-success" value="Quản lý hệ thống">
 								<p:ajax process="@form"
 									listener="#{authenticationBean.redirectAdminManage()}"></p:ajax>
 							</h:commandLink>
 						</span>
 					</sec:authorize>
 					<sec:authorize access="hasRole('USER')">
+						<span class="actions"> <a href="/user/contributenewrealestate.xhtml"
+								class="btnOnNav btn-primary"> Đăng mới BĐS
+							</a>
+						</span>
 						<span class="actions"> 
 							<h:commandLink styleClass="btnOnNav btnAddRealEstate" value="BĐS đóng góp" action="#{authenticationBean.redirectListOwnReo}">
 								<p:ajax process="@form"></p:ajax>

@@ -106,8 +106,7 @@ function drawListMarker(list){
     	}
     	
     	google.maps.event.addListener(marker, 'click', function () {
-            // you know you'd be better off with 
-            // marker.getPosition().lat(), right?
+    		$('#tb-reo').scrollTop($('#row-'+marker.info.id).offset().top)
     		$('#row-'+marker.info.id).effect("highlight", {}, 3000);
         });
     	

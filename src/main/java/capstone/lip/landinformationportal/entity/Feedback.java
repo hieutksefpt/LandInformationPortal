@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 
+import capstone.lip.landinformationportal.entity.audit.AuditAbstract;
+
 @Entity
 @Table(name="Feedback")
 public class Feedback extends AuditAbstract implements Serializable{

@@ -18,6 +18,8 @@ import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import capstone.lip.landinformationportal.entity.audit.AuditAbstract;
+
 @Entity
 @Table(name="Province")
 //@NamedEntityGraph(name="graph.province.district",

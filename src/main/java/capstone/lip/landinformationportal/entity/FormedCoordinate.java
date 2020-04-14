@@ -17,6 +17,8 @@ import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import capstone.lip.landinformationportal.entity.audit.AuditAbstract;
 @Entity
 @Table(name="FormedCoordinate")
 public class FormedCoordinate extends AuditAbstract implements Serializable {

@@ -34,13 +34,13 @@ public interface IRealEstateService {
 
     RealEstate save(RealEstate realEstate);
     
-    void delete(List<RealEstate> listRealEstate);
+    boolean delete(List<RealEstate> listRealEstate);
 
     Land getLand(Long realEstateId);
 
     List<House> getListHouse(Long realEstateId);
 
-    void delete(RealEstate realEstate);
+    boolean delete(RealEstate realEstate);
     
     void delete(long realEstateId);
 

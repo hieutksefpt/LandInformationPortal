@@ -46,83 +46,157 @@ public class RealEstateService implements IRealEstateService {
 
     @Override
     public List<RealEstate> findAll() {
-        return realEstateRepository.findAll();
+        try {
+            return realEstateRepository.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override
     public RealEstate save(RealEstate realEstate) {
-        return realEstateRepository.save(realEstate);
-    }
-    
-    
-    @Override
-    public RealEstate validateInfor(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice,String realEstateStatus, User tempUser) {
-        RealEstateValidation rev = new RealEstateValidation();
-        RealEstate newUploadRealEstate = new RealEstate().setRealEstateName(realEstateName)
-                .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
-                .setRealEstateAddress(realEstateAddress);
-        newUploadRealEstate.setRealEstatePrice(realEstatePrice);
-        newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
-        if(rev.checkRealEstateValidation(newUploadRealEstate).equals("AcceptRealEstate")){
-//            return realEstateRepository.save(newUploadRealEstate);
-              return newUploadRealEstate;
+        try {
+            return realEstateRepository.save(realEstate);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        else return null;
+
     }
 
     @Override
-    public void delete(List<RealEstate> listRealEstate) {
-        realEstateRepository.deleteInBatch(listRealEstate);
+    public RealEstate validateInfor(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice, String realEstateStatus, User tempUser) {
+        try {
+            RealEstateValidation rev = new RealEstateValidation();
+            RealEstate newUploadRealEstate = new RealEstate().setRealEstateName(realEstateName)
+                    .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
+                    .setRealEstateAddress(realEstateAddress);
+            newUploadRealEstate.setRealEstatePrice(realEstatePrice);
+            newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
+            if (rev.checkRealEstateValidation(newUploadRealEstate).equals("AcceptRealEstate")) {
+//            return realEstateRepository.save(newUploadRealEstate);
+                return newUploadRealEstate;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    @Override
+    public boolean delete(List<RealEstate> listRealEstate) {
+        try {
+            realEstateRepository.deleteInBatch(listRealEstate);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     // Hàm này get List Land theo ID của Real Estate
     @Override
     public Land getLand(Long realEstateId) {
-        RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
-        Land land = realEstate.getLand();
-        return land;
+        try {
+            RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
+            Land land = realEstate.getLand();
+            return land;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     // Hàm này get List House theo ID của Real Estate
     @Override
     public List<House> getListHouse(Long realEstateId) {
-        RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
-        List<House> listHouse = realEstate.getListHouse();
-        return listHouse;
+        try {
+            RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
+            List<House> listHouse = realEstate.getListHouse();
+            return listHouse;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override
-    public void delete(RealEstate realEstate) {
-        realEstateRepository.delete(realEstate);
+    public boolean delete(RealEstate realEstate) {
+        try {
+            realEstateRepository.delete(realEstate);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     @Override
     public RealEstate findById(long realEstateId) {
-        Optional<RealEstate> re = realEstateRepository.findById(realEstateId);
-        if (re.isPresent()) {
-            return realEstateRepository.findById(realEstateId).get();
+        try {
+            Optional<RealEstate> re = realEstateRepository.findById(realEstateId);
+            if (re.isPresent()) {
+                return realEstateRepository.findById(realEstateId).get();
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        return null;
+
     }
 
     @Override
     public List<RealEstate> findByRealEstateStatus(String status) {
-        return realEstateRepository.findByRealEstateStatus(status);
+        try {
+            return realEstateRepository.findByRealEstateStatus(status);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override
     public List<String> listRealEstateSource() {
-        return realEstateRepository.listRealEstateSource();
+        try {
+            return realEstateRepository.listRealEstateSource();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override
     public Page<RealEstate> findByRealEstateStatus(String status, Pageable page) {
-        return realEstateRepository.findByRealEstateStatus(status, page);
+        try {
+            return realEstateRepository.findByRealEstateStatus(status, page);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override
     public long count() {
-        return realEstateRepository.count();
+        try {
+            return realEstateRepository.count();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+
     }
 
     @Override
@@ -269,4 +343,5 @@ public class RealEstateService implements IRealEstateService {
         int i=1;
         i++;
     }
+
 }

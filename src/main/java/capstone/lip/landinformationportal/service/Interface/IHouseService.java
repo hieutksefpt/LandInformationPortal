@@ -22,9 +22,9 @@ public interface IHouseService {
 
     House save(House house);
 
-    void delete(List<House> listHouse);
+    boolean delete(List<House> listHouse);
 
-    void deleteById(Long houseID);
+    boolean deleteById(Long houseID);
     
     List<HousesFeature> getListHousesFeature(Long houseId);
     

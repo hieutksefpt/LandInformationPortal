@@ -21,9 +21,9 @@ public interface IRealEstateAdjacentSegmentService {
     
     RealEstateAdjacentSegment save(RealEstateAdjacentSegment realEstateAdjacentSegment);
     
-    void delete(List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment);
+    boolean delete(List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment);
 
-    void deleteById(Long realEstateAdjacentSegmentId);
+    boolean deleteById(Long realEstateAdjacentSegmentId);
     
     List<RealEstateAdjacentSegment> save(List<RealEstateAdjacentSegment> listReoAdjacentSegment);
 }

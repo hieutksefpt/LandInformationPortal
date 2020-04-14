@@ -23,9 +23,9 @@ public interface ILandService {
 
     Land save(Land land);
     
-    void delete(Land land);
+    boolean delete(Land land);
 
-    void deleteById(Long landID);
+    boolean deleteById(Long landID);
 
     List<LandsFeature> getListLandsFeature(Long landId);
     

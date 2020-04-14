@@ -20,9 +20,12 @@ import capstone.lip.landinformationportal.dto.MaxMinAvg;
 import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.entity.RealEstate;
+import capstone.lip.landinformationportal.entity.Report;
+import capstone.lip.landinformationportal.entity.ReportId;
 import capstone.lip.landinformationportal.repository.HousesFeatureRepository;
 import capstone.lip.landinformationportal.repository.LandsFeatureRepository;
 import capstone.lip.landinformationportal.repository.RealEstateRepository;
+import capstone.lip.landinformationportal.service.Interface.IReportService;
 import capstone.lip.landinformationportal.specification.RealEstateSpecifications;
 import capstone.lip.landinformationportal.specification.SearchCriteria;
 import capstone.lip.landinformationportal.utils.EmailSender;
@@ -36,25 +39,17 @@ public class Application{
         
     }
     
-    
+//    
 //    @Autowired
-//    private HousesFeatureRepository repo;
+//    private IReportService service;
 //    
 //	  @Override
 //	  public void run(String... args) {
 //	
 //	      System.out.print("hello");
-//	      List<HousesFeature> list = repo.findAll();
-//	      HousesFeature landFeature = list.get(0);
-//	      List<String> list1 = list.get(0).getHousesFeatureDataRange();
-//	      
-//	      list1 = new ArrayList();
-//	      list1.add("tuan 123");
-//	      landFeature.setHousesFeatureDataRange(list1);
-//	      
-//	      repo.save(landFeature);
-//	      
-//	      
+//	      ReportId id = new ReportId(new Long(2), new Long(3));
+//	      Report report = service.findById(new Long(2), new Long(3));
+//	      System.out.print(report.getRealEstate().getRealEstateName());
 //	      int i= 1;
 //	      i++;
 //	      i--;

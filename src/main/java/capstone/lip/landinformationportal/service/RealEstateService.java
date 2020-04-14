@@ -15,6 +15,11 @@ import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegment;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.repository.RealEstateRepository;
+import capstone.lip.landinformationportal.service.Interface.IHouseService;
+import capstone.lip.landinformationportal.service.Interface.IHousesDetailService;
+import capstone.lip.landinformationportal.service.Interface.ILandService;
+import capstone.lip.landinformationportal.service.Interface.ILandsDetailService;
+import capstone.lip.landinformationportal.service.Interface.IRealEstateAdjacentSegmentService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.specification.RealEstateSpecifications;
 import capstone.lip.landinformationportal.specification.SearchCriteria;
@@ -305,19 +310,19 @@ public class RealEstateService implements IRealEstateService {
     }
 
     @Autowired
-    LandsDetailService landsDetailService;
+    ILandsDetailService landsDetailService;
 
     @Autowired
-    LandService landService;
+    ILandService landService;
 
     @Autowired
-    HousesDetailService housesDetailService;
+    IHousesDetailService housesDetailService;
 
     @Autowired
-    HouseService houseService;
+    IHouseService houseService;
 
     @Autowired
-    RealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
+    IRealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
 
     @Override
     public boolean delete(long realEstateId) {

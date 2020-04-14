@@ -45,27 +45,25 @@ public class LandsDetailService implements ILandsDetailService {
 
     @Override
     public boolean delete(List<LandsDetail> listLandsDetail) {
-        try {
-            landsDetailRepository.deleteInBatch(listLandsDetail);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        
+    	try {
+    		landsDetailRepository.deleteAll(listLandsDetail);
+    		return true;
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		return false;
+    	}
     }
 
     // not work with composite key
     @Override
     public boolean deleteById(Long landsDetailId) {
-        try {
-            landsDetailRepository.deleteById(landsDetailId);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        
+    	try {
+    		landsDetailRepository.deleteById(landsDetailId);
+    		return true;
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		return false;
+    	}
     }
 
 }

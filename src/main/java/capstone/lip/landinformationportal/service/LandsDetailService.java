@@ -24,23 +24,45 @@ public class LandsDetailService implements ILandsDetailService {
 
     @Override
     public List<LandsDetail> findAll() {
-        return landsDetailRepository.findAll();
+    	try {
+    		return landsDetailRepository.findAll();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		return null;
+    	}
     }
 
     @Override
     public LandsDetail save(LandsDetail landsDetail) {
-        return landsDetailRepository.save(landsDetail);
-    }
+    	try {
+    		return landsDetailRepository.save(landsDetail);
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		return null;
+    	}
+	}
 
     @Override
-    public void delete(List<LandsDetail> listLandsDetail) {
-        landsDetailRepository.deleteInBatch(listLandsDetail);
+    public boolean delete(List<LandsDetail> listLandsDetail) {
+    	try {
+    		landsDetailRepository.deleteAll(listLandsDetail);
+    		return true;
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		return false;
+    	}
     }
 
     // not work with composite key
     @Override
-    public void deleteById(Long landsDetailId) {
-        landsDetailRepository.deleteById(landsDetailId);
+    public boolean deleteById(Long landsDetailId) {
+    	try {
+    		landsDetailRepository.deleteById(landsDetailId);
+    		return true;
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		return false;
+    	}
     }
 
 }

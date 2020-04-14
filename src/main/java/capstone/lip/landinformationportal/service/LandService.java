@@ -37,95 +37,97 @@ public class LandService implements ILandService {
 
     @Override
     public List<Land> findAll() {
-        try {
-            return landRepository.findAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+    	try {
+    		return landRepository.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public Land save(Land land) {
-        try {
-            return landRepository.save(land);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    	try {
+    		return landRepository.save(land);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public boolean delete(Land land) {
-        try {
-            landRepository.delete(land);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
+    	try {
+    		landRepository.delete(land);
+    		return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+        
     }
 
     @Override
     public boolean deleteById(Long landId) {
-        try {
-            landRepository.deleteById(landId);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
+    	try {
+    		landRepository.deleteById(landId);
+    		return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+        
     }
 
     @Override
     public List<LandsFeature> getListLandsFeature(Long landId) {
-        try {
-            Land land = landRepository.findById(landId).get();
+    	try {
+    		Land land = landRepository.findById(landId).get();
             List<LandsDetail> listLandDetail = land.getListLandsDetail();
             List<LandsFeature> listLandsFeature = new ArrayList<LandsFeature>();
             for (LandsDetail landDetail : listLandDetail) {
                 listLandsFeature.add(landDetail.getLandsFeature());
             }
             return listLandsFeature;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public Land validateLandInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney, List<LandFeatureValue> listLandFeatureValue) {
-        try {
-            RealEstateValidation rev = new RealEstateValidation();
+    	try {
+    		RealEstateValidation rev = new RealEstateValidation();
             Land tempLand = new Land();
             tempLand.setLandName(newLandName);
             tempLand.setLandPrice(Double.parseDouble(newLandMoney.toString()));
             tempLand.setRealEstate(newUploadRealEstate);
-
-            if (rev.checkLandValidation(tempLand, listLandFeatureValue)) {
+            
+            if (rev.checkLandValidation(tempLand,listLandFeatureValue)) {
                 return tempLand;
-//            landRepository.save(tempLand);
+//                landRepository.save(tempLand);
             } else {
                 tempLand = null;
             }
 
             return tempLand;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
-
+    
     @Override
-    public List<LandsDetail> validateLandDetailInfor(Land tempLand, List<LandFeatureValue> listLandFeatureValue) {
-        try {
-            RealEstateValidation rev = new RealEstateValidation();
+    public List<LandsDetail> validateLandDetailInfor(Land tempLand, List<LandFeatureValue> listLandFeatureValue ){
+    	try {
+    		RealEstateValidation rev = new RealEstateValidation();
             ArrayList<LandsDetail> ald = new ArrayList<>();
-            if (rev.checkLandDetailValidation(tempLand) && rev.checkLandValidation(tempLand, listLandFeatureValue)) {
+            if (rev.checkLandDetailValidation(tempLand) && rev.checkLandValidation(tempLand,listLandFeatureValue)) {
                 for (int i = 0; i < listLandFeatureValue.size(); i++) {
                     LandsDetailId tempLDI = new LandsDetailId();
                     tempLDI.setLandId(tempLand.getLandId());
@@ -133,14 +135,15 @@ public class LandService implements ILandService {
                     LandsDetail tempLD = new LandsDetail();
                     tempLD.setId(tempLDI)
                             .setValue(listLandFeatureValue.get(i).getValue());
-//                landsDetailRepository.save(tempLD);
+//                    landsDetailRepository.save(tempLD);
                     ald.add(tempLD);
                 }
             }
             return ald;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 }

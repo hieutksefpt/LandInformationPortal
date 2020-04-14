@@ -210,9 +210,10 @@
 	        </div>
 			<div id="list-reo" style="display:none">
 				<h:form prependId="false" onsubmit="return false;" id="form-list-reo">
+
+					<p:accordionPanel id="panel-list-reo" prependId="false" widgetVar="accord-panel">
+					<p:tab title="Danh sách BĐS" id="tab">
 					
-					<p:accordionPanel id="panel-list-reo">
-					<p:tab>
 						<h:selectOneMenu id="cbb-type-reo" value="#{homepageBean.typeReo}" 
 						styleClass="browser-default custom-select custom-select-lg mb-3">
 							<p:ajax	listener="#{homepageBean.openPageReo(0)}" process="@form" update="@form"></p:ajax>

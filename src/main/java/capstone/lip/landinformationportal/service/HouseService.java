@@ -37,96 +37,97 @@ public class HouseService implements IHouseService {
 
     @Override
     public List<House> findAll() {
-        try {
-            return houseRepository.findAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    	try {
+    		return houseRepository.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public House save(House house) {
-        try {
-            return houseRepository.save(house);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+    	try {
+    		return houseRepository.save(house);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public boolean delete(List<House> listHouse) {
-        try {
-            houseRepository.deleteInBatch(listHouse);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
+    	try {
+    		houseRepository.deleteAll(listHouse);
+    		return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
     }
 
     @Override
     public boolean deleteById(Long houseId) {
-        try {
-            houseRepository.deleteById(houseId);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
+    	try {
+    		houseRepository.deleteById(houseId);
+    		return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+        
     }
 
     @Override
     public List<HousesFeature> getListHousesFeature(Long houseId) {
-        try {
-            House house = houseRepository.findById(houseId).get();
-            List<HousesFeature> listHousesFeature = new ArrayList<>();
-            List<HousesDetail> listHouseDetail = house.getListHousesDetail();
-            for (HousesDetail housesDetail : listHouseDetail) {
-                listHousesFeature.add(housesDetail.getHousesFeature());
-            }
-            return listHousesFeature;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+    	try {
+			House house = houseRepository.findById(houseId).get();
+//          List<HousesFeature> listHousesFeature = house.getListHousesFeatures();   // đhs chỗ này lỗi ?
+      		List<HousesFeature> listHousesFeature = new ArrayList<>();
+	        List<HousesDetail> listHouseDetail = house.getListHousesDetail();
+	        for (HousesDetail housesDetail : listHouseDetail) {
+	            listHousesFeature.add(housesDetail.getHousesFeature());
+	        }
+	        return listHousesFeature;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public House validateHouseInfor(RealEstate newUploadRealEstate, String newHouseName, BigDecimal newHouseMoney, List<HouseFeatureValue> listHouseFeatureValue) {
-        try {
-            RealEstateValidation rev = new RealEstateValidation();
+    	try {
+    		RealEstateValidation rev = new RealEstateValidation();
             House tempHouse = new House();
             tempHouse.setHouseName(newHouseName);
             tempHouse.setHousePrice(Double.parseDouble(newHouseMoney.toString()));
             tempHouse.setRealEstate(newUploadRealEstate);
-
-            if (rev.checkHouseValidation(tempHouse, listHouseFeatureValue)) {
+            
+            if (rev.checkHouseValidation(tempHouse,listHouseFeatureValue)) {
                 return tempHouse;
-//            landRepository.save(tempLand);
+//                landRepository.save(tempLand);
             } else {
                 tempHouse = null;
             }
 
             return tempHouse;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
-    public List<HousesDetail> validateHouseDetailInfor(House tempHouse, List<HouseFeatureValue> listHouseFeatureValue) {
-        try {
-            RealEstateValidation rev = new RealEstateValidation();
+    public List<HousesDetail> validateHouseDetailInfor(House tempHouse, List<HouseFeatureValue> listHouseFeatureValue){
+    	try {
+    		RealEstateValidation rev = new RealEstateValidation();
             ArrayList<HousesDetail> ahd = new ArrayList<>();
-            if (rev.checkHouseDetailValidation(tempHouse) && rev.checkHouseValidation(tempHouse, listHouseFeatureValue)) {
+            if (rev.checkHouseDetailValidation(tempHouse) && rev.checkHouseValidation(tempHouse,listHouseFeatureValue)) {
                 for (int i = 0; i < listHouseFeatureValue.size(); i++) {
                     HousesDetailId tempHDI = new HousesDetailId();
                     tempHDI.setHouseId(tempHouse.getHouseId());
@@ -134,15 +135,15 @@ public class HouseService implements IHouseService {
                     HousesDetail tempHD = new HousesDetail();
                     tempHD.setId(tempHDI)
                             .setValue(listHouseFeatureValue.get(i).getValue());
-//                landsDetailRepository.save(tempLD);
+//                    landsDetailRepository.save(tempLD);
                     ahd.add(tempHD);
                 }
             }
             return ahd;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 }

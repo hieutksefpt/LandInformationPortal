@@ -26,36 +26,36 @@ public class HousesFeatureService implements IHousesFeatureService {
 
     @Override
     public List<HousesFeature> findAll() {
-        try {
-            return houseFeatureRepository.findAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+    	try {
+    		return houseFeatureRepository.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public HousesFeature save(HousesFeature housesfeature) {
-        try {
-            return houseFeatureRepository.save(housesfeature);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+    	try {
+    		return houseFeatureRepository.save(housesfeature);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public boolean delete(Long housesfeatureID) {
-        try {
-            houseFeatureRepository.deleteById(housesfeatureID);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
+    	try {
+    		houseFeatureRepository.deleteById(housesfeatureID);
+    		return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+        
     }
 
 }

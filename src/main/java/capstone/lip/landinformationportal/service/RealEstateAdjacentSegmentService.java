@@ -27,77 +27,76 @@ public class RealEstateAdjacentSegmentService implements IRealEstateAdjacentSegm
 
     @Override
     public List<RealEstateAdjacentSegment> findAll() {
-        try {
-            return realEstateAdjacentSegmentRepository.findAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+    	try {
+    		return realEstateAdjacentSegmentRepository.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
     }
 
     @Override
     public RealEstateAdjacentSegment validateRealEstateAdjacentInfor(RealEstate newUploadRealEstate, RealEstateAdjacentSegmentId realEstateAdjacentSegmentId) {
-        try {
-            RealEstateValidation rev = new RealEstateValidation();
+    	try {
+    		RealEstateValidation rev = new RealEstateValidation();
             if (rev.checkRealEstateSegmentValidation(newUploadRealEstate)) {
                 RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
                 newRealEstateAdjacentSegment.setRealEstate(newUploadRealEstate);
                 newRealEstateAdjacentSegment.setId(realEstateAdjacentSegmentId);
                 return newRealEstateAdjacentSegment;
-//                    realEstateAdjacentSegmentRepository.save(newRealEstateAdjacentSegment);
+//                        realEstateAdjacentSegmentRepository.save(newRealEstateAdjacentSegment);
             }
             return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public boolean delete(List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment) {
-        try {
-            realEstateAdjacentSegmentRepository.deleteInBatch(listRealEstateAdjacentSegment);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+    	try {
+    		realEstateAdjacentSegmentRepository.deleteAll(listRealEstateAdjacentSegment);
+    		return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
         
     }
 
     @Override
     public boolean deleteById(Long realEstateAdjacentSegmentId) {
-        try {
-            realEstateAdjacentSegmentRepository.deleteById(realEstateAdjacentSegmentId);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+    	try {
+    		realEstateAdjacentSegmentRepository.deleteById(realEstateAdjacentSegmentId);
+    		return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
         
     }
 
     @Override
     public List<RealEstateAdjacentSegment> save(List<RealEstateAdjacentSegment> listReoAdjacentSegment) {
-        try {
-            return realEstateAdjacentSegmentRepository.saveAll(listReoAdjacentSegment);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    	try {
+    		return realEstateAdjacentSegmentRepository.saveAll(listReoAdjacentSegment);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
         
     }
 
     @Override
     public RealEstateAdjacentSegment save(RealEstateAdjacentSegment realEstateAdjacentSegment) {
-        try {
-            return realEstateAdjacentSegmentRepository.save(realEstateAdjacentSegment);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    	try {
+    		return realEstateAdjacentSegmentRepository.save(realEstateAdjacentSegment);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
         
     }
 

@@ -27,9 +27,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @ViewScoped
 public class ManageRealEstateFeatureBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Autowired
+    @Autowired
     private ILandsFeatureService landsFeatureService;
 
     @Autowired
@@ -45,6 +45,8 @@ public class ManageRealEstateFeatureBean implements Serializable {
     private String landsFeatureUnit;
     private Long landfeatureID;
     private Long housefeatureID;
+    private String landsFeatureDataType;
+    private String housesFeatureDataType;
 
     private LandsFeature landsFeatureClicked;
     private HousesFeature housesFeatureClicked;
@@ -63,18 +65,18 @@ public class ManageRealEstateFeatureBean implements Serializable {
         listLandsFeature = landsFeatureService.findAll();
 //        PrimeFaces.current().executeScript("reloadPage()");
     }
-    
+
     public void updateHousesFeature() {
         housesFeatureService.save(housesFeatureClicked);
         listHousesFeature = housesFeatureService.findAll();
     }
 
-     public void saveLandsFeature() {
+    public void saveLandsFeature() {
         LandsFeature landfeature = new LandsFeature(landsFeatureName, landsFeatureUnit);
         landfeature = landsFeatureService.save(landfeature);
         listLandsFeature.add(landfeature);
     }
-     
+
     public void saveHousesFeature() {
         HousesFeature housesFeature = new HousesFeature(housesFeatureName, housesFeatureUnit);
         housesFeature = housesFeatureService.save(housesFeature);
@@ -84,10 +86,10 @@ public class ManageRealEstateFeatureBean implements Serializable {
     public void clickOnButtonRowLandsFeature(String id) {
         landsFeatureClicked = listLandsFeature.stream().filter(x -> x.getLandsFeatureID().equals(Long.parseLong(id))).collect(Collectors.toList()).get(0);
     }
-    
+
     public void clickOnButtonRowHousesFeature(String id) {
         housesFeatureClicked = listHousesFeature.stream().filter(x -> x.getHousesFeatureID().equals(Long.parseLong(id))).collect(Collectors.toList()).get(0);
-    
+
     }
 
     public void deleteLandsFeature() {
@@ -98,6 +100,22 @@ public class ManageRealEstateFeatureBean implements Serializable {
     public void deleteHousesFeature() {
         housesFeatureService.delete(housesFeatureClicked.getHousesFeatureID());
         listHousesFeature = housesFeatureService.findAll();
+    }
+
+    public String getLandsFeatureDataType() {
+        return landsFeatureDataType;
+    }
+
+    public void setLandsFeatureDataType(String landsFeatureDataType) {
+        this.landsFeatureDataType = landsFeatureDataType;
+    }
+
+    public String getHousesFeatureDataType() {
+        return housesFeatureDataType;
+    }
+
+    public void setHousesFeatureDataType(String housesFeatureDataType) {
+        this.housesFeatureDataType = housesFeatureDataType;
     }
 
     public List<LandsFeature> getListLandsFeature() {
@@ -179,11 +197,11 @@ public class ManageRealEstateFeatureBean implements Serializable {
     public void setLandsFeatureClicked(LandsFeature landsFeatureClicked) {
         this.landsFeatureClicked = landsFeatureClicked;
     }
-    
+
     public HousesFeature getHousesFeatureClicked() {
         return housesFeatureClicked;
     }
-    
+
     public void setHousesFeatureClicked(HousesFeature housesFeatureClicked) {
         this.housesFeatureClicked = housesFeatureClicked;
     }

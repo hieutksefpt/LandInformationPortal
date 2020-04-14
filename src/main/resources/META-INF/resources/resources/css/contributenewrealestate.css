@@ -29,7 +29,7 @@ and open the template in the editor.
     width: 100%;
 }
 #table-feature{
-    width: 90%;	
+    width: 90%;
 }
 
 #table-feature th{
@@ -40,17 +40,20 @@ and open the template in the editor.
 }
 .scrolldata{
     width: 100%;
+    height: 90%;
 }
 
 #map{
-    width: 90%;
+    width: 100%;
     height: 650px;
     margin: auto;
     border: 0 none;
     border-radius: 3px;
     box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);     
 }
-
+.panel-UploadLandform {
+    height: 180px;
+}
 
 /*  Đoạn này test Multi Form 
 html {
@@ -88,6 +91,7 @@ body {
     /*position: relative;*/
 }
 
+
 .completeUploadInfor .completeUpload{
     margin: 25px;
     border-collapse: separate;
@@ -105,6 +109,14 @@ body {
     border-radius: 3px;
     box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
     box-sizing: border-box;
+    margin-top: 25px;
+    margin-left: 25px;
+}
+
+.landboxTotal , .houseboxTotal {
+    border-radius: 3px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
     margin: auto;
 }
 
@@ -112,7 +124,7 @@ body {
     border-radius: 3px;
     /*box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);*/
     box-sizing: border-box;
-    height: 150px;
+    height: 250px;
     margin: auto;
     margin-bottom: 15px;
     width: 95%;
@@ -197,7 +209,7 @@ body {
     color: #000;
     text-transform: uppercase;
     font-size: 20px;
-    width: 33.33%;
+    width: 50%;
     float: left;
     position: relative;
     text-align: center;
@@ -234,6 +246,45 @@ body {
 #progressbar li.active:before,  #progressbar li.active:after{
     background: #27AE60;
     color: white;
+}
+
+
+/* Modal */
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover, .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 

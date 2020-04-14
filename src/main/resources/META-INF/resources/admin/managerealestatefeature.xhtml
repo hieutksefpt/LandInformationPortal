@@ -39,16 +39,29 @@ and open the template in the editor.
                                 <h:form id="addLandsFeature">
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-md">Tên thuộc tính</div>
-                                            <div class="col-md">
+                                            <div class="col-4 col-lg-4 title-mandatory">Tên thuộc tính</div>
+                                            <div class="col-8 col-lg-8">
                                                 <h:inputText id="landsFeatureName" value="#{manageRealEstateFeatureBean.landsFeatureName}"></h:inputText>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md">Đơn vị</div>
-                                            <div class="col-md">
+                                            <div class="col-4 col-lg-4 title-mandatory">Đơn vị</div>
+                                            <div class="col-8 col-lg-8">
                                                 <h:inputText id="landsFeatureUnit" value="#{manageRealEstateFeatureBean.landsFeatureUnit}"></h:inputText>
                                             </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4 col-lg-4">Loại giá trị</div>
+                                            <div class="col-8 col-lg-8">
+                                                <p:selectOneRadio id="landsFeatureDataType" value="#{manageRealEstateFeatureBean.landsFeatureDataType}" unselectable="true">
+                                                    <f:selectItem itemLabel="STR" itemValue="STR" />
+                                                    <f:selectItem itemLabel="INT" itemValue="INT" />
+                                                </p:selectOneRadio>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4 col-lg-4">Enum</div>
+                                            <div class="col-8 col-lg-8"><p:inputTextarea rows="6" cols="33" /></div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -77,16 +90,29 @@ and open the template in the editor.
                                 <h:form id="addHouseFeature">
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-md">Tên thuộc tính</div>
-                                            <div class="col-md">
+                                            <div class="col-4 col-lg-4 title-mandatory">Tên thuộc tính</div>
+                                            <div class="col-8 col-lg-8">
                                                 <h:inputText value="#{manageRealEstateFeatureBean.housesFeatureName}"></h:inputText>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md">Đơn vị</div>
-                                            <div class="col-md">
+                                            <div class="col-4 col-lg-4 title-mandatory">Đơn vị</div>
+                                            <div class="col-8 col-lg-8">
                                                 <h:inputText value="#{manageRealEstateFeatureBean.housesFeatureUnit}"></h:inputText>
                                             </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4 col-lg-4">Loại giá trị</div>
+                                            <div class="col-8 col-lg-8">
+                                                <p:selectOneRadio id="landsFeatureDataType" value="#{manageRealEstateFeatureBean.housesFeatureDataType}" unselectable="true">
+                                                    <f:selectItem itemLabel="STR" itemValue="STR" />
+                                                    <f:selectItem itemLabel="INT" itemValue="INT" />
+                                                </p:selectOneRadio>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4 col-lg-4">Enum</div>
+                                            <div class="col-8 col-lg-8"><p:inputTextarea rows="6" cols="33" /></div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -94,8 +120,8 @@ and open the template in the editor.
                                                 data-dismiss="modal">Đóng</button>
                                         <h:commandButton class="btn btn-primary" value="Lưu " onclick="hideAddFeaturePopup()">
                                             <p:ajax process="addHouseFeature" update="@(.ui-tabs-panel:visible .tab-content)" 
-                                            listener="#{manageRealEstateFeatureBean.saveHousesFeature}" 
-                                            ></p:ajax>
+                                                    listener="#{manageRealEstateFeatureBean.saveHousesFeature}" 
+                                                    ></p:ajax>
                                         </h:commandButton>
                                     </div>
                                 </h:form>
@@ -228,7 +254,7 @@ and open the template in the editor.
                                     <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Đóng</button>
                                     <h:commandButton value="Lưu thay đổi" styleClass="btn btn-primary" 
-                                    onclick="hideEditPopup()" action="#{manageRealEstateFeatureBean.updateLandsFeature()}">
+                                                     onclick="hideEditPopup()" action="#{manageRealEstateFeatureBean.updateLandsFeature()}">
                                         <p:ajax process="@form" update="view view:formListLandFeature"></p:ajax>
                                     </h:commandButton>
                                 </div>
@@ -251,9 +277,9 @@ and open the template in the editor.
                                     <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Đóng</button>
                                     <h:commandButton styleClass="btn btn-primary buttonDelete" 
-                                    onclick="hideDeletePopup()" 
-                                    value="Xóa" 
-                                    action="#{manageRealEstateFeatureBean.deleteLandsFeature()}">
+                                                     onclick="hideDeletePopup()" 
+                                                     value="Xóa" 
+                                                     action="#{manageRealEstateFeatureBean.deleteLandsFeature()}">
                                         <p:ajax process="@this" update="view view:formListLandFeature"></p:ajax>
                                     </h:commandButton>
                                 </h:form>
@@ -289,9 +315,9 @@ and open the template in the editor.
                                     <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Đóng</button>
                                     <h:commandButton value="Lưu thay đổi" styleClass="btn btn-primary" 
-                                    onclick="hideEditPopup2()" >
-                                    	<p:ajax listener="#{manageRealEstateFeatureBean.updateHousesFeature()}" process="@form" 
-                                    	update="@(.ui-tabs-panel:visible .tab-content)"></p:ajax>
+                                                     onclick="hideEditPopup2()" >
+                                        <p:ajax listener="#{manageRealEstateFeatureBean.updateHousesFeature()}" process="@form" 
+                                                update="@(.ui-tabs-panel:visible .tab-content)"></p:ajax>
                                     </h:commandButton>
                                 </div>
                             </h:form>
@@ -314,7 +340,7 @@ and open the template in the editor.
                                             data-dismiss="modal">Đóng</button>
                                     <h:commandButton styleClass="btn btn-primary buttonDelete" onclick="hideDeletePopup2()" value="Xóa">
                                         <p:ajax listener="#{manageRealEstateFeatureBean.deleteHousesFeature()}" process="@form" 
-                                    	update="@(.ui-tabs-panel:visible .tab-content)"></p:ajax>
+                                                update="@(.ui-tabs-panel:visible .tab-content)"></p:ajax>
                                     </h:commandButton>
                                 </h:form>
                             </div>

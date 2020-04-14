@@ -6,6 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:body>
         <ui:composition template="/template/admin/adminLayout.xhtml">
@@ -104,8 +105,28 @@
                                     </div>
                                 </h:panelGroup>
                                 <h:panelGroup rendered="#{manageGeoInfoBean.processType == '4'}">
+                                	<div class="form-group row">
+                                		
+                                	</div>
+                                	<div class="form-group row">
+                                		<div class="col">
+                                            <p:outputLabel value="Bảng giá"></p:outputLabel>
+                                        </div>
+                                		<div class="col">
+                                            <h:inputText a:placeholder="VT1" style="width:95%" value="#{manageGeoInfoBean.vt1}"></h:inputText>
+                                        </div>
+                                        <div class="col">
+                                            <h:inputText a:placeholder="VT2" style="width:95%" value="#{manageGeoInfoBean.vt2}"></h:inputText>
+                                        </div>
+                                        <div class="col">
+                                            <h:inputText a:placeholder="VT3" style="width:95%" value="#{manageGeoInfoBean.vt3}"></h:inputText>
+                                        </div>
+                                        <div class="col">
+                                            <h:inputText a:placeholder="VT4" style="width:95%" value="#{manageGeoInfoBean.vt4}"></h:inputText>
+                                        </div>
+                                	</div>
                                     <div class="form-group row">
-                                        <div class="col-md">
+                                        <div class="col-md text-center">
                                             <p:outputLabel value="Tọa độ cấu tạo"></p:outputLabel>
                                         </div>
                                     </div>

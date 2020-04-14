@@ -5,10 +5,10 @@ import java.util.List;
 import capstone.lip.landinformationportal.dto.RealEstateObjectCrawl;
 
 public interface ICrawlRealEstateService {
-	void saveRealEstateCrawl(List<RealEstateObjectCrawl> listReoCrawl);
+	boolean saveRealEstateCrawl(List<RealEstateObjectCrawl> listReoCrawl);
 	String initCrawlJob();
-	void setTimeCrawlJob(int value);
-	void turnOnCrawler();
-	void turnOffCrawler();
-	void crawlNow();
+	boolean setTimeCrawlJob(int value);
+	boolean turnOnCrawler();
+	boolean turnOffCrawler();
+	boolean crawlNow();
 }

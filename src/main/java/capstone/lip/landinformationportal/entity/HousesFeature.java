@@ -19,6 +19,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
+
+import com.vladmihalcea.hibernate.type.array.ListArrayType;
 
 /**
  *
@@ -26,6 +31,7 @@ import org.hibernate.annotations.LazyToOneOption;
  */
 @Entity
 @Table(name = "HousesFeature")
+@TypeDefs({@TypeDef(name = "list-array",typeClass = ListArrayType.class)})
 public class HousesFeature extends AuditAbstract implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,17 +48,28 @@ public class HousesFeature extends AuditAbstract implements Serializable {
     @OneToMany(mappedBy = "housesFeature", fetch = FetchType.LAZY)
     private List<HousesDetail> listHousesDetail;
 
-    public List<HousesDetail> getListHousesDetail() {
+
+    @Column(name="HousesFeatureDataType")
+    private String HousesFeatureDataType;
+    
+    @Type(type="list-array")
+    @Column(name="HousesFeatureDataRange", columnDefinition="text[]")
+    private List<String> HousesFeatureDataRange;
+    
+    public HousesFeature() {
+    }
+
+	public List<HousesDetail> getListHousesDetail() {
         return listHousesDetail;
     }
 
+    
     public HousesFeature setListHousesDetail(List<HousesDetail> listHousesDetail) {
         this.listHousesDetail = listHousesDetail;
 		return this;
     }
 
-    public HousesFeature() {
-    }
+    
 
     public HousesFeature(String housesFeatureName, String housesFeatureUnit) {
         this.housesFeatureName = housesFeatureName;
@@ -86,10 +103,28 @@ public class HousesFeature extends AuditAbstract implements Serializable {
         return this;
     }
 
+	public String getHousesFeatureDataType() {
+		return HousesFeatureDataType;
+	}
+
+	public void setHousesFeatureDataType(String housesFeatureDataType) {
+		HousesFeatureDataType = housesFeatureDataType;
+	}
+
+	public List<String> getHousesFeatureDataRange() {
+		return HousesFeatureDataRange;
+	}
+
+	public void setHousesFeatureDataRange(List<String> housesFeatureDataRange) {
+		HousesFeatureDataRange = housesFeatureDataRange;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
+		result = prime * result + ((HousesFeatureDataRange == null) ? 0 : HousesFeatureDataRange.hashCode());
+		result = prime * result + ((HousesFeatureDataType == null) ? 0 : HousesFeatureDataType.hashCode());
 		result = prime * result + ((housesFeatureID == null) ? 0 : housesFeatureID.hashCode());
 		result = prime * result + ((housesFeatureName == null) ? 0 : housesFeatureName.hashCode());
 		result = prime * result + ((housesFeatureUnit == null) ? 0 : housesFeatureUnit.hashCode());
@@ -106,6 +141,16 @@ public class HousesFeature extends AuditAbstract implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		HousesFeature other = (HousesFeature) obj;
+		if (HousesFeatureDataRange == null) {
+			if (other.HousesFeatureDataRange != null)
+				return false;
+		} else if (!HousesFeatureDataRange.equals(other.HousesFeatureDataRange))
+			return false;
+		if (HousesFeatureDataType == null) {
+			if (other.HousesFeatureDataType != null)
+				return false;
+		} else if (!HousesFeatureDataType.equals(other.HousesFeatureDataType))
+			return false;
 		if (housesFeatureID == null) {
 			if (other.housesFeatureID != null)
 				return false;
@@ -128,8 +173,4 @@ public class HousesFeature extends AuditAbstract implements Serializable {
 			return false;
 		return true;
 	}
-    
-    
-    
-
 }

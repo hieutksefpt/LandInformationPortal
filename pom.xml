@@ -164,7 +164,11 @@
 		    <artifactId>jedis</artifactId>
 		    <version>2.9.0</version>
 		</dependency>
-        
+        <dependency>
+		    <groupId>com.vladmihalcea</groupId>
+		    <artifactId>hibernate-types-5</artifactId>
+		    <version>2.9.8</version>
+		</dependency>
         <!-- TEST DEPENDENCIES -->
         <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
         <dependency>

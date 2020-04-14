@@ -6,6 +6,7 @@
 package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
+import java.sql.Array;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -24,6 +25,11 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
+
+import com.vladmihalcea.hibernate.type.array.ListArrayType;
 
 /**
  *
@@ -31,6 +37,7 @@ import org.hibernate.annotations.OnDeleteAction;
  */
 @Entity
 @Table(name = "LandsFeature")
+@TypeDefs({@TypeDef(name = "list-array",typeClass = ListArrayType.class)})
 public class LandsFeature extends AuditAbstract implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,21 +55,13 @@ public class LandsFeature extends AuditAbstract implements Serializable {
     @OneToMany(mappedBy = "landsFeature", fetch=FetchType.LAZY)
     private List<LandsDetail> listLandsDetail;
     
-    public LandsFeature() {
-    }
+    @Column(name="LandsFeatureDataType")
+    private String landsFeatureDataType;
     
+    @Type(type="list-array")
+    @Column(name="LandsFeatureDataRange", columnDefinition="text[]")
+    private List<String> landsFeatureDataRange;
     
-    
-	public LandsFeature(Long landsFeatureID, String landsFeatureName, String landsFeatureUnit,
-			List<LandsDetail> listLandsDetail) {
-		this.landsFeatureID = landsFeatureID;
-		this.landsFeatureName = landsFeatureName;
-		this.landsFeatureUnit = landsFeatureUnit;
-		this.listLandsDetail = listLandsDetail;
-	}
-
-
-
 	public List<LandsDetail> getListLandsDetail() {
         return listLandsDetail;
     }
@@ -71,7 +70,10 @@ public class LandsFeature extends AuditAbstract implements Serializable {
         this.listLandsDetail = listLandsDetail;
     }
     
-    
+
+    public LandsFeature() {
+    }
+
 
     public LandsFeature(String landsFeatureName, String landsFeatureUnit) {
         this.landsFeatureName = landsFeatureName;
@@ -102,10 +104,28 @@ public class LandsFeature extends AuditAbstract implements Serializable {
         this.landsFeatureUnit = landsFeatureUnit;
     }
 
+    public String getLandsFeatureDataType() {
+		return landsFeatureDataType;
+	}
+
+	public void setLandsFeatureDataType(String landsFeatureDataType) {
+		this.landsFeatureDataType = landsFeatureDataType;
+	}
+	
+	public List<String> getLandsFeatureDataRange() {
+		return landsFeatureDataRange;
+	}
+
+	public void setLandsFeatureDataRange(List<String> landsFeatureDataRange) {
+		this.landsFeatureDataRange = landsFeatureDataRange;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
+		result = prime * result + ((landsFeatureDataRange == null) ? 0 : landsFeatureDataRange.hashCode());
+		result = prime * result + ((landsFeatureDataType == null) ? 0 : landsFeatureDataType.hashCode());
 		result = prime * result + ((landsFeatureID == null) ? 0 : landsFeatureID.hashCode());
 		result = prime * result + ((landsFeatureName == null) ? 0 : landsFeatureName.hashCode());
 		result = prime * result + ((landsFeatureUnit == null) ? 0 : landsFeatureUnit.hashCode());
@@ -122,6 +142,16 @@ public class LandsFeature extends AuditAbstract implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		LandsFeature other = (LandsFeature) obj;
+		if (landsFeatureDataRange == null) {
+			if (other.landsFeatureDataRange != null)
+				return false;
+		} else if (!landsFeatureDataRange.equals(other.landsFeatureDataRange))
+			return false;
+		if (landsFeatureDataType == null) {
+			if (other.landsFeatureDataType != null)
+				return false;
+		} else if (!landsFeatureDataType.equals(other.landsFeatureDataType))
+			return false;
 		if (landsFeatureID == null) {
 			if (other.landsFeatureID != null)
 				return false;
@@ -145,7 +175,5 @@ public class LandsFeature extends AuditAbstract implements Serializable {
 		return true;
 	}
 
-    
-    
     
 }

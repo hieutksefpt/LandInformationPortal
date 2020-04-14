@@ -18,15 +18,11 @@
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"></link>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <!-- Vendor CSS Files -->
-
-
-
-
     </h:head>
-
     <h:body>
-
         <!-- ======= Header ======= -->
         <ui:composition template="/template/common/commonLayout.xhtml">
             <ui:define name="content">
@@ -34,6 +30,9 @@
                 <h:outputStylesheet name="icofont.min.css" library="css"/>
                 <h:outputStylesheet name="boxicons.min.css" library="css"/>
                 <h:outputStylesheet name="venobox.css" library="css"/>
+                
+
+
                 <!-- Template Main CSS File -->
                 <h:outputStylesheet name="viewmyprofile.css" library="css"/>
                 <header id="header">
@@ -81,34 +80,6 @@
                                             <div class="validate"></div>
                                         </div>
                                     </div>
-
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <div class="gender-group col-md-6"><label for="name">Giới tính</label></div>
-                                            <div class="gender-group col-md-6">
-                                                
-                                                    <h:selectOneMenu id="cbb-gender" value="#{manageMyProfileBean.genderSelected}">
-                                                        <f:selectItem itemLabel="-- Giới tính --" itemValue=""/>
-                                                        <f:selectItem itemLabel="Nam" itemValue="Nam"/>
-                                                        <f:selectItem itemLabel="Nữ" itemValue="Nữ"/>
-                                                        <f:selectItem itemLabel="Khác" itemValue="Khác"/>
-                                                    </h:selectOneMenu>
-                                                
-                                                
-                                            </div>
-
-                                            <div class="validate"></div>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="name">Ngày sinh</label>
-                                            <div class="gender-group col-md-6">
-                                                <p:calendar id="dateevent" value="#{manageMyProfileBean.dateOfBirth}">
-                                                </p:calendar>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
                                     <div class="form-group">
                                         <label for="name">Địa chỉ</label>
                                         <h:inputText id="txtaddress" value="#{manageMyProfileBean.address}"  class="form-control">
@@ -116,9 +87,21 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Số điện thoại</label>
-                                        <h:inputText id="txtPhone" value="#{manageMyProfileBean.phone}"  class="form-control">
+                                        <h:inputText id="txtPhone" value="#{manageMyProfileBean.phone}"  class="form-control" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;">
                                         </h:inputText>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label for="name">Giới tính</label>
+
+                                        <h:selectOneMenu id="cbb-gender" value="#{manageMyProfileBean.genderSelected}" class="form-control">
+                                            <f:selectItem itemLabel="-- Giới tính --" itemValue=""/>
+                                            <f:selectItem itemLabel="Nam" itemValue="Nam"/>
+                                            <f:selectItem itemLabel="Nữ" itemValue="Nữ"/>
+                                            <f:selectItem itemLabel="Khác" itemValue="Khác"/>
+                                        </h:selectOneMenu>
+                                    </div>
+
                                     <div>
                                         <h:commandButton class="next action-button" value="Cập nhật">
                                             <p:ajax listener="#{manageMyProfileBean.updateMyProfile()}" process="updateform"/>
@@ -159,21 +142,25 @@
                                 <h:form id="changePassword" role="form" class="updateInfor">
 
                                     <table class="col-lg-12 form-row form-group">
-                                        <tr><label for="name">Mật khẩu cũ</label></tr>
-                                        <tr><p:password id="feedback" value="#{manageMyProfileBean.oldPass}" feedback="true" /><div class="validate"></div></tr>
                                         <tr>
-                                            <label for="name">Mật khẩu mới</label>
+                                            <td class="passrow"><label for="name">Mật khẩu cũ</label></td>
+                                            <td><p:password id="OldPass" value="#{manageMyProfileBean.oldPass}" feedback="true" />
+                                                <div class="validate"></div>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <p:password id="feedback2" value="#{manageMyProfileBean.newPass}"  />
-                                            <div class="validate"></div>
+                                            <td class="passrow"><label for="name">Mật khẩu mới</label></td>
+                                            <td><p:password id="NewPass" value="#{manageMyProfileBean.newPass}" feedback="true" onkeyup='checkConfirm();'/>
+                                                <div class="validate"></div>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <label for="name">Xác nhận mật khẩu mới</label>
-                                        </tr>
-                                        <tr>
-                                            <p:password id="feedback3" value="#{manageMyProfileBean.confirmNewPass}" />
-                                            <div class="validate"></div>
+                                            <td class="passrow"><label for="name">Xác nhận mật khẩu</label></td>
+                                            <td><p:password id="confirmNewPass" value="#{manageMyProfileBean.confirmNewPass}" feedback="true" onkeyup='checkConfirm();'/>
+                                                <span id='message'></span>
+                                                <div class="validate"></div>
+                                            </td>
+
                                         </tr>
                                     </table>
 
@@ -219,6 +206,7 @@
 
                 <!-- Template Main JS File -->
                 <h:outputScript name="viewmyprofile.js" library="js"/>
+                <h:outputScript name="markerclustererplus.min.js" library="js"></h:outputScript>
                 <h:outputScript name="listownrealestate.js" library="js"/>
                 <script type="text/javascript"
                         src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;callback=initMap"

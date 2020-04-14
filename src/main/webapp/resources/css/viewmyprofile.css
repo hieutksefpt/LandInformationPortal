@@ -67,6 +67,9 @@ h1, h2, h3, h4, h5, h6 {
   background: #040b14;
   overflow-y: auto;
 }
+.passrow {
+    width: 200px;
+}
 
 #header .profile img {
   margin: 15px auto;

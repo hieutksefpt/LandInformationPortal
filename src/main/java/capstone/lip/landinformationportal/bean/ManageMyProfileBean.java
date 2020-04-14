@@ -8,6 +8,7 @@ package capstone.lip.landinformationportal.bean;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import capstone.lip.landinformationportal.utils.EncryptedPassword;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -23,6 +24,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.text.SimpleDateFormat;  
 import java.util.Calendar;
+import javax.faces.context.ExternalContext;
+import org.primefaces.PrimeFaces;
 import org.primefaces.component.password.Password;
 
 /**
@@ -41,23 +44,16 @@ public class ManageMyProfileBean implements Serializable{
     private String email;
     private String address;
     private String phone;
-    private Date dateOfBirth;
     private Long userIdTemp;
     private String oldPass;
     private String newPass;
     private String confirmNewPass;
-    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
     
     @Autowired
     private IUserService userService;
     
     @PostConstruct
     public void init() {
-        userIdTemp = Long.parseLong("2");   // fixed
-//        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-//        long userId = Long.parseLong(params.get("userId"));
-//        userSelected = userService.findById(userId);                          // get User from UserID
-        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	String usernameInToken="";
 		if (auth!= null) {
@@ -73,11 +69,6 @@ public class ManageMyProfileBean implements Serializable{
         phone = userSelected.getPhone();
         
         genderSelected = userSelected.getGender();
-        try{                                                
-            dateOfBirth = userSelected.getDateOfBirth();                        // cần xử lý lại ngày sinh sau
-        }catch(Exception e){
-            dateOfBirth = Calendar.getInstance().getTime();
-        }
     }
     
     
@@ -85,7 +76,6 @@ public class ManageMyProfileBean implements Serializable{
         userSelected.setFullName(fullname);
         userSelected.setEmail(email);
         userSelected.setAddress(address);
-        userSelected.setDateOfBirth(dateOfBirth);
         userSelected.setPhone(phone);
         userSelected.setGender(genderSelected);
         // update to DB 
@@ -93,16 +83,20 @@ public class ManageMyProfileBean implements Serializable{
         
     }
     
-    public void changePassword(){
-        if(EncryptedPassword.checkPassword(oldPass, userSelected.getPassword()) && newPass.equals(confirmNewPass)){
+    public void changePassword() throws IOException{
+        if(EncryptedPassword.checkPassword(oldPass, userSelected.getPassword()) && newPass.equals(confirmNewPass) && newPass.length() >= 8){
             userSelected.setPassword(EncryptedPassword.encrytePassword(newPass));
             userSelected = userService.save(userSelected);
+            
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
+        }else if(newPass.length()<8){
+            PrimeFaces.current().executeScript("showLogLengthPass()");
+        }
+        else{
+            PrimeFaces.current().executeScript("showLogErrorPass()");
         }
     }
-    
-    
-    
-    
 
     public String getUsername() {
         return username;
@@ -134,15 +128,6 @@ public class ManageMyProfileBean implements Serializable{
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
     }
 
     public String getAddress() {

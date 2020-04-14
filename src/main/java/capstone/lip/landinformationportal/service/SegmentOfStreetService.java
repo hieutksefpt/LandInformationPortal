@@ -17,23 +17,6 @@ public class SegmentOfStreetService implements ISegmentOfStreetService {
 
 	@Autowired
 	SegmentOfStreetRepository segmentOfStreetRepository;
-	
-	@Override
-	public List<Street> getListStreetByListSegment(List<SegmentOfStreet> listSegmentOfStreet) {
-		try {
-			List<Street> listStreet = new ArrayList<Street>();
-			for (SegmentOfStreet segment : listSegmentOfStreet) {
-				Street temp = segment.getStreet();
-				if (listStreet.isEmpty() || !listStreet.contains(temp))
-					listStreet.add(temp);
-			}
-			listStreet.stream().distinct().collect(Collectors.toList());
-			return listStreet;
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 
 	@Override
 	public SegmentOfStreet save(SegmentOfStreet segmentOfStreet) {

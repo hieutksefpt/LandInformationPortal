@@ -17,5 +17,5 @@ public interface IHousesFeatureService {
 
         public HousesFeature save(HousesFeature housesfeature);
         
-        public void delete(Long housesfeatureID);
+        public boolean delete(Long housesfeatureID);
 }

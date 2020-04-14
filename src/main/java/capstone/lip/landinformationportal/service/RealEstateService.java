@@ -51,183 +51,335 @@ public class RealEstateService implements IRealEstateService {
 
     @Override
     public List<RealEstate> findAll() {
-        return realEstateRepository.findAll();
+    	try {
+    		return realEstateRepository.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public RealEstate save(RealEstate realEstate) {
-        return realEstateRepository.save(realEstate);
+    	try {
+    		return realEstateRepository.save(realEstate);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
     
     
     @Override
     public RealEstate validateInfor(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice,String realEstateStatus, User tempUser) {
-        RealEstateValidation rev = new RealEstateValidation();
-        RealEstate newUploadRealEstate = new RealEstate().setRealEstateName(realEstateName)
-                .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
-                .setRealEstateAddress(realEstateAddress);
-        newUploadRealEstate.setRealEstatePrice(realEstatePrice);
-        newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
-        if(rev.checkRealEstateValidation(newUploadRealEstate).equals("AcceptRealEstate")){
-//            return realEstateRepository.save(newUploadRealEstate);
-              return newUploadRealEstate;
-        }
-        else return null;
+    	try {
+    		RealEstateValidation rev = new RealEstateValidation();
+            RealEstate newUploadRealEstate = new RealEstate().setRealEstateName(realEstateName)
+                    .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
+                    .setRealEstateAddress(realEstateAddress);
+            newUploadRealEstate.setRealEstatePrice(realEstatePrice);
+            newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
+            if(rev.checkRealEstateValidation(newUploadRealEstate).equals("AcceptRealEstate")){
+//                return realEstateRepository.save(newUploadRealEstate);
+                  return newUploadRealEstate;
+            }
+            else return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
-    public void delete(List<RealEstate> listRealEstate) {
-        realEstateRepository.deleteInBatch(listRealEstate);
+    public boolean delete(List<RealEstate> listRealEstate) {
+    	try {
+    		realEstateRepository.deleteAll(listRealEstate);
+    		return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+        
     }
 
     // Hàm này get List Land theo ID của Real Estate
     @Override
     public Land getLand(Long realEstateId) {
-        RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
-        Land land = realEstate.getLand();
-        return land;
+    	try {
+    		RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
+            Land land = realEstate.getLand();
+            return land;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     // Hàm này get List House theo ID của Real Estate
     @Override
     public List<House> getListHouse(Long realEstateId) {
-        RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
-        List<House> listHouse = realEstate.getListHouse();
-        return listHouse;
+    	try {
+    		RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
+            List<House> listHouse = realEstate.getListHouse();
+            return listHouse;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
-    public void delete(RealEstate realEstate) {
-        realEstateRepository.delete(realEstate);
+    public boolean delete(RealEstate realEstate) {
+    	try {
+    		realEstateRepository.delete(realEstate);
+    		return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+        
     }
 
     @Override
     public RealEstate findById(long realEstateId) {
-        Optional<RealEstate> re = realEstateRepository.findById(realEstateId);
-        if (re.isPresent()) {
-            return realEstateRepository.findById(realEstateId).get();
-        }
-        return null;
+    	try {
+    		Optional<RealEstate> re = realEstateRepository.findById(realEstateId);
+            if (re.isPresent()) {
+                return realEstateRepository.findById(realEstateId).get();
+            }
+            return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public List<RealEstate> findByRealEstateStatus(String status) {
-        return realEstateRepository.findByRealEstateStatus(status);
+    	try {
+    		return realEstateRepository.findByRealEstateStatus(status);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public List<String> listRealEstateSource() {
-        return realEstateRepository.listRealEstateSource();
+    	try {
+    		return realEstateRepository.listRealEstateSource();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public Page<RealEstate> findByRealEstateStatus(String status, Pageable page) {
-        return realEstateRepository.findByRealEstateStatus(status, page);
+    	try {
+    		return realEstateRepository.findByRealEstateStatus(status, page);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public long count() {
-        return realEstateRepository.count();
+    	try {
+    		return realEstateRepository.count();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+        
     }
 
     @Override
     public List<RealEstate> listFilterRealEstate(String realEstateName, String realEstateSource, String realEstateStatus) {
-        List<RealEstateSpecifications> listSpec = new ArrayList<>();
-        if (realEstateName != null) {
-            listSpec.add(new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateName)));
-        }
-        if (realEstateSource != null) {
-            listSpec.add(new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", realEstateSource)));
-        }
-        if (realEstateStatus != null) {
-            listSpec.add(new RealEstateSpecifications(new SearchCriteria("realEstateStatus", ":=", realEstateStatus)));
-        }
-        switch (listSpec.size()) {
-            case 1:
-                return realEstateRepository.findAll(Specification.where(listSpec.get(0)));
-            case 2:
-                return realEstateRepository.findAll(Specification.where(listSpec.get(0).and(listSpec.get(1))));
-            case 3:
-                return realEstateRepository.findAll(Specification.where(listSpec.get(0).and(listSpec.get(1).and(listSpec.get(2)))));
-            default:
-                return realEstateRepository.findAll();
-        }
+    	try {
+    		List<RealEstateSpecifications> listSpec = new ArrayList<>();
+            if (realEstateName != null) {
+                listSpec.add(new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateName)));
+            }
+            if (realEstateSource != null) {
+                listSpec.add(new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", realEstateSource)));
+            }
+            if (realEstateStatus != null) {
+                listSpec.add(new RealEstateSpecifications(new SearchCriteria("realEstateStatus", ":=", realEstateStatus)));
+            }
+            switch (listSpec.size()) {
+                case 1:
+                    return realEstateRepository.findAll(Specification.where(listSpec.get(0)));
+                case 2:
+                    return realEstateRepository.findAll(Specification.where(listSpec.get(0).and(listSpec.get(1))));
+                case 3:
+                    return realEstateRepository.findAll(Specification.where(listSpec.get(0).and(listSpec.get(1).and(listSpec.get(2)))));
+                default:
+                    return realEstateRepository.findAll();
+            }
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public long countByRealEstateStatus(String status) {
-        return realEstateRepository.countByRealEstateStatus(status);
+    	try {
+    		return realEstateRepository.countByRealEstateStatus(status);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+        
     }
 
     @Override
     public Page<RealEstate> listFilterRealEstateByAddress(String realEstateAddress, Pageable page) {
-        RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
-        RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
-        return realEstateRepository.findAll(Specification.where(spec1).or(spec2), page);
+    	try {
+    		RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
+            RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
+            return realEstateRepository.findAll(Specification.where(spec1).or(spec2), page);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public long countByRealEstateSource(String realEstateAddress, String realEstateSource) {
-        RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
-        RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
-        RealEstateSpecifications spec3 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", realEstateSource));
-        return realEstateRepository.count(Specification.where(Specification.where(spec1).or(spec2)).and(spec3));
+    	try {
+    		RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
+            RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
+            RealEstateSpecifications spec3 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", realEstateSource));
+            return realEstateRepository.count(Specification.where(Specification.where(spec1).or(spec2)).and(spec3));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+        
     }
 
     @Override
     public Page<RealEstate> findByRealEstateSource(String source, Pageable page) {
-        return realEstateRepository.findByRealEstateSource(source, page);
+    	try {
+    		return realEstateRepository.findByRealEstateSource(source, page);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public Page<RealEstate> findByRealEstateSourceNot(String source, Pageable page) {
-        return realEstateRepository.findByRealEstateSourceNot(source, page);
+    	try {
+    		return realEstateRepository.findByRealEstateSourceNot(source, page);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public Page<RealEstate> findAll(Pageable page) {
-        return realEstateRepository.findAll(page);
+    	try {
+    		return realEstateRepository.findAll(page);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public long countByRealEstateSourceNot(String realEstateAddress, String realEstateSource) {
-        RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
-        RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
-        RealEstateSpecifications spec3 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", "!=", realEstateSource));
-        return realEstateRepository.count(Specification.where(Specification.where(spec1).or(spec2)).and(spec3));
+    	try {
+    		RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
+            RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
+            RealEstateSpecifications spec3 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", "!=", realEstateSource));
+            return realEstateRepository.count(Specification.where(Specification.where(spec1).or(spec2)).and(spec3));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+        
     }
 
     @Override
     public Page<RealEstate> listFilterRealEstateByAddressAndSource(String realEstateAddress, String realEstateSource, Pageable page) {
-        RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
-        RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
-        RealEstateSpecifications spec3 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", realEstateSource));
-        return realEstateRepository.findAll(Specification.where(Specification.where(spec1).or(spec2)).and(spec3), page);
+    	try {
+    		RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
+            RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
+            RealEstateSpecifications spec3 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", realEstateSource));
+            return realEstateRepository.findAll(Specification.where(Specification.where(spec1).or(spec2)).and(spec3), page);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public Page<RealEstate> listFilterRealEstateByAddressAndSourceNot(String realEstateAddress, String realEstateSource, Pageable page) {
-        RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
-        RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
-        RealEstateSpecifications spec3 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", "!=", realEstateSource));
-        return realEstateRepository.findAll(Specification.where(Specification.where(spec1).or(spec2)).and(spec3), page);
+    	try {
+    		RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
+            RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
+            RealEstateSpecifications spec3 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", "!=", realEstateSource));
+            return realEstateRepository.findAll(Specification.where(Specification.where(spec1).or(spec2)).and(spec3), page);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public long countByRealEstateAddress(String address) {
-        RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", address));
-        RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", address));
-        return realEstateRepository.count(Specification.where(spec1).or(spec2));
+    	try {
+    		RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", address));
+            RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", address));
+            return realEstateRepository.count(Specification.where(spec1).or(spec2));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+        
     }
 
     @Override
     public MaxMinAvg listMaxMinAvg(String address) {
-        return realEstateRepository.getMaxMinAvg(address);
+    	try {
+    		return realEstateRepository.getMaxMinAvg(address);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public List<GroupByDateMaxMinCreate> listGroupByDateAndValue(String address) {
-        return realEstateRepository.getGroupTimeAndPrice(address);
+    	try {
+    		return realEstateRepository.getGroupTimeAndPrice(address);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Autowired
@@ -246,32 +398,37 @@ public class RealEstateService implements IRealEstateService {
     IRealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
 
     @Override
-    public void delete(long realEstateId) {
-        RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
-        Land land = realEstate.getLand();
-        if (land != null) {
-            List<LandsDetail> listLandDetail = realEstate.getLand().getListLandsDetail();
-            if (listLandDetail != null) {
-                landsDetailService.delete(listLandDetail);
-            }
-            landService.delete(land);
-        }
-        List<House> listHouse = realEstate.getListHouse();
-        if (listHouse != null) {
-            for (House house : listHouse) {
-                List<HousesDetail> listHousesDetails = house.getListHousesDetail();
-                if (listHousesDetails != null) {
-                    housesDetailService.delete(listHousesDetails);
+    public boolean delete(long realEstateId) {
+    	try {
+    		RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
+            Land land = realEstate.getLand();
+            if (land != null) {
+                List<LandsDetail> listLandDetail = realEstate.getLand().getListLandsDetail();
+                if (listLandDetail != null) {
+                    landsDetailService.delete(listLandDetail);
                 }
-                houseService.delete(listHouse);
+                landService.delete(land);
             }
-        }
-        List<RealEstateAdjacentSegment> listAdjacentSegment = realEstate.getListRealEstateAdjacentSegment();
-        if (listAdjacentSegment != null) {
-            realEstateAdjacentSegmentService.delete(listAdjacentSegment);
-        }
-        realEstateRepository.deleteById(realEstateId);
-        int i=1;
-        i++;
+            List<House> listHouse = realEstate.getListHouse();
+            if (listHouse != null) {
+                for (House house : listHouse) {
+                    List<HousesDetail> listHousesDetails = house.getListHousesDetail();
+                    if (listHousesDetails != null) {
+                        housesDetailService.delete(listHousesDetails);
+                    }
+                    houseService.delete(listHouse);
+                }
+            }
+            List<RealEstateAdjacentSegment> listAdjacentSegment = realEstate.getListRealEstateAdjacentSegment();
+            if (listAdjacentSegment != null) {
+                realEstateAdjacentSegmentService.delete(listAdjacentSegment);
+            }
+            realEstateRepository.deleteById(realEstateId);
+            return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+        
     }
 }

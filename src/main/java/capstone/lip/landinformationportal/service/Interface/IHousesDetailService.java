@@ -18,8 +18,8 @@ public interface IHousesDetailService {
 
     HousesDetail save(HousesDetail housesDetail);
 
-    void delete(List<HousesDetail> listDistrict);
+    boolean delete(List<HousesDetail> listDistrict);
 
-    void delete(HousesDetail housesDetail);
+    boolean delete(HousesDetail housesDetail);
     
 }

@@ -17,30 +17,36 @@ public class DistrictService implements IDistrictService{
 	private DistrictRepository districtRepository;
 
 	@Override
-	public List<District> findAll() {
-		return districtRepository.findAll();
-	}
-
-	@Override
 	public District save(District district) {
-		return districtRepository.save(district);
+		try {
+			return districtRepository.save(district);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
-	public List<SegmentOfStreet> getListSegmentOfStreet(Long streetId) {
-		District district = districtRepository.findById(streetId).get();
-		List<SegmentOfStreet> list = district.getListSegmentOfStreet();
-		return list;
+	public boolean delete(List<District> listDistrict) {
+		try {
+			districtRepository.deleteAll(listDistrict);
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
-	public void delete(List<District> listDistrict) {
-		districtRepository.deleteInBatch(listDistrict);
-	}
-
-	@Override
-	public void delete(District district) {
-		districtRepository.delete(district);
+	public boolean delete(District district) {
+		try {
+			districtRepository.delete(district);
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 	
 	

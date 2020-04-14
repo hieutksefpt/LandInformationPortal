@@ -45,13 +45,14 @@
                                  value="#{listAllRealEstateBean.lazyReo}"
                                  rowKey="#{realEstate.realEstateId}"
                                  selection="#{listAllRealEstateBean.listSelectedRealEstate}"
+                                 resizableColumns="true" 
+                                 liveResize="true"
                                  widgetVar="table-real-estate"
                                  rows="10"
                                  paginator="true"
                                  lazy="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                  currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records">
-
                         <p:column selectionMode="multiple" style="width:5%;text-align:center"/>
                         <p:column headerText="ID" style="width: 5%;text-align:center">
                             <h:outputText value="#{realEstate.realEstateId}"/>

@@ -77,3 +77,8 @@ and open the template in the editor.
 #buttonAddFeature:hover{
     text-decoration: underline;
 }
+
+.title-mandatory::after {
+    content: "*";
+    color: red;
+}

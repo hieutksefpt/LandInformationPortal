@@ -5,14 +5,19 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import capstone.lip.landinformationportal.entity.audit.AuditAbstract;
+import capstone.lip.landinformationportal.entity.audit.CustomAuditModify;
+import capstone.lip.landinformationportal.entity.audit.CustomAuditableListener;
+
 @Entity
 @Table(name="CrawledNews")
-public class CrawledNews extends AuditAbstract  implements Serializable {
+public class CrawledNews extends AuditAbstract implements Serializable  {
 	private static final long serialVersionUID = 1L;
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -158,6 +163,5 @@ public class CrawledNews extends AuditAbstract  implements Serializable {
 			return false;
 		return true;
 	}
-	
 	
 }

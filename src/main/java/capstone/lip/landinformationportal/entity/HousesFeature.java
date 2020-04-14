@@ -25,6 +25,8 @@ import org.hibernate.annotations.TypeDefs;
 
 import com.vladmihalcea.hibernate.type.array.ListArrayType;
 
+import capstone.lip.landinformationportal.entity.audit.AuditAbstract;
+
 /**
  *
  * @author Admin

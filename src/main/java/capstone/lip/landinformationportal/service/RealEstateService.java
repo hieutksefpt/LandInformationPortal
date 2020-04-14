@@ -255,7 +255,12 @@ public class RealEstateService implements IRealEstateService {
 
     @Override
     public Page<RealEstate> findAll(Pageable page) {
-        return realEstateRepository.findAll(page);
+        try {
+            return realEstateRepository.findAll(page);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -315,33 +320,37 @@ public class RealEstateService implements IRealEstateService {
     RealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
 
     @Override
-    public void delete(long realEstateId) {
-        RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
-        Land land = realEstate.getLand();
-        if (land != null) {
-            List<LandsDetail> listLandDetail = realEstate.getLand().getListLandsDetail();
-            if (listLandDetail != null) {
-                landsDetailService.delete(listLandDetail);
-            }
-            landService.delete(land);
-        }
-        List<House> listHouse = realEstate.getListHouse();
-        if (listHouse != null) {
-            for (House house : listHouse) {
-                List<HousesDetail> listHousesDetails = house.getListHousesDetail();
-                if (listHousesDetails != null) {
-                    housesDetailService.delete(listHousesDetails);
+    public boolean delete(long realEstateId) {
+        try {
+            RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
+            Land land = realEstate.getLand();
+            if (land != null) {
+                List<LandsDetail> listLandDetail = realEstate.getLand().getListLandsDetail();
+                if (listLandDetail != null) {
+                    landsDetailService.delete(listLandDetail);
                 }
-                houseService.delete(listHouse);
+                landService.delete(land);
             }
+            List<House> listHouse = realEstate.getListHouse();
+            if (listHouse != null) {
+                for (House house : listHouse) {
+                    List<HousesDetail> listHousesDetails = house.getListHousesDetail();
+                    if (listHousesDetails != null) {
+                        housesDetailService.delete(listHousesDetails);
+                    }
+                    houseService.delete(listHouse);
+                }
+            }
+            List<RealEstateAdjacentSegment> listAdjacentSegment = realEstate.getListRealEstateAdjacentSegment();
+            if (listAdjacentSegment != null) {
+                realEstateAdjacentSegmentService.delete(listAdjacentSegment);
+            }
+            realEstateRepository.deleteById(realEstateId);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
-        List<RealEstateAdjacentSegment> listAdjacentSegment = realEstate.getListRealEstateAdjacentSegment();
-        if (listAdjacentSegment != null) {
-            realEstateAdjacentSegmentService.delete(listAdjacentSegment);
-        }
-        realEstateRepository.deleteById(realEstateId);
-        int i=1;
-        i++;
     }
 
 }

@@ -40,21 +40,17 @@ public class ListOwnRealEstateBean implements Serializable {
     private RealEstate realEstateClicked;
     private String jsonMultipleCoordinate;
     private User currentUser;
-    
+
     @PostConstruct
     public void init() {
-    	
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	String username="";
-		if (auth!= null) {
-			username = (String)auth.getPrincipal();
-		}
-    	
-		currentUser = userService.findByUsername(username);
-		
-        //Ham init nay phai truyen vao userId
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = "";
+        if (auth != null) {
+            username = (String) auth.getPrincipal();
+        }
+        currentUser = userService.findByUsername(username);
         listUserRealEstate = new ArrayList<>();
-        //truyen userId vao ham ben duoi, �ang hard code
         listUserRealEstate = userService.getListRealEstate(currentUser.getUserId());
         transferListCoordinate();
     }

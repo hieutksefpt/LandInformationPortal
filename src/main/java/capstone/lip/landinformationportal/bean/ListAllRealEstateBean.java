@@ -39,18 +39,6 @@ public class ListAllRealEstateBean implements Serializable {
     @Autowired
     private IRealEstateService realEstateService;
 
-    @Autowired
-    private ILandService landService;
-
-    @Autowired
-    private IHouseService houseService;
-
-    @Autowired
-    private ILandsDetailService landsDetailService;
-
-    @Autowired
-    private IHousesDetailService housesDetailService;
-
     private LazyDataModel<RealEstate> lazyReo;
     private List<RealEstate> listAllRealEstate;
     private List<String> listRealEstateSource;

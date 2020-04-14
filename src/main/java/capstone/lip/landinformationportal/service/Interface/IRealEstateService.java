@@ -42,7 +42,7 @@ public interface IRealEstateService {
 
     boolean delete(RealEstate realEstate);
     
-    void delete(long realEstateId);
+    boolean delete(long realEstateId);
 
     List<RealEstate> findByRealEstateStatus(String status);
 

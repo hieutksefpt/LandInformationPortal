@@ -48,18 +48,6 @@ public class ViewRealEstateDetailBean implements Serializable {
     private IRealEstateService realEstateService;
 
     @Autowired
-    private ILandService landService;
-
-    @Autowired
-    private IHouseService houseService;
-
-    @Autowired
-    private ILandsDetailService landsDetailService;
-
-    @Autowired
-    private IHousesDetailService housesDetailService;
-
-    @Autowired
     private IUserService userService;
 
     private long tempRealEstateId;

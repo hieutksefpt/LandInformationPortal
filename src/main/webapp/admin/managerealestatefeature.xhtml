@@ -54,22 +54,22 @@ and open the template in the editor.
                                             <div class="col-4 col-lg-4">Loại giá trị</div>
                                             <div class="col-8 col-lg-8">
                                                 <p:selectOneRadio id="landsFeatureDataType" value="#{manageRealEstateFeatureBean.landsFeatureDataType}" unselectable="true">
-                                                    <f:selectItem itemLabel="STR" itemValue="STR" />
-                                                    <f:selectItem itemLabel="INT" itemValue="INT" />
+                                                    <f:selectItem itemLabel="Ký tự" itemValue="STR" />
+                                                    <f:selectItem itemLabel="Số" itemValue="INT" />
                                                 </p:selectOneRadio>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-4 col-lg-4">Enum</div>
-                                            <div class="col-8 col-lg-8"><p:inputTextarea rows="6" cols="33" /></div>
+                                            <div class="col-8 col-lg-8"><p:inputTextarea value="#{manageRealEstateFeatureBean.tempLandsFeatureDataRange}" rows="6" cols="33" /></div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Đóng</button>
-                                        <h:commandButton class="btn btn-primary" value="Lưu" onclick="hideAddFeaturePopup()"
+                                        <h:commandButton class="btn btn-primary" value="Lưu"
                                                          action="#{manageRealEstateFeatureBean.saveLandsFeature}">
-                                            <p:ajax process="addLandsFeature" update="view view:formListLandFeature "></p:ajax>
+                                            <p:ajax process="addLandsFeature" update="view view:formListLandFeature"></p:ajax>
                                         </h:commandButton>
                                     </div>
                                 </h:form>
@@ -92,36 +92,35 @@ and open the template in the editor.
                                         <div class="row">
                                             <div class="col-4 col-lg-4 title-mandatory">Tên thuộc tính</div>
                                             <div class="col-8 col-lg-8">
-                                                <h:inputText value="#{manageRealEstateFeatureBean.housesFeatureName}"></h:inputText>
+                                                <h:inputText id="housesFeatureName" value="#{manageRealEstateFeatureBean.housesFeatureName}"></h:inputText>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-4 col-lg-4 title-mandatory">Đơn vị</div>
                                             <div class="col-8 col-lg-8">
-                                                <h:inputText value="#{manageRealEstateFeatureBean.housesFeatureUnit}"></h:inputText>
+                                                <h:inputText id="housesFeatureUnit" value="#{manageRealEstateFeatureBean.housesFeatureUnit}"></h:inputText>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-4 col-lg-4">Loại giá trị</div>
                                             <div class="col-8 col-lg-8">
                                                 <p:selectOneRadio id="landsFeatureDataType" value="#{manageRealEstateFeatureBean.housesFeatureDataType}" unselectable="true">
-                                                    <f:selectItem itemLabel="STR" itemValue="STR" />
-                                                    <f:selectItem itemLabel="INT" itemValue="INT" />
+                                                    <f:selectItem itemLabel="Ký tự" itemValue="STR" />
+                                                    <f:selectItem itemLabel="Số" itemValue="INT" />
                                                 </p:selectOneRadio>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-4 col-lg-4">Enum</div>
-                                            <div class="col-8 col-lg-8"><p:inputTextarea rows="6" cols="33" /></div>
+                                            <div class="col-8 col-lg-8"><p:inputTextarea value="#{manageRealEstateFeatureBean.tempHousesFeatureDataRange}" rows="6" cols="33" /></div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Đóng</button>
-                                        <h:commandButton class="btn btn-primary" value="Lưu " onclick="hideAddFeaturePopup()">
-                                            <p:ajax process="addHouseFeature" update="@(.ui-tabs-panel:visible .tab-content)" 
-                                                    listener="#{manageRealEstateFeatureBean.saveHousesFeature}" 
-                                                    ></p:ajax>
+                                        <h:commandButton class="btn btn-primary" value="Lưu"
+                                                         action="#{manageRealEstateFeatureBean.saveHousesFeature()}">
+                                            <p:ajax process="addHouseFeature" update="view view:formListHouseFeature"></p:ajax>
                                         </h:commandButton>
                                     </div>
                                 </h:form>
@@ -131,7 +130,6 @@ and open the template in the editor.
                 </div>
                 <p:tabView widgetVar="view" id="view" dynamic="true">
                     <p:tab title="Thuộc tính của Đất" id="landFeature">
-
                         <h:panelGroup id="formListLandFeature" styleClass="tab-content">
                             <div class="row">
                                 <div class="col-md">
@@ -141,25 +139,39 @@ and open the template in the editor.
                                     <h:outputText style="font-weight: bold" value="Đơn vị" />
                                 </div>
                                 <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Loại dữ liệu" />
+                                </div>
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Phạm vi dữ liệu" />
+                                </div>
+                                <div class="col-md">
                                     <h:outputText style="font-weight: bold" value="Tác vụ" />
                                 </div>
                             </div>
                             <h:form>
-                                <c:forEach items="#{manageRealEstateFeatureBean.listLandsFeature}" var="i">
+                                <c:forEach items="#{manageRealEstateFeatureBean.listLandsFeature}" var="landsFeature">
                                     <div class="row">
-                                        <h:inputHidden value="${i.landsFeatureID}">
+                                        <h:inputHidden value="#{landsFeature.landsFeatureID}">
 
                                         </h:inputHidden>
                                         <div class="col-md">
-                                            <h:outputText value="${i.landsFeatureName}" />
+                                            <h:outputText value="#{landsFeature.landsFeatureName}" />
                                         </div>
                                         <div class="col-md">
-                                            <h:outputText value="${i.landsFeatureUnit}" />
+                                            <h:outputText value="#{landsFeature.landsFeatureUnit}" />
+                                        </div>
+                                        <div class="col-md">
+                                            <h:outputText value="#{landsFeature.landsFeatureDataType}"/>
+                                        </div>
+                                        <div class="col-md">
+                                            <c:forEach items="#{landsFeature.landsFeatureDataRange}" var="lfdr">
+                                                <h:outputText value="#{lfdr}"/>
+                                            </c:forEach>
                                         </div>
                                         <div class="col-md">
                                             <h:commandButton value="Chỉnh sửa" type="button"
                                                              class="btn btn-primary buttonEdit" 
-                                                             action="#{manageRealEstateFeatureBean.clickOnButtonRowLandsFeature(i.landsFeatureID)}" 
+                                                             action="#{manageRealEstateFeatureBean.clickOnButtonRowLandsFeature(landsFeature.landsFeatureID)}" 
                                                              onclick="openEditPopup()">
 
                                                 <f:ajax execute="@form" render="edit-form" />
@@ -167,7 +179,7 @@ and open the template in the editor.
                                             </h:commandButton>
                                             <h:commandButton value="Xóa" type="button"
                                                              class="btn btn-primary buttonDelete"
-                                                             action="#{manageRealEstateFeatureBean.clickOnButtonRowLandsFeature(i.landsFeatureID)}"
+                                                             action="#{manageRealEstateFeatureBean.clickOnButtonRowLandsFeature(landsFeature.landsFeatureID)}"
                                                              onclick="openDeletePopup()">
                                                 <f:ajax execute="@form" render="deletePopup" />
                                             </h:commandButton>
@@ -177,7 +189,6 @@ and open the template in the editor.
                             </h:form>
                         </h:panelGroup>
                     </p:tab>
-
                     <p:tab title="Thuộc tính của Nhà" id="houseFeature">
                         <h:panelGroup id="formListHouseFeature" styleClass="tab-content">
                             <div class="row">
@@ -188,25 +199,39 @@ and open the template in the editor.
                                     <h:outputText style="font-weight: bold" value="Đơn vị" />
                                 </div>
                                 <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Loại dữ liệu" />
+                                </div>
+                                <div class="col-md">
+                                    <h:outputText style="font-weight: bold" value="Phạm vi dữ liệu" />
+                                </div>
+                                <div class="col-md">
                                     <h:outputText style="font-weight: bold" value="Tác vụ" />
                                 </div>
                             </div>
                             <h:form>
-                                <c:forEach items="#{manageRealEstateFeatureBean.listHousesFeature}" var="i">
+                                <c:forEach items="#{manageRealEstateFeatureBean.listHousesFeature}" var="housesFeature">
                                     <div class="row">
-                                        <h:inputHidden value="${i.housesFeatureID}">
+                                        <h:inputHidden value="${housesFeature.housesFeatureID}">
 
                                         </h:inputHidden>
                                         <div class="col-md">
-                                            <h:outputText value="${i.housesFeatureName}" />
+                                            <h:outputText value="#{housesFeature.housesFeatureName}" />
                                         </div>
                                         <div class="col-md">
-                                            <h:outputText value="${i.housesFeatureUnit}" />
+                                            <h:outputText value="#{housesFeature.housesFeatureUnit}" />
+                                        </div>
+                                        <div class="col-md">
+                                            <h:outputText value="#{housesFeature.housesFeatureDataType}" />
+                                        </div>
+                                        <div class="col-md">
+                                            <c:forEach items="#{housesFeature.housesFeatureDataRange}" var="hfdr">
+                                                <h:outputText value="#{hfdr}"/>
+                                            </c:forEach>
                                         </div>
                                         <div class="col-md">
                                             <h:commandButton value="Chỉnh sửa" type="button"
                                                              class="btn btn-primary buttonEdit" 
-                                                             action="#{manageRealEstateFeatureBean.clickOnButtonRowHousesFeature(i.housesFeatureID)}" 
+                                                             action="#{manageRealEstateFeatureBean.clickOnButtonRowHousesFeature(housesFeature.housesFeatureID)}" 
                                                              onclick="openEditPopup2()">
 
                                                 <f:ajax execute="@form" render="edit-form1" />
@@ -214,7 +239,7 @@ and open the template in the editor.
                                             </h:commandButton>
                                             <h:commandButton value="Xóa" type="button"
                                                              class="btn btn-primary buttonDelete"
-                                                             action="#{manageRealEstateFeatureBean.clickOnButtonRowHousesFeature(i.housesFeatureID)}"
+                                                             action="#{manageRealEstateFeatureBean.clickOnButtonRowHousesFeature(housesFeature.housesFeatureID)}"
                                                              onclick="openDeletePopup2()">
                                                 <f:ajax execute="@form" render="deletePopup2" />
                                             </h:commandButton>
@@ -238,23 +263,36 @@ and open the template in the editor.
                             <h:form id="edit-form">
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="col-md">Tên thuộc tính</div>
-                                        <div class="col-md">
-                                            <p:inputText value="${manageRealEstateFeatureBean.landsFeatureClicked.landsFeatureName}"/>
+                                        <div class="col-4 col-lg-4 title-mandatory">Tên thuộc tính</div>
+                                        <div class="col-8 col-lg-8">
+                                            <p:inputText id="landsFeatureName" value="${manageRealEstateFeatureBean.landsFeatureNameClicked}"/>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md">Đơn vị</div>
-                                        <div class="col-md">
-                                            <p:inputText value="${manageRealEstateFeatureBean.landsFeatureClicked.landsFeatureUnit}"/>
+                                        <div class="col-4 col-lg-4 title-mandatory">Đơn vị</div>
+                                        <div class="col-8 col-lg-8">
+                                            <p:inputText id="landsFeatureUnit" value="${manageRealEstateFeatureBean.landsFeatureUnitClicked}"/>
                                         </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 col-lg-4">Loại giá trị</div>
+                                        <div class="col-8 col-lg-8">
+                                            <p:selectOneRadio id="landsFeatureDataType" value="#{manageRealEstateFeatureBean.landsFeatureDataTypeClicked}" unselectable="true">
+                                                <f:selectItem itemLabel="Ký tự" itemValue="STR" />
+                                                <f:selectItem itemLabel="Số" itemValue="INT" />
+                                            </p:selectOneRadio>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 col-lg-4">Enum</div>
+                                        <div class="col-8 col-lg-8"><p:inputTextarea rows="6" cols="33" /></div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Đóng</button>
                                     <h:commandButton value="Lưu thay đổi" styleClass="btn btn-primary" 
-                                                     onclick="hideEditPopup()" action="#{manageRealEstateFeatureBean.updateLandsFeature()}">
+                                                     action="#{manageRealEstateFeatureBean.updateLandsFeature()}">
                                         <p:ajax process="@form" update="view view:formListLandFeature"></p:ajax>
                                     </h:commandButton>
                                 </div>
@@ -299,25 +337,37 @@ and open the template in the editor.
                             <h:form id="edit-form1">
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="col-md">Tên thuộc tính 123</div>
-                                        <div class="col-md">
-                                            <p:inputText value="${manageRealEstateFeatureBean.housesFeatureClicked.housesFeatureName}"/>
+                                        <div class="col-4 col-lg-4 title-mandatory">Tên thuộc tính</div>
+                                        <div class="col-8 col-lg-8">
+                                            <p:inputText id="housesFeatureName" value="${manageRealEstateFeatureBean.housesFeatureNameClicked}"/>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md">Đơn vị</div>
-                                        <div class="col-md">
-                                            <p:inputText value="${manageRealEstateFeatureBean.housesFeatureClicked.housesFeatureUnit}"/>
+                                        <div class="col-4 col-lg-4 title-mandatory">Đơn vị</div>
+                                        <div class="col-8 col-lg-8">
+                                            <p:inputText id="housesFeatureUnit" value="${manageRealEstateFeatureBean.housesFeatureUnitClicked}"/>
                                         </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 col-lg-4">Loại giá trị</div>
+                                        <div class="col-8 col-lg-8">
+                                            <p:selectOneRadio id="landsFeatureDataType" value="#{manageRealEstateFeatureBean.housesFeatureDataTypeClicked}" unselectable="true">
+                                                <f:selectItem itemLabel="Ký tự" itemValue="STR" />
+                                                <f:selectItem itemLabel="Số" itemValue="INT" />
+                                            </p:selectOneRadio>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 col-lg-4">Enum</div>
+                                        <div class="col-8 col-lg-8"><p:inputTextarea rows="6" cols="33" /></div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Đóng</button>
-                                    <h:commandButton value="Lưu thay đổi" styleClass="btn btn-primary" 
-                                                     onclick="hideEditPopup2()" >
-                                        <p:ajax listener="#{manageRealEstateFeatureBean.updateHousesFeature()}" process="@form" 
-                                                update="@(.ui-tabs-panel:visible .tab-content)"></p:ajax>
+                                    <h:commandButton value="Lưu thay đổi" styleClass="btn btn-primary"
+                                                     action="#{manageRealEstateFeatureBean.updateHousesFeature()}">
+                                        <p:ajax process="@form" update="@(.ui-tabs-panel:visible .tab-content)"></p:ajax>
                                     </h:commandButton>
                                 </div>
                             </h:form>

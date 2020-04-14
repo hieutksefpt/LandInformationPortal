@@ -39,47 +39,49 @@ import capstone.lip.landinformationportal.entity.audit.AuditAbstract;
  */
 @Entity
 @Table(name = "LandsFeature")
-@TypeDefs({@TypeDef(name = "list-array",typeClass = ListArrayType.class)})
+@TypeDefs({
+    @TypeDef(name = "list-array", typeClass = ListArrayType.class)})
 public class LandsFeature extends AuditAbstract implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "LandsFeatureID")
     private Long landsFeatureID;
     @Column(name = "LandsFeatureName")
     private String landsFeatureName;
     @Column(name = "LandsFeatureUnit")
     private String landsFeatureUnit;
-    
+
     @LazyToOne(LazyToOneOption.NO_PROXY)
-    @OneToMany(mappedBy = "landsFeature", fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "landsFeature", fetch = FetchType.LAZY)
     private List<LandsDetail> listLandsDetail;
-    
-    @Column(name="LandsFeatureDataType")
+
+    @Column(name = "LandsFeatureDataType")
     private String landsFeatureDataType;
-    
-    @Type(type="list-array")
-    @Column(name="LandsFeatureDataRange", columnDefinition="text[]")
+
+    @Type(type = "list-array")
+    @Column(name = "LandsFeatureDataRange", columnDefinition = "text[]")
     private List<String> landsFeatureDataRange;
-    
-	public List<LandsDetail> getListLandsDetail() {
+
+    public List<LandsDetail> getListLandsDetail() {
         return listLandsDetail;
     }
 
-    public void setListLandsDetail(List<LandsDetail> listLandsDetail) {
+    public LandsFeature setListLandsDetail(List<LandsDetail> listLandsDetail) {
         this.listLandsDetail = listLandsDetail;
+        return this;
     }
-    
 
     public LandsFeature() {
     }
 
-
-    public LandsFeature(String landsFeatureName, String landsFeatureUnit) {
+    public LandsFeature(String landsFeatureName, String landsFeatureUnit, String landsFeatureDataType, List<String> landsFeatureDataRange) {
         this.landsFeatureName = landsFeatureName;
         this.landsFeatureUnit = landsFeatureUnit;
+        this.landsFeatureDataType = landsFeatureDataType;
+        this.landsFeatureDataRange = landsFeatureDataRange;
     }
 
     public Long getLandsFeatureID() {
@@ -107,75 +109,89 @@ public class LandsFeature extends AuditAbstract implements Serializable {
     }
 
     public String getLandsFeatureDataType() {
-		return landsFeatureDataType;
-	}
+        return landsFeatureDataType;
+    }
 
-	public void setLandsFeatureDataType(String landsFeatureDataType) {
-		this.landsFeatureDataType = landsFeatureDataType;
-	}
-	
-	public List<String> getLandsFeatureDataRange() {
-		return landsFeatureDataRange;
-	}
+    public void setLandsFeatureDataType(String landsFeatureDataType) {
+        this.landsFeatureDataType = landsFeatureDataType;
+    }
 
-	public void setLandsFeatureDataRange(List<String> landsFeatureDataRange) {
-		this.landsFeatureDataRange = landsFeatureDataRange;
-	}
+    public List<String> getLandsFeatureDataRange() {
+        return landsFeatureDataRange;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((landsFeatureDataRange == null) ? 0 : landsFeatureDataRange.hashCode());
-		result = prime * result + ((landsFeatureDataType == null) ? 0 : landsFeatureDataType.hashCode());
-		result = prime * result + ((landsFeatureID == null) ? 0 : landsFeatureID.hashCode());
-		result = prime * result + ((landsFeatureName == null) ? 0 : landsFeatureName.hashCode());
-		result = prime * result + ((landsFeatureUnit == null) ? 0 : landsFeatureUnit.hashCode());
-		result = prime * result + ((listLandsDetail == null) ? 0 : listLandsDetail.hashCode());
-		return result;
-	}
+    public void setLandsFeatureDataRange(List<String> landsFeatureDataRange) {
+        this.landsFeatureDataRange = landsFeatureDataRange;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		LandsFeature other = (LandsFeature) obj;
-		if (landsFeatureDataRange == null) {
-			if (other.landsFeatureDataRange != null)
-				return false;
-		} else if (!landsFeatureDataRange.equals(other.landsFeatureDataRange))
-			return false;
-		if (landsFeatureDataType == null) {
-			if (other.landsFeatureDataType != null)
-				return false;
-		} else if (!landsFeatureDataType.equals(other.landsFeatureDataType))
-			return false;
-		if (landsFeatureID == null) {
-			if (other.landsFeatureID != null)
-				return false;
-		} else if (!landsFeatureID.equals(other.landsFeatureID))
-			return false;
-		if (landsFeatureName == null) {
-			if (other.landsFeatureName != null)
-				return false;
-		} else if (!landsFeatureName.equals(other.landsFeatureName))
-			return false;
-		if (landsFeatureUnit == null) {
-			if (other.landsFeatureUnit != null)
-				return false;
-		} else if (!landsFeatureUnit.equals(other.landsFeatureUnit))
-			return false;
-		if (listLandsDetail == null) {
-			if (other.listLandsDetail != null)
-				return false;
-		} else if (!listLandsDetail.equals(other.listLandsDetail))
-			return false;
-		return true;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((landsFeatureDataRange == null) ? 0 : landsFeatureDataRange.hashCode());
+        result = prime * result + ((landsFeatureDataType == null) ? 0 : landsFeatureDataType.hashCode());
+        result = prime * result + ((landsFeatureID == null) ? 0 : landsFeatureID.hashCode());
+        result = prime * result + ((landsFeatureName == null) ? 0 : landsFeatureName.hashCode());
+        result = prime * result + ((landsFeatureUnit == null) ? 0 : landsFeatureUnit.hashCode());
+        result = prime * result + ((listLandsDetail == null) ? 0 : listLandsDetail.hashCode());
+        return result;
+    }
 
-    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        LandsFeature other = (LandsFeature) obj;
+        if (landsFeatureDataRange == null) {
+            if (other.landsFeatureDataRange != null) {
+                return false;
+            }
+        } else if (!landsFeatureDataRange.equals(other.landsFeatureDataRange)) {
+            return false;
+        }
+        if (landsFeatureDataType == null) {
+            if (other.landsFeatureDataType != null) {
+                return false;
+            }
+        } else if (!landsFeatureDataType.equals(other.landsFeatureDataType)) {
+            return false;
+        }
+        if (landsFeatureID == null) {
+            if (other.landsFeatureID != null) {
+                return false;
+            }
+        } else if (!landsFeatureID.equals(other.landsFeatureID)) {
+            return false;
+        }
+        if (landsFeatureName == null) {
+            if (other.landsFeatureName != null) {
+                return false;
+            }
+        } else if (!landsFeatureName.equals(other.landsFeatureName)) {
+            return false;
+        }
+        if (landsFeatureUnit == null) {
+            if (other.landsFeatureUnit != null) {
+                return false;
+            }
+        } else if (!landsFeatureUnit.equals(other.landsFeatureUnit)) {
+            return false;
+        }
+        if (listLandsDetail == null) {
+            if (other.listLandsDetail != null) {
+                return false;
+            }
+        } else if (!listLandsDetail.equals(other.listLandsDetail)) {
+            return false;
+        }
+        return true;
+    }
+
 }

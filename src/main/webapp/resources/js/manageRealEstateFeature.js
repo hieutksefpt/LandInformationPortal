@@ -39,13 +39,30 @@ function openAddFeaturePopup() {
 }
 
 function hideAddFeaturePopup() {
-    if ($('#view\\:landFeature').attr('aria-hidden') === "false") {
-        $('#addLandFeaturePopup').modal('hide');
-    } else if ($('#view\\:houseFeature').attr('aria-hidden') === "false") {
-        $('#addHouseFeaturePopup').modal('hide');
-    }
+    $('#addLandFeaturePopup').modal('hide');
+    $('#addHouseFeaturePopup').modal('hide');
 }
 
 function reloadPage() {
     location.reload();
+}
+
+function showAlertLandsFeatureName() {
+    alert("Tên thuộc tính đất không được để trống !");
+}
+
+function showAlertLandsFeatureUnit() {
+    alert("Đơn vị thuộc tính đất không được để trống !");
+}
+
+function showAlertHousesFeatureName() {
+    alert("Tên thuộc tính nhà không được để trống !");
+}
+
+function showAlertHousesFeatureUnit() {
+    alert("Đơn vị thuộc tính nhà không được để trống !");
+}
+
+function showAlertOnlyNumber(){
+    alert("Khi chọn kiểu dữ liệu số bạn chỉ có thể nhập số !");
 }

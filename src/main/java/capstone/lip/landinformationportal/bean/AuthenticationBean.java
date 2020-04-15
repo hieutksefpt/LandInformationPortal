@@ -90,7 +90,7 @@ public class AuthenticationBean implements Serializable{
 			return;
 		}
 		if (user.getUserStatus().equals(UserStatusConstant.BAN)) {
-			PrimeFaces.current().executeScript("setMessageError('Tài khoản bị khóa, hãy liên hệ admin')");
+			PrimeFaces.current().executeScript("setMessageError('Tài khoản bị khóa, hãy liên hệ quản trị viên')");
 			return;
 		}
 		if (user!= null && EncryptedPassword.checkPassword(passwordSignin, user.getPassword())) {

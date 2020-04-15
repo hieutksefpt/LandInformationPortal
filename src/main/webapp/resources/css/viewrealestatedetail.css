@@ -56,3 +56,12 @@
 .btn-edit{
     background-color: #56c6c6;
 }
+.blue-report{
+    color: #007bff;
+}
+.red-report{
+    color: #d9534f;
+}
+.report{
+    font-size: 20px;
+}

@@ -9,29 +9,40 @@ import capstone.lip.landinformationportal.repository.ReportRepository;
 import capstone.lip.landinformationportal.service.Interface.IReportService;
 
 @Service
-public class ReportService implements IReportService{
+public class ReportService implements IReportService {
 
-	@Autowired
-	private ReportRepository reportRepository;
-	
-	@Override
-	public Report save(Report report) {
-		try {
-			return reportRepository.save(report);
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+    @Autowired
+    private ReportRepository reportRepository;
 
-	@Override
-	public Report findById(Long userId, Long realEstateId) {
-		try {
-			return reportRepository.findByIdUserIdAndIdRealEstateId(userId, realEstateId);
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+    @Override
+    public Report save(Report report) {
+        try {
+            return reportRepository.save(report);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Report findById(Long userId, Long realEstateId) {
+        try {
+            return reportRepository.findByIdUserIdAndIdRealEstateId(userId, realEstateId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean delete(Report report) {
+        try {
+            reportRepository.delete(report);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }

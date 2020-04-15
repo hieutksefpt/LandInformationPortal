@@ -45,38 +45,35 @@
                             <img src="/resources/img/img-01.png"/>
                         </div>
 
-                        <form class="contact1-form validate-form">
+                        <h:form id="form" class="contact1-form validate-form">
                             <span class="contact1-form-title">
                                 Liên hệ với chúng tôi
                             </span>
 
                             
                             <div class="wrap-input1 validate-input" data-validate = "Name is required">
-                                <h:inputText id="fullname" value=""  a:placeholder="Tên của bạn" class="input1">
+                                <h:inputText id="fullname" value="#{feedbackBean.fullname}"  a:placeholder="Tên của bạn" class="input1">
                                 </h:inputText>
                                 <span class="shadow-input1"></span>
                             </div>
 
                             <div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                                <h:inputText id="feedbackTitle" value=""  a:placeholder="Chủ đề" class="input1">
+                                <h:inputText id="feedbackTitle" value="#{feedbackBean.feedbackTitle}"  a:placeholder="Chủ đề" class="input1">
                                 </h:inputText>
                                     <span class="shadow-input1"></span>
                             </div>
 
                             <div class="wrap-input1 validate-input" data-validate = "Message is required">
-                                <p:inputTextarea class="input1" id="message" value="" a:placeholder="Nội dung" rows="6" cols="33" />
-                                <!--<textarea class="input1" name="message" placeholder="Nội dung"></textarea>-->
+                                <p:inputTextarea class="input1" id="message" value="#{feedbackBean.feedbackContent}" a:placeholder="Nội dung" rows="6" cols="33" />
                                 <span class="shadow-input1"></span>
                             </div>
 
                             <div class="container-contact1-form-btn">
-                                <button class="contact1-form-btn">
-                                    <span>
-                                        Gửi phản hồi
-                                    </span>
-                                </button>
+                                <h:commandButton class="contact1-form-btn"  value="Gửi phản hồi">
+                                    <p:ajax listener="#{feedbackBean.sendFeedback()}" process="@form"/>
+                                </h:commandButton>
                             </div>
-                        </form>
+                        </h:form>
                     </div>
                 </div>
 

@@ -1,4 +1,12 @@
 
+function showLogErrorEmpty(){
+    alert("Vui lòng điền tất cả các trường trước khi gửi phản hồi ! ");
+}
+
+function showLogSuccessSendFeedback(){
+    alert("Phản hồi của bạn đã được gửi tới quản trị viên !");
+}
+
 (function ($) {
     "use strict";
 

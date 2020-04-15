@@ -36,7 +36,7 @@ import capstone.lip.landinformationportal.utils.EmailSender;
 @EnableJpaAuditing
 @SpringBootApplication
 @ComponentScan
-public class Application implements CommandLineRunner{
+public class Application{
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
         

@@ -51,7 +51,7 @@ public class ListOwnRealEstateBean implements Serializable {
         }
         currentUser = userService.findByUsername(username);
         listUserRealEstate = new ArrayList<>();
-        listUserRealEstate = userService.getListRealEstate(currentUser.getUserId());
+        listUserRealEstate = currentUser.getListRealEstate();
         transferListCoordinate();
     }
 

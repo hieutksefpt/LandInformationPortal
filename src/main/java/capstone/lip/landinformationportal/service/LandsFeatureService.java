@@ -5,8 +5,10 @@
  */
 package capstone.lip.landinformationportal.service;
 
+import capstone.lip.landinformationportal.entity.LandsDetail;
 import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.repository.LandsFeatureRepository;
+import capstone.lip.landinformationportal.service.Interface.ILandsDetailService;
 import capstone.lip.landinformationportal.service.Interface.ILandsFeatureService;
 
 import java.util.List;
@@ -23,36 +25,42 @@ public class LandsFeatureService implements ILandsFeatureService {
     @Autowired
     private LandsFeatureRepository landsFeatureRepository;
 
+    @Autowired
+    private ILandsDetailService landsDetailService;
+
     @Override
     public List<LandsFeature> findAll() {
-    	try {
-    		return landsFeatureRepository.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+        try {
+            return landsFeatureRepository.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public LandsFeature save(LandsFeature landsFeature) {
-    	try {
-    		return landsFeatureRepository.save(landsFeature);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+        try {
+            return landsFeatureRepository.save(landsFeature);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public boolean delete(Long landsFeatureId) {
-    	try {
-    		landsFeatureRepository.deleteById(landsFeatureId);
-    		return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-        
+        try {
+            LandsFeature landsFeature = landsFeatureRepository.findById(landsFeatureId).get();
+            List<LandsDetail> list = landsFeature.getListLandsDetail();
+            landsDetailService.delete(list);
+            landsFeatureRepository.deleteById(landsFeatureId);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
 }

@@ -69,9 +69,8 @@ public class LandsFeature extends AuditAbstract implements Serializable {
         return listLandsDetail;
     }
 
-    public LandsFeature setListLandsDetail(List<LandsDetail> listLandsDetail) {
+    public void setListLandsDetail(List<LandsDetail> listLandsDetail) {
         this.listLandsDetail = listLandsDetail;
-        return this;
     }
 
     public LandsFeature() {

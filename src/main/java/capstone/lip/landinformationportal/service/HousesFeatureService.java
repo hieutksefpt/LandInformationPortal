@@ -5,8 +5,10 @@
  */
 package capstone.lip.landinformationportal.service;
 
+import capstone.lip.landinformationportal.entity.HousesDetail;
 import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.repository.HousesFeatureRepository;
+import capstone.lip.landinformationportal.service.Interface.IHousesDetailService;
 import capstone.lip.landinformationportal.service.Interface.IHousesFeatureService;
 
 import java.util.List;
@@ -24,38 +26,44 @@ public class HousesFeatureService implements IHousesFeatureService {
     @Autowired
     private HousesFeatureRepository houseFeatureRepository;
 
+    @Autowired
+    private IHousesDetailService housesDetailService;
+
     @Override
     public List<HousesFeature> findAll() {
-    	try {
-    		return houseFeatureRepository.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
+        try {
+            return houseFeatureRepository.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override
     public HousesFeature save(HousesFeature housesfeature) {
-    	try {
-    		return houseFeatureRepository.save(housesfeature);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
+        try {
+            return houseFeatureRepository.save(housesfeature);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override
     public boolean delete(Long housesfeatureID) {
-    	try {
-    		houseFeatureRepository.deleteById(housesfeatureID);
-    		return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-        
+        try {
+            HousesFeature housesFeature = houseFeatureRepository.findById(housesfeatureID).get();
+            List<HousesDetail> list = housesFeature.getListHousesDetail();
+            housesDetailService.delete(list);
+            houseFeatureRepository.deleteById(housesfeatureID);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
 }

@@ -15,7 +15,7 @@
 			<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
 			<h:outputStylesheet name="managecrawlnews.css" library="css"></h:outputStylesheet>
             <h:form onsubmit="return false;" prependId="false">
-            	<p:growl id="msgs" showDetail="true"/>
+            	<p:growl id="msgs" showDetail="true" widgetVar="alert"/>
             	<div class="row form-group">
             		<div class="col-3">
             			<div class="row">
@@ -63,7 +63,7 @@
 		           	rows="10" paginator="true"
 		            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
 		            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-		            lazy="true" 
+		            lazy="true"  widgetVar="wgtable"
 		            selection="#{manageCrawlNewsBean.listNewsSelected}" rowKey="#{element.crawledNewsID}">
 		            <f:facet name="paginatorTopLeft">
 			            <p:commandButton icon="pi pi-refresh" 
@@ -74,15 +74,20 @@
 			       	
 			        <p:column selectionMode="multiple" style="width:7%;text-align:center"> 
 			        </p:column>
-	            	<p:column width="85%">
+	            	<p:column width="80%">
 	            		<f:facet name="header">Tiêu đề</f:facet>
 	            		<a href="#{element.crawledNewsLink}" target="_blank">#{element.crawledNewsTitle}</a>
 	            	</p:column>
+	            	<p:column>
+	            		<f:facet name="header">Nguồn tin</f:facet>
+	            		<h:outputText value="#{element.crawledNewsWebsite}"></h:outputText>
+	            	</p:column>
+	            	<ui:remove>
 	            	<p:column style="text-align: center">
 	            		<div class="row">
 	            			<div class="col-6">
 		            			<p:commandButton icon="pi pi-check" title="Accept" update="tabledata" style="width:25px"
-					             action="#{manageCrawlNewsBean.setNews(element)}" oncomplete="PF('dlgShow').show()">
+					             action="#{manageCrawlNewsBean.setNews(element)}"  oncomplete="PF('dlgShow').show()">
 					             	
 					            </p:commandButton>
 	            			</div>
@@ -94,15 +99,16 @@
 	            			</div>
 	            		</div>
 			        </p:column>
+			        </ui:remove>
 	            </p:dataTable>
 	            <br/>
 	            
 	           	<h:panelGroup id="test">
 	           		<div class="btn">
-	           			<h:commandButton value="Hiển thị tin tức" onclick="PF('dlgShowList').show()"></h:commandButton>
+	           			<h:commandButton value="Hiển thị tin tức" onclick="checkclick('dlgShowList')"></h:commandButton>
 	           		</div>
 	           		<div class="btn">
-	           			<h:commandButton value="Xóa tin tức" onclick="PF('dlgDeleteList').show()"></h:commandButton>
+	           			<h:commandButton value="Xóa tin tức" onclick="checkclick('dlgDeleteList')"></h:commandButton>
 	           		</div>
 	           	</h:panelGroup>
 	           	

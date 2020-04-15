@@ -130,7 +130,7 @@ public class AuthenticationBean implements Serializable{
 	public void redirectAdminManage() {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
-			ec.redirect(ec.getRequestContextPath() + "/admin/managegeoinfo.xhtml");
+			ec.redirect(ec.getRequestContextPath() + "/admin/listuser.xhtml");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

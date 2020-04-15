@@ -130,6 +130,13 @@ public class ManageCrawlNewsBean implements Serializable{
 		refreshData();
 	}
 
+	public boolean checkEmptyListSelected() {
+		if (listNewsSelected.isEmpty()) {
+			return false;
+		}
+		return true;
+	}
+	
 	public LazyDataModel<CrawledNews> getLazyNews() {
 		return lazyNews;
 	}

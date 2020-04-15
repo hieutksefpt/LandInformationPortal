@@ -181,6 +181,14 @@ input[type=checkbox]:not(old) + label {
   margin-top: 7px;
   margin-bottom: 25px; }
 
+.backHome{
+    margin-left: 20px;
+    margin-top: -150px;
+    font-family: serif;
+    font-size: 20px;
+    width: auto;
+}
+
 input[type=checkbox]:not(old) + label > span {
   display: inline-block;
   width: 13px;

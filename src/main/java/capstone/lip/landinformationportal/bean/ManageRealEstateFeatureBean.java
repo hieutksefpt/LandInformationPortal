@@ -98,6 +98,15 @@ public class ManageRealEstateFeatureBean implements Serializable {
         PrimeFaces.current().executeScript("showAlertOnlyNumber()");
     }
 
+    public List<String> splitAndTrimStringToList(String str) {
+        List<String> list = Arrays.asList(str.split("\\|", 0));
+        List<String> afterTrim = new ArrayList<>();
+        for (String temp : list) {
+            afterTrim.add(temp.trim());
+        }
+        return afterTrim;
+    }
+
     private boolean landsFeatureCheck = true;
     private boolean housesFeatureCheck = true;
 
@@ -114,12 +123,8 @@ public class ManageRealEstateFeatureBean implements Serializable {
             landsFeatureDataType = "STR";
         }
         if (!tempLandsFeatureDataRange.isEmpty() && tempLandsFeatureDataRange != null) {
-            landsFeatureDataRange = Arrays.asList(tempLandsFeatureDataRange.split("\\|", 0));
-            if (landsFeatureDataType.equals("STR")) {
-                for (String lfdr : landsFeatureDataRange) {
-                    lfdr = lfdr.trim();
-                }
-            } else if (landsFeatureDataType.equals("INT")) {
+            landsFeatureDataRange = splitAndTrimStringToList(tempLandsFeatureDataRange);
+            if (landsFeatureDataType.equals("INT")) {
                 for (String lfdr : landsFeatureDataRange) {
                     lfdr = lfdr.replaceAll(" ", "");
                     try {
@@ -127,6 +132,7 @@ public class ManageRealEstateFeatureBean implements Serializable {
                     } catch (Exception e) {
                         landsFeatureCheck = false;
                         showAlertOnlyNumber();
+                        return;
                     }
                 }
             }
@@ -134,7 +140,7 @@ public class ManageRealEstateFeatureBean implements Serializable {
         if (landsFeatureCheck) {
             LandsFeature landfeature = new LandsFeature(landsFeatureName, landsFeatureUnit, landsFeatureDataType, landsFeatureDataRange);
             landfeature = landsFeatureService.save(landfeature);
-            listLandsFeature.add(landfeature);
+            listLandsFeature = landsFeatureService.findAll();
             hideAddFeaturePopup();
         }
     }
@@ -148,13 +154,12 @@ public class ManageRealEstateFeatureBean implements Serializable {
             housesFeatureCheck = false;
             showAlertHousesFeatureUnit();
         }
+        if (housesFeatureDataType == null || housesFeatureDataType.isEmpty()) {
+            housesFeatureDataType = "STR";
+        }
         if (!tempHousesFeatureDataRange.isEmpty() && tempHousesFeatureDataRange != null) {
-            housesFeatureDataRange = Arrays.asList(tempHousesFeatureDataRange.split("\\|", 0));
-            if (housesFeatureDataType.equals("STR")) {
-                for (String hfdr : housesFeatureDataRange) {
-                    hfdr = hfdr.trim();
-                }
-            } else if (housesFeatureDataType.equals("INT")) {
+            housesFeatureDataRange = splitAndTrimStringToList(tempHousesFeatureDataRange);
+            if (housesFeatureDataType.equals("INT")) {
                 for (String hfdr : housesFeatureDataRange) {
                     hfdr = hfdr.replaceAll(" ", "");
                     try {
@@ -162,17 +167,15 @@ public class ManageRealEstateFeatureBean implements Serializable {
                     } catch (Exception e) {
                         housesFeatureCheck = false;
                         showAlertOnlyNumber();
+                        return;
                     }
                 }
             }
         }
         if (housesFeatureCheck) {
-            if (housesFeatureDataType == null || housesFeatureDataType.isEmpty()) {
-                housesFeatureDataType = "STR";
-            }
             HousesFeature housesFeature = new HousesFeature(housesFeatureName, housesFeatureUnit, housesFeatureDataType, housesFeatureDataRange);
             housesFeature = housesFeatureService.save(housesFeature);
-            listHousesFeature.add(housesFeature);
+            listHousesFeature = housesFeatureService.findAll();
             hideAddFeaturePopup();
         }
     }
@@ -186,10 +189,25 @@ public class ManageRealEstateFeatureBean implements Serializable {
             landsFeatureCheck = false;
             showAlertLandsFeatureUnit();
         }
-        if (landsFeatureCheck) {
-            if (landsFeatureDataTypeClicked == null || landsFeatureDataTypeClicked.isEmpty()) {
-                landsFeatureDataTypeClicked = "STR";
+        if (landsFeatureDataTypeClicked == null || landsFeatureDataTypeClicked.isEmpty()) {
+            landsFeatureDataTypeClicked = "STR";
+        }
+        if (!tempLandsFeatureDataRangeClicked.isEmpty() && tempLandsFeatureDataRangeClicked != null) {
+            landsFeatureDataRangeClicked = splitAndTrimStringToList(tempLandsFeatureDataRangeClicked);
+            if (landsFeatureDataTypeClicked.equals("INT")) {
+                for (String lfdr : landsFeatureDataRangeClicked) {
+                    lfdr = lfdr.replaceAll(" ", "");
+                    try {
+                        Long.parseLong(lfdr);
+                    } catch (Exception e) {
+                        landsFeatureCheck = false;
+                        showAlertOnlyNumber();
+                        return;
+                    }
+                }
             }
+        }
+        if (landsFeatureCheck) {
             landsFeatureClicked.setLandsFeatureName(landsFeatureNameClicked);
             landsFeatureClicked.setLandsFeatureUnit(landsFeatureUnitClicked);
             landsFeatureClicked.setLandsFeatureDataType(landsFeatureDataTypeClicked);
@@ -210,10 +228,25 @@ public class ManageRealEstateFeatureBean implements Serializable {
             housesFeatureCheck = false;
             showAlertHousesFeatureUnit();
         }
-        if (housesFeatureCheck) {
-            if (housesFeatureDataTypeClicked == null || housesFeatureDataTypeClicked.isEmpty()) {
-                housesFeatureDataTypeClicked = "STR";
+        if (housesFeatureDataTypeClicked == null || housesFeatureDataTypeClicked.isEmpty()) {
+            housesFeatureDataTypeClicked = "STR";
+        }
+        if (!tempHousesFeatureDataRangeClicked.isEmpty() && tempHousesFeatureDataRangeClicked != null) {
+            housesFeatureDataRangeClicked = splitAndTrimStringToList(tempHousesFeatureDataRangeClicked);
+            if (housesFeatureDataTypeClicked.equals("INT")) {
+                for (String hfdr : housesFeatureDataRangeClicked) {
+                    hfdr = hfdr.replaceAll(" ", "");
+                    try {
+                        Long.parseLong(hfdr);
+                    } catch (Exception e) {
+                        housesFeatureCheck = false;
+                        showAlertOnlyNumber();
+                        return;
+                    }
+                }
             }
+        }
+        if (housesFeatureCheck) {
             housesFeatureClicked.setHousesFeatureName(housesFeatureNameClicked);
             housesFeatureClicked.setHousesFeatureUnit(housesFeatureUnitClicked);
             housesFeatureClicked.setHousesFeatureDataType(housesFeatureDataTypeClicked);
@@ -229,7 +262,7 @@ public class ManageRealEstateFeatureBean implements Serializable {
     private String landsFeatureUnitClicked;
     private String landsFeatureDataTypeClicked;
     private List<String> landsFeatureDataRangeClicked;
-    private String tempLandsFeatureDataRangeClicked;
+    private String tempLandsFeatureDataRangeClicked = "";
 
     public void clickOnButtonRowLandsFeature(String id) {
         landsFeatureClicked = listLandsFeature.stream().filter(x -> x.getLandsFeatureID().equals(Long.parseLong(id))).collect(Collectors.toList()).get(0);
@@ -237,6 +270,19 @@ public class ManageRealEstateFeatureBean implements Serializable {
         landsFeatureUnitClicked = landsFeatureClicked.getLandsFeatureUnit();
         landsFeatureDataTypeClicked = landsFeatureClicked.getLandsFeatureDataType();
         landsFeatureDataRangeClicked = landsFeatureClicked.getLandsFeatureDataRange();
+        if (landsFeatureDataRangeClicked != null) {
+            if (!landsFeatureDataRangeClicked.isEmpty()) {
+                tempLandsFeatureDataRangeClicked = "";
+                for (String str : landsFeatureDataRangeClicked) {
+                    tempLandsFeatureDataRangeClicked = tempLandsFeatureDataRangeClicked + "|" + str;
+                }
+                tempLandsFeatureDataRangeClicked = tempLandsFeatureDataRangeClicked.substring(1, tempLandsFeatureDataRangeClicked.length());
+            } else {
+                tempLandsFeatureDataRangeClicked = "";
+            }
+        } else {
+            tempLandsFeatureDataRangeClicked = "";
+        }
     }
 
     private String housesFeatureNameClicked;
@@ -251,6 +297,19 @@ public class ManageRealEstateFeatureBean implements Serializable {
         housesFeatureUnitClicked = housesFeatureClicked.getHousesFeatureUnit();
         housesFeatureDataTypeClicked = housesFeatureClicked.getHousesFeatureDataType();
         housesFeatureDataRangeClicked = housesFeatureClicked.getHousesFeatureDataRange();
+        if (housesFeatureDataRangeClicked != null) {
+            if (!housesFeatureDataRangeClicked.isEmpty()) {
+                tempHousesFeatureDataRangeClicked = "";
+                for (String str : housesFeatureDataRangeClicked) {
+                    tempHousesFeatureDataRangeClicked = tempHousesFeatureDataRangeClicked + "|" + str;
+                }
+                tempHousesFeatureDataRangeClicked = tempHousesFeatureDataRangeClicked.substring(1, tempHousesFeatureDataRangeClicked.length());
+            } else {
+                tempHousesFeatureDataRangeClicked = "";
+            }
+        } else {
+            tempHousesFeatureDataRangeClicked = "";
+        }
     }
 
     public void deleteLandsFeature() {

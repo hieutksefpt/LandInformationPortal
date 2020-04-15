@@ -27,6 +27,7 @@ import capstone.lip.landinformationportal.repository.HousesFeatureRepository;
 import capstone.lip.landinformationportal.repository.LandsFeatureRepository;
 import capstone.lip.landinformationportal.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.service.Interface.ICrawledNewsService;
+import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IReportService;
 import capstone.lip.landinformationportal.specification.RealEstateSpecifications;
 import capstone.lip.landinformationportal.specification.SearchCriteria;
@@ -35,24 +36,23 @@ import capstone.lip.landinformationportal.utils.EmailSender;
 @EnableJpaAuditing
 @SpringBootApplication
 @ComponentScan
-public class Application{
+public class Application implements CommandLineRunner{
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
         
     }
-//    
+    
 //    
 //    @Autowired
-//	private ICrawledNewsService service;
+//	private IRealEstateService service;
 //    
 //    @Override
 //    public void run(String... args) {
-//    	CrawledNews news = new CrawledNews().setCrawledNewsImageUrl("tuan").setCrawledNewsLink("tuan").setCrawledNewsShortDescription("tuan").setCrawledNewsStatus("tua")
-//    			.setCrawledNewsTitle("tuan").setCrawledNewsWebsite("tuan");
-//    	
-//    	news = service.findById(270l);
-//    	news.setCrawledNewsTitle("123321");
-//
-//    	service.save(news);
+//    	RealEstate reo = service.findById(3);
+//    	List<Report> list = reo.getListReport();
+//    	System.out.print(list.size());
+//    	int i = 1;
+//    	i++;
+//    	i--;
 //    }
 }

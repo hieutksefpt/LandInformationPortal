@@ -50,13 +50,4 @@ public class SegmentOfStreetService implements ISegmentOfStreetService {
 		}
 	}
 
-    @Override
-    public List<SegmentOfStreet> findAll() {
-        try {
-        	return segmentOfStreetRepository.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-    }
 }

@@ -54,16 +54,4 @@ public class LandsDetailService implements ILandsDetailService {
     	}
     }
 
-    // not work with composite key
-    @Override
-    public boolean deleteById(Long landsDetailId) {
-    	try {
-    		landsDetailRepository.deleteById(landsDetailId);
-    		return true;
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    		return false;
-    	}
-    }
-
 }

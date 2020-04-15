@@ -84,7 +84,7 @@ public class CrawledNewsService implements ICrawledNewsService{
 		        	            getDeclaredField("interval");
 
 		        	privateStringField.setAccessible(true);
-		        	Long fieldValue = ((Long) privateStringField.get(scheduleBuilder))/1000;
+		        	Long fieldValue = ((Long) privateStringField.get(scheduleBuilder))/3600000;
 		        	System.out.println("fieldValue = " + fieldValue);
 		        	timeCrawl = String.valueOf(fieldValue);
 		        }

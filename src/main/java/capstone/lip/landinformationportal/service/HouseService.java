@@ -68,17 +68,6 @@ public class HouseService implements IHouseService {
 		}
     }
 
-    @Override
-    public boolean deleteById(Long houseId) {
-    	try {
-    		houseRepository.deleteById(houseId);
-    		return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-        
-    }
 
     @Override
     public List<HousesFeature> getListHousesFeature(Long houseId) {

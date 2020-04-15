@@ -44,3 +44,9 @@ function updateCrawlNowLabel(status){
 		$('#lb-crawlnow').text("")
 	}
 }
+
+function renderMessageCrawlNow(){
+	PF('alert').renderMessage({"summary":"Thông báo",
+        "detail":"Đang crawl ngay",
+        "severity":"info"})
+}

@@ -47,15 +47,4 @@ public class StreetService implements IStreetService{
 		
 	}
 
-    @Override
-    public List<Street> findAll() {
-    	try {
-    		return streetRepository.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
-    }
-
 }

@@ -16,13 +16,13 @@
 			<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
 			<h:outputStylesheet name="managecrawlrealestate.css" library="css"></h:outputStylesheet>
             <h:form onsubmit="return false;" prependId="false">
-            	<p:growl id="msgs" showDetail="true"/>
+            	<p:growl id="msgs" showDetail="true" widgetVar="alert"/>
             	<div class="row form-group">
             		<div class="col-3">
             			
             			<div class="row">
             				<div class="col-3">
-            					<h:inputText id="txtInput-time" title="#{manageCrawlRealEstateBean.timerCrawl} s" value="#{manageCrawlRealEstateBean.timerCrawl}"></h:inputText>
+            					<h:inputText id="txtInput-time" title="#{manageCrawlRealEstateBean.timerCrawl} giờ" value="#{manageCrawlRealEstateBean.timerCrawl}"></h:inputText>
             				</div>
             				<div class="col-9">
             					<h:commandButton id="btn-SetTime" value="Cài thời gian crawler">
@@ -40,22 +40,22 @@
 		            	<h:commandButton id="btn-TurnOffCrawl" value="Tắt crawler" rendered="#{manageCrawlRealEstateBean.statusCrawlSchedule}">
 		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.turnOffCrawler()}"></p:ajax>
 		            	</h:commandButton>
+		            	
+	            		<label id="lb-CrawlNow"></label>
+	            		<h:outputText id="lb-CrawlSchedule" rendered="#{manageCrawlRealEstateBean.statusCrawlSchedule}" 
+            				value="Đang chạy"></h:outputText>
+		            	
             		</div>
 	            	<div class="col-3">
 	            		<div class="row">
 	            			<h:commandButton id="btn-CrawlNow" value="Crawl ngay">
 			            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.crawlNow()}"
-			            		onstart="updateCrawlNowLabel('on')"
-			            		oncomplete="updateCrawlNowLabel('off')"></p:ajax>
+			            		 onstart="renderMessageCrawlNow()"></p:ajax>
 			           		</h:commandButton>
 	            		</div>
 	            	</div>
 	            	<div class="col-3">
-	            		<div class="row text-center">
-		            		<label id="lb-CrawlNow"></label>
-		            		<h:outputText id="lb-CrawlSchedule" rendered="#{manageCrawlRealEstateBean.statusCrawlSchedule}" 
-	            				value="Đang chạy crawl tự động"></h:outputText>
-		            	</div>
+	            		
 	            	</div>
             	</div>
 

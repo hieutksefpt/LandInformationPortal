@@ -70,18 +70,6 @@ public class LandService implements ILandService {
     }
 
     @Override
-    public boolean deleteById(Long landId) {
-    	try {
-    		landRepository.deleteById(landId);
-    		return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-        
-    }
-
-    @Override
     public List<LandsFeature> getListLandsFeature(Long landId) {
     	try {
     		Land land = landRepository.findById(landId).get();

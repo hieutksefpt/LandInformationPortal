@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import capstone.lip.landinformationportal.entity.District;
-import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 import capstone.lip.landinformationportal.repository.DistrictRepository;
 import capstone.lip.landinformationportal.service.Interface.IDistrictService;
 

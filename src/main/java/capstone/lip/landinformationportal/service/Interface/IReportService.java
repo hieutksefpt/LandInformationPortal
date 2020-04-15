@@ -1,7 +1,6 @@
 package capstone.lip.landinformationportal.service.Interface;
 
 import capstone.lip.landinformationportal.entity.Report;
-import capstone.lip.landinformationportal.entity.ReportId;
 
 public interface IReportService {
 	Report save(Report report);

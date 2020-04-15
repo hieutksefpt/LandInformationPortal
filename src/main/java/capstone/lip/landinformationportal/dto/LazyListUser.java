@@ -5,16 +5,13 @@
  */
 package capstone.lip.landinformationportal.dto;
 
-import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
-import capstone.lip.landinformationportal.service.UserService;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,7 +23,8 @@ import org.springframework.data.domain.PageRequest;
  */
 public class LazyListUser extends LazyDataModel<User> implements Serializable {
 
-    @Autowired
+	private static final long serialVersionUID = 1L;
+	@Autowired
     private IUserService userService;
 
     public LazyListUser(IUserService service) {

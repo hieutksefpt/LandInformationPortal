@@ -5,7 +5,6 @@
  */
 package capstone.lip.landinformationportal.dto;
 
-import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import java.io.Serializable;
@@ -24,7 +23,8 @@ import org.springframework.data.domain.PageRequest;
  */
 public class LazyListAllRealEstate extends LazyDataModel<RealEstate> implements Serializable {
 
-    @Autowired
+	private static final long serialVersionUID = 1L;
+	@Autowired
     private IRealEstateService realEstateService;
 
     public LazyListAllRealEstate(IRealEstateService service) {

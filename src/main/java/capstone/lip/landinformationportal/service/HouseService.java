@@ -9,10 +9,8 @@ import capstone.lip.landinformationportal.dto.HouseFeatureValue;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.HousesDetail;
 import capstone.lip.landinformationportal.entity.HousesDetailId;
-import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.repository.HouseRepository;
-import capstone.lip.landinformationportal.repository.HousesDetailRepository;
 import capstone.lip.landinformationportal.service.Interface.IHouseService;
 import capstone.lip.landinformationportal.validation.RealEstateValidation;
 import java.math.BigDecimal;
@@ -31,20 +29,6 @@ public class HouseService implements IHouseService {
 
     @Autowired
     private HouseRepository houseRepository;
-
-    @Autowired
-    private HousesDetailRepository housesDetailRepository;
-
-    @Override
-    public List<House> findAll() {
-    	try {
-    		return houseRepository.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
-    }
 
     @Override
     public House save(House house) {
@@ -66,25 +50,6 @@ public class HouseService implements IHouseService {
 			e.printStackTrace();
 			return false;
 		}
-    }
-
-
-    @Override
-    public List<HousesFeature> getListHousesFeature(Long houseId) {
-    	try {
-			House house = houseRepository.findById(houseId).get();
-//          List<HousesFeature> listHousesFeature = house.getListHousesFeatures();   // đhs chỗ này lỗi ?
-      		List<HousesFeature> listHousesFeature = new ArrayList<>();
-	        List<HousesDetail> listHouseDetail = house.getListHousesDetail();
-	        for (HousesDetail housesDetail : listHouseDetail) {
-	            listHousesFeature.add(housesDetail.getHousesFeature());
-	        }
-	        return listHousesFeature;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
     }
 
     @Override

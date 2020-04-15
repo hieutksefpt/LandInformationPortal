@@ -8,12 +8,7 @@ package capstone.lip.landinformationportal.repository;
 import capstone.lip.landinformationportal.dto.GroupByDateMaxMinCreate;
 import capstone.lip.landinformationportal.dto.MaxMinAvg;
 import capstone.lip.landinformationportal.entity.RealEstate;
-
-import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

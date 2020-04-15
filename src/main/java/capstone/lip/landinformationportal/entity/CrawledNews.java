@@ -5,15 +5,12 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import capstone.lip.landinformationportal.entity.audit.AuditAbstract;
-import capstone.lip.landinformationportal.entity.audit.CustomAuditModify;
-import capstone.lip.landinformationportal.entity.audit.CustomAuditableListener;
 
 @Entity
 @Table(name="CrawledNews")

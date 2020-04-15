@@ -7,10 +7,8 @@ package capstone.lip.landinformationportal.bean;
 
 import capstone.lip.landinformationportal.common.RealEstateTypeConstant;
 import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
-import static capstone.lip.landinformationportal.common.StatusRealEstateConstant.CONFUSED;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -20,29 +18,20 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.primefaces.PrimeFaces;
-import org.primefaces.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import capstone.lip.landinformationportal.dto.Coordinate;
 import capstone.lip.landinformationportal.dto.HouseFeatureValue;
 import capstone.lip.landinformationportal.dto.LandFeatureValue;
 import capstone.lip.landinformationportal.entity.District;
-import capstone.lip.landinformationportal.entity.FormedCoordinate;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.HousesDetail;
-import capstone.lip.landinformationportal.entity.HousesDetailId;
 import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.LandsDetail;
-import capstone.lip.landinformationportal.entity.LandsDetailId;
 import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.entity.RealEstate;
@@ -51,8 +40,6 @@ import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegmentId;
 import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 import capstone.lip.landinformationportal.entity.Street;
 import capstone.lip.landinformationportal.entity.User;
-import capstone.lip.landinformationportal.service.Interface.IDistrictService;
-import capstone.lip.landinformationportal.service.Interface.IFormedCoordinate;
 import capstone.lip.landinformationportal.service.Interface.IHouseService;
 import capstone.lip.landinformationportal.service.Interface.IHousesDetailService;
 import capstone.lip.landinformationportal.service.Interface.IHousesFeatureService;
@@ -62,13 +49,10 @@ import capstone.lip.landinformationportal.service.Interface.ILandsFeatureService
 import capstone.lip.landinformationportal.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateAdjacentSegmentService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
-import capstone.lip.landinformationportal.service.Interface.ISegmentOfStreetService;
-import capstone.lip.landinformationportal.service.Interface.IStreetService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.UUID;
 import javax.faces.context.ExternalContext;
 
 /**
@@ -79,14 +63,13 @@ import javax.faces.context.ExternalContext;
 @ViewScoped
 public class ContributeNewRealEstateBean implements Serializable, StatusRealEstateConstant {
 
-    @Autowired
+	private static final long serialVersionUID = 1L;
+
+	@Autowired
     private IRealEstateService realEstateService;
 
     @Autowired
     private IProvinceService provinceService;
-
-    @Autowired
-    private IDistrictService districtService;
 
     @Autowired
     private ILandsDetailService landsDetailService;
@@ -102,15 +85,6 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 
     @Autowired
     private IHouseService houseService;
-
-    @Autowired
-    private ISegmentOfStreetService segmentOfStreetService;
-
-    @Autowired
-    private IStreetService streetService;
-
-    @Autowired
-    private IFormedCoordinate formedCoordinateService;
 
     @Autowired
     private ILandsFeatureService landFeatureService;

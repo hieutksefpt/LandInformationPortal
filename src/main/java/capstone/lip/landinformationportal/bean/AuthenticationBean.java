@@ -4,30 +4,23 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession;
 
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import capstone.lip.landinformationportal.common.UserRoleConstant;
 import capstone.lip.landinformationportal.common.UserStatusConstant;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
-import capstone.lip.landinformationportal.utils.EmailSender;
 import capstone.lip.landinformationportal.utils.EncryptedPassword;
-import capstone.lip.landinformationportal.utils.PasswordGenerator;
 
 @Named
 @ViewScoped
@@ -51,14 +44,6 @@ public class AuthenticationBean implements Serializable{
 		if (auth!= null) {
 			currentUser = new User().setFullName((String)auth.getPrincipal());
 		}
-	}
-	
-	private boolean validate() {
-		User user = userService.findByUsername(usernameSignup);
-		if (user == null) {
-			return true;
-		}
-		return false;
 	}
 	
 	public void signup() {

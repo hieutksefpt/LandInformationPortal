@@ -158,16 +158,6 @@ public class CrawledNewsService implements ICrawledNewsService{
 	}
 
 	@Override
-	public List<CrawledNews> findByCrawledNewsStatus(String status) {
-		try {
-			return crawledNewsRepository.findByCrawledNewsStatus(status);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	@Override
 	public boolean delete(CrawledNews news) {
 		try {
 			crawledNewsRepository.delete(news);
@@ -195,16 +185,6 @@ public class CrawledNewsService implements ICrawledNewsService{
 		}catch(Exception e) {
 			e.printStackTrace();
 			return null;
-		}
-	}
-
-	@Override
-	public long count() {
-		try {
-			return crawledNewsRepository.count();
-		}catch(Exception e) {
-			e.printStackTrace();
-			return 0;
 		}
 	}
 

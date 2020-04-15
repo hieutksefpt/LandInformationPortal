@@ -57,9 +57,9 @@ function initMap() {
         map.fitBounds(bounds);
     });
 }
-function focusMap(latitude, longitude){
+function focusMap(latitude, longitude, zoom){
     map.setCenter(new google.maps.LatLng(latitude, longitude));
-    map.setZoom(15);
+    map.setZoom(zoom);
 }
 function clearDataMap(){
 	path.forEach(x=>x.setMap(null));

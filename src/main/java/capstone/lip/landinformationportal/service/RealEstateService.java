@@ -26,12 +26,9 @@ import capstone.lip.landinformationportal.specification.SearchCriteria;
 import capstone.lip.landinformationportal.validation.RealEstateValidation;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -48,17 +45,6 @@ public class RealEstateService implements IRealEstateService {
 
     @Autowired
     private RealEstateRepository realEstateRepository;
-
-    @Override
-    public List<RealEstate> findAll() {
-    	try {
-    		return realEstateRepository.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
-    }
 
     @Override
     public RealEstate save(RealEstate realEstate) {
@@ -92,18 +78,6 @@ public class RealEstateService implements IRealEstateService {
         
     }
 
-    @Override
-    public boolean delete(List<RealEstate> listRealEstate) {
-    	try {
-    		realEstateRepository.deleteAll(listRealEstate);
-    		return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-        
-    }
-
     // Hàm này get List Land theo ID của Real Estate
     @Override
     public Land getLand(Long realEstateId) {
@@ -132,17 +106,6 @@ public class RealEstateService implements IRealEstateService {
         
     }
 
-    @Override
-    public boolean delete(RealEstate realEstate) {
-    	try {
-    		realEstateRepository.delete(realEstate);
-    		return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-        
-    }
 
     @Override
     public RealEstate findById(long realEstateId) {
@@ -159,16 +122,6 @@ public class RealEstateService implements IRealEstateService {
         
     }
 
-    @Override
-    public List<RealEstate> findByRealEstateStatus(String status) {
-    	try {
-    		return realEstateRepository.findByRealEstateStatus(status);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
-    }
 
     @Override
     public List<String> listRealEstateSource() {
@@ -267,28 +220,6 @@ public class RealEstateService implements IRealEstateService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
-		}
-        
-    }
-
-    @Override
-    public Page<RealEstate> findByRealEstateSource(String source, Pageable page) {
-    	try {
-    		return realEstateRepository.findByRealEstateSource(source, page);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
-    }
-
-    @Override
-    public Page<RealEstate> findByRealEstateSourceNot(String source, Pageable page) {
-    	try {
-    		return realEstateRepository.findByRealEstateSourceNot(source, page);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
 		}
         
     }

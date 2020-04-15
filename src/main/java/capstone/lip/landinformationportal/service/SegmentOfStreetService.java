@@ -1,14 +1,11 @@
 package capstone.lip.landinformationportal.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import capstone.lip.landinformationportal.entity.SegmentOfStreet;
-import capstone.lip.landinformationportal.entity.Street;
 import capstone.lip.landinformationportal.repository.SegmentOfStreetRepository;
 import capstone.lip.landinformationportal.service.Interface.ISegmentOfStreetService;
 

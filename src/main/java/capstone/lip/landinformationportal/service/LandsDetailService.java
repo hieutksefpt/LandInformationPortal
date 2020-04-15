@@ -23,17 +23,6 @@ public class LandsDetailService implements ILandsDetailService {
     private LandsDetailRepository landsDetailRepository;
 
     @Override
-    public List<LandsDetail> findAll() {
-        try {
-            return landsDetailRepository.findAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        
-    }
-
-    @Override
     public LandsDetail save(LandsDetail landsDetail) {
         try {
             return landsDetailRepository.save(landsDetail);

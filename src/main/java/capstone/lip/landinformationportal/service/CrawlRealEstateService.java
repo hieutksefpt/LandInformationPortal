@@ -1,13 +1,10 @@
 package capstone.lip.landinformationportal.service;
 
 import java.lang.reflect.Field;
-import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
 import org.quartz.JobBuilder;
-import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;

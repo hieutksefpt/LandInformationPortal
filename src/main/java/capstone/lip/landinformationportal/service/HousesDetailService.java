@@ -23,16 +23,6 @@ public class HousesDetailService implements IHousesDetailService {
     private HousesDetailRepository housesDetailRepository;
 
     @Override
-    public List<HousesDetail> findAll() {
-		try {
-			return housesDetailRepository.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-    }
-
-    @Override
     public HousesDetail save(HousesDetail housesDetail) {
     	try {
     		return housesDetailRepository.save(housesDetail); 
@@ -54,17 +44,5 @@ public class HousesDetailService implements IHousesDetailService {
 		}
         
     }
-
-	@Override
-	public boolean delete(HousesDetail housesDetail) {
-		try {
-			housesDetailRepository.delete(housesDetail);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		
-	}
 
 }

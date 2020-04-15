@@ -9,7 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;

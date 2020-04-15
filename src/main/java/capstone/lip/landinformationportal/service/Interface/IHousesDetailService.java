@@ -14,12 +14,8 @@ import java.util.List;
  */
 public interface IHousesDetailService {
 
-    List<HousesDetail> findAll();
-
     HousesDetail save(HousesDetail housesDetail);
 
     boolean delete(List<HousesDetail> listDistrict);
-
-    boolean delete(HousesDetail housesDetail);
     
 }

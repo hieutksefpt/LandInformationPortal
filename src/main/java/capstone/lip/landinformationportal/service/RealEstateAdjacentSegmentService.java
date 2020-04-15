@@ -26,16 +26,6 @@ public class RealEstateAdjacentSegmentService implements IRealEstateAdjacentSegm
     private RealEstateAdjacentSegmentRepository realEstateAdjacentSegmentRepository;
 
     @Override
-    public List<RealEstateAdjacentSegment> findAll() {
-    	try {
-    		return realEstateAdjacentSegmentRepository.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-    }
-
-    @Override
     public RealEstateAdjacentSegment validateRealEstateAdjacentInfor(RealEstate newUploadRealEstate, RealEstateAdjacentSegmentId realEstateAdjacentSegmentId) {
     	try {
     		RealEstateValidation rev = new RealEstateValidation();
@@ -58,18 +48,6 @@ public class RealEstateAdjacentSegmentService implements IRealEstateAdjacentSegm
     public boolean delete(List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment) {
     	try {
     		realEstateAdjacentSegmentRepository.deleteAll(listRealEstateAdjacentSegment);
-    		return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-        
-    }
-
-    @Override
-    public boolean deleteById(Long realEstateAdjacentSegmentId) {
-    	try {
-    		realEstateAdjacentSegmentRepository.deleteById(realEstateAdjacentSegmentId);
     		return true;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -12,7 +12,6 @@ import java.util.List;
  * @author Admin
  */
 public interface ILandsDetailService {
-    List<LandsDetail> findAll();
 
     LandsDetail save(LandsDetail landsDetail);
 

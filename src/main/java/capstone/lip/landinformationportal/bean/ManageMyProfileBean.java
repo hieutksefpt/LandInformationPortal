@@ -11,9 +11,6 @@ import capstone.lip.landinformationportal.utils.EncryptedPassword;
 import java.io.IOException;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -22,12 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.text.SimpleDateFormat;  
-import java.util.Calendar;
 import javax.faces.context.ExternalContext;
 import org.primefaces.PrimeFaces;
-import org.primefaces.component.password.Password;
-
 /**
  *
  * @author Admin
@@ -36,8 +29,9 @@ import org.primefaces.component.password.Password;
 @Named
 @ViewScoped
 public class ManageMyProfileBean implements Serializable{
-    
-    private User userSelected;
+
+	private static final long serialVersionUID = 1L;
+	private User userSelected;
     private String genderSelected;
     private String username;
     private String fullname;

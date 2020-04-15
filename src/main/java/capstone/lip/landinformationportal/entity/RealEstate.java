@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -22,13 +21,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
-
-import capstone.lip.landinformationportal.entity.audit.AuditAbstract;
 import capstone.lip.landinformationportal.entity.audit.CustomAuditModify;
 import capstone.lip.landinformationportal.entity.audit.CustomAuditableListener;
 
@@ -130,7 +126,7 @@ public class RealEstate implements Serializable, CustomAuditModify{
     }
 
     public void setRealEstateNameGetOnly(String realEstateName) {
-         realEstateName = realEstateName;
+         this.realEstateName = realEstateName;
     }
     public Double getRealEstateLat() {
         return realEstateLat;

@@ -1,30 +1,16 @@
 package capstone.lip.landinformationportal.bean;
 
-import capstone.lip.landinformationportal.dto.Coordinate;
 import capstone.lip.landinformationportal.dto.LazyListAllRealEstate;
-import capstone.lip.landinformationportal.entity.House;
-import capstone.lip.landinformationportal.entity.HousesDetail;
-import capstone.lip.landinformationportal.entity.Land;
-import capstone.lip.landinformationportal.entity.LandsDetail;
 import capstone.lip.landinformationportal.entity.RealEstate;
-import capstone.lip.landinformationportal.service.Interface.IHouseService;
-import capstone.lip.landinformationportal.service.Interface.IHousesDetailService;
-import capstone.lip.landinformationportal.service.Interface.ILandService;
-import capstone.lip.landinformationportal.service.Interface.ILandsDetailService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
-import capstone.lip.landinformationportal.service.Interface.IUserService;
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import org.primefaces.PrimeFaces;
 import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,7 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @ViewScoped
 public class ListAllRealEstateBean implements Serializable {
 
-    @Autowired
+	private static final long serialVersionUID = 1L;
+
+	@Autowired
     private IRealEstateService realEstateService;
 
     private LazyDataModel<RealEstate> lazyReo;

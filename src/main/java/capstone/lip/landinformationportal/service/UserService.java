@@ -13,9 +13,6 @@ import capstone.lip.landinformationportal.utils.EmailSender;
 import capstone.lip.landinformationportal.utils.EncryptedPassword;
 import capstone.lip.landinformationportal.utils.PasswordGenerator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -57,29 +54,6 @@ public class UserService implements IUserService {
         
     }
 
-    @Override
-    public boolean delete(Long userID) {
-    	try {
-    		userRepository.deleteById(userID);
-    		return true;
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    		return false;
-    	}
-        
-    }
-
-    // search User theo username
-    @Override
-    public List<User> search(String userNamePart) {
-    	try {
-    		return userRepository.findByUsernameContaining(userNamePart);
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    		return null;
-    	}
-    }
-
     // Hàm này get List Real Estate theo ID của User
     @Override
     public List<RealEstate> getListRealEstate(Long userId) {
@@ -110,7 +84,6 @@ public class UserService implements IUserService {
     @Override
     public String resetPassword(long userId, int passwordLength) {
     	try {
-	    	String usernameTemp = username;
 	        User user = userRepository.findById(userId).get();
 	        String newPassword = PasswordGenerator.generate(passwordLength);
 	        String encryptedPassword = EncryptedPassword.encrytePassword(newPassword);
@@ -133,16 +106,6 @@ public class UserService implements IUserService {
 			return null;
 		}
 		
-	}
-
-	@Override
-	public User findByUsernamePassword(String username, String password) {
-		try {
-			return userRepository.findByUsername(username);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 
     @Override

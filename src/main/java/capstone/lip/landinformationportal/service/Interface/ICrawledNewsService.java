@@ -30,11 +30,7 @@ public interface ICrawledNewsService{
 	
 	List<CrawledNews> saveAll(List<CrawledNews> listNews);
 	
-	List<CrawledNews> findByCrawledNewsStatus(String status);
-	
 	Page<CrawledNews> findByCrawledNewsStatus(String status, Pageable page);
-	
-	long count();
 	
 	long countByStatus(String status);
 	

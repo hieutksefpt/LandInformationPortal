@@ -1,7 +1,6 @@
 package capstone.lip.landinformationportal.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -9,13 +8,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import org.primefaces.PrimeFaces;
 import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
 import capstone.lip.landinformationportal.dto.LazyCrawledRealEstate;
-import capstone.lip.landinformationportal.entity.CrawledNews;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.service.Interface.ICrawlRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
@@ -74,7 +70,6 @@ public class ManageCrawlRealEstateBean implements Serializable{
 		crawlReoService.initCrawlJob();
 		crawlReoService.turnOnCrawler();
 		statusCrawlSchedule = true; 
-		int i= 1;
 	}
 	
 	public void setMessage(FacesMessage.Severity severityType, String message) {

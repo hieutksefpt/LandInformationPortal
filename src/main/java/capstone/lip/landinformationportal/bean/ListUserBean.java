@@ -22,8 +22,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @Named
 @ViewScoped
 public class ListUserBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    @Autowired
+	@Autowired
     IUserService userService;
 
     private List<User> listUser;

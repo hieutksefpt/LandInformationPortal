@@ -25,7 +25,6 @@ import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegmentId;
 import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 import capstone.lip.landinformationportal.entity.Street;
 import capstone.lip.landinformationportal.entity.User;
-import capstone.lip.landinformationportal.service.Interface.IDistrictService;
 import capstone.lip.landinformationportal.service.Interface.IFormedCoordinate;
 import capstone.lip.landinformationportal.service.Interface.IHouseService;
 import capstone.lip.landinformationportal.service.Interface.IHousesDetailService;
@@ -34,10 +33,7 @@ import capstone.lip.landinformationportal.service.Interface.ILandService;
 import capstone.lip.landinformationportal.service.Interface.ILandsDetailService;
 import capstone.lip.landinformationportal.service.Interface.ILandsFeatureService;
 import capstone.lip.landinformationportal.service.Interface.IProvinceService;
-import capstone.lip.landinformationportal.service.Interface.IRealEstateAdjacentSegmentService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
-import capstone.lip.landinformationportal.service.Interface.ISegmentOfStreetService;
-import capstone.lip.landinformationportal.service.Interface.IStreetService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import com.google.gson.Gson;
 import java.io.Serializable;
@@ -64,7 +60,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @ViewScoped
 public class UpdateContributeRealEstateBean implements Serializable {
 
-    private RealEstate realEstateClicked;
+	private static final long serialVersionUID = 1L;
+	private RealEstate realEstateClicked;
     private String jsonCoordinate;
     private Land currentLand;
     private List<House> currentListHouse;
@@ -91,22 +88,10 @@ public class UpdateContributeRealEstateBean implements Serializable {
     private IProvinceService provinceService;
 
     @Autowired
-    private IDistrictService districtService;
-
-    @Autowired
-    private ISegmentOfStreetService segmentOfStreetService;
-
-    @Autowired
-    private IStreetService streetService;
-
-    @Autowired
     private IFormedCoordinate formedCoordinateService;
 
     @Autowired
     private ILandsFeatureService landFeatureService;
-
-    @Autowired
-    private IRealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
 
     @Autowired
     private IHousesFeatureService housesFeatureService;
@@ -479,33 +464,11 @@ public class UpdateContributeRealEstateBean implements Serializable {
                         Coordinate coor = new Coordinate(x.getFormedLng(), x.getFormedLat());
                         return coor;
                     }).collect(Collectors.toList());
-            int i = 1;
-            i++;
             Gson gson = new Gson();
             jsonMultipleCoordinate = gson.toJson(listCoordinate);
         } else {
 
         }
-    }
-
-    private String findErrorInput() {
-        if (nameInput == null || nameInput.isEmpty()) {
-            return "Tên không được để trống";
-        }
-        if (processType.equals("1")) {
-            if (!listProvince.stream().filter(x -> x.getProvinceName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()) {
-                return "Trùng tên";
-            }
-        }
-        if (processType.equals("4")) {
-            if (jsonMultipleCoordinate == null || jsonMultipleCoordinate.isEmpty()) {
-                return "Tọa độ không được để trống";
-            }
-        } else if (lngSingleCoordinate == null || latSingleCoordinate == null || lngSingleCoordinate.isEmpty() || latSingleCoordinate.isEmpty()) {
-            return "Tọa độ không được để trống";
-        }
-
-        return "";
     }
 
     public void setMessage(FacesMessage.Severity severityType, String message) {

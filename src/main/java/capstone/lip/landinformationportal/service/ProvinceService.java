@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.repository.ProvinceRepository;
 import capstone.lip.landinformationportal.service.Interface.IProvinceService;

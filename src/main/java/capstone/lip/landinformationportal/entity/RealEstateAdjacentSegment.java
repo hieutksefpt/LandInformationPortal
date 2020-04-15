@@ -6,7 +6,6 @@
 package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

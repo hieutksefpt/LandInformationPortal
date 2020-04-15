@@ -15,15 +15,11 @@ import java.util.List;
  * @author Admin
  */
 public interface IRealEstateAdjacentSegmentService {
-    List<RealEstateAdjacentSegment> findAll();
-
     RealEstateAdjacentSegment validateRealEstateAdjacentInfor(RealEstate newUploadRealEstate, RealEstateAdjacentSegmentId realEstateAdjacentSegmentId);
     
     RealEstateAdjacentSegment save(RealEstateAdjacentSegment realEstateAdjacentSegment);
     
     boolean delete(List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment);
-
-    boolean deleteById(Long realEstateAdjacentSegmentId);
     
     List<RealEstateAdjacentSegment> save(List<RealEstateAdjacentSegment> listReoAdjacentSegment);
 }

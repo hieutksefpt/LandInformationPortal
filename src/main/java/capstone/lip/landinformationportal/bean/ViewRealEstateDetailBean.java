@@ -6,12 +6,7 @@ import capstone.lip.landinformationportal.entity.HousesDetail;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.LandsDetail;
 import capstone.lip.landinformationportal.entity.RealEstate;
-import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 import capstone.lip.landinformationportal.entity.User;
-import capstone.lip.landinformationportal.service.Interface.IHouseService;
-import capstone.lip.landinformationportal.service.Interface.IHousesDetailService;
-import capstone.lip.landinformationportal.service.Interface.ILandService;
-import capstone.lip.landinformationportal.service.Interface.ILandsDetailService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import com.google.gson.Gson;
@@ -19,7 +14,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
@@ -38,7 +32,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @ViewScoped
 public class ViewRealEstateDetailBean implements Serializable {
 
-    private RealEstate realEstateClicked;
+	private static final long serialVersionUID = 1L;
+	private RealEstate realEstateClicked;
     private String jsonCoordinate;
     private Land currentLand;
     private List<House> currentListHouse;

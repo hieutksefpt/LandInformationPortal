@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import capstone.lip.landinformationportal.entity.Report;
-import capstone.lip.landinformationportal.entity.ReportId;
 import capstone.lip.landinformationportal.repository.ReportRepository;
 import capstone.lip.landinformationportal.service.Interface.IReportService;
 

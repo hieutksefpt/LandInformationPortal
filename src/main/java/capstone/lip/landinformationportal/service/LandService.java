@@ -9,10 +9,8 @@ import capstone.lip.landinformationportal.dto.LandFeatureValue;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.LandsDetail;
 import capstone.lip.landinformationportal.entity.LandsDetailId;
-import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.repository.LandRepository;
-import capstone.lip.landinformationportal.repository.LandsDetailRepository;
 import capstone.lip.landinformationportal.service.Interface.ILandService;
 import capstone.lip.landinformationportal.validation.RealEstateValidation;
 import java.math.BigDecimal;
@@ -31,20 +29,6 @@ public class LandService implements ILandService {
 
     @Autowired
     private LandRepository landRepository;
-
-    @Autowired
-    private LandsDetailRepository landsDetailRepository;
-
-    @Override
-    public List<Land> findAll() {
-    	try {
-    		return landRepository.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
-    }
 
     @Override
     public Land save(Land land) {
@@ -65,23 +49,6 @@ public class LandService implements ILandService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
-		}
-        
-    }
-
-    @Override
-    public List<LandsFeature> getListLandsFeature(Long landId) {
-    	try {
-    		Land land = landRepository.findById(landId).get();
-            List<LandsDetail> listLandDetail = land.getListLandsDetail();
-            List<LandsFeature> listLandsFeature = new ArrayList<LandsFeature>();
-            for (LandsDetail landDetail : listLandDetail) {
-                listLandsFeature.add(landDetail.getLandsFeature());
-            }
-            return listLandsFeature;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
 		}
         
     }

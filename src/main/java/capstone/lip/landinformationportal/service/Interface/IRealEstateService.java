@@ -13,9 +13,7 @@ import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.User;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,25 +24,17 @@ import org.springframework.data.domain.Pageable;
  */
 public interface IRealEstateService {
 
-    List<RealEstate> findAll();
-
     RealEstate findById(long realEstateId);
 
     RealEstate validateInfor(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice,String realEstateStatus, User tempUser);
 
     RealEstate save(RealEstate realEstate);
     
-    boolean delete(List<RealEstate> listRealEstate);
-
     Land getLand(Long realEstateId);
 
     List<House> getListHouse(Long realEstateId);
-
-    boolean delete(RealEstate realEstate);
-    
+ 
     boolean delete(long realEstateId);
-
-    List<RealEstate> findByRealEstateStatus(String status);
 
     Page<RealEstate> findByRealEstateStatus(String status, Pageable page);
     
@@ -63,10 +53,6 @@ public interface IRealEstateService {
     long countByRealEstateSource(String realEstateAddress, String realEstateSource);
     
     long countByRealEstateSourceNot(String realEstateAddress, String realEstateSource);
-    
-    Page<RealEstate> findByRealEstateSource(String source, Pageable page);
-    
-    Page<RealEstate> findByRealEstateSourceNot(String source, Pageable page);
     
     Page<RealEstate> findAll(Pageable page);
     

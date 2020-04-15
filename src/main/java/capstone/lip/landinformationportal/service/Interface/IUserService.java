@@ -19,11 +19,7 @@ public interface IUserService {
 
     List<User> findAll();
 
-    List<User> search(String userNamePart);
-
     User save(User user);
-
-    boolean delete(Long userID);
 
     User findById(Long userId);
 
@@ -34,8 +30,6 @@ public interface IUserService {
     User findByUsername(String username);
 
     long count();
-
-    User findByUsernamePassword(String username, String password);
 
     Page<User> findAll(Pageable page);
 }

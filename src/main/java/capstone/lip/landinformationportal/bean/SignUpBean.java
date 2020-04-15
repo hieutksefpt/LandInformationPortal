@@ -29,7 +29,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 @ViewScoped
 public class SignUpBean implements Serializable {
 
-    private User newUser;
+	private static final long serialVersionUID = 1L;
+	private User newUser;
     private String gender;
     private String username;
     private String fullname;

@@ -13,7 +13,8 @@ import java.io.Serializable;
  * @author Admin
  */
 public class HouseFeatureValue implements Serializable{
-    private HousesFeature housesFeature;
+	private static final long serialVersionUID = 1L;
+	private HousesFeature housesFeature;
     private String value;
 
     public HouseFeatureValue() {

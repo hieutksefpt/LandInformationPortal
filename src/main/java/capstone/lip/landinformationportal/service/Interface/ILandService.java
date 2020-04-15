@@ -18,15 +18,11 @@ import java.util.List;
  * @author Admin
  */
 public interface ILandService {
-    
-    List<Land> findAll();
 
     Land save(Land land);
     
     boolean delete(Land land);
 
-    List<LandsFeature> getListLandsFeature(Long landId);
-    
     Land validateLandInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney,List<LandFeatureValue> listLandFeatureValue);
     
     List<LandsDetail> validateLandDetailInfor(Land tempLand,List<LandFeatureValue> listLandFeatureValue );

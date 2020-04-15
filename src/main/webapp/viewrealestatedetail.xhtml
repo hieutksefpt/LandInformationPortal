@@ -13,6 +13,7 @@
         <ui:composition template="/template/common/commonLayout.xhtml">
             <ui:define name="content">
                 <h:outputStylesheet name="viewrealestatedetail.css" library="css"></h:outputStylesheet>
+                <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
                 <h:outputStylesheet name="bootstrap.min.css" library="css" />
                 <div class="modal fade" id="confirmDeletePopup" tabindex="-1" role="dialog"
                      aria-labelledby="confirmDeletePopup" aria-hidden="true">
@@ -49,10 +50,20 @@
                                 <div id="lbl-DetailRealEstate" class="title-header">Chi tiết Bất Động Sản</div>
                                 <h:inputHidden id="txtInput_coordinate_detailRealEstate" value="#{viewRealEstateDetailBean.jsonCoordinate}"></h:inputHidden>
                                 <div>
-                                    <h:form rendered="#{viewRealEstateDetailBean.ownRealEstate}">
-                                        <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateLink != null}">
-                                            <a href="#{viewRealEstateDetailBean.realEstateClicked.realEstateLink}" target="_blank"><h:outputText value="Source Link" /></a>
+                                    <h:form id="updateReport" rendered="#{viewRealEstateDetailBean.ownRealEstate}">
+
+                                        <c:if test="#{viewRealEstateDetailBean.checkExistInReport() != null}">
+                                            <p:commandButton icon="pi pi-ban report red-report"
+                                                             action="#{viewRealEstateDetailBean.reportAndUnreport()}"
+                                                             update="updateReport"/>
                                         </c:if>
+                                        <c:if test="#{viewRealEstateDetailBean.checkExistInReport() == null}">
+                                            <p:commandButton icon="pi pi-ban report blue-report"
+                                                             action="#{viewRealEstateDetailBean.reportAndUnreport()}"
+                                                             update="updateReport"/>
+                                        </c:if>
+                                        <h:outputText value="#{viewRealEstateDetailBean.numberOfReport}"/>
+
                                         <h:commandButton id="btn-ButtonDelete" 
                                                          type="button" 
                                                          class="btn-delete btn-in-detai-page" 
@@ -75,6 +86,9 @@
                                 </c:if>
                                 <div id="lbl-RealEstateNameLabel" class="text realEstateName element-list">
                                     Tên đối tượng BĐS
+                                    <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateLink != null}">
+                                        <a href="#{viewRealEstateDetailBean.realEstateClicked.realEstateLink}" target="_blank"><h:outputText value="Source Link" /></a>
+                                    </c:if>
                                 </div>
                                 <div class="realEstateNameInput element-list">
                                     <h:inputText id="txt-RealEstateName" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstateName}" readonly="true"></h:inputText>
@@ -90,7 +104,7 @@
                                 </div>
                                 <div class="priceInput element-list">
                                     <h:inputText id="txt-RealEstatePrice" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstatePrice}" readonly="true">
-                                    	<f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
+                                        <f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
                                     </h:inputText>
                                     <p>(Đơn vị: Việt Nam đồng)</p>
                                 </div>
@@ -108,7 +122,7 @@
                                 </div>
                                 <div class="priceInput element-list">
                                     <h:inputText id="txt-LandPrice" class="input" value="#{viewRealEstateDetailBean.currentLand.landPrice}" readonly="true">
-                                    	<f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
+                                        <f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
                                     </h:inputText><p>(Đơn vị: Việt Nam đồng)</p>
                                 </div>
                                 <div class="row element-list-land">
@@ -134,7 +148,7 @@
                                     </div>
                                     <div class="priceInput element-list">
                                         <h:inputText id="txt-HousePrice" class="input" value="#{house.housePrice}" readonly="true">
-                                        	<f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
+                                            <f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
                                         </h:inputText><p>(Đơn vị: Việt Nam đồng)</p>
                                     </div>
                                     <c:if test="#{house.listHousesDetail != null}">

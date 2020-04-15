@@ -50,7 +50,7 @@ public class ManageCrawlNewsBean implements Serializable{
 	public void setTimerButtonClick() {
 		try {
 			int timer= Integer.valueOf(timerCrawl);
-			crawledNewService.setTimeCrawlJob(timer);
+			crawledNewService.setTimeCrawlJob(timer*60*60);
 		}catch(Exception e) {
 			setMessage(FacesMessage.SEVERITY_ERROR, "Thời gian không phù hợp");
 		}
@@ -83,7 +83,9 @@ public class ManageCrawlNewsBean implements Serializable{
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	public void crawlNow() {
-		crawledNewService.crawlNow();
+		boolean test = crawledNewService.crawlNow();
+		if (test==true)
+			setMessage(FacesMessage.SEVERITY_INFO, "Hoàn thành crawl ngay");
 	}
 
 	public String getTimerCrawl() {

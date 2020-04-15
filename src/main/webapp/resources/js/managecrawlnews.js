@@ -7,3 +7,8 @@ function checkclick(dlg){
             "severity":"warn"})
 	}
 }
+function renderMessageCrawlNow(){
+	PF('alert').renderMessage({"summary":"Thông báo",
+        "detail":"Đang crawl ngay",
+        "severity":"info"})
+}

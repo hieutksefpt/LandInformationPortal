@@ -55,7 +55,7 @@ public class ManageCrawlRealEstateBean implements Serializable{
 	public void setTimerButtonClick() {
 		try {
 			int timer= Integer.valueOf(timerCrawl);
-			crawlReoService.setTimeCrawlJob(timer);
+			crawlReoService.setTimeCrawlJob(timer*60*60);
 		}catch(Exception e) {
 			setMessage(FacesMessage.SEVERITY_ERROR, "Thời gian không phù hợp");
 		}

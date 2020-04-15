@@ -18,6 +18,4 @@ public interface ILandsDetailService {
 
     boolean delete(List<LandsDetail> listLandsDetail);
 
-    boolean deleteById(Long landsDetailId);
-    
 }

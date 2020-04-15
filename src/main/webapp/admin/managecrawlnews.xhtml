@@ -20,7 +20,7 @@
             		<div class="col-3">
             			<div class="row">
             				<div class="col-3">
-	            				<h:inputText title="#{manageCrawlNewsBean.timerCrawl} s" value="#{manageCrawlNewsBean.timerCrawl}"></h:inputText>
+	            				<h:inputText title="#{manageCrawlNewsBean.timerCrawl} giờ" value="#{manageCrawlNewsBean.timerCrawl}"></h:inputText>
 	            			</div>
 	            			<div class="col-9">
 	            				<h:commandButton value="Cài thời gian crawler">
@@ -28,7 +28,6 @@
 				            	</h:commandButton>
 	            			</div>
             			</div>
-            			
             		</div>
             		<div class="col-3 text-center">
             			<h:commandButton value="Bật crawler" rendered="#{not manageCrawlNewsBean.statusCrawlSchedule}">
@@ -38,24 +37,31 @@
 		            	<h:commandButton value="Tắt crawler" rendered="#{manageCrawlNewsBean.statusCrawlSchedule}">
 		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.turnOffCrawler()}"></p:ajax>
 		            	</h:commandButton>
+		            	<div class="text-center">
+		            		<label id="lb-crawlnow"></label>
+		            		<h:outputText rendered="#{manageCrawlNewsBean.statusCrawlSchedule}" 
+	            				value="Đang chạy"></h:outputText>
+		            	</div>
+		            	
             		</div>
             		<div class="col-3">
             			<h:commandButton value="Crawl ngay">
-		            		<p:ajax process="@form" listener="#{manageCrawlNewsBean.crawlNow()}"></p:ajax>
+		            		<p:ajax process="@form" listener="#{manageCrawlNewsBean.crawlNow()}" onstart="renderMessageCrawlNow()"></p:ajax>
 		           		</h:commandButton>
+		           		
             		</div>
             		<div class="col-3">
-            			<div class="row text-center">
-		            		<label id="lb-crawlnow"></label>
-		            		<h:outputText rendered="#{manageCrawlNewsBean.statusCrawlSchedule}" 
-	            				value="Đang chạy crawl tự động"></h:outputText>
-		            	</div>
+            			<div class="btn">
+		           			<h:commandButton value="Hiển thị tin tức" onclick="checkclick('dlgShowList')"></h:commandButton>
+		           		</div>
+		           		<div class="btn">
+		           			<h:commandButton value="Xóa tin tức" onclick="checkclick('dlgDeleteList')"></h:commandButton>
+		           		</div>
             		</div>
             	</div>
-
-            	
-            	
-            	
+            	<h:panelGroup id="test">
+	           		
+	           	</h:panelGroup>
             </h:form>
             <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px">
             	
@@ -69,9 +75,7 @@
 			            <p:commandButton icon="pi pi-refresh" 
 			            action="#{manageCrawlNewsBean.refreshData()}" update="tabledata"/>
 			        </f:facet>
-			        
-			       	<p:ajax event="rowSelect" update="test"></p:ajax>
-			       	
+
 			        <p:column selectionMode="multiple" style="width:7%;text-align:center"> 
 			        </p:column>
 	            	<p:column width="80%">
@@ -103,14 +107,7 @@
 	            </p:dataTable>
 	            <br/>
 	            
-	           	<h:panelGroup id="test">
-	           		<div class="btn">
-	           			<h:commandButton value="Hiển thị tin tức" onclick="checkclick('dlgShowList')"></h:commandButton>
-	           		</div>
-	           		<div class="btn">
-	           			<h:commandButton value="Xóa tin tức" onclick="checkclick('dlgDeleteList')"></h:commandButton>
-	           		</div>
-	           	</h:panelGroup>
+	           	
 	           	
     			
 	            <p:dialog header="Hiển thị tin tức" widgetVar="dlgShow" modal="true" resizable="false">

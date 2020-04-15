@@ -24,7 +24,7 @@ public interface IHouseService {
 
     boolean delete(List<House> listHouse);
 
-    boolean deleteById(Long houseID);
+
     
     List<HousesFeature> getListHousesFeature(Long houseId);
     

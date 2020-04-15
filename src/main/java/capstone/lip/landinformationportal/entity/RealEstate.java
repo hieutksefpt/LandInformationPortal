@@ -84,6 +84,12 @@ public class RealEstate implements Serializable, CustomAuditModify{
     @LazyToOne(LazyToOneOption.NO_PROXY)
     private List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment;
 
+    @NotFound(action = NotFoundAction.IGNORE)
+    @OneToMany(mappedBy = "realEstate", fetch = FetchType.LAZY)
+    @LazyToOne(LazyToOneOption.NO_PROXY)
+    private List<Report> listReport;
+
+    
     public RealEstate() {
     }
 
@@ -223,133 +229,7 @@ public class RealEstate implements Serializable, CustomAuditModify{
     public void setLand(Land land) {
         this.land = land;
     }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((listHouse == null) ? 0 : listHouse.hashCode());
-        result = prime * result + ((land == null) ? 0 : land.hashCode());
-        result = prime * result
-                + ((listRealEstateAdjacentSegment == null) ? 0 : listRealEstateAdjacentSegment.hashCode());
-        result = prime * result + ((realEstateAddress == null) ? 0 : realEstateAddress.hashCode());
-        result = prime * result + ((realEstateId == null) ? 0 : realEstateId.hashCode());
-        result = prime * result + ((realEstateLat == null) ? 0 : realEstateLat.hashCode());
-        result = prime * result + ((realEstateLink == null) ? 0 : realEstateLink.hashCode());
-        result = prime * result + ((realEstateLng == null) ? 0 : realEstateLng.hashCode());
-        result = prime * result + ((realEstateName == null) ? 0 : realEstateName.hashCode());
-        result = prime * result + ((realEstatePrice == null) ? 0 : realEstatePrice.hashCode());
-        result = prime * result + ((realEstateStatus == null) ? 0 : realEstateStatus.hashCode());
-        result = prime * result + ((realEstateSource == null) ? 0 : realEstateSource.hashCode());
-        result = prime * result + ((user == null) ? 0 : user.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        RealEstate other = (RealEstate) obj;
-        if (listHouse == null) {
-            if (other.listHouse != null) {
-                return false;
-            }
-        } else if (!listHouse.equals(other.listHouse)) {
-            return false;
-        }
-        if (land == null) {
-            if (other.land != null) {
-                return false;
-            }
-        } else if (!land.equals(other.land)) {
-            return false;
-        }
-        if (listRealEstateAdjacentSegment == null) {
-            if (other.listRealEstateAdjacentSegment != null) {
-                return false;
-            }
-        } else if (!listRealEstateAdjacentSegment.equals(other.listRealEstateAdjacentSegment)) {
-            return false;
-        }
-        if (realEstateAddress == null) {
-            if (other.realEstateAddress != null) {
-                return false;
-            }
-        } else if (!realEstateAddress.equals(other.realEstateAddress)) {
-            return false;
-        }
-        if (realEstateId == null) {
-            if (other.realEstateId != null) {
-                return false;
-            }
-        } else if (!realEstateId.equals(other.realEstateId)) {
-            return false;
-        }
-        if (realEstateLat == null) {
-            if (other.realEstateLat != null) {
-                return false;
-            }
-        } else if (!realEstateLat.equals(other.realEstateLat)) {
-            return false;
-        }
-        if (realEstateLink == null) {
-            if (other.realEstateLink != null) {
-                return false;
-            }
-        } else if (!realEstateLink.equals(other.realEstateLink)) {
-            return false;
-        }
-        if (realEstateLng == null) {
-            if (other.realEstateLng != null) {
-                return false;
-            }
-        } else if (!realEstateLng.equals(other.realEstateLng)) {
-            return false;
-        }
-        if (realEstateName == null) {
-            if (other.realEstateName != null) {
-                return false;
-            }
-        } else if (!realEstateName.equals(other.realEstateName)) {
-            return false;
-        }
-        if (realEstatePrice == null) {
-            if (other.realEstatePrice != null) {
-                return false;
-            }
-        } else if (!realEstatePrice.equals(other.realEstatePrice)) {
-            return false;
-        }
-        if (realEstateStatus == null) {
-            if (other.realEstateStatus != null) {
-                return false;
-            }
-        } else if (!realEstateStatus.equals(other.realEstateStatus)) {
-            return false;
-        }
-        if (realEstateSource == null) {
-            if (other.realEstateSource != null) {
-                return false;
-            }
-        } else if (!realEstateSource.equals(other.realEstateSource)) {
-            return false;
-        }
-        if (user == null) {
-            if (other.user != null) {
-                return false;
-            }
-        } else if (!user.equals(other.user)) {
-            return false;
-        }
-        return true;
-    }
+    
 
 	private Timestamp createdDate;
 	private Timestamp modifiedDate;
@@ -370,6 +250,130 @@ public class RealEstate implements Serializable, CustomAuditModify{
 	@Override
 	public void setModifiedDate(Timestamp modifiedDate) {
 		this.modifiedDate = modifiedDate;
+	}
+
+	public List<Report> getListReport() {
+		return listReport;
+	}
+
+	public void setListReport(List<Report> listReport) {
+		this.listReport = listReport;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
+		result = prime * result + ((land == null) ? 0 : land.hashCode());
+		result = prime * result + ((listHouse == null) ? 0 : listHouse.hashCode());
+		result = prime * result
+				+ ((listRealEstateAdjacentSegment == null) ? 0 : listRealEstateAdjacentSegment.hashCode());
+		result = prime * result + ((listReport == null) ? 0 : listReport.hashCode());
+		result = prime * result + ((modifiedDate == null) ? 0 : modifiedDate.hashCode());
+		result = prime * result + ((realEstateAddress == null) ? 0 : realEstateAddress.hashCode());
+		result = prime * result + ((realEstateId == null) ? 0 : realEstateId.hashCode());
+		result = prime * result + ((realEstateLat == null) ? 0 : realEstateLat.hashCode());
+		result = prime * result + ((realEstateLink == null) ? 0 : realEstateLink.hashCode());
+		result = prime * result + ((realEstateLng == null) ? 0 : realEstateLng.hashCode());
+		result = prime * result + ((realEstateName == null) ? 0 : realEstateName.hashCode());
+		result = prime * result + ((realEstatePrice == null) ? 0 : realEstatePrice.hashCode());
+		result = prime * result + ((realEstateSource == null) ? 0 : realEstateSource.hashCode());
+		result = prime * result + ((realEstateStatus == null) ? 0 : realEstateStatus.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RealEstate other = (RealEstate) obj;
+		if (createdDate == null) {
+			if (other.createdDate != null)
+				return false;
+		} else if (!createdDate.equals(other.createdDate))
+			return false;
+		if (land == null) {
+			if (other.land != null)
+				return false;
+		} else if (!land.equals(other.land))
+			return false;
+		if (listHouse == null) {
+			if (other.listHouse != null)
+				return false;
+		} else if (!listHouse.equals(other.listHouse))
+			return false;
+		if (listRealEstateAdjacentSegment == null) {
+			if (other.listRealEstateAdjacentSegment != null)
+				return false;
+		} else if (!listRealEstateAdjacentSegment.equals(other.listRealEstateAdjacentSegment))
+			return false;
+		if (listReport == null) {
+			if (other.listReport != null)
+				return false;
+		} else if (!listReport.equals(other.listReport))
+			return false;
+		if (modifiedDate == null) {
+			if (other.modifiedDate != null)
+				return false;
+		} else if (!modifiedDate.equals(other.modifiedDate))
+			return false;
+		if (realEstateAddress == null) {
+			if (other.realEstateAddress != null)
+				return false;
+		} else if (!realEstateAddress.equals(other.realEstateAddress))
+			return false;
+		if (realEstateId == null) {
+			if (other.realEstateId != null)
+				return false;
+		} else if (!realEstateId.equals(other.realEstateId))
+			return false;
+		if (realEstateLat == null) {
+			if (other.realEstateLat != null)
+				return false;
+		} else if (!realEstateLat.equals(other.realEstateLat))
+			return false;
+		if (realEstateLink == null) {
+			if (other.realEstateLink != null)
+				return false;
+		} else if (!realEstateLink.equals(other.realEstateLink))
+			return false;
+		if (realEstateLng == null) {
+			if (other.realEstateLng != null)
+				return false;
+		} else if (!realEstateLng.equals(other.realEstateLng))
+			return false;
+		if (realEstateName == null) {
+			if (other.realEstateName != null)
+				return false;
+		} else if (!realEstateName.equals(other.realEstateName))
+			return false;
+		if (realEstatePrice == null) {
+			if (other.realEstatePrice != null)
+				return false;
+		} else if (!realEstatePrice.equals(other.realEstatePrice))
+			return false;
+		if (realEstateSource == null) {
+			if (other.realEstateSource != null)
+				return false;
+		} else if (!realEstateSource.equals(other.realEstateSource))
+			return false;
+		if (realEstateStatus == null) {
+			if (other.realEstateStatus != null)
+				return false;
+		} else if (!realEstateStatus.equals(other.realEstateStatus))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
 	}
 	
 }

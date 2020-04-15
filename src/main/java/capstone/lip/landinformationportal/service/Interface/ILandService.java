@@ -25,8 +25,6 @@ public interface ILandService {
     
     boolean delete(Land land);
 
-    boolean deleteById(Long landID);
-
     List<LandsFeature> getListLandsFeature(Long landId);
     
     Land validateLandInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney,List<LandFeatureValue> listLandFeatureValue);

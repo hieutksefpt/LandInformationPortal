@@ -158,29 +158,9 @@ public class CrawledNewsService implements ICrawledNewsService{
 	}
 
 	@Override
-	public List<CrawledNews> findAll() {
-		try {
-			return crawledNewsRepository.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	@Override
 	public List<CrawledNews> findByCrawledNewsStatus(String status) {
 		try {
 			return crawledNewsRepository.findByCrawledNewsStatus(status);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	@Override
-	public CrawledNews findByCrawledNewsLink(String link) {
-		try {
-			return crawledNewsRepository.findByCrawledNewsLink(link);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

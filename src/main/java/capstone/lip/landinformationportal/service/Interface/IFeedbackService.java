@@ -16,13 +16,13 @@ public interface IFeedbackService {
 	
 	Feedback save(Feedback feedback);
 	
-	void delete(List<Feedback> listFeedback) throws Exception;
+	boolean delete(List<Feedback> listFeedback);
 	
-	void delete(Feedback feedback) throws Exception;
+	boolean delete(Feedback feedback);
 	
 	Feedback findById(Long id);
 	
 	long count();
 	
-	void sendFeedbackReply(Feedback feedback) throws Exception;
+	boolean sendFeedbackReply(Feedback feedback);
 }

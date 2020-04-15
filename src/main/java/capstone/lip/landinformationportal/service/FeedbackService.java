@@ -24,52 +24,106 @@ public class FeedbackService implements IFeedbackService {
 	
 	@Override
 	public List<Feedback> findAll() {
-		return feedbackRepository.findAll();
+		try {
+			return feedbackRepository.findAll();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public List<Feedback> save(List<Feedback> listFeedback) {
-		return feedbackRepository.saveAll(listFeedback);
+		try {
+			return feedbackRepository.saveAll(listFeedback);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public Feedback save(Feedback feedback) {
-		return feedbackRepository.save(feedback);
+		try {
+			return feedbackRepository.save(feedback);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 
 	@Override
-	public void delete(List<Feedback> listFeedback) throws Exception {
-		feedbackRepository.deleteAll(listFeedback);
+	public boolean delete(List<Feedback> listFeedback){
+		try {
+			feedbackRepository.deleteAll(listFeedback);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 
 	@Override
-	public void delete(Feedback feedback) throws Exception {
-		feedbackRepository.delete(feedback);
+	public boolean delete(Feedback feedback){
+		try {
+			feedbackRepository.delete(feedback);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 
 	@Override
 	public Feedback findById(Long id) {
-		Optional<Feedback> temp = feedbackRepository.findById(id);
-		if (temp.isPresent()) {
-			return temp.get();
+		try {
+			Optional<Feedback> temp = feedbackRepository.findById(id);
+			if (temp.isPresent()) {
+				return temp.get();
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
-		return null;
+		
 	}
 
 	@Override
 	public long count() {
-		return feedbackRepository.count();
+		try {
+			return feedbackRepository.count();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		
 	}
 
 	@Override
 	public Page<Feedback> findAll(Pageable page) {
-		return feedbackRepository.findAll(page);
+		try {
+			return feedbackRepository.findAll(page);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
-	public void sendFeedbackReply(Feedback feedback) throws Exception {
-		feedbackRepository.save(feedback);
-		emailSender.sendMailFeedback(feedback);
+	public boolean sendFeedbackReply(Feedback feedback){
+		try {
+			feedbackRepository.save(feedback);
+			emailSender.sendMailFeedback(feedback);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 
 }

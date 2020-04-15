@@ -9,10 +9,7 @@ import capstone.lip.landinformationportal.dto.NewsCrawl;
 import capstone.lip.landinformationportal.entity.CrawledNews;
 
 public interface ICrawledNewsService{
-	List<CrawledNews> findAll();
-	
-	CrawledNews findByCrawledNewsLink(String link);
-	
+
 	List<CrawledNews> save(List<NewsCrawl> listCrawledNews);
 	
 	String initCrawlJob();

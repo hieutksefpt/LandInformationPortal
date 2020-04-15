@@ -8,6 +8,7 @@ import capstone.lip.landinformationportal.entity.LandsDetail;
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
+import capstone.lip.landinformationportal.service.Interface.IReportService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -38,12 +39,17 @@ public class ViewRealEstateDetailBean implements Serializable {
     private Land currentLand;
     private List<House> currentListHouse;
     private boolean ownRealEstate;
-    
+    private String numberOfReport = "0";
+    private User currentUser;
+
     @Autowired
     private IRealEstateService realEstateService;
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IReportService reportService;
 
     private long tempRealEstateId;
 
@@ -51,29 +57,48 @@ public class ViewRealEstateDetailBean implements Serializable {
     public void init() {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         long realEstateId = Long.parseLong(params.get("realEstateId"));
-        
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = "";
         if (auth != null) {
             username = (String) auth.getPrincipal();
         }
 
-        User currentUser = userService.findByUsername(username);
-        
-        
+        currentUser = userService.findByUsername(username);
+
         tempRealEstateId = realEstateId;
         realEstateClicked = realEstateService.findById(realEstateId);
-        
+
         if (realEstateClicked.getUser().equals(currentUser)) {
-        	ownRealEstate = true;
-        }else {
-        	ownRealEstate = false;
+            ownRealEstate = true;
+        } else {
+            ownRealEstate = false;
         }
-        
-        
+
+        numberOfReport = String.valueOf(realEstateClicked.getListReport().size());
         currentLand = realEstateClicked.getLand();
         currentListHouse = realEstateClicked.getListHouse();
         transferCoordinate();
+    }
+
+    public Report checkExistInReport() {
+        List<Report> listReport = realEstateClicked.getListReport();
+        for (Report r : listReport) {
+            if (r.getRealEstate().getRealEstateId() == realEstateClicked.getRealEstateId() && r.getUser().getUserId() == currentUser.getUserId()) {
+                return r;
+            }
+        }
+        return null;
+    }
+
+    public void reportAndUnreport() {
+        Report report = checkExistInReport();
+        if (report != null) {
+            reportService.delete(report);
+        } else if (report == null) {
+            reportService.save(new Report().setId(new ReportId(currentUser.getUserId(), realEstateClicked.getRealEstateId())));
+        }
+        numberOfReport = String.valueOf(realEstateClicked.getListReport().size());
     }
 
     public void goToDetails(long realEstateId) throws IOException {
@@ -150,13 +175,20 @@ public class ViewRealEstateDetailBean implements Serializable {
         this.tempRealEstateId = tempRealEstateId;
     }
 
-	public boolean isOwnRealEstate() {
-		return ownRealEstate;
-	}
+    public boolean isOwnRealEstate() {
+        return ownRealEstate;
+    }
 
-	public void setOwnRealEstate(boolean ownRealEstate) {
-		this.ownRealEstate = ownRealEstate;
-	}
-    
-    
+    public void setOwnRealEstate(boolean ownRealEstate) {
+        this.ownRealEstate = ownRealEstate;
+    }
+
+    public String getNumberOfReport() {
+        return numberOfReport;
+    }
+
+    public void setNumberOfReport(String numberOfReport) {
+        this.numberOfReport = numberOfReport;
+    }
+
 }

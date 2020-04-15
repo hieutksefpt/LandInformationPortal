@@ -19,6 +19,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -60,21 +61,31 @@ public class SignUpBean implements Serializable {
 
     public void registerUser() throws IOException {
         newUser = new User();
-        newUser.setAddress(address);
-        newUser.setEmail(email);
-        newUser.setFullName(fullname);
-        newUser.setGender(gender);
-        newUser.setPassword(EncryptedPassword.encrytePassword(password));
-        newUser.setPhone(phone);
-        newUser.setUsername(username);
-//        newUser.setDateOfBirth();
-        newUser.setUserStatus("1");
-        newUser.setRole(UserRoleConstant.USER);
-        newUser = userService.save(newUser);
+        if (password.equals(confirmpassword)) {
+            newUser.setAddress(address);
+            newUser.setEmail(email);
+            newUser.setFullName(fullname);
+            newUser.setGender(gender);
+            newUser.setPassword(EncryptedPassword.encrytePassword(password));
+            newUser.setPhone(phone);
+            newUser.setUsername(username);
+            newUser.setUserStatus("1");
+            newUser.setRole(UserRoleConstant.USER);
 
-        FacesMessage msg = new FacesMessage();
-        msg = new FacesMessage("Thành công", "Đăng ký thành công");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+            newUser = userService.save(newUser);
+
+            FacesMessage msg = new FacesMessage();
+            msg = new FacesMessage("Thành công", "Đăng ký thành công");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
+        } else {
+            PrimeFaces.current().executeScript("showLogPassError()");
+        }
+
+    }
+
+    public void directToHomePage() throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
     }

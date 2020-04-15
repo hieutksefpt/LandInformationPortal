@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+
+        <meta content="" name="descriptison"/>
+        <meta content="" name="keywords"/>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"></link>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- Vendor CSS Files -->
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/template/common/commonLayout.xhtml">
+            <ui:define name="content">
+                <h:outputStylesheet name="bootstrap.min.css" library="css"/>
+                <h:outputStylesheet name="icofont.min.css" library="css"/>
+                <h:outputStylesheet name="hamburgers.min.css" library="css"/>
+                <h:outputStylesheet name="select2.min.css" library="css"/>
+                <h:outputStylesheet name="common-style.css" library="css"/>
+
+                <!-- Template Main CSS File -->
+                <h:outputStylesheet name="util.css" library="css"/>
+                <h:outputStylesheet name="feedback.css" library="css"/>
+
+
+                <div class="contact1">
+                    
+                    <div class="container-contact1">
+                        <div class="contact1-pic js-tilt" data-tilt="">
+                            <img src="/resources/img/img-01.png"/>
+                        </div>
+
+                        <h:form id="form" class="contact1-form validate-form">
+                            <span class="contact1-form-title">
+                                Liên hệ với chúng tôi
+                            </span>
+
+                            
+                            <div class="wrap-input1 validate-input" data-validate = "Name is required">
+                                <h:inputText id="fullname" value="#{feedbackBean.fullname}"  a:placeholder="Tên của bạn" class="input1">
+                                </h:inputText>
+                                <span class="shadow-input1"></span>
+                            </div>
+
+                            <div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                                <h:inputText id="feedbackTitle" value="#{feedbackBean.feedbackTitle}"  a:placeholder="Chủ đề" class="input1">
+                                </h:inputText>
+                                    <span class="shadow-input1"></span>
+                            </div>
+
+                            <div class="wrap-input1 validate-input" data-validate = "Message is required">
+                                <p:inputTextarea class="input1" id="message" value="#{feedbackBean.feedbackContent}" a:placeholder="Nội dung" rows="6" cols="33" />
+                                <span class="shadow-input1"></span>
+                            </div>
+
+                            <div class="container-contact1-form-btn">
+                                <h:commandButton class="contact1-form-btn"  value="Gửi phản hồi">
+                                    <p:ajax listener="#{feedbackBean.sendFeedback()}" process="@form"/>
+                                </h:commandButton>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+
+                <!-- JS -->
+                <h:outputScript name="jquery.min.js" library="js" />
+                <h:outputScript name="popper.js" library="js" />
+                <h:outputScript name="select2.min.js" library="js" />
+                <h:outputScript name="tilt.jquery.min.js" library="js" />
+                <!-- Main JS -->
+                <h:outputScript name="feedback.js" library="js"/>                
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

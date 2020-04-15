@@ -3,8 +3,13 @@
 function initMap() {
 
     var markers = JSON.parse($('#txtInput_multipleCoordinate_listOwnRealEstate').val());
+    if(markers != null){
     var latitude = markers[0].latitude;
     var longitude = markers[0].longitude;
+    }else {
+          latitude = 21.027763;
+          longitude = 105.834160;
+    }
     var myLatLng = {lat: latitude, lng: longitude};
     
     map = new google.maps.Map(document.getElementById('map'), {
@@ -23,6 +28,7 @@ function initMap() {
     
     var markerCluster = new MarkerClusterer(map, listMarkers,
           {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    
 }
 
 var checkConfirm = function() {

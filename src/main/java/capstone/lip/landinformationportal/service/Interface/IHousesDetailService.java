@@ -16,6 +16,6 @@ public interface IHousesDetailService {
 
     HousesDetail save(HousesDetail housesDetail);
 
-    boolean delete(List<HousesDetail> listDistrict);
-    
+    boolean delete(List<HousesDetail> listHousesDetail);
+
 }

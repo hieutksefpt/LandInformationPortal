@@ -30,16 +30,13 @@
                 <h:outputStylesheet name="icofont.min.css" library="css"/>
                 <h:outputStylesheet name="boxicons.min.css" library="css"/>
                 <h:outputStylesheet name="venobox.css" library="css"/>
-                
-
-
                 <!-- Template Main CSS File -->
                 <h:outputStylesheet name="viewmyprofile.css" library="css"/>
                 <header id="header">
                     <div class="d-flex flex-column">
 
                         <div class="profile">
-                            <h1 class="text-light"><a href="viewmyprofile.xhtml">Từ Khắc Hiếu</a></h1>
+                            <h1 class="text-light"><a href="viewmyprofile.xhtml">#{manageMyProfileBean.fullname}</a></h1>
                         </div>
 
                         <nav class="nav-menu">
@@ -156,7 +153,7 @@
                                         </tr>
                                         <tr>
                                             <td class="passrow"><label for="name">Xác nhận mật khẩu</label></td>
-                                            <td><p:password id="confirmNewPass" value="#{manageMyProfileBean.confirmNewPass}" feedback="true" onkeyup='checkConfirm();'/>
+                                            <td><p:password id="confirmNewPass" value="#{manageMyProfileBean.confirmNewPass}" onkeyup='checkConfirm();'/>
                                                 <span id='message'></span>
                                                 <div class="validate"></div>
                                             </td>

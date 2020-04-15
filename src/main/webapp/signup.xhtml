@@ -30,6 +30,9 @@
                 <h:outputStylesheet name="common-style.css" library="css"/>
 
                 <div class="main">
+                    <h:commandButton class="btn btn-primary backHome" value="Trở về Trang chủ">
+                        <p:ajax listener="#{signUpBean.directToHomePage()}"/>
+                    </h:commandButton>
                     <div class="container">
                         <h:form class="appointment-form" id="registerUser">
                             <h2>Cổng thông tin đất đai</h2>
@@ -64,7 +67,6 @@
                             <div class="form-submit">
                                 <h:commandButton class="next action-button"  value="Đăng ký tài khoản">
                                     <p:ajax listener="#{signUpBean.registerUser()}" process="registerUser"/>
-                                    
                                 </h:commandButton>
                             </div>
                         </h:form>

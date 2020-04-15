@@ -6,6 +6,8 @@ import capstone.lip.landinformationportal.entity.HousesDetail;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.LandsDetail;
 import capstone.lip.landinformationportal.entity.RealEstate;
+import capstone.lip.landinformationportal.entity.Report;
+import capstone.lip.landinformationportal.entity.ReportId;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IReportService;
@@ -82,13 +84,8 @@ public class ViewRealEstateDetailBean implements Serializable {
     }
 
     public Report checkExistInReport() {
-        List<Report> listReport = realEstateClicked.getListReport();
-        for (Report r : listReport) {
-            if (r.getRealEstate().getRealEstateId() == realEstateClicked.getRealEstateId() && r.getUser().getUserId() == currentUser.getUserId()) {
-                return r;
-            }
-        }
-        return null;
+        Report r = reportService.findById(currentUser.getUserId(), realEstateClicked.getRealEstateId());
+        return r;
     }
 
     public void reportAndUnreport() {
@@ -98,6 +95,7 @@ public class ViewRealEstateDetailBean implements Serializable {
         } else if (report == null) {
             reportService.save(new Report().setId(new ReportId(currentUser.getUserId(), realEstateClicked.getRealEstateId())));
         }
+        realEstateClicked = realEstateService.findById(realEstateClicked.getRealEstateId());
         numberOfReport = String.valueOf(realEstateClicked.getListReport().size());
     }
 

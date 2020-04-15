@@ -17,17 +17,35 @@ public class FormedCoordinateService implements IFormedCoordinate{
 	
 	@Override
 	public FormedCoordinate save(FormedCoordinate formedCoordinate) {
-		return formerCoordinateRepository.save(formedCoordinate);  
+		
+		try {
+			return formerCoordinateRepository.save(formedCoordinate);  
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public List<FormedCoordinate> saveAll(List<FormedCoordinate> listFormedCoordinate) {
-		return formerCoordinateRepository.saveAll(listFormedCoordinate);
+		try {
+			return formerCoordinateRepository.saveAll(listFormedCoordinate);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
-	public void delete(List<FormedCoordinate> listCoordinate) {
-		formerCoordinateRepository.deleteInBatch(listCoordinate);
+	public boolean delete(List<FormedCoordinate> listCoordinate) {
+		try {
+			formerCoordinateRepository.deleteAll(listCoordinate);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 	
 	

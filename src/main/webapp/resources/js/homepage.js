@@ -106,8 +106,9 @@ function drawListMarker(list){
     	}
     	
     	google.maps.event.addListener(marker, 'click', function () {
-            // you know you'd be better off with 
-            // marker.getPosition().lat(), right?
+    		if ($(PF('accord-panel').panels[0]).css('display') == "none")
+    			PF('accord-panel').select(0);
+    		$('#tb-reo').scrollTop($('#row-'+marker.info.id).offset().top - $($('.list-group-item')[0]).offset().top)
     		$('#row-'+marker.info.id).effect("highlight", {}, 3000);
         });
     	

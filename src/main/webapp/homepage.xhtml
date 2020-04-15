@@ -147,7 +147,7 @@
 	                                </div>
 	                                <div class="col-md-6">
 	                                    <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{homepageBean.segmentIdSelected}" styleClass="w-100">
-	                                        <p:ajax	listener="#{homepageBean.segmentOfStreetChange}" update="@form form-list-reo"></p:ajax>
+	                                        <p:ajax	listener="#{homepageBean.segmentOfStreetChange}" update="@form form-list-reo vt-price"></p:ajax>
 	                                        <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
 	                                        <f:selectItems value="#{homepageBean.listSegmentOfStreet}" var="element"
 	                                                       itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
@@ -155,24 +155,45 @@
 	                                </div>
 	                            </div>
 	                        </h:panelGroup>
-	                        
+	                        <h:panelGroup id="vt-price" rendered="#{homepageBean.segmentSelected != null}">
+                            	<div class="form-group row">
+                            		
+                            	</div>
+                            	<div class="form-group row">
+                            		<div class="col">
+                                        <strong>Bảng giá</strong>
+                                    </div>
+                            		<div class="col">
+                                        <h:outputText style="width:95%" value="VT1: #{homepageBean.segmentSelected.VT1}"></h:outputText>
+                                    </div>
+                                    <div class="col">
+                                        <h:outputText style="width:95%" value="VT2: #{homepageBean.segmentSelected.VT2}"></h:outputText>
+                                    </div>
+                                    <div class="col">
+                                        <h:outputText style="width:95%" value="VT3: #{homepageBean.segmentSelected.VT3}"></h:outputText>
+                                    </div>
+                                    <div class="col">
+                                        <h:outputText style="width:95%" value="VT4: #{homepageBean.segmentSelected.VT4}"></h:outputText>
+                                    </div>
+                            	</div>
+                            </h:panelGroup >
 	                        <h:panelGroup rendered="#{homepageBean.districtIdSelected != ''}">
 	                        	<p:separator />
 	                        	<div class="row col">
-	                        		<strong>Giá cao nhất:</strong>
+	                        		<strong>Giá cao nhất: </strong>
 	                        		<h:outputText value="${homepageBean.maxMinAvg.max}">	
 	                        			<f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
 	                        		</h:outputText>  VND
 	                        		
 	                        	</div>
 	                        	<div class="row col">
-	                        		<strong>Giá thấp nhất:</strong>
+	                        		<strong>Giá thấp nhất: </strong>
 	                        		<h:outputText value="${homepageBean.maxMinAvg.min}">	
 	                        			<f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
 	                        		</h:outputText> VND
 	                        	</div>
 	                        	<div class="row col">
-	                        		<strong>Giá trung bình:</strong>
+	                        		<strong>Giá trung bình: </strong>
 	                        		<h:outputText value="${homepageBean.maxMinAvg.avg}">	
 	                        			<f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
 	                        		</h:outputText> VND
@@ -189,8 +210,10 @@
 	        </div>
 			<div id="list-reo" style="display:none">
 				<h:form prependId="false" onsubmit="return false;" id="form-list-reo">
+
+					<p:accordionPanel id="panel-list-reo" prependId="false" widgetVar="accord-panel">
+					<p:tab title="Danh sách BĐS" id="tab">
 					
-					<p:panel id="panel-list-reo">
 						<h:selectOneMenu id="cbb-type-reo" value="#{homepageBean.typeReo}" 
 						styleClass="browser-default custom-select custom-select-lg mb-3">
 							<p:ajax	listener="#{homepageBean.openPageReo(0)}" process="@form" update="@form"></p:ajax>
@@ -198,7 +221,7 @@
 							<f:selectItem itemLabel="Do người dùng đóng góp" itemValue="1"></f:selectItem>
 							<f:selectItem itemLabel="Crawl từ các websites" itemValue="2"></f:selectItem>
 						</h:selectOneMenu>
-						<div class="scroll-y-only">
+						<div class="scroll-y-only" id="tb-reo">
 							<c:forEach items="${homepageBean.listRealEstate}" var="element">
 								<li	class="list-group-item row d-flex" id="row-${element.realEstateId}">
 									
@@ -249,7 +272,8 @@
 								</nav>
 							</div>
 						</div>
-					</p:panel>
+					</p:tab>
+					</p:accordionPanel>
 				</h:form>
 			</div>
 		</ui:define>

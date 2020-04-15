@@ -1,4 +1,4 @@
-package capstone.lip.landinformationportal.entity;
+package capstone.lip.landinformationportal.entity.audit;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;

@@ -7,10 +7,12 @@ package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
@@ -26,13 +28,18 @@ import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import capstone.lip.landinformationportal.entity.audit.AuditAbstract;
+import capstone.lip.landinformationportal.entity.audit.CustomAuditModify;
+import capstone.lip.landinformationportal.entity.audit.CustomAuditableListener;
+
 /**
  *
  * @author Admin
  */
 @Entity
 @Table(name = "RealEstate")
-public class RealEstate extends AuditAbstract implements Serializable {
+@EntityListeners(CustomAuditableListener.class)
+public class RealEstate implements Serializable, CustomAuditModify{
 
     private static final long serialVersionUID = -7177630011940526932L;
 
@@ -344,4 +351,25 @@ public class RealEstate extends AuditAbstract implements Serializable {
         return true;
     }
 
+	private Timestamp createdDate;
+	private Timestamp modifiedDate;
+
+
+	@Override
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+	@Override
+	public void setCreateDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+	@Override
+	public Timestamp getModifiedDate() {
+		return modifiedDate;
+	}
+	@Override
+	public void setModifiedDate(Timestamp modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+	
 }

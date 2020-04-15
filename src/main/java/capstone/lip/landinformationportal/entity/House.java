@@ -23,6 +23,8 @@ import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import capstone.lip.landinformationportal.entity.audit.AuditAbstract;
+
 /**
  *
  * @author Admin

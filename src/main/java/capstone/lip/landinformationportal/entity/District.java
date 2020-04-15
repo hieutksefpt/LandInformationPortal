@@ -22,6 +22,8 @@ import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import capstone.lip.landinformationportal.entity.audit.AuditAbstract;
+
 @Entity
 @Table(name="District")
 public class District extends AuditAbstract  implements Serializable{

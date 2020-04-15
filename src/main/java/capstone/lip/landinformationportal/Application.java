@@ -17,6 +17,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import capstone.lip.landinformationportal.dto.GroupByDateMaxMinCreate;
 import capstone.lip.landinformationportal.dto.MaxMinAvg;
+import capstone.lip.landinformationportal.entity.CrawledNews;
 import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.entity.RealEstate;
@@ -25,6 +26,7 @@ import capstone.lip.landinformationportal.entity.ReportId;
 import capstone.lip.landinformationportal.repository.HousesFeatureRepository;
 import capstone.lip.landinformationportal.repository.LandsFeatureRepository;
 import capstone.lip.landinformationportal.repository.RealEstateRepository;
+import capstone.lip.landinformationportal.service.Interface.ICrawledNewsService;
 import capstone.lip.landinformationportal.service.Interface.IReportService;
 import capstone.lip.landinformationportal.specification.RealEstateSpecifications;
 import capstone.lip.landinformationportal.specification.SearchCriteria;
@@ -38,20 +40,19 @@ public class Application{
         SpringApplication.run(Application.class, args);
         
     }
-    
+//    
 //    
 //    @Autowired
-//    private IReportService service;
+//	private ICrawledNewsService service;
 //    
-//	  @Override
-//	  public void run(String... args) {
-//	
-//	      System.out.print("hello");
-//	      ReportId id = new ReportId(new Long(2), new Long(3));
-//	      Report report = service.findById(new Long(2), new Long(3));
-//	      System.out.print(report.getRealEstate().getRealEstateName());
-//	      int i= 1;
-//	      i++;
-//	      i--;
-//	  }
+//    @Override
+//    public void run(String... args) {
+//    	CrawledNews news = new CrawledNews().setCrawledNewsImageUrl("tuan").setCrawledNewsLink("tuan").setCrawledNewsShortDescription("tuan").setCrawledNewsStatus("tua")
+//    			.setCrawledNewsTitle("tuan").setCrawledNewsWebsite("tuan");
+//    	
+//    	news = service.findById(270l);
+//    	news.setCrawledNewsTitle("123321");
+//
+//    	service.save(news);
+//    }
 }

@@ -24,45 +24,47 @@ public class HousesDetailService implements IHousesDetailService {
 
     @Override
     public List<HousesDetail> findAll() {
-        try {
-            return housesDetailRepository.findAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+		try {
+			return housesDetailRepository.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
     }
 
     @Override
     public HousesDetail save(HousesDetail housesDetail) {
-        try {
-            return housesDetailRepository.save(housesDetail);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    	try {
+    		return housesDetailRepository.save(housesDetail); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
     }
 
     @Override
     public boolean delete(List<HousesDetail> listHousesDetail) {
-        try {
-            housesDetailRepository.deleteInBatch(listHousesDetail);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+    	try {
+    		housesDetailRepository.deleteAll(listHousesDetail);
+    		return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+        
     }
 
-    @Override
-    public boolean delete(HousesDetail housesDetail) {
-        try {
-            housesDetailRepository.delete(housesDetail);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+	@Override
+	public boolean delete(HousesDetail housesDetail) {
+		try {
+			housesDetailRepository.delete(housesDetail);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
 
 }

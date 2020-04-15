@@ -34,28 +34,6 @@ public class ProvinceService implements IProvinceService{
 			return null;
 		}
 	}
-	@Override
-	public boolean deleteById(Long id) {
-		try {
-			provinceRepository.deleteById(id);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-	
-	@Override
-	public List<District> getListDistrictByProvinceId(Long provinceId) {
-		try {
-			Province province = provinceRepository.findById(provinceId).get();
-			List<District> list = province.getListDistrict();
-			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 
 	@Override
 	public boolean delete(Province province) {

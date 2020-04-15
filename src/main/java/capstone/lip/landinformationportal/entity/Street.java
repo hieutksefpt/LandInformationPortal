@@ -20,6 +20,8 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import capstone.lip.landinformationportal.entity.audit.AuditAbstract;
 @Entity
 @Table(name="Street")
 public class Street extends AuditAbstract implements Serializable {

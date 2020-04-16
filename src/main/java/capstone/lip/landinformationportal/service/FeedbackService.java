@@ -1,13 +1,10 @@
 package capstone.lip.landinformationportal.service;
 
-import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import capstone.lip.landinformationportal.entity.Feedback;
 import capstone.lip.landinformationportal.repository.FeedbackRepository;
 import capstone.lip.landinformationportal.service.Interface.IFeedbackService;
@@ -23,44 +20,12 @@ public class FeedbackService implements IFeedbackService {
 	private EmailSender emailSender;
 	
 	@Override
-	public List<Feedback> findAll() {
-		try {
-			return feedbackRepository.findAll();
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	@Override
-	public List<Feedback> save(List<Feedback> listFeedback) {
-		try {
-			return feedbackRepository.saveAll(listFeedback);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	@Override
 	public Feedback save(Feedback feedback) {
 		try {
 			return feedbackRepository.save(feedback);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
-		}
-		
-	}
-
-	@Override
-	public boolean delete(List<Feedback> listFeedback){
-		try {
-			feedbackRepository.deleteAll(listFeedback);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
 		}
 		
 	}
@@ -101,16 +66,6 @@ public class FeedbackService implements IFeedbackService {
 			return 0;
 		}
 		
-	}
-
-	@Override
-	public Page<Feedback> findAll(Pageable page) {
-		try {
-			return feedbackRepository.findAll(page);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 
 	@Override

@@ -29,7 +29,7 @@ import capstone.lip.landinformationportal.dto.LandFeatureValue;
 import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.HousesDetail;
-import capstone.lip.landinformationportal.entity.HousesDetailId;
+import capstone.lip.landinformationportal.entity.compositekey.HousesDetailId;
 import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.LandsDetail;
@@ -52,7 +52,7 @@ import capstone.lip.landinformationportal.service.Interface.IRealEstateAdjacentS
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import capstone.lip.landinformationportal.validation.RealEstateValidation;
-import capstone.lip.landinformationportal.entity.LandsDetailId;
+import capstone.lip.landinformationportal.entity.compositekey.LandsDetailId;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;

@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
@@ -21,22 +23,30 @@ import capstone.lip.landinformationportal.common.StatusRealEstateConstant;
 import capstone.lip.landinformationportal.config.CrawlRealEstateNowJob;
 import capstone.lip.landinformationportal.config.CrawlRealEstateScheduleJob;
 import capstone.lip.landinformationportal.dto.RealEstateObjectCrawl;
+import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.HousesDetail;
 import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.LandsDetail;
 import capstone.lip.landinformationportal.entity.LandsFeature;
+import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.entity.RealEstate;
+import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegment;
+import capstone.lip.landinformationportal.entity.SegmentOfStreet;
+import capstone.lip.landinformationportal.entity.Street;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.entity.compositekey.HousesDetailId;
 import capstone.lip.landinformationportal.entity.compositekey.LandsDetailId;
+import capstone.lip.landinformationportal.entity.compositekey.RealEstateAdjacentSegmentId;
 import capstone.lip.landinformationportal.repository.HouseRepository;
 import capstone.lip.landinformationportal.repository.HousesDetailRepository;
 import capstone.lip.landinformationportal.repository.HousesFeatureRepository;
 import capstone.lip.landinformationportal.repository.LandRepository;
 import capstone.lip.landinformationportal.repository.LandsDetailRepository;
 import capstone.lip.landinformationportal.repository.LandsFeatureRepository;
+import capstone.lip.landinformationportal.repository.ProvinceRepository;
+import capstone.lip.landinformationportal.repository.RealEstateAdjacentSegmentRepository;
 import capstone.lip.landinformationportal.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.repository.UserRepository;
 import capstone.lip.landinformationportal.service.Interface.ICrawlRealEstateService;
@@ -67,6 +77,12 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 	
 	@Autowired
 	private LandsDetailRepository landsDetailRepository;
+	
+	@Autowired
+	private ProvinceRepository provinceRepository;
+	
+	@Autowired
+	private RealEstateAdjacentSegmentRepository adjRepository;
 	
 	private JobKey jobKey = new JobKey("crawlerJob", "crawler");
 	@Autowired
@@ -127,9 +143,13 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 				reo.setListHouse(listHouse);
 				reo.setLand(land);
 				
-	
 				housesDetailRepository.saveAll(listHousesDetail);
 				landsDetailRepository.saveAll(listLandsDetail);
+				
+				RealEstateAdjacentSegment adj = mappingRealEstateToLocation(reo);
+				if (adj != null) {
+					adjRepository.save(adj);
+				}
 			}
 			return true;
 		}catch(Exception e) {
@@ -324,4 +344,39 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 		
 	}
 	
+	private RealEstateAdjacentSegment mappingRealEstateToLocation(RealEstate realestate) {
+		List<Province> listProvince = provinceRepository.findAll();
+		String address = realestate.getRealEstateAddress().toLowerCase();
+		Province provinceSearch = listProvince.stream().filter(element -> address.contains(element.getProvinceName().toLowerCase())).findAny().orElse(null);
+		if (provinceSearch == null) return null;
+		List<District> listDistrict = provinceSearch.getListDistrict();
+		District districtSearch = listDistrict.stream().filter(element -> address.contains(element.getDistrictName().toLowerCase())).findAny().orElse(null);
+		if (districtSearch == null) return null;
+		List<SegmentOfStreet> listSegment = districtSearch.getListSegmentOfStreet();
+		List<Street> listStreet = listSegment.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
+		Street streetSearch = listStreet.stream().filter(element -> address.contains(element.getStreetName().toLowerCase())).findAny().orElse(null);
+		if (streetSearch == null) return null;
+		listSegment = streetSearch.getListSegmentOfStreet();
+		
+		SegmentOfStreet segmentSelected = null;
+		Double distance = null;
+		for (SegmentOfStreet element: listSegment) {
+			if (segmentSelected == null) {
+				segmentSelected = element;
+				distance = Math.sqrt( Math.pow(element.getSegmentLat() - realestate.getRealEstateLat(), 2) + Math.pow(element.getSegmentLng() - realestate.getRealEstateLng(), 2));
+				continue;
+			}
+			Double currentDistance = Math.sqrt(Math.pow(element.getSegmentLat() - realestate.getRealEstateLat(), 2) + Math.pow(element.getSegmentLng() - realestate.getRealEstateLng(), 2));
+			if (currentDistance < distance) {
+				distance = currentDistance;
+				segmentSelected = element;
+			}
+		}
+		RealEstateAdjacentSegment adj = null;
+		if (segmentSelected != null) {
+			adj = new RealEstateAdjacentSegment().setId(new RealEstateAdjacentSegmentId(segmentSelected.getSegmentId(), realestate.getRealEstateId()));
+		}
+		
+		return adj;
+	}
 }

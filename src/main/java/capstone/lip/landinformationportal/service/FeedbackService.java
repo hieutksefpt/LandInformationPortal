@@ -93,9 +93,9 @@ public class FeedbackService implements IFeedbackService {
 	}
 
 	@Override
-	public long count() {
+	public long countByFeedbackStatus(String feedbackStatus) {
 		try {
-			return feedbackRepository.count();
+			return feedbackRepository.countByFeedbackStatus(feedbackStatus);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -124,6 +124,16 @@ public class FeedbackService implements IFeedbackService {
 			return false;
 		}
 		
+	}
+
+	@Override
+	public Page<Feedback> findByFeedbackStatus(String feedbackStatus, Pageable page) {
+		try {
+			return feedbackRepository.findByFeedbackStatus(feedbackStatus, page);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

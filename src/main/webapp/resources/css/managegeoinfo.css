@@ -23,3 +23,6 @@
 .scrolldata{
 	width: 100%;
 }
+.ui-dialog-content{
+	overflow-x:hidden !important;
+}

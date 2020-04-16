@@ -94,6 +94,11 @@ a:focus {
     background: #fff;
 }
 
+.selected-tab{
+	color: #7386D5;
+    background: #fff;
+}
+
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fff;

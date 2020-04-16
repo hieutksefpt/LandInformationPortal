@@ -11,6 +11,7 @@ import javax.inject.Named;
 import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import capstone.lip.landinformationportal.common.FeedbackStatusConstant;
 import capstone.lip.landinformationportal.dto.LazyFeedback;
 import capstone.lip.landinformationportal.entity.Feedback;
 import capstone.lip.landinformationportal.service.Interface.IFeedbackService;
@@ -32,8 +33,9 @@ public class ManageFeedbackBean implements Serializable{
 		lazyFeedback = new LazyFeedback(feedbackService);
 	}
 	public void replyFeedbackClick() {
-		setMessage(FacesMessage.SEVERITY_WARN, "Phản hồi thành công");
+		setMessage(FacesMessage.SEVERITY_INFO, "Phản hồi thành công");
 		feedbackClick.setFeedbackAdminReply(replyMessage);
+		feedbackClick.setFeedbackStatus(FeedbackStatusConstant.CLOSE);
 		try {
 			feedbackService.sendFeedbackReply(feedbackClick);
 		} catch (Exception e) {

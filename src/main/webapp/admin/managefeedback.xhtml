@@ -21,6 +21,11 @@
             </h:form>
             <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px">
             	<p:growl id="msgs" showDetail="true"/>
+            	
+            	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+            	<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+				    <p:graphicImage name="/img/ajaxloadingbar.gif" />
+				</p:dialog>
 	            <p:dataTable value="#{manageFeedbackBean.lazyFeedback}" var="element"
 		           	rows="10" paginator="true" lazy="true"
 		            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"

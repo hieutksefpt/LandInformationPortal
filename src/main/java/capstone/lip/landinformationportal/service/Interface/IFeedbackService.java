@@ -22,7 +22,10 @@ public interface IFeedbackService {
 	
 	Feedback findById(Long id);
 	
-	long count();
+	long countByFeedbackStatus(String feedbackStatus);
+	
+	Page<Feedback> findByFeedbackStatus(String feedbackStatus,Pageable page);
 	
 	boolean sendFeedbackReply(Feedback feedback);
+	
 }

@@ -10,5 +10,6 @@ package capstone.lip.landinformationportal.common;
  * @author Admin
  */
 public class FeedbackStatusConstant {
-    public static final String feedbackStatusConstant = "OPEN";
+    public static final String OPEN = "OPEN";
+    public static final String CLOSE = "CLOSE";
 }

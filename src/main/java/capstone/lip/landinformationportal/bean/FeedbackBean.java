@@ -57,7 +57,7 @@ public class FeedbackBean implements Serializable {
 
     public void sendFeedback() throws IOException{
         if (!fullname.isEmpty() && fullname != null && feedbackTitle != null && !feedbackTitle.isEmpty() && !feedbackContent.isEmpty() && feedbackContent != null) {
-            feedbackStatus = FeedbackStatusConstant.feedbackStatusConstant;
+            feedbackStatus = FeedbackStatusConstant.OPEN;
             Feedback newfb = new Feedback();
             newfb.setFeedbackTitle(feedbackTitle);
             newfb.setFeedbackContent(feedbackContent);

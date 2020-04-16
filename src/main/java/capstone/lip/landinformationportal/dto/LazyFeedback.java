@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import capstone.lip.landinformationportal.common.FeedbackStatusConstant;
 import capstone.lip.landinformationportal.entity.Feedback;
 import capstone.lip.landinformationportal.service.Interface.IFeedbackService;
 
@@ -21,12 +22,12 @@ public class LazyFeedback extends LazyDataModel<Feedback> implements Serializabl
 	IFeedbackService feedbackService;
 	
 	public LazyFeedback() {
-		this.setRowCount((int)feedbackService.count());
+		this.setRowCount((int)feedbackService.countByFeedbackStatus(FeedbackStatusConstant.OPEN));
 	}
 
 	public LazyFeedback(IFeedbackService feedbackService) {
 		this.feedbackService = feedbackService;
-		this.setRowCount((int)feedbackService.count());
+		this.setRowCount((int)feedbackService.countByFeedbackStatus(FeedbackStatusConstant.OPEN));
 	}
 	
 	@Override
@@ -34,7 +35,7 @@ public class LazyFeedback extends LazyDataModel<Feedback> implements Serializabl
             Map<String, Object> filters) {
 
         Page<Feedback> list
-                = feedbackService.findAll(PageRequest.of(first / pageSize, pageSize));
+                = feedbackService.findByFeedbackStatus(FeedbackStatusConstant.OPEN, PageRequest.of(first / pageSize, pageSize));
         List<Feedback> list1 = list.stream().map(x -> x).collect(Collectors.toList());
         return list1;
     }

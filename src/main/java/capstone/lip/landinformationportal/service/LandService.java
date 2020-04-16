@@ -53,52 +53,5 @@ public class LandService implements ILandService {
         
     }
 
-    @Override
-    public Land validateLandInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney, List<LandFeatureValue> listLandFeatureValue) {
-    	try {
-    		RealEstateValidation rev = new RealEstateValidation();
-            Land tempLand = new Land();
-            tempLand.setLandName(newLandName);
-            tempLand.setLandPrice(Double.parseDouble(newLandMoney.toString()));
-            tempLand.setRealEstate(newUploadRealEstate);
-            
-            if (rev.checkLandValidation(tempLand,listLandFeatureValue)) {
-                return tempLand;
-//                landRepository.save(tempLand);
-            } else {
-                tempLand = null;
-            }
-
-            return tempLand;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
-    }
     
-    @Override
-    public List<LandsDetail> validateLandDetailInfor(Land tempLand, List<LandFeatureValue> listLandFeatureValue ){
-    	try {
-    		RealEstateValidation rev = new RealEstateValidation();
-            ArrayList<LandsDetail> ald = new ArrayList<>();
-            if (rev.checkLandDetailValidation(tempLand) && rev.checkLandValidation(tempLand,listLandFeatureValue)) {
-                for (int i = 0; i < listLandFeatureValue.size(); i++) {
-                    LandsDetailId tempLDI = new LandsDetailId();
-                    tempLDI.setLandId(tempLand.getLandId());
-                    tempLDI.setLandsFeatureId(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureID());
-                    LandsDetail tempLD = new LandsDetail();
-                    tempLD.setId(tempLDI)
-                            .setValue(listLandFeatureValue.get(i).getValue());
-//                    landsDetailRepository.save(tempLD);
-                    ald.add(tempLD);
-                }
-            }
-            return ald;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
-    }
 }

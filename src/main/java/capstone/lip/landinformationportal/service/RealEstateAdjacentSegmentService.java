@@ -25,24 +25,7 @@ public class RealEstateAdjacentSegmentService implements IRealEstateAdjacentSegm
     @Autowired
     private RealEstateAdjacentSegmentRepository realEstateAdjacentSegmentRepository;
 
-    @Override
-    public RealEstateAdjacentSegment validateRealEstateAdjacentInfor(RealEstate newUploadRealEstate, RealEstateAdjacentSegmentId realEstateAdjacentSegmentId) {
-    	try {
-    		RealEstateValidation rev = new RealEstateValidation();
-            if (rev.checkRealEstateSegmentValidation(newUploadRealEstate)) {
-                RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
-                newRealEstateAdjacentSegment.setRealEstate(newUploadRealEstate);
-                newRealEstateAdjacentSegment.setId(realEstateAdjacentSegmentId);
-                return newRealEstateAdjacentSegment;
-//                        realEstateAdjacentSegmentRepository.save(newRealEstateAdjacentSegment);
-            }
-            return null;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
-    }
+    
 
     @Override
     public boolean delete(List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment) {

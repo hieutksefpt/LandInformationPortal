@@ -21,7 +21,4 @@ public interface IHouseService {
 
     boolean delete(List<House> listHouse);
     
-    House validateHouseInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney,List<HouseFeatureValue> listLandFeatureValue);
-    
-    List<HousesDetail> validateHouseDetailInfor(House tempHouse, List<HouseFeatureValue> listHouseFeatureValue);
 }

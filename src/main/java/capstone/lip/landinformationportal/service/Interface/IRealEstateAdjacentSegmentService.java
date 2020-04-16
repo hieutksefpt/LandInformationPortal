@@ -15,7 +15,6 @@ import java.util.List;
  * @author Admin
  */
 public interface IRealEstateAdjacentSegmentService {
-    RealEstateAdjacentSegment validateRealEstateAdjacentInfor(RealEstate newUploadRealEstate, RealEstateAdjacentSegmentId realEstateAdjacentSegmentId);
     
     RealEstateAdjacentSegment save(RealEstateAdjacentSegment realEstateAdjacentSegment);
     

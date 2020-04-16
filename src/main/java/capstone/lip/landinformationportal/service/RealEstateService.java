@@ -57,26 +57,7 @@ public class RealEstateService implements IRealEstateService {
         
     }
 
-    @Override
-    public RealEstate validateInfor(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice,String realEstateStatus, User tempUser) {
-    	try {
-    		RealEstateValidation rev = new RealEstateValidation();
-            RealEstate newUploadRealEstate = new RealEstate().setRealEstateName(realEstateName)
-                    .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
-                    .setRealEstateAddress(realEstateAddress);
-            newUploadRealEstate.setRealEstatePrice(realEstatePrice);
-            newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
-            if(rev.checkRealEstateValidation(newUploadRealEstate).equals("AcceptRealEstate")){
-//                return realEstateRepository.save(newUploadRealEstate);
-                  return newUploadRealEstate;
-            }
-            else return null;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
-    }
+
 
     // Hàm này get List Land theo ID của Real Estate
     @Override

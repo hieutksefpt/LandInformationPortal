@@ -26,8 +26,6 @@ public interface IRealEstateService {
 
     RealEstate findById(long realEstateId);
 
-    RealEstate validateInfor(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice,String realEstateStatus, User tempUser);
-
     RealEstate save(RealEstate realEstate);
     
     Land getLand(Long realEstateId);

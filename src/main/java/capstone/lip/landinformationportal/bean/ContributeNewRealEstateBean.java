@@ -29,6 +29,7 @@ import capstone.lip.landinformationportal.dto.LandFeatureValue;
 import capstone.lip.landinformationportal.entity.District;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.HousesDetail;
+import capstone.lip.landinformationportal.entity.HousesDetailId;
 import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.entity.Land;
 import capstone.lip.landinformationportal.entity.LandsDetail;
@@ -50,6 +51,8 @@ import capstone.lip.landinformationportal.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateAdjacentSegmentService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
+import capstone.lip.landinformationportal.validation.RealEstateValidation;
+import capstone.lip.landinformationportal.entity.LandsDetailId;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -190,15 +193,14 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         RealEstate newUploadRealEstate = new RealEstate();
         List<LandsDetail> listLandDetail = new ArrayList<>();
         List<HousesDetail> listHousesDetail = new ArrayList<>();
-        newUploadRealEstate = realEstateService.validateInfor(realEstateName, realEstateLat, realEstateLng, realEstateAddress, realEstatePrice, realEstateStatus, tempUser);
+        newUploadRealEstate = validateInfor(realEstateName, realEstateLat, realEstateLng, realEstateAddress, realEstatePrice, realEstateStatus, tempUser);
 
         RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
         // save to Table REAS
 
         if (typeRealEstate.equals(RealEstateTypeConstant.landType)) {
             Land newLand = new Land();
-            newLand = landService.validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
-//            listLandDetail = landService.validateLandDetailInfor(newLand, listLandFeatureValue);
+            newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
             if (newUploadRealEstate != null && newLand != null) {
                 saveDataNewLandSigleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail);
                 variableSuccess = true;
@@ -206,20 +208,19 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 
         } else if (typeRealEstate.equals(RealEstateTypeConstant.houseType)) {
             House newHouse = new House();
-            newHouse = houseService.validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
-//            listHousesDetail = houseService.validateHouseDetailInfor(newHouse, listHouseFeatureValue);
+            newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
             if (newUploadRealEstate != null && newHouse != null) {
                 saveDataNewHouseSingleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newHouse, listHousesDetail);
                 variableSuccess = true;
             }
         } else if (typeRealEstate.equals(RealEstateTypeConstant.landHouseType)) {
             Land newLand = new Land();
-            newLand = landService.validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
-            listLandDetail = landService.validateLandDetailInfor(newLand, listLandFeatureValue);
+            newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
+            listLandDetail = validateLandDetailInfor(newLand, listLandFeatureValue);
 
             House newHouse = new House();
-            newHouse = houseService.validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
-            listHousesDetail = houseService.validateHouseDetailInfor(newHouse, listHouseFeatureValue);
+            newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
+            listHousesDetail = validateHouseDetailInfor(newHouse, listHouseFeatureValue);
 
             if (newUploadRealEstate != null && newHouse != null && newLand != null) {
                 saveDataNewLandHouseTotalToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail, newHouse, listHousesDetail);
@@ -237,10 +238,10 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     public void saveDataNewLandSigleToDB(RealEstate newUploadRealEstate, RealEstateAdjacentSegment newRealEstateAdjacentSegment, Land newLand, List<LandsDetail> listLandDetail) {
         newUploadRealEstate = realEstateService.save(newUploadRealEstate);
         RealEstateAdjacentSegmentId realEstateAdjacentSegmentId = new RealEstateAdjacentSegmentId(Long.parseLong(segmentStreetIdSelected), newUploadRealEstate.getRealEstateId());
-        newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.validateRealEstateAdjacentInfor(newUploadRealEstate, realEstateAdjacentSegmentId);
+        newRealEstateAdjacentSegment = validateRealEstateAdjacentInfor(newUploadRealEstate, realEstateAdjacentSegmentId);
         newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);                         // save REAS to DB 
         newLand = landService.save(newLand);
-        listLandDetail = landService.validateLandDetailInfor(newLand, listLandFeatureValue);
+        listLandDetail = validateLandDetailInfor(newLand, listLandFeatureValue);
         if (!listLandDetail.isEmpty()) {                                                                                             // save Land to DB 
             for (int i = 0; i < listLandDetail.size(); i++) {
                 landsDetailService.save(listLandDetail.get(i));
@@ -251,10 +252,10 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     public void saveDataNewHouseSingleToDB(RealEstate newUploadRealEstate, RealEstateAdjacentSegment newRealEstateAdjacentSegment, House newHouse, List<HousesDetail> listHousesDetail) {
         newUploadRealEstate = realEstateService.save(newUploadRealEstate);                                                          // save RE to DB 
         RealEstateAdjacentSegmentId realEstateAdjacentSegmentId = new RealEstateAdjacentSegmentId(Long.parseLong(segmentStreetIdSelected), newUploadRealEstate.getRealEstateId());
-        newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.validateRealEstateAdjacentInfor(newUploadRealEstate, realEstateAdjacentSegmentId);
+        newRealEstateAdjacentSegment = validateRealEstateAdjacentInfor(newUploadRealEstate, realEstateAdjacentSegmentId);
         newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);                         // save REAS to DB 
         newHouse = houseService.save(newHouse);
-        listHousesDetail = houseService.validateHouseDetailInfor(newHouse, listHouseFeatureValue);
+        listHousesDetail = validateHouseDetailInfor(newHouse, listHouseFeatureValue);
         if (!listHousesDetail.isEmpty()) {                                                                                             // save Land to DB 
             for (int i = 0; i < listHousesDetail.size(); i++) {
                 housesDetailService.save(listHousesDetail.get(i));
@@ -265,10 +266,10 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     public void saveDataNewLandHouseTotalToDB(RealEstate newUploadRealEstate, RealEstateAdjacentSegment newRealEstateAdjacentSegment, Land newLand, List<LandsDetail> listLandDetail, House newHouse, List<HousesDetail> listHousesDetail) {
         newUploadRealEstate = realEstateService.save(newUploadRealEstate);
         RealEstateAdjacentSegmentId realEstateAdjacentSegmentId = new RealEstateAdjacentSegmentId(Long.parseLong(segmentStreetIdSelected), newUploadRealEstate.getRealEstateId());
-        newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.validateRealEstateAdjacentInfor(newUploadRealEstate, realEstateAdjacentSegmentId);
+        newRealEstateAdjacentSegment = validateRealEstateAdjacentInfor(newUploadRealEstate, realEstateAdjacentSegmentId);
         newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);                         // save REAS to DB 
         newLand = landService.save(newLand);
-        listLandDetail = landService.validateLandDetailInfor(newLand, listLandFeatureValue);
+        listLandDetail = validateLandDetailInfor(newLand, listLandFeatureValue);
         if (!listLandDetail.isEmpty()) {                                                                                             // save Land to DB 
             for (int i = 0; i < listLandDetail.size(); i++) {
                 landsDetailService.save(listLandDetail.get(i));
@@ -276,13 +277,145 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
         }
 
         newHouse = houseService.save(newHouse);
-        listHousesDetail = houseService.validateHouseDetailInfor(newHouse, listHouseFeatureValue);
+        listHousesDetail = validateHouseDetailInfor(newHouse, listHouseFeatureValue);
         if (!listHousesDetail.isEmpty()) {                                                                                             // save Land to DB 
             for (int i = 0; i < listHousesDetail.size(); i++) {
                 housesDetailService.save(listHousesDetail.get(i));
             }
         }
     }
+    
+    public RealEstate validateInfor(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice,String realEstateStatus, User tempUser) {
+    	try {
+    		RealEstateValidation rev = new RealEstateValidation();
+            RealEstate newUploadRealEstate = new RealEstate().setRealEstateName(realEstateName)
+                    .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
+                    .setRealEstateAddress(realEstateAddress);
+            newUploadRealEstate.setRealEstatePrice(realEstatePrice);
+            newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
+            if(rev.checkRealEstateValidation(newUploadRealEstate).equals("AcceptRealEstate")){
+                  return newUploadRealEstate;
+            }
+            else return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
+    }
+    
+    public Land validateLandInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney, List<LandFeatureValue> listLandFeatureValue) {
+    	try {
+    		RealEstateValidation rev = new RealEstateValidation();
+            Land tempLand = new Land();
+            tempLand.setLandName(newLandName);
+            tempLand.setLandPrice(Double.parseDouble(newLandMoney.toString()));
+            tempLand.setRealEstate(newUploadRealEstate);
+            
+            if (rev.checkLandValidation(tempLand,listLandFeatureValue)) {
+                return tempLand;
+//                landRepository.save(tempLand);
+            } else {
+                tempLand = null;
+            }
+
+            return tempLand;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
+    }
+    
+    public House validateHouseInfor(RealEstate newUploadRealEstate, String newHouseName, BigDecimal newHouseMoney, List<HouseFeatureValue> listHouseFeatureValue) {
+    	try {
+    		RealEstateValidation rev = new RealEstateValidation();
+            House tempHouse = new House();
+            tempHouse.setHouseName(newHouseName);
+            tempHouse.setHousePrice(Double.parseDouble(newHouseMoney.toString()));
+            tempHouse.setRealEstate(newUploadRealEstate);
+            
+            if (rev.checkHouseValidation(tempHouse,listHouseFeatureValue)) {
+                return tempHouse;
+//                landRepository.save(tempLand);
+            } else {
+                tempHouse = null;
+            }
+
+            return tempHouse;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
+    }
+    
+    public List<HousesDetail> validateHouseDetailInfor(House tempHouse, List<HouseFeatureValue> listHouseFeatureValue){
+    	try {
+    		RealEstateValidation rev = new RealEstateValidation();
+            ArrayList<HousesDetail> ahd = new ArrayList<>();
+            if (rev.checkHouseDetailValidation(tempHouse) && rev.checkHouseValidation(tempHouse,listHouseFeatureValue)) {
+                for (int i = 0; i < listHouseFeatureValue.size(); i++) {
+                    HousesDetailId tempHDI = new HousesDetailId();
+                    tempHDI.setHouseId(tempHouse.getHouseId());
+                    tempHDI.setHousesFeatureId(listHouseFeatureValue.get(i).getHousesFeature().getHousesFeatureID());
+                    HousesDetail tempHD = new HousesDetail();
+                    tempHD.setId(tempHDI)
+                            .setValue(listHouseFeatureValue.get(i).getValue());
+//                    landsDetailRepository.save(tempLD);
+                    ahd.add(tempHD);
+                }
+            }
+            return ahd;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
+    }
+    
+    public List<LandsDetail> validateLandDetailInfor(Land tempLand, List<LandFeatureValue> listLandFeatureValue ){
+    	try {
+    		RealEstateValidation rev = new RealEstateValidation();
+            ArrayList<LandsDetail> ald = new ArrayList<>();
+            if (rev.checkLandDetailValidation(tempLand) && rev.checkLandValidation(tempLand,listLandFeatureValue)) {
+                for (int i = 0; i < listLandFeatureValue.size(); i++) {
+                    LandsDetailId tempLDI = new LandsDetailId();
+                    tempLDI.setLandId(tempLand.getLandId());
+                    tempLDI.setLandsFeatureId(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureID());
+                    LandsDetail tempLD = new LandsDetail();
+                    tempLD.setId(tempLDI)
+                            .setValue(listLandFeatureValue.get(i).getValue());
+//                    landsDetailRepository.save(tempLD);
+                    ald.add(tempLD);
+                }
+            }
+            return ald;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
+    }
+    
+    public RealEstateAdjacentSegment validateRealEstateAdjacentInfor(RealEstate newUploadRealEstate, RealEstateAdjacentSegmentId realEstateAdjacentSegmentId) {
+    	try {
+    		RealEstateValidation rev = new RealEstateValidation();
+            if (rev.checkRealEstateSegmentValidation(newUploadRealEstate)) {
+                RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
+                newRealEstateAdjacentSegment.setRealEstate(newUploadRealEstate);
+                newRealEstateAdjacentSegment.setId(realEstateAdjacentSegmentId);
+                return newRealEstateAdjacentSegment;
+//                        realEstateAdjacentSegmentRepository.save(newRealEstateAdjacentSegment);
+            }
+            return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
+    }
+    
 
     // function call when Ajax listener (textbox Price change value)
     public void calculateRealEstateValue() {

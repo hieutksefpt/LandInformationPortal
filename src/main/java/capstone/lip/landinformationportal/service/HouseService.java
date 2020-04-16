@@ -52,52 +52,7 @@ public class HouseService implements IHouseService {
 		}
     }
 
-    @Override
-    public House validateHouseInfor(RealEstate newUploadRealEstate, String newHouseName, BigDecimal newHouseMoney, List<HouseFeatureValue> listHouseFeatureValue) {
-    	try {
-    		RealEstateValidation rev = new RealEstateValidation();
-            House tempHouse = new House();
-            tempHouse.setHouseName(newHouseName);
-            tempHouse.setHousePrice(Double.parseDouble(newHouseMoney.toString()));
-            tempHouse.setRealEstate(newUploadRealEstate);
-            
-            if (rev.checkHouseValidation(tempHouse,listHouseFeatureValue)) {
-                return tempHouse;
-//                landRepository.save(tempLand);
-            } else {
-                tempHouse = null;
-            }
+    
 
-            return tempHouse;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
-    }
-
-    @Override
-    public List<HousesDetail> validateHouseDetailInfor(House tempHouse, List<HouseFeatureValue> listHouseFeatureValue){
-    	try {
-    		RealEstateValidation rev = new RealEstateValidation();
-            ArrayList<HousesDetail> ahd = new ArrayList<>();
-            if (rev.checkHouseDetailValidation(tempHouse) && rev.checkHouseValidation(tempHouse,listHouseFeatureValue)) {
-                for (int i = 0; i < listHouseFeatureValue.size(); i++) {
-                    HousesDetailId tempHDI = new HousesDetailId();
-                    tempHDI.setHouseId(tempHouse.getHouseId());
-                    tempHDI.setHousesFeatureId(listHouseFeatureValue.get(i).getHousesFeature().getHousesFeatureID());
-                    HousesDetail tempHD = new HousesDetail();
-                    tempHD.setId(tempHDI)
-                            .setValue(listHouseFeatureValue.get(i).getValue());
-//                    landsDetailRepository.save(tempLD);
-                    ahd.add(tempHD);
-                }
-            }
-            return ahd;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
-    }
+    
 }

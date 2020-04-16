@@ -1,4 +1,4 @@
-package capstone.lip.landinformationportal.entity;
+package capstone.lip.landinformationportal.entity.compositekey;
 
 import java.io.Serializable;
 

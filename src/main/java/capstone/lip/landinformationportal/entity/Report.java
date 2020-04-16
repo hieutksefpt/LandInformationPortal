@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import capstone.lip.landinformationportal.entity.audit.AuditAbstract;
+import capstone.lip.landinformationportal.entity.compositekey.ReportId;
 
 @Entity
 @Table(name = "Report")

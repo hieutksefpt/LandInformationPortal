@@ -31,6 +31,7 @@ public class AuthenticationBean implements Serializable{
 	private String passwordSignup;
 	private String usernameSignin;
 	private String passwordSignin;
+	private String emailForget;
 	private User currentUser;
 	@Autowired
 	private IUserService userService;
@@ -138,6 +139,19 @@ public class AuthenticationBean implements Serializable{
 	}
 	public void forgetPass() {
 		User user = userService.findByUsername(usernameSignin);
+		if (user == null) {
+			PrimeFaces.current().executeScript("setMessageError('Tài khoản không tồn tại')");
+			return;
+		}
+		if (user.getUserStatus().equals(UserStatusConstant.BAN)) {
+			PrimeFaces.current().executeScript("setMessageError('Tài khoản bị khóa, hãy liên hệ quản trị viên')");
+			return;
+		}
+		if (!user.getEmail().equals(emailForget)) {
+			PrimeFaces.current().executeScript("setMessageError('Email không đúng')");
+			return;
+		}
+		PrimeFaces.current().executeScript("setMessageForgetpass()");
 		userService.resetPassword(user.getUserId(), passwordLength);
 	}
 	public String getUsernameSignup() {
@@ -178,6 +192,14 @@ public class AuthenticationBean implements Serializable{
 
 	public void setCurrentUser(User currentUser) {
 		this.currentUser = currentUser;
+	}
+
+	public String getEmailForget() {
+		return emailForget;
+	}
+
+	public void setEmailForget(String emailForget) {
+		this.emailForget = emailForget;
 	}
 	
 }

@@ -7,7 +7,7 @@ package capstone.lip.landinformationportal.service;
 
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegment;
-import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegmentId;
+import capstone.lip.landinformationportal.entity.compositekey.RealEstateAdjacentSegmentId;
 import capstone.lip.landinformationportal.repository.RealEstateAdjacentSegmentRepository;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateAdjacentSegmentService;
 import capstone.lip.landinformationportal.validation.RealEstateValidation;

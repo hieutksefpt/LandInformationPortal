@@ -50,6 +50,9 @@ public class ManageCrawlNewsBean implements Serializable{
 	public void setTimerButtonClick() {
 		try {
 			int timer= Integer.valueOf(timerCrawl);
+			if (timer<=0) {
+				throw new Exception();
+			}
 			crawledNewService.setTimeCrawlJob(timer*60*60);
 		}catch(Exception e) {
 			setMessage(FacesMessage.SEVERITY_ERROR, "Thời gian không phù hợp");

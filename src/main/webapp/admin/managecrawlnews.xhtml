@@ -20,42 +20,42 @@
             		<div class="col-3">
             			<div class="row">
             				<div class="col-3">
-	            				<h:inputText title="#{manageCrawlNewsBean.timerCrawl} giờ" value="#{manageCrawlNewsBean.timerCrawl}"></h:inputText>
+	            				<h:inputText id="txtInput-time" title="#{manageCrawlNewsBean.timerCrawl} giờ" value="#{manageCrawlNewsBean.timerCrawl}"></h:inputText>
 	            			</div>
 	            			<div class="col-9">
-	            				<h:commandButton value="Cài thời gian crawler">
+	            				<h:commandButton id="btn-SetTime" value="Cài thời gian crawler">
 				            		<p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.setTimerButtonClick()}"></p:ajax>
 				            	</h:commandButton>
 	            			</div>
             			</div>
             		</div>
             		<div class="col-3 text-center">
-            			<h:commandButton value="Bật crawler" rendered="#{not manageCrawlNewsBean.statusCrawlSchedule}">
+            			<h:commandButton value="Bật crawler" id="btn-TurnOnCrawl" rendered="#{not manageCrawlNewsBean.statusCrawlSchedule}">
 		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.turnOnCrawler()}"></p:ajax>
 		            	</h:commandButton>
 		            	
-		            	<h:commandButton value="Tắt crawler" rendered="#{manageCrawlNewsBean.statusCrawlSchedule}">
+		            	<h:commandButton value="Tắt crawler" id="btn-TurnOffCrawl" rendered="#{manageCrawlNewsBean.statusCrawlSchedule}">
 		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.turnOffCrawler()}"></p:ajax>
 		            	</h:commandButton>
 		            	<div class="text-center">
 		            		<label id="lb-crawlnow"></label>
-		            		<h:outputText rendered="#{manageCrawlNewsBean.statusCrawlSchedule}" 
+		            		<h:outputText id="lb-CrawlSchedule" rendered="#{manageCrawlNewsBean.statusCrawlSchedule}" 
 	            				value="Đang chạy"></h:outputText>
 		            	</div>
 		            	
             		</div>
             		<div class="col-3">
-            			<h:commandButton value="Crawl ngay">
+            			<h:commandButton value="Crawl ngay" id="btn-CrawlNow">
 		            		<p:ajax process="@form" listener="#{manageCrawlNewsBean.crawlNow()}" onstart="renderMessageCrawlNow()"></p:ajax>
 		           		</h:commandButton>
 		           		
             		</div>
             		<div class="col-3">
             			<div class="btn">
-		           			<h:commandButton value="Hiển thị tin tức" onclick="checkclick('dlgShowList')"></h:commandButton>
+		           			<h:commandButton id="btn-showNews" value="Hiển thị tin tức" onclick="checkclick('dlgShowList')"></h:commandButton>
 		           		</div>
 		           		<div class="btn">
-		           			<h:commandButton value="Xóa tin tức" onclick="checkclick('dlgDeleteList')"></h:commandButton>
+		           			<h:commandButton id="btn-deleteNews" value="Xóa tin tức" onclick="checkclick('dlgDeleteList')"></h:commandButton>
 		           		</div>
             		</div>
             	</div>
@@ -153,18 +153,22 @@
             	<p:dialog header="Hiển thị danh sách tin tức" widgetVar="dlgShowList" modal="true" resizable="false">
             		<div class="row">
 	               		<div class="col">
-	               			<strong>Bạn có chắc chắn muốn hiển thị danh sách tin tức này không?</strong>
+               				<strong>
+               					<h:outputText  id="lb-ConfirmShow" value="Bạn có chắc chắn muốn hiển thị danh sách tin tức này không?">
+               					</h:outputText>
+               				</strong>	               			
 	               		</div>
 	               	</div>
+	               	
 	               	<div class="row">
 	               		<div class="col text-center">
-	               			<h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
+	               			<h:commandButton id="btn-YesShow" value="Có" styleClass="btn btn-primary btn-lg">
 	               				<p:ajax listener="#{manageCrawlNewsBean.acceptListNews()}" update="tabledata" process="@form"
 	               				oncomplete="PF('dlgShowList').hide()"></p:ajax>
 	               			</h:commandButton>
 	               		</div>
 	               		<div class="col text-center">
-	               			<h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgShowList').hide()">
+	               			<h:commandButton id="btn-NoShow" value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgShowList').hide()">
 	               				
 	               			</h:commandButton>
 	               		</div>
@@ -173,7 +177,9 @@
             	<p:dialog header="Xóa danh sách tin tức" widgetVar="dlgDeleteList" modal="true" resizable="false">
             		<div class="row">
 	               		<div class="col">
-	               			<strong>Bạn có chắc chắn muốn xóa danh sách tin tức này không?</strong>
+	               			<strong><h:outputText id="lb-ConfirmDelete" value="Bạn có chắc chắn muốn xóa danh sách tin tức này không?">
+	               			
+	               			</h:outputText></strong>
 	               		</div>
 	               	</div>
 	               	<div class="row">

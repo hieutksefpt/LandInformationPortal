@@ -60,6 +60,9 @@
                         <p:column headerText="Name">
                             <a href="/viewrealestatedetail.xhtml?realEstateId=#{realEstate.realEstateId}" target="_blank"><h:outputText value="#{realEstate.realEstateName}" /></a>
                         </p:column>
+                        <p:column headerText="Number Of Report">
+                            <h:outputText value="#{realEstate.listReport.size()}" />
+                        </p:column>
                         <p:column headerText="Price">
                             <h:outputText value="#{realEstate.realEstatePrice}" />
                         </p:column>

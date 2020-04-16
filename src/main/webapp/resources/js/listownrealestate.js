@@ -2,7 +2,7 @@ var listMarkers = [];
 function initMap() {
 
     var markers = JSON.parse($('#txtInput_multipleCoordinate_listOwnRealEstate').val());
-    if (markers == undefined){
+    if (markers.length == 0){
     	var myLatLng = {lat: 21.019692, lng: 105.841598};
     }else{
 	    var latitude = markers[0].latitude;

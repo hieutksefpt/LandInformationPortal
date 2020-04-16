@@ -7,7 +7,8 @@ package capstone.lip.landinformationportal.service.Interface;
 
 import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegment;
-import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegmentId;
+import capstone.lip.landinformationportal.entity.compositekey.RealEstateAdjacentSegmentId;
+
 import java.util.List;
 
 /**

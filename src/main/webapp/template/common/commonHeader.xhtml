@@ -93,7 +93,11 @@
 										<label>Tài khoản</label>
 										<h:inputText id="username_signin" value="#{authenticationBean.usernameSignin}" styleClass="form-control"></h:inputText>
 									</div>
-									<div class="form-group">
+									<div id="div-email" class="form-group" style="display:none">
+										<label>Email</label>
+										<h:inputText id="email_forget" value="#{authenticationBean.emailForget}" styleClass="form-control"></h:inputText>
+									</div>
+									<div id="div-password" class="form-group">
 										<label>Mật khẩu</label>
 										<h:inputSecret id="password_signin" value="#{authenticationBean.passwordSignin}" styleClass="form-control"></h:inputSecret>
 									</div>
@@ -105,14 +109,30 @@
 								  	Đã gửi mail reset mật khẩu
 								</div>
 								<div class="modal-footer">
-									<h:commandLink styleClass="pull-right text-muted">
-										<small>Quên mật khẩu?
-											<p:ajax process="@form" onstart="setMessageForgetpass()" listener="#{authenticationBean.forgetPass()}"></p:ajax>
-										</small>
-									</h:commandLink>
-									<h:commandLink value="Đăng nhập" styleClass="btn btn-primary pull-right">
-										<p:ajax process="@form"  listener="#{authenticationBean.signin}"></p:ajax>
-									</h:commandLink>
+									<div id="btn-group-forgetpass" style="display:none">
+										<h:commandLink styleClass="pull-right text-muted">
+											<small>Quay lại
+												<p:ajax onstart="setPopupSignin()"></p:ajax>
+											</small>
+										</h:commandLink>
+										<h:commandLink id="btn-reset" value="Reset mật khẩu" styleClass="btn btn-primary pull-right">
+											<p:ajax process="@form" listener="#{authenticationBean.forgetPass()}"></p:ajax>
+										</h:commandLink>
+									</div>
+									
+									<div id="btn-group-signin">
+										<h:commandLink id="btn-forget-popup" styleClass="pull-right text-muted">
+											<small>
+												Quên mật khẩu
+												<p:ajax onstart="setPopupForgetPass()"></p:ajax>
+											</small>
+										</h:commandLink>
+										
+										<h:commandLink value="Đăng nhập" styleClass="btn btn-primary pull-right">
+											<p:ajax process="@form"  listener="#{authenticationBean.signin}"></p:ajax>
+										</h:commandLink>
+									</div>
+									
 								</div>
 							</div>
 						</div>

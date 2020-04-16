@@ -21,6 +21,7 @@ import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 
 import capstone.lip.landinformationportal.entity.audit.AuditAbstract;
+import capstone.lip.landinformationportal.entity.compositekey.LandsDetailId;
 
 /**
  *

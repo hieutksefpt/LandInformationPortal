@@ -61,12 +61,11 @@
 
             </h:form>
             <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px">
-	            <p:dataTable value="#{manageCrawlRealEstateBean.lazyReo}" var="element"
-		           	rows="10" paginator="true" lazy="true"
+	            <p:dataTable value="#{manageCrawlRealEstateBean.lazyReo}" var="element" id="table"
+		           	rows="10" paginator="true" lazy="true" rowIndexVar="index"
 		            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-		            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-		            
-		            >
+		            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records">
+
 		            <f:facet name="paginatorTopLeft">
 			            <p:commandButton icon="pi pi-refresh" update="tabledata" 
 			            action="#{manageCrawlRealEstateBean.refreshData()}"/>
@@ -77,7 +76,7 @@
 	            	</p:column>
 	     
 	            	<p:column style="text-align: center">
-			             <p:commandButton icon="pi pi-search" title="View" update="tabledata" style="width:30px"
+			             <p:commandButton id="btn-SetSegment-#{index + 1}" icon="pi pi-search" title="View" update="tabledata" style="width:30px"
 			             action="#{manageCrawlRealEstateSetRoadSegmentBean.showPopup(element.realEstateId)}" >
 			             	
 			            </p:commandButton>

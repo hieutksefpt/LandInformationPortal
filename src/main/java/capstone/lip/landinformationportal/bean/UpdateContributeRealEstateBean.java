@@ -175,14 +175,14 @@ public class UpdateContributeRealEstateBean implements Serializable {
         realEstateName = realEstateClicked.getRealEstateName();
         realEstatePrice = realEstateClicked.getRealEstatePrice();
         newLandName = currentLand.getLandName();
-        newLandMoney = new BigDecimal(currentLand.getLandPrice());
+        newLandMoney = currentLand.getLandPrice();
         List<LandsDetail> landsDetailContribute = currentLand.getListLandsDetail();
         for (int i = 0; i < landsDetailContribute.size(); i++) {
             listLandFeatureValue.add(new LandFeatureValue(landsDetailContribute.get(i).getLandsFeature(), landsDetailContribute.get(i).getValue()));
         }
 
         newHouseName = currentListHouse.get(0).getHouseName();
-        newHouseMoney = new BigDecimal(currentListHouse.get(0).getHousePrice());
+        newHouseMoney = currentListHouse.get(0).getHousePrice();
         List<HousesDetail> housesDetailContribute = currentListHouse.get(0).getListHousesDetail();
         for (int i = 0; i < housesDetailContribute.size(); i++) {
             listHouseFeatureValue.add(new HouseFeatureValue(housesDetailContribute.get(i).getHousesFeature(), housesDetailContribute.get(i).getValue()));
@@ -236,7 +236,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
         // Update to Table Land & Update to Table LandsDetail
         if (currentLand.getLandId() != null || !currentLand.getLandId().equals("")) {
             currentLand.setLandName(newLandName);
-            currentLand.setLandPrice(Double.parseDouble(newLandMoney.toString()));
+            currentLand.setLandPrice(newLandMoney);
             currentLand.setRealEstate(realEstateClicked);
 
             currentLand = landService.save(currentLand);
@@ -255,7 +255,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
         if (currentListHouse.get(0).getHouseId() != null || !currentListHouse.get(0).getHouseId().equals("")) {
             currentListHouse.get(0).setHouseName(newHouseName);
             currentListHouse.get(0).setHouseName(realEstateName);
-            currentListHouse.get(0).setHousePrice(Double.parseDouble(newHouseMoney.toString()));
+            currentListHouse.get(0).setHousePrice(newHouseMoney);
             currentListHouse.get(0).setRealEstate(realEstateClicked);
 
             for (int i = 0; i < listHouseFeatureValue.size(); i++) {

@@ -5,6 +5,8 @@
  */
 package capstone.lip.landinformationportal.entity;
 import java.io.Serializable;
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.List;
@@ -43,7 +45,7 @@ public class House extends AuditAbstract implements Serializable{
     @Column(name = "HouseName")
     private String houseName;
     @Column(name = "HousePrice")
-    private Double housePrice;
+    private BigDecimal housePrice;
     
     @LazyToOne(LazyToOneOption.NO_PROXY)
     @Basic(fetch = FetchType.LAZY)
@@ -59,7 +61,7 @@ public class House extends AuditAbstract implements Serializable{
     public House() {
     }
 
-    public House(String houseName, Double housePrice, RealEstate realEstate, List<HousesDetail> listHousesDetail) {
+    public House(String houseName, BigDecimal housePrice, RealEstate realEstate, List<HousesDetail> listHousesDetail) {
         this.houseName = houseName;
         this.housePrice = housePrice;
         this.realEstate = realEstate;
@@ -78,11 +80,11 @@ public class House extends AuditAbstract implements Serializable{
 
     
 
-    public Double getHousePrice() {
+    public BigDecimal getHousePrice() {
         return housePrice;
     }
 
-    public House setHousePrice(Double housePrice) {
+    public House setHousePrice(BigDecimal housePrice) {
         this.housePrice = housePrice;
         return this;
     }

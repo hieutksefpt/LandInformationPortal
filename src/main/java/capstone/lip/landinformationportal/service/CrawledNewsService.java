@@ -32,6 +32,7 @@ public class CrawledNewsService implements ICrawledNewsService{
 
 	private JobKey jobKey = new JobKey("crawlerNewsJob", "crawlerNews");
 	private TriggerKey triggerKey = new TriggerKey("crawlerNewsTriggler", "crawlerNews");
+	private JobKey jobKeyNow = new JobKey("crawlerNewsNowJob", "crawlerNews");
 	
 	@Autowired
 	Scheduler scheduler;
@@ -115,8 +116,9 @@ public class CrawledNewsService implements ICrawledNewsService{
 	public boolean turnOnCrawler() {
 		try {
 			if (scheduler!= null) {
-				scheduler.clear();
-				scheduler.start();
+				if (!scheduler.isStarted()) {
+					scheduler.start();
+				}
 				scheduler.scheduleJob(job, trigger);
 			}
 			return true;
@@ -130,9 +132,7 @@ public class CrawledNewsService implements ICrawledNewsService{
 	public boolean turnOffCrawler() {
 		try {
 			if (scheduler!= null) {
-				scheduler.clear();
-				scheduler.standby();
-//				scheduler.shutdown();
+				scheduler.deleteJob(jobKey);
 			}
 			return true;
 		} catch (SchedulerException e) {
@@ -144,9 +144,8 @@ public class CrawledNewsService implements ICrawledNewsService{
 
 	@Override
 	public boolean crawlNow() {
-		JobKey jobKeyNow = JobKey.jobKey("crawlerNowJob", "crawler");
-		JobDetail jobNow = JobBuilder.newJob(CrawlNewsNowJob.class).storeDurably(true).withIdentity(jobKeyNow).build();
 		try {
+			JobDetail jobNow = JobBuilder.newJob(CrawlNewsNowJob.class).storeDurably(true).withIdentity(jobKeyNow).build();
 			scheduler.addJob(jobNow, true);
 			scheduler.triggerJob(jobKeyNow);
 			scheduler.deleteJob(jobKeyNow);

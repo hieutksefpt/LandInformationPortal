@@ -1,10 +1,13 @@
 package capstone.lip.landinformationportal.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class GroupByDateMaxMinCreate {
+public class GroupByDateMaxMinCreate implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private Timestamp dateCreated;
 	private MaxMinAvg maxMinAvg;
 	

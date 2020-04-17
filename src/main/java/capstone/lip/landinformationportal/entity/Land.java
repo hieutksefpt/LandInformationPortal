@@ -6,6 +6,8 @@
 package capstone.lip.landinformationportal.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.List;
@@ -42,7 +44,7 @@ public class Land extends AuditAbstract implements Serializable {
     @Column(name = "LandName")
     private String landName;
     @Column(name = "LandPrice")
-    private Double landPrice;
+    private BigDecimal landPrice;
     
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RealEstateID")
@@ -57,7 +59,7 @@ public class Land extends AuditAbstract implements Serializable {
     public Land() {
     }
 
-    public Land(String landName, Double landPrice, RealEstate realEstate, List<LandsDetail> listLandsDetail) {
+    public Land(String landName, BigDecimal landPrice, RealEstate realEstate, List<LandsDetail> listLandsDetail) {
         this.landName = landName;
         this.landPrice = landPrice;
         this.realEstate = realEstate;
@@ -76,7 +78,7 @@ public class Land extends AuditAbstract implements Serializable {
 
     
 
-    public Double getLandPrice() {
+    public BigDecimal getLandPrice() {
         return landPrice;
     }
 
@@ -110,7 +112,7 @@ public class Land extends AuditAbstract implements Serializable {
         return this;
     }
     
-    public Land setLandPrice(Double landPrice) {
+    public Land setLandPrice(BigDecimal landPrice) {
         this.landPrice = landPrice;
         return this;
     }
@@ -127,7 +129,7 @@ public class Land extends AuditAbstract implements Serializable {
         this.landName = landName;
     }
     
-    public void setLandPriceGetOnly(Double landPrice) {
+    public void setLandPriceGetOnly(BigDecimal landPrice) {
         this.landPrice = landPrice;
     }
 

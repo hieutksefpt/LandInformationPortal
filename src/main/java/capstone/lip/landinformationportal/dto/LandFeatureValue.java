@@ -13,7 +13,9 @@ import java.io.Serializable;
  * @author Admin
  */
 public class LandFeatureValue implements Serializable{
-    private LandsFeature landFeature;
+
+	private static final long serialVersionUID = 1L;
+	private LandsFeature landFeature;
     private String value;
 
     public LandFeatureValue(LandsFeature landFeature, String value) {

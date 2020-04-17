@@ -6,12 +6,14 @@
 package capstone.lip.landinformationportal.common;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
+import java.util.ArrayList;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -19,14 +21,44 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 @TestExecutionListeners({
-        DependencyInjectionTestExecutionListener.class,
-        DbUnitTestExecutionListener.class
+    DependencyInjectionTestExecutionListener.class,
+    DbUnitTestExecutionListener.class,
+    TransactionDbUnitTestExecutionListener.class
 })
-@TestPropertySource(locations="/application-test.properties")
 public abstract class CRUDTest {
-    protected final String EXPECTED = "/expectedData";
-    protected final String SAMPLE = "/sampleData";
-    
-    protected final String EMPTY_DB = "/EmptyDB.xml";
+//    protected final String EXPECTED = "/expectedData";
+//    protected final String SAMPLE = "/sampleData";
+//    
+//    protected final String EMPTY_DB = "/EmptyDB.xml";
+
+    protected final String EMPTY_STRING = "";
+    protected final String ALPHABETIC_STRING = "Land Information Portal";
+    protected final String NUMERIC_STRING = "123456789";
+    protected final String NUMERIC_VIETNAMESE_STRING = "Cổng thông tin bất động sản 123";
+    protected final String VIETNAMESE_STRING = "Cổng thông tin bất động sản";
+    protected final String ALPHABETIC_NUMERIC_STRING = "123a123b";
+    protected final String SPECIAL_CHARACTER_STRING = "--@#$%^&*!";
+    protected final String ALL_SPACE_STRING = "             ";
+    protected final String ENTER_CHARACTER_STRING = "\n\n\n\n\n";
+    protected final String WITHOUT_TRIM_VIETNAMESE_STRING = " Cổng thông tin bất động sản        ";
+    protected final String NULL_STRING = null;
+
+    protected final ArrayList EMPTY_LIST = new ArrayList();
+
+    protected final Long POSITIVE_NOT_EXISTED_ID = 99L;
+    protected final Long EXISTED_ID = 1L;
+    protected final Long NOT_EXISTED_ID = -1L;
+    protected final Long NEGATIVE_NOT_EXISTED_ID = -99L;
+    protected final Long ZERO_NOT_EXISTED_ID = 0L;
+    protected final Long NULL_NOT_EXISTED_ID = null;
+
+//    protected DatabaseOperation getSetUpOperation() throws Exception {
+//        return DatabaseOperation.CLEAN_INSERT; // by default (will do DELETE_ALL + INSERT)
+//    }
+//
+//    protected DatabaseOperation getTearDownOperation() throws Exception {
+//        return DatabaseOperation.NONE; // by default
+//    }
 }

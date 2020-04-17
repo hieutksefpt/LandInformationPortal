@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.lip.landinformationportal.service;
+package capstone.lip.landinformationportal.service.district;
 
 import capstone.lip.landinformationportal.common.CRUDTest;
 import capstone.lip.landinformationportal.entity.District;
+import capstone.lip.landinformationportal.service.DistrictService;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
@@ -27,7 +28,7 @@ public class DistrictServiceTest extends CRUDTest{
      */
     @Test
     @DatabaseSetup(value = "/sampleData.xml")
-    @ExpectedDatabase(assertionMode=DatabaseAssertionMode.NON_STRICT, value = "/expectedData.xml")
+    @ExpectedDatabase( value = "/expectedData.xml")
     public void testSave() {
         System.out.println("save");
         District district = new District()

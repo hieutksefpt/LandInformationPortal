@@ -49,32 +49,36 @@
                                  liveResize="true"
                                  widgetVar="table-real-estate"
                                  rows="10"
-                                 paginator="true"
-                                 lazy="true"
+                                 paginator="true" id="table"
+                                 lazy="true" rowIndexVar="index"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                  currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records">
                         <p:column selectionMode="multiple" style="width:5%;text-align:center"/>
                         <p:column headerText="ID" style="width: 5%;text-align:center">
                             <h:outputText value="#{realEstate.realEstateId}"/>
                         </p:column>
-                        <p:column headerText="Name">
-                            <a href="/viewrealestatedetail.xhtml?realEstateId=#{realEstate.realEstateId}" target="_blank"><h:outputText value="#{realEstate.realEstateName}" /></a>
+                        <p:column headerText="Tên">
+                            <a href="/viewrealestatedetail.xhtml?realEstateId=#{realEstate.realEstateId}" target="_blank">
+                            	<h:outputText id="lbl-ID" value="#{realEstate.realEstateName}" />
+                            </a>
                         </p:column>
-                        <p:column headerText="Number Of Report">
-                            <h:outputText value="#{realEstate.listReport.size()}" />
+                        <p:column headerText="Số lượng report">
+                            <h:outputText id="lbl-NumberOfReport" value="#{realEstate.listReport.size()}" />
                         </p:column>
-                        <p:column headerText="Price">
-                            <h:outputText value="#{realEstate.realEstatePrice}" />
+                        <p:column headerText="Giá trị">
+                            <h:outputText id="lbl-Price" value="#{realEstate.realEstatePrice}">
+                            	<f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
+                            </h:outputText>
                         </p:column>
-                        <p:column headerText="Coordinate">
-                            <h:outputText value="#{realEstate.realEstateLat}" /> , <h:outputText value="#{realEstate.realEstateLng}" />
+                        <p:column headerText="Tọa độ">
+                            <h:outputText id="lbl-Coordinate" value="#{realEstate.realEstateLat}" /> , <h:outputText value="#{realEstate.realEstateLng}" />
                         </p:column>
-                        <p:column headerText="Address">
-                            <h:outputText value="#{realEstate.realEstateAddress}" />
+                        <p:column headerText="Địa chỉ">
+                            <h:outputText id="lbl-Address" value="#{realEstate.realEstateAddress}" />
                         </p:column>
                         <p:column filterBy="#{realEstate.realEstateSource}" filterMatchMode="exact" style="width: 15%;text-align:center">
                             <f:facet name="filter">
-                                <p:selectOneMenu onchange="PF('table-real-estate').filter()" styleClass="custom-filter">
+                                <p:selectOneMenu id="cbb-Source" onchange="PF('table-real-estate').filter()" styleClass="custom-filter">
                                     <f:selectItem itemLabel="All Source" itemValue="#{null}" noSelectionOption="true" />
                                     <f:selectItems value="#{listAllRealEstateBean.listRealEstateSource}" />
                                 </p:selectOneMenu>
@@ -83,7 +87,7 @@
                         </p:column>
                         <p:column filterBy="#{realEstate.realEstateStatus}" filterMatchMode="exact" style="width: 10%;text-align:center">
                             <f:facet name="filter">
-                                <p:selectOneMenu onchange="PF('table-real-estate').filter()" styleClass="custom-filter">
+                                <p:selectOneMenu id="cbb-Status" onchange="PF('table-real-estate').filter()" styleClass="custom-filter">
                                     <f:selectItem itemLabel="All Status" itemValue="#{null}" noSelectionOption="true" />
                                     <f:selectItem itemLabel="CONFUSED" itemValue="-1" />
                                     <f:selectItem itemLabel="NOT VERIFIED" itemValue="0" />

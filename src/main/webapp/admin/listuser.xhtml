@@ -43,7 +43,7 @@
                         <p:ajax process="@form" update="table-user"/>
                     </h:commandButton>
 
-                    <p:dataTable var="user"
+                    <p:dataTable var="user" rowIndexVar="index" id="table"
                                  value="#{listUserBean.lazyUser}"
                                  rowKey="#{user.userId}"
                                  selection="#{listUserBean.selectedUser}"
@@ -58,19 +58,19 @@
                                  currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records">
                         <p:column selectionMode="multiple" style="width:5%;text-align:center"/>
                         <p:column headerText="ID" style="width: 5%;text-align:center">
-                            <h:outputText value="#{user.userId}" />
+                            <h:outputText value="#{user.userId}" id="lbl-ID" />
                         </p:column>
-                        <p:column headerText="Username" style="width: 10%;">
-                            <h:outputText value="#{user.username}" />
+                        <p:column headerText="Tên đăng nhập" style="width: 10%;">
+                            <h:outputText value="#{user.username}" id="lbl-Username"  />
                         </p:column>
-                        <p:column headerText="Full Name">
-                            <h:outputText value="#{user.fullName}" />
+                        <p:column headerText="Họ và tên">
+                            <h:outputText value="#{user.fullName}" id="lbl-Fullname"  />
                         </p:column>
                         <p:column headerText="Email">
-                            <h:outputText value="#{user.email}" />
+                            <h:outputText value="#{user.email}" id="lbl-Email"  />
                         </p:column>
-                        <p:column headerText="Phone">
-                            <h:outputText value="#{user.phone}" />
+                        <p:column headerText="Số điện thoại">
+                            <h:outputText value="#{user.phone}" id="lbl-Phone"  />
                         </p:column>
 
 

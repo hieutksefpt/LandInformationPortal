@@ -143,20 +143,20 @@
                                 <p:separator />
                                 <div class="form-group row">
                                     <div class="col-md">
-                                        <h:commandButton value="Thêm mới" onclick="PF('dlgAdd').show();">
+                                        <h:commandButton value="Thêm địa điểm" onclick="PF('dlgAdd').show();">
                                         
                                         </h:commandButton>
                                     </div>
                                     <div class="col-md">
-                                        <h:commandButton value="Lưu" onclick="PF('dlgUpdate').show()"></h:commandButton>
+                                        <h:commandButton value="Lưu địa điểm" onclick="PF('dlgUpdate').show()"></h:commandButton>
                                     </div>
                                     <div class="col-md">
-                                        <h:commandButton value="Clear" onclick="clearAllInput(), clearDataMap()" action="#{manageGeoInfoBean.resetButtonClick()}">
-                                            <f:ajax execute="@form" render="@form"></f:ajax>
+                                        <h:commandButton value="Xóa địa điểm" onclick="PF('dlgDelete').show()">
                                         </h:commandButton>
                                     </div>
                                     <div class="col-md">
-                                        <h:commandButton value="Xóa" onclick="PF('dlgDelete').show()">
+                                        <h:commandButton value="Hủy nhập liệu" onclick="clearAllInput(), clearDataMap()" action="#{manageGeoInfoBean.resetButtonClick()}">
+                                            <f:ajax execute="@form" render="@form"></f:ajax>
                                         </h:commandButton>
                                     </div>
                                 </div>

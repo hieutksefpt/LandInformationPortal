@@ -1,7 +1,7 @@
 package capstone.lip.landinformationportal.service;
 
 import java.lang.reflect.Field;
-
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -99,7 +99,7 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 		try {
 			listHouseFeature = housesFeatureRepository.findAll();
 			listLandsFeature = landsFeatureRepository.findAll();
-			User user = userRepository.findAll().get(0);
+			User user = userRepository.findByUsername("tuan");
 			int i = 1;
 			for (RealEstateObjectCrawl reoCrawl : listReoCrawl) {
 				RealEstate reo = new RealEstate();
@@ -110,7 +110,7 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 				if (reoSearch != null) {
 					continue;
 				}
-	
+				
 				reo.setRealEstateName(reoCrawl.getTitle())
 					.setRealEstateLat(reoCrawl.getLatitude())
 					.setRealEstateLng(reoCrawl.getLongitude())
@@ -120,16 +120,24 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 					.setRealEstateAddress(reoCrawl.getAddress())
 					.setUser(user)
 					.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.CONFUSED));
+				
+				if (!validateNumber(getStringCheckNull(reoCrawl.getPrice().toString()))) {
+					reo.setRealEstatePrice(BigDecimal.ZERO);
+				}else {
+					reo.setRealEstatePrice(reoCrawl.getPrice());
+				}
+				
+				
 				reo.setCreateDate(reoCrawl.getStartDatePost());
 				reo = realEstateRepository.save(reo);
 				House house = new House();
 				house.setRealEstate(reo)
 					.setHouseName(reoCrawl.getTitle())
-					.setHousePrice(0D);
+					.setHousePrice(BigDecimal.ZERO);
 				Land land = new Land();
 				land.setRealEstate(reo)
 					.setLandName(reoCrawl.getTitle())
-					.setLandPrice(0D);
+					.setLandPrice(BigDecimal.ZERO);
 				
 				house = houseRepository.save(house);
 				land = landRepository.save(land);
@@ -169,12 +177,26 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 		}
 		return string.toString();
 	}
+	private boolean validateNumber(String value) {
+		try {
+			BigDecimal number = new BigDecimal(value);
+			if (number.compareTo(new BigDecimal(0)) == 1){
+				return true;
+			}
+			return false;
+		}catch(Exception e) {
+			return false;
+		}
+	}
 	private List<HousesDetail> parseDataToListHouseDetail(RealEstateObjectCrawl reoCrawl, House house) {
 		try {
 			List<HousesDetail> listHouseDetail = new ArrayList<HousesDetail>();
 			for (HousesFeature housesFeature: listHouseFeature) {
 				switch (housesFeature.getHousesFeatureName()) {
 				case HousesFeatureNameConstant.numberFloors:
+					if (!validateNumber(getStringCheckNull(reoCrawl.getNumberFloor().toString()))) {
+						continue;
+					}
 					listHouseDetail.add(new HousesDetail()
 							.setHouse(house)
 							.setId(new HousesDetailId().setHouseId(house.getHouseId()).setHousesFeatureId(housesFeature.getHousesFeatureID()))
@@ -182,6 +204,9 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 							.setValue(getStringCheckNull(reoCrawl.getNumberFloor().toString())));
 					break;
 				case HousesFeatureNameConstant.numberBedrooms:
+					if (!validateNumber(getStringCheckNull(reoCrawl.getNumberBedrooms().toString()))) {
+						continue;
+					}
 					listHouseDetail.add(new HousesDetail()
 							.setHouse(house)
 							.setId(new HousesDetailId().setHouseId(house.getHouseId()).setHousesFeatureId(housesFeature.getHousesFeatureID()))
@@ -196,6 +221,9 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 							.setValue(getStringCheckNull(reoCrawl.getHomeDirection())));
 					break;
 				case HousesFeatureNameConstant.numberToilets:
+					if (!validateNumber(getStringCheckNull(reoCrawl.getNumberToilets().toString()))) {
+						continue;
+					}
 					listHouseDetail.add(new HousesDetail()
 							.setHouse(house)
 							.setId(new HousesDetailId().setHouseId(house.getHouseId()).setHousesFeatureId(housesFeature.getHousesFeatureID()))

@@ -1,8 +1,11 @@
 package capstone.lip.landinformationportal.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class MaxMinAvg {
+public class MaxMinAvg implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private BigDecimal max;
 	private BigDecimal min;
 	private BigDecimal avg;

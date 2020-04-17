@@ -309,7 +309,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     		RealEstateValidation rev = new RealEstateValidation();
             Land tempLand = new Land();
             tempLand.setLandName(newLandName);
-            tempLand.setLandPrice(Double.parseDouble(newLandMoney.toString()));
+            tempLand.setLandPrice(new BigDecimal(newLandMoney.toString()));
             tempLand.setRealEstate(newUploadRealEstate);
             
             if (rev.checkLandValidation(tempLand,listLandFeatureValue)) {
@@ -332,7 +332,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
     		RealEstateValidation rev = new RealEstateValidation();
             House tempHouse = new House();
             tempHouse.setHouseName(newHouseName);
-            tempHouse.setHousePrice(Double.parseDouble(newHouseMoney.toString()));
+            tempHouse.setHousePrice(new BigDecimal(newHouseMoney.toString()));
             tempHouse.setRealEstate(newUploadRealEstate);
             
             if (rev.checkHouseValidation(tempHouse,listHouseFeatureValue)) {

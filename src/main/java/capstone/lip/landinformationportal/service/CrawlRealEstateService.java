@@ -99,7 +99,7 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 		try {
 			listHouseFeature = housesFeatureRepository.findAll();
 			listLandsFeature = landsFeatureRepository.findAll();
-			User user = userRepository.findByUsername("tuan");
+			User user = userRepository.findByUsername("admin");
 			int i = 1;
 			for (RealEstateObjectCrawl reoCrawl : listReoCrawl) {
 				RealEstate reo = new RealEstate();
@@ -120,13 +120,18 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 					.setRealEstateAddress(reoCrawl.getAddress())
 					.setUser(user)
 					.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.CONFUSED));
-				
+				reo.setCreateDate(reoCrawl.getStartDatePost());
 				if (!validateNumber(getStringCheckNull(reoCrawl.getPrice().toString()))) {
 					reo.setRealEstatePrice(BigDecimal.ZERO);
 				}else {
 					reo.setRealEstatePrice(reoCrawl.getPrice());
 				}
 				
+				RealEstateAdjacentSegment adj = mappingRealEstateToLocation(reo);
+				if (adj != null) {
+					adjRepository.save(adj);
+					reo.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.VERIFIED));
+				}
 				
 				reo.setCreateDate(reoCrawl.getStartDatePost());
 				reo = realEstateRepository.save(reo);
@@ -154,10 +159,7 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 				housesDetailRepository.saveAll(listHousesDetail);
 				landsDetailRepository.saveAll(listLandsDetail);
 				
-				RealEstateAdjacentSegment adj = mappingRealEstateToLocation(reo);
-				if (adj != null) {
-					adjRepository.save(adj);
-				}
+				
 			}
 			return true;
 		}catch(Exception e) {

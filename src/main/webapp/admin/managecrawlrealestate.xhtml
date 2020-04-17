@@ -40,17 +40,16 @@
 		            	<h:commandButton id="btn-TurnOffCrawl" value="Tắt crawler" rendered="#{manageCrawlRealEstateBean.statusCrawlSchedule}">
 		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.turnOffCrawler()}"></p:ajax>
 		            	</h:commandButton>
-		            	
-	            		<label id="lb-CrawlNow"></label>
-	            		<h:outputText id="lb-CrawlSchedule" rendered="#{manageCrawlRealEstateBean.statusCrawlSchedule}" 
-            				value="Đang chạy"></h:outputText>
-		            	
+
+		            		<label id="lb-CrawlNow"></label>
+		            		<h:outputText id="lb-CrawlSchedule" rendered="#{manageCrawlRealEstateBean.statusCrawlSchedule}" 
+	            				value="Đang chạy"></h:outputText>
+
             		</div>
 	            	<div class="col-3">
 	            		<div class="row">
-	            			<h:commandButton id="btn-CrawlNow" value="Crawl ngay">
-			            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.crawlNow()}"
-			            		 onstart="renderMessageCrawlNow()"></p:ajax>
+	            			<h:commandButton id="btn-CrawlNow" value="Crawl ngay" onclick="renderMessageCrawlNow()">
+			            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.crawlNow()}"></p:ajax>
 			           		</h:commandButton>
 	            		</div>
 	            	</div>
@@ -140,7 +139,7 @@
                                     </div>
                                     <div class="form-group row">
 				                    	<div class="col">
-				                    		<h:commandButton value="Thêm đoạn đường liền kề">
+				                    		<h:commandButton style="width:100%;" value="Thêm đoạn đường liền kề">
 				                    			<p:ajax listener="#{beanPopup.addSegment()}" update="tablesegment"></p:ajax>
 				                    		</h:commandButton>
 				                    	</div>

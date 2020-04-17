@@ -37,16 +37,14 @@
 		            	<h:commandButton value="Tắt crawler" id="btn-TurnOffCrawl" rendered="#{manageCrawlNewsBean.statusCrawlSchedule}">
 		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.turnOffCrawler()}"></p:ajax>
 		            	</h:commandButton>
-		            	<div class="text-center">
 		            		<label id="lb-crawlnow"></label>
 		            		<h:outputText id="lb-CrawlSchedule" rendered="#{manageCrawlNewsBean.statusCrawlSchedule}" 
 	            				value="Đang chạy"></h:outputText>
-		            	</div>
 		            	
             		</div>
             		<div class="col-3">
-            			<h:commandButton value="Crawl ngay" id="btn-CrawlNow">
-		            		<p:ajax process="@form" listener="#{manageCrawlNewsBean.crawlNow()}" onstart="renderMessageCrawlNow()"></p:ajax>
+            			<h:commandButton value="Crawl ngay" id="btn-CrawlNow" onclick="renderMessageCrawlNow()">
+		            		<p:ajax process="@form" listener="#{manageCrawlNewsBean.crawlNow()}"></p:ajax>
 		           		</h:commandButton>
 		           		
             		</div>
@@ -59,9 +57,6 @@
 		           		</div>
             		</div>
             	</div>
-            	<h:panelGroup id="test">
-	           		
-	           	</h:panelGroup>
             </h:form>
             <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px">
             	

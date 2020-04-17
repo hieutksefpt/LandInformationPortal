@@ -14,6 +14,7 @@ import org.quartz.SchedulerException;
 import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
+import org.quartz.TriggerKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -85,6 +86,9 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 	private RealEstateAdjacentSegmentRepository adjRepository;
 	
 	private JobKey jobKey = new JobKey("crawlerJob", "crawler");
+	private TriggerKey triggerKey = new TriggerKey("crawlerTriggler", "crawler");
+	private JobKey jobKeyNow = new JobKey("crawlerNowJob", "crawler");
+	
 	@Autowired
 	Scheduler scheduler;
 	
@@ -126,15 +130,18 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 				}else {
 					reo.setRealEstatePrice(reoCrawl.getPrice());
 				}
+				reo.setCreateDate(reoCrawl.getStartDatePost());
+				reo = realEstateRepository.save(reo);
+				
 				
 				RealEstateAdjacentSegment adj = mappingRealEstateToLocation(reo);
 				if (adj != null) {
 					adjRepository.save(adj);
 					reo.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.VERIFIED));
+					reo = realEstateRepository.save(reo);
 				}
 				
-				reo.setCreateDate(reoCrawl.getStartDatePost());
-				reo = realEstateRepository.save(reo);
+				
 				House house = new House();
 				house.setRealEstate(reo)
 					.setHouseName(reoCrawl.getTitle())
@@ -318,12 +325,13 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 			return null;
 		}
 	}
+	
 	public boolean setTimeCrawlJob(int value) {
 		try {
-			trigger = TriggerBuilder.newTrigger().withIdentity("crawlerTriggler", "crawler")
+			trigger = TriggerBuilder.newTrigger().withIdentity(triggerKey)
 					.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(value).repeatForever()).build();
 	
-			job = JobBuilder.newJob(CrawlRealEstateScheduleJob.class).withIdentity("crawlerJob", "crawler").build();
+			job = JobBuilder.newJob(CrawlRealEstateScheduleJob.class).withIdentity(jobKey).build();
 			return true;
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -333,8 +341,7 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 	public boolean turnOffCrawler() {
 		try {
 			if (scheduler!= null) {
-				scheduler.clear();
-				scheduler.standby();
+				scheduler.deleteJob(jobKey);
 //				scheduler.shutdown();
 				
 			}
@@ -347,8 +354,9 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 	public boolean turnOnCrawler() {
 		try {
 			if (scheduler!= null) {
-				scheduler.clear();
-				scheduler.start();
+				if (!scheduler.isStarted()) {
+					scheduler.start();
+				}
 				scheduler.scheduleJob(job, trigger);
 			}
 			return true;
@@ -359,13 +367,10 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 	}
 	public boolean crawlNow() {
 		try {
-			JobKey jobKeyNow = JobKey.jobKey("crawlerNowJob", "crawler");
-			JobDetail jobNow = JobBuilder.newJob(CrawlRealEstateNowJob.class).storeDurably(true).withIdentity("crawlerNowJob", "crawler").build();
+			JobDetail jobNow = JobBuilder.newJob(CrawlRealEstateNowJob.class).storeDurably(true).withIdentity(jobKeyNow).build();
 			scheduler.addJob(jobNow, true);
-			scheduler.getContext().put("crawlnow", "true");
 			scheduler.triggerJob(jobKeyNow);
 			scheduler.deleteJob(jobKeyNow);
-			scheduler.getContext().remove("crawlnow");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

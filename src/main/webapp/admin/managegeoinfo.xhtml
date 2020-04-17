@@ -17,7 +17,7 @@
                     <p:panel id="container">
                         <div class="form-group row">
                             <div class="col-md">
-                                <input id="searchbox-Address" class="controls" type="text" style="width: 100%;" placeholder="Search Box"/>
+                                <input id="searchbox-Address" class="controls" type="text" style="width: 100%;" placeholder="Tìm địa điểm"/>
                             </div>
                         </div>
 
@@ -143,19 +143,19 @@
                                 <p:separator />
                                 <div class="form-group row">
                                     <div class="col-md">
-                                        <h:commandButton value="Thêm địa điểm" onclick="PF('dlgAdd').show();">
+                                        <h:commandButton value="Thêm" onclick="PF('dlgAdd').show();">
                                         
                                         </h:commandButton>
                                     </div>
                                     <div class="col-md">
-                                        <h:commandButton value="Lưu địa điểm" onclick="PF('dlgUpdate').show()"></h:commandButton>
+                                        <h:commandButton value="Lưu" onclick="PF('dlgUpdate').show()"></h:commandButton>
                                     </div>
                                     <div class="col-md">
-                                        <h:commandButton value="Xóa địa điểm" onclick="PF('dlgDelete').show()">
+                                        <h:commandButton value="Xóa" onclick="PF('dlgDelete').show()">
                                         </h:commandButton>
                                     </div>
                                     <div class="col-md">
-                                        <h:commandButton value="Hủy nhập liệu" onclick="clearAllInput(), clearDataMap()" action="#{manageGeoInfoBean.resetButtonClick()}">
+                                        <h:commandButton value="Hủy" onclick="clearAllInput(), clearDataMap()" action="#{manageGeoInfoBean.resetButtonClick()}">
                                             <f:ajax execute="@form" render="@form"></f:ajax>
                                         </h:commandButton>
                                     </div>

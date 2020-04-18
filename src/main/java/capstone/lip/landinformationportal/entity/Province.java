@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import capstone.lip.landinformationportal.entity.audit.AuditAbstract;
@@ -37,9 +39,10 @@ public class Province extends AuditAbstract implements Serializable{
 	@Column(name = "ProvinceLng")
 	private Double provinceLng;
 	
+	@NotFound(action = NotFoundAction.IGNORE)
 	@LazyToOne(LazyToOneOption.NO_PROXY)
 	@OneToMany(mappedBy="province", fetch = FetchType.LAZY)
-	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<District> listDistrict;
 	
 	public List<District> getListDistrict() {

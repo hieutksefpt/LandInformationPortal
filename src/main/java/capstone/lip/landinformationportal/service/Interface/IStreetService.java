@@ -8,4 +8,5 @@ public interface IStreetService {
 	Street save(Street street);
 	boolean delete(List<Street> listStreet);
 	boolean delete(Street street);
+	Street findById(Long id);
 }

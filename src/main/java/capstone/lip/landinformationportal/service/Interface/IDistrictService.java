@@ -8,4 +8,5 @@ public interface IDistrictService {
 	District save(District district);
     boolean delete(List<District> listDistrict);
 	boolean delete(District district);
+	District findById(Long id);
 }

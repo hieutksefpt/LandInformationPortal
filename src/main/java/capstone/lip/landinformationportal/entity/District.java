@@ -42,15 +42,16 @@ public class District extends AuditAbstract  implements Serializable{
 	@Column(name="DistrictLng")
 	private Double districtLng;
 	
+	@NotFound(action = NotFoundAction.IGNORE)
 	@LazyToOne(LazyToOneOption.NO_PROXY)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="ProvinceID")
-	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Province province;
 
 	@LazyToOne(LazyToOneOption.NO_PROXY)
 	@NotFound(action = NotFoundAction.IGNORE)
-	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@OnDelete(action = OnDeleteAction.CASCADE)
 	@OneToMany(mappedBy="district", fetch = FetchType.LAZY)
 	private List<SegmentOfStreet> listSegmentOfStreet;
 	

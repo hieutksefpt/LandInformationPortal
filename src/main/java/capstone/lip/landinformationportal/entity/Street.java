@@ -43,7 +43,7 @@ public class Street extends AuditAbstract implements Serializable {
 	@LazyToOne(LazyToOneOption.NO_PROXY)
 	@NotFound(action = NotFoundAction.IGNORE)
 	@OneToMany(mappedBy="street",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<SegmentOfStreet> listSegmentOfStreet;
 	
 	

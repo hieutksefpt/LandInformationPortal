@@ -29,7 +29,7 @@ public abstract class AbstractProvinceServiceTest extends CRUDTest {
     protected Province SampleProvince = new Province()
             .setProvinceId(99L)
             .setProvinceLat(99.0).setProvinceLng(-99.0)
-            .setProvinceName("SAMPLE DISTRICT");
+            .setProvinceName("SAMPLE PROVINCE");
     
     private boolean isTheSame(Province actual, Province result) {
         if (!actual.getProvinceName().equals(result.getProvinceName())) return false;

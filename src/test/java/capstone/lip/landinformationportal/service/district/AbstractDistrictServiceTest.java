@@ -30,7 +30,7 @@ public abstract class AbstractDistrictServiceTest extends CRUDTest {
     protected District SampleDistrict = new District()
             .setDistrictId(99L)
             .setDistrictLat(1.0).setDistrictLng(1.0)
-            .setDistrictName(ALPHABETIC_STRING)
+            .setDistrictName("SAMPLE DISTRICT")
             .setProvince(new Province()
                     .setProvinceId(EXISTED_ID));
     

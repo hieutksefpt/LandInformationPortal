@@ -12,6 +12,7 @@ import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.compositekey.LandsDetailId;
 import capstone.lip.landinformationportal.repository.LandRepository;
 import capstone.lip.landinformationportal.service.Interface.ILandService;
+import capstone.lip.landinformationportal.service.Interface.ILandsDetailService;
 import capstone.lip.landinformationportal.validation.RealEstateValidation;
 import java.math.BigDecimal;
 
@@ -30,6 +31,9 @@ public class LandService implements ILandService {
     @Autowired
     private LandRepository landRepository;
 
+    @Autowired
+    private ILandsDetailService landDetailService;
+    
     @Override
     public Land save(Land land) {
     	try {
@@ -44,6 +48,10 @@ public class LandService implements ILandService {
     @Override
     public boolean delete(Land land) {
     	try {
+    		if (land == null) throw new Exception("null");
+    		List<LandsDetail> landDetail = land.getListLandsDetail();
+    		landDetailService.delete(landDetail);
+    		
     		landRepository.delete(land);
     		return true;
 		} catch (Exception e) {

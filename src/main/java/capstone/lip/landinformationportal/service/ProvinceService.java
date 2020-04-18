@@ -11,6 +11,7 @@ import capstone.lip.landinformationportal.entity.Province;
 import capstone.lip.landinformationportal.repository.ProvinceRepository;
 import capstone.lip.landinformationportal.service.Interface.IDistrictService;
 import capstone.lip.landinformationportal.service.Interface.IProvinceService;
+import capstone.lip.landinformationportal.validation.ProvinceValidation;
 
 @Service
 public class ProvinceService implements IProvinceService{
@@ -33,7 +34,13 @@ public class ProvinceService implements IProvinceService{
 	public Province save(Province province) {
 		
 		try {
-			return provinceRepository.save(province);
+			ProvinceValidation validate = new ProvinceValidation();
+			String error = validate.isValidProvince(province);
+			if (error.compareTo("") == 0) {
+				return provinceRepository.save(province);
+			}else {
+				throw new Exception("Not valid province, "+error);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -44,12 +51,12 @@ public class ProvinceService implements IProvinceService{
 	public boolean delete(Province province) {
 		
 		try {
-			
 			if (province == null) throw new Exception("Province is null");
+			if (findById(province.getProvinceId())== null) {
+				throw new Exception("Province not found");
+			}
 			List<District> listDistrict = province.getListDistrict();
-			
-			districtService.delete(listDistrict);
-			
+			districtService.delete(listDistrict);			
 			provinceRepository.delete(province);
 			return true;
 		} catch (Exception e) {
@@ -61,6 +68,7 @@ public class ProvinceService implements IProvinceService{
 	@Override
 	public Province findById(Long id) {
 		try {
+			if (id ==null) throw new Exception();
 			Optional<Province> province = provinceRepository.findById(id);
 			if (province.isPresent()) {
 				return province.get();

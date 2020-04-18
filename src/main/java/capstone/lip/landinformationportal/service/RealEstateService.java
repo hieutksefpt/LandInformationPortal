@@ -312,28 +312,31 @@ public class RealEstateService implements IRealEstateService {
     public boolean delete(long realEstateId) {
     	try {
     		RealEstate realEstate = realEstateRepository.findById(realEstateId).get();
-            Land land = realEstate.getLand();
-            if (land != null) {
-                List<LandsDetail> listLandDetail = realEstate.getLand().getListLandsDetail();
-                if (listLandDetail != null) {
-                    landsDetailService.delete(listLandDetail);
-                }
-                landService.delete(land);
-            }
-            List<House> listHouse = realEstate.getListHouse();
-            if (listHouse != null) {
-                for (House house : listHouse) {
-                    List<HousesDetail> listHousesDetails = house.getListHousesDetail();
-                    if (listHousesDetails != null) {
-                        housesDetailService.delete(listHousesDetails);
-                    }
-                    houseService.delete(listHouse);
-                }
-            }
-            List<RealEstateAdjacentSegment> listAdjacentSegment = realEstate.getListRealEstateAdjacentSegment();
-            if (listAdjacentSegment != null) {
-                realEstateAdjacentSegmentService.delete(listAdjacentSegment);
-            }
+//            Land land = realEstate.getLand();
+//            if (land != null) {
+//                List<LandsDetail> listLandDetail = realEstate.getLand().getListLandsDetail();
+//                if (listLandDetail != null) {
+//                    landsDetailService.delete(listLandDetail);
+//                }
+//                landService.delete(land);
+//            }
+//            List<House> listHouse = realEstate.getListHouse();
+//            if (listHouse != null) {
+//                for (House house : listHouse) {
+//                    List<HousesDetail> listHousesDetails = house.getListHousesDetail();
+//                    if (listHousesDetails != null) {
+//                        housesDetailService.delete(listHousesDetails);
+//                    }
+//                    houseService.delete(listHouse);
+//                }
+//            }
+//            List<RealEstateAdjacentSegment> listAdjacentSegment = realEstate.getListRealEstateAdjacentSegment();
+//            if (listAdjacentSegment != null) {
+//                realEstateAdjacentSegmentService.delete(listAdjacentSegment);
+//            }
+    		houseService.delete(realEstate.getListHouse());
+    		landService.delete(realEstate.getLand());
+    		realEstateAdjacentSegmentService.delete(realEstate.getListRealEstateAdjacentSegment());
             realEstateRepository.deleteById(realEstateId);
             return true;
 		} catch (Exception e) {

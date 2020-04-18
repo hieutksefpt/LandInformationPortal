@@ -9,6 +9,7 @@ import capstone.lip.landinformationportal.entity.Feedback;
 import capstone.lip.landinformationportal.repository.FeedbackRepository;
 import capstone.lip.landinformationportal.service.Interface.IFeedbackService;
 import capstone.lip.landinformationportal.utils.EmailSender;
+import capstone.lip.landinformationportal.validation.FeedbackValidation;
 
 @Service
 public class FeedbackService implements IFeedbackService {
@@ -71,6 +72,11 @@ public class FeedbackService implements IFeedbackService {
 	@Override
 	public boolean sendFeedbackReply(Feedback feedback){
 		try {
+			FeedbackValidation validate = new FeedbackValidation();
+			String error = validate.isValidFeedback(feedback);
+			if (!error.isEmpty()) {
+				throw new Exception(error);
+			}
 			feedbackRepository.save(feedback);
 			emailSender.sendMailFeedback(feedback);
 			return true;

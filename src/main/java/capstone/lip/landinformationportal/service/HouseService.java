@@ -12,11 +12,14 @@ import capstone.lip.landinformationportal.entity.RealEstate;
 import capstone.lip.landinformationportal.entity.compositekey.HousesDetailId;
 import capstone.lip.landinformationportal.repository.HouseRepository;
 import capstone.lip.landinformationportal.service.Interface.IHouseService;
+import capstone.lip.landinformationportal.service.Interface.IHousesDetailService;
 import capstone.lip.landinformationportal.validation.RealEstateValidation;
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +33,9 @@ public class HouseService implements IHouseService {
     @Autowired
     private HouseRepository houseRepository;
 
+    @Autowired
+    private IHousesDetailService housesDetailService;
+    
     @Override
     public House save(House house) {
     	try {
@@ -44,6 +50,10 @@ public class HouseService implements IHouseService {
     @Override
     public boolean delete(List<House> listHouse) {
     	try {
+    		if (listHouse == null) throw new Exception("null");
+    		if (listHouse.isEmpty()) throw new Exception("empty");   		
+    		List<HousesDetail> listHouseDetail = listHouse.stream().map(x->x.getListHousesDetail()).flatMap(List::stream).collect(Collectors.toList());
+    		housesDetailService.delete(listHouseDetail);
     		houseRepository.deleteAll(listHouse);
     		return true;
 		} catch (Exception e) {

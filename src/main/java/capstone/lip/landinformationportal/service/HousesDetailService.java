@@ -36,6 +36,8 @@ public class HousesDetailService implements IHousesDetailService {
     @Override
     public boolean delete(List<HousesDetail> listHousesDetail) {
     	try {
+    		if (listHousesDetail== null) throw new Exception("null");
+    		if (listHousesDetail.isEmpty()) throw new Exception("empty");
     		housesDetailRepository.deleteAll(listHousesDetail);
     		return true;
 		} catch (Exception e) {

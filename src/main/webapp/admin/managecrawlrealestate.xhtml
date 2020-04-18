@@ -186,7 +186,7 @@
 		<ui:define name="footer">
 			<h:outputScript name="managecrawlrealestate.js" library="js" />
 				<script type="text/javascript"
-                        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;initMap(0,0)"
+                        src="http://maps.googleapis.com/maps/api/js?key=#{googleMapBean.googleMapKey}&amp;libraries=places&amp;initMap(0,0)"
                 async="true" defer="true"></script>	
 		</ui:define>
 	</ui:composition>

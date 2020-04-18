@@ -35,6 +35,9 @@ public class LandsDetailService implements ILandsDetailService {
     @Override
     public boolean delete(List<LandsDetail> listLandsDetail) {
     	try {
+    		if (listLandsDetail == null) throw new Exception("null");
+    		if (listLandsDetail.isEmpty()) throw new Exception("empty");
+    		
     		landsDetailRepository.deleteAll(listLandsDetail);
     		return true;
     	}catch(Exception e) {

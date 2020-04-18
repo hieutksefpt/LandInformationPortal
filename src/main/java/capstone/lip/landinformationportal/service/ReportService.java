@@ -16,6 +16,7 @@ public class ReportService implements IReportService {
     @Override
     public Report save(Report report) {
         try {
+        	if (report == null) throw new Exception("null");
             return reportRepository.save(report);
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,6 +37,7 @@ public class ReportService implements IReportService {
     @Override
     public boolean delete(Report report) {
         try {
+        	if (report == null) throw new Exception("null");
             reportRepository.delete(report);
             return true;
         } catch (Exception e) {

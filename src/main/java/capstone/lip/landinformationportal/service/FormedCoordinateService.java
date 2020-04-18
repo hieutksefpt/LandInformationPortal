@@ -15,8 +15,10 @@ import capstone.lip.landinformationportal.validation.FormedCoordinateValidation;
 public class FormedCoordinateService implements IFormedCoordinate{
 
 	@Autowired
-	FormedCoordinateRepository formerCoordinateRepository;
+	private FormedCoordinateRepository formerCoordinateRepository;
 	
+	@Autowired
+	private SegmentOfStreetService segmentService;
 	@Override
 	public FormedCoordinate save(FormedCoordinate formedCoordinate) {
 		
@@ -41,9 +43,12 @@ public class FormedCoordinateService implements IFormedCoordinate{
 		try {
 			if (listFormedCoordinate == null) throw new Exception("null");
 			if (listFormedCoordinate.isEmpty()) throw new Exception("empty");
-			for (FormedCoordinate element: listFormedCoordinate) {
-				if (element.getFormedCoordinateId()==null || findById(element.getFormedCoordinateId())==null) {
-					throw new Exception("Coordinate not found");
+
+			FormedCoordinateValidation validate = new FormedCoordinateValidation();
+			for (FormedCoordinate element:listFormedCoordinate) {
+				String error = validate.isValidFormedCoordinate(element);
+				if (!error.isEmpty()) {
+					throw new Exception(error);
 				}
 			}
 			return formerCoordinateRepository.saveAll(listFormedCoordinate);
@@ -62,6 +67,7 @@ public class FormedCoordinateService implements IFormedCoordinate{
 				if (element.getFormedCoordinateId()==null || findById(element.getFormedCoordinateId())==null) {
 					throw new Exception("Coordinate not found");
 				}
+				
 			}
 			formerCoordinateRepository.deleteAll(listCoordinate);
 			return true;

@@ -48,7 +48,7 @@ public class SegmentServiceTest_2_3 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_2_03() {
         ArrayList<SegmentOfStreet> segments = new ArrayList();
-        segments.add(SampleSegment.setSegmentId(EXISTED_ID));
+        segments.add(repository.findById(EXISTED_ID).get());
         
         long records = repository.count();
         boolean result = instance.delete(segments);
@@ -64,7 +64,7 @@ public class SegmentServiceTest_2_3 extends AbstractSegmentServiceTest {
     public void FT_SgS_2_04() {
         ArrayList<SegmentOfStreet> segments = new ArrayList();
         for (int i = 0; i < EXISTED_IDs.length; i++) {
-            segments.add(SampleSegment.setSegmentId(EXISTED_IDs[i]));
+            segments.add(repository.findById(EXISTED_IDs[i]).get());
         }
         
         long records = repository.count();
@@ -92,8 +92,7 @@ public class SegmentServiceTest_2_3 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_3_02() {
         long records = repository.count();
-        boolean result = instance.delete(SampleSegment
-                .setSegmentId(EXISTED_ID));
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get());
         
         testDeleteSuccess(result, EXISTED_ID, records);
     }
@@ -141,8 +140,7 @@ public class SegmentServiceTest_2_3 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_3_06() {
         long records = repository.count();
-        boolean result = instance.delete(SampleSegment
-                .setSegmentId(EXISTED_ID)
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get()
                 .setSegmentName(EMPTY_STRING));
         
         testDeleteSuccess(result, EXISTED_ID, records);
@@ -168,8 +166,7 @@ public class SegmentServiceTest_2_3 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_3_08() {
         long records = repository.count();
-        boolean result = instance.delete(SampleSegment
-                .setSegmentId(EXISTED_ID)
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get()
                 .setSegmentName(NULL_STRING));
         
         testDeleteSuccess(result, EXISTED_ID, records);
@@ -195,8 +192,7 @@ public class SegmentServiceTest_2_3 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_3_10() {
         long records = repository.count();
-        boolean result = instance.delete(SampleSegment
-                .setSegmentId(EXISTED_ID)
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get()
                 .setSegmentLng(null));
         
         testDeleteSuccess(result, EXISTED_ID, records);
@@ -222,8 +218,7 @@ public class SegmentServiceTest_2_3 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_3_12() {
         long records = repository.count();
-        boolean result = instance.delete(SampleSegment
-                .setSegmentId(EXISTED_ID)
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get()
                 .setSegmentLat(null));
         
         testDeleteSuccess(result, EXISTED_ID, records);

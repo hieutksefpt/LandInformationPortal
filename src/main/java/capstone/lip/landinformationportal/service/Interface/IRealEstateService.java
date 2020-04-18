@@ -62,8 +62,8 @@ public interface IRealEstateService {
     long countByRealEstateAddress(String address);
     
 //    @Cacheable(value="listMaxMinAvg", key="{#address}", cacheManager="cacheManager1Hour")
-    MaxMinAvg listMaxMinAvg(String address);
+    MaxMinAvg listMaxMinAvg(String location);
     
 //    @Cacheable(value="listGroupByDateAndValue", key="{#address}", cacheManager="cacheManager1Hour")
-    List<GroupByDateMaxMinCreate> listGroupByDateAndValue(String address);
+    List<GroupByDateMaxMinCreate> listGroupByDateAndValue(String location);
 }

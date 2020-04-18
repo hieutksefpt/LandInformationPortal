@@ -272,9 +272,9 @@ public class RealEstateService implements IRealEstateService {
     }
 
     @Override
-    public MaxMinAvg listMaxMinAvg(String address) {
+    public MaxMinAvg listMaxMinAvg(String location) {
     	try {
-    		return realEstateRepository.getMaxMinAvg(address);
+    		return realEstateRepository.getMaxMinAvg(location);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -283,9 +283,9 @@ public class RealEstateService implements IRealEstateService {
     }
 
     @Override
-    public List<GroupByDateMaxMinCreate> listGroupByDateAndValue(String address) {
+    public List<GroupByDateMaxMinCreate> listGroupByDateAndValue(String location) {
     	try {
-    		return realEstateRepository.getGroupTimeAndPrice(address);
+    		return realEstateRepository.getGroupTimeAndPrice(location);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

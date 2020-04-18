@@ -15,6 +15,7 @@ import capstone.lip.landinformationportal.common.FeedbackStatusConstant;
 import capstone.lip.landinformationportal.dto.LazyFeedback;
 import capstone.lip.landinformationportal.entity.Feedback;
 import capstone.lip.landinformationportal.service.Interface.IFeedbackService;
+import capstone.lip.landinformationportal.validation.FeedbackValidation;
 
 @Named
 @ViewScoped
@@ -33,17 +34,20 @@ public class ManageFeedbackBean implements Serializable{
 		lazyFeedback = new LazyFeedback(feedbackService);
 	}
 	public void replyFeedbackClick() {
-		setMessage(FacesMessage.SEVERITY_INFO, "Phản hồi thành công");
+		
 		feedbackClick.setFeedbackAdminReply(replyMessage);
-		feedbackClick.setFeedbackStatus(FeedbackStatusConstant.CLOSE);
-		try {
-			feedbackService.sendFeedbackReply(feedbackClick);
-		} catch (Exception e) {
-			e.printStackTrace();
+		FeedbackValidation validate = new FeedbackValidation();
+		String error = validate.isValidFeedback(feedbackClick);
+		if (!error.isEmpty()) {
+			setMessage(FacesMessage.SEVERITY_ERROR, "Nội dung phản hồi không được để trống");
+			return;
 		}
+		feedbackClick.setFeedbackStatus(FeedbackStatusConstant.CLOSE);
+		feedbackService.sendFeedbackReply(feedbackClick);
+		setMessage(FacesMessage.SEVERITY_INFO, "Phản hồi thành công");
 	}
 	public void deleteFeedback() {
-		setMessage(FacesMessage.SEVERITY_WARN, "Xóa thành công");
+		setMessage(FacesMessage.SEVERITY_INFO, "Xóa thành công");
 		try {
 			feedbackService.delete(feedbackClick);
 		} catch (Exception e) {

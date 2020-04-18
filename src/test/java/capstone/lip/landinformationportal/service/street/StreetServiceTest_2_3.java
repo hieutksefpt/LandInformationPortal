@@ -16,6 +16,7 @@ import org.springframework.test.context.TestPropertySource;
  */
 @TestPropertySource(locations = "/application-test-data.properties")
 public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
+    
     /**
      * @Description: List is null
      * @Dependency: N/A

@@ -355,12 +355,11 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_26() {
-        long records = repository.count();
         SegmentOfStreet result = instance.save(SampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentLat(-1.0).setSegmentLng(1.0));
         
-        testUpdateSuccess(result, records);
+        testFail(result);
     }
     
     /**
@@ -369,12 +368,11 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_27() {
-        long records = repository.count();
         SegmentOfStreet result = instance.save(SampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentLat(-1.0).setSegmentLng(1.0));
         
-        testInsertSuccess(result, records);
+        testFail(result);
     }
     
     /**
@@ -383,12 +381,11 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_28() {
-        long records = repository.count();
         SegmentOfStreet result = instance.save(SampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentLat(1.0).setSegmentLng(-1.0));
         
-        testUpdateSuccess(result, records);
+        testFail(result);
     }
     
     /**
@@ -397,12 +394,11 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_29() {
-        long records = repository.count();
         SegmentOfStreet result = instance.save(SampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentLat(1.0).setSegmentLng(-1.0));
         
-        testInsertSuccess(result, records);
+        testFail(result);
     }
     
     /**
@@ -411,12 +407,11 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_30() {
-        long records = repository.count();
         SegmentOfStreet result = instance.save(SampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentLat(0.0).setSegmentLng(0.0));
         
-        testUpdateSuccess(result, records);
+        testFail(result);
     }
     
     /**
@@ -425,12 +420,11 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_31() {
-        long records = repository.count();
         SegmentOfStreet result = instance.save(SampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentLat(0.0).setSegmentLng(0.0));
         
-        testInsertSuccess(result, records);
+        testFail(result);
     }
     
     /**

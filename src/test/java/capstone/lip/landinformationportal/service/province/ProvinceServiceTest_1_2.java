@@ -10,7 +10,6 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -249,11 +248,10 @@ public class ProvinceServiceTest_1_2 extends AbstractProvinceServiceTest {
      */
     @Test
     public void FT_PS_2_18() {
-        long records = repository.count();
         Province result = instance.save(SampleProvince
                 .setProvinceId(EXISTED_ID).setProvinceName(SPECIAL_CHARACTER_STRING));
         
-        testUpdateSuccess(result, records);
+        testFail(result);
     }
     
     /**
@@ -262,11 +260,10 @@ public class ProvinceServiceTest_1_2 extends AbstractProvinceServiceTest {
      */
     @Test
     public void FT_PS_2_19() {
-        long records = repository.count();
         Province result = instance.save(SampleProvince
                 .setProvinceId(NOT_EXISTED_ID).setProvinceName(SPECIAL_CHARACTER_STRING));
         
-        testInsertSuccess(result, records);
+        testFail(result);
     }
     
     /**
@@ -373,12 +370,11 @@ public class ProvinceServiceTest_1_2 extends AbstractProvinceServiceTest {
      */
     @Test
     public void FT_PS_2_28() {
-        long records = repository.count();
         Province result = instance.save(SampleProvince
                 .setProvinceId(EXISTED_ID)
                 .setProvinceLat(-1.0).setProvinceLng(1.0));
         
-        testUpdateSuccess(result, records);
+        testFail(result);
     }
     
     /**
@@ -387,12 +383,11 @@ public class ProvinceServiceTest_1_2 extends AbstractProvinceServiceTest {
      */
     @Test
     public void FT_PS_2_29() {
-        long records = repository.count();
         Province result = instance.save(SampleProvince
                 .setProvinceId(NOT_EXISTED_ID)
                 .setProvinceLat(-1.0).setProvinceLng(1.0));
         
-        testInsertSuccess(result, records);
+        testFail(result);
     }
     
     /**
@@ -401,12 +396,11 @@ public class ProvinceServiceTest_1_2 extends AbstractProvinceServiceTest {
      */
     @Test
     public void FT_PS_2_30() {
-        long records = repository.count();
         Province result = instance.save(SampleProvince
                 .setProvinceId(EXISTED_ID)
                 .setProvinceLat(1.0).setProvinceLng(-1.0));
         
-        testUpdateSuccess(result, records);
+        testFail(result);
     }
     
     /**
@@ -415,12 +409,11 @@ public class ProvinceServiceTest_1_2 extends AbstractProvinceServiceTest {
      */
     @Test
     public void FT_PS_2_31() {
-        long records = repository.count();
         Province result = instance.save(SampleProvince
                 .setProvinceId(NOT_EXISTED_ID)
                 .setProvinceLat(1.0).setProvinceLng(-1.0));
         
-        testInsertSuccess(result, records);
+        testFail(result);
     }
     
     /**
@@ -429,12 +422,11 @@ public class ProvinceServiceTest_1_2 extends AbstractProvinceServiceTest {
      */
     @Test
     public void FT_PS_2_32() {
-        long records = repository.count();
         Province result = instance.save(SampleProvince
                 .setProvinceId(EXISTED_ID)
                 .setProvinceLat(0.0).setProvinceLng(0.0));
         
-        testUpdateSuccess(result, records);
+        testFail(result);
     }
     
     /**
@@ -443,12 +435,11 @@ public class ProvinceServiceTest_1_2 extends AbstractProvinceServiceTest {
      */
     @Test
     public void FT_PS_2_33() {
-        long records = repository.count();
         Province result = instance.save(SampleProvince
                 .setProvinceId(NOT_EXISTED_ID)
                 .setProvinceLat(0.0).setProvinceLng(0.0));
         
-        testInsertSuccess(result, records);
+        testFail(result);
     }
     
     /**

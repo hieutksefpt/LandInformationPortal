@@ -45,7 +45,7 @@ public class ProvinceService implements IProvinceService{
 		
 		try {
 			
-			
+			if (province == null) throw new Exception("Province is null");
 			List<District> listDistrict = province.getListDistrict();
 			
 			districtService.delete(listDistrict);

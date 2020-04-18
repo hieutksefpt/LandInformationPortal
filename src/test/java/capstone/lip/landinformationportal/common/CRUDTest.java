@@ -8,6 +8,7 @@ package capstone.lip.landinformationportal.common;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestExecutionListeners;
@@ -61,4 +62,14 @@ public abstract class CRUDTest {
 //    protected DatabaseOperation getTearDownOperation() throws Exception {
 //        return DatabaseOperation.NONE; // by default
 //    }
+    
+    protected void testFail(boolean result) {
+        //Delete fail
+        assertEquals(false, result);
+    }
+
+    protected void testFail(Object result) {
+        //Save fail
+        assertEquals(true, result == null);
+    }
 }

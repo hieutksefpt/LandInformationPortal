@@ -28,10 +28,10 @@ public abstract class AbstractProvinceServiceTest extends CRUDTest {
     
     protected Province SampleProvince = new Province()
             .setProvinceId(99L)
-            .setProvinceLat(1.0).setProvinceLng(-1.0)
-            .setProvinceName(ALPHABETIC_STRING);
+            .setProvinceLat(99.0).setProvinceLng(-99.0)
+            .setProvinceName("SAMPLE DISTRICT");
     
-    protected boolean isTheSame(Province actual, Province result) {
+    private boolean isTheSame(Province actual, Province result) {
         if (!actual.getProvinceName().equals(result.getProvinceName())) return false;
         if (!actual.getProvinceLat().equals(result.getProvinceLat())) return false;
         if (!actual.getProvinceLng().equals(result.getProvinceLng())) return false;
@@ -89,13 +89,4 @@ public abstract class AbstractProvinceServiceTest extends CRUDTest {
         }
     }
     
-    protected void testFail(boolean result) {
-        //Delete fail
-        assertEquals(false, result);
-    }
-    
-    protected void testFail(Province result) {
-        //Save fail
-        assertEquals(true, result == null);
-    }
 }

@@ -5,7 +5,7 @@
  */
 package capstone.lip.landinformationportal.service.Interface;
 
-import capstone.lip.landinformationportal.dto.GroupByDateMaxMinCreate;
+import capstone.lip.landinformationportal.dto.GroupByDateMaxMin;
 import capstone.lip.landinformationportal.dto.MaxMinAvg;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.Land;
@@ -65,5 +65,5 @@ public interface IRealEstateService {
     MaxMinAvg listMaxMinAvg(String location);
     
 //    @Cacheable(value="listGroupByDateAndValue", key="{#address}", cacheManager="cacheManager1Hour")
-    List<GroupByDateMaxMinCreate> listGroupByDateAndValue(String location);
+    List<GroupByDateMaxMin> listGroupByDateAndValue(String location);
 }

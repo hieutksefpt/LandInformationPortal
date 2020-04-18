@@ -5,7 +5,7 @@
  */
 package capstone.lip.landinformationportal.service;
 
-import capstone.lip.landinformationportal.dto.GroupByDateMaxMinCreate;
+import capstone.lip.landinformationportal.dto.GroupByDateMaxMin;
 import capstone.lip.landinformationportal.dto.MaxMinAvg;
 import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.HousesDetail;
@@ -283,7 +283,7 @@ public class RealEstateService implements IRealEstateService {
     }
 
     @Override
-    public List<GroupByDateMaxMinCreate> listGroupByDateAndValue(String location) {
+    public List<GroupByDateMaxMin> listGroupByDateAndValue(String location) {
     	try {
     		return realEstateRepository.getGroupTimeAndPrice(location);
 		} catch (Exception e) {

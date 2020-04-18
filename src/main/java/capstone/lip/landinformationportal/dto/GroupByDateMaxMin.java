@@ -5,13 +5,13 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class GroupByDateMaxMinCreate implements Serializable{
+public class GroupByDateMaxMin implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private Timestamp dateCreated;
 	private MaxMinAvg maxMinAvg;
 	
-	public GroupByDateMaxMinCreate(Date dateCreated, BigDecimal max, BigDecimal min, Double avg) {
+	public GroupByDateMaxMin(Date dateCreated, BigDecimal max, BigDecimal min, Double avg) {
 		this.dateCreated = new Timestamp(dateCreated.getTime());
 		this.maxMinAvg = new MaxMinAvg(max, min, avg);
 	}

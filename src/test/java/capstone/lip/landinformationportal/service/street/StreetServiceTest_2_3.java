@@ -63,15 +63,14 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
     @Test
     public void FT_StS_2_04() {
         ArrayList<Street> streets = new ArrayList();
-        streets.add(SampleStreet.setStreetId(1L));
-        streets.add(SampleStreet.setStreetId(2L));
-        streets.add(SampleStreet.setStreetId(3L));
+        for (int i = 0; i < EXISTED_IDs.length; i++) {
+            streets.add(SampleStreet.setStreetId(EXISTED_IDs[i]));
+        }
         
         long records = repository.count();
         boolean result = instance.delete(streets);
         
-        long[] ids = {1L, 2L, 3L};
-        testDeleteSuccess(result, ids, records);
+        testDeleteSuccess(result, EXISTED_IDs, records);
     }
     
     /**

@@ -10,9 +10,9 @@ import capstone.lip.landinformationportal.entity.Street;
 import capstone.lip.landinformationportal.repository.StreetRepository;
 import capstone.lip.landinformationportal.service.StreetService;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -29,16 +29,14 @@ public abstract class AbstractStreetServiceTest extends CRUDTest {
     protected StreetRepository repository;
     
     protected Street SampleStreet = new Street()
-            .setStreetId(99L)
-            .setStreetLat(99.0).setStreetLng(99.0)
+            .setStreetId(DEFAULT_ID)
+            .setStreetLat(DEFAULT_LAT).setStreetLng(DEFAULT_LNG)
             .setStreetName("SAMPLE STREET");
     
     private boolean isTheSame(Street actual, Street result) {
-        if (!actual.getStreetName().equals(result.getStreetName())) return false;
-        if (!actual.getStreetLat().equals(result.getStreetLat())) return false;
-        if (!actual.getStreetLng().equals(result.getStreetLng())) return false;
-        
-        return true;
+        return actual.getStreetName().equals(result.getStreetName())
+                && actual.getStreetLat().equals(result.getStreetLat())
+                && actual.getStreetLng().equals(result.getStreetLng());
     }
     
     protected void testInsertSuccess(Street result, long records) {

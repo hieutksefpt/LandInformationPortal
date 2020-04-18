@@ -14,8 +14,6 @@ import capstone.lip.landinformationportal.service.DistrictService;
 import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /**
  *
@@ -30,18 +28,16 @@ public abstract class AbstractDistrictServiceTest extends CRUDTest {
     protected DistrictRepository repository;
     
     protected District SampleDistrict = new District()
-            .setDistrictId(99L)
-            .setDistrictLat(1.0).setDistrictLng(1.0)
+            .setDistrictId(DEFAULT_ID)
+            .setDistrictLat(DEFAULT_LAT).setDistrictLng(DEFAULT_LNG)
             .setDistrictName("SAMPLE DISTRICT")
             .setProvince(new Province()
                     .setProvinceId(EXISTED_ID));
     
     private boolean isTheSame(District actual, District result) {
-        if (!actual.getDistrictName().equals(result.getDistrictName())) return false;
-        if (!actual.getDistrictLat().equals(result.getDistrictLat())) return false;
-        if (!actual.getDistrictLng().equals(result.getDistrictLng())) return false;
-        
-        return true;
+        return actual.getDistrictName().equals(result.getDistrictName())
+                && actual.getDistrictLat().equals(result.getDistrictLat())
+                && actual.getDistrictLng().equals(result.getDistrictLng());
     }
     
     protected void testInsertSuccess(District result, long records) {

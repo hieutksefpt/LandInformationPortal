@@ -13,8 +13,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /**
  *
@@ -29,16 +27,14 @@ public abstract class AbstractProvinceServiceTest extends CRUDTest {
     protected ProvinceRepository repository;
     
     protected Province SampleProvince = new Province()
-            .setProvinceId(99L)
-            .setProvinceLat(99.0).setProvinceLng(-99.0)
+            .setProvinceId(DEFAULT_ID)
+            .setProvinceLat(DEFAULT_LAT).setProvinceLng(DEFAULT_LNG)
             .setProvinceName("SAMPLE PROVINCE");
     
     private boolean isTheSame(Province actual, Province result) {
-        if (!actual.getProvinceName().equals(result.getProvinceName())) return false;
-        if (!actual.getProvinceLat().equals(result.getProvinceLat())) return false;
-        if (!actual.getProvinceLng().equals(result.getProvinceLng())) return false;
-        
-        return true;
+        return actual.getProvinceName().equals(result.getProvinceName())
+                && actual.getProvinceLat().equals(result.getProvinceLat())
+                && actual.getProvinceLng().equals(result.getProvinceLng());
     }
     
     protected void testInsertSuccess(Province result, long records) {

@@ -63,15 +63,14 @@ public class DistrictServiceTest_2_3 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_2_04() {
         ArrayList<District> districts = new ArrayList();
-        districts.add(SampleDistrict.setDistrictId(1L));
-        districts.add(SampleDistrict.setDistrictId(2L));
-        districts.add(SampleDistrict.setDistrictId(3L));
+        for (int i = 0; i < EXISTED_IDs.length; i++) {
+            districts.add(SampleDistrict.setDistrictId(EXISTED_IDs[i]));
+        }
         
         long records = repository.count();
         boolean result = instance.delete(districts);
         
-        long[] ids = {1L, 2L, 3L};
-        testDeleteSuccess(result, ids, records);
+        testDeleteSuccess(result, EXISTED_IDs, records);
     }
     
     /**

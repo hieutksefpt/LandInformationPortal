@@ -12,8 +12,6 @@ import capstone.lip.landinformationportal.entity.Street;
 import capstone.lip.landinformationportal.repository.SegmentOfStreetRepository;
 import capstone.lip.landinformationportal.service.SegmentOfStreetService;
 import java.util.Optional;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -31,8 +29,8 @@ public abstract class AbstractSegmentServiceTest extends CRUDTest {
     protected SegmentOfStreetRepository repository;
     
     protected SegmentOfStreet SampleSegment = new SegmentOfStreet()
-            .setSegmentId(99L)
-            .setSegmentLat(99.0).setSegmentLng(99.0)
+            .setSegmentId(DEFAULT_ID)
+            .setSegmentLat(DEFAULT_LAT).setSegmentLng(DEFAULT_LNG)
             .setSegmentName("SAMPLE SEGMENT")
             .setDistrict(new District()
                     .setDistrictId(EXISTED_ID))

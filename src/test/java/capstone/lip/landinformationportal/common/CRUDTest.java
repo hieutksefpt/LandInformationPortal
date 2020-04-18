@@ -15,6 +15,7 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -34,6 +35,10 @@ public abstract class CRUDTest {
 //    
 //    protected final String EMPTY_DB = "/EmptyDB.xml";
 
+    protected final Long DEFAULT_ID = 99L;
+    protected final Double DEFAULT_LAT = 99.0;
+    protected final Double DEFAULT_LNG = 99.0;
+    
     protected final String EMPTY_STRING = "";
     protected final String ALPHABETIC_STRING = "Land Information Portal";
     protected final String NUMERIC_STRING = "123456789";
@@ -54,6 +59,8 @@ public abstract class CRUDTest {
     protected final Long NEGATIVE_NOT_EXISTED_ID = -99L;
     protected final Long ZERO_NOT_EXISTED_ID = 0L;
     protected final Long NULL_NOT_EXISTED_ID = null;
+    
+    protected final long[] EXISTED_IDs = {1L, 2L, 3L};
 
 //    protected DatabaseOperation getSetUpOperation() throws Exception {
 //        return DatabaseOperation.CLEAN_INSERT; // by default (will do DELETE_ALL + INSERT)
@@ -69,6 +76,11 @@ public abstract class CRUDTest {
     }
 
     protected void testFail(Object result) {
+        //Save fail
+        assertEquals(true, result == null);
+    }
+    
+    protected void testFail(ArrayList result) {
         //Save fail
         assertEquals(true, result == null);
     }

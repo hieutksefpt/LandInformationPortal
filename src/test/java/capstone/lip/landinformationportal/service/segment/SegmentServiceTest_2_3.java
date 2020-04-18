@@ -63,15 +63,14 @@ public class SegmentServiceTest_2_3 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_2_04() {
         ArrayList<SegmentOfStreet> segments = new ArrayList();
-        segments.add(SampleSegment.setSegmentId(1L));
-        segments.add(SampleSegment.setSegmentId(2L));
-        segments.add(SampleSegment.setSegmentId(3L));
+        for (int i = 0; i < EXISTED_IDs.length; i++) {
+            segments.add(SampleSegment.setSegmentId(EXISTED_IDs[i]));
+        }
         
         long records = repository.count();
         boolean result = instance.delete(segments);
         
-        long[] ids = {1L, 2L, 3L};
-        testDeleteSuccess(result, ids, records);
+        testDeleteSuccess(result, EXISTED_IDs, records);
     }
     
     /**

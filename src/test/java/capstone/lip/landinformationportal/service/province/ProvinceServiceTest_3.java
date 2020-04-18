@@ -33,7 +33,7 @@ public class ProvinceServiceTest_3 extends AbstractProvinceServiceTest {
      */
     @Test
     public void FT_PS_3_02() {
-        long records = provinceRepository.count();
+        long records = repository.count();
         boolean result = instance.delete(SampleProvince.setProvinceId(1L));
         
         testDeleteSuccess(result, 1L, records);
@@ -81,7 +81,7 @@ public class ProvinceServiceTest_3 extends AbstractProvinceServiceTest {
      */
     @Test
     public void FT_PS_3_06() {
-        long records = provinceRepository.count();
+        long records = repository.count();
         boolean result = instance.delete(SampleProvince
                 .setProvinceId(2L).setProvinceName(EMPTY_STRING));
         
@@ -106,7 +106,7 @@ public class ProvinceServiceTest_3 extends AbstractProvinceServiceTest {
      */
     @Test
     public void FT_PS_3_08() {
-        long records = provinceRepository.count();
+        long records = repository.count();
         boolean result = instance.delete(SampleProvince
                 .setProvinceId(3L).setProvinceName(NULL_STRING));
         
@@ -131,7 +131,7 @@ public class ProvinceServiceTest_3 extends AbstractProvinceServiceTest {
      */
     @Test
     public void FT_PS_3_10() {
-        long records = provinceRepository.count();
+        long records = repository.count();
         boolean result = instance.delete(SampleProvince
                 .setProvinceId(4L)
                 .setProvinceLat(1.0).setProvinceLng(null));
@@ -158,7 +158,7 @@ public class ProvinceServiceTest_3 extends AbstractProvinceServiceTest {
      */
     @Test
     public void FT_PS_3_12() {
-        long records = provinceRepository.count();
+        long records = repository.count();
         boolean result = instance.delete(SampleProvince
                 .setProvinceId(5L)
                 .setProvinceLat(null).setProvinceLng(1.0));

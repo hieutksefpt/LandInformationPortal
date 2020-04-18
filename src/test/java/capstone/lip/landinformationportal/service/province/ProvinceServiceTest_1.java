@@ -7,9 +7,9 @@ package capstone.lip.landinformationportal.service.province;
 
 import capstone.lip.landinformationportal.entity.Province;
 import java.util.List;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -26,6 +26,6 @@ public class ProvinceServiceTest_1 extends AbstractProvinceServiceTest {
     public void FT_PS_1_02() {
         List<Province> result = instance.findAll();
         
-        assertEquals(provinceRepository.count(), result.size());
+        assertEquals(repository.count(), result.size());
     }
 }

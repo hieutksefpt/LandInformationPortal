@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.lip.landinformationportal.service.street;
+package capstone.lip.landinformationportal.service.segment;
 
 import capstone.lip.landinformationportal.common.CRUDTest;
+import capstone.lip.landinformationportal.entity.District;
+import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 import capstone.lip.landinformationportal.entity.Street;
-import capstone.lip.landinformationportal.repository.StreetRepository;
-import capstone.lip.landinformationportal.service.StreetService;
+import capstone.lip.landinformationportal.repository.SegmentOfStreetRepository;
+import capstone.lip.landinformationportal.service.SegmentOfStreetService;
 import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -20,32 +22,38 @@ import static org.junit.Assert.fail;
  *
  * @author Phong
  */
-public abstract class AbstractStreetServiceTest extends CRUDTest {
+public abstract class AbstractSegmentServiceTest extends CRUDTest {
     
     @Autowired
-    protected StreetService instance;
+    protected SegmentOfStreetService instance;
     
     @Autowired
-    protected StreetRepository repository;
+    protected SegmentOfStreetRepository repository;
     
-    protected Street SampleStreet = new Street()
-            .setStreetId(99L)
-            .setStreetLat(99.0).setStreetLng(99.0)
-            .setStreetName("SAMPLE STREET");
+    protected SegmentOfStreet SampleSegment = new SegmentOfStreet()
+            .setSegmentId(99L)
+            .setSegmentLat(99.0).setSegmentLng(99.0)
+            .setSegmentName("SAMPLE SEGMENT")
+            .setDistrict(new District()
+                    .setDistrictId(EXISTED_ID))
+            .setStreet(new Street()
+                    .setStreetId(EXISTED_ID));
     
-    private boolean isTheSame(Street actual, Street result) {
-        if (!actual.getStreetName().equals(result.getStreetName())) return false;
-        if (!actual.getStreetLat().equals(result.getStreetLat())) return false;
-        if (!actual.getStreetLng().equals(result.getStreetLng())) return false;
-        
-        return true;
+    private boolean isTheSame(SegmentOfStreet actual, SegmentOfStreet result) {
+        return actual.getSegmentName().equals(result.getSegmentName())
+                && actual.getSegmentLat().equals(result.getSegmentLat())
+                && actual.getSegmentLng().equals(result.getSegmentLng())
+                && actual.getDistrict().getDistrictId()
+                        .equals(result.getDistrict().getDistrictId())
+                && actual.getStreet().getStreetId()
+                        .equals(result.getStreet().getStreetId());
     }
     
-    protected void testInsertSuccess(Street result, long records) {
+    protected void testInsertSuccess(SegmentOfStreet result, long records) {
         //Insert success
         if (result != null) {
             //Test exist in DB
-            Optional<Street> actual = repository.findById(result.getStreetId());
+            Optional<SegmentOfStreet> actual = repository.findById(result.getSegmentId());
             if (actual.isPresent()) {
                 //Compare others
                 assertEquals(true, isTheSame(actual.get(), result));
@@ -59,14 +67,14 @@ public abstract class AbstractStreetServiceTest extends CRUDTest {
         }
     }
     
-    protected void testUpdateSuccess(Street result, long records) {
+    protected void testUpdateSuccess(SegmentOfStreet result, long records) {
         //Update success
         if (result != null) {
             //Test exist in DB
-            Optional<Street> actual = repository.findById(result.getStreetId());
+            Optional<SegmentOfStreet> actual = repository.findById(result.getSegmentId());
             if (actual.isPresent()) {
                 //Compare id
-                assertEquals(actual.get().getStreetId(), result.getStreetId());
+                assertEquals(actual.get().getSegmentId(), result.getSegmentId());
                 //Compare others
                 assertEquals(true, isTheSame(actual.get(), result));
                 //Test number of records is not changed

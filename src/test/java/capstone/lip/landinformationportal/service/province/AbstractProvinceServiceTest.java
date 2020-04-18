@@ -13,6 +13,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -24,7 +26,7 @@ public abstract class AbstractProvinceServiceTest extends CRUDTest {
     protected ProvinceService instance;
 
     @Autowired 
-    protected ProvinceRepository provinceRepository;
+    protected ProvinceRepository repository;
     
     protected Province SampleProvince = new Province()
             .setProvinceId(99L)
@@ -43,12 +45,12 @@ public abstract class AbstractProvinceServiceTest extends CRUDTest {
         //Insert success
         if (result != null) {
             //Test exist in DB
-            Optional<Province> actual = provinceRepository.findById(result.getProvinceId());
+            Optional<Province> actual = repository.findById(result.getProvinceId());
             if (actual.isPresent()) {
                 //Compare others
                 assertEquals(true, isTheSame(actual.get(), result));
                 //Test number of records is not changed
-                assertEquals(records + 1, provinceRepository.count());
+                assertEquals(records + 1, repository.count());
             } else {
                 fail();
             }
@@ -61,14 +63,14 @@ public abstract class AbstractProvinceServiceTest extends CRUDTest {
         //Update success
         if (result != null) {
             //Test exist in DB
-            Optional<Province> actual = provinceRepository.findById(result.getProvinceId());
+            Optional<Province> actual = repository.findById(result.getProvinceId());
             if (actual.isPresent()) {
                 //Compare id
                 assertEquals(actual.get().getProvinceId(), result.getProvinceId());
                 //Compare others
                 assertEquals(true, isTheSame(actual.get(), result));
                 //Test number of records is not changed
-                assertEquals(records, provinceRepository.count());
+                assertEquals(records, repository.count());
             } else {
                 fail();
             }
@@ -81,9 +83,9 @@ public abstract class AbstractProvinceServiceTest extends CRUDTest {
         //Delete success
         if (result) {
             //Test exist in DB
-            assertEquals(false, provinceRepository.existsById(id));
+            assertEquals(false, repository.existsById(id));
             //Test number of records is decreased by 1
-            assertEquals(records - 1, provinceRepository.count());
+            assertEquals(records - 1, repository.count());
         } else {
             fail();
         }

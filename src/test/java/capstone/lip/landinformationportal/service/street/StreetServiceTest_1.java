@@ -22,7 +22,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_01() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(POSITIVE_NOT_EXISTED_ID));
         
@@ -35,7 +35,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_02() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(EXISTED_ID));
         
@@ -48,7 +48,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_03() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(NEGATIVE_NOT_EXISTED_ID));
         
@@ -61,7 +61,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_04() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(ZERO_NOT_EXISTED_ID));
         
@@ -74,7 +74,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_05() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(NULL_NOT_EXISTED_ID));
         
@@ -113,7 +113,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_08() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(EXISTED_ID)
                 .setStreetName(ALPHABETIC_STRING));
@@ -127,7 +127,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_09() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(NOT_EXISTED_ID)
                 .setStreetName(ALPHABETIC_STRING));
@@ -167,7 +167,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_12() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(EXISTED_ID)
                 .setStreetName(VIETNAMESE_STRING));
@@ -181,7 +181,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_13() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(NOT_EXISTED_ID)
                 .setStreetName(VIETNAMESE_STRING));
@@ -195,7 +195,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_14() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(EXISTED_ID)
                 .setStreetName(ALPHABETIC_NUMERIC_STRING));
@@ -209,7 +209,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_15() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(NOT_EXISTED_ID)
                 .setStreetName(ALPHABETIC_NUMERIC_STRING));
@@ -223,7 +223,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_16() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(EXISTED_ID)
                 .setStreetName(NUMERIC_VIETNAMESE_STRING));
@@ -237,7 +237,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_17() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(NOT_EXISTED_ID)
                 .setStreetName(NUMERIC_VIETNAMESE_STRING));
@@ -355,7 +355,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_26() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(EXISTED_ID)
                 .setStreetLat(-1.0).setStreetLng(1.0));
@@ -369,7 +369,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_27() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(NOT_EXISTED_ID)
                 .setStreetLat(-1.0).setStreetLng(1.0));
@@ -383,7 +383,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_28() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(EXISTED_ID)
                 .setStreetLat(1.0).setStreetLng(-1.0));
@@ -397,7 +397,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_29() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(NOT_EXISTED_ID)
                 .setStreetLat(1.0).setStreetLng(-1.0));
@@ -411,7 +411,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_30() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(EXISTED_ID)
                 .setStreetLat(0.0).setStreetLng(0.0));
@@ -425,7 +425,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_1_31() {
-        long records = streetRepository.count();
+        long records = repository.count();
         Street result = instance.save(SampleStreet
                 .setStreetId(NOT_EXISTED_ID)
                 .setStreetLat(0.0).setStreetLng(0.0));

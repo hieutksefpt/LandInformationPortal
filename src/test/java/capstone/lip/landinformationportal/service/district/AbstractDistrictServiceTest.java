@@ -14,6 +14,8 @@ import capstone.lip.landinformationportal.service.DistrictService;
 import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -25,7 +27,7 @@ public abstract class AbstractDistrictServiceTest extends CRUDTest {
     protected DistrictService instance;
     
     @Autowired
-    protected DistrictRepository districtRepository;
+    protected DistrictRepository repository;
     
     protected District SampleDistrict = new District()
             .setDistrictId(99L)
@@ -46,12 +48,12 @@ public abstract class AbstractDistrictServiceTest extends CRUDTest {
         //Insert success
         if (result != null) {
             //Test exist in DB
-            Optional<District> actual = districtRepository.findById(result.getDistrictId());
+            Optional<District> actual = repository.findById(result.getDistrictId());
             if (actual.isPresent()) {
                 //Compare others
                 assertEquals(true, isTheSame(actual.get(), result));
                 //Test number of records is not changed
-                assertEquals(records + 1, districtRepository.count());
+                assertEquals(records + 1, repository.count());
             } else {
                 fail();
             }
@@ -64,14 +66,14 @@ public abstract class AbstractDistrictServiceTest extends CRUDTest {
         //Update success
         if (result != null) {
             //Test exist in DB
-            Optional<District> actual = districtRepository.findById(result.getDistrictId());
+            Optional<District> actual = repository.findById(result.getDistrictId());
             if (actual.isPresent()) {
                 //Compare id
                 assertEquals(actual.get().getDistrictId(), result.getDistrictId());
                 //Compare others
                 assertEquals(true, isTheSame(actual.get(), result));
                 //Test number of records is not changed
-                assertEquals(records, districtRepository.count());
+                assertEquals(records, repository.count());
             } else {
                 fail();
             }
@@ -84,9 +86,9 @@ public abstract class AbstractDistrictServiceTest extends CRUDTest {
         //Delete success
         if (result) {
             //Test exist in DB
-            assertEquals(false, districtRepository.existsById(id));
+            assertEquals(false, repository.existsById(id));
             //Test number of records is decreased by 1
-            assertEquals(records - 1, districtRepository.count());
+            assertEquals(records - 1, repository.count());
         } else {
             fail();
         }
@@ -97,10 +99,10 @@ public abstract class AbstractDistrictServiceTest extends CRUDTest {
         if (result) {
             //Test exist in DB
             for (int i = 0; i < id.length; i++) {
-                assertEquals(false, districtRepository.existsById(id[i]));
+                assertEquals(false, repository.existsById(id[i]));
             }
             //Test number of records is decreased by 1
-            assertEquals(records - id.length, districtRepository.count());
+            assertEquals(records - id.length, repository.count());
         } else {
             fail();
         }

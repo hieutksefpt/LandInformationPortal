@@ -34,7 +34,7 @@ public class ProvinceServiceTest_3 extends AbstractProvinceServiceTest {
     @Test
     public void FT_PS_3_02() {
         long records = repository.count();
-        boolean result = instance.delete(SampleProvince.setProvinceId(1L));
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get());
         
         testDeleteSuccess(result, 1L, records);
     }
@@ -82,10 +82,10 @@ public class ProvinceServiceTest_3 extends AbstractProvinceServiceTest {
     @Test
     public void FT_PS_3_06() {
         long records = repository.count();
-        boolean result = instance.delete(SampleProvince
-                .setProvinceId(2L).setProvinceName(EMPTY_STRING));
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get()
+                .setProvinceName(EMPTY_STRING));
         
-        testDeleteSuccess(result, 2L, records);
+        testDeleteSuccess(result, EXISTED_ID, records);
     }
     
     /**
@@ -107,10 +107,10 @@ public class ProvinceServiceTest_3 extends AbstractProvinceServiceTest {
     @Test
     public void FT_PS_3_08() {
         long records = repository.count();
-        boolean result = instance.delete(SampleProvince
-                .setProvinceId(3L).setProvinceName(NULL_STRING));
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get()
+                .setProvinceName(NULL_STRING));
         
-        testDeleteSuccess(result, 3L, records);
+        testDeleteSuccess(result, EXISTED_ID, records);
     }
     
     /**
@@ -132,11 +132,10 @@ public class ProvinceServiceTest_3 extends AbstractProvinceServiceTest {
     @Test
     public void FT_PS_3_10() {
         long records = repository.count();
-        boolean result = instance.delete(SampleProvince
-                .setProvinceId(4L)
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get()
                 .setProvinceLat(1.0).setProvinceLng(null));
         
-        testDeleteSuccess(result, 4L, records);
+        testDeleteSuccess(result, EXISTED_ID, records);
     }
     
     /**
@@ -159,11 +158,10 @@ public class ProvinceServiceTest_3 extends AbstractProvinceServiceTest {
     @Test
     public void FT_PS_3_12() {
         long records = repository.count();
-        boolean result = instance.delete(SampleProvince
-                .setProvinceId(5L)
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get()
                 .setProvinceLat(null).setProvinceLng(1.0));
         
-        testDeleteSuccess(result, 5L, records);
+        testDeleteSuccess(result, EXISTED_ID, records);
     }
     
     /**

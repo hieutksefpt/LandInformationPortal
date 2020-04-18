@@ -51,8 +51,7 @@ public class FormedCoordinateServiceTest_3 extends AbstractFormedCoordinateServi
     public void FT_FCS_3_03() {
         long records = repository.count();
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
-        formedCoordinates.add(SampleFormedCoordinate
-                .setFormedCoordinateId(EXISTED_ID));
+        formedCoordinates.add(repository.findById(EXISTED_ID).get());
         boolean result = instance.delete(formedCoordinates);
 
         testDeleteSuccess(result, EXISTED_ID, records);
@@ -66,10 +65,7 @@ public class FormedCoordinateServiceTest_3 extends AbstractFormedCoordinateServi
     public void FT_FCS_3_04() {
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
         for (int i = 0; i < EXISTED_IDs.length; i++) {
-            formedCoordinates.add(SampleFormedCoordinate
-                    .setFormedCoordinateId(EXISTED_IDs[i])
-                    .setSegmentOfStreet(new SegmentOfStreet()
-                            .setSegmentId(EXISTED_ID)));
+            formedCoordinates.add(repository.findById(EXISTED_IDs[i]).get());
         }
         formedCoordinates.set(0, formedCoordinates.get(0)
                         .setFormedCoordinateId(NOT_EXISTED_ID));
@@ -87,10 +83,7 @@ public class FormedCoordinateServiceTest_3 extends AbstractFormedCoordinateServi
         long records = repository.count();
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
         for (int i = 0; i < EXISTED_IDs.length; i++) {
-            formedCoordinates.add(SampleFormedCoordinate
-                    .setFormedCoordinateId(EXISTED_IDs[i])
-                    .setSegmentOfStreet(new SegmentOfStreet()
-                            .setSegmentId(EXISTED_ID)));
+            formedCoordinates.add(repository.findById(EXISTED_IDs[i]).get());
         }
         boolean result = instance.delete(formedCoordinates);
 
@@ -119,8 +112,7 @@ public class FormedCoordinateServiceTest_3 extends AbstractFormedCoordinateServi
     public void FT_FCS_3_07() {
         long records = repository.count();
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
-        formedCoordinates.add(SampleFormedCoordinate
-                .setFormedCoordinateId(EXISTED_ID)
+        formedCoordinates.add(repository.findById(EXISTED_ID).get()
                 .setSegmentOfStreet(null));
         boolean result = instance.delete(formedCoordinates);
 
@@ -150,8 +142,7 @@ public class FormedCoordinateServiceTest_3 extends AbstractFormedCoordinateServi
     public void FT_FCS_3_09() {
         long records = repository.count();
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
-        formedCoordinates.add(SampleFormedCoordinate
-                .setFormedCoordinateId(EXISTED_ID)
+        formedCoordinates.add(repository.findById(EXISTED_ID).get()
                 .setFormedLng(null));
         boolean result = instance.delete(formedCoordinates);
 
@@ -181,8 +172,7 @@ public class FormedCoordinateServiceTest_3 extends AbstractFormedCoordinateServi
     public void FT_FCS_3_11() {
         long records = repository.count();
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
-        formedCoordinates.add(SampleFormedCoordinate
-                .setFormedCoordinateId(EXISTED_ID)
+        formedCoordinates.add(repository.findById(EXISTED_ID).get()
                 .setFormedLat(null));
         boolean result = instance.delete(formedCoordinates);
 

@@ -48,7 +48,7 @@ public class DistrictServiceTest_2_3 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_2_03() {
         ArrayList<District> districts = new ArrayList();
-        districts.add(SampleDistrict.setDistrictId(EXISTED_ID));
+        districts.add(repository.findById(EXISTED_ID).get());
         
         long records = repository.count();
         boolean result = instance.delete(districts);
@@ -64,7 +64,7 @@ public class DistrictServiceTest_2_3 extends AbstractDistrictServiceTest {
     public void FT_DS_2_04() {
         ArrayList<District> districts = new ArrayList();
         for (int i = 0; i < EXISTED_IDs.length; i++) {
-            districts.add(SampleDistrict.setDistrictId(EXISTED_IDs[i]));
+            districts.add(repository.findById(EXISTED_IDs[i]).get());
         }
         
         long records = repository.count();
@@ -92,8 +92,7 @@ public class DistrictServiceTest_2_3 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_3_02() {
         long records = repository.count();
-        boolean result = instance.delete(SampleDistrict
-                .setDistrictId(EXISTED_ID));
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get());
         
         testDeleteSuccess(result, EXISTED_ID, records);
     }
@@ -141,8 +140,7 @@ public class DistrictServiceTest_2_3 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_3_06() {
         long records = repository.count();
-        boolean result = instance.delete(SampleDistrict
-                .setDistrictId(EXISTED_ID)
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get()
                 .setDistrictName(EMPTY_STRING));
         
         testDeleteSuccess(result, EXISTED_ID, records);
@@ -168,8 +166,7 @@ public class DistrictServiceTest_2_3 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_3_08() {
         long records = repository.count();
-        boolean result = instance.delete(SampleDistrict
-                .setDistrictId(EXISTED_ID)
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get()
                 .setDistrictName(NULL_STRING));
         
         testDeleteSuccess(result, EXISTED_ID, records);
@@ -195,8 +192,7 @@ public class DistrictServiceTest_2_3 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_3_10() {
         long records = repository.count();
-        boolean result = instance.delete(SampleDistrict
-                .setDistrictId(EXISTED_ID)
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get()
                 .setDistrictLng(null));
         
         testDeleteSuccess(result, EXISTED_ID, records);
@@ -222,8 +218,7 @@ public class DistrictServiceTest_2_3 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_3_12() {
         long records = repository.count();
-        boolean result = instance.delete(SampleDistrict
-                .setDistrictId(EXISTED_ID)
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get()
                 .setDistrictLat(null));
         
         testDeleteSuccess(result, EXISTED_ID, records);

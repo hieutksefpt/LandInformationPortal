@@ -48,7 +48,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
     @Test
     public void FT_StS_2_03() {
         ArrayList<Street> streets = new ArrayList();
-        streets.add(SampleStreet.setStreetId(EXISTED_ID));
+        streets.add(repository.findById(EXISTED_ID).get());
         
         long records = repository.count();
         boolean result = instance.delete(streets);
@@ -64,7 +64,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
     public void FT_StS_2_04() {
         ArrayList<Street> streets = new ArrayList();
         for (int i = 0; i < EXISTED_IDs.length; i++) {
-            streets.add(SampleStreet.setStreetId(EXISTED_IDs[i]));
+            streets.add(repository.findById(EXISTED_IDs[i]).get());
         }
         
         long records = repository.count();
@@ -92,8 +92,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
     @Test
     public void FT_StS_3_02() {
         long records = repository.count();
-        boolean result = instance.delete(SampleStreet
-                .setStreetId(EXISTED_ID));
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get());
         
         testDeleteSuccess(result, EXISTED_ID, records);
     }
@@ -141,8 +140,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
     @Test
     public void FT_StS_3_06() {
         long records = repository.count();
-        boolean result = instance.delete(SampleStreet
-                .setStreetId(EXISTED_ID)
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get()
                 .setStreetName(EMPTY_STRING));
         
         testDeleteSuccess(result, EXISTED_ID, records);
@@ -168,8 +166,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
     @Test
     public void FT_StS_3_08() {
         long records = repository.count();
-        boolean result = instance.delete(SampleStreet
-                .setStreetId(EXISTED_ID)
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get()
                 .setStreetName(NULL_STRING));
         
         testDeleteSuccess(result, EXISTED_ID, records);
@@ -195,8 +192,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
     @Test
     public void FT_StS_3_10() {
         long records = repository.count();
-        boolean result = instance.delete(SampleStreet
-                .setStreetId(EXISTED_ID)
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get()
                 .setStreetLng(null));
         
         testDeleteSuccess(result, EXISTED_ID, records);
@@ -222,8 +218,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
     @Test
     public void FT_StS_3_12() {
         long records = repository.count();
-        boolean result = instance.delete(SampleStreet
-                .setStreetId(EXISTED_ID)
+        boolean result = instance.delete(repository.findById(EXISTED_ID).get()
                 .setStreetLat(null));
         
         testDeleteSuccess(result, EXISTED_ID, records);

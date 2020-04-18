@@ -9,4 +9,5 @@ public interface ISegmentOfStreetService {
 	SegmentOfStreet save(SegmentOfStreet segmentOfStreet);
 	boolean delete(List<SegmentOfStreet> listSegment);
 	boolean delete(SegmentOfStreet segmentOfStreet);
+	SegmentOfStreet findById(Long id);
 }

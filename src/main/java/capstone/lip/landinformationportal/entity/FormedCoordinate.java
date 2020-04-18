@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -32,10 +34,11 @@ public class FormedCoordinate extends AuditAbstract implements Serializable {
 	@Column(name="FormedLng")
 	private Double formedLng;
 	
+	@NotFound(action = NotFoundAction.IGNORE)
 	@LazyToOne(LazyToOneOption.NO_PROXY)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="SegmentID")
-	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@OnDelete(action = OnDeleteAction.CASCADE)
 	private SegmentOfStreet segmentOfStreet;
 
 	public Long getFormedCoordinateId() {

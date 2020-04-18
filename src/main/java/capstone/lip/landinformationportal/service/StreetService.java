@@ -1,18 +1,25 @@
 package capstone.lip.landinformationportal.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 import capstone.lip.landinformationportal.entity.Street;
 import capstone.lip.landinformationportal.repository.StreetRepository;
+import capstone.lip.landinformationportal.service.Interface.ISegmentOfStreetService;
 import capstone.lip.landinformationportal.service.Interface.IStreetService;
 
 @Service
 public class StreetService implements IStreetService{
 	@Autowired
-	StreetRepository streetRepository;
+	private StreetRepository streetRepository;
+	
+	@Autowired
+	private ISegmentOfStreetService segmentService;
 	
 	@Override
 	public Street save(Street street) {
@@ -27,7 +34,12 @@ public class StreetService implements IStreetService{
 	@Override
 	public boolean delete(List<Street> listStreet) {
 		try {
-			streetRepository.deleteInBatch(listStreet);
+			if (listStreet == null) throw new Exception("List street is null");
+			if (listStreet.isEmpty()) throw new Exception("List street is empty");
+			List<SegmentOfStreet> listSegment = listStreet.stream().map(x->x.getListSegmentOfStreet()).flatMap(List::stream).collect(Collectors.toList());
+			segmentService.delete(listSegment);
+			
+			streetRepository.deleteAll(listStreet);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -38,6 +50,10 @@ public class StreetService implements IStreetService{
 	
 	public boolean delete(Street street) {
 		try {
+			if (street == null) throw new Exception("Street is null");
+			List<SegmentOfStreet> listSegment = street.getListSegmentOfStreet();
+			segmentService.delete(listSegment);
+			
 			streetRepository.delete(street);
 			return true;
 		} catch (Exception e) {
@@ -45,6 +61,20 @@ public class StreetService implements IStreetService{
 			return false;
 		}
 		
+	}
+
+	@Override
+	public Street findById(Long id) {
+		try {
+			Optional<Street> street = streetRepository.findById(id);
+			if (street.isPresent()) {
+				return street.get();
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

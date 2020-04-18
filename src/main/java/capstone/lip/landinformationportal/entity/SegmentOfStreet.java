@@ -39,25 +39,28 @@ public class SegmentOfStreet extends AuditAbstract implements Serializable {
     @Column(name = "SegmentLng")
     private Double segmentLng;
 
+    @NotFound(action = NotFoundAction.IGNORE)
     @LazyToOne(LazyToOneOption.NO_PROXY)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DistrictID")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     private District district;
 
+    @NotFound(action = NotFoundAction.IGNORE)
     @LazyToOne(LazyToOneOption.NO_PROXY)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "StreetID")
     private Street street;
 
+    @NotFound(action = NotFoundAction.IGNORE)
     @LazyToOne(LazyToOneOption.NO_PROXY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "segmentOfStreet", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "segmentOfStreet", fetch = FetchType.LAZY)
     private List<FormedCoordinate> listFormedCoordinate;
 
     @LazyToOne(LazyToOneOption.NO_PROXY)
     @NotFound(action = NotFoundAction.IGNORE)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "segmentOfStreet", fetch = FetchType.LAZY)
     private List<RealEstateAdjacentSegment> listRealEstateAdjacentSegment;
 

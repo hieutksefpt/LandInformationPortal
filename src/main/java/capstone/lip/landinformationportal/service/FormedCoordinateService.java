@@ -39,6 +39,8 @@ public class FormedCoordinateService implements IFormedCoordinate{
 	@Override
 	public boolean delete(List<FormedCoordinate> listCoordinate) {
 		try {
+			if (listCoordinate == null) throw new Exception("List coordinate is null");
+			if (listCoordinate.isEmpty()) throw new Exception("List coordinate is empty");
 			formerCoordinateRepository.deleteAll(listCoordinate);
 			return true;
 		} catch (Exception e) {

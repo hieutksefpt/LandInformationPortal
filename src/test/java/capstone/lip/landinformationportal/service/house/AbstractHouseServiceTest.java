@@ -7,13 +7,9 @@ package capstone.lip.landinformationportal.service.house;
 
 import capstone.lip.landinformationportal.common.CRUDTest;
 import capstone.lip.landinformationportal.entity.House;
-import capstone.lip.landinformationportal.entity.HousesDetail;
 import capstone.lip.landinformationportal.entity.RealEstate;
-import capstone.lip.landinformationportal.entity.compositekey.HousesDetailId;
 import capstone.lip.landinformationportal.repository.HouseRepository;
 import capstone.lip.landinformationportal.service.HouseService;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertEquals;
@@ -34,7 +30,7 @@ public abstract class AbstractHouseServiceTest extends CRUDTest {
     protected House sampleHouse = new House()
             .setHouseId(DEFAULT_ID)
             .setHouseName("SAMPLE HOUSE")
-            .setHousePrice(BigDecimal.ZERO)
+            .setHousePrice(DEFAULT_PRICE)
             .setRealEstate(new RealEstate()
                     .setRealEstateId(EXISTED_ID));
     

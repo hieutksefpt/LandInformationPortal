@@ -59,7 +59,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save negative house's feature ID
+     * @Description: Save negative land's feature ID
      * @Dependency: N/A
      */
     @Test
@@ -73,7 +73,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save house's feature ID equals zero
+     * @Description: Save land's feature ID equals zero
      * @Dependency: N/A
      */
     @Test
@@ -101,7 +101,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save empty house's feature name 
+     * @Description: Save empty land's feature name 
      * @Dependency: House's Feature ID is existed
      */
     @Test
@@ -115,7 +115,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save empty house's feature name 
+     * @Description: Save empty land's feature name 
      * @Dependency: House's Feature ID is not existed
      */
     @Test
@@ -129,7 +129,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save alphabetic house's feature name
+     * @Description: Save alphabetic land's feature name
      * @Dependency: House's Feature ID is existed
      */
     @Test
@@ -144,7 +144,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save alphabetic house's feature name
+     * @Description: Save alphabetic land's feature name
      * @Dependency: House's Feature ID is not existed
      */
     @Test
@@ -159,7 +159,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save numeric house's feature name
+     * @Description: Save numeric land's feature name
      * @Dependency: House's Feature ID is existed
      */
     @Test
@@ -173,7 +173,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save numeric house's feature name 
+     * @Description: Save numeric land's feature name 
      * @Dependency: House's Feature ID is not existed
      */
     @Test
@@ -187,7 +187,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save Vietnamese house's feature name
+     * @Description: Save Vietnamese land's feature name
      * @Dependency: House's Feature ID is existed
      */
     @Test
@@ -202,7 +202,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save Vietnamese house's feature name
+     * @Description: Save Vietnamese land's feature name
      * @Dependency: House's Feature ID is not existed
      */
     @Test
@@ -217,7 +217,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save numeric Vietnamese house's feature name
+     * @Description: Save numeric Vietnamese land's feature name
      * @Dependency: House's Feature ID is existed
      */
     @Test
@@ -231,7 +231,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save numeric Vietnamese house's feature name
+     * @Description: Save numeric Vietnamese land's feature name
      * @Dependency: House's Feature ID is not existed
      */
     @Test
@@ -245,7 +245,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save special character house's feature name
+     * @Description: Save special character land's feature name
      * @Dependency: House's Feature ID is existed
      */
     @Test
@@ -259,7 +259,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save special character house's feature name
+     * @Description: Save special character land's feature name
      * @Dependency: House's Feature ID is not existed
      */
     @Test
@@ -273,7 +273,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save all space character house's feature name
+     * @Description: Save all space character land's feature name
      * @Dependency: House's Feature ID is existed
      */
     @Test
@@ -287,7 +287,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save all space character house's feature name
+     * @Description: Save all space character land's feature name
      * @Dependency: House's Feature ID is not existed
      */
     @Test
@@ -329,7 +329,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save alphabetic house's feature unit
+     * @Description: Save alphabetic land's feature unit
      * @Dependency: House's Feature ID is existed
      */
     @Test
@@ -344,7 +344,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save alphabetic house's feature unit
+     * @Description: Save alphabetic land's feature unit
      * @Dependency: House's Feature ID is not existed
      */
     @Test
@@ -359,7 +359,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save numeric house's feature unit
+     * @Description: Save numeric land's feature unit
      * @Dependency: House's Feature ID is existed
      */
     @Test
@@ -373,7 +373,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save numeric house's feature unit
+     * @Description: Save numeric land's feature unit
      * @Dependency: House's Feature ID is not existed
      */
     @Test
@@ -387,7 +387,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save Vietnamese house's feature unit
+     * @Description: Save Vietnamese land's feature unit
      * @Dependency: House's Feature ID is existed
      */
     @Test
@@ -402,7 +402,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save Vietnamese house's feature unit
+     * @Description: Save Vietnamese land's feature unit
      * @Dependency: House's Feature ID is not existed
      */
     @Test
@@ -417,7 +417,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save numeric Vietnamese house's feature unit
+     * @Description: Save numeric Vietnamese land's feature unit
      * @Dependency: House's Feature ID is existed
      */
     @Test
@@ -431,7 +431,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save numeric Vietnamese house's feature unit
+     * @Description: Save numeric Vietnamese land's feature unit
      * @Dependency: House's Feature ID is not existed
      */
     @Test
@@ -445,7 +445,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save special character house's feature unit
+     * @Description: Save special character land's feature unit
      * @Dependency: House's Feature ID is existed
      */
     @Test
@@ -459,7 +459,7 @@ public class LandsFeatureServiceTest_1_2 extends AbstractLandsFeatureServiceTest
     }
     
     /**
-     * @Description: Save special character house's feature unit
+     * @Description: Save special character land's feature unit
      * @Dependency: House's Feature ID is not existed
      */
     @Test

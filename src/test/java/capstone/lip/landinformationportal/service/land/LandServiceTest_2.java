@@ -5,8 +5,6 @@
  */
 package capstone.lip.landinformationportal.service.land;
 
-import capstone.lip.landinformationportal.entity.Land;
-import java.util.ArrayList;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
 

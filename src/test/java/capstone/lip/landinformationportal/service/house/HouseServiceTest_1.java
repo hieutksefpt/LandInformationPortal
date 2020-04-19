@@ -45,7 +45,7 @@ public class HouseServiceTest_1 extends AbstractHouseServiceTest {
         House result = instance.save(sampleHouse
                 .setHouseId(EXISTED_ID));
         
-        testInsertSuccess(result, records);
+        testUpdateSuccess(result, records);
     }
     
     /**

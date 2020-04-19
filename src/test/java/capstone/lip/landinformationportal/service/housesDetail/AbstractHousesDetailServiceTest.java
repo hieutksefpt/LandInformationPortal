@@ -6,7 +6,6 @@
 package capstone.lip.landinformationportal.service.housesDetail;
 
 import capstone.lip.landinformationportal.common.CRUDTest;
-import capstone.lip.landinformationportal.entity.House;
 import capstone.lip.landinformationportal.entity.HousesDetail;
 import capstone.lip.landinformationportal.entity.compositekey.HousesDetailId;
 import capstone.lip.landinformationportal.repository.HousesDetailRepository;

@@ -130,14 +130,14 @@ public class House extends AuditAbstract implements Serializable{
     public void setRealEstateGetOnly(RealEstate realEstate) {
         this.realEstate = realEstate;
     }
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((houseId == null) ? 0 : houseId.hashCode());
 		result = prime * result + ((houseName == null) ? 0 : houseName.hashCode());
 		result = prime * result + ((housePrice == null) ? 0 : housePrice.hashCode());
-		result = prime * result + ((listHousesDetail == null) ? 0 : listHousesDetail.hashCode());
 		result = prime * result + ((realEstate == null) ? 0 : realEstate.hashCode());
 		return result;
 	}
@@ -146,7 +146,7 @@ public class House extends AuditAbstract implements Serializable{
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -166,11 +166,6 @@ public class House extends AuditAbstract implements Serializable{
 				return false;
 		} else if (!housePrice.equals(other.housePrice))
 			return false;
-		if (listHousesDetail == null) {
-			if (other.listHousesDetail != null)
-				return false;
-		} else if (!listHousesDetail.equals(other.listHousesDetail))
-			return false;
 		if (realEstate == null) {
 			if (other.realEstate != null)
 				return false;
@@ -178,7 +173,5 @@ public class House extends AuditAbstract implements Serializable{
 			return false;
 		return true;
 	}
-    
-    
-    
+	
 }

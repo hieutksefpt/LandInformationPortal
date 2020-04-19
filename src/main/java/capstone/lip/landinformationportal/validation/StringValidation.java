@@ -58,4 +58,10 @@ public class StringValidation {
 		}
 		return "";
 	}
+	public String hasNumber(String text) {
+		if (text.matches(".*\\d.*")) {
+			return ValidateMessageCommon.HAS_NUMBER;
+		}
+		return "";
+	}
 }

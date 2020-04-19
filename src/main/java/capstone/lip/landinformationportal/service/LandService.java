@@ -13,6 +13,7 @@ import capstone.lip.landinformationportal.entity.compositekey.LandsDetailId;
 import capstone.lip.landinformationportal.repository.LandRepository;
 import capstone.lip.landinformationportal.service.Interface.ILandService;
 import capstone.lip.landinformationportal.service.Interface.ILandsDetailService;
+import capstone.lip.landinformationportal.validation.LandValidation;
 import capstone.lip.landinformationportal.validation.RealEstateValidation;
 import java.math.BigDecimal;
 
@@ -37,6 +38,11 @@ public class LandService implements ILandService {
     @Override
     public Land save(Land land) {
     	try {
+    		LandValidation validate = new LandValidation();
+    		String error = validate.isValidLand(land);
+    		if (!error.isEmpty()) {
+    			throw new Exception(error);
+    		}
     		return landRepository.save(land);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -189,9 +189,6 @@ public class SegmentOfStreet extends AuditAbstract implements Serializable {
 		result = prime * result + ((VT3 == null) ? 0 : VT3.hashCode());
 		result = prime * result + ((VT4 == null) ? 0 : VT4.hashCode());
 		result = prime * result + ((district == null) ? 0 : district.hashCode());
-		result = prime * result + ((listFormedCoordinate == null) ? 0 : listFormedCoordinate.hashCode());
-		result = prime * result
-				+ ((listRealEstateAdjacentSegment == null) ? 0 : listRealEstateAdjacentSegment.hashCode());
 		result = prime * result + ((segmentId == null) ? 0 : segmentId.hashCode());
 		result = prime * result + ((segmentLat == null) ? 0 : segmentLat.hashCode());
 		result = prime * result + ((segmentLng == null) ? 0 : segmentLng.hashCode());
@@ -234,16 +231,6 @@ public class SegmentOfStreet extends AuditAbstract implements Serializable {
 				return false;
 		} else if (!district.equals(other.district))
 			return false;
-		if (listFormedCoordinate == null) {
-			if (other.listFormedCoordinate != null)
-				return false;
-		} else if (!listFormedCoordinate.equals(other.listFormedCoordinate))
-			return false;
-		if (listRealEstateAdjacentSegment == null) {
-			if (other.listRealEstateAdjacentSegment != null)
-				return false;
-		} else if (!listRealEstateAdjacentSegment.equals(other.listRealEstateAdjacentSegment))
-			return false;
 		if (segmentId == null) {
 			if (other.segmentId != null)
 				return false;
@@ -271,6 +258,5 @@ public class SegmentOfStreet extends AuditAbstract implements Serializable {
 			return false;
 		return true;
 	}
-    
-    
+
 }

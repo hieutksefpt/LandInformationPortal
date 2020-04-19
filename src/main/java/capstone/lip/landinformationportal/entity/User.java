@@ -191,14 +191,15 @@ public class User extends AuditAbstract implements Serializable {
 		return this;
     }
 
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((dateOfBirth == null) ? 0 : dateOfBirth.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((fullName == null) ? 0 : fullName.hashCode());
-		result = prime * result + ((listRealEstate == null) ? 0 : listRealEstate.hashCode());
+		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
@@ -217,6 +218,16 @@ public class User extends AuditAbstract implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (dateOfBirth == null) {
+			if (other.dateOfBirth != null)
+				return false;
+		} else if (!dateOfBirth.equals(other.dateOfBirth))
+			return false;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -227,10 +238,10 @@ public class User extends AuditAbstract implements Serializable {
 				return false;
 		} else if (!fullName.equals(other.fullName))
 			return false;
-		if (listRealEstate == null) {
-			if (other.listRealEstate != null)
+		if (gender == null) {
+			if (other.gender != null)
 				return false;
-		} else if (!listRealEstate.equals(other.listRealEstate))
+		} else if (!gender.equals(other.gender))
 			return false;
 		if (password == null) {
 			if (other.password != null)
@@ -264,6 +275,5 @@ public class User extends AuditAbstract implements Serializable {
 			return false;
 		return true;
 	}
-
     
 }

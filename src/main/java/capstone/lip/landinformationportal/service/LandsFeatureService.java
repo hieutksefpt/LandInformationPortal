@@ -10,6 +10,7 @@ import capstone.lip.landinformationportal.entity.LandsFeature;
 import capstone.lip.landinformationportal.repository.LandsFeatureRepository;
 import capstone.lip.landinformationportal.service.Interface.ILandsDetailService;
 import capstone.lip.landinformationportal.service.Interface.ILandsFeatureService;
+import capstone.lip.landinformationportal.validation.LandsFeatureValidation;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,11 @@ public class LandsFeatureService implements ILandsFeatureService {
     @Override
     public LandsFeature save(LandsFeature landsFeature) {
         try {
+        	LandsFeatureValidation validate = new LandsFeatureValidation();
+        	String error = validate.isValidLandsFeature(landsFeature);
+        	if (!error.isEmpty()) {
+        		throw new Exception(error);
+        	}
             return landsFeatureRepository.save(landsFeature);
         } catch (Exception e) {
             e.printStackTrace();

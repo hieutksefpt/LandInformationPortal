@@ -425,6 +425,6 @@ public class FormedCoordinateServiceTest_1_2
         }
         List<FormedCoordinate> results = instance.saveAll(formedCoordinates);
 
-        testInsertSuccess(results, records);
+        testUpdateSuccess(results, records);
     }
 }

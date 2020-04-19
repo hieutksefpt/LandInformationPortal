@@ -141,7 +141,7 @@ public class LandsFeatureServiceTest_2_3 extends AbstractLandsFeatureServiceTest
         long records = repository.count();
         LandsFeature expected = getSampleLandsFeature();
         expected.setLandsFeatureID(EXISTED_ID);
-        expected.setLandsFeatureUnit(NUMBER_VALID_FEATURE_DATA_TYPE);
+        expected.setLandsFeatureDataType(NUMBER_VALID_FEATURE_DATA_TYPE);
         expected.setLandsFeatureDataRange(getNumericDataRange());
         LandsFeature result = instance.save(expected);
         
@@ -157,7 +157,7 @@ public class LandsFeatureServiceTest_2_3 extends AbstractLandsFeatureServiceTest
         long records = repository.count();
         LandsFeature expected = getSampleLandsFeature();
         expected.setLandsFeatureID(NOT_EXISTED_ID);
-        expected.setLandsFeatureUnit(NUMBER_VALID_FEATURE_DATA_TYPE);
+        expected.setLandsFeatureDataType(NUMBER_VALID_FEATURE_DATA_TYPE);
         expected.setLandsFeatureDataRange(getNumericDataRange());
         LandsFeature result = instance.save(expected);
         
@@ -172,7 +172,7 @@ public class LandsFeatureServiceTest_2_3 extends AbstractLandsFeatureServiceTest
     public void FT_LFS_2_44() {
         LandsFeature expected = getSampleLandsFeature();
         expected.setLandsFeatureID(EXISTED_ID);
-        expected.setLandsFeatureUnit(NUMBER_VALID_FEATURE_DATA_TYPE);
+        expected.setLandsFeatureDataType(NUMBER_VALID_FEATURE_DATA_TYPE);
         expected.setLandsFeatureDataRange(getTextDataRange());
         LandsFeature result = instance.save(expected);
         
@@ -187,7 +187,7 @@ public class LandsFeatureServiceTest_2_3 extends AbstractLandsFeatureServiceTest
     public void FT_LFS_2_45() {
         LandsFeature expected = getSampleLandsFeature();
         expected.setLandsFeatureID(NOT_EXISTED_ID);
-        expected.setLandsFeatureUnit(NUMBER_VALID_FEATURE_DATA_TYPE);
+        expected.setLandsFeatureDataType(NUMBER_VALID_FEATURE_DATA_TYPE);
         expected.setLandsFeatureDataRange(getTextDataRange());
         LandsFeature result = instance.save(expected);
         
@@ -203,7 +203,7 @@ public class LandsFeatureServiceTest_2_3 extends AbstractLandsFeatureServiceTest
         long records = repository.count();
         LandsFeature expected = getSampleLandsFeature();
         expected.setLandsFeatureID(EXISTED_ID);
-        expected.setLandsFeatureUnit(TEXT_VALID_FEATURE_DATA_TYPE);
+        expected.setLandsFeatureDataType(TEXT_VALID_FEATURE_DATA_TYPE);
         expected.setLandsFeatureDataRange(getTextDataRange());
         LandsFeature result = instance.save(expected);
         
@@ -219,7 +219,7 @@ public class LandsFeatureServiceTest_2_3 extends AbstractLandsFeatureServiceTest
         long records = repository.count();
         LandsFeature expected = getSampleLandsFeature();
         expected.setLandsFeatureID(NOT_EXISTED_ID);
-        expected.setLandsFeatureUnit(TEXT_VALID_FEATURE_DATA_TYPE);
+        expected.setLandsFeatureDataType(TEXT_VALID_FEATURE_DATA_TYPE);
         expected.setLandsFeatureDataRange(getTextDataRange());
         LandsFeature result = instance.save(expected);
         
@@ -235,7 +235,7 @@ public class LandsFeatureServiceTest_2_3 extends AbstractLandsFeatureServiceTest
         long records = repository.count();
         LandsFeature expected = getSampleLandsFeature();
         expected.setLandsFeatureID(EXISTED_ID);
-        expected.setLandsFeatureUnit(TEXT_VALID_FEATURE_DATA_TYPE);
+        expected.setLandsFeatureDataType(TEXT_VALID_FEATURE_DATA_TYPE);
         expected.setLandsFeatureDataRange(getNumericDataRange());
         LandsFeature result = instance.save(expected);
         
@@ -251,7 +251,7 @@ public class LandsFeatureServiceTest_2_3 extends AbstractLandsFeatureServiceTest
         long records = repository.count();
         LandsFeature expected = getSampleLandsFeature();
         expected.setLandsFeatureID(NOT_EXISTED_ID);
-        expected.setLandsFeatureUnit(TEXT_VALID_FEATURE_DATA_TYPE);
+        expected.setLandsFeatureDataType(TEXT_VALID_FEATURE_DATA_TYPE);
         expected.setLandsFeatureDataRange(getNumericDataRange());
         LandsFeature result = instance.save(expected);
         

@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.lip.landinformationportal.service.province;
+package capstone.lip.landinformationportal.service.housesFeature;
 
-import capstone.lip.landinformationportal.common.CRUDTest;
-import capstone.lip.landinformationportal.entity.Province;
-import capstone.lip.landinformationportal.repository.ProvinceRepository;
-import capstone.lip.landinformationportal.service.ProvinceService;
+import capstone.lip.landinformationportal.common.DataFeatureTest;
+import capstone.lip.landinformationportal.entity.HousesFeature;
+import capstone.lip.landinformationportal.repository.HousesFeatureRepository;
+import capstone.lip.landinformationportal.service.HousesFeatureService;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -20,33 +20,32 @@ import static org.junit.Assert.fail;
  *
  * @author Phong
  */
-public abstract class AbstractProvinceServiceTest extends CRUDTest {
+public abstract class AbstractHousesFeatureServiceTest extends DataFeatureTest {
     
     @Autowired
-    protected ProvinceService instance;
-
-    @Autowired 
-    protected ProvinceRepository repository;
+    protected HousesFeatureService instance;
     
-    protected Province SampleProvince = new Province()
-            .setProvinceId(DEFAULT_ID)
-            .setProvinceLat(DEFAULT_LAT).setProvinceLng(DEFAULT_LNG)
-            .setProvinceName("SAMPLE PROVINCE");
+    @Autowired
+    protected HousesFeatureRepository repository;
     
-    private boolean isTheSame(Province actual, Province result) {
-        return actual.getProvinceName().equals(result.getProvinceName())
-                && actual.getProvinceLat().equals(result.getProvinceLat())
-                && actual.getProvinceLng().equals(result.getProvinceLng());
+    protected HousesFeature getSampleHousesFeature() {
+        HousesFeature sample = new HousesFeature();
+        sample.setHousesFeatureID(DEFAULT_ID);
+        sample.setHousesFeatureName("SAMPLE HOUSES FEATURE");
+        sample.setHousesFeatureUnit("SAMPLE UNIT");
+        sample.setHousesFeatureDataType("INT");
+        sample.setHousesFeatureDataRange(getNumericDataRange());
+        return sample;
     }
     
-    protected void testInsertSuccess(Province result, long records) {
+    protected void testInsertSuccess(HousesFeature result, long records) {
         //Insert success
         if (result != null) {
             //Test exist in DB
-            Optional<Province> actual = repository.findById(result.getProvinceId());
+            Optional<HousesFeature> actual = repository.findById(result.getHousesFeatureID());
             if (actual.isPresent()) {
                 //Compare others
-                assertEquals(true, isTheSame(actual.get(), result));
+                assertEquals(true, actual.get().equals(result));
                 //Test number of records is not changed
                 assertEquals(records + 1, repository.count());
             } else {
@@ -57,16 +56,16 @@ public abstract class AbstractProvinceServiceTest extends CRUDTest {
         }
     }
     
-    protected void testUpdateSuccess(Province result, long records) {
+    protected void testUpdateSuccess(HousesFeature result, long records) {
         //Update success
         if (result != null) {
             //Test exist in DB
-            Optional<Province> actual = repository.findById(result.getProvinceId());
+            Optional<HousesFeature> actual = repository.findById(result.getHousesFeatureID());
             if (actual.isPresent()) {
                 //Compare id
-                assertEquals(actual.get().getProvinceId(), result.getProvinceId());
+                //assertEquals(actual.get().getHousesFeatureID(), result.getHousesFeatureID());
                 //Compare others
-                assertEquals(true, isTheSame(actual.get(), result));
+                assertEquals(true, actual.get().equals(result));
                 //Test number of records is not changed
                 assertEquals(records, repository.count());
             } else {
@@ -88,5 +87,4 @@ public abstract class AbstractProvinceServiceTest extends CRUDTest {
             fail();
         }
     }
-    
 }

@@ -16,6 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -30,10 +32,6 @@ import static org.junit.Assert.assertEquals;
     TransactionDbUnitTestExecutionListener.class
 })
 public abstract class CRUDTest {
-//    protected final String EXPECTED = "/expectedData";
-//    protected final String SAMPLE = "/sampleData";
-//    
-//    protected final String EMPTY_DB = "/EmptyDB.xml";
 
     protected final Long DEFAULT_ID = 99L;
     protected final Double DEFAULT_LAT = 99.0;
@@ -62,14 +60,6 @@ public abstract class CRUDTest {
     
     protected final long[] EXISTED_IDs = {1L, 2L, 3L};
 
-//    protected DatabaseOperation getSetUpOperation() throws Exception {
-//        return DatabaseOperation.CLEAN_INSERT; // by default (will do DELETE_ALL + INSERT)
-//    }
-//
-//    protected DatabaseOperation getTearDownOperation() throws Exception {
-//        return DatabaseOperation.NONE; // by default
-//    }
-    
     protected void testFail(boolean result) {
         //Delete fail
         assertEquals(false, result);

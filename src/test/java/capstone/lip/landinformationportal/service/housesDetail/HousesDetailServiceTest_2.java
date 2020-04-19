@@ -20,8 +20,7 @@ public class HousesDetailServiceTest_2 extends AbstractHousesDetailServiceTest {
     private ArrayList<HousesDetail> getListHousesDetails() {
         ArrayList<HousesDetail> details = new ArrayList();
         for (int i = 0; i < EXISTED_IDs.length; i++) {
-            details.add(setHousesDetailID(sampleHousesDetail, 
-                    EXISTED_ID, EXISTED_IDs[i]));
+            details.add(repository.findByIdHouseIdAndIdHousesFeatureId(EXISTED_ID, EXISTED_ID));
         }
         return details;
     }
@@ -62,8 +61,7 @@ public class HousesDetailServiceTest_2 extends AbstractHousesDetailServiceTest {
     public void FT_HDS_2_03() {
         long records = repository.count();
         ArrayList<HousesDetail> details = new ArrayList();
-        details.add(setHousesDetailID(sampleHousesDetail, 
-                    EXISTED_ID, EXISTED_ID));
+        details.add(repository.findByIdHouseIdAndIdHousesFeatureId(EXISTED_ID, EXISTED_ID));
         boolean result = instance.delete(details);
         
         testDeleteSuccess(result, EXISTED_ID, records);
@@ -85,7 +83,7 @@ public class HousesDetailServiceTest_2 extends AbstractHousesDetailServiceTest {
     }
     
     /**
-     * @Description: List contain 1 house's detail
+     * @Description: List contain 3 house's detail
      * @Dependency: contain existed house's details
      * @Expected Result: Success
      */
@@ -196,8 +194,7 @@ public class HousesDetailServiceTest_2 extends AbstractHousesDetailServiceTest {
     public void FT_HDS_2_12() {
         long records = repository.count();
         ArrayList<HousesDetail> details = new ArrayList();
-        details.add(setHousesDetailID(sampleHousesDetail, 
-                    EXISTED_ID, EXISTED_ID));
+        details.add(repository.findByIdHouseIdAndIdHousesFeatureId(EXISTED_ID, EXISTED_ID));
         boolean result = instance.delete(details);
         
         testDeleteSuccess(result, EXISTED_ID, records);

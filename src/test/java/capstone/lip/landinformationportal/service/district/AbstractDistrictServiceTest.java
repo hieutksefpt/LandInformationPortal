@@ -29,7 +29,7 @@ public abstract class AbstractDistrictServiceTest extends CRUDTest {
     @Autowired
     protected DistrictRepository repository;
     
-    protected District SampleDistrict = new District()
+    protected District sampleDistrict = new District()
             .setDistrictId(DEFAULT_ID)
             .setDistrictLat(DEFAULT_LAT).setDistrictLng(DEFAULT_LNG)
             .setDistrictName("SAMPLE DISTRICT")

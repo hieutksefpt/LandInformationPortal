@@ -23,7 +23,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_1_01() {
         long records = repository.count();
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(POSITIVE_NOT_EXISTED_ID));
         
         testInsertSuccess(result, records);
@@ -36,7 +36,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_1_02() {
         long records = repository.count();
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID));
         
         testUpdateSuccess(result, records);
@@ -49,7 +49,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_1_03() {
         long records = repository.count();
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NEGATIVE_NOT_EXISTED_ID));
         
         testInsertSuccess(result, records);
@@ -62,7 +62,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_1_04() {
         long records = repository.count();
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(ZERO_NOT_EXISTED_ID));
         
         testInsertSuccess(result, records);
@@ -75,7 +75,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_1_05() {
         long records = repository.count();
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NULL_NOT_EXISTED_ID));
         
         testInsertSuccess(result, records);
@@ -87,7 +87,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_06() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID)
                 .setDistrictName(EMPTY_STRING));
         
@@ -100,7 +100,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_07() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NOT_EXISTED_ID)
                 .setDistrictName(EMPTY_STRING));
         
@@ -114,7 +114,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_1_08() {
         long records = repository.count();
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID)
                 .setDistrictName(ALPHABETIC_STRING));
         
@@ -128,7 +128,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_1_09() {
         long records = repository.count();
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NOT_EXISTED_ID)
                 .setDistrictName(ALPHABETIC_STRING));
         
@@ -141,7 +141,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_10() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID)
                 .setDistrictName(NUMERIC_STRING));
         
@@ -154,7 +154,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_11() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NOT_EXISTED_ID)
                 .setDistrictName(NUMERIC_STRING));
         
@@ -168,7 +168,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_1_12() {
         long records = repository.count();
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID)
                 .setDistrictName(VIETNAMESE_STRING));
         
@@ -182,7 +182,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_1_13() {
         long records = repository.count();
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NOT_EXISTED_ID)
                 .setDistrictName(VIETNAMESE_STRING));
         
@@ -195,7 +195,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_14() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID)
                 .setDistrictName(ALPHABETIC_NUMERIC_STRING));
         
@@ -208,7 +208,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_15() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NOT_EXISTED_ID)
                 .setDistrictName(ALPHABETIC_NUMERIC_STRING));
         
@@ -221,7 +221,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_16() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID)
                 .setDistrictName(NUMERIC_VIETNAMESE_STRING));
         
@@ -234,7 +234,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_17() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NOT_EXISTED_ID)
                 .setDistrictName(NUMERIC_VIETNAMESE_STRING));
         
@@ -247,7 +247,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_18() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID)
                 .setDistrictName(SPECIAL_CHARACTER_STRING));
         
@@ -260,7 +260,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_19() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NOT_EXISTED_ID)
                 .setDistrictName(SPECIAL_CHARACTER_STRING));
         
@@ -273,7 +273,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_20() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID)
                 .setDistrictName(ALL_SPACE_STRING));
         
@@ -286,7 +286,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_21() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NOT_EXISTED_ID)
                 .setDistrictName(ALL_SPACE_STRING));
         
@@ -299,7 +299,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_22() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID)
                 .setDistrictName(ENTER_CHARACTER_STRING));
         
@@ -312,7 +312,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_23() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NOT_EXISTED_ID)
                 .setDistrictName(ENTER_CHARACTER_STRING));
         
@@ -326,7 +326,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_1_24() {
         long records = repository.count();
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID)
                 .setDistrictName(WITHOUT_TRIM_VIETNAMESE_STRING));
         
@@ -340,7 +340,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_1_25() {
         long records = repository.count();
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NOT_EXISTED_ID)
                 .setDistrictName(WITHOUT_TRIM_VIETNAMESE_STRING));
         
@@ -353,7 +353,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_26() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID)
                 .setDistrictName(NULL_STRING));
         
@@ -366,7 +366,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_27() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NOT_EXISTED_ID)
                 .setDistrictName(NULL_STRING));
         
@@ -379,7 +379,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_28() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID)
                 .setDistrictLat(-1.0).setDistrictLng(1.0));
         
@@ -392,7 +392,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_29() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NOT_EXISTED_ID)
                 .setDistrictLat(-1.0).setDistrictLng(1.0));
         
@@ -405,7 +405,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_30() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID)
                 .setDistrictLat(1.0).setDistrictLng(-1.0));
         
@@ -418,7 +418,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_31() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NOT_EXISTED_ID)
                 .setDistrictLat(1.0).setDistrictLng(-1.0));
         
@@ -431,7 +431,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_32() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID)
                 .setDistrictLat(0.0).setDistrictLng(0.0));
         
@@ -444,7 +444,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_33() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NOT_EXISTED_ID)
                 .setDistrictLat(0.0).setDistrictLng(0.0));
         
@@ -457,7 +457,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_34() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID)
                 .setDistrictLat(0.0).setDistrictLng(null));
         
@@ -470,7 +470,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_35() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NOT_EXISTED_ID)
                 .setDistrictLat(0.0).setDistrictLng(null));
         
@@ -483,7 +483,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_36() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(EXISTED_ID)
                 .setDistrictLat(null).setDistrictLng(0.0));
         
@@ -496,7 +496,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
      */
     @Test
     public void FT_DS_1_37() {
-        District result = instance.save(SampleDistrict
+        District result = instance.save(sampleDistrict
                 .setDistrictId(NOT_EXISTED_ID)
                 .setDistrictLat(null).setDistrictLng(0.0));
         

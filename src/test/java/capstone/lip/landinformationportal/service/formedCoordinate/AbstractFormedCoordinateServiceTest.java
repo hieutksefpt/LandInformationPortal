@@ -17,6 +17,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -30,7 +34,7 @@ public abstract class AbstractFormedCoordinateServiceTest extends CRUDTest {
     @Autowired
     protected FormedCoordinateRepository repository;
 
-    protected FormedCoordinate SampleFormedCoordinate = new FormedCoordinate()
+    protected FormedCoordinate sampleFormedCoordinate = new FormedCoordinate()
             .setFormedCoordinateId(DEFAULT_ID)
             .setFormedLat(DEFAULT_LAT).setFormedLng(DEFAULT_LNG)
             .setSegmentOfStreet(new SegmentOfStreet()

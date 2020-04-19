@@ -27,7 +27,7 @@ public class FormedCoordinateServiceTest_1_2
     @Test
     public void FT_FCS_1_01() {
         long records = repository.count();
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(POSITIVE_NOT_EXISTED_ID));
 
         testInsertSuccess(result, records);
@@ -40,7 +40,7 @@ public class FormedCoordinateServiceTest_1_2
     @Test
     public void FT_FCS_1_02() {
         long records = repository.count();
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(EXISTED_ID));
 
         testUpdateSuccess(result, records);
@@ -53,7 +53,7 @@ public class FormedCoordinateServiceTest_1_2
     @Test
     public void FT_FCS_1_03() {
         long records = repository.count();
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(NEGATIVE_NOT_EXISTED_ID));
 
         testInsertSuccess(result, records);
@@ -66,7 +66,7 @@ public class FormedCoordinateServiceTest_1_2
     @Test
     public void FT_FCS_1_04() {
         long records = repository.count();
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(ZERO_NOT_EXISTED_ID));
 
         testInsertSuccess(result, records);
@@ -79,7 +79,7 @@ public class FormedCoordinateServiceTest_1_2
     @Test
     public void FT_FCS_1_05() {
         long records = repository.count();
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(NULL_NOT_EXISTED_ID));
 
         testInsertSuccess(result, records);
@@ -91,7 +91,7 @@ public class FormedCoordinateServiceTest_1_2
      */
     @Test
     public void FT_FCS_1_06() {
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(EXISTED_ID)
                 .setSegmentOfStreet(null));
 
@@ -104,7 +104,7 @@ public class FormedCoordinateServiceTest_1_2
      */
     @Test
     public void FT_FCS_1_07() {
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(NOT_EXISTED_ID)
                 .setSegmentOfStreet(null));
 
@@ -117,7 +117,7 @@ public class FormedCoordinateServiceTest_1_2
      */
     @Test
     public void FT_FCS_1_08() {
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(EXISTED_ID)
                 .setSegmentOfStreet(new SegmentOfStreet()
                         .setSegmentId(NEGATIVE_NOT_EXISTED_ID)));
@@ -131,7 +131,7 @@ public class FormedCoordinateServiceTest_1_2
      */
     @Test
     public void FT_FCS_1_09() {
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(NOT_EXISTED_ID)
                 .setSegmentOfStreet(new SegmentOfStreet()
                         .setSegmentId(NEGATIVE_NOT_EXISTED_ID)));
@@ -145,7 +145,7 @@ public class FormedCoordinateServiceTest_1_2
      */
     @Test
     public void FT_FCS_1_10() {
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(EXISTED_ID)
                 .setSegmentOfStreet(new SegmentOfStreet()
                         .setSegmentId(ZERO_NOT_EXISTED_ID)));
@@ -159,7 +159,7 @@ public class FormedCoordinateServiceTest_1_2
      */
     @Test
     public void FT_FCS_1_11() {
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(NOT_EXISTED_ID)
                 .setSegmentOfStreet(new SegmentOfStreet()
                         .setSegmentId(ZERO_NOT_EXISTED_ID)));
@@ -173,7 +173,7 @@ public class FormedCoordinateServiceTest_1_2
      */
     @Test
     public void FT_FCS_1_12() {
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(NOT_EXISTED_ID)
                 .setFormedLat(-99.0).setFormedLng(99.0));
 
@@ -186,7 +186,7 @@ public class FormedCoordinateServiceTest_1_2
      */
     @Test
     public void FT_FCS_1_13() {
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(EXISTED_ID)
                 .setFormedLat(-99.0).setFormedLng(99.0));
 
@@ -199,7 +199,7 @@ public class FormedCoordinateServiceTest_1_2
      */
     @Test
     public void FT_FCS_1_14() {
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(NOT_EXISTED_ID)
                 .setFormedLat(99.0).setFormedLng(-99.0));
 
@@ -212,7 +212,7 @@ public class FormedCoordinateServiceTest_1_2
      */
     @Test
     public void FT_FCS_1_15() {
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(EXISTED_ID)
                 .setFormedLat(99.0).setFormedLng(-99.0));
 
@@ -225,7 +225,7 @@ public class FormedCoordinateServiceTest_1_2
      */
     @Test
     public void FT_FCS_1_16() {
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(NOT_EXISTED_ID)
                 .setFormedLat(0.0).setFormedLng(0.0));
 
@@ -238,7 +238,7 @@ public class FormedCoordinateServiceTest_1_2
      */
     @Test
     public void FT_FCS_1_17() {
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(EXISTED_ID)
                 .setFormedLat(0.0).setFormedLng(0.0));
 
@@ -251,7 +251,7 @@ public class FormedCoordinateServiceTest_1_2
      */
     @Test
     public void FT_FCS_1_18() {
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(NOT_EXISTED_ID)
                 .setFormedLng(null));
 
@@ -264,7 +264,7 @@ public class FormedCoordinateServiceTest_1_2
      */
     @Test
     public void FT_FCS_1_19() {
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(EXISTED_ID)
                 .setFormedLng(null));
 
@@ -277,7 +277,7 @@ public class FormedCoordinateServiceTest_1_2
      */
     @Test
     public void FT_FCS_1_20() {
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(EXISTED_ID)
                 .setFormedLat(null));
 
@@ -290,7 +290,7 @@ public class FormedCoordinateServiceTest_1_2
      */
     @Test
     public void FT_FCS_1_21() {
-        FormedCoordinate result = instance.save(SampleFormedCoordinate
+        FormedCoordinate result = instance.save(sampleFormedCoordinate
                 .setFormedCoordinateId(NOT_EXISTED_ID)
                 .setFormedLat(null));
 
@@ -326,7 +326,7 @@ public class FormedCoordinateServiceTest_1_2
     @Test
     public void FT_FCS_2_02() {
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
-        formedCoordinates.add(SampleFormedCoordinate
+        formedCoordinates.add(sampleFormedCoordinate
                 .setFormedCoordinateId(NOT_EXISTED_ID)
                 .setSegmentOfStreet(new SegmentOfStreet()
                         .setSegmentId(NOT_EXISTED_ID)));
@@ -342,7 +342,7 @@ public class FormedCoordinateServiceTest_1_2
     @Test
     public void FT_FCS_2_03() {
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
-        formedCoordinates.add(SampleFormedCoordinate
+        formedCoordinates.add(sampleFormedCoordinate
                 .setFormedCoordinateId(NOT_EXISTED_ID)
                 .setSegmentOfStreet(null));
         
@@ -359,7 +359,7 @@ public class FormedCoordinateServiceTest_1_2
     public void FT_FCS_2_04() {
         long records = repository.count();
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
-        formedCoordinates.add(SampleFormedCoordinate
+        formedCoordinates.add(sampleFormedCoordinate
                 .setFormedCoordinateId(NOT_EXISTED_ID)
                 .setSegmentOfStreet(new SegmentOfStreet()
                         .setSegmentId(EXISTED_ID)));
@@ -376,7 +376,7 @@ public class FormedCoordinateServiceTest_1_2
     public void FT_FCS_2_05() {
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
         for (int i = 0; i < EXISTED_IDs.length; i++) {
-            formedCoordinates.add(SampleFormedCoordinate
+            formedCoordinates.add(sampleFormedCoordinate
                     .setFormedCoordinateId(EXISTED_IDs[i])
                     .setSegmentOfStreet(new SegmentOfStreet()
                             .setSegmentId(EXISTED_ID)));
@@ -397,7 +397,7 @@ public class FormedCoordinateServiceTest_1_2
     public void FT_FCS_2_06() {
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
         for (int i = 0; i < EXISTED_IDs.length; i++) {
-            formedCoordinates.add(SampleFormedCoordinate
+            formedCoordinates.add(sampleFormedCoordinate
                     .setFormedCoordinateId(EXISTED_IDs[i])
                     .setSegmentOfStreet(new SegmentOfStreet()
                             .setSegmentId(EXISTED_ID)));
@@ -418,7 +418,7 @@ public class FormedCoordinateServiceTest_1_2
         long records = repository.count();
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
         for (int i = 0; i < EXISTED_IDs.length; i++) {
-            formedCoordinates.add(SampleFormedCoordinate
+            formedCoordinates.add(sampleFormedCoordinate
                     .setFormedCoordinateId(EXISTED_IDs[i])
                     .setSegmentOfStreet(new SegmentOfStreet()
                             .setSegmentId(EXISTED_ID)));

@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  *

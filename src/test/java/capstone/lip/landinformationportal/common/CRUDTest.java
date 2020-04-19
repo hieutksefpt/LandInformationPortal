@@ -7,16 +7,14 @@ package capstone.lip.landinformationportal.common;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import static org.junit.Assert.assertEquals;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -36,6 +34,7 @@ public abstract class CRUDTest {
     protected final Long DEFAULT_ID = 99L;
     protected final Double DEFAULT_LAT = 99.0;
     protected final Double DEFAULT_LNG = 99.0;
+    protected final BigDecimal DEFAULT_PRICE = BigDecimal.valueOf(999999);
     
     protected final String EMPTY_STRING = "";
     protected final String ALPHABETIC_STRING = "Land Information Portal";
@@ -60,6 +59,10 @@ public abstract class CRUDTest {
     
     protected final long[] EXISTED_IDs = {1L, 2L, 3L};
 
+    protected final BigDecimal POSITIVE_PRICE = BigDecimal.valueOf(999999);
+    protected final BigDecimal NEGATIVE_PRICE = BigDecimal.valueOf(-999999);
+    protected final BigDecimal ZERO_PRICE = BigDecimal.ZERO;
+    
     protected void testFail(boolean result) {
         //Delete fail
         assertEquals(false, result);

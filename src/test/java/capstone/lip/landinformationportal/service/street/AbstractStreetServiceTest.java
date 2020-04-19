@@ -15,10 +15,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /**
  *
@@ -32,7 +28,7 @@ public abstract class AbstractStreetServiceTest extends CRUDTest {
     @Autowired
     protected StreetRepository repository;
     
-    protected Street SampleStreet = new Street()
+    protected Street sampleStreet = new Street()
             .setStreetId(DEFAULT_ID)
             .setStreetLat(DEFAULT_LAT).setStreetLng(DEFAULT_LNG)
             .setStreetName("SAMPLE STREET");

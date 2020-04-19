@@ -6,6 +6,7 @@
 package capstone.lip.landinformationportal.repository;
 
 import capstone.lip.landinformationportal.entity.HousesDetail;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -13,5 +14,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Admin
  */
 public interface HousesDetailRepository extends JpaRepository<HousesDetail, Long>{
-    
+	HousesDetail findByIdHouseIdAndIdHousesFeatureId(Long houseId, Long housesFeatureId);
 }

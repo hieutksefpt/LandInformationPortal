@@ -13,6 +13,7 @@ import capstone.lip.landinformationportal.entity.compositekey.HousesDetailId;
 import capstone.lip.landinformationportal.repository.HouseRepository;
 import capstone.lip.landinformationportal.service.Interface.IHouseService;
 import capstone.lip.landinformationportal.service.Interface.IHousesDetailService;
+import capstone.lip.landinformationportal.validation.HouseValidation;
 import capstone.lip.landinformationportal.validation.RealEstateValidation;
 import java.math.BigDecimal;
 
@@ -39,6 +40,11 @@ public class HouseService implements IHouseService {
     @Override
     public House save(House house) {
     	try {
+    		HouseValidation validate = new HouseValidation();
+    		String error = validate.isValidHouse(house);
+    		if (!error.isEmpty()) {
+    			throw new Exception(error);
+    		}
     		return houseRepository.save(house);
 		} catch (Exception e) {
 			e.printStackTrace();

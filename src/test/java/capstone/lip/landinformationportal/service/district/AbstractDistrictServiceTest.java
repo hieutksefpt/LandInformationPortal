@@ -14,6 +14,8 @@ import capstone.lip.landinformationportal.service.DistrictService;
 import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -27,7 +29,7 @@ public abstract class AbstractDistrictServiceTest extends CRUDTest {
     @Autowired
     protected DistrictRepository repository;
     
-    protected District SampleDistrict = new District()
+    protected District sampleDistrict = new District()
             .setDistrictId(DEFAULT_ID)
             .setDistrictLat(DEFAULT_LAT).setDistrictLng(DEFAULT_LNG)
             .setDistrictName("SAMPLE DISTRICT")

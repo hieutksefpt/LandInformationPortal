@@ -35,7 +35,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
     @Test
     public void FT_StS_2_02() {
         ArrayList<Street> streets = new ArrayList();
-        streets.add(SampleStreet.setStreetId(NOT_EXISTED_ID));
+        streets.add(sampleStreet.setStreetId(NOT_EXISTED_ID));
         boolean result = instance.delete(streets);
         
         testFail(result);
@@ -79,7 +79,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_3_01() {
-        boolean result = instance.delete(SampleStreet
+        boolean result = instance.delete(sampleStreet
                 .setStreetId(POSITIVE_NOT_EXISTED_ID));
         
         testFail(result);
@@ -103,7 +103,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_3_03() {
-        boolean result = instance.delete(SampleStreet
+        boolean result = instance.delete(sampleStreet
                 .setStreetId(NEGATIVE_NOT_EXISTED_ID));
         
         testFail(result);
@@ -115,7 +115,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_3_04() {
-        boolean result = instance.delete(SampleStreet
+        boolean result = instance.delete(sampleStreet
                 .setStreetId(ZERO_NOT_EXISTED_ID));
         
         testFail(result);
@@ -127,7 +127,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_3_05() {
-        boolean result = instance.delete(SampleStreet
+        boolean result = instance.delete(sampleStreet
                 .setStreetId(NULL_NOT_EXISTED_ID));
         
         testFail(result);
@@ -152,7 +152,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_3_07() {
-        boolean result = instance.delete(SampleStreet
+        boolean result = instance.delete(sampleStreet
                 .setStreetId(NOT_EXISTED_ID)
                 .setStreetName(EMPTY_STRING));
         
@@ -178,7 +178,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_3_09() {
-        boolean result = instance.delete(SampleStreet
+        boolean result = instance.delete(sampleStreet
                 .setStreetId(NOT_EXISTED_ID)
                 .setStreetName(NULL_STRING));
         
@@ -204,7 +204,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_3_11() {
-        boolean result = instance.delete(SampleStreet
+        boolean result = instance.delete(sampleStreet
                 .setStreetId(NOT_EXISTED_ID)
                 .setStreetLng(null));
         
@@ -230,7 +230,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
      */
     @Test
     public void FT_StS_3_13() {
-        boolean result = instance.delete(SampleStreet
+        boolean result = instance.delete(sampleStreet
                 .setStreetId(NOT_EXISTED_ID)
                 .setStreetLat(null));
         

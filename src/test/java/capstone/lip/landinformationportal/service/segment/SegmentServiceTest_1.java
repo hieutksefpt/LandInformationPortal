@@ -23,7 +23,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_1_01() {
         long records = repository.count();
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(POSITIVE_NOT_EXISTED_ID));
         
         testInsertSuccess(result, records);
@@ -36,7 +36,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_1_02() {
         long records = repository.count();
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(EXISTED_ID));
         
         testUpdateSuccess(result, records);
@@ -49,7 +49,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_1_03() {
         long records = repository.count();
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NEGATIVE_NOT_EXISTED_ID));
         
         testInsertSuccess(result, records);
@@ -62,7 +62,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_1_04() {
         long records = repository.count();
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(ZERO_NOT_EXISTED_ID));
         
         testInsertSuccess(result, records);
@@ -75,7 +75,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_1_05() {
         long records = repository.count();
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NULL_NOT_EXISTED_ID));
         
         testInsertSuccess(result, records);
@@ -87,7 +87,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_06() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentName(EMPTY_STRING));
         
@@ -100,7 +100,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_07() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentName(EMPTY_STRING));
         
@@ -114,7 +114,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_1_08() {
         long records = repository.count();
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentName(ALPHABETIC_STRING));
         
@@ -128,7 +128,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_1_09() {
         long records = repository.count();
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentName(ALPHABETIC_STRING));
         
@@ -141,7 +141,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_10() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentName(NUMERIC_STRING));
         
@@ -154,7 +154,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_11() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentName(NUMERIC_STRING));
         
@@ -168,7 +168,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_1_12() {
         long records = repository.count();
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentName(VIETNAMESE_STRING));
         
@@ -182,7 +182,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_1_13() {
         long records = repository.count();
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentName(VIETNAMESE_STRING));
         
@@ -196,7 +196,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_1_14() {
         long records = repository.count();
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentName(ALPHABETIC_NUMERIC_STRING));
         
@@ -210,7 +210,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_1_15() {
         long records = repository.count();
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentName(ALPHABETIC_NUMERIC_STRING));
         
@@ -224,7 +224,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_1_16() {
         long records = repository.count();
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentName(NUMERIC_VIETNAMESE_STRING));
         
@@ -238,7 +238,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_1_17() {
         long records = repository.count();
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentName(NUMERIC_VIETNAMESE_STRING));
         
@@ -251,7 +251,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_18() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentName(SPECIAL_CHARACTER_STRING));
         
@@ -264,7 +264,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_19() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentName(SPECIAL_CHARACTER_STRING));
         
@@ -277,7 +277,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_20() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentName(ALL_SPACE_STRING));
         
@@ -290,7 +290,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_21() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentName(ALL_SPACE_STRING));
         
@@ -303,7 +303,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_22() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentName(ENTER_CHARACTER_STRING));
         
@@ -316,7 +316,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_23() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentName(ENTER_CHARACTER_STRING));
         
@@ -329,7 +329,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_24() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentName(NULL_STRING));
         
@@ -342,7 +342,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_25() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentName(NULL_STRING));
         
@@ -355,7 +355,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_26() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentLat(-1.0).setSegmentLng(1.0));
         
@@ -368,7 +368,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_27() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentLat(-1.0).setSegmentLng(1.0));
         
@@ -381,7 +381,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_28() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentLat(1.0).setSegmentLng(-1.0));
         
@@ -394,7 +394,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_29() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentLat(1.0).setSegmentLng(-1.0));
         
@@ -407,7 +407,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_30() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentLat(0.0).setSegmentLng(0.0));
         
@@ -420,7 +420,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_31() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentLat(0.0).setSegmentLng(0.0));
         
@@ -433,7 +433,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_32() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentLat(0.0).setSegmentLng(null));
         
@@ -446,7 +446,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_33() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentLat(0.0).setSegmentLng(null));
         
@@ -459,7 +459,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_34() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(EXISTED_ID)
                 .setSegmentLat(null).setSegmentLng(0.0));
         
@@ -472,7 +472,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
      */
     @Test
     public void FT_SgS_1_35() {
-        SegmentOfStreet result = instance.save(SampleSegment
+        SegmentOfStreet result = instance.save(sampleSegment
                 .setSegmentId(NOT_EXISTED_ID)
                 .setSegmentLat(null).setSegmentLng(0.0));
         

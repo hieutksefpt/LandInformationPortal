@@ -36,7 +36,7 @@ public class FormedCoordinateServiceTest_3 extends AbstractFormedCoordinateServi
     @Test
     public void FT_FCS_3_02() {
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
-        formedCoordinates.add(SampleFormedCoordinate
+        formedCoordinates.add(sampleFormedCoordinate
                 .setFormedCoordinateId(NOT_EXISTED_ID));
         boolean result = instance.delete(formedCoordinates);
 
@@ -97,7 +97,7 @@ public class FormedCoordinateServiceTest_3 extends AbstractFormedCoordinateServi
     @Test
     public void FT_FCS_3_06() {
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
-        formedCoordinates.add(SampleFormedCoordinate
+        formedCoordinates.add(sampleFormedCoordinate
                 .setFormedCoordinateId(null));
         boolean result = instance.delete(formedCoordinates);
 
@@ -126,7 +126,7 @@ public class FormedCoordinateServiceTest_3 extends AbstractFormedCoordinateServi
     @Test
     public void FT_FCS_3_08() {
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
-        formedCoordinates.add(SampleFormedCoordinate
+        formedCoordinates.add(sampleFormedCoordinate
                 .setFormedCoordinateId(NOT_EXISTED_ID)
                 .setSegmentOfStreet(null));
         boolean result = instance.delete(formedCoordinates);
@@ -156,7 +156,7 @@ public class FormedCoordinateServiceTest_3 extends AbstractFormedCoordinateServi
     @Test
     public void FT_FCS_3_10() {
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
-        formedCoordinates.add(SampleFormedCoordinate
+        formedCoordinates.add(sampleFormedCoordinate
                 .setFormedCoordinateId(NOT_EXISTED_ID)
                 .setFormedLng(null));
         boolean result = instance.delete(formedCoordinates);
@@ -186,7 +186,7 @@ public class FormedCoordinateServiceTest_3 extends AbstractFormedCoordinateServi
     @Test
     public void FT_FCS_3_12() {
         ArrayList<FormedCoordinate> formedCoordinates = new ArrayList();
-        formedCoordinates.add(SampleFormedCoordinate
+        formedCoordinates.add(sampleFormedCoordinate
                 .setFormedCoordinateId(NOT_EXISTED_ID)
                 .setFormedLat(null));
         boolean result = instance.delete(formedCoordinates);

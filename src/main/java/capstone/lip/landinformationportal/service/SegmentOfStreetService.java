@@ -20,7 +20,7 @@ import capstone.lip.landinformationportal.validation.SegmentOfStreetValidation;
 public class SegmentOfStreetService implements ISegmentOfStreetService {
 
 	@Autowired
-	SegmentOfStreetRepository segmentOfStreetRepository;
+	private SegmentOfStreetRepository segmentOfStreetRepository;
 	
 	@Autowired
 	private IFormedCoordinate coordinateService;

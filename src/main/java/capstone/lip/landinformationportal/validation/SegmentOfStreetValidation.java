@@ -5,7 +5,7 @@ import capstone.lip.landinformationportal.entity.SegmentOfStreet;;
 
 public class SegmentOfStreetValidation extends StringValidation{
 	public String isValidSegment(SegmentOfStreet segment) {
-		String error = isValidText(segment.getSegmentName());
+		String error = isValidNumericString(segment.getSegmentName());
 		if (error.compareTo("") != 0) {
 			return error;
 		}
@@ -18,4 +18,5 @@ public class SegmentOfStreetValidation extends StringValidation{
 		}
 		return "";
 	}
+	
 }

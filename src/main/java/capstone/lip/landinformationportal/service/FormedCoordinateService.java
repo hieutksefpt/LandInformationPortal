@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import capstone.lip.landinformationportal.entity.FormedCoordinate;
 import capstone.lip.landinformationportal.repository.FormedCoordinateRepository;
 import capstone.lip.landinformationportal.service.Interface.IFormedCoordinate;
+import capstone.lip.landinformationportal.service.Interface.ISegmentOfStreetService;
 import capstone.lip.landinformationportal.validation.FormedCoordinateValidation;
 
 @Service
@@ -18,7 +19,7 @@ public class FormedCoordinateService implements IFormedCoordinate{
 	private FormedCoordinateRepository formerCoordinateRepository;
 	
 	@Autowired
-	private SegmentOfStreetService segmentService;
+	private ISegmentOfStreetService segmentService;
 	@Override
 	public FormedCoordinate save(FormedCoordinate formedCoordinate) {
 		
@@ -26,7 +27,7 @@ public class FormedCoordinateService implements IFormedCoordinate{
 			if (formedCoordinate == null) {
 				throw new Exception("null");
 			}
-			FormedCoordinateValidation validate = new FormedCoordinateValidation();
+			FormedCoordinateValidation validate = new FormedCoordinateValidation(segmentService);
 			String error = validate.isValidFormedCoordinate(formedCoordinate);
 			if (!error.isEmpty()) {
 				throw new Exception(error);
@@ -44,7 +45,7 @@ public class FormedCoordinateService implements IFormedCoordinate{
 			if (listFormedCoordinate == null) throw new Exception("null");
 			if (listFormedCoordinate.isEmpty()) throw new Exception("empty");
 
-			FormedCoordinateValidation validate = new FormedCoordinateValidation();
+			FormedCoordinateValidation validate = new FormedCoordinateValidation(segmentService);
 			for (FormedCoordinate element:listFormedCoordinate) {
 				String error = validate.isValidFormedCoordinate(element);
 				if (!error.isEmpty()) {

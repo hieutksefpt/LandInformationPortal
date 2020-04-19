@@ -9,11 +9,14 @@ import capstone.lip.landinformationportal.service.SegmentOfStreetService;
 import capstone.lip.landinformationportal.service.Interface.ISegmentOfStreetService;
 
 @Component
-public class FormedCoordinateValidation{
-	
-	@Autowired
+public class FormedCoordinateValidation {
+
 	private ISegmentOfStreetService segmentService;
 	
+	public FormedCoordinateValidation(ISegmentOfStreetService segmentService) {
+		this.segmentService = segmentService;
+	}
+
 	public String isValidFormedCoordinate(FormedCoordinate coordinate) {
 		if (coordinate.getSegmentOfStreet() == null) {
 			return "Segment not found";
@@ -22,7 +25,7 @@ public class FormedCoordinateValidation{
 			return "Segment not found";
 		}
 		if (coordinate.getFormedLat().isNaN() || coordinate.getFormedLng().isNaN()) {
-			return ValidateMessageCommon.IS_NOT_A_NUMBER; 
+			return ValidateMessageCommon.IS_NOT_A_NUMBER;
 		}
 		if (coordinate.getFormedLat() <= 0 || coordinate.getFormedLng() <= 0) {
 			return ValidateMessageCommon.IS_NEGATIVE_NUMBER;

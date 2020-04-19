@@ -1,5 +1,7 @@
 package capstone.lip.landinformationportal.validation;
 
+import org.apache.commons.lang3.StringUtils;
+
 import capstone.lip.landinformationportal.common.ValidateMessageCommon;
 
 public class StringValidation {
@@ -26,5 +28,21 @@ public class StringValidation {
 		}catch (Exception e) {
 			return ValidateMessageCommon.IS_NOT_DOUBLE;
 		}
+	}
+	public String isValidNumericString(String text) {
+		if (text == null) {
+			return ValidateMessageCommon.NULL;
+		}
+		if (text.trim().length() == 0) {
+			return ValidateMessageCommon.EMPTY;
+		}
+		if (StringUtils.isNumeric(text)) {
+			return ValidateMessageCommon.NUMERIC;
+		}
+		if (text.matches(".*[^A-Za-z0-9\\p{L}\\p{M} ].*")) {
+			return ValidateMessageCommon.HAS_SPECIAL_CHAR;
+		}
+		
+		return "";
 	}
 }

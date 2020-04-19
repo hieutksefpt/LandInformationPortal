@@ -8,4 +8,5 @@ public class ValidateMessageCommon {
 	public static final String IS_NOT_DOUBLE = "not Double";
 	public static final String IS_NOT_A_NUMBER = "not a number";
 	public static final String IS_NEGATIVE_NUMBER = "is negative number";
+	public static final String NUMERIC = "all character is number";
 }

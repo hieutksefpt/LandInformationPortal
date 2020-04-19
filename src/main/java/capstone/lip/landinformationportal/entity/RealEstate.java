@@ -260,13 +260,6 @@ public class RealEstate implements Serializable, CustomAuditModify{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
-		result = prime * result + ((land == null) ? 0 : land.hashCode());
-		result = prime * result + ((listHouse == null) ? 0 : listHouse.hashCode());
-		result = prime * result
-				+ ((listRealEstateAdjacentSegment == null) ? 0 : listRealEstateAdjacentSegment.hashCode());
-		result = prime * result + ((listReport == null) ? 0 : listReport.hashCode());
-		result = prime * result + ((modifiedDate == null) ? 0 : modifiedDate.hashCode());
 		result = prime * result + ((realEstateAddress == null) ? 0 : realEstateAddress.hashCode());
 		result = prime * result + ((realEstateId == null) ? 0 : realEstateId.hashCode());
 		result = prime * result + ((realEstateLat == null) ? 0 : realEstateLat.hashCode());
@@ -289,36 +282,6 @@ public class RealEstate implements Serializable, CustomAuditModify{
 		if (getClass() != obj.getClass())
 			return false;
 		RealEstate other = (RealEstate) obj;
-		if (createdDate == null) {
-			if (other.createdDate != null)
-				return false;
-		} else if (!createdDate.equals(other.createdDate))
-			return false;
-		if (land == null) {
-			if (other.land != null)
-				return false;
-		} else if (!land.equals(other.land))
-			return false;
-		if (listHouse == null) {
-			if (other.listHouse != null)
-				return false;
-		} else if (!listHouse.equals(other.listHouse))
-			return false;
-		if (listRealEstateAdjacentSegment == null) {
-			if (other.listRealEstateAdjacentSegment != null)
-				return false;
-		} else if (!listRealEstateAdjacentSegment.equals(other.listRealEstateAdjacentSegment))
-			return false;
-		if (listReport == null) {
-			if (other.listReport != null)
-				return false;
-		} else if (!listReport.equals(other.listReport))
-			return false;
-		if (modifiedDate == null) {
-			if (other.modifiedDate != null)
-				return false;
-		} else if (!modifiedDate.equals(other.modifiedDate))
-			return false;
 		if (realEstateAddress == null) {
 			if (other.realEstateAddress != null)
 				return false;

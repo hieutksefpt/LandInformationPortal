@@ -113,74 +113,54 @@ public class LandsFeature extends AuditAbstract implements Serializable {
         this.landsFeatureDataRange = landsFeatureDataRange;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((landsFeatureDataRange == null) ? 0 : landsFeatureDataRange.hashCode());
-        result = prime * result + ((landsFeatureDataType == null) ? 0 : landsFeatureDataType.hashCode());
-        result = prime * result + ((landsFeatureID == null) ? 0 : landsFeatureID.hashCode());
-        result = prime * result + ((landsFeatureName == null) ? 0 : landsFeatureName.hashCode());
-        result = prime * result + ((landsFeatureUnit == null) ? 0 : landsFeatureUnit.hashCode());
-        result = prime * result + ((listLandsDetail == null) ? 0 : listLandsDetail.hashCode());
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((landsFeatureDataRange == null) ? 0 : landsFeatureDataRange.hashCode());
+		result = prime * result + ((landsFeatureDataType == null) ? 0 : landsFeatureDataType.hashCode());
+		result = prime * result + ((landsFeatureID == null) ? 0 : landsFeatureID.hashCode());
+		result = prime * result + ((landsFeatureName == null) ? 0 : landsFeatureName.hashCode());
+		result = prime * result + ((landsFeatureUnit == null) ? 0 : landsFeatureUnit.hashCode());
+		return result;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        LandsFeature other = (LandsFeature) obj;
-        if (landsFeatureDataRange == null) {
-            if (other.landsFeatureDataRange != null) {
-                return false;
-            }
-        } else if (!landsFeatureDataRange.equals(other.landsFeatureDataRange)) {
-            return false;
-        }
-        if (landsFeatureDataType == null) {
-            if (other.landsFeatureDataType != null) {
-                return false;
-            }
-        } else if (!landsFeatureDataType.equals(other.landsFeatureDataType)) {
-            return false;
-        }
-        if (landsFeatureID == null) {
-            if (other.landsFeatureID != null) {
-                return false;
-            }
-        } else if (!landsFeatureID.equals(other.landsFeatureID)) {
-            return false;
-        }
-        if (landsFeatureName == null) {
-            if (other.landsFeatureName != null) {
-                return false;
-            }
-        } else if (!landsFeatureName.equals(other.landsFeatureName)) {
-            return false;
-        }
-        if (landsFeatureUnit == null) {
-            if (other.landsFeatureUnit != null) {
-                return false;
-            }
-        } else if (!landsFeatureUnit.equals(other.landsFeatureUnit)) {
-            return false;
-        }
-        if (listLandsDetail == null) {
-            if (other.listLandsDetail != null) {
-                return false;
-            }
-        } else if (!listLandsDetail.equals(other.listLandsDetail)) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LandsFeature other = (LandsFeature) obj;
+		if (landsFeatureDataRange == null) {
+			if (other.landsFeatureDataRange != null)
+				return false;
+		} else if (!landsFeatureDataRange.equals(other.landsFeatureDataRange))
+			return false;
+		if (landsFeatureDataType == null) {
+			if (other.landsFeatureDataType != null)
+				return false;
+		} else if (!landsFeatureDataType.equals(other.landsFeatureDataType))
+			return false;
+		if (landsFeatureID == null) {
+			if (other.landsFeatureID != null)
+				return false;
+		} else if (!landsFeatureID.equals(other.landsFeatureID))
+			return false;
+		if (landsFeatureName == null) {
+			if (other.landsFeatureName != null)
+				return false;
+		} else if (!landsFeatureName.equals(other.landsFeatureName))
+			return false;
+		if (landsFeatureUnit == null) {
+			if (other.landsFeatureUnit != null)
+				return false;
+		} else if (!landsFeatureUnit.equals(other.landsFeatureUnit))
+			return false;
+		return true;
+	}
 
+    
 }

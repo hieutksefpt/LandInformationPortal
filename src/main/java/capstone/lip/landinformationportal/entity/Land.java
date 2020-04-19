@@ -140,7 +140,6 @@ public class Land extends AuditAbstract implements Serializable {
 		result = prime * result + ((landId == null) ? 0 : landId.hashCode());
 		result = prime * result + ((landName == null) ? 0 : landName.hashCode());
 		result = prime * result + ((landPrice == null) ? 0 : landPrice.hashCode());
-		result = prime * result + ((listLandsDetail == null) ? 0 : listLandsDetail.hashCode());
 		result = prime * result + ((realEstate == null) ? 0 : realEstate.hashCode());
 		return result;
 	}
@@ -169,11 +168,6 @@ public class Land extends AuditAbstract implements Serializable {
 				return false;
 		} else if (!landPrice.equals(other.landPrice))
 			return false;
-		if (listLandsDetail == null) {
-			if (other.listLandsDetail != null)
-				return false;
-		} else if (!listLandsDetail.equals(other.listLandsDetail))
-			return false;
 		if (realEstate == null) {
 			if (other.realEstate != null)
 				return false;
@@ -182,7 +176,4 @@ public class Land extends AuditAbstract implements Serializable {
 		return true;
 	}
     
-    
-    
-
 }

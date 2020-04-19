@@ -84,7 +84,6 @@ public class Province extends AuditAbstract implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((listDistrict == null) ? 0 : listDistrict.hashCode());
 		result = prime * result + ((provinceId == null) ? 0 : provinceId.hashCode());
 		result = prime * result + ((provinceLat == null) ? 0 : provinceLat.hashCode());
 		result = prime * result + ((provinceLng == null) ? 0 : provinceLng.hashCode());
@@ -100,11 +99,6 @@ public class Province extends AuditAbstract implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Province other = (Province) obj;
-		if (listDistrict == null) {
-			if (other.listDistrict != null)
-				return false;
-		} else if (!listDistrict.equals(other.listDistrict))
-			return false;
 		if (provinceId == null) {
 			if (other.provinceId != null)
 				return false;
@@ -127,5 +121,6 @@ public class Province extends AuditAbstract implements Serializable{
 			return false;
 		return true;
 	}
+	
 	
 }

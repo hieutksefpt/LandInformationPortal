@@ -23,7 +23,10 @@
 
                         <h:form id="form" onsubmit="return false;">
                             <p:growl id="msgs" showDetail="true"/>
-
+							<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+			            	<p:dialog widgetVar="statusDialog" draggable="false" closable="false" resizable="false" showHeader="false">
+							    <p:graphicImage name="/img/ajaxloadingbar.gif" />
+							</p:dialog>
 
                             <p:panel id="panel-form" style="margin-bottom:10px;">
                                 <h:panelGroup id="combobox_data">
@@ -148,7 +151,7 @@
                                         </h:commandButton>
                                     </div>
                                     <div class="col-md">
-                                        <h:commandButton value="Lưu" onclick="PF('dlgUpdate').show()"></h:commandButton>
+                                        <h:commandButton value="Sửa" onclick="PF('dlgUpdate').show()"></h:commandButton>
                                     </div>
                                     <div class="col-md">
                                         <h:commandButton value="Xóa" onclick="PF('dlgDelete').show()">

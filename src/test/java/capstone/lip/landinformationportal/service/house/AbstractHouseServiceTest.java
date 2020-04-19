@@ -3,12 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package capstone.lip.landinformationportal.service.street;
+package capstone.lip.landinformationportal.service.house;
 
 import capstone.lip.landinformationportal.common.CRUDTest;
-import capstone.lip.landinformationportal.entity.Street;
-import capstone.lip.landinformationportal.repository.StreetRepository;
-import capstone.lip.landinformationportal.service.StreetService;
+import capstone.lip.landinformationportal.entity.House;
+import capstone.lip.landinformationportal.entity.HousesDetail;
+import capstone.lip.landinformationportal.entity.RealEstate;
+import capstone.lip.landinformationportal.entity.compositekey.HousesDetailId;
+import capstone.lip.landinformationportal.repository.HouseRepository;
+import capstone.lip.landinformationportal.service.HouseService;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertEquals;
@@ -18,33 +23,29 @@ import static org.junit.Assert.fail;
  *
  * @author Phong
  */
-public abstract class AbstractStreetServiceTest extends CRUDTest {
+public abstract class AbstractHouseServiceTest extends CRUDTest {
     
     @Autowired
-    protected StreetService instance;
+    protected HouseService instance;
     
     @Autowired
-    protected StreetRepository repository;
+    protected HouseRepository repository;
     
-    protected Street sampleStreet = new Street()
-            .setStreetId(DEFAULT_ID)
-            .setStreetLat(DEFAULT_LAT).setStreetLng(DEFAULT_LNG)
-            .setStreetName("SAMPLE STREET");
+    protected House sampleHouse = new House()
+            .setHouseId(DEFAULT_ID)
+            .setHouseName("SAMPLE HOUSE")
+            .setHousePrice(BigDecimal.ZERO)
+            .setRealEstate(new RealEstate()
+                    .setRealEstateId(EXISTED_ID));
     
-    private boolean isTheSame(Street actual, Street result) {
-        return actual.getStreetName().equals(result.getStreetName())
-                && actual.getStreetLat().equals(result.getStreetLat())
-                && actual.getStreetLng().equals(result.getStreetLng());
-    }
-    
-    protected void testInsertSuccess(Street result, long records) {
+    protected void testInsertSuccess(House result, long records) {
         //Insert success
         if (result != null) {
             //Test exist in DB
-            Optional<Street> actual = repository.findById(result.getStreetId());
+            Optional<House> actual = repository.findById(result.getHouseId());
             if (actual.isPresent()) {
                 //Compare others
-                assertEquals(true, isTheSame(actual.get(), result));
+                assertEquals(true, actual.get().equals(result));
                 //Test number of records is not changed
                 assertEquals(records + 1, repository.count());
             } else {
@@ -55,16 +56,16 @@ public abstract class AbstractStreetServiceTest extends CRUDTest {
         }
     }
     
-    protected void testUpdateSuccess(Street result, long records) {
+    protected void testUpdateSuccess(House result, long records) {
         //Update success
         if (result != null) {
             //Test exist in DB
-            Optional<Street> actual = repository.findById(result.getStreetId());
+            Optional<House> actual = repository.findById(result.getHouseId());
             if (actual.isPresent()) {
                 //Compare id
-                assertEquals(actual.get().getStreetId(), result.getStreetId());
+                //assertEquals(actual.get().getHouseId(), result.getHouseId());
                 //Compare others
-                assertEquals(true, isTheSame(actual.get(), result));
+                assertEquals(true, actual.get().equals(result));
                 //Test number of records is not changed
                 assertEquals(records, repository.count());
             } else {

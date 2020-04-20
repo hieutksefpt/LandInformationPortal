@@ -10,6 +10,7 @@ import capstone.lip.landinformationportal.entity.HousesDetail;
 import capstone.lip.landinformationportal.entity.compositekey.HousesDetailId;
 import capstone.lip.landinformationportal.repository.HousesDetailRepository;
 import capstone.lip.landinformationportal.service.HousesDetailService;
+import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,27 +57,19 @@ public abstract class AbstractHousesDetailServiceTest extends CRUDTest {
         }
     }
 
-    protected void testDeleteSuccess(boolean result, long id, long records) {
+    protected void testDeleteSuccess(boolean result, 
+            ArrayList<HousesDetail> details, long records) {
         //Delete success
         if (result) {
             //Test exist in DB
-            assertEquals(false, repository.existsById(id));
-            //Test number of records is decreased by 1
-            assertEquals(records - 1, repository.count());
-        } else {
-            fail();
-        }
-    }
-
-    protected void testDeleteSuccess(boolean result, long[] id, long records) {
-        //Delete success
-        if (result) {
-            //Test exist in DB
-            for (int i = 0; i < id.length; i++) {
-                assertEquals(false, repository.existsById(id[i]));
+            for (HousesDetail detail : details) {
+                assertEquals(false, repository
+                        .findByIdHouseIdAndIdHousesFeatureId(
+                                detail.getId().getHouseId(), 
+                                detail.getId().getHousesFeatureId()));
             }
-            //Test number of records is decreased by 1
-            assertEquals(records - id.length, repository.count());
+            //Test number of records is decreased
+            assertEquals(records - details.size(), repository.count());
         } else {
             fail();
         }

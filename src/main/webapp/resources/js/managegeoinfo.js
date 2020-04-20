@@ -108,6 +108,7 @@ function addDataToNewRow(marker){
 		));
 }
 function addNewRowCoordinate(){
+	$('#div-multiple').show();
 	var newRow = $("<tr>");
     var cols = "";
 	cols+= '<td class="td-lng"><input type="text" readonly name="longitude" id="lng-'+countRow+'" class="form-control longitude-multi""/></td>';

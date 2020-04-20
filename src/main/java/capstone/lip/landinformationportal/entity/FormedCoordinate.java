@@ -76,6 +76,42 @@ public class FormedCoordinate extends AuditAbstract implements Serializable {
 		this.segmentOfStreet = segmentOfStreet;
 		return this;
 	}
-	
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((formedCoordinateId == null) ? 0 : formedCoordinateId.hashCode());
+		result = prime * result + ((formedLat == null) ? 0 : formedLat.hashCode());
+		result = prime * result + ((formedLng == null) ? 0 : formedLng.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FormedCoordinate other = (FormedCoordinate) obj;
+		if (formedCoordinateId == null) {
+			if (other.formedCoordinateId != null)
+				return false;
+		} else if (!formedCoordinateId.equals(other.formedCoordinateId))
+			return false;
+		if (formedLat == null) {
+			if (other.formedLat != null)
+				return false;
+		} else if (!formedLat.equals(other.formedLat))
+			return false;
+		if (formedLng == null) {
+			if (other.formedLng != null)
+				return false;
+		} else if (!formedLng.equals(other.formedLng))
+			return false;
+		return true;
+	}
+
 }

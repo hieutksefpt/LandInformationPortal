@@ -141,7 +141,7 @@ public class HousesFeatureServiceTest_2_3 extends AbstractHousesFeatureServiceTe
         long records = repository.count();
         HousesFeature expected = getSampleHousesFeature();
         expected.setHousesFeatureID(EXISTED_ID);
-        expected.setHousesFeatureUnit(NUMBER_VALID_FEATURE_DATA_TYPE);
+        expected.setHousesFeatureDataType(NUMBER_VALID_FEATURE_DATA_TYPE);
         expected.setHousesFeatureDataRange(getNumericDataRange());
         HousesFeature result = instance.save(expected);
         
@@ -157,7 +157,7 @@ public class HousesFeatureServiceTest_2_3 extends AbstractHousesFeatureServiceTe
         long records = repository.count();
         HousesFeature expected = getSampleHousesFeature();
         expected.setHousesFeatureID(NOT_EXISTED_ID);
-        expected.setHousesFeatureUnit(NUMBER_VALID_FEATURE_DATA_TYPE);
+        expected.setHousesFeatureDataType(NUMBER_VALID_FEATURE_DATA_TYPE);
         expected.setHousesFeatureDataRange(getNumericDataRange());
         HousesFeature result = instance.save(expected);
         
@@ -172,7 +172,7 @@ public class HousesFeatureServiceTest_2_3 extends AbstractHousesFeatureServiceTe
     public void FT_HFS_2_44() {
         HousesFeature expected = getSampleHousesFeature();
         expected.setHousesFeatureID(EXISTED_ID);
-        expected.setHousesFeatureUnit(NUMBER_VALID_FEATURE_DATA_TYPE);
+        expected.setHousesFeatureDataType(NUMBER_VALID_FEATURE_DATA_TYPE);
         expected.setHousesFeatureDataRange(getTextDataRange());
         HousesFeature result = instance.save(expected);
         
@@ -187,7 +187,7 @@ public class HousesFeatureServiceTest_2_3 extends AbstractHousesFeatureServiceTe
     public void FT_HFS_2_45() {
         HousesFeature expected = getSampleHousesFeature();
         expected.setHousesFeatureID(NOT_EXISTED_ID);
-        expected.setHousesFeatureUnit(NUMBER_VALID_FEATURE_DATA_TYPE);
+        expected.setHousesFeatureDataType(NUMBER_VALID_FEATURE_DATA_TYPE);
         expected.setHousesFeatureDataRange(getTextDataRange());
         HousesFeature result = instance.save(expected);
         
@@ -203,7 +203,7 @@ public class HousesFeatureServiceTest_2_3 extends AbstractHousesFeatureServiceTe
         long records = repository.count();
         HousesFeature expected = getSampleHousesFeature();
         expected.setHousesFeatureID(EXISTED_ID);
-        expected.setHousesFeatureUnit(TEXT_VALID_FEATURE_DATA_TYPE);
+        expected.setHousesFeatureDataType(TEXT_VALID_FEATURE_DATA_TYPE);
         expected.setHousesFeatureDataRange(getTextDataRange());
         HousesFeature result = instance.save(expected);
         
@@ -219,7 +219,7 @@ public class HousesFeatureServiceTest_2_3 extends AbstractHousesFeatureServiceTe
         long records = repository.count();
         HousesFeature expected = getSampleHousesFeature();
         expected.setHousesFeatureID(NOT_EXISTED_ID);
-        expected.setHousesFeatureUnit(TEXT_VALID_FEATURE_DATA_TYPE);
+        expected.setHousesFeatureDataType(TEXT_VALID_FEATURE_DATA_TYPE);
         expected.setHousesFeatureDataRange(getTextDataRange());
         HousesFeature result = instance.save(expected);
         
@@ -235,7 +235,7 @@ public class HousesFeatureServiceTest_2_3 extends AbstractHousesFeatureServiceTe
         long records = repository.count();
         HousesFeature expected = getSampleHousesFeature();
         expected.setHousesFeatureID(EXISTED_ID);
-        expected.setHousesFeatureUnit(TEXT_VALID_FEATURE_DATA_TYPE);
+        expected.setHousesFeatureDataType(TEXT_VALID_FEATURE_DATA_TYPE);
         expected.setHousesFeatureDataRange(getNumericDataRange());
         HousesFeature result = instance.save(expected);
         
@@ -251,7 +251,7 @@ public class HousesFeatureServiceTest_2_3 extends AbstractHousesFeatureServiceTe
         long records = repository.count();
         HousesFeature expected = getSampleHousesFeature();
         expected.setHousesFeatureID(NOT_EXISTED_ID);
-        expected.setHousesFeatureUnit(TEXT_VALID_FEATURE_DATA_TYPE);
+        expected.setHousesFeatureDataType(TEXT_VALID_FEATURE_DATA_TYPE);
         expected.setHousesFeatureDataRange(getNumericDataRange());
         HousesFeature result = instance.save(expected);
         

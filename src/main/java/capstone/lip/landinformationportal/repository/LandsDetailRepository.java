@@ -7,5 +7,5 @@ import capstone.lip.landinformationportal.entity.LandsDetail;
 
 @Repository
 public interface LandsDetailRepository extends JpaRepository<LandsDetail, Long> {
-
+    LandsDetail findByIdLandIdAndIdLandsFeatureId(Long landId, Long landsFeatureId);
 }

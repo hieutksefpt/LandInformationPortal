@@ -42,7 +42,7 @@ public class Street extends AuditAbstract implements Serializable {
 	
 	@LazyToOne(LazyToOneOption.NO_PROXY)
 	@NotFound(action = NotFoundAction.IGNORE)
-	@OneToMany(mappedBy="street",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy="street",fetch = FetchType.LAZY)
 //	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<SegmentOfStreet> listSegmentOfStreet;
 	
@@ -83,7 +83,6 @@ public class Street extends AuditAbstract implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((listSegmentOfStreet == null) ? 0 : listSegmentOfStreet.hashCode());
 		result = prime * result + ((streetId == null) ? 0 : streetId.hashCode());
 		result = prime * result + ((streetLat == null) ? 0 : streetLat.hashCode());
 		result = prime * result + ((streetLng == null) ? 0 : streetLng.hashCode());
@@ -99,11 +98,6 @@ public class Street extends AuditAbstract implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Street other = (Street) obj;
-		if (listSegmentOfStreet == null) {
-			if (other.listSegmentOfStreet != null)
-				return false;
-		} else if (!listSegmentOfStreet.equals(other.listSegmentOfStreet))
-			return false;
 		if (streetId == null) {
 			if (other.streetId != null)
 				return false;
@@ -126,7 +120,6 @@ public class Street extends AuditAbstract implements Serializable {
 			return false;
 		return true;
 	}
-	
 	
 
 }

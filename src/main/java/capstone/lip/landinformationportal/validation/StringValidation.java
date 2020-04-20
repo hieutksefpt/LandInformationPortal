@@ -45,4 +45,23 @@ public class StringValidation {
 		
 		return "";
 	}
+	
+	public String isNumericOnly(String text) {
+		if (StringUtils.isNumeric(text)) {
+			return ValidateMessageCommon.NUMERIC;
+		}
+		return "";
+	}
+	public String isSpecialCharOnly(String text) {
+		if (text.matches(".*[^A-Za-z0-9\\p{L}\\p{M} ].*")) {
+			return ValidateMessageCommon.HAS_SPECIAL_CHAR;
+		}
+		return "";
+	}
+	public String hasNumber(String text) {
+		if (text.matches(".*\\d.*")) {
+			return ValidateMessageCommon.HAS_NUMBER;
+		}
+		return "";
+	}
 }

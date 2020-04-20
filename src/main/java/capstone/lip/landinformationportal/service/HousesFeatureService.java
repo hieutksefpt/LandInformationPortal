@@ -10,6 +10,7 @@ import capstone.lip.landinformationportal.entity.HousesFeature;
 import capstone.lip.landinformationportal.repository.HousesFeatureRepository;
 import capstone.lip.landinformationportal.service.Interface.IHousesDetailService;
 import capstone.lip.landinformationportal.service.Interface.IHousesFeatureService;
+import capstone.lip.landinformationportal.validation.HousesFeatureValidation;
 
 import java.util.List;
 
@@ -43,6 +44,11 @@ public class HousesFeatureService implements IHousesFeatureService {
     @Override
     public HousesFeature save(HousesFeature housesfeature) {
         try {
+        	HousesFeatureValidation validate = new HousesFeatureValidation();
+        	String error = validate.isValidHousesFeature(housesfeature);
+        	if (!error.isEmpty()) {
+        		throw new Exception(error);
+        	}
             return houseFeatureRepository.save(housesfeature);
         } catch (Exception e) {
             e.printStackTrace();

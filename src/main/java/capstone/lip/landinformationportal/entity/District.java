@@ -118,7 +118,6 @@ public class District extends AuditAbstract  implements Serializable{
 		result = prime * result + ((districtLat == null) ? 0 : districtLat.hashCode());
 		result = prime * result + ((districtLng == null) ? 0 : districtLng.hashCode());
 		result = prime * result + ((districtName == null) ? 0 : districtName.hashCode());
-		result = prime * result + ((listSegmentOfStreet == null) ? 0 : listSegmentOfStreet.hashCode());
 		result = prime * result + ((province == null) ? 0 : province.hashCode());
 		return result;
 	}
@@ -152,11 +151,6 @@ public class District extends AuditAbstract  implements Serializable{
 				return false;
 		} else if (!districtName.equals(other.districtName))
 			return false;
-		if (listSegmentOfStreet == null) {
-			if (other.listSegmentOfStreet != null)
-				return false;
-		} else if (!listSegmentOfStreet.equals(other.listSegmentOfStreet))
-			return false;
 		if (province == null) {
 			if (other.province != null)
 				return false;
@@ -164,7 +158,5 @@ public class District extends AuditAbstract  implements Serializable{
 			return false;
 		return true;
 	}
-    
-	
-	
+
 }

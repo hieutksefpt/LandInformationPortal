@@ -100,10 +100,11 @@ public class ManageGeoInfoBean implements Serializable {
 			lngSingleCoordinate = selectedProvince.getProvinceLng().toString();
 			
 			
-			PrimeFaces.current().executeScript("focusMap(" + selectedProvince.getProvinceLat() + ", " + selectedProvince.getProvinceLng() + ");");
+			PrimeFaces.current().executeScript("focusMap(" + selectedProvince.getProvinceLat() + ", " + selectedProvince.getProvinceLng() + ",15);");
 		}else {
 			listDistrict = new ArrayList<>();
 			listStreet = new ArrayList<>();
+			listSegmentOfStreet = new ArrayList<>();
 		}
 		
 		
@@ -116,12 +117,16 @@ public class ManageGeoInfoBean implements Serializable {
 			segmentStreetIdSelected = "";
 			
 			selectedDistrict = listDistrict.stream().filter(x->x.getDistrictId().equals(Long.parseLong(districtIdSelected))).collect(Collectors.toList()).get(0);
-			PrimeFaces.current().executeScript("focusMap(" + selectedDistrict.getDistrictLat() + ", " + selectedDistrict.getDistrictLng() + ");");
+			PrimeFaces.current().executeScript("focusMap(" + selectedDistrict.getDistrictLat() + ", " + selectedDistrict.getDistrictLng() + ",17);");
 			PrimeFaces.current().executeScript("changeInfo(\""+selectedDistrict.getDistrictName()+"\", "+selectedDistrict.getDistrictLng()+", "+
 		    selectedDistrict.getDistrictLat()+")");
-			listSegmentOfStreet = selectedDistrict.getListSegmentOfStreet();
-			if (listSegmentOfStreet != null)
-			listStreet = listSegmentOfStreet.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
+			
+			List<SegmentOfStreet>listTemp = selectedDistrict.getListSegmentOfStreet();
+			if (listTemp != null)
+				listStreet = listTemp.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
+			else {
+				listStreet = new ArrayList<>();
+			}
 		}else {
 			listStreet = new ArrayList<>();
 			listSegmentOfStreet = new ArrayList<>();
@@ -134,7 +139,7 @@ public class ManageGeoInfoBean implements Serializable {
 			segmentStreetIdSelected = "";
 			
 			selectedStreet = listStreet.stream().filter(x->x.getStreetId().equals((Long.parseLong(streetIdSelected)))).collect(Collectors.toList()).get(0);
-			PrimeFaces.current().executeScript("focusMap(" + selectedStreet.getStreetLat() + ", " + selectedStreet.getStreetLng() + ");");
+			PrimeFaces.current().executeScript("focusMap(" + selectedStreet.getStreetLat() + ", " + selectedStreet.getStreetLng() + ",19);");
 			PrimeFaces.current().executeScript("changeInfo(\""+selectedStreet.getStreetName()+"\", "+selectedStreet.getStreetLat()+", "+
 					selectedStreet.getStreetLng()+")");
 					
@@ -149,7 +154,7 @@ public class ManageGeoInfoBean implements Serializable {
 		if (segmentStreetIdSelected != null && !segmentStreetIdSelected.equals("")) {
 			processType = "4";
 			segmentOfStreet = listSegmentOfStreet.stream().filter(x->x.getSegmentId().equals(Long.parseLong(segmentStreetIdSelected))).collect(Collectors.toList()).get(0);
-			PrimeFaces.current().executeScript("focusMap(" + segmentOfStreet.getSegmentLat() + ", " + segmentOfStreet.getSegmentLng() + ");");
+			PrimeFaces.current().executeScript("focusMap(" + segmentOfStreet.getSegmentLat() + ", " + segmentOfStreet.getSegmentLng() + ",19);");
 			PrimeFaces.current().executeScript("changeInfo(\""+segmentOfStreet.getSegmentName()+"\", "+segmentOfStreet.getSegmentLat()+", "+
 					segmentOfStreet.getSegmentLng()+")");
 			vt1 = segmentOfStreet.getVT1().toString();
@@ -226,12 +231,15 @@ public class ManageGeoInfoBean implements Serializable {
 				return;
 			case "4":
 				street = streetTemp;
+				boolean addNewStreet = false;
 				if (street != null && !listStreet.contains(street)) {
+					addNewStreet = true;
 					street = streetService.save(streetTemp);
 					if (listStreet == null) listStreet = new ArrayList<>();
 					listStreet.add(street);
 					streetIdSelected = street.getStreetId().toString();
 				}else {
+					addNewStreet = false;
 					street = listStreet.stream().filter(x->x.getStreetId().equals(Long.valueOf(streetIdSelected))).collect(Collectors.toList()).get(0);
 				}
 				SegmentOfStreet segmentStreet = new SegmentOfStreet();
@@ -241,15 +249,19 @@ public class ManageGeoInfoBean implements Serializable {
 					.setVT1(Double.valueOf(vt1))
 					.setVT2(Double.valueOf(vt2))
 					.setVT3(Double.valueOf(vt3))
-					.setVT4(Double.parseDouble(vt4));
-				
+					.setVT4(Double.valueOf(vt4));
 				List<FormedCoordinate> listFormedCoordinate = setListFormedCoordinate(segmentStreet);
+				
 				segmentStreet = segmentOfStreetService.save(segmentStreet);
-				listFormedCoordinate = formedCoordinateService.saveAll(listFormedCoordinate);
-				if (listSegmentOfStreet == null) {
-					listSegmentOfStreet = new ArrayList<>();
+				
+				listFormedCoordinate = formedCoordinateService.saveAll(segmentStreet.getListFormedCoordinate());
+				if (addNewStreet) {
+					listSegmentOfStreet = new ArrayList();
+					listSegmentOfStreet.add(segmentStreet);
+				}else {
+					listSegmentOfStreet.add(segmentStreet);
 				}
-				listSegmentOfStreet.add(segmentStreet);
+				
 				PrimeFaces.current().executeScript("drawPath()");
 				break;
 			default:
@@ -271,7 +283,7 @@ public class ManageGeoInfoBean implements Serializable {
 			break;
 		}
 				
-		segmentStreet.setListFormedCoordinate(listFormedCoordinate);
+		
 		
 		for (JsonElement jsonElement : jsonArray) {
 			JsonObject temp = (JsonObject)jsonElement;
@@ -281,6 +293,11 @@ public class ManageGeoInfoBean implements Serializable {
 					.setSegmentOfStreet(segmentStreet);
 			listFormedCoordinate.add(coordinate);
 		}
+		
+		jsonMultipleCoordinate = "";
+		
+		segmentStreet.setListFormedCoordinate(listFormedCoordinate);
+		
 		return listFormedCoordinate;
 	}
 	
@@ -306,43 +323,7 @@ public class ManageGeoInfoBean implements Serializable {
 				setMessage(FacesMessage.SEVERITY_ERROR, "Chưa lựa chọn tỉnh thành");
 				return;
 			}
-			Province province = provinceService.findById(Long.valueOf(provinceIdSelected));
-//					listProvince.stream().filter(x->x.getProvinceId().equals(Long.valueOf(provinceIdSelected))).collect(Collectors.toList()).get(0);
-			
-//			if (province.getListDistrict() == null) {
-//				province.setListDistrict(new ArrayList());
-//			}
-//			List<District> listDistrict = province.getListDistrict();
-//			List<SegmentOfStreet> listSegmentStreet = listDistrict.stream().map(x->x.getListSegmentOfStreet())
-//					.flatMap(List::stream).collect(Collectors.toList());
-//			List<Street> listStreet = listSegmentStreet.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
-//			List<FormedCoordinate> listCoordinate = listSegmentStreet.stream().map(x->x.getListFormedCoordinate())
-//					.flatMap(List::stream).collect(Collectors.toList());
-//			
-//			System.out.println("----------------delete coordinate--------------");
-//
-//			formedCoordinateService.delete(listCoordinate);
-//			System.out.println("----------------delete segment--------------");
-//
-//			listSegmentStreet.forEach(x->{
-//				x.getListFormedCoordinate().clear();
-////				x.setDistrict(new District());
-//			});
-//			segmentOfStreetService.delete(listSegmentStreet);
-//			
-//			System.out.println("----------------delete street--------------");
-//
-//			listDistrict.forEach(x->{
-//				x.getListSegmentOfStreet().clear();
-//			});
-//			streetService.delete(listStreet);
-//			
-//			System.out.println("----------------delete district--------------");
-//			districtService.delete(listDistrict);
-//			System.out.println("----------------delete province--------------");
-//			province.getListDistrict().clear();
-//			provinceService.delete(province);
-			
+			Province province = provinceService.findById(Long.valueOf(provinceIdSelected));	
 			provinceService.delete(province);
 			this.listProvince = listProvince.stream().filter(x->!x.getProvinceId().equals(Long.valueOf(provinceIdSelected))).collect(Collectors.toList());
 			provinceIdSelected = "";
@@ -356,26 +337,6 @@ public class ManageGeoInfoBean implements Serializable {
 				return;
 			}
 			District district = districtService.findById(Long.parseLong(districtIdSelected));
-//					this.listDistrict.stream().filter(x->x.getDistrictId().equals(Long.parseLong(districtIdSelected))).collect(Collectors.toList()).get(0);
-//			List<SegmentOfStreet> listSegment = district.getListSegmentOfStreet();
-//			List<FormedCoordinate> listFCoordinate = listSegment.stream().map(x->x.getListFormedCoordinate()).flatMap(List::stream).collect(Collectors.toList());
-//			List<Street> listStreetTemp = listSegment.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
-//			System.out.println("----------------delete coordinate--------------");
-//
-//			
-//			formedCoordinateService.delete(listFCoordinate);
-//			System.out.println("----------------delete segment--------------");
-//
-//			listSegment.forEach(x->{
-//				x.getListFormedCoordinate().clear();
-//				x.setDistrict(new District());
-//			});
-//			segmentOfStreetService.delete(listSegment);
-//			
-//			System.out.println("----------------delete street--------------");
-//			district.getListSegmentOfStreet().clear();
-//			streetService.delete(listStreetTemp);
-//			System.out.println("----------------delete district--------------");
 			districtService.delete(district);
 			
 			this.listDistrict = this.listDistrict.stream().filter(x->!x.getDistrictId().equals(Long.valueOf(districtIdSelected))).collect(Collectors.toList());
@@ -389,21 +350,7 @@ public class ManageGeoInfoBean implements Serializable {
 				setMessage(FacesMessage.SEVERITY_ERROR, "Chưa lựa chọn đường phố");
 				return;
 			}
-			
 			Street street = streetService.findById(Long.parseLong(streetIdSelected));
-//					this.listStreet.stream().filter(x->x.getStreetId().equals(Long.parseLong(streetIdSelected))).collect(Collectors.toList()).get(0);
-//			List<SegmentOfStreet> listSegmentByStreet = street.getListSegmentOfStreet();
-//			List<FormedCoordinate> listCoordinateByStreet = listSegmentByStreet.stream().map(x->x.getListFormedCoordinate()).flatMap(List::stream).collect(Collectors.toList());
-//			System.out.println("----------------delete coordinate--------------");
-//			formedCoordinateService.delete(listCoordinateByStreet);
-//			System.out.println("----------------delete segment--------------");
-//			listSegmentByStreet.forEach(x->{
-//				x.getListFormedCoordinate().clear();
-////				x.setDistrict(new District());
-//			});
-//			segmentOfStreetService.delete(listSegmentByStreet);
-//			System.out.println("----------------delete street--------------");
-			
 			streetService.delete(street);
 			this.listStreet = this.listStreet.stream().filter(x->!x.getStreetId().equals(Long.parseLong(streetIdSelected))).collect(Collectors.toList());
 			streetIdSelected = "";
@@ -416,22 +363,12 @@ public class ManageGeoInfoBean implements Serializable {
 				return;
 			}
 			SegmentOfStreet segment = segmentOfStreetService.findById(Long.parseLong(segmentStreetIdSelected));
-//					this.listSegmentOfStreet.stream().filter(x->x.getSegmentId().equals(Long.parseLong(segmentStreetIdSelected))).collect(Collectors.toList()).get(0);
-//			List<FormedCoordinate> listCoordinateBySegment = segment.getListFormedCoordinate();
-//			
-//			System.out.println("----------------delete coordinate--------------");
-//			formedCoordinateService.delete(listCoordinateBySegment);
-//			System.out.println("----------------delete segment--------------");
-//			segment.getListFormedCoordinate().clear();
-////			segment.setStreet(new Street());
 			Street streetBySegment = segment.getStreet();
 			
 			segmentOfStreetService.delete(segment);
 			
 			if (this.listSegmentOfStreet.size() == 1) {
 				System.out.println("----------------delete street--------------");
-//				streetBySegment.getListSegmentOfStreet().clear();
-//				streetService.delete(streetBySegment);
 				this.listStreet = this.listStreet.stream().filter(x->!x.getStreetId().equals(streetBySegment.getStreetId())).collect(Collectors.toList());
 				streetIdSelected = "";
 			}
@@ -534,16 +471,23 @@ public class ManageGeoInfoBean implements Serializable {
 			
 			List<FormedCoordinate> listFormed = segment.getListFormedCoordinate();
 			formedCoordinateService.delete(listFormed);
+			segment.getListFormedCoordinate().clear();
 			listFormed = setListFormedCoordinate(segment);
-			segmentOfStreetService.save(segment);
-			formedCoordinateService.saveAll(listFormed);
+			
+			segment = segmentOfStreetService.save(segment);
+			listFormed = formedCoordinateService.saveAll(listFormed);
 			for (SegmentOfStreet element:listSegmentOfStreet) {
 				if (element.equals(segment)) {
 					element = segment;
 					break;
 				}
 			}
-			setMessage(FacesMessage.SEVERITY_INFO, "Cập nhật thành công");
+			PrimeFaces.current().executeScript("drawPath()");
+			if (listFormed == null) {
+				setMessage(FacesMessage.SEVERITY_ERROR, "Cập nhật không thành công");
+			}else {
+				setMessage(FacesMessage.SEVERITY_INFO, "Cập nhật thành công");
+			}
 			break;
 		default:
 			break;

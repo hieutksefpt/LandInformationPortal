@@ -98,8 +98,6 @@ public class HousesDetail extends AuditAbstract implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((house == null) ? 0 : house.hashCode());
-		result = prime * result + ((housesFeature == null) ? 0 : housesFeature.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
@@ -115,16 +113,6 @@ public class HousesDetail extends AuditAbstract implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		HousesDetail other = (HousesDetail) obj;
-		if (house == null) {
-			if (other.house != null)
-				return false;
-		} else if (!house.equals(other.house))
-			return false;
-		if (housesFeature == null) {
-			if (other.housesFeature != null)
-				return false;
-		} else if (!housesFeature.equals(other.housesFeature))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -137,7 +125,6 @@ public class HousesDetail extends AuditAbstract implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-    
+
+
 }

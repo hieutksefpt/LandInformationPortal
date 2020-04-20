@@ -115,73 +115,53 @@ public class HousesFeature extends AuditAbstract implements Serializable {
         HousesFeatureDataRange = housesFeatureDataRange;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((HousesFeatureDataRange == null) ? 0 : HousesFeatureDataRange.hashCode());
-        result = prime * result + ((HousesFeatureDataType == null) ? 0 : HousesFeatureDataType.hashCode());
-        result = prime * result + ((housesFeatureID == null) ? 0 : housesFeatureID.hashCode());
-        result = prime * result + ((housesFeatureName == null) ? 0 : housesFeatureName.hashCode());
-        result = prime * result + ((housesFeatureUnit == null) ? 0 : housesFeatureUnit.hashCode());
-        result = prime * result + ((listHousesDetail == null) ? 0 : listHousesDetail.hashCode());
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((HousesFeatureDataRange == null) ? 0 : HousesFeatureDataRange.hashCode());
+		result = prime * result + ((HousesFeatureDataType == null) ? 0 : HousesFeatureDataType.hashCode());
+		result = prime * result + ((housesFeatureID == null) ? 0 : housesFeatureID.hashCode());
+		result = prime * result + ((housesFeatureName == null) ? 0 : housesFeatureName.hashCode());
+		result = prime * result + ((housesFeatureUnit == null) ? 0 : housesFeatureUnit.hashCode());
+		return result;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        HousesFeature other = (HousesFeature) obj;
-        if (HousesFeatureDataRange == null) {
-            if (other.HousesFeatureDataRange != null) {
-                return false;
-            }
-        } else if (!HousesFeatureDataRange.equals(other.HousesFeatureDataRange)) {
-            return false;
-        }
-        if (HousesFeatureDataType == null) {
-            if (other.HousesFeatureDataType != null) {
-                return false;
-            }
-        } else if (!HousesFeatureDataType.equals(other.HousesFeatureDataType)) {
-            return false;
-        }
-        if (housesFeatureID == null) {
-            if (other.housesFeatureID != null) {
-                return false;
-            }
-        } else if (!housesFeatureID.equals(other.housesFeatureID)) {
-            return false;
-        }
-        if (housesFeatureName == null) {
-            if (other.housesFeatureName != null) {
-                return false;
-            }
-        } else if (!housesFeatureName.equals(other.housesFeatureName)) {
-            return false;
-        }
-        if (housesFeatureUnit == null) {
-            if (other.housesFeatureUnit != null) {
-                return false;
-            }
-        } else if (!housesFeatureUnit.equals(other.housesFeatureUnit)) {
-            return false;
-        }
-        if (listHousesDetail == null) {
-            if (other.listHousesDetail != null) {
-                return false;
-            }
-        } else if (!listHousesDetail.equals(other.listHousesDetail)) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HousesFeature other = (HousesFeature) obj;
+		if (HousesFeatureDataRange == null) {
+			if (other.HousesFeatureDataRange != null)
+				return false;
+		} else if (!HousesFeatureDataRange.equals(other.HousesFeatureDataRange))
+			return false;
+		if (HousesFeatureDataType == null) {
+			if (other.HousesFeatureDataType != null)
+				return false;
+		} else if (!HousesFeatureDataType.equals(other.HousesFeatureDataType))
+			return false;
+		if (housesFeatureID == null) {
+			if (other.housesFeatureID != null)
+				return false;
+		} else if (!housesFeatureID.equals(other.housesFeatureID))
+			return false;
+		if (housesFeatureName == null) {
+			if (other.housesFeatureName != null)
+				return false;
+		} else if (!housesFeatureName.equals(other.housesFeatureName))
+			return false;
+		if (housesFeatureUnit == null) {
+			if (other.housesFeatureUnit != null)
+				return false;
+		} else if (!housesFeatureUnit.equals(other.housesFeatureUnit))
+			return false;
+		return true;
+	}
+    
 }

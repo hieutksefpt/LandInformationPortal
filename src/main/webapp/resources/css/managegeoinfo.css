@@ -26,3 +26,7 @@
 .ui-dialog-content{
 	overflow-x:hidden !important;
 }
+.ajax-loader{
+	font-size: 4em;
+	color: white;
+}

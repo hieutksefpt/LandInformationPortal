@@ -96,8 +96,6 @@ public class LandsDetail extends AuditAbstract implements Serializable{
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((land == null) ? 0 : land.hashCode());
-		result = prime * result + ((landsFeature == null) ? 0 : landsFeature.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
 	}
@@ -117,16 +115,6 @@ public class LandsDetail extends AuditAbstract implements Serializable{
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (land == null) {
-			if (other.land != null)
-				return false;
-		} else if (!land.equals(other.land))
-			return false;
-		if (landsFeature == null) {
-			if (other.landsFeature != null)
-				return false;
-		} else if (!landsFeature.equals(other.landsFeature))
-			return false;
 		if (value == null) {
 			if (other.value != null)
 				return false;
@@ -134,6 +122,6 @@ public class LandsDetail extends AuditAbstract implements Serializable{
 			return false;
 		return true;
 	}
-    
-	
+
+
 }

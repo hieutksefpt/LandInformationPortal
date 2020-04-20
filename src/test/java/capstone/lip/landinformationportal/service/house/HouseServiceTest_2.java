@@ -20,7 +20,7 @@ public class HouseServiceTest_2 extends AbstractHouseServiceTest {
     private ArrayList<House> getListHouses() {
         ArrayList<House> houses = new ArrayList();
         for (int i = 0; i < EXISTED_IDs.length; i++) {
-            houses.add(sampleHouse.setHouseId(EXISTED_IDs[i]));
+            houses.add(repository.findById(EXISTED_IDs[i]).get());
         }
         return houses;
     }
@@ -115,7 +115,7 @@ public class HouseServiceTest_2 extends AbstractHouseServiceTest {
     public void FT_HS_2_07() {
         long records = repository.count();
         ArrayList<House> houses = new ArrayList();
-        houses.add(sampleHouse.setHouseId(EXISTED_ID));
+        houses.add(repository.findById(EXISTED_ID).get());
         boolean result = instance.delete(houses);
         
         testDeleteSuccess(result, EXISTED_ID, records);

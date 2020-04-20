@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -15,6 +16,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import capstone.lip.landinformationportal.common.UserRoleConstant;
+import capstone.lip.landinformationportal.common.UserStatusConstant;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.repository.UserRepository;
 import capstone.lip.landinformationportal.utils.EncryptedPassword;
@@ -39,9 +41,9 @@ public class CustomAuthenticationManager implements AuthenticationManager, Seria
 	    if (!EncryptedPassword.checkPassword(password, user.getPassword())) {
 	        throw new BadCredentialsException("1000");
 	    }
-//	    if (user.isDisabled()) {
-//	        throw new DisabledException("1001");
-//	    }
+	    if (user.getUserStatus().equals(UserStatusConstant.BAN)) {
+	        throw new DisabledException("1001");
+	    }
 	    
 	    List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 	    if (user.getRole().equals(UserRoleConstant.ADMIN)) {

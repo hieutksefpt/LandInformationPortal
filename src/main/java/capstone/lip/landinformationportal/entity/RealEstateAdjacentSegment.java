@@ -80,8 +80,6 @@ public class RealEstateAdjacentSegment extends AuditAbstract implements Serializ
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((realEstate == null) ? 0 : realEstate.hashCode());
-		result = prime * result + ((segmentOfStreet == null) ? 0 : segmentOfStreet.hashCode());
 		return result;
 	}
 
@@ -99,17 +97,8 @@ public class RealEstateAdjacentSegment extends AuditAbstract implements Serializ
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (realEstate == null) {
-			if (other.realEstate != null)
-				return false;
-		} else if (!realEstate.equals(other.realEstate))
-			return false;
-		if (segmentOfStreet == null) {
-			if (other.segmentOfStreet != null)
-				return false;
-		} else if (!segmentOfStreet.equals(other.segmentOfStreet))
-			return false;
 		return true;
 	}
-    
+
+	
 }

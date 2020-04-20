@@ -108,6 +108,7 @@ function addDataToNewRow(marker){
 		));
 }
 function addNewRowCoordinate(){
+	$('#div-multiple').show();
 	var newRow = $("<tr>");
     var cols = "";
 	cols+= '<td class="td-lng"><input type="text" readonly name="longitude" id="lng-'+countRow+'" class="form-control longitude-multi""/></td>';
@@ -192,9 +193,9 @@ function drawPath(){
 	path.push(element);
 }
 
-function focusMap(latitude, longitude){
+function focusMap(latitude, longitude, zoom){
     map.setCenter(new google.maps.LatLng(latitude, longitude));
-    map.setZoom(15);
+    map.setZoom(zoom);
 }
 function changeInfo(name, longitude, latitude){
 	$('#form\\:txtinput-Name').val(name);

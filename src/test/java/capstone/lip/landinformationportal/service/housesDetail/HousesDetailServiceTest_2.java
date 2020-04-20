@@ -64,7 +64,7 @@ public class HousesDetailServiceTest_2 extends AbstractHousesDetailServiceTest {
         details.add(repository.findByIdHouseIdAndIdHousesFeatureId(EXISTED_ID, EXISTED_ID));
         boolean result = instance.delete(details);
         
-        testDeleteSuccess(result, EXISTED_ID, records);
+        testDeleteSuccess(result, details, records);
     }
     
     /**
@@ -93,7 +93,7 @@ public class HousesDetailServiceTest_2 extends AbstractHousesDetailServiceTest {
         ArrayList<HousesDetail> details = getListHousesDetails();
         boolean result = instance.delete(details);
         
-        testDeleteSuccess(result, EXISTED_ID, records);
+        testDeleteSuccess(result, details, records);
     }
     
     /**
@@ -197,7 +197,7 @@ public class HousesDetailServiceTest_2 extends AbstractHousesDetailServiceTest {
         details.add(repository.findByIdHouseIdAndIdHousesFeatureId(EXISTED_ID, EXISTED_ID));
         boolean result = instance.delete(details);
         
-        testDeleteSuccess(result, EXISTED_ID, records);
+        testDeleteSuccess(result, details, records);
     }
     
     /**

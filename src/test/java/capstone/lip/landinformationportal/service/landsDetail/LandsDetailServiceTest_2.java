@@ -64,7 +64,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
         details.add(repository.findByIdLandIdAndIdLandsFeatureId(EXISTED_ID, EXISTED_ID));
         boolean result = instance.delete(details);
         
-        testDeleteSuccess(result, EXISTED_ID, records);
+        testDeleteSuccess(result, details, records);
     }
     
     /**
@@ -93,7 +93,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
         ArrayList<LandsDetail> details = getListLandsDetails();
         boolean result = instance.delete(details);
         
-        testDeleteSuccess(result, EXISTED_ID, records);
+        testDeleteSuccess(result, details, records);
     }
     
     /**
@@ -197,7 +197,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
         details.add(repository.findByIdLandIdAndIdLandsFeatureId(EXISTED_ID, EXISTED_ID));
         boolean result = instance.delete(details);
         
-        testDeleteSuccess(result, EXISTED_ID, records);
+        testDeleteSuccess(result, details, records);
     }
     
     /**

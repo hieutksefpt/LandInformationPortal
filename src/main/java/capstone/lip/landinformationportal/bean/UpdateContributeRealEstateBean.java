@@ -154,9 +154,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         long realEstateId = Long.parseLong(params.get("realEstateId"));
         listProvince = provinceService.findAll();
-        listDistrict = new ArrayList<>();
-        listSegmentOfStreet = new ArrayList<>();
-        listStreet = new ArrayList<>();
+        
         listLandsFeature = landFeatureService.findAll();
         listHousesFeature = housesFeatureService.findAll();
         realEstateClicked = realEstateService.findById(realEstateId);
@@ -194,6 +192,19 @@ public class UpdateContributeRealEstateBean implements Serializable {
         districtIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getDistrictId().toString();
         streetIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getStreet().getStreetId().toString();
         provinceIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getProvince().getProvinceId().toString();
+        
+        for(Province province: listProvince ){
+            if(province.getProvinceId().equals(provinceIdSelected)){
+                listDistrict = province.getListDistrict();
+            }
+        }
+        for(District district : listDistrict ){
+            if(district.getDistrictId().equals(districtIdSelected)){
+                listSegmentOfStreet = district.getListSegmentOfStreet();
+            }
+        }
+        
+        listStreet = listSegmentOfStreet.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
         typeRealEstate = "Đất và Nhà";
     }
 

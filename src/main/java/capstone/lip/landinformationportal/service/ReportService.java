@@ -4,8 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import capstone.lip.landinformationportal.entity.Report;
+import capstone.lip.landinformationportal.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.repository.ReportRepository;
+import capstone.lip.landinformationportal.repository.UserRepository;
+import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IReportService;
+import capstone.lip.landinformationportal.service.Interface.IUserService;
+import capstone.lip.landinformationportal.validation.ReportValidate;
 
 @Service
 public class ReportService implements IReportService {
@@ -13,10 +18,28 @@ public class ReportService implements IReportService {
     @Autowired
     private ReportRepository reportRepository;
 
+    @Autowired
+    private IUserService userService;
+    
+    @Autowired
+    private IRealEstateService realEstateService;
+    
     @Override
     public Report save(Report report) {
         try {
-        	if (report == null) throw new Exception("null");
+        	ReportValidate validate = new ReportValidate();
+        	String error = validate.isValidReport(report);
+        	if (!error.isEmpty()) {
+        		throw new Exception(error);
+        	}
+        	if (userService.findById(report.getId().getUserId()) == null) {
+        		throw new Exception("User not found");
+        	};
+        	if (realEstateService.findById(report.getId().getRealestateId()) == null){
+        		throw new Exception("Realestate not found");
+        	}
+        	
+        	
             return reportRepository.save(report);
         } catch (Exception e) {
             e.printStackTrace();
@@ -37,7 +60,14 @@ public class ReportService implements IReportService {
     @Override
     public boolean delete(Report report) {
         try {
-        	if (report == null) throw new Exception("null");
+        	ReportValidate validate = new ReportValidate();
+        	String error = validate.isValidReport(report);
+        	if (!error.isEmpty()) {
+        		throw new Exception(error);
+        	}
+        	if (findById(report.getId().getRealestateId(), report.getId().getUserId())==null) {
+        		throw new Exception("Id not found");
+        	}
             reportRepository.delete(report);
             return true;
         } catch (Exception e) {

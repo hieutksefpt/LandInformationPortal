@@ -23,6 +23,11 @@ public class FeedbackService implements IFeedbackService {
 	@Override
 	public Feedback save(Feedback feedback) {
 		try {
+			FeedbackValidation validate = new FeedbackValidation();
+			String error = validate.isValidFeedback(feedback);
+			if (!error.isEmpty()) {
+				throw new Exception(error);
+			}
 			return feedbackRepository.save(feedback);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -34,6 +39,9 @@ public class FeedbackService implements IFeedbackService {
 	@Override
 	public boolean delete(Feedback feedback){
 		try {
+			if (findById(feedback.getFeedBackID())==null) {
+				throw new Exception("Id not found");
+			}
 			feedbackRepository.delete(feedback);
 			return true;
 		} catch (Exception e) {
@@ -74,6 +82,7 @@ public class FeedbackService implements IFeedbackService {
 		try {
 			FeedbackValidation validate = new FeedbackValidation();
 			String error = validate.isValidFeedback(feedback);
+			if (error.isEmpty()) error = validate.isValidFeedbackReply(feedback);
 			if (!error.isEmpty()) {
 				throw new Exception(error);
 			}
@@ -90,6 +99,11 @@ public class FeedbackService implements IFeedbackService {
 	@Override
 	public Page<Feedback> findByFeedbackStatus(String feedbackStatus, Pageable page) {
 		try {
+			FeedbackValidation validate = new FeedbackValidation();
+			String error = validate.isValidStatus(new Feedback().setFeedbackStatus(feedbackStatus));
+			if (!error.isEmpty()) {
+				throw new Exception(error);
+			}
 			return feedbackRepository.findByFeedbackStatus(feedbackStatus, page);
 		} catch (Exception e) {
 			e.printStackTrace();

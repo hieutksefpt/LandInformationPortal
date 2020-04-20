@@ -54,7 +54,7 @@ public abstract class AbstractRealEstateAdjacentSegmentServiceTest extends CRUDT
     protected ArrayList<RealEstateAdjacentSegment> getListRealEstateAdjacentSegments() {
         ArrayList<RealEstateAdjacentSegment> details = new ArrayList();
         for (int i = 0; i < EXISTED_IDs.length; i++) {
-            details.add(repository.findByIdSegmentIdAndRealEstateId(EXISTED_ID, EXISTED_ID));
+            details.add(repository.findByIdSegmentOfStreetIdAndIdRealEstateId(EXISTED_ID, EXISTED_ID));
         }
         return details;
     }
@@ -63,7 +63,7 @@ public abstract class AbstractRealEstateAdjacentSegmentServiceTest extends CRUDT
         //Update success
         if (result != null) {
             RealEstateAdjacentSegment actual = repository
-                    .findByIdSegmentIdAndRealEstateId(
+                    .findByIdSegmentOfStreetIdAndIdRealEstateId(
                             result.getId().getSegmentOfStreetId(),
                             result.getId().getRealEstateId());
             //Compare others
@@ -79,7 +79,7 @@ public abstract class AbstractRealEstateAdjacentSegmentServiceTest extends CRUDT
         //Update success
         if (result != null) {
             RealEstateAdjacentSegment actual = repository
-                    .findByIdSegmentIdAndRealEstateId(
+                    .findByIdSegmentOfStreetIdAndIdRealEstateId(
                             result.getId().getSegmentOfStreetId(),
                             result.getId().getRealEstateId());
             //Compare others
@@ -96,7 +96,7 @@ public abstract class AbstractRealEstateAdjacentSegmentServiceTest extends CRUDT
         if (results != null) {
             for (RealEstateAdjacentSegment result : results) {
                 RealEstateAdjacentSegment actual = repository
-                    .findByIdSegmentIdAndRealEstateId(
+                    .findByIdSegmentOfStreetIdAndIdRealEstateId(
                             result.getId().getSegmentOfStreetId(),
                             result.getId().getRealEstateId());
             //Compare others
@@ -116,7 +116,7 @@ public abstract class AbstractRealEstateAdjacentSegmentServiceTest extends CRUDT
             //Test exist in DB
             for (RealEstateAdjacentSegment detail : details) {
                 assertEquals(true, repository
-                        .findByIdSegmentIdAndRealEstateId(
+                        .findByIdSegmentOfStreetIdAndIdRealEstateId(
                                 detail.getId().getSegmentOfStreetId(), 
                                 detail.getId().getRealEstateId()) == null);
             }

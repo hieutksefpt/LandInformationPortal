@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-
 import capstone.lip.landinformationportal.dto.Coordinate;
 import capstone.lip.landinformationportal.dto.HouseFeatureValue;
 import capstone.lip.landinformationportal.dto.LandFeatureValue;
@@ -66,9 +65,9 @@ import javax.faces.context.ExternalContext;
 @ViewScoped
 public class ContributeNewRealEstateBean implements Serializable, StatusRealEstateConstant {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Autowired
+    @Autowired
     private IRealEstateService realEstateService;
 
     @Autowired
@@ -230,7 +229,11 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 
         if (variableSuccess == true) {
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-            ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
+            try {
+                ec.redirect(ec.getRequestContextPath() + "/user/listownrealestate.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -284,35 +287,36 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
             }
         }
     }
-    
-    public RealEstate validateInfor(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice,String realEstateStatus, User tempUser) {
-    	try {
-    		RealEstateValidation rev = new RealEstateValidation();
+
+    public RealEstate validateInfor(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice, String realEstateStatus, User tempUser) {
+        try {
+            RealEstateValidation rev = new RealEstateValidation();
             RealEstate newUploadRealEstate = new RealEstate().setRealEstateName(realEstateName)
                     .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
                     .setRealEstateAddress(realEstateAddress);
             newUploadRealEstate.setRealEstatePrice(realEstatePrice);
             newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
-            if(rev.checkRealEstateValidation(newUploadRealEstate).equals("AcceptRealEstate")){
-                  return newUploadRealEstate;
+            if (rev.checkRealEstateValidation(newUploadRealEstate).equals("AcceptRealEstate")) {
+                return newUploadRealEstate;
+            } else {
+                return null;
             }
-            else return null;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
-    
+
     public Land validateLandInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney, List<LandFeatureValue> listLandFeatureValue) {
-    	try {
-    		RealEstateValidation rev = new RealEstateValidation();
+        try {
+            RealEstateValidation rev = new RealEstateValidation();
             Land tempLand = new Land();
             tempLand.setLandName(newLandName);
             tempLand.setLandPrice(new BigDecimal(newLandMoney.toString()));
             tempLand.setRealEstate(newUploadRealEstate);
-            
-            if (rev.checkLandValidation(tempLand,listLandFeatureValue)) {
+
+            if (rev.checkLandValidation(tempLand, listLandFeatureValue)) {
                 return tempLand;
 //                landRepository.save(tempLand);
             } else {
@@ -320,22 +324,22 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
             }
 
             return tempLand;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
-    
+
     public House validateHouseInfor(RealEstate newUploadRealEstate, String newHouseName, BigDecimal newHouseMoney, List<HouseFeatureValue> listHouseFeatureValue) {
-    	try {
-    		RealEstateValidation rev = new RealEstateValidation();
+        try {
+            RealEstateValidation rev = new RealEstateValidation();
             House tempHouse = new House();
             tempHouse.setHouseName(newHouseName);
             tempHouse.setHousePrice(new BigDecimal(newHouseMoney.toString()));
             tempHouse.setRealEstate(newUploadRealEstate);
-            
-            if (rev.checkHouseValidation(tempHouse,listHouseFeatureValue)) {
+
+            if (rev.checkHouseValidation(tempHouse, listHouseFeatureValue)) {
                 return tempHouse;
 //                landRepository.save(tempLand);
             } else {
@@ -343,18 +347,18 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
             }
 
             return tempHouse;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
-    
-    public List<HousesDetail> validateHouseDetailInfor(House tempHouse, List<HouseFeatureValue> listHouseFeatureValue){
-    	try {
-    		RealEstateValidation rev = new RealEstateValidation();
+
+    public List<HousesDetail> validateHouseDetailInfor(House tempHouse, List<HouseFeatureValue> listHouseFeatureValue) {
+        try {
+            RealEstateValidation rev = new RealEstateValidation();
             ArrayList<HousesDetail> ahd = new ArrayList<>();
-            if (rev.checkHouseDetailValidation(tempHouse) && rev.checkHouseValidation(tempHouse,listHouseFeatureValue)) {
+            if (rev.checkHouseDetailValidation(tempHouse) && rev.checkHouseValidation(tempHouse, listHouseFeatureValue)) {
                 for (int i = 0; i < listHouseFeatureValue.size(); i++) {
                     HousesDetailId tempHDI = new HousesDetailId();
                     tempHDI.setHouseId(tempHouse.getHouseId());
@@ -367,18 +371,18 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
                 }
             }
             return ahd;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
-    
-    public List<LandsDetail> validateLandDetailInfor(Land tempLand, List<LandFeatureValue> listLandFeatureValue ){
-    	try {
-    		RealEstateValidation rev = new RealEstateValidation();
+
+    public List<LandsDetail> validateLandDetailInfor(Land tempLand, List<LandFeatureValue> listLandFeatureValue) {
+        try {
+            RealEstateValidation rev = new RealEstateValidation();
             ArrayList<LandsDetail> ald = new ArrayList<>();
-            if (rev.checkLandDetailValidation(tempLand) && rev.checkLandValidation(tempLand,listLandFeatureValue)) {
+            if (rev.checkLandDetailValidation(tempLand) && rev.checkLandValidation(tempLand, listLandFeatureValue)) {
                 for (int i = 0; i < listLandFeatureValue.size(); i++) {
                     LandsDetailId tempLDI = new LandsDetailId();
                     tempLDI.setLandId(tempLand.getLandId());
@@ -391,16 +395,16 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
                 }
             }
             return ald;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
-    
+
     public RealEstateAdjacentSegment validateRealEstateAdjacentInfor(RealEstate newUploadRealEstate, RealEstateAdjacentSegmentId realEstateAdjacentSegmentId) {
-    	try {
-    		RealEstateValidation rev = new RealEstateValidation();
+        try {
+            RealEstateValidation rev = new RealEstateValidation();
             if (rev.checkRealEstateSegmentValidation(newUploadRealEstate)) {
                 RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
                 newRealEstateAdjacentSegment.setRealEstate(newUploadRealEstate);
@@ -409,13 +413,12 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
 //                        realEstateAdjacentSegmentRepository.save(newRealEstateAdjacentSegment);
             }
             return null;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
-    
 
     // function call when Ajax listener (textbox Price change value)
     public void calculateRealEstateValue() {
@@ -441,7 +444,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
                 // Math Exception BigDecimal
             }
         } catch (Exception e) {
-                // typing number to get Null Pointer Exception
+            // typing number to get Null Pointer Exception
         }
 
     }

@@ -84,7 +84,6 @@ public class FormedCoordinate extends AuditAbstract implements Serializable {
 		result = prime * result + ((formedCoordinateId == null) ? 0 : formedCoordinateId.hashCode());
 		result = prime * result + ((formedLat == null) ? 0 : formedLat.hashCode());
 		result = prime * result + ((formedLng == null) ? 0 : formedLng.hashCode());
-		result = prime * result + ((segmentOfStreet == null) ? 0 : segmentOfStreet.hashCode());
 		return result;
 	}
 
@@ -112,13 +111,7 @@ public class FormedCoordinate extends AuditAbstract implements Serializable {
 				return false;
 		} else if (!formedLng.equals(other.formedLng))
 			return false;
-		if (segmentOfStreet == null) {
-			if (other.segmentOfStreet != null)
-				return false;
-		} else if (!segmentOfStreet.equals(other.segmentOfStreet))
-			return false;
 		return true;
 	}
-	
-	
+
 }

@@ -36,6 +36,8 @@ public abstract class CRUDTest {
     protected final Double DEFAULT_LNG = 99.0;
     protected final BigDecimal DEFAULT_PRICE = BigDecimal.valueOf(999999);
     
+    protected final String DEFAULT_EMAIL = "lipsystem.capstone@gmail.com";
+    
     protected final String EMPTY_STRING = "";
     protected final String ALPHABETIC_STRING = "Land Information Portal";
     protected final String NUMERIC_STRING = "123456789";
@@ -62,6 +64,11 @@ public abstract class CRUDTest {
     protected final BigDecimal POSITIVE_PRICE = BigDecimal.valueOf(999999);
     protected final BigDecimal NEGATIVE_PRICE = BigDecimal.valueOf(-999999);
     protected final BigDecimal ZERO_PRICE = BigDecimal.ZERO;
+    
+    protected final int PAGE_SIZE = 2;
+    protected final int EXISTED_PAGE = 1;
+    protected final int NOT_EXISTED_PAGE = -1;
+    protected final int OUT_RANGE_PAGE = 99999;
     
     protected void testFail(boolean result) {
         //Delete fail

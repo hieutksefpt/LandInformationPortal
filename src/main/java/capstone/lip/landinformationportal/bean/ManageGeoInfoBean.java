@@ -123,7 +123,10 @@ public class ManageGeoInfoBean implements Serializable {
 			
 			List<SegmentOfStreet>listTemp = selectedDistrict.getListSegmentOfStreet();
 			if (listTemp != null)
-			listStreet = listTemp.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
+				listStreet = listTemp.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
+			else {
+				listStreet = new ArrayList<>();
+			}
 		}else {
 			listStreet = new ArrayList<>();
 			listSegmentOfStreet = new ArrayList<>();

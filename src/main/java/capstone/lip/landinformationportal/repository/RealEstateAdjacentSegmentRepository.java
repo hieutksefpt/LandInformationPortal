@@ -15,5 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RealEstateAdjacentSegmentRepository extends JpaRepository<RealEstateAdjacentSegment, Long>{
-    RealEstateAdjacentSegment findByIdSegmentIdAndRealEstateId (Long segmentId, Long RealEstateId);
+    RealEstateAdjacentSegment findByIdSegmentOfStreetIdAndIdRealEstateId (Long segmentId, Long realEstateId);
 }

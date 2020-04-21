@@ -88,7 +88,7 @@ public class Feedback extends AuditAbstract implements Serializable{
 		result = prime * result + ((feedbackContent == null) ? 0 : feedbackContent.hashCode());
 		result = prime * result + ((feedbackStatus == null) ? 0 : feedbackStatus.hashCode());
 		result = prime * result + ((feedbackTitle == null) ? 0 : feedbackTitle.hashCode());
-		
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 	@Override
@@ -125,7 +125,11 @@ public class Feedback extends AuditAbstract implements Serializable{
 				return false;
 		} else if (!feedbackTitle.equals(other.feedbackTitle))
 			return false;
-		
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
 		return true;
 	}
     

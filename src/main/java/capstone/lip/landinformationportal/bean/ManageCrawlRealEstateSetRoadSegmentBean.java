@@ -71,6 +71,9 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 	}
 	public void provinceChange() {
 		if (provinceIdSelected.isEmpty()) {
+			listDistrict = new ArrayList<>();
+			listSegment = new ArrayList<>();
+			listStreet = new ArrayList<>();
 			return;
 		}
 		Province provinceSelected = listProvince.stream().filter(x->x.getProvinceId().toString().equals(provinceIdSelected))
@@ -79,6 +82,8 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 	}
 	public void districtChange() {
 		if (districtIdSelected.isEmpty()) {
+			listSegment = new ArrayList<>();
+			listStreet = new ArrayList<>();
 			return;
 		}
 		District districtSelected = listDistrict.stream().filter(x->x.getDistrictId().toString().equals(districtIdSelected))
@@ -88,6 +93,7 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 	}
 	public void streetChange() {
 		if (streetIdSelected.isEmpty()) {
+			listSegment = new ArrayList<>();
 			return;
 		}
 		Street streetSelected = listStreet.stream().filter(x->x.getStreetId().toString().equals(streetIdSelected))
@@ -111,7 +117,9 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 		PrimeFaces.current().executeScript("drawPath('"+json+"')");
 	}
 	public void saveSegmentToReo() {
+		
 		if (listAdjacentSegment == null || listAdjacentSegment.isEmpty()) {
+			setMessage(FacesMessage.SEVERITY_ERROR, "Chưa chọn đoạn đường");
 			return;
 		} 
 		
@@ -123,7 +131,6 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 	}
 	
 	public void setMessage(FacesMessage.Severity severityType, String message) {
-		
 		FacesMessage msg = new FacesMessage();
 		if (severityType == FacesMessage.SEVERITY_ERROR) {
 			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Lỗi", message);
@@ -136,6 +143,7 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 	}
 	public void addSegment() {
 		if (roadSegmentIdSelected.isEmpty()) {
+			setMessage(FacesMessage.SEVERITY_ERROR, "Chưa chọn đoạn đường");
 			return;
 		} 
 		if (listAdjacentSegment == null) {
@@ -148,6 +156,10 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 				.setId(new RealEstateAdjacentSegmentId(segment.getSegmentId(), realEstate.getRealEstateId()))
 				.setRealEstate(realEstate)
 				.setSegmentOfStreet(segment);
+		if (listAdjacentSegment.size()>=1) {
+			realEstate.setRealEstateAddress(segment.getSegmentName()+", "+segment.getStreet().getStreetName()+
+					", "+segment.getDistrict().getDistrictName()+segment.getDistrict().getProvince().getProvinceName() );
+		}
 		if (!listAdjacentSegment.contains(reoAdj)) {
 			listAdjacentSegment.add(reoAdj);
 		}

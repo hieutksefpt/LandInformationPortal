@@ -367,6 +367,11 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 	}
 	public boolean crawlNow() {
 		try {
+			if (scheduler!= null) {
+				if (!scheduler.isStarted()) {
+					scheduler.start();
+				}
+			}
 			JobDetail jobNow = JobBuilder.newJob(CrawlRealEstateNowJob.class).storeDurably(true).withIdentity(jobKeyNow).build();
 			scheduler.addJob(jobNow, true);
 			scheduler.triggerJob(jobKeyNow);

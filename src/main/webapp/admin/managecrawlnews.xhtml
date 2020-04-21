@@ -43,8 +43,8 @@
 		            	
             		</div>
             		<div class="col-3">
-            			<h:commandButton value="Crawl ngay" id="btn-CrawlNow" onclick="renderMessageCrawlNow()">
-		            		<p:ajax process="@form" listener="#{manageCrawlNewsBean.crawlNow()}"></p:ajax>
+            			<h:commandButton value="Crawl ngay" id="btn-CrawlNow">
+		            		<p:ajax process="@form" oncomplete="renderMessageCrawlNow()" listener="#{manageCrawlNewsBean.crawlNow()}"></p:ajax>
 		           		</h:commandButton>
 		           		
             		</div>

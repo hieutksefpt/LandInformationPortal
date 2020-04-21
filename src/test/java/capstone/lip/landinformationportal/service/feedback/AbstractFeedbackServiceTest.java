@@ -92,7 +92,7 @@ public abstract class AbstractFeedbackServiceTest extends CRUDTest {
     }
     
     protected void testFindSuccess(long id, Feedback feedback) {
-        assertEquals(repository.findById(id), feedback);
+        assertEquals(repository.findById(id).get(), feedback);
     }
     
     protected void testReplySuccess(boolean result, Feedback input) {

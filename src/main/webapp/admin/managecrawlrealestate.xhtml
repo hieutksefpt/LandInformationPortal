@@ -15,6 +15,10 @@
 		<ui:define name="content">
 			<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
 			<h:outputStylesheet name="managecrawlrealestate.css" library="css"></h:outputStylesheet>
+            <div id="loader" style="width:64px;height:64px;position:fixed;left:5px;bottom:5px;display:none;">
+            	<i class="pi pi-spin pi-spinner ajax-loader"/>
+            </div>
+            <p:ajaxStatus onstart="$('#loader').show()" onsuccess="$('#loader').hide()" />
             <h:form onsubmit="return false;" prependId="false">
             	<p:growl id="msgs" showDetail="true" widgetVar="alert"/>
             	<div class="row form-group">
@@ -48,8 +52,8 @@
             		</div>
 	            	<div class="col-3">
 	            		<div class="row">
-	            			<h:commandButton id="btn-CrawlNow" value="Crawl ngay" onclick="renderMessageCrawlNow()">
-			            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.crawlNow()}"></p:ajax>
+	            			<h:commandButton id="btn-CrawlNow" value="Crawl ngay">
+			            		<p:ajax process="@form" update="@form" oncomplete="renderMessageCrawlNow()" listener="#{manageCrawlRealEstateBean.crawlNow()}"></p:ajax>
 			           		</h:commandButton>
 	            		</div>
 	            	</div>
@@ -150,7 +154,8 @@
 					                    		<tbody>
 						                    	<c:forEach items="#{beanPopup.listAdjacentSegment}" var="element">
 			                                    	<tr>
-			                                    		<td>#{element.segmentOfStreet.segmentName}</td>
+			                                    		<td>#{element.segmentOfStreet.segmentName}, #{element.segmentOfStreet.street.streetName}
+			                                    		, #{element.segmentOfStreet.district.districtName}</td>
 			                                    	</tr>
 			                                    </c:forEach>
 			                                    </tbody>
@@ -163,8 +168,14 @@
 			                    	<div class="col text-center">
 			                    		<h:commandButton value="Lưu" 
 			                    			action="#{beanPopup.saveSegmentToReo()}">
-					                        <f:ajax render="tabledata"/> 
-					                        <f:actionListener binding="#{manageCrawlRealEstateBean.refreshData()}"></f:actionListener>
+			                    			<p:ajax process="popup" update="popup" oncomplete="initMap(#{beanPopup.realEstate.realEstateLat},#{beanPopup.realEstate.realEstateLng})">
+			                    			
+			                    			</p:ajax>
+			                    			<ui:remove>
+				                    			<f:ajax render="tabledata"/> 
+						                        <f:actionListener binding="#{manageCrawlRealEstateBean.refreshData()}"></f:actionListener>
+			                    			</ui:remove>
+					                        
 					                    </h:commandButton>
 			                    	</div>
 			                    	<div class="col text-center">

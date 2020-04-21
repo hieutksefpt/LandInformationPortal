@@ -36,9 +36,8 @@ public class ManageFeedbackBean implements Serializable{
 	public void replyFeedbackClick() {
 		
 		feedbackClick.setFeedbackAdminReply(replyMessage);
-		FeedbackValidation validate = new FeedbackValidation();
-		String error = validate.isValidFeedback(feedbackClick);
-		if (!error.isEmpty()) {
+		if (feedbackClick.getFeedbackAdminReply()==null || 
+				(feedbackClick.getFeedbackAdminReply()!=null && feedbackClick.getFeedbackAdminReply().isEmpty())) {
 			setMessage(FacesMessage.SEVERITY_ERROR, "Nội dung phản hồi không được để trống");
 			return;
 		}

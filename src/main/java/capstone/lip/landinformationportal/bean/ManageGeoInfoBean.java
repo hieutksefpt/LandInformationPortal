@@ -30,6 +30,8 @@ import capstone.lip.landinformationportal.service.Interface.IFormedCoordinate;
 import capstone.lip.landinformationportal.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.service.Interface.ISegmentOfStreetService;
 import capstone.lip.landinformationportal.service.Interface.IStreetService;
+import capstone.lip.landinformationportal.validation.StreetValidation;
+
 import java.io.Serializable;
 
 @Named
@@ -196,6 +198,10 @@ public class ManageGeoInfoBean implements Serializable {
 				province.setProvinceName(nameInput).setProvinceLat(Double.valueOf(latSingleCoordinate))
 					.setProvinceLng(Double.valueOf(lngSingleCoordinate));
 				province = provinceService.save(province);
+				if (province == null) {
+					setMessage(FacesMessage.SEVERITY_ERROR, "Có lỗi xảy ra");
+					return;
+				}
 //				listProvince = provinceService.findAll();
 				listProvince.add(province);
 				break;
@@ -208,6 +214,10 @@ public class ManageGeoInfoBean implements Serializable {
 				district.setDistrictName(nameInput).setDistrictLat(Double.valueOf(latSingleCoordinate))
 					.setDistrictLng(Double.valueOf(lngSingleCoordinate)).setProvince(selectedProvince);
 				district = districtService.save(district);
+				if (district == null) {
+					setMessage(FacesMessage.SEVERITY_ERROR, "Có lỗi xảy ra");
+					return;
+				}
 				if (listDistrict == null) listDistrict = new ArrayList<>();
 				listDistrict.add(district);
 				
@@ -225,6 +235,11 @@ public class ManageGeoInfoBean implements Serializable {
 				street.setStreetName(nameInput).setStreetLat(Double.valueOf(latSingleCoordinate))
 					.setStreetLng(Double.valueOf(lngSingleCoordinate));
 				streetTemp = street;
+				StreetValidation streetValidate = new StreetValidation();
+				if (!streetValidate.isValidStreet(street).isEmpty()) {
+					setMessage(FacesMessage.SEVERITY_ERROR, "Có lỗi xảy ra");
+					return;
+				}
 				msg.setSeverity(FacesMessage.SEVERITY_WARN);
 				msg = new FacesMessage("Lưu ý", "Hãy thêm 1 đoạn đường trên đường này");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -235,6 +250,10 @@ public class ManageGeoInfoBean implements Serializable {
 				if (street != null && !listStreet.contains(street)) {
 					addNewStreet = true;
 					street = streetService.save(streetTemp);
+					if (street == null) {
+						setMessage(FacesMessage.SEVERITY_ERROR, "Có lỗi xảy ra");
+						return;
+					}
 					if (listStreet == null) listStreet = new ArrayList<>();
 					listStreet.add(street);
 					streetIdSelected = street.getStreetId().toString();
@@ -253,8 +272,16 @@ public class ManageGeoInfoBean implements Serializable {
 				List<FormedCoordinate> listFormedCoordinate = setListFormedCoordinate(segmentStreet);
 				
 				segmentStreet = segmentOfStreetService.save(segmentStreet);
+				if (segmentStreet == null) {
+					setMessage(FacesMessage.SEVERITY_ERROR, "Có lỗi xảy ra");
+					return;
+				}
 				
 				listFormedCoordinate = formedCoordinateService.saveAll(segmentStreet.getListFormedCoordinate());
+				if (listFormedCoordinate == null) {
+					setMessage(FacesMessage.SEVERITY_ERROR, "Có lỗi xảy ra");
+					return;
+				}
 				if (addNewStreet) {
 					listSegmentOfStreet = new ArrayList();
 					listSegmentOfStreet.add(segmentStreet);
@@ -426,7 +453,7 @@ public class ManageGeoInfoBean implements Serializable {
 			district.setDistrictName(nameInput)
 				.setDistrictLat(Double.parseDouble(latSingleCoordinate))
 				.setDistrictLng(Double.parseDouble(lngSingleCoordinate));
-			districtService.save(district);
+			district = districtService.save(district);
 			for (District element:listDistrict) {
 				if (element.equals(district)) {
 					element = district;
@@ -507,6 +534,18 @@ public class ManageGeoInfoBean implements Serializable {
 			if (!listProvince.stream().filter(x->x.getProvinceName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()
 					&& action.equals("Add")) {
 				return "Trùng tên";
+			}
+		}
+		if (!processType.equals("4")) {
+			if (lngSingleCoordinate == null || latSingleCoordinate ==null 
+					|| (lngSingleCoordinate!= null && lngSingleCoordinate.isEmpty()) || (latSingleCoordinate!=null && latSingleCoordinate.isEmpty())) {
+				return "Tọa độ không được để trống";
+			}
+			try {
+				Double.parseDouble(lngSingleCoordinate);
+				Double.parseDouble(latSingleCoordinate);
+			}catch(Exception e) {
+				return "Tọa độ không hợp lệ";
 			}
 		}
 		if (processType.equals("4")) {

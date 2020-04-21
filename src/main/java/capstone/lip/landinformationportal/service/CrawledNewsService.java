@@ -145,6 +145,11 @@ public class CrawledNewsService implements ICrawledNewsService{
 	@Override
 	public boolean crawlNow() {
 		try {
+			if (scheduler!= null) {
+				if (!scheduler.isStarted()) {
+					scheduler.start();
+				}
+			}
 			JobDetail jobNow = JobBuilder.newJob(CrawlNewsNowJob.class).storeDurably(true).withIdentity(jobKeyNow).build();
 			scheduler.addJob(jobNow, true);
 			scheduler.triggerJob(jobKeyNow);

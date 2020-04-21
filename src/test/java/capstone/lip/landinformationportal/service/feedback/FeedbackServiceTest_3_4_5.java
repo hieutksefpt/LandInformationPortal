@@ -133,58 +133,6 @@ public class FeedbackServiceTest_3_4_5 extends AbstractFeedbackServiceTest {
     }
     
     /**
-     * @Description: Non existed page
-     * @Dependency: Invalid status
-     * @Expected Result: Fail
-     */
-    @Test
-    public void FT_FS_5_01() {
-        Page result = instance.findByFeedbackStatus("INVALID", 
-                PageRequest.of(NOT_EXISTED_PAGE, PAGE_SIZE));
-        
-        testFail(result);
-    }
-    
-    /**
-     * @Description: Non existed page
-     * @Dependency: Valid status
-     * @Expected Result: Fail
-     */
-    @Test
-    public void FT_FS_5_02() {
-        Page result = instance.findByFeedbackStatus(VALID_FEEDBACK_STATUS, 
-                PageRequest.of(NOT_EXISTED_PAGE, PAGE_SIZE));
-        
-        testFail(result);
-    }
-    
-    /**
-     * @Description: Non existed page
-     * @Dependency: Null status
-     * @Expected Result: Fail
-     */
-    @Test
-    public void FT_FS_5_03() {
-        Page result = instance.findByFeedbackStatus(NULL_STRING, 
-                PageRequest.of(NOT_EXISTED_PAGE, PAGE_SIZE));
-        
-        testFail(result);
-    }
-    
-    /**
-     * @Description: Non existed page
-     * @Dependency: Empty string
-     * @Expected Result: Fail
-     */
-    @Test
-    public void FT_FS_5_04() {
-        Page result = instance.findByFeedbackStatus(EMPTY_STRING, 
-                PageRequest.of(NOT_EXISTED_PAGE, PAGE_SIZE));
-        
-        testFail(result);
-    }
-    
-    /**
      * @Description: Existed page
      * @Dependency: Valid status
      * @Expected Result: Success

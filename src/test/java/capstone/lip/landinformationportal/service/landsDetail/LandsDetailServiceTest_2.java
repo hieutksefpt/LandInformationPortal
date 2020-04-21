@@ -31,7 +31,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Fail
      */
     @Test
-    public void FT_HDS_2_01() {
+    public void FT_LDS_2_01() {
         boolean result = instance.delete(null);
         
         testFail(result);
@@ -43,7 +43,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Fail
      */
     @Test
-    public void FT_HDS_2_02() {
+    public void FT_LDS_2_02() {
         ArrayList<LandsDetail> details = new ArrayList();
         details.add(setLandsDetailID(sampleLandsDetail, 
                     NOT_EXISTED_ID, NOT_EXISTED_ID));
@@ -58,7 +58,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Success
      */
     @Test
-    public void FT_HDS_2_03() {
+    public void FT_LDS_2_03() {
         long records = repository.count();
         ArrayList<LandsDetail> details = new ArrayList();
         details.add(repository.findByIdLandIdAndIdLandsFeatureId(EXISTED_ID, EXISTED_ID));
@@ -73,7 +73,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Fail
      */
     @Test
-    public void FT_HDS_2_04() {
+    public void FT_LDS_2_04() {
         ArrayList<LandsDetail> details = getListLandsDetails();
         details.set(details.size() - 1, 
                 setLandsDetailID(sampleLandsDetail, EXISTED_ID, EXISTED_ID));
@@ -88,7 +88,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Success
      */
     @Test
-    public void FT_HDS_2_05() {
+    public void FT_LDS_2_05() {
         long records = repository.count();
         ArrayList<LandsDetail> details = getListLandsDetails();
         boolean result = instance.delete(details);
@@ -102,7 +102,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Fail
      */
     @Test
-    public void FT_HDS_2_06() {
+    public void FT_LDS_2_06() {
         ArrayList<LandsDetail> details = new ArrayList();
         details.add(sampleLandsDetail.setId(null));
         boolean result = instance.delete(details);
@@ -116,7 +116,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Fail
      */
     @Test
-    public void FT_HDS_2_07() {
+    public void FT_LDS_2_07() {
         ArrayList<LandsDetail> details = new ArrayList();
         details.add(setLandsDetailID(sampleLandsDetail, 
                     NEGATIVE_NOT_EXISTED_ID, NEGATIVE_NOT_EXISTED_ID));
@@ -131,7 +131,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Fail
      */
     @Test
-    public void FT_HDS_2_08() {
+    public void FT_LDS_2_08() {
         ArrayList<LandsDetail> details = new ArrayList();
         details.add(setLandsDetailID(sampleLandsDetail, 
                     NEGATIVE_NOT_EXISTED_ID, POSITIVE_NOT_EXISTED_ID));
@@ -146,7 +146,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Fail
      */
     @Test
-    public void FT_HDS_2_09() {
+    public void FT_LDS_2_09() {
         ArrayList<LandsDetail> details = new ArrayList();
         details.add(setLandsDetailID(sampleLandsDetail, 
                     NEGATIVE_NOT_EXISTED_ID, EXISTED_ID));
@@ -161,7 +161,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Fail
      */
     @Test
-    public void FT_HDS_2_10() {
+    public void FT_LDS_2_10() {
         ArrayList<LandsDetail> details = new ArrayList();
         details.add(setLandsDetailID(sampleLandsDetail, 
                     POSITIVE_NOT_EXISTED_ID, NEGATIVE_NOT_EXISTED_ID));
@@ -176,7 +176,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Fail
      */
     @Test
-    public void FT_HDS_2_11() {
+    public void FT_LDS_2_11() {
         ArrayList<LandsDetail> details = new ArrayList();
         details.add(setLandsDetailID(sampleLandsDetail, 
                     EXISTED_ID, NEGATIVE_NOT_EXISTED_ID));
@@ -191,7 +191,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Success
      */
     @Test
-    public void FT_HDS_2_12() {
+    public void FT_LDS_2_12() {
         long records = repository.count();
         ArrayList<LandsDetail> details = new ArrayList();
         details.add(repository.findByIdLandIdAndIdLandsFeatureId(EXISTED_ID, EXISTED_ID));
@@ -206,7 +206,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Fail
      */
     @Test
-    public void FT_HDS_2_13() {
+    public void FT_LDS_2_13() {
         ArrayList<LandsDetail> details = new ArrayList();
         details.add(setLandsDetailID(sampleLandsDetail, 
                     NOT_EXISTED_ID, NOT_EXISTED_ID));
@@ -221,7 +221,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Fail
      */
     @Test
-    public void FT_HDS_2_14() {
+    public void FT_LDS_2_14() {
         ArrayList<LandsDetail> details = new ArrayList();
         details.add(setLandsDetailID(sampleLandsDetail, 
                     EXISTED_ID, NOT_EXISTED_ID));
@@ -236,7 +236,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Fail
      */
     @Test
-    public void FT_HDS_2_15() {
+    public void FT_LDS_2_15() {
         ArrayList<LandsDetail> details = new ArrayList();
         details.add(setLandsDetailID(sampleLandsDetail, 
                     NOT_EXISTED_ID, EXISTED_ID));
@@ -251,7 +251,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Fail
      */
     @Test
-    public void FT_HDS_2_16() {
+    public void FT_LDS_2_16() {
         ArrayList<LandsDetail> details = new ArrayList();
         details.add(setLandsDetailID(sampleLandsDetail, 
                     ZERO_NOT_EXISTED_ID, ZERO_NOT_EXISTED_ID));
@@ -266,7 +266,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
      * @Expected Result: Fail
      */
     @Test
-    public void FT_HDS_2_17() {
+    public void FT_LDS_2_17() {
         ArrayList<LandsDetail> details = new ArrayList();
         details.add(null);
         boolean result = instance.delete(details);

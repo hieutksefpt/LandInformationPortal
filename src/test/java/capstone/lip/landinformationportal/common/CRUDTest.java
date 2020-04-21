@@ -67,7 +67,7 @@ public abstract class CRUDTest {
     
     protected final int PAGE_SIZE = 2;
     protected final int EXISTED_PAGE = 1;
-    protected final int NOT_EXISTED_PAGE = -1;
+    protected final int NOT_EXISTED_PAGE = 0;
     protected final int OUT_RANGE_PAGE = 99999;
     
     protected void testFail(boolean result) {

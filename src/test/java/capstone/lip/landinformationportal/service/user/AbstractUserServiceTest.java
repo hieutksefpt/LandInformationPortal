@@ -9,9 +9,9 @@ import capstone.lip.landinformationportal.common.CRUDTest;
 import capstone.lip.landinformationportal.entity.User;
 import capstone.lip.landinformationportal.repository.UserRepository;
 import capstone.lip.landinformationportal.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -22,6 +22,7 @@ public abstract class AbstractUserServiceTest extends CRUDTest {
     protected final String ROLE_ADMIN = "ADMIN";
     protected final String ROLE_CONTRIBUTOR = "USER";
     
+    protected final String INVALID_FIELD = "INVALID";
     protected final String STATUS_ACTIVE = "ACTIVE";
     protected final String STATUS_BAN = "BAN";
     

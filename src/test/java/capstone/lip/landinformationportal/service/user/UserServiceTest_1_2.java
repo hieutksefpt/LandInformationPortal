@@ -7,9 +7,9 @@ package capstone.lip.landinformationportal.service.user;
 
 import capstone.lip.landinformationportal.entity.User;
 import java.util.List;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
+import static org.junit.Assert.assertEquals;
 
 /**
  *

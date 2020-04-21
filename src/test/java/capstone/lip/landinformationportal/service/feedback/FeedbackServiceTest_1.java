@@ -53,7 +53,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
         Feedback result = instance.save(sampleFeedback
                 .setFeedBackID(EXISTED_ID));
         
-        testInsertSuccess(result);
+        testUpdateSuccess(result);
     }
     
     /**

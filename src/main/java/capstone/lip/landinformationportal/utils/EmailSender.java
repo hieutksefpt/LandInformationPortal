@@ -57,6 +57,7 @@ public class EmailSender {
         try {
 
             Message message = new MimeMessage(session);
+            message.setContent(message, "text/plain; charset=UTF-8");
             message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(to));
@@ -89,6 +90,7 @@ public class EmailSender {
         try {
 
             Message message = new MimeMessage(session);
+            message.setContent(message, "text/plain; charset=UTF-8");
             message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(feedback.getUser().getEmail()));

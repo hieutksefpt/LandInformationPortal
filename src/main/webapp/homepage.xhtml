@@ -14,7 +14,12 @@
 	<ui:composition template="/template/common/commonLayout.xhtml">
 		<ui:define name="content">
 			<h:outputStylesheet name="homepage.css" library="css"></h:outputStylesheet>
-			
+			<div id="loader" style="display:none;">
+              	<div class="spinner-border text-primary" style="width:20px;height:20px;position:fixed;right:5px;bottom:5px;">
+				  <span class="sr-only">Loading...</span>
+				</div>
+          	</div>
+          	<p:ajaxStatus onstart="$('#loader').show()" onsuccess="$('#loader').hide()" />
 			<div class="container-fluid" style="height:calc(100% - 70px)">
 				<div class="row justify-content-center h-100">
 					<div class="col-9">

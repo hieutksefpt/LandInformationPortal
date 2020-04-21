@@ -42,7 +42,11 @@ public class ManageFeedbackBean implements Serializable{
 			return;
 		}
 		feedbackClick.setFeedbackStatus(FeedbackStatusConstant.CLOSE);
-		feedbackService.sendFeedbackReply(feedbackClick);
+		boolean isSend = feedbackService.sendFeedbackReply(feedbackClick);
+		if (!isSend) {
+			setMessage(FacesMessage.SEVERITY_ERROR, "Nội dung phản hồi không phù hợp");
+			return;
+		}
 		setMessage(FacesMessage.SEVERITY_INFO, "Phản hồi thành công");
 	}
 	public void deleteFeedback() {

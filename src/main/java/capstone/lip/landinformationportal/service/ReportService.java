@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import capstone.lip.landinformationportal.entity.Report;
-import capstone.lip.landinformationportal.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.repository.ReportRepository;
-import capstone.lip.landinformationportal.repository.UserRepository;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IReportService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
-import capstone.lip.landinformationportal.validation.ReportValidate;
+import capstone.lip.landinformationportal.validation.ReportValidation;
 
 @Service
 public class ReportService implements IReportService {
@@ -27,7 +25,7 @@ public class ReportService implements IReportService {
     @Override
     public Report save(Report report) {
         try {
-        	ReportValidate validate = new ReportValidate();
+        	ReportValidation validate = new ReportValidation();
         	String error = validate.isValidReport(report);
         	if (!error.isEmpty()) {
         		throw new Exception(error);
@@ -60,7 +58,7 @@ public class ReportService implements IReportService {
     @Override
     public boolean delete(Report report) {
         try {
-        	ReportValidate validate = new ReportValidate();
+        	ReportValidation validate = new ReportValidation();
         	String error = validate.isValidReport(report);
         	if (!error.isEmpty()) {
         		throw new Exception(error);

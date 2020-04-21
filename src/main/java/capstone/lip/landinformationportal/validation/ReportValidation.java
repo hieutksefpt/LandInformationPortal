@@ -2,7 +2,7 @@ package capstone.lip.landinformationportal.validation;
 
 import capstone.lip.landinformationportal.entity.Report;
 
-public class ReportValidate {
+public class ReportValidation {
 	public String isValidReport(Report report) {
 		if (report == null) {
 			return "Report is null";

@@ -30,7 +30,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @ViewScoped
 public class FeedbackBean implements Serializable {
 
-    @Autowired
+	private static final long serialVersionUID = 1L;
+
+	@Autowired
     private IUserService userService;
     
     @Autowired
@@ -63,7 +65,13 @@ public class FeedbackBean implements Serializable {
             newfb.setFeedbackContent(feedbackContent);
             newfb.setFeedbackStatus(feedbackStatus);
             newfb.setUser(userSelected);
-            feedbackService.save(newfb);
+            
+            newfb = feedbackService.save(newfb);
+            if (newfb == null) {
+            	PrimeFaces.current().executeScript("showLogError()");
+            	return;
+            }
+            
             PrimeFaces.current().executeScript("showLogSuccessSendFeedback()");
             
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();

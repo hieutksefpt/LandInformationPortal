@@ -5,6 +5,7 @@
  */
 package capstone.lip.landinformationportal.bean;
 
+import capstone.lip.landinformationportal.common.RealEstateTypeConstant;
 import capstone.lip.landinformationportal.dto.Coordinate;
 import capstone.lip.landinformationportal.dto.HouseFeatureValue;
 import capstone.lip.landinformationportal.dto.LandFeatureValue;
@@ -33,8 +34,10 @@ import capstone.lip.landinformationportal.service.Interface.ILandService;
 import capstone.lip.landinformationportal.service.Interface.ILandsDetailService;
 import capstone.lip.landinformationportal.service.Interface.ILandsFeatureService;
 import capstone.lip.landinformationportal.service.Interface.IProvinceService;
+import capstone.lip.landinformationportal.service.Interface.IRealEstateAdjacentSegmentService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
+import capstone.lip.landinformationportal.validation.RealEstateValidation;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.Serializable;
@@ -97,6 +100,9 @@ public class UpdateContributeRealEstateBean implements Serializable {
 
     @Autowired
     private IHousesFeatureService housesFeatureService;
+    
+    @Autowired
+    private IRealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
 
     private List<Province> listProvince;
     private List<District> listDistrict;
@@ -212,19 +218,16 @@ public class UpdateContributeRealEstateBean implements Serializable {
         PrimeFaces.current().executeScript("showModalMandatory()");
     }
     
+    public void clearDataOld(long realEstateId){
+        boolean clearData = realEstateService.delete(realEstateId);
+    }
+    
     public void updateDataUploadToDB() {
-
-        if (!segmentStreetIdSelected.equals("") && !provinceIdSelected.equals("") && !districtIdSelected.equals("") && !streetIdSelected.equals("")) {
-            nextLocatePoint();
-        } else {
-            realEstateAddress = realEstateClicked.getRealEstateAddress();
-            realEstateLat = Double.parseDouble(latSingleCoordinate);
-            realEstateLng = Double.parseDouble(lngSingleCoordinate);
-        }
+        clearDataOld(realEstateClicked.getRealEstateId());             // clear data Old
         
+        nextLocatePoint();
+        //save to DB RE
         showModalMandatory();
-        //Update to DB RE
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = "";
         if (auth != null) {
@@ -232,67 +235,317 @@ public class UpdateContributeRealEstateBean implements Serializable {
         }
 
         User tempUser = userService.findByUsername(username);
+        boolean variableSuccess = false;
+        RealEstate newUploadRealEstate = new RealEstate();
+        List<LandsDetail> listLandDetail = new ArrayList<>();
+        List<HousesDetail> listHousesDetail = new ArrayList<>();
+        newUploadRealEstate = validateInfor(realEstateName, realEstateLat, realEstateLng, realEstateAddress, realEstatePrice, realEstateStatus, tempUser);
 
-        realEstateClicked.setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
-                .setRealEstateAddress(realEstateAddress);
-        realEstateClicked.setRealEstatePrice(realEstatePrice);
-        realEstateClicked.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
-        realEstateClicked = realEstateService.save(realEstateClicked);
+        RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
+        // save to Table REAS
 
-        // Update to Table REAS if combobox value of Map != Null
-        if (!segmentStreetIdSelected.equals("") && !provinceIdSelected.equals("") && !districtIdSelected.equals("") && !streetIdSelected.equals("")) {
-            RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
-
-            newRealEstateAdjacentSegment.setRealEstate(realEstateClicked);
-
-            Long segmentID = Long.parseLong(segmentStreetIdSelected);
-            newRealEstateAdjacentSegment.setId(new RealEstateAdjacentSegmentId(segmentID, realEstateClicked.getRealEstateId()));
-//            realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);
-        }
-
-        // Update to Table Land & Update to Table LandsDetail
-        if (currentLand.getLandId() != null || !currentLand.getLandId().equals("")) {
-            currentLand.setLandName(newLandName);
-            currentLand.setLandPrice(newLandMoney);
-            currentLand.setRealEstate(realEstateClicked);
-
-            currentLand = landService.save(currentLand);
-
-            for (int i = 0; i < listLandFeatureValue.size(); i++) {
-                LandsDetail tempLD = currentLand.getListLandsDetail().get(i);
-                LandsDetailId tempLDI = tempLD.getId();
-                tempLDI.setLandId(currentLand.getLandId());
-                tempLDI.setLandsFeatureId(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureID());
-                tempLD.setId(tempLDI)
-                        .setValue(listLandFeatureValue.get(i).getValue());
-                landsDetailService.save(tempLD);
-            }
-        }
-        // Update to Table House & House Detail tương tự Land 
-        if (currentListHouse.get(0).getHouseId() != null || !currentListHouse.get(0).getHouseId().equals("")) {
-            currentListHouse.get(0).setHouseName(newHouseName);
-            currentListHouse.get(0).setHouseName(realEstateName);
-            currentListHouse.get(0).setHousePrice(newHouseMoney);
-            currentListHouse.get(0).setRealEstate(realEstateClicked);
-
-            for (int i = 0; i < listHouseFeatureValue.size(); i++) {
-                HousesDetail tempHD = currentListHouse.get(0).getListHousesDetail().get(i);
-                HousesDetailId tempHDI = tempHD.getId();
-                tempHDI.setHouseId(currentListHouse.get(0).getHouseId());
-                tempHDI.setHousesFeatureId(listHouseFeatureValue.get(i).getHousesFeature().getHousesFeatureID());
-                tempHD.setId(tempHDI)
-                        .setValue(listHouseFeatureValue.get(i).getValue());
-                housesDetailService.save(tempHD);
+        if (typeRealEstate.equals(RealEstateTypeConstant.landType)) {
+            Land newLand = new Land();
+            newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
+            if (newUploadRealEstate != null && newLand != null) {
+                saveDataNewLandSigleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail);
+                variableSuccess = true;
             }
 
+        } else if (typeRealEstate.equals(RealEstateTypeConstant.houseType)) {
+            House newHouse = new House();
+            newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
+            if (newUploadRealEstate != null && newHouse != null) {
+                saveDataNewHouseSingleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newHouse, listHousesDetail);
+                variableSuccess = true;
+            }
+        } else if (typeRealEstate.equals(RealEstateTypeConstant.landHouseType)) {
+            Land newLand = new Land();
+            newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
+            listLandDetail = validateLandDetailInfor(newLand, listLandFeatureValue);
+
+            House newHouse = new House();
+            newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
+            listHousesDetail = validateHouseDetailInfor(newHouse, listHouseFeatureValue);
+
+            if (newUploadRealEstate != null && newHouse != null && newLand != null) {
+                saveDataNewLandHouseTotalToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail, newHouse, listHousesDetail);
+                variableSuccess = true;
+            }
         }
 
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        if (variableSuccess == true) {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            try {
+                ec.redirect(ec.getRequestContextPath() + "/user/listownrealestate.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+//
+//        if (!segmentStreetIdSelected.equals("") && !provinceIdSelected.equals("") && !districtIdSelected.equals("") && !streetIdSelected.equals("")) {
+//            nextLocatePoint();
+//        } else {
+//            realEstateAddress = realEstateClicked.getRealEstateAddress();
+//            realEstateLat = Double.parseDouble(latSingleCoordinate);
+//            realEstateLng = Double.parseDouble(lngSingleCoordinate);
+//        }
+//        
+//        showModalMandatory();
+//        //Update to DB RE
+//
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String username = "";
+//        if (auth != null) {
+//            username = (String) auth.getPrincipal();
+//        }
+//
+//        User tempUser = userService.findByUsername(username);
+//
+//        realEstateClicked.setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
+//                .setRealEstateAddress(realEstateAddress);
+//        realEstateClicked.setRealEstatePrice(realEstatePrice);
+//        realEstateClicked.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
+//        realEstateClicked = realEstateService.save(realEstateClicked);
+//
+//        // Update to Table REAS if combobox value of Map != Null
+//        if (!segmentStreetIdSelected.equals("") && !provinceIdSelected.equals("") && !districtIdSelected.equals("") && !streetIdSelected.equals("")) {
+//            RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
+//
+//            newRealEstateAdjacentSegment.setRealEstate(realEstateClicked);
+//
+//            Long segmentID = Long.parseLong(segmentStreetIdSelected);
+//            newRealEstateAdjacentSegment.setId(new RealEstateAdjacentSegmentId(segmentID, realEstateClicked.getRealEstateId()));
+////            realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);
+//        }
+//
+//        // Update to Table Land & Update to Table LandsDetail
+//        if (currentLand.getLandId() != null || !currentLand.getLandId().equals("")) {
+//            currentLand.setLandName(newLandName);
+//            currentLand.setLandPrice(newLandMoney);
+//            currentLand.setRealEstate(realEstateClicked);
+//
+//            currentLand = landService.save(currentLand);
+//
+//            for (int i = 0; i < listLandFeatureValue.size(); i++) {
+//                LandsDetail tempLD = currentLand.getListLandsDetail().get(i);
+//                LandsDetailId tempLDI = tempLD.getId();
+//                tempLDI.setLandId(currentLand.getLandId());
+//                tempLDI.setLandsFeatureId(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureID());
+//                tempLD.setId(tempLDI)
+//                        .setValue(listLandFeatureValue.get(i).getValue());
+//                landsDetailService.save(tempLD);
+//            }
+//        }
+//        // Update to Table House & House Detail tương tự Land 
+//        if (currentListHouse.get(0).getHouseId() != null || !currentListHouse.get(0).getHouseId().equals("")) {
+//            currentListHouse.get(0).setHouseName(newHouseName);
+//            currentListHouse.get(0).setHouseName(realEstateName);
+//            currentListHouse.get(0).setHousePrice(newHouseMoney);
+//            currentListHouse.get(0).setRealEstate(realEstateClicked);
+//
+//            for (int i = 0; i < listHouseFeatureValue.size(); i++) {
+//                HousesDetail tempHD = currentListHouse.get(0).getListHousesDetail().get(i);
+//                HousesDetailId tempHDI = tempHD.getId();
+//                tempHDI.setHouseId(currentListHouse.get(0).getHouseId());
+//                tempHDI.setHousesFeatureId(listHouseFeatureValue.get(i).getHousesFeature().getHousesFeatureID());
+//                tempHD.setId(tempHDI)
+//                        .setValue(listHouseFeatureValue.get(i).getValue());
+//                housesDetailService.save(tempHD);
+//            }
+//
+//        }
+//
+//        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+//        try {
+//            ec.redirect(ec.getRequestContextPath() + "/user/listownrealestate.xhtml");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+    }
+    
+    
+    public void saveDataNewLandSigleToDB(RealEstate newUploadRealEstate, RealEstateAdjacentSegment newRealEstateAdjacentSegment, Land newLand, List<LandsDetail> listLandDetail) {
+        newUploadRealEstate = realEstateService.save(newUploadRealEstate);
+        RealEstateAdjacentSegmentId realEstateAdjacentSegmentId = new RealEstateAdjacentSegmentId(Long.parseLong(segmentStreetIdSelected), newUploadRealEstate.getRealEstateId());
+        newRealEstateAdjacentSegment = validateRealEstateAdjacentInfor(newUploadRealEstate, realEstateAdjacentSegmentId);
+        newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);                         // save REAS to DB 
+        newLand = landService.save(newLand);
+        listLandDetail = validateLandDetailInfor(newLand, listLandFeatureValue);
+        if (!listLandDetail.isEmpty()) {                                                                                             // save Land to DB 
+            for (int i = 0; i < listLandDetail.size(); i++) {
+                landsDetailService.save(listLandDetail.get(i));
+            }
+        }
+    }
+
+    public void saveDataNewHouseSingleToDB(RealEstate newUploadRealEstate, RealEstateAdjacentSegment newRealEstateAdjacentSegment, House newHouse, List<HousesDetail> listHousesDetail) {
+        newUploadRealEstate = realEstateService.save(newUploadRealEstate);                                                          // save RE to DB 
+        RealEstateAdjacentSegmentId realEstateAdjacentSegmentId = new RealEstateAdjacentSegmentId(Long.parseLong(segmentStreetIdSelected), newUploadRealEstate.getRealEstateId());
+        newRealEstateAdjacentSegment = validateRealEstateAdjacentInfor(newUploadRealEstate, realEstateAdjacentSegmentId);
+        newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);                         // save REAS to DB 
+        newHouse = houseService.save(newHouse);
+        listHousesDetail = validateHouseDetailInfor(newHouse, listHouseFeatureValue);
+        if (!listHousesDetail.isEmpty()) {                                                                                             // save Land to DB 
+            for (int i = 0; i < listHousesDetail.size(); i++) {
+                housesDetailService.save(listHousesDetail.get(i));
+            }
+        }
+    }
+
+    public void saveDataNewLandHouseTotalToDB(RealEstate newUploadRealEstate, RealEstateAdjacentSegment newRealEstateAdjacentSegment, Land newLand, List<LandsDetail> listLandDetail, House newHouse, List<HousesDetail> listHousesDetail) {
+        newUploadRealEstate = realEstateService.save(newUploadRealEstate);
+        RealEstateAdjacentSegmentId realEstateAdjacentSegmentId = new RealEstateAdjacentSegmentId(Long.parseLong(segmentStreetIdSelected), newUploadRealEstate.getRealEstateId());
+        newRealEstateAdjacentSegment = validateRealEstateAdjacentInfor(newUploadRealEstate, realEstateAdjacentSegmentId);
+        newRealEstateAdjacentSegment = realEstateAdjacentSegmentService.save(newRealEstateAdjacentSegment);                         // save REAS to DB 
+        newLand = landService.save(newLand);
+        listLandDetail = validateLandDetailInfor(newLand, listLandFeatureValue);
+        if (!listLandDetail.isEmpty()) {                                                                                             // save Land to DB 
+            for (int i = 0; i < listLandDetail.size(); i++) {
+                landsDetailService.save(listLandDetail.get(i));
+            }
+        }
+
+        newHouse = houseService.save(newHouse);
+        listHousesDetail = validateHouseDetailInfor(newHouse, listHouseFeatureValue);
+        if (!listHousesDetail.isEmpty()) {                                                                                             // save Land to DB 
+            for (int i = 0; i < listHousesDetail.size(); i++) {
+                housesDetailService.save(listHousesDetail.get(i));
+            }
+        }
+    }
+
+    public RealEstate validateInfor(String realEstateName, Double realEstateLat, Double realEstateLng, String realEstateAddress, BigDecimal realEstatePrice, String realEstateStatus, User tempUser) {
         try {
-            ec.redirect(ec.getRequestContextPath() + "/user/listownrealestate.xhtml");
-        } catch (IOException e) {
+            RealEstateValidation rev = new RealEstateValidation();
+            RealEstate newUploadRealEstate = new RealEstate().setRealEstateName(realEstateName)
+                    .setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
+                    .setRealEstateAddress(realEstateAddress);
+            newUploadRealEstate.setRealEstatePrice(realEstatePrice);
+            newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
+            if (rev.isRealEstateValid(newUploadRealEstate).equals("")) {
+                return newUploadRealEstate;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
+
+    }
+
+    public Land validateLandInfor(RealEstate newUploadRealEstate, String newLandName, BigDecimal newLandMoney, List<LandFeatureValue> listLandFeatureValue) {
+        try {
+            RealEstateValidation rev = new RealEstateValidation();
+            Land tempLand = new Land();
+            tempLand.setLandName(newLandName);
+            tempLand.setLandPrice(new BigDecimal(newLandMoney.toString()));
+            tempLand.setRealEstate(newUploadRealEstate);
+
+            if (rev.checkLandValidation(tempLand, listLandFeatureValue)) {
+                return tempLand;
+//                landRepository.save(tempLand);
+            } else {
+                tempLand = null;
+            }
+
+            return tempLand;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public House validateHouseInfor(RealEstate newUploadRealEstate, String newHouseName, BigDecimal newHouseMoney, List<HouseFeatureValue> listHouseFeatureValue) {
+        try {
+            RealEstateValidation rev = new RealEstateValidation();
+            House tempHouse = new House();
+            tempHouse.setHouseName(newHouseName);
+            tempHouse.setHousePrice(new BigDecimal(newHouseMoney.toString()));
+            tempHouse.setRealEstate(newUploadRealEstate);
+
+            if (rev.checkHouseValidation(tempHouse, listHouseFeatureValue)) {
+                return tempHouse;
+//                landRepository.save(tempLand);
+            } else {
+                tempHouse = null;
+            }
+
+            return tempHouse;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public List<HousesDetail> validateHouseDetailInfor(House tempHouse, List<HouseFeatureValue> listHouseFeatureValue) {
+        try {
+            RealEstateValidation rev = new RealEstateValidation();
+            ArrayList<HousesDetail> ahd = new ArrayList<>();
+            if (rev.checkHouseDetailValidation(tempHouse) && rev.checkHouseValidation(tempHouse, listHouseFeatureValue)) {
+                for (int i = 0; i < listHouseFeatureValue.size(); i++) {
+                    HousesDetailId tempHDI = new HousesDetailId();
+                    tempHDI.setHouseId(tempHouse.getHouseId());
+                    tempHDI.setHousesFeatureId(listHouseFeatureValue.get(i).getHousesFeature().getHousesFeatureID());
+                    HousesDetail tempHD = new HousesDetail();
+                    tempHD.setId(tempHDI)
+                            .setValue(listHouseFeatureValue.get(i).getValue());
+//                    landsDetailRepository.save(tempLD);
+                    ahd.add(tempHD);
+                }
+            }
+            return ahd;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public List<LandsDetail> validateLandDetailInfor(Land tempLand, List<LandFeatureValue> listLandFeatureValue) {
+        try {
+            RealEstateValidation rev = new RealEstateValidation();
+            ArrayList<LandsDetail> ald = new ArrayList<>();
+            if (rev.checkLandDetailValidation(tempLand) && rev.checkLandValidation(tempLand, listLandFeatureValue)) {
+                for (int i = 0; i < listLandFeatureValue.size(); i++) {
+                    LandsDetailId tempLDI = new LandsDetailId();
+                    tempLDI.setLandId(tempLand.getLandId());
+                    tempLDI.setLandsFeatureId(listLandFeatureValue.get(i).getLandFeature().getLandsFeatureID());
+                    LandsDetail tempLD = new LandsDetail();
+                    tempLD.setId(tempLDI)
+                            .setValue(listLandFeatureValue.get(i).getValue());
+//                    landsDetailRepository.save(tempLD);
+                    ald.add(tempLD);
+                }
+            }
+            return ald;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public RealEstateAdjacentSegment validateRealEstateAdjacentInfor(RealEstate newUploadRealEstate, RealEstateAdjacentSegmentId realEstateAdjacentSegmentId) {
+        try {
+            RealEstateValidation rev = new RealEstateValidation();
+            if (rev.checkRealEstateSegmentValidation(newUploadRealEstate)) {
+                RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
+                newRealEstateAdjacentSegment.setRealEstate(newUploadRealEstate);
+                newRealEstateAdjacentSegment.setId(realEstateAdjacentSegmentId);
+                return newRealEstateAdjacentSegment;
+//                        realEstateAdjacentSegmentRepository.save(newRealEstateAdjacentSegment);
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     // function call when Ajax listener (textbox Price change value)

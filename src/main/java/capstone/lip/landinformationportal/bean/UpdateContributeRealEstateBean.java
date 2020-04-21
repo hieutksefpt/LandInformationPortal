@@ -178,6 +178,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
 
         realEstateName = realEstateClicked.getRealEstateName();
         realEstatePrice = realEstateClicked.getRealEstatePrice();
+        realEstateAddress = realEstateClicked.getRealEstateAddress();
         newLandName = currentLand.getLandName();
         newLandMoney = currentLand.getLandPrice();
         List<LandsDetail> landsDetailContribute = currentLand.getListLandsDetail();

@@ -68,7 +68,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{contributeNewRealEstateBean.segmentStreetIdSelected}">
-                                                    <p:ajax	listener="#{contributeNewRealEstateBean.segmentStreetChange}" update="panel-form" 
+                                                    <p:ajax	listener="#{contributeNewRealEstateBean.segmentStreetChange}" update="panel-form"
                                                             onstart="clearDataMap()" ></p:ajax>
                                                     <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
                                                     <f:selectItems value="#{contributeNewRealEstateBean.listSegmentOfStreet}" var="element"
@@ -88,7 +88,7 @@
 
                         </div>
                         <h:commandButton class="next action-button" value="Tiếp theo">
-                            <p:ajax listener="#{contributeNewRealEstateBean.locateSuccess()}" process="msform" update="panel-form"/>
+                            <p:ajax listener="#{contributeNewRealEstateBean.locateSuccess()}" process="msform" update="panel-form realEstateAddress"/>
                         </h:commandButton>
 
                     </fieldset>
@@ -110,6 +110,14 @@
                                         <h:inputText id="realEstatePrice" value="#{contributeNewRealEstateBean.realEstatePrice}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;">
                                         </h:inputText>
                                         <span class="unit"><i>(VND)</i></span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="title-mandatory">Địa chỉ bất động sản</span></td>
+                                    <td>
+                                        <h:inputText id="realEstateAddress" value="#{contributeNewRealEstateBean.realEstateAddress}">
+                                            <p:ajax listener="#{contributeNewRealEstateBean.realEstateAddress}" />
+                                        </h:inputText>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><span class="title-mandatory">Loại bất động sản</span></td>

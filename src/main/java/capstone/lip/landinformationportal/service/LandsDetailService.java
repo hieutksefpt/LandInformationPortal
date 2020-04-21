@@ -51,6 +51,12 @@ public class LandsDetailService implements ILandsDetailService {
     	try {
     		if (listLandsDetail == null) throw new Exception("null");
     		if (listLandsDetail.isEmpty()) throw new Exception("empty");
+    		for (LandsDetail element: listLandsDetail) {
+    			if (landsDetailRepository.findByIdLandIdAndIdLandsFeatureId(element.getId().getLandId(), 
+    					element.getId().getLandsFeatureId()) == null){
+    				throw new Exception("Id not found");
+				}
+    		}
     		
     		landsDetailRepository.deleteAll(listLandsDetail);
     		return true;

@@ -149,7 +149,7 @@ public class ReportServiceTest_2 extends AbstractReportServiceTest {
                 .setUserId(NOT_EXISTED_ID));
         boolean result = instance.delete(input);
         
-        testDeleteSuccess(result, input);
+        testFail(result);
     }
     
     /**

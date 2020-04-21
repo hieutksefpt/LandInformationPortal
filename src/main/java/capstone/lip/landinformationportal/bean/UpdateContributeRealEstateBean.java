@@ -36,6 +36,7 @@ import capstone.lip.landinformationportal.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.service.Interface.IUserService;
 import com.google.gson.Gson;
+import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -60,8 +62,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @ViewScoped
 public class UpdateContributeRealEstateBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private RealEstate realEstateClicked;
+    private static final long serialVersionUID = 1L;
+    private RealEstate realEstateClicked;
     private String jsonCoordinate;
     private Land currentLand;
     private List<House> currentListHouse;
@@ -154,7 +156,6 @@ public class UpdateContributeRealEstateBean implements Serializable {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         long realEstateId = Long.parseLong(params.get("realEstateId"));
         listProvince = provinceService.findAll();
-        
         listLandsFeature = landFeatureService.findAll();
         listHousesFeature = housesFeatureService.findAll();
         realEstateClicked = realEstateService.findById(realEstateId);
@@ -168,7 +169,6 @@ public class UpdateContributeRealEstateBean implements Serializable {
         realEstateStatus = realEstateClicked.getRealEstateStatus();
         realEstateLink = realEstateClicked.getRealEstateLink();
         realEstateSource = realEstateClicked.getRealEstateSource();
-//        PrimeFaces.current().executeScript("focusMap(" + latSingleCoordinate + ", " + lngSingleCoordinate + ");");
 
         realEstateName = realEstateClicked.getRealEstateName();
         realEstatePrice = realEstateClicked.getRealEstatePrice();
@@ -187,27 +187,31 @@ public class UpdateContributeRealEstateBean implements Serializable {
         }
 
         realEstateStatus = "0";   // Set tạm
-        
+
         segmentStreetIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getSegmentId().toString();
         districtIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getDistrictId().toString();
         streetIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getStreet().getStreetId().toString();
         provinceIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getProvince().getProvinceId().toString();
-        
-        for(Province province: listProvince ){
-            if(province.getProvinceId().equals(provinceIdSelected)){
+
+        for (Province province : listProvince) {
+            if (province.getProvinceId().toString().equals(provinceIdSelected)) {
                 listDistrict = province.getListDistrict();
             }
         }
-        for(District district : listDistrict ){
-            if(district.getDistrictId().equals(districtIdSelected)){
+        for (District district : listDistrict) {
+            if (district.getDistrictId().toString().equals(districtIdSelected)) {
                 listSegmentOfStreet = district.getListSegmentOfStreet();
             }
         }
-        
-        listStreet = listSegmentOfStreet.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
+
+        listStreet = listSegmentOfStreet.stream().map(x -> x.getStreet()).distinct().collect(Collectors.toList());
         typeRealEstate = "Đất và Nhà";
     }
 
+    public void showModalMandatory() {
+        PrimeFaces.current().executeScript("showModalMandatory()");
+    }
+    
     public void updateDataUploadToDB() {
 
         if (!segmentStreetIdSelected.equals("") && !provinceIdSelected.equals("") && !districtIdSelected.equals("") && !streetIdSelected.equals("")) {
@@ -217,16 +221,18 @@ public class UpdateContributeRealEstateBean implements Serializable {
             realEstateLat = Double.parseDouble(latSingleCoordinate);
             realEstateLng = Double.parseDouble(lngSingleCoordinate);
         }
-        //Update to DB RE
-       
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	String username="";
-		if (auth!= null) {
-			username = (String)auth.getPrincipal();
-		}
-    	
-        User tempUser = userService.findByUsername(username);
         
+        showModalMandatory();
+        //Update to DB RE
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = "";
+        if (auth != null) {
+            username = (String) auth.getPrincipal();
+        }
+
+        User tempUser = userService.findByUsername(username);
+
         realEstateClicked.setRealEstateLat(realEstateLat).setRealEstateLng(realEstateLng)
                 .setRealEstateAddress(realEstateAddress);
         realEstateClicked.setRealEstatePrice(realEstatePrice);
@@ -279,6 +285,13 @@ public class UpdateContributeRealEstateBean implements Serializable {
                 housesDetailService.save(tempHD);
             }
 
+        }
+
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath() + "/user/listownrealestate.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -625,7 +638,6 @@ public class UpdateContributeRealEstateBean implements Serializable {
     public void setListDistrict(List<District> listDistrict) {
         this.listDistrict = listDistrict;
     }
-    
 
     public List<SegmentOfStreet> getListSegmentOfStreet() {
         return listSegmentOfStreet;
@@ -1002,7 +1014,5 @@ public class UpdateContributeRealEstateBean implements Serializable {
     public void setTypeRealEstate(String typeRealEstate) {
         this.typeRealEstate = typeRealEstate;
     }
-    
-    
 
 }

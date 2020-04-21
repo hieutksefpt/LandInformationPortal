@@ -271,6 +271,18 @@ function display_div(show) {
 
 }
 
+
+function showModalMandatory() {
+    tempRealEstateName = $('#msform\\:realEstateName').val();
+    tempRealEstateValue = $('#msform\\:realEstatePrice').val();
+
+    if (tempRealEstateName === '') {
+        alert("Tên của bất động sản không được để trống");
+    } else if (tempRealEstateValue <= 0) {
+        alert("Giá trị của bất động sản phải lớn hơn 0 VND.\nĐồng thời phải lớn hơn hoặc bằng tổng giá trị của các bất động sản thành phần");
+    } 
+}
+
 function loadLandUnit(landUnit) {
     document.getElementById("landUnit").textContent = "(" + landUnit + ")";
 }

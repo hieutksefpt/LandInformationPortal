@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class RealEstateValidation {
 
-    public String checkRealEstateValidation(RealEstate newUploadRealEstate) {
+    public String isRealEstateValid(RealEstate newUploadRealEstate) {
         if (newUploadRealEstate.getRealEstateName().equals("")) {
             return "NameEmpty";
         } else if (newUploadRealEstate.getRealEstateAddress().equals("")) {
@@ -33,7 +33,7 @@ public class RealEstateValidation {
         } else if (newUploadRealEstate.getUser() == null) {
             return "UserError";
         }
-        return "AcceptRealEstate";
+        return "";
     }
 
     public boolean checkLandValidation(Land tempLand, List<LandFeatureValue> listLandFeatureValue) {                     // check Land if Null RealState Condition

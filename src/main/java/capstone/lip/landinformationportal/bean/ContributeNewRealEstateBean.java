@@ -296,7 +296,7 @@ public class ContributeNewRealEstateBean implements Serializable, StatusRealEsta
                     .setRealEstateAddress(realEstateAddress);
             newUploadRealEstate.setRealEstatePrice(realEstatePrice);
             newUploadRealEstate.setRealEstateStatus(realEstateStatus).setRealEstateSource("CONTRIBUTOR").setUser(tempUser);
-            if (rev.checkRealEstateValidation(newUploadRealEstate).equals("AcceptRealEstate")) {
+            if (rev.isRealEstateValid(newUploadRealEstate).equals("")) {
                 return newUploadRealEstate;
             } else {
                 return null;

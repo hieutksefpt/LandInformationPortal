@@ -169,7 +169,6 @@ public class UpdateContributeRealEstateBean implements Serializable {
         realEstateStatus = realEstateClicked.getRealEstateStatus();
         realEstateLink = realEstateClicked.getRealEstateLink();
         realEstateSource = realEstateClicked.getRealEstateSource();
-//        PrimeFaces.current().executeScript("focusMap(" + latSingleCoordinate + ", " + lngSingleCoordinate + ");");
 
         realEstateName = realEstateClicked.getRealEstateName();
         realEstatePrice = realEstateClicked.getRealEstatePrice();
@@ -209,6 +208,10 @@ public class UpdateContributeRealEstateBean implements Serializable {
         typeRealEstate = "Đất và Nhà";
     }
 
+    public void showModalMandatory() {
+        PrimeFaces.current().executeScript("showModalMandatory()");
+    }
+    
     public void updateDataUploadToDB() {
 
         if (!segmentStreetIdSelected.equals("") && !provinceIdSelected.equals("") && !districtIdSelected.equals("") && !streetIdSelected.equals("")) {
@@ -218,6 +221,8 @@ public class UpdateContributeRealEstateBean implements Serializable {
             realEstateLat = Double.parseDouble(latSingleCoordinate);
             realEstateLng = Double.parseDouble(lngSingleCoordinate);
         }
+        
+        showModalMandatory();
         //Update to DB RE
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

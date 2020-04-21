@@ -211,6 +211,13 @@ function loadHouseUnit(houseUnit) {
     document.getElementById("houseUnit").textContent = "(" + houseUnit + ")";
 }
 
+function landFeatureExisted() {
+    alert("Thuộc tính này của Đất đã được thêm vào bảng.\nNếu muốn chỉnh sửa vui lòng xóa bỏ giá trị thuộc tính đã tồn tại !");
+}
+
+function houseFeatureExisted() {
+    alert("Thuộc tính này của Nhà đã được thêm vào bảng.\nNếu muốn chỉnh sửa vui lòng xóa bỏ giá trị thuộc tính đã tồn tại !");
+}
 // đoạn này bắt đầu test MultiForm
 function validateMap() {
 

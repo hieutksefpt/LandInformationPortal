@@ -2,6 +2,7 @@ package capstone.lip.landinformationportal.business.bean;
 
 import capstone.lip.landinformationportal.business.service.Interface.IUserService;
 import capstone.lip.landinformationportal.common.constant.UserRoleConstant;
+import capstone.lip.landinformationportal.common.constant.UserStatusConstant;
 import capstone.lip.landinformationportal.common.dto.LazyListUser;
 import capstone.lip.landinformationportal.common.entity.User;
 
@@ -70,7 +71,7 @@ public class ListUserBean implements Serializable {
 
     public void banUser() {
         for (int i = 0; i < selectedUser.size(); i++) {
-            selectedUser.get(i).setUserStatus("0");
+            selectedUser.get(i).setUserStatus(UserStatusConstant.BAN);
             userService.save(selectedUser.get(i));
         }
         this.lazyUser = new LazyListUser(userService);
@@ -78,7 +79,7 @@ public class ListUserBean implements Serializable {
 
     public void unbanUser() {
         for (int i = 0; i < selectedUser.size(); i++) {
-            selectedUser.get(i).setUserStatus("1");
+            selectedUser.get(i).setUserStatus(UserStatusConstant.ACTIVE);
             userService.save(selectedUser.get(i));
         }
         this.lazyUser = new LazyListUser(userService);

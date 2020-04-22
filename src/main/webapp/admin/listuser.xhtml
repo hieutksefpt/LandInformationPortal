@@ -93,8 +93,8 @@
                                     <f:selectItem itemLabel="Active" itemValue="1" />
                                 </p:selectOneMenu>
                             </f:facet>
-                            <h:outputText value="Active" rendered="#{user.userStatus == '1'}"/>
-                            <h:outputText value="Ban" rendered="#{user.userStatus == '0'}"/>
+                            <h:outputText value="ACTIVE" rendered="#{user.userStatus == 'ACTIVE'}"/>
+                            <h:outputText value="BAN" rendered="#{user.userStatus == 'BAN'}"/>
                         </p:column>
 
                     </p:dataTable>

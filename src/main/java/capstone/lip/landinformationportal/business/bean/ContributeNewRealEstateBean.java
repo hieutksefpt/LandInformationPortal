@@ -542,10 +542,6 @@ public class ContributeNewRealEstateBean implements Serializable {
 
     }
 
-    public void onChangeTypeRealEstate() {
-
-    }
-
     public void onChangeHouseUnit() {
         for (int i = 0; i < listHousesFeature.size(); i++) {
             if (listHousesFeature.get(i).getHousesFeatureID().toString().equals(houseFeatureIdSelected)) {
@@ -559,21 +555,52 @@ public class ContributeNewRealEstateBean implements Serializable {
     }
 
     public void addNewLandFeatureValue() {
-        for (int i = 0; i < listLandsFeature.size(); i++) {
-            if (landFeatureIdSelected.equals(listLandsFeature.get(i).getLandsFeatureID().toString())) {
-                listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
+        if (!checkLandFeatureExisted(landFeatureIdSelected, listLandFeatureValue)) {
+            for (int i = 0; i < listLandsFeature.size(); i++) {
+
+                if (landFeatureIdSelected.equals(listLandsFeature.get(i).getLandsFeatureID().toString())) {
+                    listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
+                }
             }
+
+        } else {
+            // show log 
+            PrimeFaces.current().executeScript("landFeatureExisted()");
         }
 
     }
 
     public void addNewHousesFeatureValue() {
-        for (int i = 0; i < listHousesFeature.size(); i++) {
-            if (houseFeatureIdSelected.equals(listHousesFeature.get(i).getHousesFeatureID().toString())) {
-                listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));
+        if (!checkHouseFeatureExisted(houseFeatureIdSelected, listHouseFeatureValue)) {
+            for (int i = 0; i < listHousesFeature.size(); i++) {
+
+                if (houseFeatureIdSelected.equals(listHousesFeature.get(i).getHousesFeatureID().toString())) {
+                    listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));
+                }
             }
+
+        } else {
+            PrimeFaces.current().executeScript("houseFeatureExisted()");
         }
 
+    }
+
+    public boolean checkLandFeatureExisted(String landFeatureIdChecking, List<LandFeatureValue> listLandFeatureValue) {
+        for (LandFeatureValue i : listLandFeatureValue) {
+            if (landFeatureIdChecking.equals(i.getLandFeature().getLandsFeatureID().toString())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkHouseFeatureExisted(String houseFeatureIdChecking, List<HouseFeatureValue> listHouseFeatureValue) {
+        for (HouseFeatureValue i : listHouseFeatureValue) {
+            if (houseFeatureIdChecking.equals(i.getHousesFeature().getHousesFeatureID().toString())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     Province selectedProvince;

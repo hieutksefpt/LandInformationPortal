@@ -13,6 +13,7 @@ import capstone.lip.landinformationportal.business.service.Interface.ILandServic
 import capstone.lip.landinformationportal.business.service.Interface.ILandsDetailService;
 import capstone.lip.landinformationportal.business.service.Interface.ILandsFeatureService;
 import capstone.lip.landinformationportal.business.service.Interface.IProvinceService;
+import capstone.lip.landinformationportal.business.service.Interface.IRealEstateAdjacentSegmentService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.business.service.Interface.IUserService;
 import capstone.lip.landinformationportal.common.dto.Coordinate;
@@ -36,7 +37,8 @@ import capstone.lip.landinformationportal.common.entity.compositekey.HousesDetai
 import capstone.lip.landinformationportal.common.entity.compositekey.LandsDetailId;
 import capstone.lip.landinformationportal.common.entity.compositekey.RealEstateAdjacentSegmentId;
 
-import capstone.lip.landinformationportal.validation.RealEstateValidation;
+import capstone.lip.landinformationportal.common.constant.RealEstateTypeConstant;
+import capstone.lip.landinformationportal.business.validation.RealEstateValidation;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.Serializable;

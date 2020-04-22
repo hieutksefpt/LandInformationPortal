@@ -132,7 +132,7 @@ public class RealEstateService implements IRealEstateService {
     		return realEstateRepository.count();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return 0;
+			return -1;
 		}
         
     }
@@ -173,7 +173,7 @@ public class RealEstateService implements IRealEstateService {
     		return realEstateRepository.countByRealEstateStatus(status);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return 0;
+			return -1;
 		}
         
     }
@@ -200,7 +200,7 @@ public class RealEstateService implements IRealEstateService {
             return realEstateRepository.count(Specification.where(Specification.where(spec1).or(spec2)).and(spec3));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return 0;
+			return -1;
 		}
         
     }
@@ -225,7 +225,7 @@ public class RealEstateService implements IRealEstateService {
             return realEstateRepository.count(Specification.where(Specification.where(spec1).or(spec2)).and(spec3));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return 0;
+			return -1;
 		}
         
     }
@@ -266,7 +266,7 @@ public class RealEstateService implements IRealEstateService {
             return realEstateRepository.count(Specification.where(spec1).or(spec2));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return 0;
+			return -1;
 		}
         
     }

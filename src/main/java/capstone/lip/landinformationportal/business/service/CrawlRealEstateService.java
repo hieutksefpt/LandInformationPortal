@@ -202,7 +202,7 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 			List<HousesDetail> listHouseDetail = new ArrayList<HousesDetail>();
 			for (HousesFeature housesFeature: listHouseFeature) {
 				switch (housesFeature.getHousesFeatureName()) {
-				case HousesFeatureNameConstant.numberFloors:
+				case HousesFeatureNameConstant.NUMBERFLOORS:
 					if (!validateNumber(getStringCheckNull(reoCrawl.getNumberFloor().toString()))) {
 						continue;
 					}
@@ -212,7 +212,7 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 							.setHousesFeature(housesFeature)
 							.setValue(getStringCheckNull(reoCrawl.getNumberFloor().toString())));
 					break;
-				case HousesFeatureNameConstant.numberBedrooms:
+				case HousesFeatureNameConstant.NUMBERBEDROOMS:
 					if (!validateNumber(getStringCheckNull(reoCrawl.getNumberBedrooms().toString()))) {
 						continue;
 					}
@@ -222,14 +222,14 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 							.setHousesFeature(housesFeature)
 							.setValue(getStringCheckNull(reoCrawl.getNumberBedrooms().toString())));
 					break;
-				case HousesFeatureNameConstant.homeDirection:
+				case HousesFeatureNameConstant.HOMEDIRECTION:
 					listHouseDetail.add(new HousesDetail()
 							.setHouse(house)
 							.setId(new HousesDetailId().setHouseId(house.getHouseId()).setHousesFeatureId(housesFeature.getHousesFeatureID()))
 							.setHousesFeature(housesFeature)
 							.setValue(getStringCheckNull(reoCrawl.getHomeDirection())));
 					break;
-				case HousesFeatureNameConstant.numberToilets:
+				case HousesFeatureNameConstant.NUMBERTOILETS:
 					if (!validateNumber(getStringCheckNull(reoCrawl.getNumberToilets().toString()))) {
 						continue;
 					}
@@ -239,14 +239,14 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 							.setHousesFeature(housesFeature)
 							.setValue(getStringCheckNull(reoCrawl.getNumberToilets().toString())));
 					break;
-				case HousesFeatureNameConstant.balconyDirection:
+				case HousesFeatureNameConstant.BALCONYDIRECTION:
 					listHouseDetail.add(new HousesDetail()
 							.setHouse(house)
 							.setId(new HousesDetailId().setHouseId(house.getHouseId()).setHousesFeatureId(housesFeature.getHousesFeatureID()))
 							.setHousesFeature(housesFeature)
 							.setValue(getStringCheckNull(reoCrawl.getBalconyDirection())));
 					break;
-				case HousesFeatureNameConstant.projectOwner:
+				case HousesFeatureNameConstant.PROJECTOWNER:
 					listHouseDetail.add(new HousesDetail()
 							.setHouse(house)
 							.setId(new HousesDetailId().setHouseId(house.getHouseId()).setHousesFeatureId(housesFeature.getHousesFeatureID()))
@@ -268,14 +268,14 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 			List<LandsDetail> listLandDetail = new ArrayList<LandsDetail>();
 			for(LandsFeature landsFeature:listLandsFeature) {
 				switch (landsFeature.getLandsFeatureName()) {
-				case LandsFeatureNameConstant.area:
+				case LandsFeatureNameConstant.AREA:
 					listLandDetail.add(new LandsDetail()
 							.setLand(land)
 							.setId(new LandsDetailId().setLandId(land.getLandId()).setLandsFeatureId(landsFeature.getLandsFeatureID()))
 							.setLandsFeature(landsFeature)
 							.setValue(getStringCheckNull(reoCrawl.getArea().toString())));
 					break;
-				case LandsFeatureNameConstant.wardin:
+				case LandsFeatureNameConstant.WARDIN:
 					listLandDetail.add(new LandsDetail()
 							.setLand(land)
 							.setId(new LandsDetailId().setLandId(land.getLandId()).setLandsFeatureId(landsFeature.getLandsFeatureID()))

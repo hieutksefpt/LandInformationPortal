@@ -7,6 +7,7 @@ package capstone.lip.landinformationportal.business.service;
 
 import capstone.lip.landinformationportal.business.repository.UserRepository;
 import capstone.lip.landinformationportal.business.service.Interface.IUserService;
+import capstone.lip.landinformationportal.business.validation.UserValidation;
 import capstone.lip.landinformationportal.common.entity.RealEstate;
 import capstone.lip.landinformationportal.common.entity.User;
 import capstone.lip.landinformationportal.common.utils.EmailSender;
@@ -47,6 +48,11 @@ public class UserService implements IUserService {
     @Override
     public User save(User user) {
     	try {
+    		UserValidation validate = new UserValidation();
+    		String error = validate.isValidUser(user);
+    		if (!error.isEmpty()) {
+    			throw new Exception(error);
+    		}
     		return userRepository.save(user);
 		} catch (Exception e) {
 			e.printStackTrace();

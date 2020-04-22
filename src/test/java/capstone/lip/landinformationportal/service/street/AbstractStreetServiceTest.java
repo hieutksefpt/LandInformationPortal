@@ -5,10 +5,11 @@
  */
 package capstone.lip.landinformationportal.service.street;
 
+import capstone.lip.landinformationportal.business.repository.StreetRepository;
+import capstone.lip.landinformationportal.business.service.StreetService;
 import capstone.lip.landinformationportal.common.CRUDTest;
-import capstone.lip.landinformationportal.entity.Street;
-import capstone.lip.landinformationportal.repository.StreetRepository;
-import capstone.lip.landinformationportal.service.StreetService;
+import capstone.lip.landinformationportal.common.entity.Street;
+
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertEquals;

@@ -5,11 +5,12 @@
  */
 package capstone.lip.landinformationportal.service.report;
 
+import capstone.lip.landinformationportal.business.repository.ReportRepository;
+import capstone.lip.landinformationportal.business.service.ReportService;
 import capstone.lip.landinformationportal.common.CRUDTest;
-import capstone.lip.landinformationportal.entity.Report;
-import capstone.lip.landinformationportal.entity.compositekey.ReportId;
-import capstone.lip.landinformationportal.repository.ReportRepository;
-import capstone.lip.landinformationportal.service.ReportService;
+import capstone.lip.landinformationportal.common.entity.Report;
+import capstone.lip.landinformationportal.common.entity.compositekey.ReportId;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.springframework.beans.factory.annotation.Autowired;

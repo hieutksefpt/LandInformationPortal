@@ -5,9 +5,10 @@
  */
 package capstone.lip.landinformationportal.service.street;
 
-import capstone.lip.landinformationportal.entity.Street;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
+
+import capstone.lip.landinformationportal.common.entity.Street;
 
 /**
  *

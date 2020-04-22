@@ -5,13 +5,14 @@
  */
 package capstone.lip.landinformationportal.service.feedback;
 
-import capstone.lip.landinformationportal.entity.Feedback;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.TestPropertySource;
+
+import capstone.lip.landinformationportal.common.entity.Feedback;
 
 /**
  *

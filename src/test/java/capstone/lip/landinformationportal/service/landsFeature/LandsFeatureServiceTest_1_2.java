@@ -5,11 +5,13 @@
  */
 package capstone.lip.landinformationportal.service.landsFeature;
 
-import capstone.lip.landinformationportal.entity.LandsFeature;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
+
+import capstone.lip.landinformationportal.common.entity.LandsFeature;
+
 import static org.junit.Assert.assertEquals;
 
 /**

@@ -5,11 +5,12 @@
  */
 package capstone.lip.landinformationportal.service.landsDetail;
 
+import capstone.lip.landinformationportal.business.repository.LandsDetailRepository;
+import capstone.lip.landinformationportal.business.service.LandsDetailService;
 import capstone.lip.landinformationportal.common.CRUDTest;
-import capstone.lip.landinformationportal.entity.LandsDetail;
-import capstone.lip.landinformationportal.entity.compositekey.LandsDetailId;
-import capstone.lip.landinformationportal.repository.LandsDetailRepository;
-import capstone.lip.landinformationportal.service.LandsDetailService;
+import capstone.lip.landinformationportal.common.entity.LandsDetail;
+import capstone.lip.landinformationportal.common.entity.compositekey.LandsDetailId;
+
 import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

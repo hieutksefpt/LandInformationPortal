@@ -5,10 +5,11 @@
  */
 package capstone.lip.landinformationportal.service.report;
 
-import capstone.lip.landinformationportal.entity.Report;
-import capstone.lip.landinformationportal.entity.compositekey.ReportId;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
+
+import capstone.lip.landinformationportal.common.entity.Report;
+import capstone.lip.landinformationportal.common.entity.compositekey.ReportId;
 
 /**
  *

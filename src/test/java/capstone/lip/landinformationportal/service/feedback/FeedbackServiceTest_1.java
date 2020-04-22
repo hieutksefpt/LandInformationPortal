@@ -5,10 +5,11 @@
  */
 package capstone.lip.landinformationportal.service.feedback;
 
-import capstone.lip.landinformationportal.entity.Feedback;
-import capstone.lip.landinformationportal.entity.User;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
+
+import capstone.lip.landinformationportal.common.entity.Feedback;
+import capstone.lip.landinformationportal.common.entity.User;
 
 /**
  *

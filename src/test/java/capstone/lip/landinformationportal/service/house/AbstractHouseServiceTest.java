@@ -5,11 +5,12 @@
  */
 package capstone.lip.landinformationportal.service.house;
 
+import capstone.lip.landinformationportal.business.repository.HouseRepository;
+import capstone.lip.landinformationportal.business.service.HouseService;
 import capstone.lip.landinformationportal.common.CRUDTest;
-import capstone.lip.landinformationportal.entity.House;
-import capstone.lip.landinformationportal.entity.RealEstate;
-import capstone.lip.landinformationportal.repository.HouseRepository;
-import capstone.lip.landinformationportal.service.HouseService;
+import capstone.lip.landinformationportal.common.entity.House;
+import capstone.lip.landinformationportal.common.entity.RealEstate;
+
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertEquals;

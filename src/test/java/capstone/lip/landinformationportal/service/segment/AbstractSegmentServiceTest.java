@@ -5,12 +5,13 @@
  */
 package capstone.lip.landinformationportal.service.segment;
 
+import capstone.lip.landinformationportal.business.repository.SegmentOfStreetRepository;
+import capstone.lip.landinformationportal.business.service.SegmentOfStreetService;
 import capstone.lip.landinformationportal.common.CRUDTest;
-import capstone.lip.landinformationportal.entity.District;
-import capstone.lip.landinformationportal.entity.SegmentOfStreet;
-import capstone.lip.landinformationportal.entity.Street;
-import capstone.lip.landinformationportal.repository.SegmentOfStreetRepository;
-import capstone.lip.landinformationportal.service.SegmentOfStreetService;
+import capstone.lip.landinformationportal.common.entity.District;
+import capstone.lip.landinformationportal.common.entity.SegmentOfStreet;
+import capstone.lip.landinformationportal.common.entity.Street;
+
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertEquals;

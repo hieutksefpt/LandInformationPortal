@@ -5,12 +5,13 @@
  */
 package capstone.lip.landinformationportal.service.formedCoordinate;
 
-import capstone.lip.landinformationportal.entity.FormedCoordinate;
-import capstone.lip.landinformationportal.entity.SegmentOfStreet;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
+
+import capstone.lip.landinformationportal.common.entity.FormedCoordinate;
+import capstone.lip.landinformationportal.common.entity.SegmentOfStreet;
 
 /**
  *

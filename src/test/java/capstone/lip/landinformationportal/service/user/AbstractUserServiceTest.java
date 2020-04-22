@@ -5,10 +5,11 @@
  */
 package capstone.lip.landinformationportal.service.user;
 
+import capstone.lip.landinformationportal.business.repository.UserRepository;
+import capstone.lip.landinformationportal.business.service.UserService;
 import capstone.lip.landinformationportal.common.CRUDTest;
-import capstone.lip.landinformationportal.entity.User;
-import capstone.lip.landinformationportal.repository.UserRepository;
-import capstone.lip.landinformationportal.service.UserService;
+import capstone.lip.landinformationportal.common.entity.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

@@ -11,8 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import capstone.lip.landinformationportal.dto.RealEstateObjectCrawl;
-import capstone.lip.landinformationportal.service.Interface.ICrawlRealEstateService;
+import capstone.lip.landinformationportal.business.service.Interface.ICrawlRealEstateService;
+import capstone.lip.landinformationportal.common.dto.RealEstateObjectCrawl;
 
 @EnableJpaAuditing
 @SpringBootApplication

@@ -5,10 +5,11 @@
  */
 package capstone.lip.landinformationportal.service.district;
 
-import capstone.lip.landinformationportal.entity.District;
 import java.util.ArrayList;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
+
+import capstone.lip.landinformationportal.common.entity.District;
 
 /**
  *

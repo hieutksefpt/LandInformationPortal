@@ -5,12 +5,14 @@
  */
 package capstone.lip.landinformationportal.service.district;
 
+import capstone.lip.landinformationportal.business.repository.DistrictRepository;
+import capstone.lip.landinformationportal.business.service.DistrictService;
 import capstone.lip.landinformationportal.common.CRUDTest;
+import capstone.lip.landinformationportal.common.entity.District;
+import capstone.lip.landinformationportal.common.entity.Province;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import capstone.lip.landinformationportal.entity.District;
-import capstone.lip.landinformationportal.entity.Province;
-import capstone.lip.landinformationportal.repository.DistrictRepository;
-import capstone.lip.landinformationportal.service.DistrictService;
+
 import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

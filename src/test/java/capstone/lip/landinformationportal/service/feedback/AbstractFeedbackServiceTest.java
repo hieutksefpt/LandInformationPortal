@@ -5,11 +5,12 @@
  */
 package capstone.lip.landinformationportal.service.feedback;
 
+import capstone.lip.landinformationportal.business.repository.FeedbackRepository;
+import capstone.lip.landinformationportal.business.service.FeedbackService;
 import capstone.lip.landinformationportal.common.CRUDTest;
-import capstone.lip.landinformationportal.entity.Feedback;
-import capstone.lip.landinformationportal.entity.User;
-import capstone.lip.landinformationportal.repository.FeedbackRepository;
-import capstone.lip.landinformationportal.service.FeedbackService;
+import capstone.lip.landinformationportal.common.entity.Feedback;
+import capstone.lip.landinformationportal.common.entity.User;
+
 import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

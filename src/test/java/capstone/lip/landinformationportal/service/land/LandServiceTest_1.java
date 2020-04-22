@@ -5,13 +5,14 @@
  */
 package capstone.lip.landinformationportal.service.land;
 
-import capstone.lip.landinformationportal.entity.Land;
-import capstone.lip.landinformationportal.entity.LandsDetail;
-import capstone.lip.landinformationportal.entity.RealEstate;
-import capstone.lip.landinformationportal.entity.compositekey.LandsDetailId;
 import java.util.ArrayList;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
+
+import capstone.lip.landinformationportal.common.entity.Land;
+import capstone.lip.landinformationportal.common.entity.LandsDetail;
+import capstone.lip.landinformationportal.common.entity.RealEstate;
+import capstone.lip.landinformationportal.common.entity.compositekey.LandsDetailId;
 
 /**
  *

@@ -5,9 +5,10 @@
  */
 package capstone.lip.landinformationportal.service.district;
 
+import capstone.lip.landinformationportal.business.service.DistrictService;
 import capstone.lip.landinformationportal.common.CRUDTest;
-import capstone.lip.landinformationportal.entity.District;
-import capstone.lip.landinformationportal.service.DistrictService;
+import capstone.lip.landinformationportal.common.entity.District;
+
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;

@@ -5,11 +5,12 @@
  */
 package capstone.lip.landinformationportal.service.realEstateAdjacentSegment;
 
+import capstone.lip.landinformationportal.business.repository.RealEstateAdjacentSegmentRepository;
+import capstone.lip.landinformationportal.business.service.RealEstateAdjacentSegmentService;
 import capstone.lip.landinformationportal.common.CRUDTest;
-import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegment;
-import capstone.lip.landinformationportal.entity.compositekey.RealEstateAdjacentSegmentId;
-import capstone.lip.landinformationportal.repository.RealEstateAdjacentSegmentRepository;
-import capstone.lip.landinformationportal.service.RealEstateAdjacentSegmentService;
+import capstone.lip.landinformationportal.common.entity.RealEstateAdjacentSegment;
+import capstone.lip.landinformationportal.common.entity.compositekey.RealEstateAdjacentSegmentId;
+
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;

@@ -5,10 +5,12 @@
  */
 package capstone.lip.landinformationportal.service.user;
 
-import capstone.lip.landinformationportal.entity.User;
 import java.util.List;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
+
+import capstone.lip.landinformationportal.common.entity.User;
+
 import static org.junit.Assert.assertEquals;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

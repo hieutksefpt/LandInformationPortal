@@ -5,11 +5,12 @@
  */
 package capstone.lip.landinformationportal.service.formedCoordinate;
 
+import capstone.lip.landinformationportal.business.repository.FormedCoordinateRepository;
+import capstone.lip.landinformationportal.business.service.FormedCoordinateService;
 import capstone.lip.landinformationportal.common.CRUDTest;
-import capstone.lip.landinformationportal.entity.FormedCoordinate;
-import capstone.lip.landinformationportal.entity.SegmentOfStreet;
-import capstone.lip.landinformationportal.repository.FormedCoordinateRepository;
-import capstone.lip.landinformationportal.service.FormedCoordinateService;
+import capstone.lip.landinformationportal.common.entity.FormedCoordinate;
+import capstone.lip.landinformationportal.common.entity.SegmentOfStreet;
+
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;

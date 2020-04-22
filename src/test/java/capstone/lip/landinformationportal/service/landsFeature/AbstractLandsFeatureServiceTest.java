@@ -5,10 +5,11 @@
  */
 package capstone.lip.landinformationportal.service.landsFeature;
 
+import capstone.lip.landinformationportal.business.repository.LandsFeatureRepository;
+import capstone.lip.landinformationportal.business.service.LandsFeatureService;
 import capstone.lip.landinformationportal.common.DataFeatureTest;
-import capstone.lip.landinformationportal.entity.LandsFeature;
-import capstone.lip.landinformationportal.repository.LandsFeatureRepository;
-import capstone.lip.landinformationportal.service.LandsFeatureService;
+import capstone.lip.landinformationportal.common.entity.LandsFeature;
+
 import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

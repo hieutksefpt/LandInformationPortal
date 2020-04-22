@@ -5,11 +5,12 @@
  */
 package capstone.lip.landinformationportal.service.realEstateAdjacentSegment;
 
-import capstone.lip.landinformationportal.entity.RealEstateAdjacentSegment;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
+
+import capstone.lip.landinformationportal.common.entity.RealEstateAdjacentSegment;
 
 /**
  *

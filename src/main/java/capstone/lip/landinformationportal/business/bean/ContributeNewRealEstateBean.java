@@ -170,7 +170,7 @@ public class ContributeNewRealEstateBean implements Serializable {
         newHouseMoney = BigDecimal.ZERO;
         newLandMoney = BigDecimal.ZERO;
         checkLocationLocate = "";
-        typeRealEstate = RealEstateTypeConstant.landHouseType;
+        typeRealEstate = RealEstateTypeConstant.LANDHOUSETYPE;
     }
 
     public void showModalMandatory() {
@@ -198,7 +198,7 @@ public class ContributeNewRealEstateBean implements Serializable {
         RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
         // save to Table REAS
 
-        if (typeRealEstate.equals(RealEstateTypeConstant.landType)) {
+        if (typeRealEstate.equals(RealEstateTypeConstant.LANDTYPE)) {
             Land newLand = new Land();
             newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
             if (newUploadRealEstate != null && newLand != null) {
@@ -206,14 +206,14 @@ public class ContributeNewRealEstateBean implements Serializable {
                 variableSuccess = true;
             }
 
-        } else if (typeRealEstate.equals(RealEstateTypeConstant.houseType)) {
+        } else if (typeRealEstate.equals(RealEstateTypeConstant.HOUSETYPE)) {
             House newHouse = new House();
             newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
             if (newUploadRealEstate != null && newHouse != null) {
                 saveDataNewHouseSingleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newHouse, listHousesDetail);
                 variableSuccess = true;
             }
-        } else if (typeRealEstate.equals(RealEstateTypeConstant.landHouseType)) {
+        } else if (typeRealEstate.equals(RealEstateTypeConstant.LANDHOUSETYPE)) {
             Land newLand = new Land();
             newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
             listLandDetail = validateLandDetailInfor(newLand, listLandFeatureValue);
@@ -536,7 +536,7 @@ public class ContributeNewRealEstateBean implements Serializable {
             }
         }
         if (landUnit == null) {
-            landUnit = RealEstateTypeConstant.unit;
+            landUnit = RealEstateTypeConstant.UNIT;
         }
         PrimeFaces.current().executeScript("loadLandUnit('" + landUnit + "')");
 
@@ -549,7 +549,7 @@ public class ContributeNewRealEstateBean implements Serializable {
             }
         }
         if (houseUnit == null) {
-            houseUnit = RealEstateTypeConstant.unit;
+            houseUnit = RealEstateTypeConstant.UNIT;
         }
         PrimeFaces.current().executeScript("loadHouseUnit('" + houseUnit + "')");
     }

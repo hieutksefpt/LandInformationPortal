@@ -129,13 +129,13 @@ public class RealEstateService implements IRealEstateService {
 
     @Override
     public long count() {
-        try {
-            return realEstateRepository.count();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-
+    	try {
+    		return realEstateRepository.count();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+        
     }
 
     @Override
@@ -170,13 +170,13 @@ public class RealEstateService implements IRealEstateService {
 
     @Override
     public long countByRealEstateStatus(String status) {
-        try {
-            return realEstateRepository.countByRealEstateStatus(status);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-
+    	try {
+    		return realEstateRepository.countByRealEstateStatus(status);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+        
     }
 
     @Override
@@ -199,11 +199,11 @@ public class RealEstateService implements IRealEstateService {
             RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
             RealEstateSpecifications spec3 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", realEstateSource));
             return realEstateRepository.count(Specification.where(Specification.where(spec1).or(spec2)).and(spec3));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+        
     }
 
     @Override
@@ -224,11 +224,11 @@ public class RealEstateService implements IRealEstateService {
             RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
             RealEstateSpecifications spec3 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", "!=", realEstateSource));
             return realEstateRepository.count(Specification.where(Specification.where(spec1).or(spec2)).and(spec3));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+        
     }
 
     @Override
@@ -265,11 +265,11 @@ public class RealEstateService implements IRealEstateService {
             RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", address));
             RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", address));
             return realEstateRepository.count(Specification.where(spec1).or(spec2));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+        
     }
 
     @Override

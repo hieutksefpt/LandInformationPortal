@@ -64,4 +64,28 @@ public class StringValidation {
 		}
 		return "";
 	}
+	public String isEmptyString(String text) {
+		if (text.trim().isEmpty()) {
+			return ValidateMessageCommon.EMPTY;
+		}
+		return "";
+	}
+	public String isValidEmail(String text) {
+		if (!text.matches("^[a-z][a-z0-9_\\.]{2,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,2}$")) {
+			return ValidateMessageCommon.EMAIL;
+		}
+		return "";
+	}
+	public String containSpace(String text) {
+		if (text.contains(" ")) {
+			return ValidateMessageCommon.SPACE;
+		}
+		return "";
+	}
+	public String containUTF8(String text) {
+		if (text.matches(".*[^A-Za-z0-9!@#$%&*()^~`\\-_+=|<>?{}\\[\\\\\\]].*")) {
+			return ValidateMessageCommon.UTF8;
+		}
+		return "";
+	}
 }

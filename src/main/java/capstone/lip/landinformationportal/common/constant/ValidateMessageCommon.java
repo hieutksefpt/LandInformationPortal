@@ -9,4 +9,7 @@ public class ValidateMessageCommon {
 	public static final String IS_NOT_A_NUMBER = "not a number";
 	public static final String IS_NEGATIVE_NUMBER = "is negative number";
 	public static final String NUMERIC = "all character is number";
+	public static final String EMAIL = "invalid email";
+	public static final String SPACE = "contain space";
+	public static final String UTF8 = "UTF-8";
 }

@@ -21,7 +21,8 @@ public class HousesDetailServiceTest_2 extends AbstractHousesDetailServiceTest {
     private ArrayList<HousesDetail> getListHousesDetails() {
         ArrayList<HousesDetail> details = new ArrayList();
         for (int i = 0; i < EXISTED_IDs.length; i++) {
-            details.add(repository.findByIdHouseIdAndIdHousesFeatureId(EXISTED_ID, EXISTED_ID));
+            details.add(repository
+                    .findByIdHouseIdAndIdHousesFeatureId(EXISTED_IDs[i], EXISTED_IDs[i]));
         }
         return details;
     }

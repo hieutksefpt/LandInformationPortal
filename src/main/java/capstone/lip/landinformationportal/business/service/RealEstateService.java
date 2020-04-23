@@ -7,25 +7,19 @@ package capstone.lip.landinformationportal.business.service;
 
 import capstone.lip.landinformationportal.business.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.business.service.Interface.IHouseService;
-import capstone.lip.landinformationportal.business.service.Interface.IHousesDetailService;
 import capstone.lip.landinformationportal.business.service.Interface.ILandService;
-import capstone.lip.landinformationportal.business.service.Interface.ILandsDetailService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateAdjacentSegmentService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateService;
+import capstone.lip.landinformationportal.business.service.Interface.IReportService;
 import capstone.lip.landinformationportal.business.specification.RealEstateSpecifications;
 import capstone.lip.landinformationportal.business.specification.SearchCriteria;
 import capstone.lip.landinformationportal.business.validation.RealEstateValidation;
 import capstone.lip.landinformationportal.common.dto.GroupByDateMaxMin;
 import capstone.lip.landinformationportal.common.dto.MaxMinAvg;
 import capstone.lip.landinformationportal.common.entity.House;
-import capstone.lip.landinformationportal.common.entity.HousesDetail;
 import capstone.lip.landinformationportal.common.entity.Land;
-import capstone.lip.landinformationportal.common.entity.LandsDetail;
 import capstone.lip.landinformationportal.common.entity.RealEstate;
-import capstone.lip.landinformationportal.common.entity.RealEstateAdjacentSegment;
-import capstone.lip.landinformationportal.common.entity.User;
-
-import java.math.BigDecimal;
+import capstone.lip.landinformationportal.common.entity.Report;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -129,13 +123,13 @@ public class RealEstateService implements IRealEstateService {
 
     @Override
     public long count() {
-        try {
-            return realEstateRepository.count();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-
+    	try {
+    		return realEstateRepository.count();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+        
     }
 
     @Override
@@ -170,13 +164,13 @@ public class RealEstateService implements IRealEstateService {
 
     @Override
     public long countByRealEstateStatus(String status) {
-        try {
-            return realEstateRepository.countByRealEstateStatus(status);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-
+    	try {
+    		return realEstateRepository.countByRealEstateStatus(status);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+        
     }
 
     @Override
@@ -199,11 +193,11 @@ public class RealEstateService implements IRealEstateService {
             RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
             RealEstateSpecifications spec3 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", realEstateSource));
             return realEstateRepository.count(Specification.where(Specification.where(spec1).or(spec2)).and(spec3));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+        
     }
 
     @Override
@@ -224,11 +218,11 @@ public class RealEstateService implements IRealEstateService {
             RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
             RealEstateSpecifications spec3 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", "!=", realEstateSource));
             return realEstateRepository.count(Specification.where(Specification.where(spec1).or(spec2)).and(spec3));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+        
     }
 
     @Override
@@ -265,11 +259,11 @@ public class RealEstateService implements IRealEstateService {
             RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", address));
             RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", address));
             return realEstateRepository.count(Specification.where(spec1).or(spec2));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+        
     }
 
     @Override
@@ -295,20 +289,16 @@ public class RealEstateService implements IRealEstateService {
     }
 
     @Autowired
-    ILandsDetailService landsDetailService;
+    private ILandService landService;
 
     @Autowired
-    ILandService landService;
+    private IHouseService houseService;
 
     @Autowired
-    IHousesDetailService housesDetailService;
+    private IRealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
 
     @Autowired
-    IHouseService houseService;
-
-    @Autowired
-    IRealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
-
+    private IReportService reportService;
     @Override
     public boolean delete(long realEstateId) {
         try {
@@ -338,6 +328,11 @@ public class RealEstateService implements IRealEstateService {
             houseService.delete(realEstate.getListHouse());
             landService.delete(realEstate.getLand());
             realEstateAdjacentSegmentService.delete(realEstate.getListRealEstateAdjacentSegment());
+            
+            List<Report> listReport = realEstate.getListReport();
+            for (Report element:listReport) {
+            	reportService.delete(element);
+            }
             realEstateRepository.deleteById(realEstateId);
             return true;
         } catch (Exception e) {
@@ -346,5 +341,15 @@ public class RealEstateService implements IRealEstateService {
         }
 
     }
+
+	@Override
+	public List<RealEstate> findByRealEstateLatAndRealEstateLng(Double realEstateLat, Double realEstateLng) {
+		try {
+			return realEstateRepository.findByRealEstateLatAndRealEstateLng(realEstateLat, realEstateLng);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }

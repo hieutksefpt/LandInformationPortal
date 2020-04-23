@@ -134,7 +134,7 @@ public class UserServiceTest_1_2 extends AbstractUserServiceTest {
     public void FT_US_2_08() {
         User result = instance.save(sampleUser
                 .setUserId(EXISTED_ID)
-                .setUsername(ALPHABETIC_STRING));
+                .setUsername(NO_SPACE_ALPHABETIC_STRING));
         
         testFail(result);
     }
@@ -148,7 +148,7 @@ public class UserServiceTest_1_2 extends AbstractUserServiceTest {
     public void FT_US_2_09() {
         User result = instance.save(sampleUser
                 .setUserId(NOT_EXISTED_ID)
-                .setUsername(ALPHABETIC_STRING));
+                .setUsername(NO_SPACE_ALPHABETIC_STRING));
         
         testInsertSuccess(result);
     }
@@ -414,7 +414,7 @@ public class UserServiceTest_1_2 extends AbstractUserServiceTest {
     public void FT_US_2_28() {
         User result = instance.save(sampleUser
                 .setUserId(EXISTED_ID)
-                .setPassword(ALPHABETIC_STRING));
+                .setPassword(NO_SPACE_ALPHABETIC_STRING));
         
         testUpdateSuccess(result);
     }
@@ -428,7 +428,7 @@ public class UserServiceTest_1_2 extends AbstractUserServiceTest {
     public void FT_US_2_29() {
         User result = instance.save(sampleUser
                 .setUserId(NOT_EXISTED_ID)
-                .setPassword(ALPHABETIC_STRING));
+                .setPassword(NO_SPACE_ALPHABETIC_STRING));
         
         testInsertSuccess(result);
     }

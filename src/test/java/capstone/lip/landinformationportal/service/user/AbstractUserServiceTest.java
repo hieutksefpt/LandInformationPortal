@@ -81,6 +81,6 @@ public abstract class AbstractUserServiceTest extends CRUDTest {
     }
     
     protected void testFindSuccess(User result) {
-        assertEquals(repository.findById(result.getUserId()), result);
+        assertEquals(repository.findById(result.getUserId()).get(), result);
     }
 }

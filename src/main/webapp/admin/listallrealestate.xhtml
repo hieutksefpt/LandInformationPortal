@@ -17,29 +17,36 @@
                 <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
 
                 <h:form id="form-AllRealEstate" prependId="false">
-
-                    <h:commandButton id="btn-ChangeRealEstateStatusConfused"
-                                     value="CONFUSED"
+					<div class="row" style="margin-bottom:10px">
+						<div class="col">
+							<h:commandButton id="btn-ChangeRealEstateStatusConfused"
+                                     value="CONFUSED" class="btn btn-block btn-primary waves-effect"
                                      action="#{listAllRealEstateBean.changeRealEstateStatusToConfused()}">
-                        <p:ajax process="@form" update="form-AllRealEstate"/>
-                    </h:commandButton>
-                    <h:commandButton id="btn-ChangeRealEstateStatusNotVerified"
-                                     value="NOT VERIFIED"
+		                        <p:ajax process="@form" update="form-AllRealEstate"/>
+		                    </h:commandButton>
+						</div>
+						<div class="col">	
+							<h:commandButton id="btn-ChangeRealEstateStatusNotVerified"
+                                     value="NOT VERIFIED" class="btn btn-block btn-secondary waves-effect"
                                      action="#{listAllRealEstateBean.changeRealEstateStatusToNotVerified()}">
-                        <p:ajax process="@form" update="form-AllRealEstate"/>
-                    </h:commandButton>
-                    <h:commandButton id="btn-ChangeRealEstateStatusVerified"
-                                     value="VERIFIED"
-                                     action="#{listAllRealEstateBean.changeRealEstateStatusToVerified()}">
-                        <p:ajax process="@form" update="form-AllRealEstate"/>
-                    </h:commandButton>
-                    <h:commandButton id="btn-DeleteSelectedRealEstate"
-                                     value="DELETE"
-                                     action="#{listAllRealEstateBean.deleteSelectedRealEstate()}">
-                        <p:ajax process="@form" update="form-AllRealEstate"/>
-                    </h:commandButton>
-
-
+		                        <p:ajax process="@form" update="form-AllRealEstate"/>
+		                    </h:commandButton>
+						</div>
+						<div class="col">
+							<h:commandButton id="btn-ChangeRealEstateStatusVerified"
+                                value="VERIFIED" class="btn btn-block btn-success waves-effect"
+                                action="#{listAllRealEstateBean.changeRealEstateStatusToVerified()}">
+		                        <p:ajax process="@form" update="form-AllRealEstate"/>
+		                    </h:commandButton>
+						</div>
+						<div class="col">
+							<h:commandButton id="btn-DeleteSelectedRealEstate"
+                                value="DELETE"  class="btn btn-block btn-danger waves-effect"
+                                action="#{listAllRealEstateBean.deleteSelectedRealEstate()}">
+		                        <p:ajax process="@form" update="form-AllRealEstate"/>
+		                    </h:commandButton>
+						</div>
+					</div>
 
                     <p:dataTable var="realEstate"
                                  value="#{listAllRealEstateBean.lazyReo}"
@@ -48,21 +55,21 @@
                                  resizableColumns="true" 
                                  liveResize="true"
                                  widgetVar="table-real-estate"
-                                 rows="10"
+                                 rows="10" style="width:99%"
                                  paginator="true" id="table"
                                  lazy="true" rowIndexVar="index"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                  currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records">
                         <p:column selectionMode="multiple" style="width:5%;text-align:center"/>
-                        <p:column headerText="ID" style="width: 5%;text-align:center">
+                        <p:column headerText="ID" style="width: 2%;text-align:center">
                             <h:outputText value="#{realEstate.realEstateId}"/>
                         </p:column>
                         <p:column headerText="Tên">
                             <a href="/viewrealestatedetail.xhtml?realEstateId=#{realEstate.realEstateId}" target="_blank">
-                            	<h:outputText id="lbl-ID" value="#{realEstate.realEstateName}" />
+                            	<h:outputText id="lbl-ID" value="#{realEstate.realEstateName}" title="#{realEstate.realEstateName}"/>
                             </a>
                         </p:column>
-                        <p:column headerText="Số lượng report">
+                        <p:column headerText="Số report" width="5%">
                             <h:outputText id="lbl-NumberOfReport" value="#{realEstate.listReport.size()}" />
                         </p:column>
                         <p:column headerText="Giá trị">
@@ -74,9 +81,9 @@
                             <h:outputText id="lbl-Coordinate" value="#{realEstate.realEstateLat}" /> , <h:outputText value="#{realEstate.realEstateLng}" />
                         </p:column>
                         <p:column headerText="Địa chỉ">
-                            <h:outputText id="lbl-Address" value="#{realEstate.realEstateAddress}" />
+                            <h:outputText id="lbl-Address" value="#{realEstate.realEstateAddress}" title="#{realEstate.realEstateAddress}" />
                         </p:column>
-                        <p:column filterBy="#{realEstate.realEstateSource}" filterMatchMode="exact" style="width: 15%;text-align:center">
+                        <p:column filterBy="#{realEstate.realEstateSource}" filterMatchMode="exact" style="text-align:center">
                             <f:facet name="filter">
                                 <p:selectOneMenu id="cbb-Source" onchange="PF('table-real-estate').filter()" styleClass="custom-filter">
                                     <f:selectItem itemLabel="All Source" itemValue="#{null}" noSelectionOption="true" />
@@ -85,7 +92,7 @@
                             </f:facet>
                             <h:outputText value="#{realEstate.realEstateSource}" />
                         </p:column>
-                        <p:column filterBy="#{realEstate.realEstateStatus}" filterMatchMode="exact" style="width: 10%;text-align:center">
+                        <p:column filterBy="#{realEstate.realEstateStatus}" filterMatchMode="exact" style="text-align:center">
                             <f:facet name="filter">
                                 <p:selectOneMenu id="cbb-Status" onchange="PF('table-real-estate').filter()" styleClass="custom-filter">
                                     <f:selectItem itemLabel="All Status" itemValue="#{null}" noSelectionOption="true" />
@@ -94,9 +101,9 @@
                                     <f:selectItem itemLabel="VERIFIED" itemValue="1" />
                                 </p:selectOneMenu>
                             </f:facet>
-                            <h:outputText value="CONFUSED" style="color: red" rendered="#{realEstate.realEstateStatus == '-1'}"/>
-                            <h:outputText value="NOT VERIFIED" style="color: #f6b102" rendered="#{realEstate.realEstateStatus == '0'}"/>
-                            <h:outputText value="VERIFIED" style="color: green" rendered="#{realEstate.realEstateStatus == '1'}"/>
+                            <h:outputText value="CONFUSED" style="color: red" rendered="#{realEstate.realEstateStatus == 'CONFUSED'}"/>
+                            <h:outputText value="NOT VERIFIED" style="color: #f6b102" rendered="#{realEstate.realEstateStatus == 'NOTVERIFY'}"/>
+                            <h:outputText value="VERIFIED" style="color: green" rendered="#{realEstate.realEstateStatus == 'VERIFIED'}"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>

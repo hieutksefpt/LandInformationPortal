@@ -21,7 +21,8 @@ public class HousesDetailServiceTest_2 extends AbstractHousesDetailServiceTest {
     private ArrayList<HousesDetail> getListHousesDetails() {
         ArrayList<HousesDetail> details = new ArrayList();
         for (int i = 0; i < EXISTED_IDs.length; i++) {
-            details.add(repository.findByIdHouseIdAndIdHousesFeatureId(EXISTED_ID, EXISTED_ID));
+            details.add(repository
+                    .findByIdHouseIdAndIdHousesFeatureId(EXISTED_IDs[i], EXISTED_IDs[i]));
         }
         return details;
     }
@@ -77,7 +78,7 @@ public class HousesDetailServiceTest_2 extends AbstractHousesDetailServiceTest {
     public void FT_HDS_2_04() {
         ArrayList<HousesDetail> details = getListHousesDetails();
         details.set(details.size() - 1, 
-                setHousesDetailID(sampleHousesDetail, EXISTED_ID, EXISTED_ID));
+                setHousesDetailID(sampleHousesDetail, NOT_EXISTED_ID, NOT_EXISTED_ID));
         boolean result = instance.delete(details);
         
         testFail(result);

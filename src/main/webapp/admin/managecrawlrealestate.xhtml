@@ -22,43 +22,39 @@
             <h:form onsubmit="return false;" prependId="false">
             	<p:growl id="msgs" showDetail="true" widgetVar="alert"/>
             	<div class="row form-group">
-            		<div class="col-3">
+            		<div class="col-4">
             			
             			<div class="row">
-            				<div class="col-3">
-            					<h:inputText id="txtInput-time" title="#{manageCrawlRealEstateBean.timerCrawl} giờ" value="#{manageCrawlRealEstateBean.timerCrawl}"></h:inputText>
+            				<div class="col-3 form-group">
+            					<h:inputText id="txtInput-time" title="#{manageCrawlRealEstateBean.timerCrawl} giờ" class="form-control" 
+            					style="border: 1px solid;" value="#{manageCrawlRealEstateBean.timerCrawl}"></h:inputText>
             				</div>
             				<div class="col-9">
-            					<h:commandButton id="btn-SetTime" value="Cài thời gian crawler">
+            					<h:commandButton id="btn-SetTime" value="Cài thời gian crawler" class="btn btn-block btn-info waves-effect">
 				            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.setTimerButtonClick()}"></p:ajax>
 				            	</h:commandButton>
             				</div>
             				
             			</div>
             		</div>
-            		<div class="col-3 text-center">
-          				<h:commandButton id="btn-TurnOnCrawl" value="Bật crawler" rendered="#{not manageCrawlRealEstateBean.statusCrawlSchedule}">
+            		<div class="col-4 text-center">
+          				<h:commandButton id="btn-TurnOnCrawl" value="Bật crawler" class="btn btn-block btn-success waves-effect" rendered="#{not manageCrawlRealEstateBean.statusCrawlSchedule}">
 		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.turnOnCrawler()}"></p:ajax>
 		            	</h:commandButton>
 		            	
-		            	<h:commandButton id="btn-TurnOffCrawl" value="Tắt crawler" rendered="#{manageCrawlRealEstateBean.statusCrawlSchedule}">
+		            	<h:commandButton id="btn-TurnOffCrawl" value="Tắt crawler" class="btn btn-block btn-danger waves-effect" rendered="#{manageCrawlRealEstateBean.statusCrawlSchedule}">
 		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.turnOffCrawler()}"></p:ajax>
 		            	</h:commandButton>
-
-		            		<label id="lb-CrawlNow"></label>
-		            		<h:outputText id="lb-CrawlSchedule" rendered="#{manageCrawlRealEstateBean.statusCrawlSchedule}" 
-	            				value="Đang chạy"></h:outputText>
-
+	
+	            		<h:outputText id="lb-CrawlSchedule" rendered="#{manageCrawlRealEstateBean.statusCrawlSchedule}"
+            				value="Đang chạy"></h:outputText>
+            				
+						<label id="lb-CrawlNow"></label>
             		</div>
-	            	<div class="col-3">
-	            		<div class="row">
-	            			<h:commandButton id="btn-CrawlNow" value="Crawl ngay">
-			            		<p:ajax process="@form" update="@form" oncomplete="renderMessageCrawlNow()" listener="#{manageCrawlRealEstateBean.crawlNow()}"></p:ajax>
-			           		</h:commandButton>
-	            		</div>
-	            	</div>
-	            	<div class="col-3">
-	            		
+	            	<div class="col-4">
+            			<h:commandButton id="btn-CrawlNow" class="btn btn-block btn-primary waves-effect" value="Crawl ngay">
+		            		<p:ajax process="@form" update="@form" oncomplete="renderMessageCrawlNow()" listener="#{manageCrawlRealEstateBean.crawlNow()}"></p:ajax>
+		           		</h:commandButton>
 	            	</div>
             	</div>
 
@@ -92,13 +88,32 @@
 	                    <c:set var="beanPopup" value="${manageCrawlRealEstateSetRoadSegmentBean}"></c:set>
 	                    <div class="row">
 	                    	<div class="col-3">
-	                    		
+	                    		<div>
+                   					<h:outputText value="Cần cập nhập tọa độ" rendered="#{beanPopup.coordinateConfuse}"></h:outputText>
+                   					<h:outputText value="Cần cập nhật đoạn đường" rendered="#{beanPopup.segmentConfuse}"></h:outputText>
+                   				</div>
+                   				<div class="form-group row">
+                   					<div class="col">
+                   						Địa chỉ: #{beanPopup.realEstate.realEstateAddress}
+                   					</div>
+                   				</div>
+                   				<div class="form-group row">
+                   					<div class="col" style="text-align: center">
+                   						<strong>Cập nhập tọa độ</strong>
+                   					</div>
+                   				</div>
+                   				<div class="form-group row">
+                   					<div class="col-6"> 
+                   						<h:inputText id="singleLat" class="w-100" value="#{beanPopup.singleLat}">
+                   						</h:inputText>
+                   					</div>
+                   					<div class="col-6">
+                   						<h:inputText id="singleLng" class="w-100" value="#{beanPopup.singleLng}">
+                   						</h:inputText>
+                   					</div>
+                   				</div>
                     			<h:panelGroup id="combobox_data">
-                    				<div class="form-group row">
-                    					<div class="col">
-                    						Địa chỉ: #{beanPopup.realEstate.realEstateAddress}
-                    					</div>
-                    				</div>
+                    				
                     				<div class="form-group row">
                     					<div class="col" style="text-align: center">
                     						<strong>Cập nhập đoạn đường</strong>
@@ -143,12 +158,15 @@
                                     </div>
                                     <div class="form-group row">
 				                    	<div class="col">
-				                    		<h:commandButton style="width:100%;" value="Thêm đoạn đường liền kề">
-				                    			<p:ajax listener="#{beanPopup.addSegment()}" update="tablesegment"></p:ajax>
+				                    		<h:commandButton style="width:100%;" class="btn btn-block btn-primary waves-effect" value="Thêm đoạn đường liền kề">
+				                    			<p:ajax listener="#{beanPopup.addSegment()}" update="combobox_data"></p:ajax>
 				                    		</h:commandButton>
+				                    		
 				                    	</div>
 				                    </div>
-				                    <h:panelGroup id="tablesegment">
+				                    
+				                    <h:panelGroup id="tablesegment" rendered="#{beanPopup.listAdjacentSegment.size() > 0}">
+				                    	
 				                    	<div class="scrollit">
 					                    	<table>
 					                    		<tbody>
@@ -166,7 +184,7 @@
                                 </h:panelGroup>	
                                 <div class="form-group row" style="padding-top:40px;">
 			                    	<div class="col text-center">
-			                    		<h:commandButton value="Lưu" 
+			                    		<h:commandButton value="Lưu chỉnh sửa" class="btn btn-block btn-info waves-effect"
 			                    			action="#{beanPopup.saveSegmentToReo()}">
 			                    			<p:ajax process="popup" update="popup" oncomplete="initMap(#{beanPopup.realEstate.realEstateLat},#{beanPopup.realEstate.realEstateLng})">
 			                    			
@@ -179,7 +197,7 @@
 					                    </h:commandButton>
 			                    	</div>
 			                    	<div class="col text-center">
-			                    		<h:commandButton value="Hủy" action="#{beanPopup.hidePopup()}">
+			                    		<h:commandButton value="Đóng cửa sổ" class="btn btn-block btn-warning waves-effect" action="#{beanPopup.hidePopup()}">
 					                        <f:ajax render="tabledata"/>
 					                    </h:commandButton>
 			                    	</div>

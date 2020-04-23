@@ -48,7 +48,7 @@ public class UserServiceTest_Empty extends AbstractUserServiceTest {
     }
     
     /**
-     * @Description: Non existed page
+     * @Description: Empty data
      * @Dependency: There are 0 record
      * @Expected Result: Fail
      */

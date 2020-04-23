@@ -7,11 +7,15 @@ package capstone.lip.landinformationportal.business.service;
 
 import capstone.lip.landinformationportal.business.repository.LandRepository;
 import capstone.lip.landinformationportal.business.repository.LandsDetailRepository;
+import capstone.lip.landinformationportal.business.repository.LandsFeatureRepository;
 import capstone.lip.landinformationportal.business.service.Interface.ILandService;
 import capstone.lip.landinformationportal.business.service.Interface.ILandsDetailService;
+import capstone.lip.landinformationportal.business.validation.HousesDetailValidation;
 import capstone.lip.landinformationportal.business.validation.LandValidation;
+import capstone.lip.landinformationportal.business.validation.LandsDetailValidation;
 import capstone.lip.landinformationportal.business.validation.RealEstateValidation;
 import capstone.lip.landinformationportal.common.dto.LandFeatureValue;
+import capstone.lip.landinformationportal.common.entity.House;
 import capstone.lip.landinformationportal.common.entity.Land;
 import capstone.lip.landinformationportal.common.entity.LandsDetail;
 import capstone.lip.landinformationportal.common.entity.RealEstate;
@@ -21,6 +25,8 @@ import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +44,7 @@ public class LandService implements ILandService {
     private ILandsDetailService landDetailService;
     
     @Autowired
-    private LandsDetailRepository landsDetailRepository;
+    private LandsFeatureRepository landsFeatureRepository;
     
     
     @Override
@@ -49,12 +55,15 @@ public class LandService implements ILandService {
     		if (!error.isEmpty()) {
     			throw new Exception(error);
     		}
-//    		for (LandsDetail element:land.getListLandsDetail()) {
-//    			if (landsDetailRepository.findByIdLandIdAndIdLandsFeatureId(element.getId().getLandId(), 
-//    					element.getId().getLandsFeatureId()) == null){
-//    				throw new Exception("LandId not true");
-//    			}
-//    		}
+
+    		if (land.getLandId() != null) {
+				Optional<Land> houseTemp = landRepository.findById(land.getLandId());
+				LandsDetailValidation validateLandDetail = new LandsDetailValidation();
+				String checkLandDetail = validateLandDetail.isValidLandDetail(land.getListLandsDetail(), landsFeatureRepository);
+				if (!checkLandDetail.isEmpty()) {
+					throw new Exception(checkLandDetail);
+				}
+			}
     		
     		return landRepository.save(land);
 		} catch (Exception e) {

@@ -54,7 +54,7 @@ public abstract class AbstractReportServiceTest extends CRUDTest {
         //Delete success
         if (result) {
             //Test exist in DB
-            assertEquals(false, repository
+            assertEquals(null, repository
                     .findByIdUserIdAndIdRealEstateId(
                             detail.getId().getRealestateId(),
                             detail.getId().getUserId()));

@@ -40,8 +40,10 @@ public abstract class CRUDTest {
     protected final String DEFAULT_EMAIL = "lipsystem.capstone@gmail.com";
     
     protected final String EMPTY_STRING = "";
+    protected final String NO_SPACE_ALPHABETIC_STRING = "LandInformationPortal";
     protected final String ALPHABETIC_STRING = "Land Information Portal";
     protected final String NUMERIC_STRING = "123456789";
+    protected final String NO_SPACE_NUMERIC_VIETNAMESE_STRING = "Cổngthôngtinbấtđộngsản123";
     protected final String NUMERIC_VIETNAMESE_STRING = "Cổng thông tin bất động sản 123";
     protected final String VIETNAMESE_STRING = "Cổng thông tin bất động sản";
     protected final String ALPHABETIC_NUMERIC_STRING = "123a123b";

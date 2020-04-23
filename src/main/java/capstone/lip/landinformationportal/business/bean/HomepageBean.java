@@ -27,6 +27,7 @@ import org.primefaces.model.chart.LineChartModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import com.google.gson.Gson;
 
@@ -104,7 +105,7 @@ public class HomepageBean implements Serializable{
 	private void openPageNews(int page) {
 		pageNews.setCurrentPage(page);
 		Page<CrawledNews> listNewsPage = crawledNewService.findByCrawledNewsStatus(StatusCrawledNewsConstant.DISPLAY, 
-				PageRequest.of(pageNews.getCurrentPage(), pageNews.getRowsPerPage()));
+				PageRequest.of(pageNews.getCurrentPage(), pageNews.getRowsPerPage(), Sort.by("modifiedDate").descending()));
 
 		listNews = listNewsPage.stream().map(x->x).collect(Collectors.toList());
 	}
@@ -440,7 +441,7 @@ public class HomepageBean implements Serializable{
 		case "0":
 			pageReo = new Pagination()
 					.setTotalRow((int)realEstateService.countByRealEstateAddress(address))
-					.setRowsPerPage(10)
+					.setRowsPerPage(100)
 					.setPageRange(3);
 			pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage())
 				.setCurrentPage(0);
@@ -448,14 +449,14 @@ public class HomepageBean implements Serializable{
 		case "1":
 			pageReo = new Pagination()
 					.setTotalRow((int)realEstateService.countByRealEstateSource(address,StatusRealEstateConstant.CONTRIBUTOR))
-					.setRowsPerPage(10)
+					.setRowsPerPage(100)
 					.setPageRange(3);
 			pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage()).setCurrentPage(0);
 			break;
 		case "2":
 			pageReo = new Pagination()
 					.setTotalRow((int)realEstateService.countByRealEstateSourceNot(address,StatusRealEstateConstant.CONTRIBUTOR))
-					.setRowsPerPage(10)
+					.setRowsPerPage(100)
 					.setPageRange(3);
 			pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage()).setCurrentPage(0);
 			break;

@@ -86,8 +86,8 @@ public class RealEstateAdjacentSegmentServiceTest_2
     public void FT_REASS_2_05() {
         long records = repository.count();
         ArrayList<RealEstateAdjacentSegment> details = getListRealEstateAdjacentSegments();
-        details.add(setRealEstateAdjacentSegmentId(sampleRealEstateAdjacentSegment, 
-                    EXISTED_ID, EXISTED_ID));
+//        details.add(setRealEstateAdjacentSegmentId(sampleRealEstateAdjacentSegment, 
+//                    EXISTED_ID, EXISTED_ID));
         boolean result = instance.delete(details);
         
         testDeleteSuccess(result, details, records);

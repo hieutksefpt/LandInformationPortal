@@ -39,7 +39,7 @@ public class UserServiceTest_3_4 extends AbstractUserServiceTest {
      */
     @Test
     public void FT_US_3_02() {
-        User result = instance.findById(POSITIVE_NOT_EXISTED_ID);
+        User result = instance.findById(EXISTED_ID);
         
         testFindSuccess(result);
     }
@@ -115,7 +115,6 @@ public class UserServiceTest_3_4 extends AbstractUserServiceTest {
     public void FT_US_4_03() {
         String result = instance
                 .resetPassword(NULL_NOT_EXISTED_ID, DEFAULT_PASSWORD_LENGTH);
-        
         testFail(result);
     }
     

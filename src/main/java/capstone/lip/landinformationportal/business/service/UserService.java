@@ -15,6 +15,8 @@ import capstone.lip.landinformationportal.common.utils.EncryptedPassword;
 import capstone.lip.landinformationportal.common.utils.PasswordGenerator;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -89,9 +91,19 @@ public class UserService implements IUserService {
 	private String username;
     
     @Override
-    public String resetPassword(long userId, int passwordLength) {
+    public String resetPassword(Long userId, int passwordLength) {
     	try {
-	        User user = userRepository.findById(userId).get();
+    		if(userId == null) {
+    			throw new Exception("Null user Id");
+    		}
+    		if(passwordLength < 8) {
+    			throw new Exception("Password length too short");
+    		}
+	        Optional<User> userTemp = userRepository.findById(userId);
+	        if(!userTemp.isPresent()) {
+	        	throw new Exception("Not exist user");
+	        }
+	        User user = userTemp.get();
 	        String newPassword = PasswordGenerator.generate(passwordLength);
 	        String encryptedPassword = EncryptedPassword.encrytePassword(newPassword);
 	        user.setPassword(encryptedPassword);
@@ -128,7 +140,12 @@ public class UserService implements IUserService {
     @Override
     public Page<User> findAll(Pageable page) {
     	try {
-    		return userRepository.findAll(page);
+    		Page<User> pageUser = userRepository.findAll(page);
+    		List<User> listUser = pageUser.getContent();
+    		if(listUser == null || (listUser != null && listUser.isEmpty())) {
+    			throw new Exception("Out of range");
+    		}
+    		return pageUser;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

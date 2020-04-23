@@ -19,7 +19,7 @@ public class UserValidation extends StringValidation{
 		if (!user.getUserStatus().equals(UserStatusConstant.ACTIVE) && !user.getUserStatus().equals(UserStatusConstant.BAN)) {
 			return "status is invalid";
 		}
-		if (user.getGender() != null && !user.getGender().equals(UserGenderConstant.MALE) && !user.getGender().equals(UserGenderConstant.FEMALE)){
+		if (user.getGender() != null && !user.getGender().equals(UserGenderConstant.OTHER) && !user.getGender().equals(UserGenderConstant.MALE) && !user.getGender().equals(UserGenderConstant.FEMALE)){
 			return "gender is invalid";
 		}
 		if (!isEmptyString(user.getFullName()).isEmpty()) {

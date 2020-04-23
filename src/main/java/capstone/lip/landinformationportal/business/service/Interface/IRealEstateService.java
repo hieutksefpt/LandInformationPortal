@@ -10,11 +10,7 @@ import capstone.lip.landinformationportal.common.dto.MaxMinAvg;
 import capstone.lip.landinformationportal.common.entity.House;
 import capstone.lip.landinformationportal.common.entity.Land;
 import capstone.lip.landinformationportal.common.entity.RealEstate;
-import capstone.lip.landinformationportal.common.entity.User;
-
-import java.math.BigDecimal;
 import java.util.List;
-
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -66,4 +62,6 @@ public interface IRealEstateService {
     
 //    @Cacheable(value="listGroupByDateAndValue", key="{#address}", cacheManager="cacheManager1Hour")
     List<GroupByDateMaxMin> listGroupByDateAndValue(String location);
+    
+    List<RealEstate> findByRealEstateLatAndRealEstateLng(Double RealEstateLat, Double RealEstateLng);
 }

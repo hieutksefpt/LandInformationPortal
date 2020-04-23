@@ -60,4 +60,6 @@ public interface RealEstateRepository extends JpaRepository<RealEstate, Long>, J
 //			"where (lower(re.\"RealEstateName\") like CONCAT('%',lower(:address),'%') or lower(re.\"RealEstateAddress\") like CONCAT('%',lower(:address),'%')) and (re.\"RealEstatePrice\" != -1) " + 
 //			"group by date_trunc('day', re.\"createdDate\")", nativeQuery=true )
 	List<GroupByDateMaxMin> getGroupTimeAndPrice(@Param("address")String address);
+	
+	List<RealEstate> findByRealEstateLatAndRealEstateLng(Double realEstateLat, Double realEstateLng);
 }

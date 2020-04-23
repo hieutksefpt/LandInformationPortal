@@ -7,9 +7,7 @@ package capstone.lip.landinformationportal.business.service;
 
 import capstone.lip.landinformationportal.business.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.business.service.Interface.IHouseService;
-import capstone.lip.landinformationportal.business.service.Interface.IHousesDetailService;
 import capstone.lip.landinformationportal.business.service.Interface.ILandService;
-import capstone.lip.landinformationportal.business.service.Interface.ILandsDetailService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateAdjacentSegmentService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.business.service.Interface.IReportService;
@@ -18,17 +16,10 @@ import capstone.lip.landinformationportal.business.specification.SearchCriteria;
 import capstone.lip.landinformationportal.business.validation.RealEstateValidation;
 import capstone.lip.landinformationportal.common.dto.GroupByDateMaxMin;
 import capstone.lip.landinformationportal.common.dto.MaxMinAvg;
-import capstone.lip.landinformationportal.common.entity.Feedback;
 import capstone.lip.landinformationportal.common.entity.House;
-import capstone.lip.landinformationportal.common.entity.HousesDetail;
 import capstone.lip.landinformationportal.common.entity.Land;
-import capstone.lip.landinformationportal.common.entity.LandsDetail;
 import capstone.lip.landinformationportal.common.entity.RealEstate;
-import capstone.lip.landinformationportal.common.entity.RealEstateAdjacentSegment;
 import capstone.lip.landinformationportal.common.entity.Report;
-import capstone.lip.landinformationportal.common.entity.User;
-
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -350,5 +341,15 @@ public class RealEstateService implements IRealEstateService {
         }
 
     }
+
+	@Override
+	public List<RealEstate> findByRealEstateLatAndRealEstateLng(Double realEstateLat, Double realEstateLng) {
+		try {
+			return realEstateRepository.findByRealEstateLatAndRealEstateLng(realEstateLat, realEstateLng);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }

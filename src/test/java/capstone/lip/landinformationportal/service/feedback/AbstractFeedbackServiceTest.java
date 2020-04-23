@@ -33,7 +33,7 @@ public abstract class AbstractFeedbackServiceTest extends CRUDTest {
             .setFeedbackTitle("SAMPLE FEEDBACK")
             .setFeedbackContent("SAMPLE FEEDBACK CONTENT")
             .setFeedbackStatus("OPEN")
-            .setFeedbackAdminReply(EMPTY_STRING)
+            .setFeedbackAdminReply("DEFAULT REPLY")
             .setUser(new User()
                     .setUserId(EXISTED_ID)
                     .setEmail(DEFAULT_EMAIL));

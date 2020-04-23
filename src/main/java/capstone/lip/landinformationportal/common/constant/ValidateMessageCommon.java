@@ -13,4 +13,5 @@ public class ValidateMessageCommon {
 	public static final String SPACE = "contain space";
 	public static final String UTF8 = "UTF-8";
 	public static final String HOUSE_FEATURE_NOT_EXIST = "House Feature not exist";
+	public static final String LAND_FEATURE_NOT_EXIST = "Land Feature not exist";
 }

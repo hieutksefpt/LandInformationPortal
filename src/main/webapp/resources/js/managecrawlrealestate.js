@@ -14,8 +14,15 @@ function initMap(latitude, longitude) {
     });
     var marker = new google.maps.Marker({
         position: myLatLng,
-        map: map
+        map: map,
+        draggable:true
     });
+    
+    google.maps.event.addListener(marker, 'dragend', function() {
+	    $('#singleLat').val(marker.position.lat());
+	    $('#singleLng').val(marker.position.lng());
+	});
+    
 }
 var path = [];
 function drawPath(json){

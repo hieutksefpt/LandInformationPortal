@@ -441,7 +441,7 @@ public class HomepageBean implements Serializable{
 		case "0":
 			pageReo = new Pagination()
 					.setTotalRow((int)realEstateService.countByRealEstateAddress(address))
-					.setRowsPerPage(10)
+					.setRowsPerPage(100)
 					.setPageRange(3);
 			pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage())
 				.setCurrentPage(0);
@@ -449,14 +449,14 @@ public class HomepageBean implements Serializable{
 		case "1":
 			pageReo = new Pagination()
 					.setTotalRow((int)realEstateService.countByRealEstateSource(address,StatusRealEstateConstant.CONTRIBUTOR))
-					.setRowsPerPage(10)
+					.setRowsPerPage(100)
 					.setPageRange(3);
 			pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage()).setCurrentPage(0);
 			break;
 		case "2":
 			pageReo = new Pagination()
 					.setTotalRow((int)realEstateService.countByRealEstateSourceNot(address,StatusRealEstateConstant.CONTRIBUTOR))
-					.setRowsPerPage(10)
+					.setRowsPerPage(100)
 					.setPageRange(3);
 			pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage()).setCurrentPage(0);
 			break;

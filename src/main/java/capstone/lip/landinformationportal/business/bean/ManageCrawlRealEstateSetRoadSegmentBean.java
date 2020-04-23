@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -46,6 +47,11 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 	private List<Street> listStreet;
 	private List<SegmentOfStreet> listSegment;
 	private List<RealEstateAdjacentSegment> listAdjacentSegment;
+	private boolean coordinateConfuse;
+	private boolean segmentConfuse;
+	private String singleLat;
+	private String singleLng;
+	
 	@Autowired
 	private IRealEstateService realEstateService;
 	
@@ -68,6 +74,23 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 		districtIdSelected = "";
 		streetIdSelected = "";
 		roadSegmentIdSelected = "";
+		singleLat = realEstate.getRealEstateLat().toString();
+		singleLng = realEstate.getRealEstateLng().toString();
+		
+		if (realEstate.getListRealEstateAdjacentSegment() != null) {
+			segmentConfuse = false;
+		}else {
+			segmentConfuse = true;
+		}
+		List<RealEstate> listRealEstateByCoordinate = realEstateService.findByRealEstateLatAndRealEstateLng(realEstate.getRealEstateLat(), realEstate.getRealEstateLng());
+		if (listRealEstateByCoordinate == null || (listRealEstateByCoordinate!=null && listRealEstateByCoordinate.isEmpty())) {
+			coordinateConfuse = false;
+		}else {
+			if (listRealEstateByCoordinate.size()>1) {
+				coordinateConfuse = true;
+			}
+		}
+		
 	}
 	public void provinceChange() {
 		if (provinceIdSelected.isEmpty()) {
@@ -118,6 +141,20 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 	}
 	public void saveSegmentToReo() {
 		
+		List<RealEstate> listRealEstateByCoordinate = realEstateService.findByRealEstateLatAndRealEstateLng(realEstate.getRealEstateLat(), realEstate.getRealEstateLng());
+		if (listRealEstateByCoordinate == null || (listRealEstateByCoordinate!=null && listRealEstateByCoordinate.isEmpty())) {
+			coordinateConfuse = false;
+		}else {
+			if (listRealEstateByCoordinate.size()>1) {
+				coordinateConfuse = true;
+				setMessage(FacesMessage.SEVERITY_ERROR, "Tọa độ bị trùng");
+				return;
+			}else {
+				coordinateConfuse = false;
+			}
+		}
+		
+		
 		if (listAdjacentSegment == null || listAdjacentSegment.isEmpty()) {
 			setMessage(FacesMessage.SEVERITY_ERROR, "Chưa chọn đoạn đường");
 			return;
@@ -164,6 +201,7 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 			listAdjacentSegment.add(reoAdj);
 		}
 	}
+
 	public void hidePopup() {
 		showPopup = false;
 	}
@@ -233,6 +271,30 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 	}
 	public void setListAdjacentSegment(List<RealEstateAdjacentSegment> listAdjacentSegment) {
 		this.listAdjacentSegment = listAdjacentSegment;
+	}
+	public boolean isCoordinateConfuse() {
+		return coordinateConfuse;
+	}
+	public void setCoordinateConfuse(boolean coordinateConfuse) {
+		this.coordinateConfuse = coordinateConfuse;
+	}
+	public boolean isSegmentConfuse() {
+		return segmentConfuse;
+	}
+	public void setSegmentConfuse(boolean segmentConfuse) {
+		this.segmentConfuse = segmentConfuse;
+	}
+	public String getSingleLat() {
+		return singleLat;
+	}
+	public void setSingleLat(String singleLat) {
+		this.singleLat = singleLat;
+	}
+	public String getSingleLng() {
+		return singleLng;
+	}
+	public void setSingleLng(String singleLng) {
+		this.singleLng = singleLng;
 	}
 	
 	

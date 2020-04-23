@@ -6,6 +6,7 @@
 package capstone.lip.landinformationportal.service.feedback;
 
 import capstone.lip.landinformationportal.business.repository.FeedbackRepository;
+import capstone.lip.landinformationportal.business.repository.UserRepository;
 import capstone.lip.landinformationportal.business.service.FeedbackService;
 import capstone.lip.landinformationportal.common.CRUDTest;
 import capstone.lip.landinformationportal.common.entity.Feedback;
@@ -28,15 +29,16 @@ public abstract class AbstractFeedbackServiceTest extends CRUDTest {
     @Autowired
     protected FeedbackRepository repository;
     
+    @Autowired
+    private UserRepository userRepo;
+    
     protected Feedback sampleFeedback = new Feedback()
             .setFeedBackID(DEFAULT_ID)
             .setFeedbackTitle("SAMPLE FEEDBACK")
             .setFeedbackContent("SAMPLE FEEDBACK CONTENT")
             .setFeedbackStatus("OPEN")
-            .setFeedbackAdminReply(EMPTY_STRING)
-            .setUser(new User()
-                    .setUserId(EXISTED_ID)
-                    .setEmail(DEFAULT_EMAIL));
+            .setFeedbackAdminReply("DEFAULT REPLY")
+            .setUser(userRepo.findById(EXISTED_ID).get());
     
     protected final long TOTAL_FEEDBACK = 5L;
     protected final long TOTAL_FEEDBACK_OPEN = 4L;

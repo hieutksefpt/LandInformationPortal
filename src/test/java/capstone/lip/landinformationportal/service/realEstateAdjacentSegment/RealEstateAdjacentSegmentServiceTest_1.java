@@ -91,7 +91,7 @@ public class RealEstateAdjacentSegmentServiceTest_1
     /**
      * @Description: Save positive segment ID and positive real estate ID
      * @Dependency: real estate ID and segment ID is existed
-     * @Expected Result: Insert success
+     * @Expected Result: Update success
      */
     @Test
     public void FT_REASS_1_06() {
@@ -100,7 +100,7 @@ public class RealEstateAdjacentSegmentServiceTest_1
                 .setId(setRealEstateAdjacentSegmentId(sampleRealEstateAdjacentSegment.getId()
                         , EXISTED_ID, EXISTED_ID)));
         
-        testInsertSuccess(result, records);
+        testUpdateSuccess(result, records);
     }
     
     /**

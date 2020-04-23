@@ -55,7 +55,8 @@ public abstract class AbstractRealEstateAdjacentSegmentServiceTest extends CRUDT
     protected ArrayList<RealEstateAdjacentSegment> getListRealEstateAdjacentSegments() {
         ArrayList<RealEstateAdjacentSegment> details = new ArrayList();
         for (int i = 0; i < EXISTED_IDs.length; i++) {
-            details.add(repository.findByIdSegmentOfStreetIdAndIdRealEstateId(EXISTED_ID, EXISTED_ID));
+            details.add(repository
+                    .findByIdSegmentOfStreetIdAndIdRealEstateId(EXISTED_IDs[i], EXISTED_IDs[i]));
         }
         return details;
     }

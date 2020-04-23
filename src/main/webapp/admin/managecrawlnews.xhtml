@@ -81,70 +81,9 @@
 	            		<f:facet name="header">Nguồn tin</f:facet>
 	            		<h:outputText value="#{element.crawledNewsWebsite}"></h:outputText>
 	            	</p:column>
-	            	<ui:remove>
-	            	<p:column style="text-align: center">
-	            		<div class="row">
-	            			<div class="col-6">
-		            			<p:commandButton icon="pi pi-check" title="Accept" update="tabledata" style="width:25px"
-					             action="#{manageCrawlNewsBean.setNews(element)}"  oncomplete="PF('dlgShow').show()">
-					             	
-					            </p:commandButton>
-	            			</div>
-	            			<div class="col-6">
-		            			<p:commandButton icon="pi pi-times" title="Delete" update="tabledata" style="width:25px"
-				             	action="#{manageCrawlNewsBean.setNews(element)}" oncomplete="PF('dlgDelete').show()">
-				             	
-				            	</p:commandButton>
-	            			</div>
-	            		</div>
-			        </p:column>
-			        </ui:remove>
 	            </p:dataTable>
 	            <br/>
 	            
-	           	
-	           	
-    			
-	            <p:dialog header="Hiển thị tin tức" widgetVar="dlgShow" modal="true" resizable="false">
-	               	<div class="row">
-	               		<div class="col">
-	               			<strong>Bạn có chắc chắn muốn hiển thị tin tức này không?</strong>
-	               		</div>
-	               	</div>
-	               	<div class="row">
-	               		<div class="col text-center">
-	               			<h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
-	               				<p:ajax listener="#{manageCrawlNewsBean.acceptNews()}" update="tabledata" 
-	               				oncomplete="PF('dlgShow').hide()"></p:ajax>
-	               			</h:commandButton>
-	               		</div>
-	               		<div class="col text-center">
-	               			<h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgShow').hide()">
-	               				
-	               			</h:commandButton>
-	               		</div>
-	               	</div>
-	           	</p:dialog>
-	           	<p:dialog header="Xóa tin tức" widgetVar="dlgDelete" modal="true" resizable="false">
-	               	<div class="row">
-	               		<div class="col">
-	               			<strong>Bạn có chắc chắn muốn xóa tin tức này không?</strong>
-	               		</div>
-	               	</div>
-	               	<div class="row">
-	               		<div class="col text-center">
-	               			<h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
-	               				<p:ajax listener="#{manageCrawlNewsBean.deleteNews()}" update="tabledata" 
-	               				oncomplete="PF('dlgDelete').hide()"></p:ajax>
-	               			</h:commandButton>
-	               		</div>
-	               		<div class="col text-center">
-	               			<h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgDelete').hide()">
-	               				
-	               			</h:commandButton>
-	               		</div>
-	               	</div>
-	           	</p:dialog>
             	<p:dialog header="Hiển thị danh sách tin tức" widgetVar="dlgShowList" modal="true" resizable="false">
             		<div class="row">
 	               		<div class="col">

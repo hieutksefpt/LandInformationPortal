@@ -56,6 +56,8 @@ function initMap() {
         });
         map.fitBounds(bounds);
     });
+    
+    
 }
 function focusMap(latitude, longitude, zoom){
     map.setCenter(new google.maps.LatLng(latitude, longitude));
@@ -114,6 +116,9 @@ function drawListMarker(list){
     	
     	listMarker.push(marker);
     	
+    	var markerCluster = new MarkerClusterer(map, listMarker,
+                {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
 	}
 }
 function displayReoList(isDisplay){

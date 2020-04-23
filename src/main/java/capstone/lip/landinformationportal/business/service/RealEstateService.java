@@ -12,17 +12,20 @@ import capstone.lip.landinformationportal.business.service.Interface.ILandServic
 import capstone.lip.landinformationportal.business.service.Interface.ILandsDetailService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateAdjacentSegmentService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateService;
+import capstone.lip.landinformationportal.business.service.Interface.IReportService;
 import capstone.lip.landinformationportal.business.specification.RealEstateSpecifications;
 import capstone.lip.landinformationportal.business.specification.SearchCriteria;
 import capstone.lip.landinformationportal.business.validation.RealEstateValidation;
 import capstone.lip.landinformationportal.common.dto.GroupByDateMaxMin;
 import capstone.lip.landinformationportal.common.dto.MaxMinAvg;
+import capstone.lip.landinformationportal.common.entity.Feedback;
 import capstone.lip.landinformationportal.common.entity.House;
 import capstone.lip.landinformationportal.common.entity.HousesDetail;
 import capstone.lip.landinformationportal.common.entity.Land;
 import capstone.lip.landinformationportal.common.entity.LandsDetail;
 import capstone.lip.landinformationportal.common.entity.RealEstate;
 import capstone.lip.landinformationportal.common.entity.RealEstateAdjacentSegment;
+import capstone.lip.landinformationportal.common.entity.Report;
 import capstone.lip.landinformationportal.common.entity.User;
 
 import java.math.BigDecimal;
@@ -295,20 +298,16 @@ public class RealEstateService implements IRealEstateService {
     }
 
     @Autowired
-    ILandsDetailService landsDetailService;
+    private ILandService landService;
 
     @Autowired
-    ILandService landService;
+    private IHouseService houseService;
 
     @Autowired
-    IHousesDetailService housesDetailService;
+    private IRealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
 
     @Autowired
-    IHouseService houseService;
-
-    @Autowired
-    IRealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
-
+    private IReportService reportService;
     @Override
     public boolean delete(long realEstateId) {
         try {
@@ -338,6 +337,11 @@ public class RealEstateService implements IRealEstateService {
             houseService.delete(realEstate.getListHouse());
             landService.delete(realEstate.getLand());
             realEstateAdjacentSegmentService.delete(realEstate.getListRealEstateAdjacentSegment());
+            
+            List<Report> listReport = realEstate.getListReport();
+            for (Report element:listReport) {
+            	reportService.delete(element);
+            }
             realEstateRepository.deleteById(realEstateId);
             return true;
         } catch (Exception e) {

@@ -27,6 +27,7 @@ import org.primefaces.model.chart.LineChartModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import com.google.gson.Gson;
 
@@ -104,7 +105,7 @@ public class HomepageBean implements Serializable{
 	private void openPageNews(int page) {
 		pageNews.setCurrentPage(page);
 		Page<CrawledNews> listNewsPage = crawledNewService.findByCrawledNewsStatus(StatusCrawledNewsConstant.DISPLAY, 
-				PageRequest.of(pageNews.getCurrentPage(), pageNews.getRowsPerPage()));
+				PageRequest.of(pageNews.getCurrentPage(), pageNews.getRowsPerPage(), Sort.by("modifiedDate").descending()));
 
 		listNews = listNewsPage.stream().map(x->x).collect(Collectors.toList());
 	}

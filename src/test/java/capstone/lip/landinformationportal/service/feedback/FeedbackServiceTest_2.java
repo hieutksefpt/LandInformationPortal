@@ -91,7 +91,7 @@ public class FeedbackServiceTest_2 extends AbstractFeedbackServiceTest {
                 .findById(EXISTED_ID).get()
                     .setFeedbackTitle(NULL_STRING));
         
-        testFail(result);
+        testDeleteSuccess(result, EXISTED_ID);
     }
     
     /**
@@ -119,7 +119,7 @@ public class FeedbackServiceTest_2 extends AbstractFeedbackServiceTest {
                 .findById(EXISTED_ID).get()
                     .setFeedbackContent(NULL_STRING));
         
-        testFail(result);
+        testDeleteSuccess(result, EXISTED_ID);
     }
     
     /**
@@ -147,7 +147,7 @@ public class FeedbackServiceTest_2 extends AbstractFeedbackServiceTest {
                 .findById(EXISTED_ID).get()
                     .setFeedbackAdminReply(NULL_STRING));
         
-        testFail(result);
+        testDeleteSuccess(result, EXISTED_ID);
     }
     
     /**

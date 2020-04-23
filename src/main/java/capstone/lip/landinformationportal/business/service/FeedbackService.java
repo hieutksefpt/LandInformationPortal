@@ -58,6 +58,9 @@ public class FeedbackService implements IFeedbackService {
     @Override
     public Feedback findById(Long id) {
         try {
+            if(id == null){
+               return null;
+            }
             Optional<Feedback> temp = feedbackRepository.findById(id);
             if (temp.isPresent()) {
                 return temp.get();

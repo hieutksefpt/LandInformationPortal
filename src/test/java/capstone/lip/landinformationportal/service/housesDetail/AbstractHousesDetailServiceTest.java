@@ -64,7 +64,7 @@ public abstract class AbstractHousesDetailServiceTest extends CRUDTest {
         if (result) {
             //Test exist in DB
             for (HousesDetail detail : details) {
-                assertEquals(false, repository
+                assertEquals(null, repository
                         .findByIdHouseIdAndIdHousesFeatureId(
                                 detail.getId().getHouseId(), 
                                 detail.getId().getHousesFeatureId()));

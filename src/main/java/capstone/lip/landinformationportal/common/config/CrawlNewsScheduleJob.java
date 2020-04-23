@@ -1,5 +1,6 @@
 package capstone.lip.landinformationportal.common.config;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +20,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import capstone.lip.landinformationportal.business.service.Interface.ICrawledNewsService;
+import capstone.lip.landinformationportal.common.constant.StatusCrawledNewsConstant;
 import capstone.lip.landinformationportal.common.dto.NewsCrawl;
+import capstone.lip.landinformationportal.common.entity.CrawledNews;
 @Component
 public class CrawlNewsScheduleJob implements Job {
 
@@ -55,12 +58,30 @@ public class CrawlNewsScheduleJob implements Job {
 		try {
 			ResponseEntity<NewsCrawl[]> responseEntity = 
 					restTemplate.exchange(builder.toUriString(),HttpMethod.GET,entity,NewsCrawl[].class);
-			List<NewsCrawl> listCrawl = Arrays.asList(responseEntity.getBody());
-			crawlNewsService.save(listCrawl);
+			List<NewsCrawl> listDTO = Arrays.asList(responseEntity.getBody());
+			List<CrawledNews> listNews = parseListNewsDTOToListNewsEntity(listDTO);
+			crawlNewsService.saveAll(listNews);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
 	}
 
+	private List<CrawledNews> parseListNewsDTOToListNewsEntity(List<NewsCrawl> listDTO) {
+		List<CrawledNews> list = new ArrayList();
+		for (NewsCrawl element : listDTO) {
+			CrawledNews news = new CrawledNews()
+					.setCrawledNewsLink(element.getLink())
+					.setCrawledNewsShortDescription(element.getDescription())
+					.setCrawledNewsTitle(element.getTitle())
+					.setCrawledNewsWebsite(element.getDomain())
+					.setCrawledNewsTime(element.getDate())
+					.setCrawledNewsImageUrl(element.getImageLink())
+					.setCrawledNewsStatus(StatusCrawledNewsConstant.NON_DISPLAY);
+			if (crawlNewsService.findByCrawledNewsLink(element.getLink()) == null) {
+				list.add(news);
+			}
+		}
+		return list;
+	}
 }

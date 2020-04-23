@@ -305,7 +305,7 @@
 		</ui:define>
 
 		<ui:define name="footer">
-			<h:outputScript>var urlBlueMarker = "${resource['img/blue-dot.png']}" </h:outputScript>
+			<h:outputScript name="markerclustererplus.min.js" library="js"></h:outputScript>
 			<h:outputScript name="homepage.js" library="js" />
 			<script type="text/javascript"
 				src="http://maps.googleapis.com/maps/api/js?key=#{googleMapBean.googleMapKey}&amp;libraries=places&amp;callback=initMap"

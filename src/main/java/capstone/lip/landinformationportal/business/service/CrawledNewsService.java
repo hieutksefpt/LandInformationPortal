@@ -1,7 +1,6 @@
 package capstone.lip.landinformationportal.business.service;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +22,6 @@ import capstone.lip.landinformationportal.business.repository.CrawledNewsReposit
 import capstone.lip.landinformationportal.business.service.Interface.ICrawledNewsService;
 import capstone.lip.landinformationportal.common.config.CrawlNewsNowJob;
 import capstone.lip.landinformationportal.common.config.CrawlNewsScheduleJob;
-import capstone.lip.landinformationportal.common.constant.StatusCrawledNewsConstant;
-import capstone.lip.landinformationportal.common.dto.NewsCrawl;
 import capstone.lip.landinformationportal.common.entity.CrawledNews;
 
 @Service
@@ -42,30 +39,6 @@ public class CrawledNewsService implements ICrawledNewsService{
 	
 	@Autowired
 	private CrawledNewsRepository crawledNewsRepository;
-	
-	@Override
-	public List<CrawledNews> save(List<NewsCrawl> listCrawledNews) {
-		try {
-			List list = new ArrayList();
-			for (NewsCrawl element : listCrawledNews) {
-				CrawledNews news = new CrawledNews()
-						.setCrawledNewsLink(element.getLink())
-						.setCrawledNewsShortDescription(element.getDescription())
-						.setCrawledNewsTitle(element.getTitle())
-						.setCrawledNewsWebsite(element.getDomain())
-						.setCrawledNewsTime(element.getDate())
-						.setCrawledNewsImageUrl(element.getImageLink())
-						.setCrawledNewsStatus(StatusCrawledNewsConstant.NON_DISPLAY);
-				if (crawledNewsRepository.findByCrawledNewsLink(element.getLink()) == null) {
-					list.add(news);
-				}
-			}
-			return crawledNewsRepository.saveAll(list);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 
 	@Override
 	public String initCrawlJob() {
@@ -173,16 +146,6 @@ public class CrawledNewsService implements ICrawledNewsService{
 	}
 
 	@Override
-	public CrawledNews save(CrawledNews news) {
-		try {
-			return crawledNewsRepository.save(news);
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	@Override
 	public Page<CrawledNews> findByCrawledNewsStatus(String status, Pageable page) {	
 		try {
 			return crawledNewsRepository.findByCrawledNewsStatus(status, page);
@@ -198,7 +161,7 @@ public class CrawledNewsService implements ICrawledNewsService{
 			return crawledNewsRepository.countByCrawledNewsStatus(status);
 		}catch(Exception e) {
 			e.printStackTrace();
-			return 0;
+			return -1;
 		}
 		
 	}
@@ -232,4 +195,16 @@ public class CrawledNewsService implements ICrawledNewsService{
 		}
 		return null;
 	}
+
+	@Override
+	public CrawledNews findByCrawledNewsLink(String link) {
+		try {
+			CrawledNews news = crawledNewsRepository.findByCrawledNewsLink(link);
+			return news;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 }

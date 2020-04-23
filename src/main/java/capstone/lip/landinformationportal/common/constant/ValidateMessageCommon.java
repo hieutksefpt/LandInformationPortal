@@ -12,4 +12,5 @@ public class ValidateMessageCommon {
 	public static final String EMAIL = "invalid email";
 	public static final String SPACE = "contain space";
 	public static final String UTF8 = "UTF-8";
+	public static final String HOUSE_FEATURE_NOT_EXIST = "House Feature not exist";
 }

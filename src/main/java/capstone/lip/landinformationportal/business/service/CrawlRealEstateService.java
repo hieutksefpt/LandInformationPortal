@@ -29,6 +29,7 @@ import capstone.lip.landinformationportal.business.repository.RealEstateAdjacent
 import capstone.lip.landinformationportal.business.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.business.repository.UserRepository;
 import capstone.lip.landinformationportal.business.service.Interface.ICrawlRealEstateService;
+import capstone.lip.landinformationportal.business.validation.CrawlRealEstateValidation;
 import capstone.lip.landinformationportal.common.config.CrawlRealEstateNowJob;
 import capstone.lip.landinformationportal.common.config.CrawlRealEstateScheduleJob;
 import capstone.lip.landinformationportal.common.constant.HousesFeatureNameConstant;
@@ -106,14 +107,18 @@ public class CrawlRealEstateService implements ICrawlRealEstateService{
 			User user = userRepository.findByUsername("admin");
 			int i = 1;
 			for (RealEstateObjectCrawl reoCrawl : listReoCrawl) {
+                                CrawlRealEstateValidation validReo = new CrawlRealEstateValidation();
 				RealEstate reo = new RealEstate();
 				String link = reoCrawl.getLink();
+                                String title = reoCrawl.getTitle().trim();
 				RealEstate reoSearch = realEstateRepository.findByRealEstateLink(link);
 				System.out.println(i+" "+link);
 				i++;
 				if (reoSearch != null) {
-					continue;
-				}
+				    continue;
+				} else if (validReo.isValidCrawlRealEstate(reoCrawl)){
+                                    continue;
+                                }
 				
 				reo.setRealEstateName(reoCrawl.getTitle())
 					.setRealEstateLat(reoCrawl.getLatitude())

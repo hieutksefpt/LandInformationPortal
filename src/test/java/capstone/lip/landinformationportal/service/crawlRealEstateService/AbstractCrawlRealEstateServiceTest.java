@@ -36,7 +36,7 @@ public abstract class AbstractCrawlRealEstateServiceTest extends CRUDTest {
 
     protected final String ADDRESS_STRING = "HA NOI, VIET NAM";
     protected final String STATUS_STRING = "CONFUSED";
-    protected final String LINK_STRING = "https://batdongsan.com.vn/";
+    protected final String LINK_STRING = "http://batdongsan.com.vn/";
     protected final String SOURCE_STRING = "batdongsan.com/";
     protected final int NEGATIVE_TIME_CRAWL_JOB = -10;
     protected final int ZERO_TIME_CRAWL_JOB = 0;

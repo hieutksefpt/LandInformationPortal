@@ -21,7 +21,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
     private ArrayList<LandsDetail> getListLandsDetails() {
         ArrayList<LandsDetail> details = new ArrayList();
         for (int i = 0; i < EXISTED_IDs.length; i++) {
-            details.add(repository.findByIdLandIdAndIdLandsFeatureId(EXISTED_ID, EXISTED_ID));
+            details.add(repository.findByIdLandIdAndIdLandsFeatureId(EXISTED_IDs[i], EXISTED_IDs[i]));
         }
         return details;
     }
@@ -77,7 +77,7 @@ public class LandsDetailServiceTest_2 extends AbstractLandsDetailServiceTest {
     public void FT_LDS_2_04() {
         ArrayList<LandsDetail> details = getListLandsDetails();
         details.set(details.size() - 1, 
-                setLandsDetailID(sampleLandsDetail, EXISTED_ID, EXISTED_ID));
+                setLandsDetailID(sampleLandsDetail, NOT_EXISTED_ID, NOT_EXISTED_ID));
         boolean result = instance.delete(details);
         
         testFail(result);

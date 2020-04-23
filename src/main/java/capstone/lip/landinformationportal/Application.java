@@ -1,18 +1,9 @@
 package capstone.lip.landinformationportal;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-
-import capstone.lip.landinformationportal.business.service.Interface.ICrawlRealEstateService;
-import capstone.lip.landinformationportal.common.dto.RealEstateObjectCrawl;
 
 @EnableJpaAuditing
 @SpringBootApplication

@@ -171,10 +171,9 @@ public class CrawlRealEstateService implements ICrawlRealEstateService {
 
                     housesDetailRepository.saveAll(listHousesDetail);
                     landsDetailRepository.saveAll(listLandsDetail);
-                }
-                else {
+                } else {
                     throw new Exception();
-                    
+
                 }
 
             }
@@ -345,11 +344,14 @@ public class CrawlRealEstateService implements ICrawlRealEstateService {
 
     public boolean setTimeCrawlJob(int value) {
         try {
-            trigger = TriggerBuilder.newTrigger().withIdentity(triggerKey)
-                    .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(value).repeatForever()).build();
-
-            job = JobBuilder.newJob(CrawlRealEstateScheduleJob.class).withIdentity(jobKey).build();
-            return true;
+            if (value == 0) {
+                return false;
+            } else {
+                trigger = TriggerBuilder.newTrigger().withIdentity(triggerKey)
+                        .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(value).repeatForever()).build();
+                job = JobBuilder.newJob(CrawlRealEstateScheduleJob.class).withIdentity(jobKey).build();
+                return true;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;

@@ -25,7 +25,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_01() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(NULL_ID);
         boolean result = instance.sendFeedbackReply(input);
         
@@ -39,7 +39,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_02() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(NEGATIVE_NOT_EXISTED_ID);
         boolean result = instance.sendFeedbackReply(input);
         
@@ -53,7 +53,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_03() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(POSITIVE_NOT_EXISTED_ID);
         boolean result = instance.sendFeedbackReply(input);
         
@@ -67,7 +67,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_04() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(ZERO_NOT_EXISTED_ID);
         boolean result = instance.sendFeedbackReply(input);
         
@@ -81,7 +81,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_05() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackTitle(NULL_STRING);
         boolean result = instance.sendFeedbackReply(input);
@@ -96,7 +96,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_06() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackTitle(NUMERIC_VIETNAMESE_STRING);
         boolean result = instance.sendFeedbackReply(input);
@@ -111,7 +111,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_07() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackTitle(SPECIAL_CHARACTER_STRING);
         boolean result = instance.sendFeedbackReply(input);
@@ -126,7 +126,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_08() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackTitle(EMPTY_STRING);
         boolean result = instance.sendFeedbackReply(input);
@@ -141,7 +141,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_09() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackContent(NULL_STRING);
         boolean result = instance.sendFeedbackReply(input);
@@ -156,7 +156,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_10() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackContent(NUMERIC_VIETNAMESE_STRING);
         boolean result = instance.sendFeedbackReply(input);
@@ -171,7 +171,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_11() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackContent(SPECIAL_CHARACTER_STRING);
         boolean result = instance.sendFeedbackReply(input);
@@ -186,7 +186,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_12() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackContent(EMPTY_STRING);
         boolean result = instance.sendFeedbackReply(input);
@@ -201,7 +201,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_13() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackAdminReply(NULL_STRING);
         boolean result = instance.sendFeedbackReply(input);
@@ -216,7 +216,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_14() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackAdminReply(NUMERIC_VIETNAMESE_STRING);
         boolean result = instance.sendFeedbackReply(input);
@@ -231,7 +231,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_15() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackAdminReply(SPECIAL_CHARACTER_STRING);
         boolean result = instance.sendFeedbackReply(input);
@@ -246,7 +246,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_16() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackAdminReply(EMPTY_STRING);
         boolean result = instance.sendFeedbackReply(input);
@@ -261,7 +261,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_17() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackStatus("INVALID");
         boolean result = instance.sendFeedbackReply(input);
@@ -276,7 +276,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_18() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setUser(new User().setUserId(NOT_EXISTED_ID));
         boolean result = instance.sendFeedbackReply(input);
@@ -291,7 +291,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_6_19() {
-        Feedback input = sampleFeedback
+        Feedback input = getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setUser(null);
         boolean result = instance.sendFeedbackReply(input);

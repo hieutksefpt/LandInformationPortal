@@ -25,7 +25,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_01() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(NULL_ID));
         
         testInsertSuccess(result);
@@ -38,7 +38,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_02() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(NEGATIVE_NOT_EXISTED_ID));
         
         testInsertSuccess(result);
@@ -51,7 +51,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_03() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(EXISTED_ID));
         
         testUpdateSuccess(result);
@@ -64,7 +64,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_04() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(POSITIVE_NOT_EXISTED_ID));
         
         testInsertSuccess(result);
@@ -77,7 +77,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_05() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(ZERO_NOT_EXISTED_ID));
         
         testInsertSuccess(result);
@@ -90,7 +90,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_06() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackTitle(NULL_STRING));
         
@@ -104,7 +104,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_07() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(NOT_EXISTED_ID)
                 .setFeedbackTitle(NULL_STRING));
         
@@ -118,7 +118,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_08() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackTitle(NUMERIC_VIETNAMESE_STRING));
         
@@ -132,7 +132,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_09() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(NOT_EXISTED_ID)
                 .setFeedbackTitle(NUMERIC_VIETNAMESE_STRING));
         
@@ -146,7 +146,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_10() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackTitle(SPECIAL_CHARACTER_STRING));
         
@@ -160,7 +160,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_11() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(NOT_EXISTED_ID)
                 .setFeedbackTitle(SPECIAL_CHARACTER_STRING));
         
@@ -174,7 +174,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_12() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackTitle(EMPTY_STRING));
         
@@ -188,7 +188,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_13() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(NOT_EXISTED_ID)
                 .setFeedbackTitle(EMPTY_STRING));
         
@@ -202,7 +202,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_14() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackContent(NULL_STRING));
         
@@ -216,7 +216,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_15() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(NOT_EXISTED_ID)
                 .setFeedbackContent(NULL_STRING));
         
@@ -230,7 +230,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_16() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackContent(NUMERIC_VIETNAMESE_STRING));
         
@@ -244,7 +244,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_17() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(NOT_EXISTED_ID)
                 .setFeedbackContent(NUMERIC_VIETNAMESE_STRING));
         
@@ -258,7 +258,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_18() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackContent(SPECIAL_CHARACTER_STRING));
         
@@ -272,7 +272,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_19() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(NOT_EXISTED_ID)
                 .setFeedbackContent(SPECIAL_CHARACTER_STRING));
         
@@ -286,7 +286,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_20() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackContent(EMPTY_STRING));
         
@@ -300,7 +300,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_21() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(NOT_EXISTED_ID)
                 .setFeedbackContent(EMPTY_STRING));
         
@@ -314,7 +314,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_22() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackAdminReply(NULL_STRING));
         
@@ -328,7 +328,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_23() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(NOT_EXISTED_ID)
                 .setFeedbackAdminReply(NULL_STRING));
         
@@ -342,7 +342,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_24() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackAdminReply(NUMERIC_VIETNAMESE_STRING));
         
@@ -356,7 +356,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_25() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(NOT_EXISTED_ID)
                 .setFeedbackAdminReply(NUMERIC_VIETNAMESE_STRING));
         
@@ -370,7 +370,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_26() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackAdminReply(SPECIAL_CHARACTER_STRING));
         
@@ -384,7 +384,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_27() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(NOT_EXISTED_ID)
                 .setFeedbackAdminReply(SPECIAL_CHARACTER_STRING));
         
@@ -398,7 +398,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_28() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackAdminReply(EMPTY_STRING));
         
@@ -412,7 +412,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_29() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(NOT_EXISTED_ID)
                 .setFeedbackAdminReply(EMPTY_STRING));
         
@@ -426,7 +426,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_30() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setFeedbackStatus("INVALID"));
         
@@ -440,7 +440,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_31() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(NOT_EXISTED_ID)
                 .setFeedbackStatus("INVALID"));
         
@@ -454,7 +454,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_32() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setUser(new User()
                         .setUserId(NOT_EXISTED_ID)));
@@ -469,7 +469,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_1_33() {
-        Feedback result = instance.save(sampleFeedback
+        Feedback result = instance.save(getSampleFeedback()
                 .setFeedBackID(EXISTED_ID)
                 .setUser(null));
         

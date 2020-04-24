@@ -34,13 +34,16 @@ public abstract class AbstractFeedbackServiceTest extends CRUDTest {
     @Autowired
     private UserRepository userRepo;
     
-    protected Feedback sampleFeedback = new Feedback()
+    protected Feedback getSampleFeedback() {
+        Feedback sampleFeedback = new Feedback()
             .setFeedBackID(DEFAULT_ID)
             .setFeedbackTitle("SAMPLE FEEDBACK")
             .setFeedbackContent("SAMPLE FEEDBACK CONTENT")
             .setFeedbackStatus("OPEN")
             .setFeedbackAdminReply("DEFAULT REPLY")
             .setUser(userRepo.findById(EXISTED_ID).get());
+        return sampleFeedback;
+    }
     
     protected final long TOTAL_FEEDBACK = 5L;
     protected final long TOTAL_FEEDBACK_OPEN = 4L;

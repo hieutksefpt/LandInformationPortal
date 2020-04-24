@@ -165,7 +165,7 @@ public class CrawledNewsServiceTest_1 extends AbstractCrawledNewsServiceTest {
         List<CrawledNews> result = instance.saveAll(input);
         
         //TEST RESULT
-        testFail(result);
+        testInsertSuccess(result);
     }
     
     /**
@@ -299,7 +299,7 @@ public class CrawledNewsServiceTest_1 extends AbstractCrawledNewsServiceTest {
         List<CrawledNews> input = new ArrayList();
         input.add(sampleCrawledNews
                 .setCrawledNewsID(NOT_EXISTED_ID)
-                .setCrawledNewsLink(DEFAULT_LINK));
+                .setCrawledNewsLink(NULL_STRING));
         
         //TEST METHOD
         List<CrawledNews> result = instance.saveAll(input);
@@ -330,7 +330,7 @@ public class CrawledNewsServiceTest_1 extends AbstractCrawledNewsServiceTest {
     
     /**
      * @Description: Save list contain 1 record
-     * @Dependency: News contains special character website source
+     * @Dependency: News contains all space website source
      * @Expected Result: Fail
      */
     @Test
@@ -419,7 +419,7 @@ public class CrawledNewsServiceTest_1 extends AbstractCrawledNewsServiceTest {
         List<CrawledNews> input = new ArrayList();
         input.add(sampleCrawledNews
                 .setCrawledNewsID(NOT_EXISTED_ID)
-                .setCrawledNewsStatus(STATUS_INVALID));
+                .setCrawledNewsStatus(STATUS_VALID_NOT_EXISTED));
         
         //TEST METHOD
         List<CrawledNews> result = instance.saveAll(input);

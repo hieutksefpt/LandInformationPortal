@@ -20,23 +20,25 @@ import org.springframework.stereotype.Service;
 
 import capstone.lip.landinformationportal.business.repository.CrawledNewsRepository;
 import capstone.lip.landinformationportal.business.service.Interface.ICrawledNewsService;
+import capstone.lip.landinformationportal.business.validation.CrawledNewsValidation;
 import capstone.lip.landinformationportal.common.config.CrawlNewsNowJob;
 import capstone.lip.landinformationportal.common.config.CrawlNewsScheduleJob;
+import capstone.lip.landinformationportal.common.constant.StatusCrawledNewsConstant;
 import capstone.lip.landinformationportal.common.entity.CrawledNews;
 
 @Service
-public class CrawledNewsService implements ICrawledNewsService{
+public class CrawledNewsService implements ICrawledNewsService {
 
 	private JobKey jobKey = new JobKey("crawlerNewsJob", "crawlerNews");
 	private TriggerKey triggerKey = new TriggerKey("crawlerNewsTriggler", "crawlerNews");
 	private JobKey jobKeyNow = new JobKey("crawlerNewsNowJob", "crawlerNews");
-	
+
 	@Autowired
 	Scheduler scheduler;
 
 	private Trigger trigger;
 	private JobDetail job;
-	
+
 	@Autowired
 	private CrawledNewsRepository crawledNewsRepository;
 
@@ -45,38 +47,42 @@ public class CrawledNewsService implements ICrawledNewsService{
 		try {
 			String timeCrawl = "";
 			JobDetail jobDetail;
-			//find current job if exist
+			// find current job if exist
 			jobDetail = scheduler.getJobDetail(jobKey);
-			if (jobDetail == null) return timeCrawl;
+			if (jobDetail == null)
+				return timeCrawl;
 			List<? extends Trigger> triggers = scheduler.getTriggersOfJob(jobDetail.getKey());
-		    for (Trigger trigger : triggers) {
-		    	
-		        SimpleScheduleBuilder scheduleBuilder = (SimpleScheduleBuilder)trigger.getScheduleBuilder();
-		        if (scheduleBuilder != null) {
-		        	
-		        	Field privateStringField = SimpleScheduleBuilder.class.
-		        	            getDeclaredField("interval");
+			for (Trigger trigger : triggers) {
 
-		        	privateStringField.setAccessible(true);
-		        	Long fieldValue = ((Long) privateStringField.get(scheduleBuilder))/3600000;
-		        	System.out.println("fieldValue = " + fieldValue);
-		        	timeCrawl = String.valueOf(fieldValue);
-		        }
-		    }
-		    return timeCrawl;
+				SimpleScheduleBuilder scheduleBuilder = (SimpleScheduleBuilder) trigger.getScheduleBuilder();
+				if (scheduleBuilder != null) {
+
+					Field privateStringField = SimpleScheduleBuilder.class.getDeclaredField("interval");
+
+					privateStringField.setAccessible(true);
+					Long fieldValue = ((Long) privateStringField.get(scheduleBuilder)) / 3600000;
+					System.out.println("fieldValue = " + fieldValue);
+					timeCrawl = String.valueOf(fieldValue);
+				}
+			}
+			return timeCrawl;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
 
 	@Override
 	public boolean setTimeCrawlJob(int value) {
 		try {
+			if (value == 0) {
+				throw new Exception("time crawl job can not be zero");
+			}
 			trigger = TriggerBuilder.newTrigger().withIdentity(triggerKey)
-					.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(value).repeatForever()).build();
-	
+					.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(value).repeatForever())
+					.build();
+
 			job = JobBuilder.newJob(CrawlNewsScheduleJob.class).withIdentity(jobKey).build();
 			return true;
 		} catch (Exception e) {
@@ -88,7 +94,7 @@ public class CrawledNewsService implements ICrawledNewsService{
 	@Override
 	public boolean turnOnCrawler() {
 		try {
-			if (scheduler!= null) {
+			if (scheduler != null) {
 				if (!scheduler.isStarted()) {
 					scheduler.start();
 				}
@@ -104,7 +110,7 @@ public class CrawledNewsService implements ICrawledNewsService{
 	@Override
 	public boolean turnOffCrawler() {
 		try {
-			if (scheduler!= null) {
+			if (scheduler != null) {
 				scheduler.deleteJob(jobKey);
 			}
 			return true;
@@ -112,18 +118,19 @@ public class CrawledNewsService implements ICrawledNewsService{
 			e.printStackTrace();
 			return false;
 		}
-		
+
 	}
 
 	@Override
 	public boolean crawlNow() {
 		try {
-			if (scheduler!= null) {
+			if (scheduler != null) {
 				if (!scheduler.isStarted()) {
 					scheduler.start();
 				}
 			}
-			JobDetail jobNow = JobBuilder.newJob(CrawlNewsNowJob.class).storeDurably(true).withIdentity(jobKeyNow).build();
+			JobDetail jobNow = JobBuilder.newJob(CrawlNewsNowJob.class).storeDurably(true).withIdentity(jobKeyNow)
+					.build();
 			scheduler.addJob(jobNow, true);
 			scheduler.triggerJob(jobKeyNow);
 			scheduler.deleteJob(jobKeyNow);
@@ -137,19 +144,33 @@ public class CrawledNewsService implements ICrawledNewsService{
 	@Override
 	public boolean delete(CrawledNews news) {
 		try {
+			CrawledNewsValidation crawledNewsValidation = new CrawledNewsValidation();
+			String error = crawledNewsValidation.isValidCrawledNewsOne(news);
+			if (!error.isEmpty()) {
+				throw new Exception(error);
+			}
 			crawledNewsRepository.delete(news);
 			return true;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
 	}
 
 	@Override
-	public Page<CrawledNews> findByCrawledNewsStatus(String status, Pageable page) {	
+	public Page<CrawledNews> findByCrawledNewsStatus(String status, Pageable page) {
 		try {
+			if (status == null || (status != null && status.isEmpty())) {
+				throw new Exception("Status can not be null or empty");
+			}
+			if (status.equals(StatusCrawledNewsConstant.DISPLAY)
+					|| status.equals(StatusCrawledNewsConstant.NON_DISPLAY)) {
+
+			} else {
+				throw new Exception("Status must be display or non display");
+			}
 			return crawledNewsRepository.findByCrawledNewsStatus(status, page);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -158,20 +179,39 @@ public class CrawledNewsService implements ICrawledNewsService{
 	@Override
 	public long countByStatus(String status) {
 		try {
+			if (status == null || (status != null && status.isEmpty())) {
+				throw new Exception("Status can not be null or empty");
+			}
+			if (status.equals(StatusCrawledNewsConstant.DISPLAY)
+					|| status.equals(StatusCrawledNewsConstant.NON_DISPLAY)) {
+
+			} else {
+				throw new Exception("Status must be display or non display");
+			}
 			return crawledNewsRepository.countByCrawledNewsStatus(status);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
 		}
-		
 	}
 
 	@Override
 	public boolean delete(List<CrawledNews> listNews) {
 		try {
+			CrawledNewsValidation crawledNewsValidation = new CrawledNewsValidation();
+			String error = crawledNewsValidation.isValidCrawledNews(listNews);
+			if (!error.isEmpty()) {
+				throw new Exception(error);
+			}
+			for (CrawledNews news : listNews) {
+				Optional<CrawledNews> newsTemp = crawledNewsRepository.findById(news.getCrawledNewsID());
+				if (!newsTemp.isPresent()) {
+					throw new Exception("can't delete if news ID is not exist");
+				}
+			}
 			crawledNewsRepository.deleteAll(listNews);
 			return true;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -180,8 +220,14 @@ public class CrawledNewsService implements ICrawledNewsService{
 	@Override
 	public List<CrawledNews> saveAll(List<CrawledNews> listNews) {
 		try {
+			CrawledNewsValidation crawledNewsValidation = new CrawledNewsValidation();
+			String error = crawledNewsValidation.isValidCrawledNews(listNews);
+
+			if (!error.isEmpty()) {
+				throw new Exception(error);
+			}
 			return crawledNewsRepository.saveAll(listNews);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -189,11 +235,19 @@ public class CrawledNewsService implements ICrawledNewsService{
 
 	@Override
 	public CrawledNews findById(Long newsId) {
-		Optional<CrawledNews> news = crawledNewsRepository.findById(newsId);
-		if (news.isPresent()) {
+		try {
+			if (newsId == null) {
+				throw new Exception("userId can not be null");
+			}
+			Optional<CrawledNews> news = crawledNewsRepository.findById(newsId);
+			if (!news.isPresent()) {
+				return null;
+			}
 			return news.get();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 
 	@Override
@@ -201,10 +255,10 @@ public class CrawledNewsService implements ICrawledNewsService{
 		try {
 			CrawledNews news = crawledNewsRepository.findByCrawledNewsLink(link);
 			return news;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
+
 }

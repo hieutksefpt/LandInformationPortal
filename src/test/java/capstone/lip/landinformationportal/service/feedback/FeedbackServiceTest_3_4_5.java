@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.TestPropertySource;
 
 import capstone.lip.landinformationportal.common.entity.Feedback;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -76,7 +77,7 @@ public class FeedbackServiceTest_3_4_5 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_3_05() {
-        Feedback result = instance.findById(NULL_NOT_EXISTED_ID);
+        Feedback result = instance.findById(NULL_ID);
         
         testFail(result);
     }

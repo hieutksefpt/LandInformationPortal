@@ -77,7 +77,7 @@ public class StreetServiceTest_1 extends AbstractStreetServiceTest {
     public void FT_StS_1_05() {
         long records = repository.count();
         Street result = instance.save(sampleStreet
-                .setStreetId(NULL_NOT_EXISTED_ID));
+                .setStreetId(NULL_ID));
         
         testInsertSuccess(result, records);
     }

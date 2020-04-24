@@ -87,7 +87,7 @@ public class CrawledNewsServiceTest_7_8 extends AbstractCrawledNewsServiceTest {
     public void FT_CNS_7_05() {
         //TEST METHOD
         boolean result = instance.delete(sampleCrawledNews
-            .setCrawledNewsID(NULL_NOT_EXISTED_ID));
+            .setCrawledNewsID(NULL_ID));
         
         //TEST RESULT
         testFail(result);

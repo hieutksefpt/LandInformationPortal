@@ -77,7 +77,7 @@ public class DistrictServiceTest_1 extends AbstractDistrictServiceTest {
     public void FT_DS_1_05() {
         long records = repository.count();
         District result = instance.save(sampleDistrict
-                .setDistrictId(NULL_NOT_EXISTED_ID));
+                .setDistrictId(NULL_ID));
         
         testInsertSuccess(result, records);
     }

@@ -13,6 +13,8 @@ import org.springframework.test.context.TestPropertySource;
 import capstone.lip.landinformationportal.common.entity.HousesFeature;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  *

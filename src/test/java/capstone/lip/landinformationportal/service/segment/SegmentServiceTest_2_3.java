@@ -129,7 +129,7 @@ public class SegmentServiceTest_2_3 extends AbstractSegmentServiceTest {
     @Test
     public void FT_SgS_3_05() {
         boolean result = instance.delete(sampleSegment
-                .setSegmentId(NULL_NOT_EXISTED_ID));
+                .setSegmentId(NULL_ID));
         
         testFail(result);
     }

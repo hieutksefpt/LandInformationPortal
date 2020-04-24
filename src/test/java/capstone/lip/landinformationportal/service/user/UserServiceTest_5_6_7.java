@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.TestPropertySource;
 
 import capstone.lip.landinformationportal.common.entity.User;
+import static org.junit.Assert.assertEquals;
 
 /**
  *

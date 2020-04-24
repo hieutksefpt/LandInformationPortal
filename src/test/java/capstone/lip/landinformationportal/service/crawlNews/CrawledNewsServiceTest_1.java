@@ -119,7 +119,7 @@ public class CrawledNewsServiceTest_1 extends AbstractCrawledNewsServiceTest {
         //TEST DATA
         List<CrawledNews> input = new ArrayList();
         input.add(sampleCrawledNews
-                .setCrawledNewsID(NULL_NOT_EXISTED_ID));
+                .setCrawledNewsID(NULL_ID));
         
         //TEST METHOD
         List<CrawledNews> result = instance.saveAll(input);

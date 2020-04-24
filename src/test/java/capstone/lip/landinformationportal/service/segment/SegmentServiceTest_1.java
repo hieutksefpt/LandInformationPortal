@@ -77,7 +77,7 @@ public class SegmentServiceTest_1 extends AbstractSegmentServiceTest {
     public void FT_SgS_1_05() {
         long records = repository.count();
         SegmentOfStreet result = instance.save(sampleSegment
-                .setSegmentId(NULL_NOT_EXISTED_ID));
+                .setSegmentId(NULL_ID));
         
         testInsertSuccess(result, records);
     }

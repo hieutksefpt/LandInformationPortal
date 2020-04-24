@@ -14,6 +14,8 @@ import capstone.lip.landinformationportal.common.entity.compositekey.ReportId;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.springframework.beans.factory.annotation.Autowired;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  *

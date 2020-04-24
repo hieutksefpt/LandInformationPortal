@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
 
 import capstone.lip.landinformationportal.common.entity.User;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -75,7 +76,7 @@ public class UserServiceTest_3_4 extends AbstractUserServiceTest {
      */
     @Test
     public void FT_US_3_05() {
-        User result = instance.findById(NULL_NOT_EXISTED_ID);
+        User result = instance.findById(NULL_ID);
         
         testFail(result);
     }
@@ -114,7 +115,7 @@ public class UserServiceTest_3_4 extends AbstractUserServiceTest {
     @Test
     public void FT_US_4_03() {
         String result = instance
-                .resetPassword(NULL_NOT_EXISTED_ID, DEFAULT_PASSWORD_LENGTH);
+                .resetPassword(NULL_ID, DEFAULT_PASSWORD_LENGTH);
         testFail(result);
     }
     

@@ -12,6 +12,7 @@ import org.springframework.test.context.TestPropertySource;
 import capstone.lip.landinformationportal.common.entity.User;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -92,7 +93,7 @@ public class UserServiceTest_1_2 extends AbstractUserServiceTest {
     @Test
     public void FT_US_2_05() {
         User result = instance.save(sampleUser
-                .setUserId(NULL_NOT_EXISTED_ID));
+                .setUserId(NULL_ID));
         
         testInsertSuccess(result);
     }

@@ -26,7 +26,7 @@ public class FeedbackServiceTest_6 extends AbstractFeedbackServiceTest {
     @Test
     public void FT_FS_6_01() {
         Feedback input = sampleFeedback
-                .setFeedBackID(NULL_NOT_EXISTED_ID);
+                .setFeedBackID(NULL_ID);
         boolean result = instance.sendFeedbackReply(input);
         
         testFail(result);

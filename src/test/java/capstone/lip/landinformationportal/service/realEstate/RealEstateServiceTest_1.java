@@ -78,7 +78,7 @@ public class RealEstateServiceTest_1 extends AbstractRealEstateServiceTest
     @Test
     public void FT_RES_1_05() {
         RealEstate result = instance.save(sampleRealEstate
-                .setRealEstateId(NULL_NOT_EXISTED_ID));
+                .setRealEstateId(NULL_ID));
         
         testInsertSuccess(result);
     }

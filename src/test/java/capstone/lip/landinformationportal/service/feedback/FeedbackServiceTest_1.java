@@ -26,7 +26,7 @@ public class FeedbackServiceTest_1 extends AbstractFeedbackServiceTest {
     @Test
     public void FT_FS_1_01() {
         Feedback result = instance.save(sampleFeedback
-                .setFeedBackID(NULL_NOT_EXISTED_ID));
+                .setFeedBackID(NULL_ID));
         
         testInsertSuccess(result);
     }

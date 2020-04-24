@@ -95,7 +95,7 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
     @Test
     public void FT_CRES_1_06() {
         RealEstate test = new RealEstate();
-        test.setRealEstateId(NULL_NOT_EXISTED_ID);
+        test.setRealEstateId(NULL_ID);
         List<RealEstate> result = new ArrayList<>();
         result.add(test);
         testInsertSuccess(result);

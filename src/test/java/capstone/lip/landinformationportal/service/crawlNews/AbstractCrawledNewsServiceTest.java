@@ -16,6 +16,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -23,8 +25,6 @@ import static org.junit.Assert.fail;
  */
 public abstract class AbstractCrawledNewsServiceTest extends CRUDTest
         implements TimePack {
-
-    protected final String EXISTED_LINK = "https://dantri.com.vn/kinh-doanh/can-ho-ha-noi-dua-giam-gia-ca-tram-trieu-dong-2017120620103522.htm";
 
     protected final String STATUS_VALID_EXISTED = StatusCrawledNewsConstant.DISPLAY;
     protected final String STATUS_VALID_NOT_EXISTED = StatusCrawledNewsConstant.NON_DISPLAY;

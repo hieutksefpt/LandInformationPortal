@@ -27,7 +27,7 @@ public class ReportServiceTest_2 extends AbstractReportServiceTest {
     public void FT_RS_2_01() {
         Report input = sampleReport.setId(new ReportId()
                 .setRealestateId(EXISTED_ID)
-                .setUserId(NULL_NOT_EXISTED_ID));
+                .setUserId(NULL_ID));
         boolean result = instance.delete(input);
         
         testFail(result);
@@ -41,7 +41,7 @@ public class ReportServiceTest_2 extends AbstractReportServiceTest {
     @Test
     public void FT_RS_2_02() {
         Report input = sampleReport.setId(new ReportId()
-                .setRealestateId(NULL_NOT_EXISTED_ID)
+                .setRealestateId(NULL_ID)
                 .setUserId(EXISTED_ID));
         boolean result = instance.delete(input);
         

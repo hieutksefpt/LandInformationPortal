@@ -19,6 +19,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -98,7 +106,7 @@ public class ProvinceServiceTest_1_2 extends AbstractProvinceServiceTest {
     public void FT_PS_2_05() {
         long records = repository.count();
         Province result = instance.save(sampleProvince
-                .setProvinceId(NULL_NOT_EXISTED_ID));
+                .setProvinceId(NULL_ID));
         
         testInsertSuccess(result, records);
     }

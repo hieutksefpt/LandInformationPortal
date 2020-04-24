@@ -9,6 +9,7 @@ import capstone.lip.landinformationportal.common.entity.CrawledNews;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -95,7 +96,7 @@ public class CrawledNewsServiceTest_9_10 extends AbstractCrawledNewsServiceTest 
     @Test
     public void FT_CNS_10_01() {
         //TEST METHOD
-        CrawledNews result = instance.findById(NULL_NOT_EXISTED_ID);
+        CrawledNews result = instance.findById(NULL_ID);
         
         //TEST RESULT
         testFail(result);

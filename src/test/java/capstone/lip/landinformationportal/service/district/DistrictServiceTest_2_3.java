@@ -129,7 +129,7 @@ public class DistrictServiceTest_2_3 extends AbstractDistrictServiceTest {
     @Test
     public void FT_DS_3_05() {
         boolean result = instance.delete(sampleDistrict
-                .setDistrictId(NULL_NOT_EXISTED_ID));
+                .setDistrictId(NULL_ID));
         
         testFail(result);
     }

@@ -81,7 +81,7 @@ public class FormedCoordinateServiceTest_1_2
     public void FT_FCS_1_05() {
         long records = repository.count();
         FormedCoordinate result = instance.save(sampleFormedCoordinate
-                .setFormedCoordinateId(NULL_NOT_EXISTED_ID));
+                .setFormedCoordinateId(NULL_ID));
 
         testInsertSuccess(result, records);
     }

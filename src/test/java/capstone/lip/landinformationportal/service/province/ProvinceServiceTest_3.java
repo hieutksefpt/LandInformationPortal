@@ -70,7 +70,7 @@ public class ProvinceServiceTest_3 extends AbstractProvinceServiceTest {
     @Test
     public void FT_PS_3_05() {
         boolean result = instance.delete(sampleProvince
-                .setProvinceId(NULL_NOT_EXISTED_ID));
+                .setProvinceId(NULL_ID));
         
         testFail(result);
     }

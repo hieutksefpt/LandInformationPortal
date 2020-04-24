@@ -129,7 +129,7 @@ public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
     @Test
     public void FT_StS_3_05() {
         boolean result = instance.delete(sampleStreet
-                .setStreetId(NULL_NOT_EXISTED_ID));
+                .setStreetId(NULL_ID));
         
         testFail(result);
     }

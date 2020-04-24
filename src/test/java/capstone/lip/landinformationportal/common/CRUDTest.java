@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -61,7 +62,7 @@ public abstract class CRUDTest {
     protected final Long NOT_EXISTED_ID = -1L;
     protected final Long NEGATIVE_NOT_EXISTED_ID = -99L;
     protected final Long ZERO_NOT_EXISTED_ID = 0L;
-    protected final Long NULL_NOT_EXISTED_ID = null;
+    protected final Long NULL_ID = null;
     
     protected final long[] EXISTED_IDs = {1L, 2L, 3L};
 

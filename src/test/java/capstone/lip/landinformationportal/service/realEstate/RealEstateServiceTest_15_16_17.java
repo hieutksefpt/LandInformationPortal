@@ -49,7 +49,7 @@ public class RealEstateServiceTest_15_16_17 extends AbstractRealEstateServiceTes
      */
     @Test
     public void FT_RES_15_03() {
-        testFail(instance.listMaxMinAvg(NON_EXISTED_ADDRESS));
+        testFailMinMaxAvg(instance.listMaxMinAvg(NON_EXISTED_ADDRESS));
     }
     
     /**

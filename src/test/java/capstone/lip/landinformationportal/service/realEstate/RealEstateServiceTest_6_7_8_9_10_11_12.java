@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
  *
  * @author Phong
  */
-@TestPropertySource(locations = "/application-test-empty.properties")
+@TestPropertySource(locations = "/application-test-data.properties")
 public class RealEstateServiceTest_6_7_8_9_10_11_12 extends AbstractRealEstateServiceTest {
     
     /**
@@ -44,7 +44,6 @@ public class RealEstateServiceTest_6_7_8_9_10_11_12 extends AbstractRealEstateSe
     public void FT_RES_6_06() {
         Pageable pageable = PageRequest.of(OUT_RANGE_PAGE, PAGE_SIZE);
         Page result = instance.findByRealEstateStatus(STATUS_VERIFIED, pageable);
-        
         testFail(result);
     }
     
@@ -115,7 +114,7 @@ public class RealEstateServiceTest_6_7_8_9_10_11_12 extends AbstractRealEstateSe
      */
     @Test
     public void FT_RES_9_07() {
-        long result = instance.countByRealEstateAddress(STATUS_VERIFIED);
+        long result = instance.countByRealEstateAddress(EXISTED_ADDRESS);
         
         assertEquals(5, result);
     }
@@ -182,7 +181,7 @@ public class RealEstateServiceTest_6_7_8_9_10_11_12 extends AbstractRealEstateSe
      */
     @Test
     public void FT_RES_10_11() {
-        assertEquals(5, instance
+        assertEquals(4, instance
                 .countByRealEstateSource(EXISTED_ADDRESS, EXISTED_SOURCE));
     }
     
@@ -237,7 +236,7 @@ public class RealEstateServiceTest_6_7_8_9_10_11_12 extends AbstractRealEstateSe
      */
     @Test
     public void FT_RES_11_10() {
-        assertEquals(5, instance
+        assertEquals(0, instance
                 .countByRealEstateSource("123", "456"));
     }
     
@@ -248,7 +247,7 @@ public class RealEstateServiceTest_6_7_8_9_10_11_12 extends AbstractRealEstateSe
      */
     @Test
     public void FT_RES_11_11() {
-        assertEquals(0, instance
+        assertEquals(4, instance
                 .countByRealEstateSource(EXISTED_ADDRESS, EXISTED_SOURCE));
     }
     
@@ -259,6 +258,6 @@ public class RealEstateServiceTest_6_7_8_9_10_11_12 extends AbstractRealEstateSe
      */
     @Test
     public void FT_RES_12_02() {
-        assertEquals(TOTAL_RECORDS, instance.listRealEstateSource().size());
+        assertEquals(2, instance.listRealEstateSource().size());
     }
 }

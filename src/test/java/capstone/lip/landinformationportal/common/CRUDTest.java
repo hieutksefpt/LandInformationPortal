@@ -6,6 +6,7 @@
  */
 package capstone.lip.landinformationportal.common;
 
+import capstone.lip.landinformationportal.common.dto.MaxMinAvg;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import java.math.BigDecimal;
@@ -83,6 +84,11 @@ public abstract class CRUDTest {
     protected void testFail(Object result) {
         //Save fail
         assertEquals(true, result == null);
+    }
+    
+    protected void testFailMinMaxAvg(MaxMinAvg result) {
+        //Save fail
+        assertEquals(true, result.getMax() == null && result.getMin() == null && result.getAvg()== null);
     }
     
     protected void testFail(ArrayList result) {

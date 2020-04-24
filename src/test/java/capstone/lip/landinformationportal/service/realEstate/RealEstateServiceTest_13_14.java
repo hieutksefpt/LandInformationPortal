@@ -91,7 +91,7 @@ public class RealEstateServiceTest_13_14 extends AbstractRealEstateServiceTest {
      */
     @Test
     public void FT_RES_13_04() {
-        List result = instance.listGroupByDateAndValue("123");
+        List result = instance.listGroupByDateAndValue(EXISTED_ADDRESS);
         
         testListNotEmpty(result);
     }
@@ -105,7 +105,6 @@ public class RealEstateServiceTest_13_14 extends AbstractRealEstateServiceTest {
     public void FT_RES_14_01() {
         List result = instance.listFilterRealEstate(EMPTY_STRING, 
                 EXISTED_SOURCE, STATUS_VERIFIED);
-        
         testFail(result);
     }
     

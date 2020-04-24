@@ -210,10 +210,8 @@ public class CrawledNewsServiceTest_7_8 extends AbstractCrawledNewsServiceTest {
         //TEST DATA
         List<CrawledNews> input = new ArrayList();
         for (int i = 0; i < EXISTED_IDs.length; i++) {
-            input.add(sampleCrawledNews
-                .setCrawledNewsID(EXISTED_IDs[i]));
+            input.add(repository.findById(EXISTED_IDs[i]).get());
         }
-        input.set(input.size()-1, null);
         
         //TEST METHOD
         boolean result = instance.delete(input);

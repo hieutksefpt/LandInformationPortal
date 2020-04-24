@@ -36,6 +36,8 @@ public abstract class CRUDTest {
     protected final Double DEFAULT_LNG = 99.0;
     protected final BigDecimal DEFAULT_PRICE = BigDecimal.valueOf(999999);
     
+    protected final String EXISTED_LINK = "https://dantri.com.vn/kinh-doanh/can-ho-ha-noi-dua-giam-gia-ca-tram-trieu-dong-2017120620103522.htm";
+    protected final String DEFAULT_LINK = "https://batdongsan.com.vn/";
     protected final String DEFAULT_EMAIL = "lipsystem.capstone@gmail.com";
     
     protected final String EMPTY_STRING = "";
@@ -84,5 +86,10 @@ public abstract class CRUDTest {
     protected void testFail(ArrayList result) {
         //Save fail
         assertEquals(true, result == null);
+    }
+    
+    protected void testFail(long result) {
+        //Count fail
+        assertEquals(-1, result);
     }
 }

@@ -42,7 +42,7 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
     public void FT_CRES_1_02() {
         RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
         reoCrawl.setTitle(EMPTY_STRING);
-        reoCrawl.setLink(LINK_STRING);
+        reoCrawl.setLink(LINK_STRING + "1");
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         testReoCrawl.add(reoCrawl);
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
@@ -60,7 +60,7 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
         for (int i = 0; i < 3; i++) {
             RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
             reoCrawl.setTitle(EMPTY_STRING);
-            reoCrawl.setLink(LINK_STRING);
+            reoCrawl.setLink(LINK_STRING + i);
             testReoCrawl.add(reoCrawl);
         }
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
@@ -76,7 +76,7 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
     public void FT_CRES_1_04() {
         RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
         reoCrawl.setTitle(NULL_STRING);
-        reoCrawl.setLink(LINK_STRING);
+        reoCrawl.setLink(LINK_STRING + "1");
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         testReoCrawl.add(reoCrawl);
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
@@ -94,7 +94,7 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
         for (int i = 0; i < 3; i++) {
             RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
             reoCrawl.setTitle(NULL_STRING);
-            reoCrawl.setLink(LINK_STRING);
+            reoCrawl.setLink(LINK_STRING + i);
             testReoCrawl.add(reoCrawl);
         }
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
@@ -111,11 +111,17 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
         System.out.println(repository.count());
         RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
         reoCrawl.setTitle(ALPHABETIC_NUMERIC_STRING);
-        reoCrawl.setLink(LINK_STRING);
+        reoCrawl.setLink(LINK_STRING + "1");
+        reoCrawl.setLatitude(DEFAULT_LAT);
+        reoCrawl.setLongitude(DEFAULT_LNG);
+        reoCrawl.setPrice(DEFAULT_PRICE);
+        reoCrawl.setSource(ADDRESS_STRING);
+        reoCrawl.setDomain(ADDRESS_STRING);
+        reoCrawl.setAddress(ADDRESS_STRING);
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         testReoCrawl.add(reoCrawl);
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
-        testInsertSuccess(testReoCrawl,result);
+        testInsertSuccess(testReoCrawl, result);
     }
 
     /**
@@ -129,11 +135,17 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
         for (int i = 0; i < 3; i++) {
             RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
             reoCrawl.setTitle(ALPHABETIC_NUMERIC_STRING);
-            reoCrawl.setLink(LINK_STRING);
+            reoCrawl.setLink(LINK_STRING + i);
+            reoCrawl.setLatitude(DEFAULT_LAT);
+            reoCrawl.setLongitude(DEFAULT_LNG);
+            reoCrawl.setPrice(DEFAULT_PRICE);
+            reoCrawl.setSource(ADDRESS_STRING);
+            reoCrawl.setDomain(ADDRESS_STRING);
+            reoCrawl.setAddress(ADDRESS_STRING);
             testReoCrawl.add(reoCrawl);
         }
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
-        testInsertSuccess(testReoCrawl,result);
+        testInsertSuccess(testReoCrawl, result);
     }
 
     /**
@@ -143,13 +155,19 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
      */
     @Test
     public void FT_CRES_1_08() {
-       RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
+        RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
         reoCrawl.setTitle(NUMERIC_VIETNAMESE_STRING);
-        reoCrawl.setLink(LINK_STRING);
+        reoCrawl.setLink(LINK_STRING + "1");
+        reoCrawl.setLatitude(DEFAULT_LAT);
+        reoCrawl.setLongitude(DEFAULT_LNG);
+        reoCrawl.setPrice(DEFAULT_PRICE);
+        reoCrawl.setDomain(ADDRESS_STRING);
+        reoCrawl.setAddress(ADDRESS_STRING);
+        reoCrawl.setSource(ADDRESS_STRING);
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         testReoCrawl.add(reoCrawl);
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
-        testInsertSuccess(testReoCrawl,result);
+        testInsertSuccess(testReoCrawl, result);
     }
 
     /**
@@ -163,11 +181,17 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
         for (int i = 0; i < 3; i++) {
             RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
             reoCrawl.setTitle(NUMERIC_VIETNAMESE_STRING);
-            reoCrawl.setLink(LINK_STRING);
+            reoCrawl.setLatitude(DEFAULT_LAT);
+            reoCrawl.setLongitude(DEFAULT_LNG);
+            reoCrawl.setSource(ADDRESS_STRING);
+            reoCrawl.setDomain(ADDRESS_STRING);
+            reoCrawl.setAddress(ADDRESS_STRING);
+            reoCrawl.setPrice(DEFAULT_PRICE);
+            reoCrawl.setLink(LINK_STRING + i);
             testReoCrawl.add(reoCrawl);
         }
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
-        testInsertSuccess(testReoCrawl,result);
+        testInsertSuccess(testReoCrawl, result);
     }
 
     /**
@@ -179,7 +203,10 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
     public void FT_CRES_1_10() {
         RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
         reoCrawl.setTitle(ALL_SPACE_STRING);
-        reoCrawl.setLink(LINK_STRING);
+        reoCrawl.setLink(LINK_STRING + "1");
+        reoCrawl.setSource(ADDRESS_STRING);
+        reoCrawl.setDomain(ADDRESS_STRING);
+        reoCrawl.setAddress(ADDRESS_STRING);
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         testReoCrawl.add(reoCrawl);
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
@@ -197,7 +224,13 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
         for (int i = 0; i < 3; i++) {
             RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
             reoCrawl.setTitle(ALL_SPACE_STRING);
-            reoCrawl.setLink(LINK_STRING);
+            reoCrawl.setLatitude(DEFAULT_LAT);
+            reoCrawl.setLongitude(DEFAULT_LNG);
+            reoCrawl.setPrice(DEFAULT_PRICE);
+            reoCrawl.setSource(ADDRESS_STRING);
+            reoCrawl.setLink(LINK_STRING + i);
+            reoCrawl.setDomain(ADDRESS_STRING);
+            reoCrawl.setAddress(ADDRESS_STRING);
             testReoCrawl.add(reoCrawl);
         }
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
@@ -214,7 +247,10 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
         RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
         reoCrawl.setLatitude(NEGATIVE_LATLONG);
         reoCrawl.setLongitude(NEGATIVE_LATLONG);
-        reoCrawl.setLink(LINK_STRING);
+        reoCrawl.setSource(ADDRESS_STRING);
+        reoCrawl.setLink(LINK_STRING + "1");
+        reoCrawl.setDomain(ADDRESS_STRING);
+        reoCrawl.setAddress(ADDRESS_STRING);
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         testReoCrawl.add(reoCrawl);
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
@@ -233,7 +269,10 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
             RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
             reoCrawl.setLatitude(NEGATIVE_LATLONG);
             reoCrawl.setLongitude(NEGATIVE_LATLONG);
-            reoCrawl.setLink(LINK_STRING);
+            reoCrawl.setSource(ADDRESS_STRING);
+            reoCrawl.setDomain(ADDRESS_STRING);
+            reoCrawl.setAddress(ADDRESS_STRING);
+            reoCrawl.setLink(LINK_STRING + i);
             testReoCrawl.add(reoCrawl);
         }
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
@@ -250,7 +289,10 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
         RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
         reoCrawl.setLatitude(ZERO_DOUBLE);
         reoCrawl.setLongitude(ZERO_DOUBLE);
-        reoCrawl.setLink(LINK_STRING);
+        reoCrawl.setLink(LINK_STRING + "1");
+        reoCrawl.setDomain(ADDRESS_STRING);
+        reoCrawl.setAddress(ADDRESS_STRING);
+        reoCrawl.setSource(ADDRESS_STRING);
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         testReoCrawl.add(reoCrawl);
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
@@ -269,7 +311,10 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
             RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
             reoCrawl.setLatitude(ZERO_DOUBLE);
             reoCrawl.setLongitude(ZERO_DOUBLE);
-            reoCrawl.setLink(LINK_STRING);
+            reoCrawl.setLink(LINK_STRING + i);
+            reoCrawl.setSource(ADDRESS_STRING);
+            reoCrawl.setDomain(ADDRESS_STRING);
+            reoCrawl.setAddress(ADDRESS_STRING);
             testReoCrawl.add(reoCrawl);
         }
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
@@ -284,13 +329,18 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
     @Test
     public void FT_CRES_1_16() {
         RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
+        reoCrawl.setTitle(NUMERIC_VIETNAMESE_STRING);
         reoCrawl.setLatitude(DEFAULT_DOUBLE);
         reoCrawl.setLongitude(DEFAULT_DOUBLE);
-        reoCrawl.setLink(LINK_STRING);
+        reoCrawl.setPrice(DEFAULT_PRICE);
+        reoCrawl.setSource(ADDRESS_STRING);
+        reoCrawl.setLink(LINK_STRING + "1");
+        reoCrawl.setDomain(ADDRESS_STRING);
+        reoCrawl.setAddress(ADDRESS_STRING);
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         testReoCrawl.add(reoCrawl);
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
-        testInsertSuccess(testReoCrawl,result);
+        testInsertSuccess(testReoCrawl, result);
     }
 
     /**
@@ -303,13 +353,18 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
+            reoCrawl.setTitle(NUMERIC_VIETNAMESE_STRING);
             reoCrawl.setLatitude(DEFAULT_DOUBLE);
             reoCrawl.setLongitude(DEFAULT_DOUBLE);
-            reoCrawl.setLink(LINK_STRING);
+            reoCrawl.setPrice(DEFAULT_PRICE);
+            reoCrawl.setSource(ADDRESS_STRING);
+            reoCrawl.setDomain(ADDRESS_STRING);
+            reoCrawl.setAddress(ADDRESS_STRING);
+            reoCrawl.setLink(LINK_STRING + i);
             testReoCrawl.add(reoCrawl);
         }
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
-        testInsertSuccess(testReoCrawl,result);
+        testInsertSuccess(testReoCrawl, result);
     }
 
     /**
@@ -320,8 +375,12 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
     @Test
     public void FT_CRES_1_18() {
         RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
+        reoCrawl.setTitle(NUMERIC_VIETNAMESE_STRING);
         reoCrawl.setPrice(NEGATIVE_PRICE);
-        reoCrawl.setLink(LINK_STRING);
+        reoCrawl.setLink(LINK_STRING + "1");
+        reoCrawl.setSource(ADDRESS_STRING);
+        reoCrawl.setDomain(ADDRESS_STRING);
+        reoCrawl.setAddress(ADDRESS_STRING);
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         testReoCrawl.add(reoCrawl);
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
@@ -338,8 +397,12 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
+            reoCrawl.setTitle(NUMERIC_VIETNAMESE_STRING);
             reoCrawl.setPrice(NEGATIVE_PRICE);
-            reoCrawl.setLink(LINK_STRING);
+            reoCrawl.setLink(LINK_STRING + i);
+            reoCrawl.setDomain(ADDRESS_STRING);
+            reoCrawl.setAddress(ADDRESS_STRING);
+            reoCrawl.setSource(ADDRESS_STRING);
             testReoCrawl.add(reoCrawl);
         }
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
@@ -354,8 +417,12 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
     @Test
     public void FT_CRES_1_20() {
         RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
+        reoCrawl.setTitle(NUMERIC_VIETNAMESE_STRING);
         reoCrawl.setPrice(ZERO_PRICE);
-        reoCrawl.setLink(LINK_STRING);
+        reoCrawl.setLink(LINK_STRING + "1");
+        reoCrawl.setSource(ADDRESS_STRING);
+        reoCrawl.setDomain(ADDRESS_STRING);
+        reoCrawl.setAddress(ADDRESS_STRING);
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         testReoCrawl.add(reoCrawl);
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
@@ -373,7 +440,10 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
         for (int i = 0; i < 3; i++) {
             RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
             reoCrawl.setPrice(ZERO_PRICE);
-            reoCrawl.setLink(LINK_STRING);
+            reoCrawl.setDomain(ADDRESS_STRING);
+            reoCrawl.setAddress(ADDRESS_STRING);
+            reoCrawl.setLink(LINK_STRING + i);
+            reoCrawl.setSource(ADDRESS_STRING);
             testReoCrawl.add(reoCrawl);
         }
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
@@ -388,12 +458,18 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
     @Test
     public void FT_CRES_1_22() {
         RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
+        reoCrawl.setTitle(NUMERIC_VIETNAMESE_STRING);
         reoCrawl.setPrice(DEFAULT_BIGDECIMAL);
-        reoCrawl.setLink(LINK_STRING);
+        reoCrawl.setLink(LINK_STRING + "1");
+        reoCrawl.setLatitude(DEFAULT_LAT);
+        reoCrawl.setLongitude(DEFAULT_LNG);
+        reoCrawl.setSource(ADDRESS_STRING);
+        reoCrawl.setDomain(ADDRESS_STRING);
+        reoCrawl.setAddress(ADDRESS_STRING);
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         testReoCrawl.add(reoCrawl);
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
-        testInsertSuccess(testReoCrawl,result);
+        testInsertSuccess(testReoCrawl, result);
     }
 
     /**
@@ -406,12 +482,18 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
+            reoCrawl.setTitle(NUMERIC_VIETNAMESE_STRING);
             reoCrawl.setPrice(DEFAULT_BIGDECIMAL);
-            reoCrawl.setLink(LINK_STRING);
+            reoCrawl.setLatitude(DEFAULT_LAT);
+            reoCrawl.setLongitude(DEFAULT_LNG);
+            reoCrawl.setSource(ADDRESS_STRING);
+            reoCrawl.setDomain(ADDRESS_STRING);
+            reoCrawl.setAddress(ADDRESS_STRING);
+            reoCrawl.setLink(LINK_STRING + i);
             testReoCrawl.add(reoCrawl);
         }
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
-        testInsertSuccess(testReoCrawl,result);
+        testInsertSuccess(testReoCrawl, result);
     }
 
     /**
@@ -422,8 +504,11 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
     @Test
     public void FT_CRES_1_24() {
         RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
+        reoCrawl.setTitle(NUMERIC_VIETNAMESE_STRING);
         reoCrawl.setSource(CONTRIBUTOR_SOURCE);
-        reoCrawl.setLink(LINK_STRING);
+        reoCrawl.setLink(LINK_STRING + "1");
+        reoCrawl.setDomain(ADDRESS_STRING);
+        reoCrawl.setAddress(ADDRESS_STRING);
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         testReoCrawl.add(reoCrawl);
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
@@ -440,8 +525,11 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
+            reoCrawl.setTitle(NUMERIC_VIETNAMESE_STRING);
             reoCrawl.setSource(CONTRIBUTOR_SOURCE);
-            reoCrawl.setLink(LINK_STRING);
+            reoCrawl.setLink(LINK_STRING + i);
+            reoCrawl.setDomain(ADDRESS_STRING);
+            reoCrawl.setAddress(ADDRESS_STRING);
             testReoCrawl.add(reoCrawl);
         }
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
@@ -456,11 +544,18 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
     @Test
     public void FT_CRES_1_26() {
         RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
-        reoCrawl.setLink(LINK_STRING);
+        reoCrawl.setTitle(NUMERIC_VIETNAMESE_STRING);
+        reoCrawl.setLink(LINK_STRING + "1");
+        reoCrawl.setLatitude(DEFAULT_LAT);
+        reoCrawl.setLongitude(DEFAULT_LNG);
+        reoCrawl.setPrice(DEFAULT_PRICE);
+        reoCrawl.setDomain(ADDRESS_STRING);
+        reoCrawl.setAddress(ADDRESS_STRING);
+        reoCrawl.setSource(ADDRESS_STRING);
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         testReoCrawl.add(reoCrawl);
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
-        testInsertSuccess(testReoCrawl,result);
+        testInsertSuccess(testReoCrawl, result);
     }
 
     /**
@@ -473,11 +568,18 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
-            reoCrawl.setLink(LINK_STRING);
+            reoCrawl.setTitle(NUMERIC_VIETNAMESE_STRING);
+            reoCrawl.setLink(LINK_STRING + i);
+            reoCrawl.setLatitude(DEFAULT_LAT);
+            reoCrawl.setLongitude(DEFAULT_LNG);
+            reoCrawl.setPrice(DEFAULT_PRICE);
+            reoCrawl.setSource(ADDRESS_STRING);
+            reoCrawl.setDomain(ADDRESS_STRING);
+            reoCrawl.setAddress(ADDRESS_STRING);
             testReoCrawl.add(reoCrawl);
         }
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
-        testInsertSuccess(testReoCrawl,result);
+        testInsertSuccess(testReoCrawl, result);
     }
 
     /**
@@ -488,11 +590,18 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
     @Test
     public void FT_CRES_1_28() {
         RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
-        reoCrawl.setLink(LINK_STRING);
+        reoCrawl.setTitle(NUMERIC_VIETNAMESE_STRING);
+        reoCrawl.setLink(VIETNAMESE_STRING);
+        reoCrawl.setLatitude(DEFAULT_LAT);
+        reoCrawl.setLongitude(DEFAULT_LNG);
+        reoCrawl.setPrice(DEFAULT_PRICE);
+        reoCrawl.setDomain(ADDRESS_STRING);
+        reoCrawl.setAddress(ADDRESS_STRING);
+        reoCrawl.setSource(ADDRESS_STRING);
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         testReoCrawl.add(reoCrawl);
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
-        testInsertSuccess(testReoCrawl,result);
+        testInsertSuccess(testReoCrawl, result);
     }
 
     /**
@@ -505,13 +614,18 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
         List<RealEstateObjectCrawl> testReoCrawl = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
-            reoCrawl.setLink(LINK_STRING);
+            reoCrawl.setTitle(NUMERIC_VIETNAMESE_STRING);
+            reoCrawl.setLink(VIETNAMESE_STRING + i);
+            reoCrawl.setLatitude(DEFAULT_LAT);
+            reoCrawl.setLongitude(DEFAULT_LNG);
+            reoCrawl.setPrice(DEFAULT_PRICE);
+            reoCrawl.setDomain(ADDRESS_STRING);
+            reoCrawl.setAddress(ADDRESS_STRING);
+            reoCrawl.setSource(ADDRESS_STRING);
             testReoCrawl.add(reoCrawl);
         }
         boolean result = instance.saveRealEstateCrawl(testReoCrawl);
-        testInsertSuccess(testReoCrawl,result);
+        testInsertSuccess(testReoCrawl, result);
     }
-
-    
 
 }

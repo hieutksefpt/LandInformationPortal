@@ -18,7 +18,7 @@ public class CrawlRealEstateValidation extends StringValidation {
         if (reoCrawl == null) {
             return false;
         }
-        if (reoCrawl.getTitle().equals("")) {
+        if (reoCrawl.getTitle().trim().equals("")) {
             return false;
         } else if (Double.compare(reoCrawl.getLatitude(), 0) <= 0 && Double.compare(reoCrawl.getLongitude(), 0) <= 0) {
             return false;

@@ -55,7 +55,7 @@ and open the template in the editor.
     height: 180px;
 }
 
-/*  Đoạn này test Multi Form 
+/*  Ä�oáº¡n nÃ y test Multi Form 
 html {
         height: 100%;
         Image only BG fallback
@@ -65,9 +65,7 @@ html {
                 linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
 }*/
 
-body {
-    font-family: montserrat, arial, verdana;
-}
+
 /*form styles*/
 #msform {
     width: 100%;
@@ -107,12 +105,16 @@ body {
 
 .landbox , .housebox {
     border-radius: 3px;
-    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.4);
     box-sizing: border-box;
     margin-top: 25px;
-    margin-left: 25px;
 }
-
+.landbox{
+	margin-right: 5px;
+}
+.housebox{
+	margin-left: 5px;
+}
 .landboxTotal , .houseboxTotal {
     border-radius: 3px;
     box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);

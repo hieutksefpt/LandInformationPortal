@@ -35,7 +35,7 @@ h1, h2, h3, h4, h5, h6 {
   right: 15px;
   bottom: 15px;
   background: #149ddd;
-  color: #fff;
+
   transition: display 0.5s ease-in-out;
   z-index: 99999;
   text-align: center;
@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .back-to-top:hover {
-  color: #fff;
+
   background: #2eafec;
   transition: background 0.2s ease-in-out;
 }
@@ -56,7 +56,7 @@ h1, h2, h3, h4, h5, h6 {
     /*margin-top:70px;*/
   position: fixed;
   padding-top:  25px;
-  top: 0px;
+  top: 100px;
   left: 0;
   bottom: 0;
   width: 300px;
@@ -64,7 +64,6 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 9999;
   transition: all 0.5s;
   padding: 0 15px;
-  background: #040b14;
   overflow-y: auto;
 }
 .passrow {
@@ -90,7 +89,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #header .profile h1 a, #header .profile h1 a:hover {
-  color: #fff;
+
   text-decoration: none;
 }
 
@@ -98,7 +97,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 18px;
   display: inline-block;
   background: #212431;
-  color: #fff;
+
   line-height: 1;
   padding: 8px 0;
   margin-right: 4px;
@@ -111,7 +110,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #header .profile .social-links a:hover {
   background: #149ddd;
-  color: #fff;
+
   text-decoration: none;
 }
 
@@ -166,7 +165,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
   text-decoration: none;
-  color: #fff;
+
 }
 
 .nav-menu a:hover i, .nav-menu .active > a i, .nav-menu li:hover > a i {
@@ -221,7 +220,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .mobile-nav-active .mobile-nav-toggle i {
-  color: #fff;
+
 }
 
 /*--------------------------------------------------------------
@@ -256,7 +255,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 64px;
   font-weight: 700;
   line-height: 56px;
-  color: #fff;
+
 }
 
 .action-button {
@@ -272,14 +271,14 @@ h1, h2, h3, h4, h5, h6 {
     float: left;
 }
 #hero p {
-  color: #fff;
+
   margin-bottom: 50px;
   font-size: 26px;
   font-family: "Poppins", sans-serif;
 }
 
 #hero p span {
-  color: #fff;
+
   padding-bottom: 4px;
   letter-spacing: 1px;
   border-bottom: 3px solid #149ddd;
@@ -403,7 +402,7 @@ section {
 
 .contact .info {
   padding: 30px;
-  background: #fff;
+
   width: 100%;
   box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12);
 }
@@ -451,7 +450,7 @@ section {
   font-size: 18px;
   display: inline-block;
   background: #333;
-  color: #fff;
+
   line-height: 1;
   padding: 8px 0;
   border-radius: 50%;
@@ -464,18 +463,18 @@ section {
 
 .contact .info .social-links a:hover {
   background: #149ddd;
-  color: #fff;
+
 }
 
 .contact .info .email:hover i, .contact .info .address:hover i, .contact .info .phone:hover i {
   background: #149ddd;
-  color: #fff;
+
 }
 
 .contact .php-email-form {
   width: 100%;
   padding: 30px;
-  background: #fff;
+
   box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12);
 }
 
@@ -494,7 +493,7 @@ section {
 
 .contact .php-email-form .error-message {
   display: none;
-  color: #fff;
+
   background: #ed3c0d;
   text-align: center;
   padding: 15px;
@@ -503,7 +502,7 @@ section {
 
 .contact .php-email-form .sent-message {
   display: none;
-  color: #fff;
+
   background: #18d26e;
   text-align: center;
   padding: 15px;
@@ -512,7 +511,7 @@ section {
 
 .contact .php-email-form .loading {
   display: none;
-  background: #fff;
+
   text-align: center;
   padding: 15px;
 }
@@ -548,7 +547,7 @@ section {
   background: #149ddd;
   border: 0;
   padding: 10px 24px;
-  color: #fff;
+
   transition: 0.4s;
   border-radius: 4px;
 }

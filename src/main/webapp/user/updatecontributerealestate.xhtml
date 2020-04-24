@@ -37,7 +37,7 @@
                                     <h:panelGroup id="combobox_data">
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <h:selectOneMenu id="cbb-Province" value="#{updateContributeRealEstateBean.provinceIdSelected}" >
+                                                <h:selectOneMenu id="cbb-Province" value="#{updateContributeRealEstateBean.provinceIdSelected}" styleClass="w-100">
                                                     <p:ajax listener="#{updateContributeRealEstateBean.provinceChange}" update="panel-form" onstart="clearDataMap()"/>
                                                     <f:selectItem itemLabel="Tỉnh/Thành phố" itemValue=""/>
                                                     <f:selectItems value="#{updateContributeRealEstateBean.listProvince}" var="element"
@@ -45,7 +45,7 @@
                                                 </h:selectOneMenu>
                                             </div>
                                             <div class="col-md-6">
-                                                <h:selectOneMenu id="cbb-District" value="#{updateContributeRealEstateBean.districtIdSelected}">
+                                                <h:selectOneMenu id="cbb-District" value="#{updateContributeRealEstateBean.districtIdSelected}" styleClass="w-100">
                                                     <p:ajax listener="#{updateContributeRealEstateBean.districtChange}" update="panel-form" onstart="clearDataMap()"></p:ajax>
                                                     <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
                                                     <f:selectItems value="#{updateContributeRealEstateBean.listDistrict}" var="element"
@@ -55,7 +55,7 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <h:selectOneMenu id="cbb-Street" value="#{updateContributeRealEstateBean.streetIdSelected}" >
+                                                <h:selectOneMenu id="cbb-Street" value="#{updateContributeRealEstateBean.streetIdSelected}"  styleClass="w-100">
                                                     <p:ajax	listener="#{updateContributeRealEstateBean.streetChange}" update="panel-form" onstart="clearDataMap()"></p:ajax>
 
                                                     <f:selectItem itemLabel="Đường phố" itemValue=""/>
@@ -64,7 +64,7 @@
                                                 </h:selectOneMenu>
                                             </div>
                                             <div class="col-md-6">
-                                                <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{updateContributeRealEstateBean.segmentStreetIdSelected}">
+                                                <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{updateContributeRealEstateBean.segmentStreetIdSelected}" styleClass="w-100">
                                                     <p:ajax	listener="#{updateContributeRealEstateBean.segmentStreetChange}" update="panel-form" 
                                                             onstart="clearDataMap()" ></p:ajax>
                                                     <f:selectItem itemLabel="Đoạn đường" itemValue=""/>

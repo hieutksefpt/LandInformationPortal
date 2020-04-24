@@ -69,15 +69,15 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 		listDistrict = null;
 		listStreet = null;
 		listSegment = null;
-		listAdjacentSegment = null;
+		listAdjacentSegment = realEstate.getListRealEstateAdjacentSegment();
 		provinceIdSelected = "";
 		districtIdSelected = "";
 		streetIdSelected = "";
 		roadSegmentIdSelected = "";
-		singleLat = realEstate.getRealEstateLat().toString();
-		singleLng = realEstate.getRealEstateLng().toString();
+		singleLat = "";
+		singleLng = "";
 		
-		if (realEstate.getListRealEstateAdjacentSegment() != null) {
+		if (realEstate.getListRealEstateAdjacentSegment() != null && !realEstate.getListRealEstateAdjacentSegment().isEmpty()) {
 			segmentConfuse = false;
 		}else {
 			segmentConfuse = true;
@@ -140,8 +140,14 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 		PrimeFaces.current().executeScript("drawPath('"+json+"')");
 	}
 	public void saveSegmentToReo() {
-		
-		List<RealEstate> listRealEstateByCoordinate = realEstateService.findByRealEstateLatAndRealEstateLng(realEstate.getRealEstateLat(), realEstate.getRealEstateLng());
+		try {
+			Double.parseDouble(singleLat);
+			Double.parseDouble(singleLng);
+		}catch (Exception e) {
+			setMessage(FacesMessage.SEVERITY_ERROR, "Tọa độ không hợp lệ");
+			return;
+		}
+		List<RealEstate> listRealEstateByCoordinate = realEstateService.findByRealEstateLatAndRealEstateLng(Double.parseDouble(singleLat), Double.parseDouble(singleLng));
 		if (listRealEstateByCoordinate == null || (listRealEstateByCoordinate!=null && listRealEstateByCoordinate.isEmpty())) {
 			coordinateConfuse = false;
 		}else {
@@ -155,15 +161,21 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 		}
 		
 		
+		
 		if (listAdjacentSegment == null || listAdjacentSegment.isEmpty()) {
 			setMessage(FacesMessage.SEVERITY_ERROR, "Chưa chọn đoạn đường");
 			return;
 		} 
 		
 		realEstateAdjacentSegmentService.save(listAdjacentSegment);
+		
+		realEstate = realEstateService.findById(realEstate.getRealEstateId());
+		realEstate.setRealEstateLng(Double.parseDouble(singleLng));
+		realEstate.setRealEstateLat(Double.parseDouble(singleLat));
 		realEstate.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.VERIFIED));
 		realEstateService.save(realEstate);
 		setMessage(FacesMessage.SEVERITY_INFO, "Chỉnh sửa thành công");
+		PrimeFaces.current().executeScript("PF('alert').renderMessage({\"summary\":\"Thành công\",\"detail\":\"Chỉnh sửa thành công\",\"severity\":\"info\"})");
 		showPopup = false;
 	}
 	

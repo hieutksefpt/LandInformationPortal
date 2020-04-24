@@ -83,18 +83,31 @@
 	            </p:dataTable>
 	            <h:panelGroup id="popup" layout="block" styleClass="popup-panel-overlay" 
 	            rendered="#{manageCrawlRealEstateSetRoadSegmentBean.showPopup}">
-	            	
+	            	<p:growl id="msgs_popup" showDetail="true" widgetVar="alert_popup"/>
 	                <div class="popup-panel">
 	                    <c:set var="beanPopup" value="${manageCrawlRealEstateSetRoadSegmentBean}"></c:set>
 	                    <div class="row">
 	                    	<div class="col-3">
 	                    		<div>
-                   					<h:outputText value="Cần cập nhập tọa độ" rendered="#{beanPopup.coordinateConfuse}"></h:outputText>
-                   					<h:outputText value="Cần cập nhật đoạn đường" rendered="#{beanPopup.segmentConfuse}"></h:outputText>
+                   					<h:panelGroup rendered="#{beanPopup.coordinateConfuse}">
+                   						<span class="badge badge-danger">Tọa độ bị trùng</span>
+                   					</h:panelGroup>
+                   					<h:panelGroup rendered="#{beanPopup.segmentConfuse}">
+                   						<span class="badge badge-danger">Chưa cập nhật đoạn đường</span>
+                   					</h:panelGroup>
+                   					#{beanPopup.coordinateConfuse}
+                   					#{beanPopup.segmentConfuse}
                    				</div>
-                   				<div class="form-group row">
-                   					<div class="col">
-                   						Địa chỉ: #{beanPopup.realEstate.realEstateAddress}
+                   				<div class="form-group">
+                   					<div class="row">
+                   						<div class="col">
+	                   						Địa chỉ: #{beanPopup.realEstate.realEstateAddress}
+	                   					</div>
+                   					</div>
+                   					<div class="row">
+	                   					<div class="col">
+	                   						<a href="#{beanPopup.realEstate.realEstateLink}" target="_blank" class="badge badge-light">Source Link</a>
+	                   					</div>
                    					</div>
                    				</div>
                    				<div class="form-group row">
@@ -186,7 +199,7 @@
 			                    	<div class="col text-center">
 			                    		<h:commandButton value="Lưu chỉnh sửa" class="btn btn-block btn-info waves-effect"
 			                    			action="#{beanPopup.saveSegmentToReo()}">
-			                    			<p:ajax process="popup" update="popup" oncomplete="initMap(#{beanPopup.realEstate.realEstateLat},#{beanPopup.realEstate.realEstateLng})">
+			                    			<p:ajax process="tabledata" update="tabledata" oncomplete="initMap(#{beanPopup.realEstate.realEstateLat},#{beanPopup.realEstate.realEstateLng})">
 			                    			
 			                    			</p:ajax>
 			                    			<ui:remove>
@@ -199,6 +212,7 @@
 			                    	<div class="col text-center">
 			                    		<h:commandButton value="Đóng cửa sổ" class="btn btn-block btn-warning waves-effect" action="#{beanPopup.hidePopup()}">
 					                        <f:ajax render="tabledata"/>
+					                        <f:actionListener binding="#{manageCrawlRealEstateBean.refreshData()}"></f:actionListener>
 					                    </h:commandButton>
 			                    	</div>
 			                    </div>

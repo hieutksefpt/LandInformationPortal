@@ -29,7 +29,7 @@
                             <p:panel id="container">
                                 <div class="form-group row">
                                     <div class="col-md">
-                                        <input id="searchbox-Address" class="controls" type="text" style="width: 100%;" placeholder="Search Box"/>
+                                        <input id="searchbox-Address" class="controls" type="text" style="width: 100%;" placeholder="Tìm địa điểm"/>
                                     </div>
                                 </div>
 
@@ -40,7 +40,7 @@
                                     <h:panelGroup id="combobox_data">
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <h:selectOneMenu id="cbb-Province" value="#{contributeNewRealEstateBean.provinceIdSelected}" >
+                                                <h:selectOneMenu id="cbb-Province" value="#{contributeNewRealEstateBean.provinceIdSelected}" styleClass="w-100">
                                                     <p:ajax listener="#{contributeNewRealEstateBean.provinceChange}" update="panel-form" onstart="clearDataMap()"/>
                                                     <f:selectItem itemLabel="Tỉnh/Thành phố" itemValue=""/>
                                                     <f:selectItems value="#{contributeNewRealEstateBean.listProvince}" var="element"
@@ -48,7 +48,7 @@
                                                 </h:selectOneMenu>
                                             </div>
                                             <div class="col-md-6">
-                                                <h:selectOneMenu id="cbb-District" value="#{contributeNewRealEstateBean.districtIdSelected}">
+                                                <h:selectOneMenu id="cbb-District" value="#{contributeNewRealEstateBean.districtIdSelected}" styleClass="w-100">
                                                     <p:ajax listener="#{contributeNewRealEstateBean.districtChange}" update="panel-form" onstart="clearDataMap()"></p:ajax>
                                                     <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
                                                     <f:selectItems value="#{contributeNewRealEstateBean.listDistrict}" var="element"
@@ -58,7 +58,7 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <h:selectOneMenu id="cbb-Street" value="#{contributeNewRealEstateBean.streetIdSelected}" >
+                                                <h:selectOneMenu id="cbb-Street" value="#{contributeNewRealEstateBean.streetIdSelected}" styleClass="w-100" >
                                                     <p:ajax	listener="#{contributeNewRealEstateBean.streetChange}" update="panel-form" onstart="clearDataMap()"></p:ajax>
 
                                                     <f:selectItem itemLabel="Đường phố" itemValue=""/>
@@ -67,9 +67,10 @@
                                                 </h:selectOneMenu>
                                             </div>
                                             <div class="col-md-6">
-                                                <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{contributeNewRealEstateBean.segmentStreetIdSelected}">
+                                                <h:selectOneMenu id="cbb-SegmentOfStreet" value="#{contributeNewRealEstateBean.segmentStreetIdSelected}" styleClass="w-100"
+                                                >
                                                     <p:ajax	listener="#{contributeNewRealEstateBean.segmentStreetChange}" update="panel-form"
-                                                            onstart="clearDataMap()" ></p:ajax>
+                                                             onstart="clearDataMap()"></p:ajax>
                                                     <f:selectItem itemLabel="Đoạn đường" itemValue=""/>
                                                     <f:selectItems value="#{contributeNewRealEstateBean.listSegmentOfStreet}" var="element"
                                                                    itemLabel="#{element.segmentName}" itemValue="#{element.segmentId}"/>
@@ -270,7 +271,7 @@
 
                                 <c:if test="#{contributeNewRealEstateBean.typeRealEstate== 'Đất và Nhà'}">
                                     <div class="flexCommon row">
-                                        <div id="landBox" class="landbox col-5">
+                                        <div id="landBox" class="landbox col-5 offset-1">
                                             <table class="landUpload">
                                                 <tr>
                                                     <td><span class="title-mandatory">Tên phần Đất</span></td>

@@ -20,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.google.gson.Gson;
+
 import capstone.lip.landinformationportal.business.service.Interface.IHouseService;
 import capstone.lip.landinformationportal.business.service.Interface.IHousesDetailService;
 import capstone.lip.landinformationportal.business.service.Interface.IHousesFeatureService;
@@ -37,6 +39,7 @@ import capstone.lip.landinformationportal.common.dto.Coordinate;
 import capstone.lip.landinformationportal.common.dto.HouseFeatureValue;
 import capstone.lip.landinformationportal.common.dto.LandFeatureValue;
 import capstone.lip.landinformationportal.common.entity.District;
+import capstone.lip.landinformationportal.common.entity.FormedCoordinate;
 import capstone.lip.landinformationportal.common.entity.House;
 import capstone.lip.landinformationportal.common.entity.HousesDetail;
 import capstone.lip.landinformationportal.common.entity.HousesFeature;
@@ -112,7 +115,6 @@ public class ContributeNewRealEstateBean implements Serializable {
     private String lngSingleCoordinate;
     private String latSingleCoordinate;
     private List<Coordinate> listCoordinate;
-    private String jsonMultipleCoordinate;
 
     private String landFeatureIdSelected = "";
     private String houseFeatureIdSelected = "";
@@ -617,7 +619,7 @@ public class ContributeNewRealEstateBean implements Serializable {
             segmentStreetIdSelected = "";
             nameInput = selectedProvince.getProvinceName();
 
-            PrimeFaces.current().executeScript("focusMap(" + selectedProvince.getProvinceLat() + ", " + selectedProvince.getProvinceLng() + ");");
+            PrimeFaces.current().executeScript("focusMap(" + selectedProvince.getProvinceLat() + ", " + selectedProvince.getProvinceLng() + ", 15);");
         } else {
             listDistrict = new ArrayList<>();
             listStreet = new ArrayList<>();
@@ -635,7 +637,7 @@ public class ContributeNewRealEstateBean implements Serializable {
             segmentStreetIdSelected = "";
 
             selectedDistrict = listDistrict.stream().filter(x -> x.getDistrictId().equals(Long.parseLong(districtIdSelected))).collect(Collectors.toList()).get(0);
-            PrimeFaces.current().executeScript("focusMap(" + selectedDistrict.getDistrictLat() + ", " + selectedDistrict.getDistrictLng() + ");");
+            PrimeFaces.current().executeScript("focusMap(" + selectedDistrict.getDistrictLat() + ", " + selectedDistrict.getDistrictLng() + ", 17);");
             PrimeFaces.current().executeScript("changeInfo(\"" + selectedDistrict.getDistrictName() + "\", " + selectedDistrict.getDistrictLng() + ", "
                     + selectedDistrict.getDistrictLat() + ")");
             listSegmentOfStreet = selectedDistrict.getListSegmentOfStreet();
@@ -657,7 +659,7 @@ public class ContributeNewRealEstateBean implements Serializable {
             segmentStreetIdSelected = "";
 
             selectedStreet = listStreet.stream().filter(x -> x.getStreetId().equals((Long.parseLong(streetIdSelected)))).collect(Collectors.toList()).get(0);
-            PrimeFaces.current().executeScript("focusMap(" + selectedStreet.getStreetLat() + ", " + selectedStreet.getStreetLng() + ");");
+            PrimeFaces.current().executeScript("focusMap(" + selectedStreet.getStreetLat() + ", " + selectedStreet.getStreetLng() + ", 19);");
             PrimeFaces.current().executeScript("changeInfo(\"" + selectedStreet.getStreetName() + "\", " + selectedStreet.getStreetLat() + ", "
                     + selectedStreet.getStreetLng() + ")");
 
@@ -675,11 +677,23 @@ public class ContributeNewRealEstateBean implements Serializable {
         if (segmentStreetIdSelected != null && !segmentStreetIdSelected.equals("")) {
             processType = "4";
             segmentOfStreet = listSegmentOfStreet.stream().filter(x -> x.getSegmentId().equals(Long.parseLong(segmentStreetIdSelected))).collect(Collectors.toList()).get(0);
-            PrimeFaces.current().executeScript("focusMap(" + segmentOfStreet.getSegmentLat() + ", " + segmentOfStreet.getSegmentLng() + ");");
+            PrimeFaces.current().executeScript("clearDataMap()");
+            PrimeFaces.current().executeScript("focusMap(" + segmentOfStreet.getSegmentLat() + ", " + segmentOfStreet.getSegmentLng() + ", 19);");
             PrimeFaces.current().executeScript("changeInfo(\"" + segmentOfStreet.getSegmentName() + "\", " + segmentOfStreet.getSegmentLat() + ", "
                     + segmentOfStreet.getSegmentLng() + ")");
 
             PrimeFaces.current().executeScript("updateDeleteOld()");
+			List<FormedCoordinate> listFormedCoordinate = segmentOfStreet.getListFormedCoordinate();
+			List<Coordinate> listCoordinate = listFormedCoordinate.stream()
+					.map(x->{
+						Coordinate coor = new Coordinate(x.getFormedLng(), x.getFormedLat());
+						return coor;
+					}).collect(Collectors.toList());
+			Gson gson = new Gson();
+			String jsonMultipleCoordinate = gson.toJson(listCoordinate);
+			
+			PrimeFaces.current().executeScript("drawPath('"+jsonMultipleCoordinate+"')");
+			
         } else {
             segmentStreetIdSelected = "";
             segmentOfStreet = null;
@@ -870,14 +884,6 @@ public class ContributeNewRealEstateBean implements Serializable {
 
     public void setListCoordinate(List<Coordinate> listCoordinate) {
         this.listCoordinate = listCoordinate;
-    }
-
-    public String getJsonMultipleCoordinate() {
-        return jsonMultipleCoordinate;
-    }
-
-    public void setJsonMultipleCoordinate(String jsonMultipleCoordinate) {
-        this.jsonMultipleCoordinate = jsonMultipleCoordinate;
     }
 
     public Province getSelectedProvince() {

@@ -160,8 +160,8 @@ $("#table-coordinate").on("click", ".ibtnDel", function (event) {
 
 
 
-function drawPath() {
-    let fromJson = JSON.parse($('#form\\:txtInput_multipleCoordinate').val());
+function drawPath(jsonText) {
+    let fromJson = JSON.parse(jsonText);
     let line = fromJson.map(x => {
         let o = {};
         o.lat = x.latitude;
@@ -179,9 +179,9 @@ function drawPath() {
     path.push(element);
 }
 
-function focusMap(latitude, longitude) {
+function focusMap(latitude, longitude, zoom) {
     map.setCenter(new google.maps.LatLng(latitude, longitude));
-    map.setZoom(15);
+    map.setZoom(zoom);
 }
 function changeInfo(name, longitude, latitude) {
     $('#form\\:txtinput-Name').val(name);

@@ -22,8 +22,9 @@ public class FeedbackServiceTest_2 extends AbstractFeedbackServiceTest {
      */
     @Test
     public void FT_FS_2_01() {
-        boolean result = instance.delete(getSampleFeedback()
-                .setFeedBackID(NULL_ID));
+
+        boolean result = instance.delete(sampleFeedback
+                .setFeedBackID(NULL_NOT_EXISTED_ID));
         
         testFail(result);
     }
@@ -146,6 +147,7 @@ public class FeedbackServiceTest_2 extends AbstractFeedbackServiceTest {
         boolean result = instance.delete(repository
                 .findById(EXISTED_ID).get()
                     .setFeedbackAdminReply(NULL_STRING));
+        
         
         testDeleteSuccess(result, EXISTED_ID);
     }

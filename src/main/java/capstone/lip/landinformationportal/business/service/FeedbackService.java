@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 import capstone.lip.landinformationportal.business.repository.FeedbackRepository;
 import capstone.lip.landinformationportal.business.service.Interface.IFeedbackService;
 import capstone.lip.landinformationportal.business.validation.FeedbackValidation;
+import capstone.lip.landinformationportal.common.constant.FeedbackStatusConstant;
 import capstone.lip.landinformationportal.common.entity.Feedback;
 import capstone.lip.landinformationportal.common.utils.EmailSender;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FeedbackService implements IFeedbackService {
@@ -58,8 +61,8 @@ public class FeedbackService implements IFeedbackService {
     @Override
     public Feedback findById(Long id) {
         try {
-            if(id == null){
-               return null;
+            if (id == null) {
+                return null;
             }
             Optional<Feedback> temp = feedbackRepository.findById(id);
             if (temp.isPresent()) {
@@ -75,11 +78,16 @@ public class FeedbackService implements IFeedbackService {
 
     @Override
     public long countByFeedbackStatus(String feedbackStatus) {
+
         try {
-            return feedbackRepository.countByFeedbackStatus(feedbackStatus);
+            if (!feedbackStatus.equals(FeedbackStatusConstant.OPEN) && !feedbackStatus.equals(FeedbackStatusConstant.CLOSE)) {
+                return -1;
+            } else {
+                return feedbackRepository.countByFeedbackStatus(feedbackStatus);
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return -1;
         }
 
     }
@@ -88,6 +96,9 @@ public class FeedbackService implements IFeedbackService {
     public boolean sendFeedbackReply(Feedback feedback) {
         try {
             FeedbackValidation validate = new FeedbackValidation();
+            if(!feedbackRepository.existsById(feedback.getFeedBackID())){
+                throw new Exception();
+            }
             String error = validate.isValidFeedback(feedback);
             if (error.isEmpty()) {
                 error = validate.isValidFeedbackReply(feedback);
@@ -113,7 +124,15 @@ public class FeedbackService implements IFeedbackService {
             if (!error.isEmpty()) {
                 throw new Exception(error);
             }
-            return feedbackRepository.findByFeedbackStatus(feedbackStatus, page);
+            Page<Feedback> tempPage = feedbackRepository.findByFeedbackStatus(feedbackStatus, page);
+            List<Feedback> listTemp = tempPage.stream().map(x -> x).collect(Collectors.toList());
+//            List<Feedback> listTemp = (List<Feedback>) tempPage;
+            if(listTemp.isEmpty() || listTemp == null){
+               throw new Exception();
+            }
+            else 
+                return tempPage;
+            
         } catch (Exception e) {
             e.printStackTrace();
             return null;

@@ -5,6 +5,7 @@
  */
 package capstone.lip.landinformationportal.service.user;
 
+import capstone.lip.landinformationportal.common.constant.UserGenderConstant;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
 
@@ -26,8 +27,8 @@ public class UserServiceTest_2 extends AbstractUserServiceTest {
     private final String EMAIL_AT_FIRST = "@capstonegmail.com";
     private final String EMAIL_AT_LAST = "capstonegmail.com@";
     
-    private final String MALE = "MALE";
-    private final String FEMALE = "FEMALE";
+    private final String MALE = UserGenderConstant.MALE;
+    private final String FEMALE = UserGenderConstant.FEMALE;
     
     /**
      * @Description: Save empty email

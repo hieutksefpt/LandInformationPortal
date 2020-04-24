@@ -92,7 +92,7 @@ public class FeedbackServiceTest_3_4_5 extends AbstractFeedbackServiceTest {
         long result = instance.countByFeedbackStatus("INVALID");
         
         //TEST FAIL
-        assertEquals(0, result);
+        testFail(result);
     }
     
     /**
@@ -118,7 +118,7 @@ public class FeedbackServiceTest_3_4_5 extends AbstractFeedbackServiceTest {
         long result = instance.countByFeedbackStatus(EMPTY_STRING);
         
         //TEST FAIL
-        assertEquals(0, result);
+        testFail(result);
     }
     
     /**
@@ -131,7 +131,7 @@ public class FeedbackServiceTest_3_4_5 extends AbstractFeedbackServiceTest {
         long result = instance.countByFeedbackStatus(NULL_STRING);
         
         //TEST FAIL
-        assertEquals(0, result);
+        testFail(result);
     }
     
     /**

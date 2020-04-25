@@ -15,6 +15,8 @@ import capstone.lip.landinformationportal.common.utils.EncryptedPassword;
 import capstone.lip.landinformationportal.common.utils.PasswordGenerator;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -135,5 +137,25 @@ public class UserService implements IUserService {
 		}
         
     }
+
+	@Override
+	public Page<User> findAllByAttribute(Map<String, Object> listAttribute, Pageable page) {
+		try {
+    		return userRepository.findAll(page);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public long countByAttribute(Map<String, Object> listAttribute) {
+		try {
+    		return userRepository.count();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
 
 }

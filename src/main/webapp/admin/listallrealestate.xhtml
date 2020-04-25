@@ -13,9 +13,11 @@
         <ui:composition template="/template/admin/adminLayout.xhtml">
             <ui:define name="content">
                 <h:outputStylesheet name="listallrealestate.css" library="css" />
-                <h:outputStylesheet name="bootstrap.min.css" library="css" />
                 <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
-
+				<div id="loader" style="width:64px;height:64px;position:fixed;left:5px;bottom:5px;display:none;">
+	            	<i class="pi pi-spin pi-spinner ajax-loader"/>
+	            </div>
+	            <p:ajaxStatus onstart="$('#loader').show()" onsuccess="$('#loader').hide()" />
                 <h:form id="form-AllRealEstate" prependId="false">
 					<div class="row" style="margin-bottom:10px">
 						<div class="col">
@@ -64,7 +66,7 @@
                         <p:column headerText="ID" style="width: 2%;text-align:center">
                             <h:outputText value="#{realEstate.realEstateId}"/>
                         </p:column>
-                        <p:column headerText="Tên">
+                        <p:column headerText="Tên" filterBy="#{realEstate.realEstateName}" filterMatchMode="contains">
                             <a href="/viewrealestatedetail.xhtml?realEstateId=#{realEstate.realEstateId}" target="_blank">
                             	<h:outputText id="lbl-ID" value="#{realEstate.realEstateName}" title="#{realEstate.realEstateName}"/>
                             </a>
@@ -96,9 +98,9 @@
                             <f:facet name="filter">
                                 <p:selectOneMenu id="cbb-Status" onchange="PF('table-real-estate').filter()" styleClass="custom-filter">
                                     <f:selectItem itemLabel="All Status" itemValue="#{null}" noSelectionOption="true" />
-                                    <f:selectItem itemLabel="CONFUSED" itemValue="-1" />
-                                    <f:selectItem itemLabel="NOT VERIFIED" itemValue="0" />
-                                    <f:selectItem itemLabel="VERIFIED" itemValue="1" />
+                                    <f:selectItem itemLabel="CONFUSED" itemValue="CONFUSED" />
+                                    <f:selectItem itemLabel="NOT VERIFIED" itemValue="NOTVERIFY" />
+                                    <f:selectItem itemLabel="VERIFIED" itemValue="VERIFIED" />
                                 </p:selectOneMenu>
                             </f:facet>
                             <h:outputText value="CONFUSED" style="color: red" rendered="#{realEstate.realEstateStatus == 'CONFUSED'}"/>

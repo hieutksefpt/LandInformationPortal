@@ -83,7 +83,7 @@ public class StringValidation {
 		return "";
 	}
 	public String containUTF8(String text) {
-		if (text.matches(".*[^A-Za-z0-9!@#$%&*()^~`\\-_+=|<>?{}\\[\\\\\\]].*")) {
+		if (text.matches(".*[^A-Za-z0-9!@#$%&*()^~`\\-_+=|<>?{}\\[\\\\\\]\\/.].*")) {
 			return ValidateMessageCommon.UTF8;
 		}
 		return "";

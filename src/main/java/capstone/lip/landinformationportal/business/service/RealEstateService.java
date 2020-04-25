@@ -260,10 +260,22 @@ public class RealEstateService implements IRealEstateService {
     @Override
     public Page<RealEstate> listFilterRealEstateByAddressAndSource(String realEstateAddress, String realEstateSource, Pageable page) {
         try {
+            if(realEstateAddress.isEmpty() || realEstateAddress == null){
+                throw new Exception();
+            }
+            if(realEstateSource.isEmpty() || realEstateAddress == null){
+                throw new Exception();
+            }
             RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
             RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
             RealEstateSpecifications spec3 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", realEstateSource));
-            return realEstateRepository.findAll(Specification.where(Specification.where(spec1).or(spec2)).and(spec3), page);
+            Page<RealEstate> tempPage = realEstateRepository.findAll(Specification.where(Specification.where(spec1).or(spec2)).and(spec3), page);
+            List<RealEstate> listTemp = tempPage.stream().map(x -> x).collect(Collectors.toList());
+            if(listTemp.isEmpty() || listTemp == null){
+               throw new Exception();
+            }
+            else 
+                return tempPage;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -274,10 +286,22 @@ public class RealEstateService implements IRealEstateService {
     @Override
     public Page<RealEstate> listFilterRealEstateByAddressAndSourceNot(String realEstateAddress, String realEstateSource, Pageable page) {
         try {
+            if(realEstateAddress.isEmpty()){
+                throw new Exception();
+            }
+            if(realEstateSource.isEmpty()){
+                throw new Exception();
+            }
             RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
             RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
             RealEstateSpecifications spec3 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", "!=", realEstateSource));
-            return realEstateRepository.findAll(Specification.where(Specification.where(spec1).or(spec2)).and(spec3), page);
+            Page<RealEstate> tempPage = realEstateRepository.findAll(Specification.where(Specification.where(spec1).or(spec2)).and(spec3), page);
+            List<RealEstate> listTemp = tempPage.stream().map(x -> x).collect(Collectors.toList());
+            if(listTemp.isEmpty() || listTemp == null){
+               throw new Exception();
+            }
+            else 
+                return tempPage;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

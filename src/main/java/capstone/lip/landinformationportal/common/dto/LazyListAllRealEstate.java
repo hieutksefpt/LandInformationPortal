@@ -17,6 +17,7 @@ import org.primefaces.model.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 /**
  *
@@ -30,15 +31,47 @@ public class LazyListAllRealEstate extends LazyDataModel<RealEstate> implements 
 
     public LazyListAllRealEstate(IRealEstateService service) {
         this.realEstateService = service;
-        this.setRowCount((int) realEstateService.count());
+//        this.setRowCount((int) realEstateService.count());
     }
 
     @Override
     public List<RealEstate> load(int first, int pageSize, String sortField, SortOrder sortOrder,
             Map<String, Object> filters) {
 
-        Page<RealEstate> list
-                = realEstateService.findAll(PageRequest.of(first / pageSize, pageSize));
+    	String status = null;
+    	String source = null;
+    	if (filters != null) {
+    		for (Map.Entry meta : filters.entrySet()) {
+    			String key = (String) meta.getKey();
+    			String value = (String) meta.getValue();
+    			if (key.equals("realEstateSource")) {
+    				source = value;
+    			}else if (key.equals("realEstateStatus")) {
+    				status = value;
+    			}
+    		}
+    	}
+    	
+//        Page<RealEstate> list
+//                = realEstateService.findAll(PageRequest.of(first / pageSize, pageSize));
+//        Page<RealEstate> list = realEstateService.findAllBySourceAndStatus(source, status, PageRequest.of(first / pageSize, pageSize));
+    	Sort sort = null;
+    	if (sortField != null) {
+	    	if (sortOrder.equals(SortOrder.DESCENDING)) {
+	    		sort = Sort.by(sortField).descending();
+	    	}else {
+	    		sort = Sort.by(sortField).ascending();
+	    	}
+    	}
+    	Page<RealEstate> list = null;
+    	if (sort == null) {
+    		list = realEstateService.findAllByAttribute(filters, PageRequest.of(first / pageSize, pageSize));
+    	}else {
+    		list = realEstateService.findAllByAttribute(filters, PageRequest.of(first / pageSize, pageSize, sort));
+    	}
+    	
+    	
+        this.setRowCount((int)realEstateService.countBySourceAndStatus(source, status));
         List<RealEstate> list1 = list.stream().map(x -> x).collect(Collectors.toList());
         return list1;
     }

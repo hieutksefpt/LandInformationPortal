@@ -22,6 +22,7 @@ import capstone.lip.landinformationportal.common.entity.RealEstate;
 import capstone.lip.landinformationportal.common.entity.Report;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -419,4 +420,110 @@ public class RealEstateService implements IRealEstateService {
         }
     }
 
+	@Override
+	public Page<RealEstate> findAllBySourceAndStatus(String source, String status, Pageable page) {
+		try {
+			List<RealEstateSpecifications> listSpec = new ArrayList();
+			if (source!= null) {
+				RealEstateSpecifications spec = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", source));
+				listSpec.add(spec);
+			}
+			if (status != null) {
+				RealEstateSpecifications spec = new RealEstateSpecifications(new SearchCriteria("realEstateStatus", ":=", status));
+				listSpec.add(spec);
+			}
+            if (listSpec.size() == 1) {
+            	return realEstateRepository.findAll(Specification.where(listSpec.get(0)), page);
+            }
+            if (listSpec.size() == 2) {
+            	return realEstateRepository.findAll(Specification.where(listSpec.get(0)).and(listSpec.get(1)), page); 
+            }
+			return realEstateRepository.findAll(page);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public long countBySourceAndStatus(String source, String status) {
+		try {
+			List<RealEstateSpecifications> listSpec = new ArrayList();
+			if (source!= null) {
+				RealEstateSpecifications spec = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", source));
+				listSpec.add(spec);
+			}
+			if (status != null) {
+				RealEstateSpecifications spec = new RealEstateSpecifications(new SearchCriteria("realEstateStatus", ":=", status));
+				listSpec.add(spec);
+			}
+            if (listSpec.size() == 1) {
+            	return realEstateRepository.count(Specification.where(listSpec.get(0)));
+            }
+            if (listSpec.size() == 2) {
+            	return realEstateRepository.count(Specification.where(listSpec.get(0)).and(listSpec.get(1))); 
+            }
+			return realEstateRepository.count();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	@Override
+	public Page<RealEstate> findAllByAttribute(Map<String, Object> listAttribute, Pageable page) {
+		try {
+			List<RealEstateSpecifications> listSpec = new ArrayList();
+			if (listAttribute != null) {
+				for (Map.Entry meta : listAttribute.entrySet()) {
+	    			String key = (String) meta.getKey();
+	    			String value = (String) meta.getValue();
+	    			if (key.equals("realEstateName")) {
+	    				listSpec.add(new RealEstateSpecifications(new SearchCriteria(key, ":", value)));
+	    			}else {
+	    				listSpec.add(new RealEstateSpecifications(new SearchCriteria(key, ":=", value)));
+	    			}
+	    			
+	    		}
+			}
+			if (!listSpec.isEmpty()) {
+				return realEstateRepository.findAll(createSpecification(listSpec), page);
+			}
+			return realEstateRepository.findAll(page);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private Specification<RealEstate> createSpecification(List<RealEstateSpecifications> listSpec) {
+		if (listSpec == null) return null;
+		Specification<RealEstate> spec = Specification.where(listSpec.get(0));
+		for (int i=1;i<listSpec.size();i++) {
+			spec = spec.and(listSpec.get(i));
+		}
+		return spec;
+	}
+	@Override
+	public long countByAttribute(Map<String, Object> listAttribute) {
+		try {
+			List<RealEstateSpecifications> listSpec = new ArrayList();
+			if (listAttribute != null) {
+				for (Map.Entry meta : listAttribute.entrySet()) {
+	    			String key = (String) meta.getKey();
+	    			String value = (String) meta.getValue();
+	    			listSpec.add(new RealEstateSpecifications(new SearchCriteria(key, ":=", value)));
+	    		}
+			}
+			if (!listSpec.isEmpty()) {
+				return realEstateRepository.count(createSpecification(listSpec));
+			}
+			return realEstateRepository.count();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	
 }

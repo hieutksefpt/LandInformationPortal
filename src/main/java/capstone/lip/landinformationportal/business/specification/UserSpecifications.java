@@ -6,22 +6,23 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
-import capstone.lip.landinformationportal.common.entity.RealEstate;
 
-public class RealEstateSpecifications implements Specification<RealEstate> {
+import capstone.lip.landinformationportal.common.entity.User;
+
+public class UserSpecifications implements Specification<User> {
 
 	private static final long serialVersionUID = 1L;
+
 	private SearchCriteria criteria;
 	
-	public RealEstateSpecifications(SearchCriteria criteria) {
-        super();
-        this.criteria = criteria;
-    }
-   
+	public UserSpecifications(SearchCriteria criteria) {
+		super();
+		this.criteria = criteria;
+	}
 
-    @Override
-    public Predicate toPredicate(Root<RealEstate> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        if (criteria.getOperation().equalsIgnoreCase(">")) {
+	@Override
+	public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+		if (criteria.getOperation().equalsIgnoreCase(">")) {
             return criteriaBuilder.greaterThanOrEqualTo(
                     root.get(criteria.getKey()), criteria.getValue().toString());
         } else if (criteria.getOperation().equalsIgnoreCase("<")) {
@@ -50,6 +51,6 @@ public class RealEstateSpecifications implements Specification<RealEstate> {
             }
         }
         return null;
-    }
+	}
 
 }

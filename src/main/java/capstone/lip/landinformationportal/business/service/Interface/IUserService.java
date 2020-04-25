@@ -6,6 +6,8 @@
 package capstone.lip.landinformationportal.business.service.Interface;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -33,4 +35,8 @@ public interface IUserService {
     long count();
 
     Page<User> findAll(Pageable page);
+    
+    Page<User> findAllByAttribute(Map<String, Object> listAttribute, Pageable page);
+    
+    long countByAttribute(Map<String, Object> listAttribute);
 }

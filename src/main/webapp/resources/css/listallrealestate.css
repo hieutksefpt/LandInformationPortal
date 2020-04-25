@@ -118,3 +118,7 @@
 .blue-link:hover{
     color: blue;
 }
+.ajax-loader{
+	font-size: 4em;
+	color: white;
+}

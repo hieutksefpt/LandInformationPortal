@@ -13,6 +13,7 @@ import capstone.lip.landinformationportal.common.entity.RealEstate;
 
 import java.math.BigDecimal;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -21,7 +22,7 @@ import java.util.List;
 public class RealEstateValidation {
 
     public String isRealEstateValid(RealEstate newUploadRealEstate) {
-        if (newUploadRealEstate.getRealEstateName().equals("")) {
+        if (newUploadRealEstate.getRealEstateName().trim().equals("")) {
             return "NameEmpty";
         } else if (newUploadRealEstate.getRealEstateAddress().equals("")) {
             return "AddressEmpty";
@@ -29,10 +30,14 @@ public class RealEstateValidation {
             return "LatEmpty";
         } else if (newUploadRealEstate.getRealEstateLng().equals("")) {
             return "LngEmpty";
-        } else if (newUploadRealEstate.getRealEstatePrice().equals(BigDecimal.ZERO) || newUploadRealEstate.getRealEstatePrice() == null) {
-            return "ZeroPrice";
+        } else if (newUploadRealEstate.getRealEstatePrice().compareTo(BigDecimal.ZERO) <= 0 || newUploadRealEstate.getRealEstatePrice() == null) {
+            return "NegativePrice";
         } else if (newUploadRealEstate.getUser() == null) {
             return "UserError";
+        } else if (StringUtils.isNumeric(newUploadRealEstate.getRealEstateName().toString())) {
+            return "Numberic";
+        } else if (newUploadRealEstate.getRealEstateLat() <= 0 || newUploadRealEstate.getRealEstateLng() <= 0) {
+            return "NegativeLatLng";
         }
         return "";
     }

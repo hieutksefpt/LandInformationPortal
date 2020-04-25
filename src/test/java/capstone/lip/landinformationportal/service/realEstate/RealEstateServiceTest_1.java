@@ -120,7 +120,7 @@ public class RealEstateServiceTest_1 extends AbstractRealEstateServiceTest
     public void FT_RES_1_08() {
         RealEstate result = instance.save(sampleRealEstate
                 .setRealEstateId(EXISTED_ID)
-                .setRealEstateName(EMPTY_STRING));
+                .setRealEstateName(ALPHABETIC_NUMERIC_STRING));
         
         testUpdateSuccess(result);
     }
@@ -134,7 +134,7 @@ public class RealEstateServiceTest_1 extends AbstractRealEstateServiceTest
     public void FT_RES_1_09() {
         RealEstate result = instance.save(sampleRealEstate
                 .setRealEstateId(NOT_EXISTED_ID)
-                .setRealEstateName(EMPTY_STRING));
+                .setRealEstateName(ALPHABETIC_NUMERIC_STRING));
         
         testInsertSuccess(result);
     }
@@ -260,7 +260,7 @@ public class RealEstateServiceTest_1 extends AbstractRealEstateServiceTest
     public void FT_RES_1_18() {
         RealEstate result = instance.save(sampleRealEstate
                 .setRealEstateId(EXISTED_ID)
-                .setRealEstateName(SPECIAL_CHARACTER_STRING));
+                .setRealEstateName(EMPTY_STRING));
         
         testFail(result);
     }
@@ -274,7 +274,7 @@ public class RealEstateServiceTest_1 extends AbstractRealEstateServiceTest
     public void FT_RES_1_19() {
         RealEstate result = instance.save(sampleRealEstate
                 .setRealEstateId(NOT_EXISTED_ID)
-                .setRealEstateName(SPECIAL_CHARACTER_STRING));
+                .setRealEstateName(EMPTY_STRING));
         
         testFail(result);
     }

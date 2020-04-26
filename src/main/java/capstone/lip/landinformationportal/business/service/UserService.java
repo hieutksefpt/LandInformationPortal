@@ -7,6 +7,8 @@ package capstone.lip.landinformationportal.business.service;
 
 import capstone.lip.landinformationportal.business.repository.UserRepository;
 import capstone.lip.landinformationportal.business.service.Interface.IUserService;
+import capstone.lip.landinformationportal.business.specification.SearchCriteria;
+import capstone.lip.landinformationportal.business.specification.UserSpecifications;
 import capstone.lip.landinformationportal.business.validation.UserValidation;
 import capstone.lip.landinformationportal.common.entity.RealEstate;
 import capstone.lip.landinformationportal.common.entity.User;
@@ -14,6 +16,7 @@ import capstone.lip.landinformationportal.common.utils.EmailSender;
 import capstone.lip.landinformationportal.common.utils.EncryptedPassword;
 import capstone.lip.landinformationportal.common.utils.PasswordGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -21,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 /**
@@ -156,6 +160,17 @@ public class UserService implements IUserService {
 	@Override
 	public Page<User> findAllByAttribute(Map<String, Object> listAttribute, Pageable page) {
 		try {
+    		List<UserSpecifications> listSpec = new ArrayList();
+    		if (listAttribute != null) {
+    			for (Map.Entry meta:listAttribute.entrySet()) {
+    				String key = (String)meta.getKey();
+    				String value = (String)meta.getValue();
+    				listSpec.add(new UserSpecifications(new SearchCriteria(key, ":=", value)));
+    			}
+    		}
+    		if (!listSpec.isEmpty()) {
+    			return userRepository.findAll(createSpecification(listSpec), page);
+    		}
     		return userRepository.findAll(page);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -166,11 +181,30 @@ public class UserService implements IUserService {
 	@Override
 	public long countByAttribute(Map<String, Object> listAttribute) {
 		try {
+			List<UserSpecifications> listSpec = new ArrayList();
+    		if (listAttribute != null) {
+    			for (Map.Entry meta:listAttribute.entrySet()) {
+    				String key = (String)meta.getKey();
+    				String value = (String)meta.getValue();
+    				listSpec.add(new UserSpecifications(new SearchCriteria(key, ":=", value)));
+    			}
+    		}
+    		if (!listSpec.isEmpty()) {
+    			return userRepository.count(createSpecification(listSpec));
+    		}
     		return userRepository.count();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
 		}
 	}
-
+	
+	private Specification<User> createSpecification(List<UserSpecifications> listSpec){
+		if (listSpec == null) return null;
+		Specification<User> spec = Specification.where(listSpec.get(0));
+		for (int i=1;i<listSpec.size();i++) {
+			spec = spec.and(listSpec.get(i));
+		}
+		return spec;
+	}
 }

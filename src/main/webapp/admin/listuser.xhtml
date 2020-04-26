@@ -90,8 +90,8 @@
                             <f:facet name="filter">
                                 <p:selectOneMenu onchange="PF('table-user').filter()" styleClass="custom-filter">
                                     <f:selectItem itemLabel="All Role" itemValue="#{null}" noSelectionOption="true" />
-                                    <f:selectItem itemLabel="Admin" itemValue="Admin" />
-                                    <f:selectItem itemLabel="Contributor" itemValue="Contributor" />
+                                    <f:selectItem itemLabel="ADMIN" itemValue="ADMIN" />
+                                    <f:selectItem itemLabel="CONTRIBUTER" itemValue="USER" />
                                 </p:selectOneMenu>
                             </f:facet>
                             <h:outputText value="#{user.role}"/>
@@ -101,8 +101,8 @@
                             <f:facet name="filter">
                                 <p:selectOneMenu onchange="PF('table-user').filter()" styleClass="custom-filter">
                                     <f:selectItem itemLabel="All Status" itemValue="#{null}" noSelectionOption="true" />
-                                    <f:selectItem itemLabel="Ban" itemValue="0" />
-                                    <f:selectItem itemLabel="Active" itemValue="1" />
+                                    <f:selectItem itemLabel="Ban" itemValue="BAN" />
+                                    <f:selectItem itemLabel="Active" itemValue="ACTIVE" />
                                 </p:selectOneMenu>
                             </f:facet>
                             <h:outputText value="ACTIVE" rendered="#{user.userStatus == 'ACTIVE'}"/>

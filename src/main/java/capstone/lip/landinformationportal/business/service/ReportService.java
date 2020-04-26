@@ -63,7 +63,7 @@ public class ReportService implements IReportService {
         	if (!error.isEmpty()) {
         		throw new Exception(error);
         	}
-        	if (findById(report.getId().getRealestateId(), report.getId().getUserId())==null) {
+        	if (findById(report.getId().getUserId(), report.getId().getRealestateId())==null) {
         		throw new Exception("Id not found");
         	}
             reportRepository.delete(report);

@@ -53,14 +53,16 @@
                                 <div class="row">
                                 	<div class="col">
                                 		<sec:authenticated>
-	                                		<h:form id="updateReport" styleClass="text-center" >
+	                                		<h:form id="updateReport" styleClass="element-list" >
+	                                			<span class="flag-red">
+	                                			</span>
 		                                		<c:if test="#{viewRealEstateDetailBean.checkExistInReport() != null}">
-		                                            <p:commandButton icon="pi pi-ban report red-report"
+		                                            <p:commandButton image="flag-red" title="Bỏ report"
 		                                                             action="#{viewRealEstateDetailBean.reportAndUnreport()}"
 		                                                             update="updateReport"/>
 		                                        </c:if>
 		                                        <c:if test="#{viewRealEstateDetailBean.checkExistInReport() == null}">
-		                                            <p:commandButton icon="pi pi-ban report blue-report"
+		                                            <p:commandButton image="flag" title="Report"
 		                                                             action="#{viewRealEstateDetailBean.reportAndUnreport()}"
 		                                                             update="updateReport"/>
 		                                        </c:if>

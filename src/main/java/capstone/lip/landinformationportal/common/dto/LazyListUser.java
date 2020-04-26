@@ -30,15 +30,16 @@ public class LazyListUser extends LazyDataModel<User> implements Serializable {
 
     public LazyListUser(IUserService service) {
         this.userService = service;
-        this.setRowCount((int) userService.count());
+//        this.setRowCount((int) userService.count());
     }
 
     @Override
     public List<User> load(int first, int pageSize, String sortField, SortOrder sortOrder,
             Map<String, Object> filters) {
-
-        Page<User> list
-                = userService.findAll(PageRequest.of(first / pageSize, pageSize));
+//        Page<User> list
+//                = userService.findAll(PageRequest.of(first / pageSize, pageSize));
+        Page<User> list = userService.findAllByAttribute(filters, PageRequest.of(first / pageSize, pageSize));
+        this.setRowCount((int)userService.countByAttribute(filters));
         List<User> list1 = list.stream().map(x -> x).collect(Collectors.toList());
         return list1;
     }

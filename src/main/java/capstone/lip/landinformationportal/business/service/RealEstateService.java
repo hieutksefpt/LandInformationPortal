@@ -192,14 +192,14 @@ public class RealEstateService implements IRealEstateService {
     public Page<RealEstate> listFilterRealEstateByAddress(String realEstateAddress, Pageable page) {
         try {
             if(realEstateAddress.isEmpty() || realEstateAddress == null){
-                throw new Exception();
+                throw new Exception("List data is empty");
             }
             RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
             RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
             Page<RealEstate> tempPage = realEstateRepository.findAll(Specification.where(spec1).or(spec2), page);
             List<RealEstate> listTemp = tempPage.stream().map(x -> x).collect(Collectors.toList());
             if(listTemp.isEmpty() || listTemp == null){
-               throw new Exception();
+               throw new Exception("List data is empty");
             }
             else 
                 return tempPage;
@@ -214,7 +214,7 @@ public class RealEstateService implements IRealEstateService {
     public long countByRealEstateSource(String realEstateAddress, String realEstateSource) {
         try {
             if (realEstateSource.isEmpty() || realEstateAddress.isEmpty()) {
-                throw new Exception();
+                throw new Exception("List data is empty");
             }
             RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
             RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
@@ -233,7 +233,7 @@ public class RealEstateService implements IRealEstateService {
             Page<RealEstate> tempPage = realEstateRepository.findAll(page);
             List<RealEstate> listTemp = tempPage.stream().map(x -> x).collect(Collectors.toList());
             if(listTemp.isEmpty() || listTemp == null){
-               throw new Exception();
+               throw new Exception("List data is empty");
             }
             else 
                 return tempPage;
@@ -496,14 +496,6 @@ public class RealEstateService implements IRealEstateService {
 		}
 	}
 
-	private Specification<RealEstate> createSpecification(List<RealEstateSpecifications> listSpec) {
-		if (listSpec == null) return null;
-		Specification<RealEstate> spec = Specification.where(listSpec.get(0));
-		for (int i=1;i<listSpec.size();i++) {
-			spec = spec.and(listSpec.get(i));
-		}
-		return spec;
-	}
 	@Override
 	public long countByAttribute(Map<String, Object> listAttribute) {
 		try {
@@ -525,5 +517,13 @@ public class RealEstateService implements IRealEstateService {
 		}
 	}
 
+	private Specification<RealEstate> createSpecification(List<RealEstateSpecifications> listSpec) {
+		if (listSpec == null) return null;
+		Specification<RealEstate> spec = Specification.where(listSpec.get(0));
+		for (int i=1;i<listSpec.size();i++) {
+			spec = spec.and(listSpec.get(i));
+		}
+		return spec;
+	}
 	
 }

@@ -40,17 +40,17 @@ public class LazyListAllRealEstate extends LazyDataModel<RealEstate> implements 
 
     	String status = null;
     	String source = null;
-    	if (filters != null) {
-    		for (Map.Entry meta : filters.entrySet()) {
-    			String key = (String) meta.getKey();
-    			String value = (String) meta.getValue();
-    			if (key.equals("realEstateSource")) {
-    				source = value;
-    			}else if (key.equals("realEstateStatus")) {
-    				status = value;
-    			}
-    		}
-    	}
+//    	if (filters != null) {
+//    		for (Map.Entry meta : filters.entrySet()) {
+//    			String key = (String) meta.getKey();
+//    			String value = (String) meta.getValue();
+//    			if (key.equals("realEstateSource")) {
+//    				source = value;
+//    			}else if (key.equals("realEstateStatus")) {
+//    				status = value;
+//    			}
+//    		}
+//    	}
     	
 //        Page<RealEstate> list
 //                = realEstateService.findAll(PageRequest.of(first / pageSize, pageSize));
@@ -71,7 +71,7 @@ public class LazyListAllRealEstate extends LazyDataModel<RealEstate> implements 
     	}
     	
     	
-        this.setRowCount((int)realEstateService.countBySourceAndStatus(source, status));
+        this.setRowCount((int)realEstateService.countByAttribute(filters));
         List<RealEstate> list1 = list.stream().map(x -> x).collect(Collectors.toList());
         return list1;
     }

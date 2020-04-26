@@ -205,7 +205,9 @@ public class HomepageBean implements Serializable{
 		
 	}
 	public void segmentOfStreetChange() {
-//		TODO
+		viewStatistic(segmentSelected.getSegmentName());
+		setTypeReo("0");
+		openPageReo(0);
 	}
 	public void viewStatistic(String address) {
 		MaxMinAvg maxMinAvgTemp = realEstateService.listMaxMinAvg(address);
@@ -383,6 +385,8 @@ public class HomepageBean implements Serializable{
 				return new Coordinate(x.getFormedLng(), x.getFormedLat());
 			}).collect(Collectors.toList());
 			Gson gson = new Gson();
+			PrimeFaces.current().executeScript("clearDataMap()");
+			PrimeFaces.current().executeScript("focusMap(" + listCoordinate.get(0).getLatitude() + ", " + listCoordinate.get(0).getLongitude() + ", 19);");
 			PrimeFaces.current().executeScript("drawPath(" + gson.toJson(listCoordinate) + ", 19);");
 			
 		}

@@ -7,12 +7,12 @@ import capstone.lip.landinformationportal.common.entity.Feedback;
 public class FeedbackValidation extends StringValidation {
 
     public String isValidFeedback(Feedback feedback) {
-        if (feedback.getFeedBackID() == null) {
-            return ValidateMessageCommon.NULL;
-        }
-        if (feedback.getFeedBackID() <=0) {
-            return ValidateMessageCommon.NULL;
-        }
+//        if (feedback.getFeedBackID() == null) {
+//            return ValidateMessageCommon.NULL;
+//        }
+//        if (feedback.getFeedBackID() <=0) {
+//            return ValidateMessageCommon.NULL;
+//        }
         if (feedback.getFeedbackTitle() == null || feedback.getFeedbackContent() == null) {
             return ValidateMessageCommon.NULL;
         }

@@ -78,6 +78,8 @@ public class SignUpBean implements Serializable {
             FacesMessage msg = new FacesMessage();
             msg = new FacesMessage("Thành công", "Đăng ký thành công");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+            
+            
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
             ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
         } else {

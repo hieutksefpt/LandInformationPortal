@@ -14,6 +14,8 @@ import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -31,8 +33,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @ViewScoped
 public class SignUpBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private User newUser;
+    private static final long serialVersionUID = 1L;
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    private User newUser;
     private String gender;
     private String username;
     private String fullname;
@@ -62,30 +65,44 @@ public class SignUpBean implements Serializable {
 
     public void registerUser() throws IOException {
         newUser = new User();
-        if (password.equals(confirmpassword)) {
-            newUser.setAddress(address);
-            newUser.setEmail(email);
-            newUser.setFullName(fullname);
-            newUser.setGender(gender);
-            newUser.setPassword(EncryptedPassword.encrytePassword(password));
-            newUser.setPhone(phone);
-            newUser.setUsername(username);
-            newUser.setUserStatus("1");
-            newUser.setRole(UserRoleConstant.USER);
-
+        User duplicateUsername = userService.findByUsername(username);
+        User duplicateEmail = userService.findByEmail(email);
+        User duplicatePhone = userService.findByPhone(phone);
+        
+        if (duplicateUsername != null) {
+            PrimeFaces.current().executeScript("dulicateUsername()");
+        } else if (duplicateEmail != null) {
+            PrimeFaces.current().executeScript("dulicateEmail()");
+        }else if (duplicatePhone != null) {
+            PrimeFaces.current().executeScript("dulicatePhone()");
+        }else if (!validateEmailRegex(email)) {
+            PrimeFaces.current().executeScript("showErrorEmail()");
+        } else if (password.length() < 8) {
+            PrimeFaces.current().executeScript("showErrorLengthPass()");
+        } else if (!password.equals(confirmpassword)) {
+            PrimeFaces.current().executeScript("showLogPassError()");
+        } else {
+            newUser = setUserInformation();
             newUser = userService.save(newUser);
 
-            FacesMessage msg = new FacesMessage();
-            msg = new FacesMessage("Thành công", "Đăng ký thành công");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            
-            
-            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-            ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
-        } else {
-            PrimeFaces.current().executeScript("showLogPassError()");
+            signUpSuccess();
         }
 
+    }
+
+    public User setUserInformation() {
+        User user = new User();
+        user.setAddress(address);
+        user.setEmail(email);
+        user.setFullName(fullname);
+        user.setGender(gender);
+        user.setPassword(EncryptedPassword.encrytePassword(password));
+        user.setPhone(phone);
+        user.setUsername(username);
+        user.setUserStatus("1");
+        user.setRole(UserRoleConstant.USER);
+
+        return null;
     }
 
     public void directToHomePage() throws IOException {
@@ -94,11 +111,14 @@ public class SignUpBean implements Serializable {
     }
 
     public void signUpSuccess() throws IOException {
-        FacesMessage msg = new FacesMessage();
-        msg = new FacesMessage("Thành công", "Đăng ký thành công");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        PrimeFaces.current().executeScript("successRegisterNotify()");
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
+    }
+
+    public static boolean validateEmailRegex(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.find();
     }
 
     public void setMessage(FacesMessage.Severity severityType, String message) {

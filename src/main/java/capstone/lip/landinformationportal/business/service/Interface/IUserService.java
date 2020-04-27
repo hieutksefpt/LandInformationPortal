@@ -31,6 +31,10 @@ public interface IUserService {
     String resetPassword(Long userId, int passwordLength);
 
     User findByUsername(String username);
+    
+    User findByEmail(String email);
+    
+    User findByPhone(String phone);
 
     long count();
 

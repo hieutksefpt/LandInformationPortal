@@ -21,7 +21,7 @@ function initMap() {
         fullscreenControl: false
     });
     
-    for (i = 0; i < markers.length; i++) {
+    for (i = 0; i < 10; i++) {
         var latLng = {lat: markers[i].latitude, lng: markers[i].longitude};
         var marker = new google.maps.Marker({position: latLng, map: map});
     }

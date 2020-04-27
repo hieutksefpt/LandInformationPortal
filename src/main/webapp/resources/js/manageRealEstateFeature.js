@@ -51,16 +51,8 @@ function showAlertLandsFeatureName() {
     alert("Tên thuộc tính đất không được để trống !");
 }
 
-function showAlertLandsFeatureUnit() {
-    alert("Đơn vị thuộc tính đất không được để trống !");
-}
-
 function showAlertHousesFeatureName() {
     alert("Tên thuộc tính nhà không được để trống !");
-}
-
-function showAlertHousesFeatureUnit() {
-    alert("Đơn vị thuộc tính nhà không được để trống !");
 }
 
 function showAlertOnlyNumber(){

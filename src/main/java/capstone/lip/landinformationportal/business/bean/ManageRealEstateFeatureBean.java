@@ -71,16 +71,8 @@ public class ManageRealEstateFeatureBean implements Serializable {
         PrimeFaces.current().executeScript("showAlertLandsFeatureName()");
     }
 
-    public void showAlertLandsFeatureUnit() {
-        PrimeFaces.current().executeScript("showAlertLandsFeatureUnit()");
-    }
-
     public void showAlertHousesFeatureName() {
         PrimeFaces.current().executeScript("showAlertHousesFeatureName()");
-    }
-
-    public void showAlertHousesFeatureUnit() {
-        PrimeFaces.current().executeScript("showAlertHousesFeatureUnit()");
     }
 
     public void hideEditPopup() {
@@ -116,9 +108,6 @@ public class ManageRealEstateFeatureBean implements Serializable {
         if (landsFeatureName.isEmpty() || landsFeatureName == null) {
             landsFeatureCheck = false;
             showAlertLandsFeatureName();
-        } else if (landsFeatureUnit.isEmpty() || landsFeatureUnit == null) {
-            landsFeatureCheck = false;
-            showAlertLandsFeatureUnit();
         }
         if (landsFeatureDataType == null || landsFeatureDataType.isEmpty()) {
             landsFeatureDataType = "STR";
@@ -151,9 +140,6 @@ public class ManageRealEstateFeatureBean implements Serializable {
         if (housesFeatureName.isEmpty() || housesFeatureName == null) {
             housesFeatureCheck = false;
             showAlertHousesFeatureName();
-        } else if (housesFeatureUnit.isEmpty() || housesFeatureUnit == null) {
-            housesFeatureCheck = false;
-            showAlertHousesFeatureUnit();
         }
         if (housesFeatureDataType == null || housesFeatureDataType.isEmpty()) {
             housesFeatureDataType = "STR";
@@ -186,9 +172,6 @@ public class ManageRealEstateFeatureBean implements Serializable {
         if (landsFeatureNameClicked.isEmpty() || landsFeatureNameClicked == null) {
             landsFeatureCheck = false;
             showAlertLandsFeatureName();
-        } else if (landsFeatureUnitClicked.isEmpty() || landsFeatureUnitClicked == null) {
-            landsFeatureCheck = false;
-            showAlertLandsFeatureUnit();
         }
         if (landsFeatureDataTypeClicked == null || landsFeatureDataTypeClicked.isEmpty()) {
             landsFeatureDataTypeClicked = "STR";
@@ -225,9 +208,6 @@ public class ManageRealEstateFeatureBean implements Serializable {
         if (housesFeatureNameClicked.isEmpty() || housesFeatureNameClicked == null) {
             housesFeatureCheck = false;
             showAlertHousesFeatureName();
-        } else if (housesFeatureUnitClicked.isEmpty() || housesFeatureUnitClicked == null) {
-            housesFeatureCheck = false;
-            showAlertHousesFeatureUnit();
         }
         if (housesFeatureDataTypeClicked == null || housesFeatureDataTypeClicked.isEmpty()) {
             housesFeatureDataTypeClicked = "STR";

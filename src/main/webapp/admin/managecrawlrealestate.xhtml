@@ -69,10 +69,14 @@
 			            <p:commandButton icon="pi pi-refresh" update="tabledata" 
 			            action="#{manageCrawlRealEstateBean.refreshData()}"/>
 			        </f:facet>
-	            	<p:column width="95%">
+	            	<p:column width="65%">
 	            		<f:facet name="header">Address</f:facet>
 	            		<a href="#{element.realEstateLink}" target="_blank">#{element.realEstateAddress}</a>
 	            	</p:column>
+                        <p:column width="30%">
+                            <f:facet name="header">Price</f:facet>
+                            <h:outputText value="#{element.realEstatePrice}"/>
+                        </p:column>
 	     
 	            	<p:column style="text-align: center">
 			             <p:commandButton id="btn-SetSegment-#{index + 1}" icon="pi pi-search" title="View" update="tabledata" style="width:30px"

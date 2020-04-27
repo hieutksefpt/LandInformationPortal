@@ -1,6 +1,7 @@
 package capstone.lip.landinformationportal.business.bean;
 
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateService;
+import capstone.lip.landinformationportal.common.constant.StatusRealEstateConstant;
 import capstone.lip.landinformationportal.common.dto.LazyListAllRealEstate;
 import capstone.lip.landinformationportal.common.entity.RealEstate;
 
@@ -49,7 +50,7 @@ public class ListAllRealEstateBean implements Serializable {
 
     public void changeRealEstateStatusToConfused() {
         for (int i = 0; i < listSelectedRealEstate.size(); i++) {
-            listSelectedRealEstate.get(i).setRealEstateStatus("-1");
+            listSelectedRealEstate.get(i).setRealEstateStatus(StatusRealEstateConstant.CONFUSED);
             realEstateService.save(listSelectedRealEstate.get(i));
         }
         this.lazyReo = new LazyListAllRealEstate(realEstateService);
@@ -57,7 +58,7 @@ public class ListAllRealEstateBean implements Serializable {
 
     public void changeRealEstateStatusToNotVerified() {
         for (int i = 0; i < listSelectedRealEstate.size(); i++) {
-            listSelectedRealEstate.get(i).setRealEstateStatus("0");
+            listSelectedRealEstate.get(i).setRealEstateStatus(StatusRealEstateConstant.NOT_VERIFIED);
             realEstateService.save(listSelectedRealEstate.get(i));
         }
         this.lazyReo = new LazyListAllRealEstate(realEstateService);
@@ -65,7 +66,7 @@ public class ListAllRealEstateBean implements Serializable {
 
     public void changeRealEstateStatusToVerified() {
         for (int i = 0; i < listSelectedRealEstate.size(); i++) {
-            listSelectedRealEstate.get(i).setRealEstateStatus("1");
+            listSelectedRealEstate.get(i).setRealEstateStatus(StatusRealEstateConstant.VERIFIED);
             realEstateService.save(listSelectedRealEstate.get(i));
         }
         this.lazyReo = new LazyListAllRealEstate(realEstateService);

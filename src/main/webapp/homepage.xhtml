@@ -190,7 +190,7 @@
                            			 	VT3
                             			</div>
                             			<div class="row">
-                            			#{homepageBean.segmentSelected.VT2}
+                            			#{homepageBean.segmentSelected.VT3}
                             			</div>
                                     </div>
                                     <div class="col">
@@ -198,7 +198,7 @@
                            			 	VT4
                             			</div>
                             			<div class="row">
-                            			#{homepageBean.segmentSelected.VT2}
+                            			#{homepageBean.segmentSelected.VT4}
                             			</div>
                                     </div>
                             	</div>
@@ -247,57 +247,59 @@
 							<f:selectItem itemLabel="Do người dùng đóng góp" itemValue="1"></f:selectItem>
 							<f:selectItem itemLabel="Crawl từ các websites" itemValue="2"></f:selectItem>
 						</h:selectOneMenu>
-						<div class="scroll-y-only" id="tb-reo">
-							<c:forEach items="${homepageBean.listRealEstate}" var="element">
-								<li	class="list-group-item row d-flex" id="row-${element.realEstateId}">
-									
-									<div class="col" id="#{element.realEstateName}">
-										<h:commandLink action="#{homepageBean.goToDetails(element.realEstateId)}" value="#{element.realEstateName}">
-											<p:ajax process="@form"></p:ajax>
-										</h:commandLink>
+						<h:panelGroup rendered="${homepageBean.listRealEstate.size() > 0}">
+							<div class="scroll-y-only" id="tb-reo">
+								<c:forEach items="${homepageBean.listRealEstate}" var="element">
+									<li	class="list-group-item row d-flex" id="row-${element.realEstateId}">
 										
-									</div>
-								</li>
-							</c:forEach>
-						</div>
-						<div class="row" style="margin-top: 10px">
-							<div class="col text-center">
-								<nav style="display:inline-block">
-									<ul class="pagination" style="">
-										<li class="page-item"><h:commandLink class="page-link"
-												href="#" aria-label="Previous">
-												<span aria-hidden="true">&laquo;</span>
-												<p:ajax listener="#{homepageBean.firstPageReo}"
-													process="@form" update="@form"></p:ajax>
+										<div class="col" id="#{element.realEstateName}">
+											<h:commandLink action="#{homepageBean.goToDetails(element.realEstateId)}" value="#{element.realEstateName}">
+												<p:ajax process="@form"></p:ajax>
 											</h:commandLink>
-										</li>
-										
-										<ui:repeat value="#{homepageBean.pageReo.pages}" var="page">
-						                	<h:panelGroup rendered="#{page != homepageBean.pageReo.currentPage + 1}">
-						                		<li class="page-item">
-						                			<h:commandLink value="#{page}" styleClass="page-link" actionListener="#{homepageBean.pageReoAt}">
-						                				<p:ajax process="@form" update="@form"></p:ajax>
-						                			</h:commandLink>
-												</li>
-						                	</h:panelGroup>
-						                	<h:panelGroup rendered="#{page == homepageBean.pageReo.currentPage + 1}">
-						                		<li class="page-item active">
-						                			<h:commandLink value="#{page}" styleClass="page-link">
-						                			</h:commandLink>
-						                		</li>
-						                	</h:panelGroup>
-							            </ui:repeat>
-										
-										<li class="page-item"><h:commandLink class="page-link"
-												href="#" aria-label="Next">
-												<span aria-hidden="true">&raquo;</span>
-												<p:ajax listener="#{homepageBean.lastPageReo}" process="@form"
-													update="@form"></p:ajax>
-											</h:commandLink></li>
-									</ul>
-								</nav>
+											
+										</div>
+									</li>
+								</c:forEach>
 							</div>
-						</div>
+							<div class="row" style="margin-top: 10px">
+								<div class="col text-center">
+									<nav style="display:inline-block">
+										<ul class="pagination" style="">
+											<li class="page-item"><h:commandLink class="page-link"
+													href="#" aria-label="Previous">
+													<span aria-hidden="true">&laquo;</span>
+													<p:ajax listener="#{homepageBean.firstPageReo}"
+														process="@form" update="@form"></p:ajax>
+												</h:commandLink>
+											</li>
+											
+											<ui:repeat value="#{homepageBean.pageReo.pages}" var="page">
+							                	<h:panelGroup rendered="#{page != homepageBean.pageReo.currentPage + 1}">
+							                		<li class="page-item">
+							                			<h:commandLink value="#{page}" styleClass="page-link" actionListener="#{homepageBean.pageReoAt}">
+							                				<p:ajax process="@form" update="@form"></p:ajax>
+							                			</h:commandLink>
+													</li>
+							                	</h:panelGroup>
+							                	<h:panelGroup rendered="#{page == homepageBean.pageReo.currentPage + 1}">
+							                		<li class="page-item active">
+							                			<h:commandLink value="#{page}" styleClass="page-link">
+							                			</h:commandLink>
+							                		</li>
+							                	</h:panelGroup>
+								            </ui:repeat>
+											
+											<li class="page-item"><h:commandLink class="page-link"
+													href="#" aria-label="Next">
+													<span aria-hidden="true">&raquo;</span>
+													<p:ajax listener="#{homepageBean.lastPageReo}" process="@form"
+														update="@form"></p:ajax>
+												</h:commandLink></li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+						</h:panelGroup>
 					</p:tab>
 					</p:accordionPanel>
 				</h:form>

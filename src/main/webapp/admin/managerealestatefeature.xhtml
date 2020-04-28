@@ -45,7 +45,7 @@ and open the template in the editor.
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-4 col-lg-4 title-mandatory">Đơn vị</div>
+                                            <div class="col-4 col-lg-4">Đơn vị</div>
                                             <div class="col-8 col-lg-8">
                                                 <h:inputText id="landsFeatureUnit" value="#{manageRealEstateFeatureBean.landsFeatureUnit}"></h:inputText>
                                             </div>
@@ -60,7 +60,7 @@ and open the template in the editor.
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-4 col-lg-4">Phạm vi dữ liệu</div>
+                                            <div class="col-4 col-lg-4">Phạm vi dữ liệu VD: Đông|Tây|Nam|Bắc</div>
                                             <div class="col-8 col-lg-8"><p:inputTextarea value="#{manageRealEstateFeatureBean.tempLandsFeatureDataRange}" rows="6" cols="33" /></div>
                                         </div>
                                     </div>
@@ -96,7 +96,7 @@ and open the template in the editor.
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-4 col-lg-4 title-mandatory">Đơn vị</div>
+                                            <div class="col-4 col-lg-4">Đơn vị</div>
                                             <div class="col-8 col-lg-8">
                                                 <h:inputText id="housesFeatureUnit" value="#{manageRealEstateFeatureBean.housesFeatureUnit}"></h:inputText>
                                             </div>
@@ -111,7 +111,7 @@ and open the template in the editor.
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-4 col-lg-4">Phạm vi dữ liệu</div>
+                                            <div class="col-4 col-lg-4">Phạm vi dữ liệu VD: Đông|Tây|Nam|Bắc</div>
                                             <div class="col-8 col-lg-8"><p:inputTextarea value="#{manageRealEstateFeatureBean.tempHousesFeatureDataRange}" rows="6" cols="33" /></div>
                                         </div>
                                     </div>
@@ -119,15 +119,15 @@ and open the template in the editor.
                                         <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Đóng</button>
                                         <ui:remove>
-                                        <h:commandButton class="btn btn-primary" value="Lưu"
-                                                         action="#{manageRealEstateFeatureBean.saveHousesFeature()}">
-                                            <p:ajax process="addHouseFeature" update="view view:formListHouseFeature"></p:ajax>
-                                        </h:commandButton>
+                                            <h:commandButton class="btn btn-primary" value="Lưu"
+                                                             action="#{manageRealEstateFeatureBean.saveHousesFeature()}">
+                                                <p:ajax process="addHouseFeature" update="view view:formListHouseFeature"></p:ajax>
+                                            </h:commandButton>
                                         </ui:remove>
                                         <h:commandButton class="btn btn-primary" value="Lưu " onclick="hideAddFeaturePopup()">
                                             <p:ajax process="addHouseFeature" update="@(.ui-tabs-panel:visible .tab-content)" 
-                                            listener="#{manageRealEstateFeatureBean.saveHousesFeature}" 
-                                            ></p:ajax>
+                                                    listener="#{manageRealEstateFeatureBean.saveHousesFeature}" 
+                                                    ></p:ajax>
                                         </h:commandButton>
                                     </div>
                                 </h:form>
@@ -168,7 +168,12 @@ and open the template in the editor.
                                             <h:outputText value="#{landsFeature.landsFeatureUnit}" />
                                         </div>
                                         <div class="col-md">
-                                            <h:outputText value="#{landsFeature.landsFeatureDataType}"/>
+                                            <c:if test="#{landsFeature.landsFeatureDataType == 'STR'}">
+                                                <h:outputText value="Ký tự"/>
+                                            </c:if>
+                                            <c:if test="#{landsFeature.landsFeatureDataType == 'INT'}">
+                                                <h:outputText value="Số"/>
+                                            </c:if>
                                         </div>
                                         <div class="col-md">
                                             <c:forEach items="#{landsFeature.landsFeatureDataRange}" var="lfdr">
@@ -228,7 +233,12 @@ and open the template in the editor.
                                             <h:outputText value="#{housesFeature.housesFeatureUnit}" />
                                         </div>
                                         <div class="col-md">
-                                            <h:outputText value="#{housesFeature.housesFeatureDataType}" />
+                                            <c:if test="#{housesFeature.housesFeatureDataType == 'STR'}">
+                                                <h:outputText value="Ký tự"/>
+                                            </c:if>
+                                            <c:if test="#{housesFeature.housesFeatureDataType == 'INT'}">
+                                                <h:outputText value="Số"/>
+                                            </c:if>
                                         </div>
                                         <div class="col-md">
                                             <c:forEach items="#{housesFeature.housesFeatureDataRange}" var="hfdr">
@@ -276,7 +286,7 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-4 col-lg-4 title-mandatory">Đơn vị</div>
+                                        <div class="col-4 col-lg-4">Đơn vị</div>
                                         <div class="col-8 col-lg-8">
                                             <p:inputText id="landsFeatureUnit" value="${manageRealEstateFeatureBean.landsFeatureUnitClicked}"/>
                                         </div>
@@ -291,7 +301,7 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-4 col-lg-4">Phạm vi dữ liệu</div>
+                                        <div class="col-4 col-lg-4">Phạm vi dữ liệu VD: Đông|Tây|Nam|Bắc</div>
                                         <div class="col-8 col-lg-8"><p:inputTextarea value="#{manageRealEstateFeatureBean.tempLandsFeatureDataRangeClicked}" rows="6" cols="33" /></div>
                                     </div>
                                 </div>
@@ -350,7 +360,7 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-4 col-lg-4 title-mandatory">Đơn vị</div>
+                                        <div class="col-4 col-lg-4">Đơn vị</div>
                                         <div class="col-8 col-lg-8">
                                             <p:inputText id="housesFeatureUnit" value="${manageRealEstateFeatureBean.housesFeatureUnitClicked}"/>
                                         </div>
@@ -365,7 +375,8 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-4 col-lg-4">Phạm vi dữ liệu</div>
+                                        <div class="col-4 col-lg-4">Phạm vi dữ liệu VD: Đông|Tây|Nam|Bắc</div>
+                                        
                                         <div class="col-8 col-lg-8"><p:inputTextarea value="#{manageRealEstateFeatureBean.tempHousesFeatureDataRangeClicked}" rows="6" cols="33" /></div>
                                     </div>
                                 </div>

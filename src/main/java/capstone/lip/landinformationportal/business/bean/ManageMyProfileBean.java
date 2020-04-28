@@ -85,10 +85,12 @@ public class ManageMyProfileBean implements Serializable{
             
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
             ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
+        }
+        else if (oldPass.isEmpty() || oldPass == null || newPass.isEmpty() || confirmNewPass.isEmpty()){
+            PrimeFaces.current().executeScript("showEmptyError()");
         }else if(newPass.length()<8){
             PrimeFaces.current().executeScript("showLogLengthPass()");
-        }
-        else{
+        } else {
             PrimeFaces.current().executeScript("showLogErrorPass()");
         }
     }

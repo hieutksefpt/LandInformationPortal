@@ -1,35 +1,35 @@
 
 
-function initMap() {
-
-    var markers = JSON.parse($('#txtInput_multipleCoordinate_listOwnRealEstate').val());
-    if(markers != null){
-    var latitude = markers[0].latitude;
-    var longitude = markers[0].longitude;
-    }else {
-          latitude = 21.027763;
-          longitude = 105.834160;
-    }
-    var myLatLng = {lat: latitude, lng: longitude};
-    
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: myLatLng,
-        zoom: 14,
-        mapTypeId: 'roadmap',
-        clickableIcons: false,
-        disableDoubleClickZoom: true,
-        fullscreenControl: false
-    });
-    
-    for (i = 0; i < 10; i++) {
-        var latLng = {lat: markers[i].latitude, lng: markers[i].longitude};
-        var marker = new google.maps.Marker({position: latLng, map: map});
-    }
-    
-    var markerCluster = new MarkerClusterer(map, listMarkers,
-          {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-    
-}
+//function initMap() {
+//
+//    var markers = JSON.parse($('#txtInput_multipleCoordinate_listOwnRealEstate').val());
+//    if(markers != null){
+//    var latitude = markers[0].latitude;
+//    var longitude = markers[0].longitude;
+//    }else {
+//          latitude = 21.027763;
+//          longitude = 105.834160;
+//    }
+//    var myLatLng = {lat: latitude, lng: longitude};
+//    
+//    map = new google.maps.Map(document.getElementById('map'), {
+//        center: myLatLng,
+//        zoom: 14,
+//        mapTypeId: 'roadmap',
+//        clickableIcons: false,
+//        disableDoubleClickZoom: true,
+//        fullscreenControl: false
+//    });
+//    
+//    for (i = 0; i < 10; i++) {
+//        var latLng = {lat: markers[i].latitude, lng: markers[i].longitude};
+//        var marker = new google.maps.Marker({position: latLng, map: map});
+//    }
+//    
+//    var markerCluster = new MarkerClusterer(map, listMarkers,
+//          {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+//    
+//}
 
 var checkConfirm = function() {
   if (document.getElementById('changePassword:NewPass').value ===
@@ -44,6 +44,11 @@ var checkConfirm = function() {
 
 function showLogErrorPass() {
     alert("Mật khẩu cũ bạn nhập không chính xác !");
+    
+}
+
+function showEmptyError() {
+    alert("Vui lòng điền đủ các trường cần khai báo");
     
 }
 

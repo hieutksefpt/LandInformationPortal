@@ -150,18 +150,20 @@ public class HomepageBean implements Serializable{
 		{
 			listRealEstate = listPageReo.stream().map(x->x).collect(Collectors.toList());
 			PrimeFaces.current().executeScript("displayReoList(true)");
-		}else {
-			PrimeFaces.current().executeScript("displayReoList(false)");
-		}
 			
-		List<Coordinate> listCoordinate = listRealEstate.stream().map(x->{
-			return new Coordinate().setId(x.getRealEstateId())
-					.setLatitude(x.getRealEstateLat())
-					.setLongitude(x.getRealEstateLng())
-					.setSource(x.getRealEstateSource());
-		}).collect(Collectors.toList());
-		Gson gson = new Gson();
-		PrimeFaces.current().executeScript("drawListMarker("+gson.toJson(listCoordinate)+")");
+			List<Coordinate> listCoordinate = listRealEstate.stream().map(x->{
+				return new Coordinate().setId(x.getRealEstateId())
+						.setLatitude(x.getRealEstateLat())
+						.setLongitude(x.getRealEstateLng())
+						.setSource(x.getRealEstateSource());
+			}).collect(Collectors.toList());
+			Gson gson = new Gson();
+			PrimeFaces.current().executeScript("drawListMarker("+gson.toJson(listCoordinate)+")");
+			
+		}else {
+			listRealEstate = new ArrayList<>();
+//			PrimeFaces.current().executeScript("displayReoList(false)");
+		}
 	}
 
 	public void provinceChange() {
@@ -184,7 +186,8 @@ public class HomepageBean implements Serializable{
 			return;
 		}
 		List<SegmentOfStreet>listTemp = districtSelected.getListSegmentOfStreet();
-		listStreet = listTemp.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
+		if (listTemp!= null)
+			listStreet = listTemp.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
 		
 		
 		viewStatistic(districtSelected.getDistrictName());

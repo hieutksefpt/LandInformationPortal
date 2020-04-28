@@ -6,6 +6,7 @@
 package capstone.lip.landinformationportal.business.bean;
 
 import capstone.lip.landinformationportal.business.service.Interface.IUserService;
+import capstone.lip.landinformationportal.business.validation.UserValidation;
 import capstone.lip.landinformationportal.common.constant.UserRoleConstant;
 import capstone.lip.landinformationportal.common.entity.User;
 import capstone.lip.landinformationportal.common.utils.EncryptedPassword;
@@ -65,26 +66,25 @@ public class SignUpBean implements Serializable {
 
     public void registerUser() throws IOException {
         newUser = new User();
+        newUser = setUserInformation();
         User duplicateUsername = userService.findByUsername(username);
-        User duplicateEmail = userService.findByEmail(email);
-        User duplicatePhone = userService.findByPhone(phone);
         
-        if (duplicateUsername != null) {
+        UserValidation validate = new UserValidation();
+        String error = validate.isValidUser(newUser);
+        if (!error.isEmpty()) {
+            PrimeFaces.current().executeScript("showErrorGeneral()");
+        } else if (duplicateUsername != null) {
             PrimeFaces.current().executeScript("dulicateUsername()");
-        } else if (duplicateEmail != null) {
-            PrimeFaces.current().executeScript("dulicateEmail()");
-        }else if (duplicatePhone != null) {
-            PrimeFaces.current().executeScript("dulicatePhone()");
-        }else if (!validateEmailRegex(email)) {
+        } else if (!validateEmailRegex(email)) {
             PrimeFaces.current().executeScript("showErrorEmail()");
         } else if (password.length() < 8) {
             PrimeFaces.current().executeScript("showErrorLengthPass()");
         } else if (!password.equals(confirmpassword)) {
             PrimeFaces.current().executeScript("showLogPassError()");
+        } else if (confirmpassword.isEmpty() || confirmpassword == null) {
+            PrimeFaces.current().executeScript("showLogPassError()");
         } else {
-            newUser = setUserInformation();
             newUser = userService.save(newUser);
-
             signUpSuccess();
         }
 
@@ -99,10 +99,10 @@ public class SignUpBean implements Serializable {
         user.setPassword(EncryptedPassword.encrytePassword(password));
         user.setPhone(phone);
         user.setUsername(username);
-        user.setUserStatus("1");
+        user.setUserStatus("ACTIVE");
         user.setRole(UserRoleConstant.USER);
 
-        return null;
+        return user;
     }
 
     public void directToHomePage() throws IOException {

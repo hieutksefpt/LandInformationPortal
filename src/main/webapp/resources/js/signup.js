@@ -17,16 +17,14 @@ function dulicateUsername(){
     alert("Tên đăng nhập đã tồn tại\nVui lòng sử dụng tên đăng nhập khác");
 }
 
-function dulicateEmail(){
-    alert("Email này đã được đăng ký cho tài khoản khác\nVui lòng sử dụng Email khác");
-}
 
-function showErrorPhone(){
-    alert("Số điện thoại này đã được đăng ký cho tài khoản khác\nVui lòng sử dụng số điện thoại khác");
+
+function showErrorEmail(){
+    alert("Vui lòng nhập đúng định dạng của Email");
 }
 
 function showErrorGeneral(){
-    alert("Vui lòng hoàn thiện tất cả các trường!\nĐồng thời không sử dụng ký tự đặc biệt");
+    alert("Vui lòng hoàn thiện tất cả các trường!\nĐồng thời không sử dụng ký tự đặc biệt\nTên đăng nhập không chứa khoảng trắng, số và ký tự đặc biệt");
 }
 
 

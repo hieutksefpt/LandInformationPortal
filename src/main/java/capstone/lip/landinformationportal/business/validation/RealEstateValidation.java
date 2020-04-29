@@ -14,6 +14,7 @@ import capstone.lip.landinformationportal.common.entity.RealEstate;
 import java.math.BigDecimal;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -43,9 +44,10 @@ public class RealEstateValidation {
     }
 
     public boolean checkLandValidation(Land tempLand, List<LandFeatureValue> listLandFeatureValue) {                     // check Land if Null RealState Condition
-        if (tempLand.getRealEstate() == null || tempLand.getLandName().equals("") || tempLand.getLandPrice() == BigDecimal.ZERO) {
+        if (tempLand.getRealEstate() == null || (tempLand.getLandName().equals("") && tempLand.getLandPrice() == BigDecimal.ZERO && listLandFeatureValue.size() == 0)){
             return false;
         } else {
+            
             return true;
         }
     }
@@ -57,9 +59,11 @@ public class RealEstateValidation {
     }
     
     public boolean checkHouseValidation(House tempHouse, List<HouseFeatureValue> listHouseFeatureValue) {
-        if (tempHouse.getRealEstate() == null || tempHouse.getHouseName().equals("") || tempHouse.getHousePrice() == BigDecimal.ZERO) {
+        if (tempHouse.getRealEstate() == null || (tempHouse.getHouseName().equals("") && tempHouse.getHousePrice() == BigDecimal.ZERO && listHouseFeatureValue.size() == 0)){
+            
             return false;
         } else {
+            
             return true;
         }
     }

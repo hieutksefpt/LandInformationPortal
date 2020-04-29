@@ -15,7 +15,7 @@ public class HouseValidation extends StringValidation{
 			if (error.isEmpty()) error = isSpecialCharOnly(house.getHouseName());
 		}
 		
-		if (house.getHousePrice() != null && (house.getHousePrice().compareTo(BigDecimal.ZERO)== 0 || house.getHousePrice().compareTo(BigDecimal.ZERO)== -1)) {
+		if (house.getHousePrice() != null && (house.getHousePrice().compareTo(BigDecimal.ZERO)== -1)) {
 			error=ValidateMessageCommon.IS_NEGATIVE_NUMBER;
 		}
 		

@@ -290,38 +290,21 @@ function showModalMandatory() {
 
     tempNewHouseName = $('#msform\\:txtInputHouseName').val();
     tempNewHouseValue = $('#msform\\:txtInputHouseMoney').val();
+    tempLandFeatureList = $('#msform\\:cbb-landFeature').val();
+    tempHouseFeatureList = $('#msform\\:cbb-houseFeature').val();
 
 
     if (tempRealEstateName === '') {
         alert("Tên của bất động sản không được để trống");
-    } else if (tempRealEstateValue <= 0) {
+    } else if (tempRealEstateValue <= 0 || tempRealEstateValue === null) {
         alert("Giá trị của bất động sản phải lớn hơn 0 VND.\nĐồng thời phải lớn hơn hoặc bằng tổng giá trị của các bất động sản thành phần");
-    } else if (tempRealEstateType === 'Đất và Nhà') {                  // to validate when choosing combobox Type RE.
-        if (tempLandFeature !== '' && tempLandFeatureValue === '') {                    // If choose Land Feature --> have to contribute Land Value
-            alert("Vui lòng cung cấp giá trị của thuộc tính Đất đang khai báo");
-        } else if (tempHouseFeature !== '' && tempHouseFeatureValue === '') {            // If choose House Feature --> have to contribute House Value
-            alert("Vui lòng cung cấp giá trị của thuộc tính Nhà đang khai báo");
-        } else if (tempNewLandName === '' || tempNewHouseName === '') {            // If choose House Feature --> have to contribute House Value
-            alert("Vui lòng cung cấp tên và giá trị phần Đất hoặc phần Nhà\nGiá trị của phần Đất và Nhà phải lớn hơn 0 VND.");
-        } else if (tempNewLandName !== '' && tempNewLandValue <= 0) {   
-            alert("Giá trị của phần Đất phải lớn hơn 0 VND.");
-        }else if (tempNewHouseName !== '' && tempNewHouseValue <= 0) {   
-            alert("Giá trị của phần Nhà phải lớn hơn 0 VND.");
-        }
-    } else if (tempRealEstateType === 'Đất') {                             // If choose Land Feature --> have to contribute Land Value
-        if (tempNewLandName === '') {            // If choose House Feature --> have to contribute House Value
-            alert("Vui lòng cung cấp tên và giá trị phần Đất");
-        }else if (tempNewLandValue <= 0) {
-            alert("Giá trị của phần Đất phải lớn hơn 0 VND.");
-        }
-    } else if (tempRealEstateType === 'Nhà') {                             // If choose House Feature --> have to contribute House Value
-        if (tempNewHouseName === '') {            // If choose House Feature --> have to contribute House Value
-            alert("Vui lòng cung cấp tên và giá trị phần Nhà");
-        }else if (tempNewHouseValue <= 0) {
-            alert("Giá trị của phần Nhà phải lớn hơn 0 VND.");
-        }
-    }
+    } 
 }
+
+function showLogEmptyLandHouse(){
+    alert("Vui lòng cung cấp ít nhất 1 trong 3 trường Tên, giá trị, thuộc tính phần BĐS cấu thành");
+}
+
 
 
 

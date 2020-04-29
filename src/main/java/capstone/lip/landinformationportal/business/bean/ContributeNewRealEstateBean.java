@@ -203,7 +203,10 @@ public class ContributeNewRealEstateBean implements Serializable {
         if (typeRealEstate.equals(RealEstateTypeConstant.LANDTYPE)) {
             Land newLand = new Land();
             newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
-            if (newUploadRealEstate != null && newLand != null) {
+            if (newUploadRealEstate != null && newLandName.isEmpty() && listLandFeatureValue.isEmpty() && newLandMoney.compareTo(BigDecimal.ZERO)== 0) {
+                PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
+                variableSuccess = false;
+            } else if (newUploadRealEstate != null && newLand != null) {
                 saveDataNewLandSigleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail);
                 variableSuccess = true;
             }
@@ -211,7 +214,10 @@ public class ContributeNewRealEstateBean implements Serializable {
         } else if (typeRealEstate.equals(RealEstateTypeConstant.HOUSETYPE)) {
             House newHouse = new House();
             newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
-            if (newUploadRealEstate != null && newHouse != null) {
+            if (newUploadRealEstate != null && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO)== 0) {
+                PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
+                variableSuccess = false;
+            } else if (newUploadRealEstate != null && newHouse != null) {
                 saveDataNewHouseSingleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newHouse, listHousesDetail);
                 variableSuccess = true;
             }
@@ -224,7 +230,11 @@ public class ContributeNewRealEstateBean implements Serializable {
             newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
             listHousesDetail = validateHouseDetailInfor(newHouse, listHouseFeatureValue);
 
-            if (newUploadRealEstate != null && newHouse != null && newLand != null) {
+            if (newUploadRealEstate != null && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO)== 0
+                    && newLandName.isEmpty() && listLandFeatureValue.isEmpty() && newLandMoney.compareTo(BigDecimal.ZERO)== 0) {
+                PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
+                variableSuccess = false;
+            } else if (newUploadRealEstate != null && newHouse != null && newLand != null) {
                 saveDataNewLandHouseTotalToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail, newHouse, listHousesDetail);
                 variableSuccess = true;
             }
@@ -683,17 +693,17 @@ public class ContributeNewRealEstateBean implements Serializable {
                     + segmentOfStreet.getSegmentLng() + ")");
 
             PrimeFaces.current().executeScript("updateDeleteOld()");
-			List<FormedCoordinate> listFormedCoordinate = segmentOfStreet.getListFormedCoordinate();
-			List<Coordinate> listCoordinate = listFormedCoordinate.stream()
-					.map(x->{
-						Coordinate coor = new Coordinate(x.getFormedLng(), x.getFormedLat());
-						return coor;
-					}).collect(Collectors.toList());
-			Gson gson = new Gson();
-			String jsonMultipleCoordinate = gson.toJson(listCoordinate);
-			
-			PrimeFaces.current().executeScript("drawPath('"+jsonMultipleCoordinate+"')");
-			
+            List<FormedCoordinate> listFormedCoordinate = segmentOfStreet.getListFormedCoordinate();
+            List<Coordinate> listCoordinate = listFormedCoordinate.stream()
+                    .map(x -> {
+                        Coordinate coor = new Coordinate(x.getFormedLng(), x.getFormedLat());
+                        return coor;
+                    }).collect(Collectors.toList());
+            Gson gson = new Gson();
+            String jsonMultipleCoordinate = gson.toJson(listCoordinate);
+
+            PrimeFaces.current().executeScript("drawPath('" + jsonMultipleCoordinate + "')");
+
         } else {
             segmentStreetIdSelected = "";
             segmentOfStreet = null;

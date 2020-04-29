@@ -51,44 +51,48 @@
                                 <div id="lbl-DetailRealEstate" class="title-header">Chi tiết Bất Động Sản</div>
                                 <h:inputHidden id="txtInput_coordinate_detailRealEstate" value="#{viewRealEstateDetailBean.jsonCoordinate}"></h:inputHidden>
                                 <div class="row">
-                                	<div class="col">
-                                		<sec:authenticated>
-	                                		<h:form id="updateReport" styleClass="element-list" >
-	                                			<span class="flag-red">
-	                                			</span>
-		                                		<c:if test="#{viewRealEstateDetailBean.checkExistInReport() != null}">
-		                                            <p:commandButton image="flag-red" title="Bỏ report"
-		                                                             action="#{viewRealEstateDetailBean.reportAndUnreport()}"
-		                                                             update="updateReport"/>
-		                                        </c:if>
-		                                        <c:if test="#{viewRealEstateDetailBean.checkExistInReport() == null}">
-		                                            <p:commandButton image="flag" title="Report"
-		                                                             action="#{viewRealEstateDetailBean.reportAndUnreport()}"
-		                                                             update="updateReport"/>
-		                                        </c:if>
-		                                        <h:outputText value="#{viewRealEstateDetailBean.numberOfReport}"/>
-	                                		
-	                                		</h:form>
-                                		</sec:authenticated>
-                                		
-                                	</div>
-                                	<div class="col">
-                                		<h:form rendered="#{viewRealEstateDetailBean.ownRealEstate}">
+                                    <div class="col">
+                                        <sec:authenticated>
+                                            <h:form id="updateReport" styleClass="element-list" >
+                                                <span class="flag-red">
+                                                </span>
+                                                <c:if test="#{viewRealEstateDetailBean.checkExistInReport() != null}">
+                                                    <p:commandButton image="flag-red" title="Bỏ report"
+                                                                     action="#{viewRealEstateDetailBean.reportAndUnreport()}"
+                                                                     update="updateReport"/>
+                                                </c:if>
+                                                <c:if test="#{viewRealEstateDetailBean.checkExistInReport() == null}">
+                                                    <p:commandButton image="flag" title="Report"
+                                                                     action="#{viewRealEstateDetailBean.reportAndUnreport()}"
+                                                                     update="updateReport"/>
+                                                </c:if>
+                                                <h:outputText value="#{viewRealEstateDetailBean.numberOfReport}"/>
 
-                                        
-	                                        <h:commandButton id="btn-ButtonDelete" 
-	                                                         type="button" 
-	                                                         class="btn-delete btn-in-detai-page" 
-	                                                         value="Xóa" 
-	                                                         onclick="openConfirmDeletePopup()">
-	                                            <f:ajax execute="@form" render="confirmDeletePopup" />
-	                                        </h:commandButton>
-	                                        <h:commandButton id="btn-ButtonEdit" class="btn-edit btn-in-detai-page" value="Sửa" action="#{viewRealEstateDetailBean.goToDetails(viewRealEstateDetailBean.tempRealEstateId)}">
-                                            	<p:ajax process="@form"></p:ajax>
-	                                        </h:commandButton>
-	                                    </h:form>
-                                	</div>
-                                    
+                                            </h:form>
+                                        </sec:authenticated>
+                                        <sec:anonymous>
+                                            <p:commandButton image="flag-red"/>
+                                            <h:outputText value="#{viewRealEstateDetailBean.numberOfReport}"/>
+                                        </sec:anonymous>
+
+                                    </div>
+                                    <div class="col">
+                                        <h:form rendered="#{viewRealEstateDetailBean.ownRealEstate}">
+
+
+                                            <h:commandButton id="btn-ButtonDelete" 
+                                                             type="button" 
+                                                             class="btn-delete btn-in-detai-page" 
+                                                             value="Xóa" 
+                                                             onclick="openConfirmDeletePopup()">
+                                                <f:ajax execute="@form" render="confirmDeletePopup" />
+                                            </h:commandButton>
+                                            <h:commandButton id="btn-ButtonEdit" class="btn-edit btn-in-detai-page" value="Sửa" action="#{viewRealEstateDetailBean.goToDetails(viewRealEstateDetailBean.tempRealEstateId)}">
+                                                <p:ajax process="@form"></p:ajax>
+                                            </h:commandButton>
+                                        </h:form>
+                                    </div>
+
                                 </div>
                                 <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateSource == 'Contributor'}">
                                     <div id="lbl-UsersNameLabel" class="text name element-list">

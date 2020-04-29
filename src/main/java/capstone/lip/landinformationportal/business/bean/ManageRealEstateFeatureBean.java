@@ -190,6 +190,8 @@ public class ManageRealEstateFeatureBean implements Serializable {
                     }
                 }
             }
+        }else{
+            landsFeatureDataRangeClicked = new ArrayList<>();
         }
         if (landsFeatureCheck) {
             landsFeatureClicked.setLandsFeatureName(landsFeatureNameClicked);
@@ -226,6 +228,8 @@ public class ManageRealEstateFeatureBean implements Serializable {
                     }
                 }
             }
+        }else{
+            housesFeatureDataRangeClicked = new ArrayList<>();
         }
         if (housesFeatureCheck) {
             housesFeatureClicked.setHousesFeatureName(housesFeatureNameClicked);

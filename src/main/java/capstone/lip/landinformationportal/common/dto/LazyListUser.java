@@ -17,6 +17,7 @@ import org.primefaces.model.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 /**
  *
@@ -38,7 +39,9 @@ public class LazyListUser extends LazyDataModel<User> implements Serializable {
             Map<String, Object> filters) {
 //        Page<User> list
 //                = userService.findAll(PageRequest.of(first / pageSize, pageSize));
-        Page<User> list = userService.findAllByAttribute(filters, PageRequest.of(first / pageSize, pageSize));
+        Sort sort = null;
+        sort = Sort.by("modifiedDate").descending();
+        Page<User> list = userService.findAllByAttribute(filters, PageRequest.of(first / pageSize, pageSize, sort));
         this.setRowCount((int)userService.countByAttribute(filters));
         List<User> list1 = list.stream().map(x -> x).collect(Collectors.toList());
         return list1;

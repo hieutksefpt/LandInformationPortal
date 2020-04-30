@@ -70,12 +70,14 @@
 			            action="#{manageCrawlRealEstateBean.refreshData()}"/>
 			        </f:facet>
 	            	<p:column width="65%">
-	            		<f:facet name="header">Address</f:facet>
+	            		<f:facet name="header">Địa chỉ</f:facet>
 	            		<a href="#{element.realEstateLink}" target="_blank">#{element.realEstateAddress}</a>
 	            	</p:column>
                         <p:column width="30%">
-                            <f:facet name="header">Price</f:facet>
-                            <h:outputText value="#{element.realEstatePrice}"/>
+                            <f:facet name="header">Giá tiền</f:facet>
+                            <h:outputText id="lbl-Price" value="#{element.realEstatePrice}">
+                            	<f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
+                            </h:outputText>
                         </p:column>
 	     
 	            	<p:column style="text-align: center">

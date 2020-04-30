@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import capstone.lip.landinformationportal.business.service.Interface.IFeedbackService;
 import capstone.lip.landinformationportal.common.constant.FeedbackStatusConstant;
 import capstone.lip.landinformationportal.common.entity.Feedback;
+import org.springframework.data.domain.Sort;
 
 public class LazyFeedback extends LazyDataModel<Feedback> implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -33,9 +34,10 @@ public class LazyFeedback extends LazyDataModel<Feedback> implements Serializabl
 	@Override
     public List<Feedback> load(int first, int pageSize, String sortField, SortOrder sortOrder,
             Map<String, Object> filters) {
-
+        Sort sort = null;
+        sort = Sort.by("modifiedDate").descending();
         Page<Feedback> list
-                = feedbackService.findByFeedbackStatus(FeedbackStatusConstant.OPEN, PageRequest.of(first / pageSize, pageSize));
+                = feedbackService.findByFeedbackStatus(FeedbackStatusConstant.OPEN, PageRequest.of(first / pageSize, pageSize, sort));
         List<Feedback> list1 = list.stream().map(x -> x).collect(Collectors.toList());
         return list1;
     }

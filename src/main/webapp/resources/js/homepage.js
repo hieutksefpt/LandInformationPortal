@@ -92,20 +92,57 @@ function drawListMarker(list){
 	
 	function drawEachPoint(item, index, arr){
     	let marker;
-    	if (item.source=='CONTRIBUTOR'){
+        
+        
+        if(item.source=='CONTRIBUTOR'){
+            if (item.status=='VERIFIED'){
 			marker = new google.maps.Marker({
 	            position: {lat: item.latitude, lng: item.longitude},
 	            map: map,
-	            icon: urlBlueMarker,
+	            icon: contributeVerifiedIcon,
 	            info: item
 	        });
-    	}else{
-    		marker = new google.maps.Marker({
+            }else if(item.status=='NOTVERIFY'){
+                    marker = new google.maps.Marker({
+                        position: {lat: item.latitude, lng: item.longitude},
+                        map: map,
+                        icon: contributeNotVerifiedIcon,
+                        info: item
+                    });
+            }else{
+                marker = new google.maps.Marker({
+                        position: {lat: item.latitude, lng: item.longitude},
+                        map: map,
+                        icon: contributeConfusedIcon,
+                        info: item
+                    });
+            }
+        }else{
+            if (item.status=='VERIFIED'){
+			marker = new google.maps.Marker({
 	            position: {lat: item.latitude, lng: item.longitude},
 	            map: map,
+	            icon: crawlVerifiedIcon,
 	            info: item
 	        });
-    	}
+            }else if(item.status=='NOTVERIFY'){
+                    marker = new google.maps.Marker({
+                        position: {lat: item.latitude, lng: item.longitude},
+                        map: map,
+                        icon: crawlNotVerifiedIcon,
+                        info: item
+                    });
+            }else{
+                marker = new google.maps.Marker({
+                        position: {lat: item.latitude, lng: item.longitude},
+                        map: map,
+                        icon: crawlConfusedIcon,
+                        info: item
+                    });
+            }
+        }
+        
+    	
     	
     	google.maps.event.addListener(marker, 'click', function () {
     		if ($(PF('accord-panel').panels[0]).css('display') == "none")

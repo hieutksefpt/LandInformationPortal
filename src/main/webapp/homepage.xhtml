@@ -308,7 +308,12 @@
 
 		<ui:define name="footer">
 			<h:outputScript name="markerclustererplus.min.js" library="js"></h:outputScript>
-			<h:outputScript>var urlBlueMarker = "${resource['img/blue-dot.png']}" </h:outputScript>
+			<h:outputScript>var crawlVerifiedIcon = "${resource['img/crawl-verified.png']}" </h:outputScript>
+                        <h:outputScript>var crawlNotVerifiedIcon = "${resource['img/crawl-notverified.png']}" </h:outputScript>
+                        <h:outputScript>var crawlConfusedIcon = "${resource['img/crawl-confused.png']}" </h:outputScript>
+                        <h:outputScript>var contributeVerifiedIcon = "${resource['img/contribute-verified.png']}" </h:outputScript>
+                        <h:outputScript>var contributeNotVerifiedIcon = "${resource['img/contribute-notverified.png']}" </h:outputScript>
+                        <h:outputScript>var contributeConfusedIcon = "${resource['img/contribute-confused.png']}" </h:outputScript>
 			<h:outputScript name="homepage.js" library="js" />
 			<script type="text/javascript"
 				src="http://maps.googleapis.com/maps/api/js?key=#{googleMapBean.googleMapKey}&amp;libraries=places&amp;callback=initMap"

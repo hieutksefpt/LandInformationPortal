@@ -26,21 +26,21 @@ import capstone.lip.landinformationportal.common.entity.Feedback;
 @Component
 public class EmailSender {
 
-	@Value("${mail.username}")
-	private String username;
-	@Value("${mail.password}")
-	private String password;
-	@Value("${mail.smtp.auth}")
-	private String auth;
-	@Value("${mail.smtp.starttls.enable}")
-	private String enable;
-	@Value("${mail.smtp.host}")
-	private String host;
-	@Value("${mail.smtp.port}")
-	private String port;
-	
+    @Value("${mail.username}")
+    private String username;
+    @Value("${mail.password}")
+    private String password;
+    @Value("${mail.smtp.auth}")
+    private String auth;
+    @Value("${mail.smtp.starttls.enable}")
+    private String enable;
+    @Value("${mail.smtp.host}")
+    private String host;
+    @Value("${mail.smtp.port}")
+    private String port;
+
     public void sendMailChangePassword(String to, String newPassword) {
-        
+
         Properties props = new Properties();
         props.put("mail.smtp.auth", auth);
         props.put("mail.smtp.starttls.enable", enable);
@@ -72,9 +72,9 @@ public class EmailSender {
             throw new RuntimeException(e);
         }
     }
-    
+
     public void sendMailFeedback(Feedback feedback) {
-    	Properties props = new Properties();
+        Properties props = new Properties();
         props.put("mail.smtp.auth", auth);
         props.put("mail.smtp.starttls.enable", enable);
         props.put("mail.smtp.host", host);
@@ -95,11 +95,11 @@ public class EmailSender {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(feedback.getUser().getEmail()));
             message.setSubject("Reply Feedback");
-            
-            String templateString = "Cảm ơn bạn đã sử dụng và phản hồi hệ thống Land Information System.\n"
-            		+ "Về feedback của bạn, chúng tôi xin phép được trả lời như sau: "+feedback.getFeedbackAdminReply()+"\n"
-    				+ "Thân ái\nLand Information System";
-            
+
+            String templateString = "Thank you so much for using and feedback to Land Information System.\n"
+                    + "About your feedback, this is our answer to you: " + feedback.getFeedbackAdminReply() + "\n"
+                    + "Best Regards\nLand Information System";
+
             message.setText(templateString);
 
             Transport.send(message);

@@ -116,8 +116,8 @@ function drawListMarker(list){
     	
     	listMarker.push(marker);
 	}
-//    var markerCluster = new MarkerClusterer(map, listMarker,
-//            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    var markerCluster = new MarkerClusterer(map, listMarker,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 }
 function displayReoList(isDisplay){
 	if (isDisplay){

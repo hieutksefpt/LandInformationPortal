@@ -181,7 +181,6 @@ public class HomepageBean implements Serializable{
 	public void districtChange() {
 		setStreetIdSelected("");
 		listSegmentOfStreet = new ArrayList();
-		setSegmentIdSelected("");
 		if (districtSelected == null) {
 			return;
 		}

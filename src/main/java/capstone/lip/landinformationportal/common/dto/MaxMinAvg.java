@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class MaxMinAvg implements Serializable{
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4820278716305755674L;
 	private BigDecimal max;
 	private BigDecimal min;
 	private BigDecimal avg;

@@ -27,6 +27,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -326,6 +327,7 @@ public class RealEstateService implements IRealEstateService {
 
     }
 
+//    @Cacheable(value="listMaxMinAvg", key= "{#location}", cacheManager="cacheManager1Hour")
     @Override
     public MaxMinAvg listMaxMinAvg(String location) {
         try {
@@ -341,6 +343,7 @@ public class RealEstateService implements IRealEstateService {
 
     }
 
+//    @Cacheable(value="listGroupByDateAndValue", key= "{#location}", cacheManager="cacheManager1Hour")
     @Override
     public List<GroupByDateMaxMin> listGroupByDateAndValue(String location) {
         try {

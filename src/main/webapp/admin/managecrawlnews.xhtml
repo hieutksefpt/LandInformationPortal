@@ -2,150 +2,147 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-<h:body>
-	
-	<ui:composition template="/template/admin/adminLayout.xhtml">
-		
-		<ui:define name="content">
-			<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
-			<h:outputStylesheet name="managecrawlnews.css" library="css"></h:outputStylesheet>
-            <h:form onsubmit="return false;" prependId="false">
-            	<p:growl id="msgs" showDetail="true" widgetVar="alert"/>
-            	<div class="row form-group">
-            		<div class="col-3">
-            			<div class="row">
-            				<div class="col-3">
-	            				<h:inputText id="txtInput-time" title="#{manageCrawlNewsBean.timerCrawl} giờ" class="form-control" 
-            					style="border: 1px solid;"  value="#{manageCrawlNewsBean.timerCrawl}"></h:inputText>
-	            			</div>
-	            			<div class="col-9">
-	            				<h:commandButton id="btn-SetTime" value="Cài thời gian crawler" class="btn btn-block btn-info waves-effect">
-				            		<p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.setTimerButtonClick()}"></p:ajax>
-				            	</h:commandButton>
-	            			</div>
-            			</div>
-            		</div>
-            		<div class="col-3 text-center">
-            			<h:commandButton value="Bật crawler" class="btn btn-block btn-success waves-effect"  id="btn-TurnOnCrawl" rendered="#{not manageCrawlNewsBean.statusCrawlSchedule}">
-		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.turnOnCrawler()}"></p:ajax>
-		            	</h:commandButton>
-		            	
-		            	<h:commandButton value="Tắt crawler" class="btn btn-block btn-danger waves-effect" id="btn-TurnOffCrawl" rendered="#{manageCrawlNewsBean.statusCrawlSchedule}">
-		            		<p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.turnOffCrawler()}"></p:ajax>
-		            	</h:commandButton>
-		            		<label id="lb-crawlnow"></label>
-		            		<h:outputText id="lb-CrawlSchedule" rendered="#{manageCrawlNewsBean.statusCrawlSchedule}" 
-	            				value="Đang chạy"></h:outputText>
-		            	
-            		</div>
-            		<div class="col-3">
-            			<h:commandButton value="Crawl ngay" id="btn-CrawlNow" class="btn btn-block btn-primary waves-effect" >
-		            		<p:ajax process="@form" oncomplete="renderMessageCrawlNow()" listener="#{manageCrawlNewsBean.crawlNow()}"></p:ajax>
-		           		</h:commandButton>
-		           		
-            		</div>
-            		<div class="col-3">
-						<div class="row">
-							<div class="col">
-								<h:commandButton id="btn-showNews" class="btn btn-block btn-success waves-effect" value="Hiển thị tin tức" onclick="checkclick('dlgShowList')"></h:commandButton>
-							</div>
-							<div class="col">
-								<h:commandButton id="btn-deleteNews" class="btn btn-block btn-danger waves-effect" value="Xóa tin tức" onclick="checkclick('dlgDeleteList')"></h:commandButton>
-							</div>
-						</div>
-		           			
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:body>
 
-		           			
-            		</div>
-            	</div>
-            </h:form>
-            <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px">
-            	
-	            <p:dataTable value="#{manageCrawlNewsBean.lazyNews}" var="element"
-		           	rows="10" paginator="true"
-		            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-		            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-		            lazy="true"  widgetVar="wgtable"
-		            selection="#{manageCrawlNewsBean.listNewsSelected}" rowKey="#{element.crawledNewsID}">
-		            <f:facet name="paginatorTopLeft">
-			            <p:commandButton icon="pi pi-refresh" 
-			            action="#{manageCrawlNewsBean.refreshData()}" update="tabledata"/>
-			        </f:facet>
+        <ui:composition template="/template/admin/adminLayout.xhtml">
 
-			        <p:column selectionMode="multiple" style="width:7%;text-align:center"> 
-			        </p:column>
-	            	<p:column width="80%">
-	            		<f:facet name="header">Tiêu đề</f:facet>
-	            		<a href="#{element.crawledNewsLink}" target="_blank">#{element.crawledNewsTitle}</a>
-	            	</p:column>
-	            	<p:column>
-	            		<f:facet name="header">Nguồn tin</f:facet>
-	            		<h:outputText value="#{element.crawledNewsWebsite}"></h:outputText>
-	            	</p:column>
-	            </p:dataTable>
-	            <br/>
-	            
-            	<p:dialog header="Hiển thị danh sách tin tức" widgetVar="dlgShowList" modal="true" resizable="false">
-            		<div class="row">
-	               		<div class="col">
-               				<strong>
-               					<h:outputText  id="lb-ConfirmShow" value="Bạn có chắc chắn muốn hiển thị danh sách tin tức này không?">
-               					</h:outputText>
-               				</strong>	               			
-	               		</div>
-	               	</div>
-	               	
-	               	<div class="row">
-	               		<div class="col text-center">
-	               			<h:commandButton id="btn-YesShow" value="Có" styleClass="btn btn-primary btn-lg">
-	               				<p:ajax listener="#{manageCrawlNewsBean.acceptListNews()}" update="tabledata" process="@form"
-	               				oncomplete="PF('dlgShowList').hide()"></p:ajax>
-	               			</h:commandButton>
-	               		</div>
-	               		<div class="col text-center">
-	               			<h:commandButton id="btn-NoShow" value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgShowList').hide()">
-	               				
-	               			</h:commandButton>
-	               		</div>
-	               	</div>
-            	</p:dialog>
-            	<p:dialog header="Xóa danh sách tin tức" widgetVar="dlgDeleteList" modal="true" resizable="false">
-            		<div class="row">
-	               		<div class="col">
-	               			<strong><h:outputText id="lb-ConfirmDelete" value="Bạn có chắc chắn muốn xóa danh sách tin tức này không?">
-	               			
-	               			</h:outputText></strong>
-	               		</div>
-	               	</div>
-	               	<div class="row">
-	               		<div class="col text-center">
-	               			<h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
-	               				<p:ajax listener="#{manageCrawlNewsBean.deleteListNews()}" update="tabledata" process="@form"
-	               				oncomplete="PF('dlgDeleteList').hide()"></p:ajax>
-	               			</h:commandButton>
-	               		</div>
-	               		<div class="col text-center">
-	               			<h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgDeleteList').hide()">
-	               				
-	               			</h:commandButton>
-	               		</div>
-	               	</div>
-            	</p:dialog>
-            </h:form>
-            
-		</ui:define>
-		<ui:define name="footer">
-			<h:outputScript name="managecrawlnews.js" library="js" />
-				<script type="text/javascript"
+            <ui:define name="content">
+                <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+                <h:outputStylesheet name="managecrawlnews.css" library="css"></h:outputStylesheet>
+                <h:form onsubmit="return false;" prependId="false">
+                    <p:growl id="msgs" showDetail="true" widgetVar="alert"/>
+                    <div class="row form-group">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h:inputText id="txtInput-time" title="#{manageCrawlNewsBean.timerCrawl} giờ" class="form-control" 
+                                                 style="border: 1px solid;" a:placeholder="Thời gian crawl tự động (Giờ)" value="#{manageCrawlNewsBean.timerCrawl}"></h:inputText>
+                                </div>
+                                <div class="col-6">
+                                    <h:commandButton id="btn-SetTime" value="Cài thời gian crawler" class="btn btn-block btn-info waves-effect">
+                                        <p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.setTimerButtonClick()}"></p:ajax>
+                                    </h:commandButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 text-center">
+                            <h:commandButton value="Bật crawler" class="btn btn-block btn-success waves-effect"  id="btn-TurnOnCrawl" rendered="#{not manageCrawlNewsBean.statusCrawlSchedule}">
+                                <p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.turnOnCrawler()}"></p:ajax>
+                            </h:commandButton>
+
+                            <h:commandButton value="Tắt crawler" class="btn btn-block btn-danger waves-effect" id="btn-TurnOffCrawl" rendered="#{manageCrawlNewsBean.statusCrawlSchedule}">
+                                <p:ajax process="@form" update="@form" listener="#{manageCrawlNewsBean.turnOffCrawler()}"></p:ajax>
+                            </h:commandButton>
+                            <label id="lb-crawlnow"></label>
+                            <h:outputText id="lb-CrawlSchedule" rendered="#{manageCrawlNewsBean.statusCrawlSchedule}" 
+                                          value="Đang chạy"></h:outputText>
+
+                        </div>
+                        <div class="col-3">
+                            <h:commandButton value="Crawl ngay" id="btn-CrawlNow" class="btn btn-block btn-primary waves-effect" >
+                                <p:ajax process="@form" oncomplete="renderMessageCrawlNow()" listener="#{manageCrawlNewsBean.crawlNow()}"></p:ajax>
+                            </h:commandButton>
+
+                        </div>
+
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <h:commandButton id="btn-showNews" class="btn btn-block btn-success waves-effect" value="Hiển thị tin tức" onclick="checkclick('dlgShowList')"></h:commandButton>
+                        </div>
+                        <div class="col-3">
+                            <h:commandButton id="btn-deleteNews" class="btn btn-block btn-danger waves-effect" value="Xóa tin tức" onclick="checkclick('dlgDeleteList')"></h:commandButton>
+                        </div>
+                    </div>
+                </h:form>
+                <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px">
+
+                    <p:dataTable value="#{manageCrawlNewsBean.lazyNews}" var="element"
+                                 rows="10" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                 lazy="true"  widgetVar="wgtable"
+                                 selection="#{manageCrawlNewsBean.listNewsSelected}" rowKey="#{element.crawledNewsID}">
+                        <f:facet name="paginatorTopLeft">
+                            <p:commandButton icon="pi pi-refresh" 
+                                             action="#{manageCrawlNewsBean.refreshData()}" update="tabledata"/>
+                        </f:facet>
+
+                        <p:column selectionMode="multiple" style="width:7%;text-align:center"> 
+                        </p:column>
+                        <p:column width="80%">
+                            <f:facet name="header">Tiêu đề</f:facet>
+                            <a href="#{element.crawledNewsLink}" target="_blank">#{element.crawledNewsTitle}</a>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Nguồn tin</f:facet>
+                            <h:outputText value="#{element.crawledNewsWebsite}"></h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+
+                    <p:dialog header="Hiển thị danh sách tin tức" widgetVar="dlgShowList" modal="true" resizable="false">
+                        <div class="row">
+                            <div class="col">
+                                <strong>
+                                    <h:outputText  id="lb-ConfirmShow" value="Bạn có chắc chắn muốn hiển thị danh sách tin tức này không?">
+                                    </h:outputText>
+                                </strong>	               			
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col text-center">
+                                <h:commandButton id="btn-YesShow" value="Có" styleClass="btn btn-primary btn-lg">
+                                    <p:ajax listener="#{manageCrawlNewsBean.acceptListNews()}" update="tabledata" process="@form"
+                                            oncomplete="PF('dlgShowList').hide()"></p:ajax>
+                                </h:commandButton>
+                            </div>
+                            <div class="col text-center">
+                                <h:commandButton id="btn-NoShow" value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgShowList').hide()">
+
+                                </h:commandButton>
+                            </div>
+                        </div>
+                    </p:dialog>
+                    <p:dialog header="Xóa danh sách tin tức" widgetVar="dlgDeleteList" modal="true" resizable="false">
+                        <div class="row">
+                            <div class="col">
+                                <strong><h:outputText id="lb-ConfirmDelete" value="Bạn có chắc chắn muốn xóa danh sách tin tức này không?">
+
+                                    </h:outputText></strong>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
+                                    <p:ajax listener="#{manageCrawlNewsBean.deleteListNews()}" update="tabledata" process="@form"
+                                            oncomplete="PF('dlgDeleteList').hide()"></p:ajax>
+                                </h:commandButton>
+                            </div>
+                            <div class="col text-center">
+                                <h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgDeleteList').hide()">
+
+                                </h:commandButton>
+                            </div>
+                        </div>
+                    </p:dialog>
+                </h:form>
+
+            </ui:define>
+            <ui:define name="footer">
+                <h:outputScript name="managecrawlnews.js" library="js" />
+                <script type="text/javascript"
                         src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHI3U4hbpOvJL1QgtkTqopAm1pc53xjCE&amp;libraries=places&amp;initMap(0,0)"
                 async="true" defer="true"></script>	
-		</ui:define>
-	</ui:composition>
-</h:body>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 
 </html>

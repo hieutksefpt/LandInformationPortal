@@ -31,5 +31,36 @@ public class GroupByDateMaxMin implements Serializable{
 	public void setMaxMinAvg(MaxMinAvg maxMinAvg) {
 		this.maxMinAvg = maxMinAvg;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
+		result = prime * result + ((maxMinAvg == null) ? 0 : maxMinAvg.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GroupByDateMaxMin other = (GroupByDateMaxMin) obj;
+		if (dateCreated == null) {
+			if (other.dateCreated != null)
+				return false;
+		} else if (!dateCreated.equals(other.dateCreated))
+			return false;
+		if (maxMinAvg == null) {
+			if (other.maxMinAvg != null)
+				return false;
+		} else if (!maxMinAvg.equals(other.maxMinAvg))
+			return false;
+		return true;
+	}
 	
 }

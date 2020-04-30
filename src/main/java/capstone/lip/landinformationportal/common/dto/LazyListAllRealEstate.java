@@ -56,13 +56,7 @@ public class LazyListAllRealEstate extends LazyDataModel<RealEstate> implements 
 //                = realEstateService.findAll(PageRequest.of(first / pageSize, pageSize));
 //        Page<RealEstate> list = realEstateService.findAllBySourceAndStatus(source, status, PageRequest.of(first / pageSize, pageSize));
     	Sort sort = null;
-    	if (sortField != null) {
-	    	if (sortOrder.equals(SortOrder.DESCENDING)) {
-	    		sort = Sort.by(sortField).descending();
-	    	}else {
-	    		sort = Sort.by(sortField).ascending();
-	    	}
-    	}
+        sort = Sort.by("modifiedDate").descending();
     	Page<RealEstate> list = null;
     	if (sort == null) {
     		list = realEstateService.findAllByAttribute(filters, PageRequest.of(first / pageSize, pageSize));

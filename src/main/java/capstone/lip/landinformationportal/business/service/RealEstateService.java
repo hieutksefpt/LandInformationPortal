@@ -504,7 +504,11 @@ public class RealEstateService implements IRealEstateService {
 				for (Map.Entry meta : listAttribute.entrySet()) {
 	    			String key = (String) meta.getKey();
 	    			String value = (String) meta.getValue();
-	    			listSpec.add(new RealEstateSpecifications(new SearchCriteria(key, ":=", value)));
+	    			if (key.equals("realEstateName")) {
+	    				listSpec.add(new RealEstateSpecifications(new SearchCriteria(key, ":", value)));
+	    			}else {
+	    				listSpec.add(new RealEstateSpecifications(new SearchCriteria(key, ":=", value)));
+	    			}
 	    		}
 			}
 			if (!listSpec.isEmpty()) {

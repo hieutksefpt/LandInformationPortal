@@ -68,7 +68,8 @@
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                  currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                                  lazy="true"  widgetVar="wgtable"
-                                 selection="#{manageCrawlNewsBean.listNewsSelected}" rowKey="#{element.crawledNewsID}">
+                                 selection="#{manageCrawlNewsBean.listNewsSelected}" rowKey="#{element.crawledNewsID}"
+                                 resizableColumns="true">
                         <f:facet name="paginatorTopLeft">
                             <p:commandButton icon="pi pi-refresh" 
                                              action="#{manageCrawlNewsBean.refreshData()}" update="tabledata"/>
@@ -83,6 +84,16 @@
                         <p:column>
                             <f:facet name="header">Thời gian</f:facet>
                             <h:outputText value="#{element.crawledNewsTime}"></h:outputText>
+                        </p:column>
+                        <p:column filterBy="#{element.crawledNewsStatus}" filterMatchMode="exact" style="text-align:center">
+                            <f:facet name="filter">
+                                <p:selectOneMenu id="cbb-Status" onchange="PF('wgtable').filter()" styleClass="custom-filter">
+                                    <f:selectItem itemLabel="All Status" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="DISPLAY" itemValue="DISPLAY" />
+                                    <f:selectItem itemLabel="NON DISPLAY" itemValue="NONDISPLAY" />
+                                </p:selectOneMenu>
+                            </f:facet>
+                            <h:outputText value="#{element.crawledNewsStatus}" />
                         </p:column>
                         <p:column>
                             <f:facet name="header">Nguồn tin</f:facet>

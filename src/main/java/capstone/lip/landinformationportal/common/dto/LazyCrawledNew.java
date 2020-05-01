@@ -36,7 +36,7 @@ public class LazyCrawledNew extends LazyDataModel<CrawledNews> implements Serial
         Sort sort = null;
         sort = Sort.by("modifiedDate").descending();
         Page<CrawledNews> list
-                = crawledNewService.findByCrawledNewsStatus(StatusCrawledNewsConstant.NON_DISPLAY, PageRequest.of(first / pageSize, pageSize, sort));
+                = crawledNewService.findAllByAttribute(filters, PageRequest.of(first / pageSize, pageSize, sort));
         List<CrawledNews> list1 = list.stream().map(x -> x).collect(Collectors.toList());
         return list1;
     }

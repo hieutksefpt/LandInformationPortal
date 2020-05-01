@@ -177,7 +177,7 @@ and open the template in the editor.
                                         </div>
                                         <div class="col-md">
                                             <c:forEach items="#{landsFeature.landsFeatureDataRange}" var="lfdr">
-                                                <h:outputText value="#{lfdr}"/>
+                                                <h:outputText value="[#{lfdr}] "/>
                                             </c:forEach>
                                         </div>
                                         <div class="col-md">
@@ -197,6 +197,7 @@ and open the template in the editor.
                                             </h:commandButton>
                                         </div>
                                     </div>
+                                    <hr/>
                                 </c:forEach>
                             </h:form>
                         </h:panelGroup>
@@ -242,7 +243,7 @@ and open the template in the editor.
                                         </div>
                                         <div class="col-md">
                                             <c:forEach items="#{housesFeature.housesFeatureDataRange}" var="hfdr">
-                                                <h:outputText value="#{hfdr}"/>
+                                                <h:outputText value="[#{hfdr}] "/>
                                             </c:forEach>
                                         </div>
                                         <div class="col-md">

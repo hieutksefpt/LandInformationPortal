@@ -217,6 +217,12 @@ public class HomepageBean implements Serializable {
 		MaxMinAvg maxMinAvgTemp = realEstateService.listMaxMinAvg(address);
 		maxMinAvg = maxMinAvgTemp;
 
+		List<GroupByDateMaxMin> listStat = realEstateService.listGroupByDateAndValue(address);
+		lineChartModel = createChart(listStat);
+		lineChartModel.setLegendPosition("e");
+		lineChartModel.setTitle("Biểu đồ giá");
+		lineChartModel.setAnimate(true);
+		lineChartModel.getAxes().put(AxisType.X, new CategoryAxis("Ngày"));
     }
 
     private LineChartModel createChart(List<GroupByDateMaxMin> listStat) {

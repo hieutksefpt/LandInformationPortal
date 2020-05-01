@@ -678,20 +678,20 @@ public class ContributeNewRealEstateBean implements Serializable {
     }
     
     public void getHintLandUnit(){
-        if (!checkHouseFeatureExisted(houseFeatureIdSelected, listHouseFeatureValue)) {
-            for (int i = 0; i < listHousesFeature.size(); i++) {
+        if (!checkLandFeatureExisted(landFeatureIdSelected, listLandFeatureValue)) {
+            for (int i = 0; i < listLandFeatureValue.size(); i++) {
 
-                if (houseFeatureIdSelected.equals(listHousesFeature.get(i).getHousesFeatureID().toString())) {
+                if (landFeatureIdSelected.equals(listLandsFeature.get(i).getLandsFeatureID().toString())) {
                     // xử lý data range ở đây
-                    List<HousesFeature> temp = housesFeatureService.findAll();
-                    HousesFeature test = new HousesFeature();
+                    List<LandsFeature> temp = landFeatureService.findAll();
+                    LandsFeature test = new LandsFeature();
                     for (int j = 0; j < temp.size(); j++) {
-                        if (temp.get(j).getHousesFeatureID().toString().equals(houseFeatureIdSelected)) {
+                        if (temp.get(j).getLandsFeatureID().toString().equals(landFeatureIdSelected)) {
                             test = temp.get(j);
                             break;
                         }
                     }
-                    housesFeatureDataRangeClicked = test.getHousesFeatureDataRange();
+                    housesFeatureDataRangeClicked = test.getLandsFeatureDataRange();
                     break;
                 }
             }

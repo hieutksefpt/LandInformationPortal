@@ -258,6 +258,9 @@ function validateMap() {
     }
 }
 
+function emptyDataAdd() {
+    alert("Vui lòng nhập giá trị thuộc tính");
+}
 
 function loadLandUnit(landUnit) {
     document.getElementById("landUnit").textContent =  landUnit ;

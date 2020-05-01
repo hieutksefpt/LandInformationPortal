@@ -614,7 +614,9 @@ public class ContributeNewRealEstateBean implements Serializable {
                     landsFeatureDataRangeClicked = test.getLandsFeatureDataRange();
                     if (landsFeatureDataRangeClicked.isEmpty()) {
                         listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
-                    } else {
+                    } else if(newLandFeatureValue == null || newLandFeatureValue.isEmpty()){
+                        PrimeFaces.current().executeScript("emptyDataAdd()");
+                    }else {
                         if (checkDataRange(landsFeatureDataRangeClicked, newLandFeatureValue)) {
                             listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
                         } else {
@@ -660,7 +662,9 @@ public class ContributeNewRealEstateBean implements Serializable {
                     housesFeatureDataRangeClicked = test.getHousesFeatureDataRange();
                     if (housesFeatureDataRangeClicked.isEmpty()) {
                         listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));
-                    } else {
+                    } else if(newHouseFeatureValue == null || newHouseFeatureValue.isEmpty()){
+                        PrimeFaces.current().executeScript("emptyDataAdd()");
+                    }else {
                         if (checkDataRange(housesFeatureDataRangeClicked, newHouseFeatureValue)) {
                             // check data range ok ko ? 
                             listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));

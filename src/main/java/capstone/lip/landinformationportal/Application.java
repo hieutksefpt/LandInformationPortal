@@ -8,6 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import capstone.lip.landinformationportal.business.service.Interface.IPredictPriceService;
+import capstone.lip.landinformationportal.business.service.Interface.IRealEstateService;
+import capstone.lip.landinformationportal.common.entity.RealEstate;
 
 @EnableJpaAuditing
 @SpringBootApplication
@@ -17,15 +19,21 @@ public class Application{
         SpringApplication.run(Application.class, args);
         
     }
-    
+//    
 //    
 //    @Autowired
-//	private IPredictPriceService service;
+//	private IPredictPriceService predictService;
+//    
+//    @Autowired
+//    private IRealEstateService reoService;
 //    
 //    @Override
 //    public void run(String... args) {
-//    	String value = service.getPredictPrice("2", "2", "123", "27.908759224806225", "105.80231678186296");
-//    	int i = 1;
+//    	RealEstate reo = reoService.findById(20839);
+//    	String value = predictService.getPredictPrice(reo);
+//    	System.out.print(value);
+////    	predictService.addDataToModel(reo);
+//    	int i = 1; 
 //    	i++;
 //    }
 }

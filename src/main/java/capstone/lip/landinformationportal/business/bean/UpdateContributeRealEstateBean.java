@@ -593,7 +593,11 @@ public void onChangeLandUnit() {
         if (landUnit == null) {
             landUnit = RealEstateTypeConstant.UNIT;
         }
-        getHintLandUnit();
+        List<String> dataRangeLand = getHintLandDataRange();
+        if(dataRangeLand != null && !dataRangeLand.isEmpty()){
+            PrimeFaces.current().executeScript("loadLandDataRange('" + dataRangeLand + "')");
+        }
+        
         PrimeFaces.current().executeScript("loadLandUnit('" + landUnit + "')");
 
     }
@@ -607,59 +611,50 @@ public void onChangeLandUnit() {
         if (houseUnit == null) {
             houseUnit = RealEstateTypeConstant.UNIT;
         }
-        getHintHouseUnit();
+        List<String> dataRangeHouse = getHintHouseDataRange();
+        if(dataRangeHouse != null && !dataRangeHouse.isEmpty()){
+            PrimeFaces.current().executeScript("loadHouseDataRange('" + dataRangeHouse + "')");
+        }
         PrimeFaces.current().executeScript("loadHouseUnit('" + houseUnit + "')");
     }
-    
-    
-    public void getHintLandUnit(){
-        if (!checkHouseFeatureExisted(houseFeatureIdSelected, listHouseFeatureValue)) {
-            for (int i = 0; i < listHousesFeature.size(); i++) {
 
-                if (houseFeatureIdSelected.equals(listHousesFeature.get(i).getHousesFeatureID().toString())) {
+    public void addNewLandFeatureValue() {
+        if (!checkLandFeatureExisted(landFeatureIdSelected, listLandFeatureValue)) {
+            for (int i = 0; i < listLandsFeature.size(); i++) {
+
+                if (landFeatureIdSelected.equals(listLandsFeature.get(i).getLandsFeatureID().toString())) {
                     // xử lý data range ở đây
-                    List<HousesFeature> temp = housesFeatureService.findAll();
-                    HousesFeature test = new HousesFeature();
+                    List<LandsFeature> temp = landFeatureService.findAll();
+                    LandsFeature test = new LandsFeature();
                     for (int j = 0; j < temp.size(); j++) {
-                        if (temp.get(j).getHousesFeatureID().toString().equals(houseFeatureIdSelected)) {
+                        if (temp.get(j).getLandsFeatureID().toString().equals(landFeatureIdSelected)) {
                             test = temp.get(j);
                             break;
                         }
                     }
-                    housesFeatureDataRangeClicked = test.getHousesFeatureDataRange();
-                    break;
-                }
-            }
-
-        }
-        
-    }
-    
-    public void getHintHouseUnit(){
-        if (!checkHouseFeatureExisted(houseFeatureIdSelected, listHouseFeatureValue)) {
-            for (int i = 0; i < listHousesFeature.size(); i++) {
-
-                if (houseFeatureIdSelected.equals(listHousesFeature.get(i).getHousesFeatureID().toString())) {
-                    // xử lý data range ở đây
-                    List<HousesFeature> temp = housesFeatureService.findAll();
-                    HousesFeature test = new HousesFeature();
-                    for (int j = 0; j < temp.size(); j++) {
-                        if (temp.get(j).getHousesFeatureID().toString().equals(houseFeatureIdSelected)) {
-                            test = temp.get(j);
-                            break;
+                    landsFeatureDataRangeClicked = test.getLandsFeatureDataRange();
+                    if (landsFeatureDataRangeClicked.isEmpty()) {
+                        listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
+                    } else if(newLandFeatureValue == null || newLandFeatureValue.isEmpty()){
+                        PrimeFaces.current().executeScript("emptyDataAdd()");
+                    }else {
+                        if (checkDataRange(landsFeatureDataRangeClicked, newLandFeatureValue)) {
+                            listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
+                        } else {
+                            PrimeFaces.current().executeScript("showLogDataRange()");
                         }
                     }
-                    housesFeatureDataRangeClicked = test.getHousesFeatureDataRange();
-                    break;
+
                 }
             }
 
+        } else {
+            // show log 
+            PrimeFaces.current().executeScript("landFeatureExisted()");
         }
-        
-        
+
     }
-    
-    
+
     public boolean checkDataRange(List<String> featureDataRangeClicked, String dataCheck) {
         boolean test = false;
         for (int i = 0; i < featureDataRangeClicked.size(); i++) {
@@ -671,29 +666,33 @@ public void onChangeLandUnit() {
         return test;
     }
 
-
-    public void addNewLandFeatureValue() {
-        if (!checkLandFeatureExisted(landFeatureIdSelected, listLandFeatureValue)) {
-            for (int i = 0; i < listLandsFeature.size(); i++) {
-
-                if (landFeatureIdSelected.equals(listLandsFeature.get(i).getLandsFeatureID().toString())) {
-                    listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
-                }
-            }
-
-        } else {
-            // show log 
-            PrimeFaces.current().executeScript("landFeatureExisted()");
-        }
-
-    }
-
     public void addNewHousesFeatureValue() {
         if (!checkHouseFeatureExisted(houseFeatureIdSelected, listHouseFeatureValue)) {
             for (int i = 0; i < listHousesFeature.size(); i++) {
 
                 if (houseFeatureIdSelected.equals(listHousesFeature.get(i).getHousesFeatureID().toString())) {
-                    listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));
+                    // xử lý data range ở đây
+                    List<HousesFeature> temp = housesFeatureService.findAll();
+                    HousesFeature test = new HousesFeature();
+                    for (int j = 0; j < temp.size(); j++) {
+                        if (temp.get(j).getHousesFeatureID().toString().equals(houseFeatureIdSelected)) {
+                            test = temp.get(j);
+                            break;
+                        }
+                    }
+                    housesFeatureDataRangeClicked = test.getHousesFeatureDataRange();
+                    if (housesFeatureDataRangeClicked.isEmpty()) {
+                        listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));
+                    } else if(newHouseFeatureValue == null || newHouseFeatureValue.isEmpty()){
+                        PrimeFaces.current().executeScript("emptyDataAdd()");
+                    }else {
+                        if (checkDataRange(housesFeatureDataRangeClicked, newHouseFeatureValue)) {
+                            // check data range ok ko ? 
+                            listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));
+                        } else {
+                            PrimeFaces.current().executeScript("showLogDataRange()");
+                        }
+                    }
                 }
             }
 
@@ -702,6 +701,52 @@ public void onChangeLandUnit() {
         }
 
     }
+    
+    public List<String> getHintLandDataRange(){
+        for (int i = 0; i < listLandsFeature.size(); i++) {
+
+                if (landFeatureIdSelected.equals(listLandsFeature.get(i).getLandsFeatureID().toString())) {
+                    // xử lý data range ở đây
+                    List<LandsFeature> temp = landFeatureService.findAll();
+                    LandsFeature test = new LandsFeature();
+                    for (int j = 0; j < temp.size(); j++) {
+                        if (temp.get(j).getLandsFeatureID().toString().equals(landFeatureIdSelected)) {
+                            test = temp.get(j);
+                            break;
+                        }
+                    }
+                    landsFeatureDataRangeClicked = test.getLandsFeatureDataRange();
+                    break;
+                }
+            }
+            return landsFeatureDataRangeClicked;
+        
+        
+        
+    }
+    
+    public List<String> getHintHouseDataRange(){
+            for (int i = 0; i < listHousesFeature.size(); i++) {
+
+                if (houseFeatureIdSelected.equals(listHousesFeature.get(i).getHousesFeatureID().toString())) {
+                    // xử lý data range ở đây
+                    List<HousesFeature> temp = housesFeatureService.findAll();
+                    HousesFeature test = new HousesFeature();
+                    for (int j = 0; j < temp.size(); j++) {
+                        if (temp.get(j).getHousesFeatureID().toString().equals(houseFeatureIdSelected)) {
+                            test = temp.get(j);
+                            break;
+                        }
+                    }
+                    housesFeatureDataRangeClicked = test.getHousesFeatureDataRange();
+                    break;
+                }
+            }
+            return housesFeatureDataRangeClicked;
+        
+    }
+    
+    
 
     public boolean checkLandFeatureExisted(String landFeatureIdChecking, List<LandFeatureValue> listLandFeatureValue) {
         for (LandFeatureValue i : listLandFeatureValue) {

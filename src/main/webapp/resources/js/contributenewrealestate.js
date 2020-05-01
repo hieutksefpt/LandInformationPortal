@@ -266,6 +266,14 @@ function loadLandUnit(landUnit) {
     document.getElementById("landUnit").textContent =  landUnit ;
 }
 
+function loadLandDataRange(dataRange) {
+    document.getElementById("landDataRange").textContent =  "Ví dụ: " + dataRange ;
+}
+
+function loadHouseDataRange(dataRange) {
+    document.getElementById("houseDataRange").textContent =  "Ví dụ: " + dataRange ;
+}
+
 function loadHouseUnit(houseUnit) {
     document.getElementById("houseUnit").textContent = houseUnit;
 }

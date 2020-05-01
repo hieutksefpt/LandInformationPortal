@@ -109,12 +109,7 @@ html {
     box-sizing: border-box;
     margin-top: 25px;
 }
-.landbox{
-	margin-right: 5px;
-}
-.housebox{
-	margin-left: 5px;
-}
+
 .landboxTotal , .houseboxTotal {
     border-radius: 3px;
     box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);

@@ -146,10 +146,12 @@
                                                     </tr>
                                                     <tr>
                                                         <td><span class="title">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputLandFeatureNew" value="#{updateContributeRealEstateBean.newLandFeatureValue}"></h:inputText> <span id="landUnit" class="unit"><i>(đơn vị)</i></span></td>
-                                                        <c:if test="#{updateContributeRealEstateBean.landsFeatureDataRangeClicked.size() != 0 || updateContributeRealEstateBean.landsFeatureDataRangeClicked != null}">
-                                                            <td><span class="unit"><i> Ví dụ: #{updateContributeRealEstateBean.landsFeatureDataRangeClicked} </i></span></td>
-                                                        </c:if>
                                                     </tr>
+                                                    
+                                                            <tr>
+                                                                <td><span id="landDataRange" class="unit"><i> </i></span></td>
+                                                            </tr>
+                                                   
                                                     <tr>
                                                         <td></td>
                                                         <td>
@@ -212,10 +214,10 @@
                                                     </tr>
                                                     <tr>
                                                         <td><span class="title">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputHouseFeatureNew" value="#{updateContributeRealEstateBean.newHouseFeatureValue}"></h:inputText> <span id="houseUnit" class="unit"><i>(đơn vị)</i></span></td>
-                                                        <c:if test="#{updateContributeRealEstateBean.housesFeatureDataRangeClicked.size() != 0 || updateContributeRealEstateBean.housesFeatureDataRangeClicked != null} ">
-                                                            <td><span class="unit"><i> Ví dụ: #{updateContributeRealEstateBean.housesFeatureDataRangeClicked} </i></span></td>
-                                                        </c:if>
                                                     </tr>
+                                                            <tr>
+                                                                <td><span id="houseDataRange" class="unit"><i> </i></span></td>
+                                                            </tr>
                                                     <tr>
                                                         <td></td>
                                                         <td>

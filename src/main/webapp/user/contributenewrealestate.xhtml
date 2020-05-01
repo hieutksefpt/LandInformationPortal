@@ -136,16 +136,17 @@
                             </table>
                             <h:panelGroup id="typeRealEstate-form">
                                 <c:if test="#{contributeNewRealEstateBean.typeRealEstate == 'Đất'}" >
-                                    <div id="landBox" class="landbox col-5 offset-1">
+                                    <div class="row">
+                                    <div id="landBox" class="landbox col-5 offset-3">
                                                 <table class="landUpload">
                                                     <tr>
-                                                        <td><span class="title-mandatory">Tên phần Đất</span></td>
+                                                        <td><span class="title">Tên phần Đất</span></td>
                                                         <td>
                                                             <h:inputText id="txtInputLandName" value="#{contributeNewRealEstateBean.newLandName}">
                                                             </h:inputText>
                                                         </td>
                                                     </tr>
-                                                    <tr><td><span class="title-mandatory">Giá trị phần Đất</span></td>
+                                                    <tr><td><span class="title">Giá trị phần Đất</span></td>
                                                         <td>
                                                             <h:inputText id="txtInputLandMoney" value="#{contributeNewRealEstateBean.newLandMoney}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
                                                                 <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
@@ -167,10 +168,12 @@
                                                     </tr>
                                                     <tr>
                                                         <td><span class="title">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputLandFeatureNew" value="#{contributeNewRealEstateBean.newLandFeatureValue}"></h:inputText> <span id="landUnit" class="unit"><i>(đơn vị)</i></span></td>
-                                                        <c:if test="#{contributeNewRealEstateBean.landsFeatureDataRangeClicked.size() != 0 || contributeNewRealEstateBean.landsFeatureDataRangeClicked != null}">
-                                                            <td><span class="unit"><i> Ví dụ: #{contributeNewRealEstateBean.landsFeatureDataRangeClicked} </i></span></td>
-                                                        </c:if>
                                                     </tr>
+                                                    
+                                                            <tr>
+                                                                <td colspan="2"><span id="landDataRange" class="unit"><i> </i></span></td>
+                                                            </tr>
+                                                   
                                                     <tr>
                                                         <td></td>
                                                         <td>
@@ -205,19 +208,21 @@
                                                     </p:panel>
                                                 </div>
                                             </div>
+                                        </div>
                                 </c:if>
 
                                 <c:if test="#{contributeNewRealEstateBean.typeRealEstate == 'Nhà'}">
-                                    <div id="houseBox" class="housebox col-5">
-                                                <table class="houseUpload row">
+                                    <div class="row">
+                                    <div id="houseBox" class="housebox col-5 offset-3">
+                                                <table class="houseUpload">
                                                     <tr>
-                                                        <td><span class="title-mandatory">Tên phần Nhà</span></td>
+                                                        <td><span class="title">Tên phần Nhà</span></td>
                                                         <td>
                                                             <h:inputText id="txtInputHouseName" value="#{contributeNewRealEstateBean.newHouseName}">
                                                             </h:inputText>
                                                         </td>
                                                     </tr>
-                                                    <tr><td><span class="title-mandatory">Giá trị phần Nhà</span></td><td>
+                                                    <tr><td><span class="title">Giá trị phần Nhà</span></td><td>
                                                             <h:inputText id="txtInputHouseMoney" value="#{contributeNewRealEstateBean.newHouseMoney}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
                                                                 <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
                                                             </h:inputText><span class="unit"><i>(VND)</i></span></td></tr>
@@ -235,10 +240,10 @@
                                                     </tr>
                                                     <tr>
                                                         <td><span class="title">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputHouseFeatureNew" value="#{contributeNewRealEstateBean.newHouseFeatureValue}"></h:inputText> <span id="houseUnit" class="unit"><i>(đơn vị)</i></span></td>
-                                                        <c:if test="#{contributeNewRealEstateBean.housesFeatureDataRangeClicked.size() != 0 || contributeNewRealEstateBean.housesFeatureDataRangeClicked != null} ">
-                                                            <td><span class="unit"><i> Ví dụ: #{contributeNewRealEstateBean.housesFeatureDataRangeClicked} </i></span></td>
-                                                        </c:if>
                                                     </tr>
+                                                            <tr>
+                                                                <td colspan="2"><span id="houseDataRange" class="unit"><i> </i></span></td>
+                                                            </tr>
                                                     <tr>
                                                         <td></td>
                                                         <td>
@@ -273,6 +278,7 @@
                                                     </p:panel>
                                                 </div>
                                             </div>
+                                    </div>
                                 </c:if>
 
                                 <c:if test="#{contributeNewRealEstateBean.typeRealEstate== 'Đất và Nhà'}">
@@ -280,13 +286,13 @@
                                             <div id="landBox" class="landbox col-5 offset-1">
                                                 <table class="landUpload">
                                                     <tr>
-                                                        <td><span class="title-mandatory">Tên phần Đất</span></td>
+                                                        <td><span class="title">Tên phần Đất</span></td>
                                                         <td>
                                                             <h:inputText id="txtInputLandName" value="#{contributeNewRealEstateBean.newLandName}">
                                                             </h:inputText>
                                                         </td>
                                                     </tr>
-                                                    <tr><td><span class="title-mandatory">Giá trị phần Đất</span></td>
+                                                    <tr><td><span class="title">Giá trị phần Đất</span></td>
                                                         <td>
                                                             <h:inputText id="txtInputLandMoney" value="#{contributeNewRealEstateBean.newLandMoney}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
                                                                 <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
@@ -308,10 +314,12 @@
                                                     </tr>
                                                     <tr>
                                                         <td><span class="title">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputLandFeatureNew" value="#{contributeNewRealEstateBean.newLandFeatureValue}"></h:inputText> <span id="landUnit" class="unit"><i>(đơn vị)</i></span></td>
-                                                        <c:if test="#{contributeNewRealEstateBean.landsFeatureDataRangeClicked.size() != 0 || contributeNewRealEstateBean.landsFeatureDataRangeClicked != null}">
-                                                            <td><span class="unit"><i> Ví dụ: #{contributeNewRealEstateBean.landsFeatureDataRangeClicked} </i></span></td>
-                                                        </c:if>
                                                     </tr>
+                                                    
+                                                            <tr>
+                                                                <td colspan="2"><span id="landDataRange" class="unit"><i> </i></span></td>
+                                                            </tr>
+                                                   
                                                     <tr>
                                                         <td></td>
                                                         <td>
@@ -350,13 +358,13 @@
                                             <div id="houseBox" class="housebox col-5">
                                                 <table class="houseUpload row">
                                                     <tr>
-                                                        <td><span class="title-mandatory">Tên phần Nhà</span></td>
+                                                        <td><span class="title">Tên phần Nhà</span></td>
                                                         <td>
                                                             <h:inputText id="txtInputHouseName" value="#{contributeNewRealEstateBean.newHouseName}">
                                                             </h:inputText>
                                                         </td>
                                                     </tr>
-                                                    <tr><td><span class="title-mandatory">Giá trị phần Nhà</span></td><td>
+                                                    <tr><td><span class="title">Giá trị phần Nhà</span></td><td>
                                                             <h:inputText id="txtInputHouseMoney" value="#{contributeNewRealEstateBean.newHouseMoney}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
                                                                 <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
                                                             </h:inputText><span class="unit"><i>(VND)</i></span></td></tr>
@@ -374,10 +382,10 @@
                                                     </tr>
                                                     <tr>
                                                         <td><span class="title">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputHouseFeatureNew" value="#{contributeNewRealEstateBean.newHouseFeatureValue}"></h:inputText> <span id="houseUnit" class="unit"><i>(đơn vị)</i></span></td>
-                                                        <c:if test="#{contributeNewRealEstateBean.housesFeatureDataRangeClicked.size() != 0 || contributeNewRealEstateBean.housesFeatureDataRangeClicked != null} ">
-                                                            <td><span class="unit"><i> Ví dụ: #{contributeNewRealEstateBean.housesFeatureDataRangeClicked} </i></span></td>
-                                                        </c:if>
                                                     </tr>
+                                                            <tr>
+                                                                <td colspan="2"><span id="houseDataRange" class="unit"><i> </i></span></td>
+                                                            </tr>
                                                     <tr>
                                                         <td></td>
                                                         <td>

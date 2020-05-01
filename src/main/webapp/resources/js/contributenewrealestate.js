@@ -258,9 +258,20 @@ function validateMap() {
     }
 }
 
+function emptyDataAdd() {
+    alert("Vui lòng nhập giá trị thuộc tính");
+}
 
 function loadLandUnit(landUnit) {
     document.getElementById("landUnit").textContent =  landUnit ;
+}
+
+function loadLandDataRange(dataRange) {
+    document.getElementById("landDataRange").textContent =  "Ví dụ: " + dataRange ;
+}
+
+function loadHouseDataRange(dataRange) {
+    document.getElementById("houseDataRange").textContent =  "Ví dụ: " + dataRange ;
 }
 
 function loadHouseUnit(houseUnit) {

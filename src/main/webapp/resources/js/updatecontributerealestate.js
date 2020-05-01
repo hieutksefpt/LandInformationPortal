@@ -272,6 +272,14 @@ function showLogDataRange (){
     alert("Vui lòng điền giá trị thuộc tính phù hợp theo mẫu");
 }
 
+function loadLandDataRange(dataRange) {
+    document.getElementById("landDataRange").textContent =  "Ví dụ: " + dataRange ;
+}
+
+function loadHouseDataRange(dataRange) {
+    document.getElementById("houseDataRange").textContent =  "Ví dụ: " + dataRange ;
+}
+
 function showModalMandatory() {
     tempRealEstateName = $('#msform\\:realEstateName').val();
     tempRealEstateValue = $('#msform\\:realEstatePrice').val();

@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class GroupByDateMaxMin implements Serializable{
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 21581768219755757L;
 	private Timestamp dateCreated;
 	private MaxMinAvg maxMinAvg;
 	

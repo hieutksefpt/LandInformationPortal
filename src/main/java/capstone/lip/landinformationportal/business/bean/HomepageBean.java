@@ -168,16 +168,54 @@ public class HomepageBean implements Serializable {
         }
     }
 
-    public void provinceChange() {
-        setDistrictIdSelected("");
-        listSegmentOfStreet = new ArrayList();
-        setSegmentIdSelected("");
-        listStreet = new ArrayList();
-        setStreetIdSelected("");
-        if (provinceSelected == null) {
-            return;
-        }
-        listDistrict = provinceSelected.getListDistrict();
+	public void provinceChange() {
+		setDistrictIdSelected("");
+		listSegmentOfStreet= new ArrayList();
+		setSegmentIdSelected("");
+		listStreet = new ArrayList();
+		setStreetIdSelected("");
+		if (provinceSelected == null) {
+			return;
+		}
+		listDistrict = provinceSelected.getListDistrict();
+		
+	}
+	public void districtChange() {
+		setStreetIdSelected("");
+		listSegmentOfStreet = new ArrayList();
+		if (districtSelected == null) {
+			return;
+		}
+		List<SegmentOfStreet>listTemp = districtSelected.getListSegmentOfStreet();
+		if (listTemp!= null)
+			listStreet = listTemp.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
+		
+		
+		viewStatistic(districtSelected.getDistrictName());
+		setTypeReo("0");
+		openPageReo(0);
+		
+	}
+	public void streetChange() {
+		setSegmentIdSelected("");
+		if (streetSelected == null) {
+			return;
+		}
+		listSegmentOfStreet = streetSelected.getListSegmentOfStreet();
+		
+		viewStatistic(streetSelected.getStreetName());
+		setTypeReo("0");
+		openPageReo(0);
+		
+	}
+	public void segmentOfStreetChange() {
+		viewStatistic(segmentSelected.getSegmentName());
+		setTypeReo("0");
+		openPageReo(0);
+	}
+	public void viewStatistic(String address) {
+		MaxMinAvg maxMinAvgTemp = realEstateService.listMaxMinAvg(address);
+		maxMinAvg = maxMinAvgTemp;
 
     }
 

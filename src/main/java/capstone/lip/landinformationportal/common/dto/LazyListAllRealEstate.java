@@ -63,8 +63,6 @@ public class LazyListAllRealEstate extends LazyDataModel<RealEstate> implements 
     	}else {
     		list = realEstateService.findAllByAttribute(filters, PageRequest.of(first / pageSize, pageSize, sort));
     	}
-    	
-    	
         this.setRowCount((int)realEstateService.countByAttribute(filters));
         List<RealEstate> list1 = list.stream().map(x -> x).collect(Collectors.toList());
         return list1;

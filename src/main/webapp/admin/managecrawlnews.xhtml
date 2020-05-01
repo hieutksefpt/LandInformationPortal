@@ -76,9 +76,13 @@
 
                         <p:column selectionMode="multiple" style="width:7%;text-align:center"> 
                         </p:column>
-                        <p:column width="80%">
+                        <p:column width="60%">
                             <f:facet name="header">Tiêu đề</f:facet>
                             <a href="#{element.crawledNewsLink}" target="_blank">#{element.crawledNewsTitle}</a>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Thời gian</f:facet>
+                            <h:outputText value="#{element.crawledNewsTime}"></h:outputText>
                         </p:column>
                         <p:column>
                             <f:facet name="header">Nguồn tin</f:facet>

@@ -37,7 +37,7 @@ public class LazyFeedback extends LazyDataModel<Feedback> implements Serializabl
         Sort sort = null;
         sort = Sort.by("modifiedDate").descending();
         Page<Feedback> list
-                = feedbackService.findByFeedbackStatus(FeedbackStatusConstant.OPEN, PageRequest.of(first / pageSize, pageSize, sort));
+                = feedbackService.findAllByAttribute(filters, PageRequest.of(first / pageSize, pageSize, sort));
         List<Feedback> list1 = list.stream().map(x -> x).collect(Collectors.toList());
         return list1;
     }

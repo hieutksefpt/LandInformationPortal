@@ -56,6 +56,7 @@ public class FeedbackBean implements Serializable {
         }
         userSelected = userService.findByUsername(usernameInToken);
         userIdSelected = userSelected.getUserId();
+        fullname = userSelected.getFullName();
     }
 
     public void sendFeedback() throws IOException{

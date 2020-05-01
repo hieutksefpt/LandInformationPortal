@@ -8,12 +8,18 @@ import org.springframework.stereotype.Service;
 
 import capstone.lip.landinformationportal.business.repository.FeedbackRepository;
 import capstone.lip.landinformationportal.business.service.Interface.IFeedbackService;
+import capstone.lip.landinformationportal.business.specification.FeedbackSpecifications;
+import capstone.lip.landinformationportal.business.specification.RealEstateSpecifications;
+import capstone.lip.landinformationportal.business.specification.SearchCriteria;
 import capstone.lip.landinformationportal.business.validation.FeedbackValidation;
 import capstone.lip.landinformationportal.common.constant.FeedbackStatusConstant;
 import capstone.lip.landinformationportal.common.entity.Feedback;
 import capstone.lip.landinformationportal.common.utils.EmailSender;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+import org.springframework.data.jpa.domain.Specification;
 
 @Service
 public class FeedbackService implements IFeedbackService {
@@ -96,7 +102,7 @@ public class FeedbackService implements IFeedbackService {
     public boolean sendFeedbackReply(Feedback feedback) {
         try {
             FeedbackValidation validate = new FeedbackValidation();
-            if(!feedbackRepository.existsById(feedback.getFeedBackID())){
+            if (!feedbackRepository.existsById(feedback.getFeedBackID())) {
                 throw new Exception();
             }
             String error = validate.isValidFeedback(feedback);
@@ -127,16 +133,73 @@ public class FeedbackService implements IFeedbackService {
             Page<Feedback> tempPage = feedbackRepository.findByFeedbackStatus(feedbackStatus, page);
             List<Feedback> listTemp = tempPage.stream().map(x -> x).collect(Collectors.toList());
 //            List<Feedback> listTemp = (List<Feedback>) tempPage;
-            if(listTemp.isEmpty() || listTemp == null){
-               throw new Exception();
-            }
-            else 
+            if (listTemp.isEmpty() || listTemp == null) {
+                throw new Exception();
+            } else {
                 return tempPage;
-            
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public Page<Feedback> findAllByAttribute(Map<String, Object> listAttribute, Pageable page) {
+        try {
+            List<FeedbackSpecifications> listSpec = new ArrayList();
+            if (listAttribute != null) {
+                for (Map.Entry meta : listAttribute.entrySet()) {
+                    String key = (String) meta.getKey();
+                    String value = (String) meta.getValue();
+                    if (key.equals("feedbackStatus")) {
+                        listSpec.add(new FeedbackSpecifications(new SearchCriteria(key, ":=", value)));
+                    } 
+                }
+            }
+            if (!listSpec.isEmpty()) {
+                return feedbackRepository.findAll(createSpecification(listSpec), page);
+            }
+            return feedbackRepository.findAll(page);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public long countByAttribute(Map<String, Object> listAttribute) {
+        try {
+            List<FeedbackSpecifications> listSpec = new ArrayList();
+            if (listAttribute != null) {
+                for (Map.Entry meta : listAttribute.entrySet()) {
+                    String key = (String) meta.getKey();
+                    String value = (String) meta.getValue();
+                    if (key.equals("feedbackStatus")) {
+                        listSpec.add(new FeedbackSpecifications(new SearchCriteria(key, ":=", value)));
+                    } 
+                }
+            }
+            if (!listSpec.isEmpty()) {
+                return feedbackRepository.count(createSpecification(listSpec));
+            }
+            return feedbackRepository.count();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    private Specification<Feedback> createSpecification(List<FeedbackSpecifications> listSpec) {
+        if (listSpec == null) {
+            return null;
+        }
+        Specification<Feedback> spec = Specification.where(listSpec.get(0));
+        for (int i = 1; i < listSpec.size(); i++) {
+            spec = spec.and(listSpec.get(i));
+        }
+        return spec;
     }
 
 }

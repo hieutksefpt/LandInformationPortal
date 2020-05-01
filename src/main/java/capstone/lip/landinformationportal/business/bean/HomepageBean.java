@@ -219,55 +219,6 @@ public class HomepageBean implements Serializable {
 
     }
 
-    public void districtChange() {
-        setStreetIdSelected("");
-        listSegmentOfStreet = new ArrayList();
-        setSegmentIdSelected("");
-        if (districtSelected == null) {
-            return;
-        }
-        List<SegmentOfStreet> listTemp = districtSelected.getListSegmentOfStreet();
-        if (listTemp != null) {
-            listStreet = listTemp.stream().map(x -> x.getStreet()).distinct().collect(Collectors.toList());
-        }
-
-        viewStatistic(districtSelected.getDistrictName());
-        setTypeReo("0");
-        openPageReo(0);
-
-    }
-
-    public void streetChange() {
-        setSegmentIdSelected("");
-        if (streetSelected == null) {
-            return;
-        }
-        listSegmentOfStreet = streetSelected.getListSegmentOfStreet();
-
-        viewStatistic(streetSelected.getStreetName());
-        setTypeReo("0");
-        openPageReo(0);
-
-    }
-
-    public void segmentOfStreetChange() {
-        viewStatistic(segmentSelected.getSegmentName());
-        setTypeReo("0");
-        openPageReo(0);
-    }
-
-    public void viewStatistic(String address) {
-        MaxMinAvg maxMinAvgTemp = realEstateService.listMaxMinAvg(address);
-        maxMinAvg = maxMinAvgTemp;
-
-        List<GroupByDateMaxMin> listStat = realEstateService.listGroupByDateAndValue(address);
-        lineChartModel = createChart(listStat);
-        lineChartModel.setLegendPosition("e");
-        lineChartModel.setTitle("Biểu đồ giá");
-        lineChartModel.setAnimate(true);
-        lineChartModel.getAxes().put(AxisType.X, new CategoryAxis("Ngày"));
-    }
-
     private LineChartModel createChart(List<GroupByDateMaxMin> listStat) {
         LineChartModel model = new LineChartModel();
         ChartSeries max = new ChartSeries();

@@ -203,21 +203,7 @@ function clearAllInput() {
 
 
 
-function loadLandUnit(landUnit) {
-    document.getElementById("landUnit").textContent = "(" + landUnit + ")";
-}
 
-function loadHouseUnit(houseUnit) {
-    document.getElementById("houseUnit").textContent = "(" + houseUnit + ")";
-}
-
-function landFeatureExisted() {
-    alert("Thuộc tính này của Đất đã được thêm vào bảng.\nNếu muốn chỉnh sửa vui lòng xóa bỏ giá trị thuộc tính đã tồn tại !");
-}
-
-function houseFeatureExisted() {
-    alert("Thuộc tính này của Nhà đã được thêm vào bảng.\nNếu muốn chỉnh sửa vui lòng xóa bỏ giá trị thuộc tính đã tồn tại !");
-}
 // đoạn này bắt đầu test MultiForm
 function validateMap() {
 
@@ -272,6 +258,27 @@ function validateMap() {
     }
 }
 
+
+function loadLandUnit(landUnit) {
+    document.getElementById("landUnit").textContent =  landUnit ;
+}
+
+function loadHouseUnit(houseUnit) {
+    document.getElementById("houseUnit").textContent = houseUnit;
+}
+
+function landFeatureExisted() {
+    alert("Thuộc tính này của Đất đã được thêm vào bảng.\nNếu muốn chỉnh sửa vui lòng xóa bỏ giá trị thuộc tính đã tồn tại !");
+}
+
+function houseFeatureExisted() {
+    alert("Thuộc tính này của Nhà đã được thêm vào bảng.\nNếu muốn chỉnh sửa vui lòng xóa bỏ giá trị thuộc tính đã tồn tại !");
+}
+
+function showLogDataRange (){
+    alert("Vui lòng điền giá trị thuộc tính phù hợp theo mẫu");
+}
+
 function showModalMandatory() {
     tempRealEstateName = $('#msform\\:realEstateName').val();
     tempRealEstateValue = $('#msform\\:realEstatePrice').val();
@@ -299,10 +306,30 @@ function showModalMandatory() {
     } else if (tempRealEstateValue <= 0 || tempRealEstateValue === null) {
         alert("Giá trị của bất động sản phải lớn hơn 0 VND.\nĐồng thời phải lớn hơn hoặc bằng tổng giá trị của các bất động sản thành phần");
     } 
+    
+    else if (tempRealEstateType === 'Đất và Nhà') {                  // to validate when choosing combobox Type RE.
+         if (tempNewLandValue < 0) {   
+            alert("Giá trị của phần Đất phải lớn hơn 0 VND.");
+        }else if (tempNewHouseValue < 0) {   
+            alert("Giá trị của phần Nhà phải lớn hơn 0 VND.");
+        }
+    } else if (tempRealEstateType === 'Đất') {                             // If choose Land Feature --> have to contribute Land Value
+        if (tempNewLandValue < 0) {
+            alert("Giá trị của phần Đất phải lớn hơn 0 VND.");
+        }
+    } else if (tempRealEstateType === 'Nhà') {                             // If choose House Feature --> have to contribute House Value
+        if (tempNewHouseValue < 0) {
+            alert("Giá trị của phần Nhà phải lớn hơn 0 VND.");
+        }
+    }
 }
 
 function showLogEmptyLandHouse(){
-    alert("Vui lòng cung cấp ít nhất 1 trong 3 trường Tên, giá trị, thuộc tính phần BĐS cấu thành");
+    alert("Vui lòng cung cấp ít nhất 1 trong 3 trường Tên, giá trị, thuộc tính phần BĐS cấu thành, bao gồm cả Nhà và Đất");
+}
+
+function showLogPrice(){
+    alert("Giá của Bất động sản không thể nhỏ hơn giá của BĐS cấu thành");
 }
 
 

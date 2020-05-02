@@ -27,7 +27,7 @@ public class CrawlRealEstateScheduleJob implements Job {
 	@Value("${service.crawl.url}")
 	private String URL;	
 	
-	@Value("${service.crawl.token}")
+	@Value("${service.token}")
 	private String token;
 	@Autowired
 	private ICrawlRealEstateService crawlReoService;
@@ -48,7 +48,7 @@ public class CrawlRealEstateScheduleJob implements Job {
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
 		        .queryParam("type", "reo")
-//		        .queryParam("daily", "true")
+		        .queryParam("daily", "true")
 		        ;
 
 		HttpEntity<Map<String, String>> entity = new HttpEntity<>(map, header);

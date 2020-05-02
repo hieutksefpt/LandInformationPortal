@@ -32,10 +32,10 @@ import capstone.lip.landinformationportal.common.entity.RealEstate;
 @Service
 public class PredictPriceService implements IPredictPriceService{
 
-	@Value("${service.predict.price.url}")
+	@Value("${service.predictor.url}")
 	private String URL;	
 	
-	@Value("${service.crawl.token}")
+	@Value("${service.token}")
 	private String token;
 	
 	@Override
@@ -124,28 +124,46 @@ public class PredictPriceService implements IPredictPriceService{
 		if (idHouse != null) {
 			for (HousesFeature element : listHousesFeature) {
 				HousesDetail housesDetail = housesDetailRepository.findByIdHouseIdAndIdHousesFeatureId(idHouse, element.getHousesFeatureID());
+				Integer value = 0;
+				try {
+					value = Integer.parseInt(housesDetail.getValue());
+				}catch(Exception e) {
+					value = 0;
+				}
+				
 				if (element.getHousesFeatureName().equals(HousesFeatureNameConstant.NUMBERBEDROOMS)){
-					reoDto.setNumberBedrooms(Integer.parseInt(housesDetail.getValue()));
+					reoDto.setNumberBedrooms(value);
 				}
 				else if (element.getHousesFeatureName().equals(HousesFeatureNameConstant.NUMBERFLOORS)) {
-					reoDto.setNumberFloor(Integer.parseInt(housesDetail.getValue()));
+					reoDto.setNumberFloor(value);
 				}
 				else if (element.getHousesFeatureName().equals(HousesFeatureNameConstant.NUMBERTOILETS)) {
-					reoDto.setNumberToilets(Integer.parseInt(housesDetail.getValue()));
+					reoDto.setNumberToilets(value);
 				}
 			}
 		}
 		if (idLand != null) {
 			for (LandsFeature element : listLandsFeature) {
 				LandsDetail landsDetail = landsDetailRepository.findByIdLandIdAndIdLandsFeatureId(idLand, element.getLandsFeatureID());
+				Double value = 0.0;
+				try {
+					value = Double.parseDouble(landsDetail.getValue());
+				}catch(Exception e) {
+					value = 0.0;
+				}
 				if (element.getLandsFeatureName().equals(LandsFeatureNameConstant.AREA)) {
-					reoDto.setArea(new BigDecimal(landsDetail.getValue()));
+					BigDecimal bigNum = new BigDecimal(value.intValue());
+					if (bigNum.compareTo(BigDecimal.ZERO) != 1 ) {
+						reoDto.setArea(BigDecimal.ONE);
+					}else {
+						reoDto.setArea(bigNum);
+					}
 				}
 				else if (element.getLandsFeatureName().equals(LandsFeatureNameConstant.SIZEFRONT)) {
-					reoDto.setSizeFront(Double.parseDouble(landsDetail.getValue()));
+					reoDto.setSizeFront(value);
 				}
 				else if (element.getLandsFeatureName().equals(LandsFeatureNameConstant.WARDIN)) {
-					reoDto.setWardin(Double.parseDouble(landsDetail.getValue()));
+					reoDto.setWardin(value);
 				}
 			}
 		}

@@ -5,6 +5,8 @@
  */
 package capstone.lip.landinformationportal.service.province;
 
+import capstone.lip.landinformationportal.common.entity.Province;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
 
@@ -186,5 +188,65 @@ public class ProvinceServiceTest_3 extends AbstractProvinceServiceTest {
         boolean result = instance.delete(null);
         
         testFail(result);
+    }
+    
+    /**
+     * @Description: Negative id
+     * @Dependency: N/A
+     * @Expected: Fail
+     */
+    @Test
+    public void FT_PS_4_01() {
+        Province result = instance.findById(NEGATIVE_NOT_EXISTED_ID);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Null id
+     * @Dependency: N/A
+     * @Expected: Fail
+     */
+    @Test
+    public void FT_PS_4_02() {
+        Province result = instance.findById(NULL_ID);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Equals zero id
+     * @Dependency: N/A
+     * @Expected: Fail
+     */
+    @Test
+    public void FT_PS_4_03() {
+        Province result = instance.findById(ZERO_NOT_EXISTED_ID);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Positive id
+     * @Dependency: Not existed id
+     * @Expected: Fail
+     */
+    @Test
+    public void FT_PS_4_04() {
+        Province result = instance.findById(POSITIVE_NOT_EXISTED_ID);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Positive id
+     * @Dependency: Existed id
+     * @Expected: Success
+     */
+    @Test
+    public void FT_PS_4_05() {
+        Province result = instance.findById(EXISTED_ID);
+        
+        Assert.assertEquals(repository.findById(EXISTED_ID), result);
     }
 }

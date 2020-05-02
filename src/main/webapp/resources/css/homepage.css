@@ -32,3 +32,9 @@ html,body{height:100%;}
 	overflow-x:hidden;
 	height: 400px;
 }
+
+.zoom-effect-container:hover {
+  -webkit-transform: scale(1.08);
+  transform: scale(1.08);
+}
+

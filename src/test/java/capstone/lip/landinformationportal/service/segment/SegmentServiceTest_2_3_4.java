@@ -16,7 +16,7 @@ import org.junit.Assert;
  * @author Phong
  */
 @TestPropertySource(locations = "/application-test-data.properties")
-public class SegmentServiceTest_2_3 extends AbstractSegmentServiceTest {
+public class SegmentServiceTest_2_3_4 extends AbstractSegmentServiceTest {
     
     /**
      * @Description: List is null

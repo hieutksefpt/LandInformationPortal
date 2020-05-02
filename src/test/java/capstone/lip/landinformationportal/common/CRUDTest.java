@@ -11,13 +11,14 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
-import static org.junit.Assert.assertEquals;
+import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -58,6 +59,7 @@ public abstract class CRUDTest {
     protected final String NULL_STRING = null;
 
     protected final ArrayList EMPTY_LIST = new ArrayList();
+    protected final Map<String,Object> EMPTY_LIST_ATTRIBUTE = new HashMap();
 
     protected final Long POSITIVE_NOT_EXISTED_ID = 99L;
     protected final Long EXISTED_ID = 1L;
@@ -75,6 +77,12 @@ public abstract class CRUDTest {
     protected final int PAGE_SIZE = 2;
     protected final int EXISTED_PAGE = 1;
     protected final int OUT_RANGE_PAGE = 99999;
+    
+    protected Map<String,Object> getNotExistedListAttribute() {
+        Map<String,Object> list = new HashMap();
+        list.put("NOT EXISTED", "NOT EXISTED");
+        return list;
+    }
     
     protected void testFail(boolean result) {
         //Delete fail

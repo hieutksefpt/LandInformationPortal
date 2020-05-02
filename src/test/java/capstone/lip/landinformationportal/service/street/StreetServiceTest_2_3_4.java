@@ -17,7 +17,7 @@ import org.junit.Assert;
  * @author Phong
  */
 @TestPropertySource(locations = "/application-test-data.properties")
-public class StreetServiceTest_2_3 extends AbstractStreetServiceTest {
+public class StreetServiceTest_2_3_4 extends AbstractStreetServiceTest {
     
     /**
      * @Description: List is null

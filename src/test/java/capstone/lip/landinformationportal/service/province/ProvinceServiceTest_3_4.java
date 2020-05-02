@@ -15,7 +15,7 @@ import org.springframework.test.context.TestPropertySource;
  * @author Phong
  */
 @TestPropertySource(locations = "/application-test-data.properties")
-public class ProvinceServiceTest_3 extends AbstractProvinceServiceTest {
+public class ProvinceServiceTest_3_4 extends AbstractProvinceServiceTest {
     
     /**
      * @Description: Delete positive province ID

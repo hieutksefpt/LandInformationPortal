@@ -14,13 +14,15 @@ import org.springframework.test.context.TestPropertySource;
 
 import capstone.lip.landinformationportal.common.entity.User;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
  * @author Phong
  */
 @TestPropertySource(locations = "/application-test-data.properties")
-public class UserServiceTest_5_6_7 extends AbstractUserServiceTest {
+public class UserServiceTest_5_6_7_8_9 extends AbstractUserServiceTest {
     
     private final String EXISTED_ALPHANUMERIC_USERNAME = "User1";
     private final String EXISTED_ALPHABETIC_USERNAME = "UserF";
@@ -222,5 +224,118 @@ public class UserServiceTest_5_6_7 extends AbstractUserServiceTest {
         Page<User> result = instance.findAll(pageable);
         
         testFail(result);
+    }
+    
+    /**
+     * @Description: Null list
+     * @Dependency: N/A
+     * @Expected Result: Fail
+     */
+    @Test
+    public void FT_US_8_01() {
+        Pageable pageable = PageRequest.of(OUT_RANGE_PAGE, PAGE_SIZE);
+        Page result = instance.findAllByAttribute(null, pageable);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Empty list
+     * @Dependency: Out of range
+     * @Expected Result: Fail
+     */
+    @Test
+    public void FT_US_8_02() {
+        Pageable pageable = PageRequest.of(OUT_RANGE_PAGE, PAGE_SIZE);
+        Page result = instance.findAllByAttribute(EMPTY_LIST_ATTRIBUTE, pageable);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Empty list
+     * @Dependency: Valid range
+     * @Expected Result: Success
+     */
+    @Test
+    public void FT_US_8_03() {
+        Pageable pageable = PageRequest.of(EXISTED_PAGE, PAGE_SIZE);
+        Page result = instance.findAllByAttribute(EMPTY_LIST_ATTRIBUTE, pageable);
+        
+        assertEquals(true, result != null);
+    }
+    
+    /**
+     * @Description: Null page
+     * @Dependency: N/A
+     * @Expected Result: Fail
+     */
+    @Test
+    public void FT_US_8_04() {
+        Page result = instance.findAllByAttribute(EMPTY_LIST_ATTRIBUTE, null);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Not existed attributes
+     * @Dependency: Out of range
+     * @Expected Result: Fail
+     */
+    @Test
+    public void FT_US_8_05() {
+        Pageable pageable = PageRequest.of(OUT_RANGE_PAGE, PAGE_SIZE);
+        Page result = instance.findAllByAttribute(getNotExistedListAttribute(), pageable);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Not existed attributes
+     * @Dependency: Valid range
+     * @Expected Result: Success
+     */
+    @Test
+    public void FT_US_8_06() {
+        Pageable pageable = PageRequest.of(EXISTED_PAGE, PAGE_SIZE);
+        Page result = instance.findAllByAttribute(getNotExistedListAttribute(), pageable);
+        
+        assertEquals(true, result != null);
+    }
+    
+    /**
+     * @Description: Null list
+     * @Dependency: N/A
+     * @Expected Result: Fail
+     */
+    @Test
+    public void FT_US_9_01() {
+        long result = instance.countByAttribute(null);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Empty list
+     * @Dependency: N/A
+     * @Expected Result: Success
+     */
+    @Test
+    public void FT_US_9_02() {
+        long result = instance.countByAttribute(EMPTY_LIST_ATTRIBUTE);
+        
+        assertEquals(true, result != -1);
+    }
+    
+    /**
+     * @Description: Not existed attributes
+     * @Dependency: N/A
+     * @Expected Result: Success
+     */
+    @Test
+    public void FT_US_9_03() {
+        long result = instance.countByAttribute(getNotExistedListAttribute());
+        
+        assertEquals(true, result != -1);
     }
 }

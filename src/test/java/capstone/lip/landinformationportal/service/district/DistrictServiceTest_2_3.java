@@ -255,7 +255,7 @@ public class DistrictServiceTest_2_3 extends AbstractDistrictServiceTest {
      * @Expected: Fail
      */
     @Test
-    public void FT_PS_4_01() {
+    public void FT_DS_4_01() {
         District result = instance.findById(NEGATIVE_NOT_EXISTED_ID);
         
         testFail(result);
@@ -267,7 +267,7 @@ public class DistrictServiceTest_2_3 extends AbstractDistrictServiceTest {
      * @Expected: Fail
      */
     @Test
-    public void FT_PS_4_02() {
+    public void FT_DS_4_02() {
         District result = instance.findById(NULL_ID);
         
         testFail(result);
@@ -279,7 +279,7 @@ public class DistrictServiceTest_2_3 extends AbstractDistrictServiceTest {
      * @Expected: Fail
      */
     @Test
-    public void FT_PS_4_03() {
+    public void FT_DS_4_03() {
         District result = instance.findById(ZERO_NOT_EXISTED_ID);
         
         testFail(result);
@@ -291,7 +291,7 @@ public class DistrictServiceTest_2_3 extends AbstractDistrictServiceTest {
      * @Expected: Fail
      */
     @Test
-    public void FT_PS_4_04() {
+    public void FT_DS_4_04() {
         District result = instance.findById(POSITIVE_NOT_EXISTED_ID);
         
         testFail(result);
@@ -303,7 +303,7 @@ public class DistrictServiceTest_2_3 extends AbstractDistrictServiceTest {
      * @Expected: Success
      */
     @Test
-    public void FT_PS_4_05() {
+    public void FT_DS_4_05() {
         District result = instance.findById(EXISTED_ID);
         
         Assert.assertEquals(repository.findById(EXISTED_ID), result);

@@ -53,6 +53,16 @@
                                 <div class="row">
                                     <div class="col">
                                         <sec:authenticated>
+                                            <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateStatus == 'CONFUSED'}">
+                                                <span class="badge button-report-status button-report-status-icon-confused">Chưa xác định</span>
+                                            </c:if>
+                                            <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateStatus == 'NOTVERIFY'}">
+                                                <span class="badge button-report-status button-report-status-icon-not-verified">Chưa thẩm định</span>
+                                            </c:if>
+                                            <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateStatus == 'VERIFIED'}">
+                                                <span class="badge button-report-status button-report-status-icon-verified">Đã thẩm định</span>
+                                            </c:if>
+
                                             <h:form id="updateReport" styleClass="element-list" >
                                                 <span class="flag-red">
                                                 </span>
@@ -67,14 +77,12 @@
                                                                      update="updateReport"/>
                                                 </c:if>
                                                 <h:outputText value="#{viewRealEstateDetailBean.numberOfReport}"/>
-
                                             </h:form>
                                         </sec:authenticated>
                                         <sec:anonymous>
                                             <p:commandButton image="flag-red"/>
                                             <h:outputText value="#{viewRealEstateDetailBean.numberOfReport}"/>
                                         </sec:anonymous>
-
                                     </div>
                                     <div class="col">
                                         <h:form rendered="#{viewRealEstateDetailBean.ownRealEstate}">
@@ -94,14 +102,14 @@
                                     </div>
 
                                 </div>
-                                <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateSource == 'Contributor'}">
+                                <sec:authenticated>
                                     <div id="lbl-UsersNameLabel" class="text name element-list">
                                         Tên người đóng góp
                                     </div>
                                     <div class="nameInput element-list">
                                         <h:inputText id="txt-UsersName" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.user.fullName}" readonly="true"></h:inputText>
                                     </div>
-                                </c:if>
+                                </sec:authenticated>
                                 <div id="lbl-RealEstateNameLabel" class="text realEstateName element-list">
                                     Tên đối tượng BĐS
                                     <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateLink != null}">

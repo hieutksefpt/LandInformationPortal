@@ -287,7 +287,11 @@ function houseFeatureExisted() {
 }
 
 function showLogDataRange (){
-    alert("Vui lòng điền giá trị thuộc tính phù hợp theo mẫu");
+    alert("Vui lòng nhập giá trị thuộc tính phù hợp theo mẫu");
+}
+
+function dataType (){
+    alert("Vui lòng nhập đúng định dạng dữ liệu");
 }
 
 function showModalMandatory() {

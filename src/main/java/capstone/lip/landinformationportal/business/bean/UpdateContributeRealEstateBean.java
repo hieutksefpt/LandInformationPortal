@@ -53,6 +53,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.apache.commons.lang3.StringUtils;
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -159,6 +160,8 @@ public class UpdateContributeRealEstateBean implements Serializable {
     private long tempRealEstateId;
     private House tempHouse;
     private String typeRealEstate;
+    private String landFeatureDataType;
+    private String houseFeatureDataType;
 
     @PostConstruct
     public void init() {
@@ -633,7 +636,10 @@ public void onChangeLandUnit() {
                         }
                     }
                     landsFeatureDataRangeClicked = test.getLandsFeatureDataRange();
-                    if (landsFeatureDataRangeClicked.isEmpty()) {
+                    landFeatureDataType = test.getLandsFeatureDataType();
+                    if(landFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newLandFeatureValue)){
+                        PrimeFaces.current().executeScript("dataType()");
+                    } else if (landsFeatureDataRangeClicked.isEmpty()) {
                         listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
                     } else if(newLandFeatureValue == null || newLandFeatureValue.isEmpty()){
                         PrimeFaces.current().executeScript("emptyDataAdd()");
@@ -681,7 +687,10 @@ public void onChangeLandUnit() {
                         }
                     }
                     housesFeatureDataRangeClicked = test.getHousesFeatureDataRange();
-                    if (housesFeatureDataRangeClicked.isEmpty()) {
+                    houseFeatureDataType = test.getHousesFeatureDataType();
+                    if(houseFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newHouseFeatureValue)){
+                        PrimeFaces.current().executeScript("dataType()");
+                    } else if (housesFeatureDataRangeClicked.isEmpty()) {
                         listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));
                     } else if(newHouseFeatureValue == null || newHouseFeatureValue.isEmpty()){
                         PrimeFaces.current().executeScript("emptyDataAdd()");
@@ -1387,6 +1396,24 @@ public void onChangeLandUnit() {
     public void setHousesFeatureDataRangeClicked(List<String> housesFeatureDataRangeClicked) {
         this.housesFeatureDataRangeClicked = housesFeatureDataRangeClicked;
     }
+
+    public String getLandFeatureDataType() {
+        return landFeatureDataType;
+    }
+
+    public void setLandFeatureDataType(String landFeatureDataType) {
+        this.landFeatureDataType = landFeatureDataType;
+    }
+
+    public String getHouseFeatureDataType() {
+        return houseFeatureDataType;
+    }
+
+    public void setHouseFeatureDataType(String houseFeatureDataType) {
+        this.houseFeatureDataType = houseFeatureDataType;
+    }
+    
+    
 
     
 }

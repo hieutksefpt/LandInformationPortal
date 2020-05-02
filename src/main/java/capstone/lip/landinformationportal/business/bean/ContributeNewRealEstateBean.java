@@ -60,6 +60,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.faces.context.ExternalContext;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -153,6 +154,8 @@ public class ContributeNewRealEstateBean implements Serializable {
     
     private List<String> landsFeatureDataRangeClicked;
     private List<String> housesFeatureDataRangeClicked;
+    private String landFeatureDataType;
+    private String houseFeatureDataType;
 
     @PostConstruct
     public void init() {
@@ -618,8 +621,12 @@ public class ContributeNewRealEstateBean implements Serializable {
                             break;
                         }
                     }
+                    
                     landsFeatureDataRangeClicked = test.getLandsFeatureDataRange();
-                    if (landsFeatureDataRangeClicked.isEmpty()) {
+                    landFeatureDataType = test.getLandsFeatureDataType();
+                    if(landFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newLandFeatureValue)){
+                        PrimeFaces.current().executeScript("dataType()");
+                    } else if (landsFeatureDataRangeClicked.isEmpty()) {
                         listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
                     } else if(newLandFeatureValue == null || newLandFeatureValue.isEmpty()){
                         PrimeFaces.current().executeScript("emptyDataAdd()");
@@ -667,7 +674,10 @@ public class ContributeNewRealEstateBean implements Serializable {
                         }
                     }
                     housesFeatureDataRangeClicked = test.getHousesFeatureDataRange();
-                    if (housesFeatureDataRangeClicked.isEmpty()) {
+                    houseFeatureDataType = test.getHousesFeatureDataType();
+                    if(houseFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newHouseFeatureValue)){
+                        PrimeFaces.current().executeScript("dataType()");
+                    } else if (housesFeatureDataRangeClicked.isEmpty()) {
                         listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));
                     } else if(newHouseFeatureValue == null || newHouseFeatureValue.isEmpty()){
                         PrimeFaces.current().executeScript("emptyDataAdd()");
@@ -1277,6 +1287,22 @@ public class ContributeNewRealEstateBean implements Serializable {
 
     public void setHousesFeatureDataRangeClicked(List<String> housesFeatureDataRangeClicked) {
         this.housesFeatureDataRangeClicked = housesFeatureDataRangeClicked;
+    }
+
+    public String getLandFeatureDataType() {
+        return landFeatureDataType;
+    }
+
+    public void setLandFeatureDataType(String landFeatureDataType) {
+        this.landFeatureDataType = landFeatureDataType;
+    }
+
+    public String getHouseFeatureDataType() {
+        return houseFeatureDataType;
+    }
+
+    public void setHouseFeatureDataType(String houseFeatureDataType) {
+        this.houseFeatureDataType = houseFeatureDataType;
     }
     
     

@@ -28,7 +28,7 @@ public class CrawlNewsNowJob implements Job {
 	@Value("${service.crawl.url}")
 	private String URL;	
 	
-	@Value("${service.crawl.token}")
+	@Value("${service.token}")
 	private String token;
 	@Autowired
 	private ICrawledNewsService crawlNewsService;
@@ -47,7 +47,7 @@ public class CrawlNewsNowJob implements Job {
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
 		        .queryParam("type", "news")
-//		        .queryParam("daily", "true")
+		        .queryParam("daily", "true")
 		        .queryParam("crawlnow","true")
 		        ;
 

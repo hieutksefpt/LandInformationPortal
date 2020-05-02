@@ -126,6 +126,15 @@
                                     </h:inputText>
                                     <p>(Đơn vị: Việt Nam đồng)</p>
                                 </div>
+                                <div id="lbl-RealEstatePriceLabel" class="text price element-list">
+                                    Giá hệ thống dự đoán
+                                </div>
+                                <div class="priceInput element-list">
+                                    <h:inputText id="txt-RealEstatePredictPrice" class="input" value="#{viewRealEstateDetailBean.predictPrice}" readonly="true">
+                                        <f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
+                                    </h:inputText>
+                                    <p>(Đơn vị: Việt Nam đồng)</p>
+                                </div>
                             </div>
                             <c:if test="#{viewRealEstateDetailBean.currentLand != null}">
                                 <div class="title-header">Các đặc tính của Đất</div>

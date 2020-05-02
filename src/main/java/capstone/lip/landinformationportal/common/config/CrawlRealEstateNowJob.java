@@ -26,7 +26,7 @@ public class CrawlRealEstateNowJob implements Job {
 	@Value("${service.crawl.url}")
 	private String URL;	
 	
-	@Value("${service.crawl.token}")
+	@Value("${service.token}")
 	private String token;
 	
 		
@@ -46,7 +46,7 @@ public class CrawlRealEstateNowJob implements Job {
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
 		        .queryParam("type", "reo")
-//		        .queryParam("daily", "true")
+		        .queryParam("daily", "true")
 		        .queryParam("crawlnow","true")
 		        ;
 

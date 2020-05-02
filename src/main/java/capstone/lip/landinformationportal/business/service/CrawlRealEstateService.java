@@ -114,6 +114,9 @@ public class CrawlRealEstateService implements ICrawlRealEstateService {
                 RealEstate reoSearch = realEstateRepository.findByRealEstateLink(link);
                 System.out.println(i + " " + link);
                 i++;
+                if ((reoCrawl.getPrice().compareTo(BigDecimal.ZERO) <= 0)) {
+                	reoCrawl.setPrice(BigDecimal.ONE);
+                }
                 if (reoSearch != null) {
                     continue;
                 } else if (validReo.isValidCrawlRealEstate(reoCrawl)) {

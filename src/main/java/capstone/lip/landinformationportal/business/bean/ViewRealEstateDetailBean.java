@@ -1,5 +1,6 @@
 package capstone.lip.landinformationportal.business.bean;
 
+import capstone.lip.landinformationportal.business.service.Interface.IPredictPriceService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateService;
 import capstone.lip.landinformationportal.business.service.Interface.IReportService;
 import capstone.lip.landinformationportal.business.service.Interface.IUserService;
@@ -16,6 +17,7 @@ import capstone.lip.landinformationportal.common.entity.compositekey.ReportId;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -53,8 +55,13 @@ public class ViewRealEstateDetailBean implements Serializable {
 
     @Autowired
     private IReportService reportService;
+    
+    @Autowired
+    private IPredictPriceService predictService;
 
     private long tempRealEstateId;
+    
+    private BigDecimal predictPrice;
 
     @PostConstruct
     public void init() {
@@ -81,6 +88,9 @@ public class ViewRealEstateDetailBean implements Serializable {
         numberOfReport = String.valueOf(realEstateClicked.getListReport().size());
         currentLand = realEstateClicked.getLand();
         currentListHouse = realEstateClicked.getListHouse();
+        
+        predictPrice = new BigDecimal(predictService.getPredictPrice(realEstateClicked));
+        
         transferCoordinate();
     }
 
@@ -190,4 +200,13 @@ public class ViewRealEstateDetailBean implements Serializable {
         this.numberOfReport = numberOfReport;
     }
 
+	public BigDecimal getPredictPrice() {
+		return predictPrice;
+	}
+
+	public void setPredictPrice(BigDecimal predictPrice) {
+		this.predictPrice = predictPrice;
+	}
+
+    
 }

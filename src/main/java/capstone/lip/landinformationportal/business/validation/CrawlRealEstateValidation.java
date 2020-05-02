@@ -24,7 +24,7 @@ public class CrawlRealEstateValidation extends StringValidation {
             return false;
         } else if (reoCrawl.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
             return false;
-        } else if (reoCrawl.getSource().toString().equals("CONTRIBUTOR")) {
+        } else if (reoCrawl.getSource() != null && reoCrawl.getSource().toString().equals("CONTRIBUTOR")) {
             return false;
         }
         return true;

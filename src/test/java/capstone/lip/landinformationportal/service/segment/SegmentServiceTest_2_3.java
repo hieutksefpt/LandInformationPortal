@@ -8,8 +8,8 @@ package capstone.lip.landinformationportal.service.segment;
 import java.util.ArrayList;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
-
 import capstone.lip.landinformationportal.common.entity.SegmentOfStreet;
+import org.junit.Assert;
 
 /**
  *
@@ -247,5 +247,65 @@ public class SegmentServiceTest_2_3 extends AbstractSegmentServiceTest {
         boolean result = instance.delete(new SegmentOfStreet());
         
         testFail(result);
+    }
+    
+    /**
+     * @Description: Negative id
+     * @Dependency: N/A
+     * @Expected: Fail
+     */
+    @Test
+    public void FT_PS_4_01() {
+        SegmentOfStreet result = instance.findById(NEGATIVE_NOT_EXISTED_ID);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Null id
+     * @Dependency: N/A
+     * @Expected: Fail
+     */
+    @Test
+    public void FT_PS_4_02() {
+        SegmentOfStreet result = instance.findById(NULL_ID);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Equals zero id
+     * @Dependency: N/A
+     * @Expected: Fail
+     */
+    @Test
+    public void FT_PS_4_03() {
+        SegmentOfStreet result = instance.findById(ZERO_NOT_EXISTED_ID);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Positive id
+     * @Dependency: Not existed id
+     * @Expected: Fail
+     */
+    @Test
+    public void FT_PS_4_04() {
+        SegmentOfStreet result = instance.findById(POSITIVE_NOT_EXISTED_ID);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Positive id
+     * @Dependency: Existed id
+     * @Expected: Success
+     */
+    @Test
+    public void FT_PS_4_05() {
+        SegmentOfStreet result = instance.findById(EXISTED_ID);
+        
+        Assert.assertEquals(repository.findById(EXISTED_ID), result);
     }
 }

@@ -8,8 +8,8 @@ package capstone.lip.landinformationportal.service.district;
 import java.util.ArrayList;
 import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
-
 import capstone.lip.landinformationportal.common.entity.District;
+import org.junit.Assert;
 
 /**
  *
@@ -247,5 +247,65 @@ public class DistrictServiceTest_2_3 extends AbstractDistrictServiceTest {
         boolean result = instance.delete(new District());
         
         testFail(result);
+    }
+    
+    /**
+     * @Description: Negative id
+     * @Dependency: N/A
+     * @Expected: Fail
+     */
+    @Test
+    public void FT_PS_4_01() {
+        District result = instance.findById(NEGATIVE_NOT_EXISTED_ID);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Null id
+     * @Dependency: N/A
+     * @Expected: Fail
+     */
+    @Test
+    public void FT_PS_4_02() {
+        District result = instance.findById(NULL_ID);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Equals zero id
+     * @Dependency: N/A
+     * @Expected: Fail
+     */
+    @Test
+    public void FT_PS_4_03() {
+        District result = instance.findById(ZERO_NOT_EXISTED_ID);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Positive id
+     * @Dependency: Not existed id
+     * @Expected: Fail
+     */
+    @Test
+    public void FT_PS_4_04() {
+        District result = instance.findById(POSITIVE_NOT_EXISTED_ID);
+        
+        testFail(result);
+    }
+    
+    /**
+     * @Description: Positive id
+     * @Dependency: Existed id
+     * @Expected: Success
+     */
+    @Test
+    public void FT_PS_4_05() {
+        District result = instance.findById(EXISTED_ID);
+        
+        Assert.assertEquals(repository.findById(EXISTED_ID), result);
     }
 }

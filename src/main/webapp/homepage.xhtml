@@ -37,7 +37,7 @@
 							<div class="row flex-grow-1" >
 								<h:form id="form-news" prependId="false" onsubmit="return false;" styleClass="h-100">
 									<div class="row">
-										<div class="col text-center">
+                                                                            <div class="col text-center blinking" style="height: 45px;margin-top: 15px;">
 											<strong>Tin nổi bật	</strong>
 										</div>
 									</div>
@@ -52,8 +52,10 @@
 													</div>
 													<div class="col-4">
 														<div class="image-parent">
-															<img src="#{element.crawledNewsImageUrl}"
-																class="img-fluid"/>
+                                                                                                                    <a href="#{element.crawledNewsLink}" target="_blank">
+                                                                                                                        <img src="#{element.crawledNewsImageUrl}" class="img-fluid zoom-effect-container"/>
+                                                                                                                    </a>
+															
 														</div>
 													</div>
 													

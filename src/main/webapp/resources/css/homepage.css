@@ -32,3 +32,27 @@ html,body{height:100%;}
 	overflow-x:hidden;
 	height: 400px;
 }
+
+.zoom-effect-container:hover {
+  -webkit-transform: scale(1.08);
+  transform: scale(1.08);
+  border-radius: 2px;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);  
+}
+
+.zoom-effect-container {
+    border-radius: 2px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);  
+}
+
+.blinking{
+    animation:blinkingText 1.2s infinite;
+    font-size: 20px;
+}
+@keyframes blinkingText{
+    0%{     color: #000;    }
+    49%{    color: #000; }
+    60%{    color: transparent; }
+    99%{    color:transparent;  }
+    100%{   color: #000;    }
+}

@@ -12,49 +12,49 @@
     <body>
         <ui:composition template="/template/admin/adminLayout.xhtml">
             <ui:define name="content">
-            	<h:outputStylesheet name="listallrealestate.css" library="css" />
-		        <h:outputStylesheet name="color.css" library="css"/>
-		        <h:outputStylesheet name="bootstrap.min.css" library="css" />
-		        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
-		        <div id="loader" style="width:64px;height:64px;position:fixed;left:5px;bottom:5px;display:none;">
-	            	<i class="pi pi-spin pi-spinner ajax-loader"/>
-	            </div>
-	            <p:ajaxStatus onstart="$('#loader').show()" onsuccess="$('#loader').hide()" />
+                <h:outputStylesheet name="listallrealestate.css" library="css" />
+                <h:outputStylesheet name="color.css" library="css"/>
+                <h:outputStylesheet name="bootstrap.min.css" library="css" />
+                <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+                <div id="loader" style="width:64px;height:64px;position:fixed;left:5px;bottom:5px;display:none;">
+                    <i class="pi pi-spin pi-spinner ajax-loader"/>
+                </div>
+                <p:ajaxStatus onstart="$('#loader').show()" onsuccess="$('#loader').hide()" />
                 <h:form id="table-user" prependId="false">
-					<div class="row" style="margin-bottom:10px;">
-						<div class="col">
-	                    <h:commandButton id="btn-UnbanUser" class="btn btn-block bg-deep-orange waves-effect"
-	                         	value="Vô hiệu" action="#{listUserBean.banUser()}">
-	                        <p:ajax process="@form" update="table-user"/>
-	                    </h:commandButton>
-						</div>
-						<div class="col">
-		                    <h:commandButton id="btn-BanUser" class="btn btn-block btn-success waves-effect"
-		                                     value="Kích hoạt"
-		                                     action="#{listUserBean.unbanUser()}">
-		                        <p:ajax process="@form" update="table-user"/>
-		                    </h:commandButton>
-						</div>
-						<div class="col">
-							<h:commandButton id="btn-ChangeUserRoleAdmin" class="btn btn-block btn-primary waves-effect"
-                                     value="Phân quyền Admin" action="#{listUserBean.changeUserRoleAdmin()}">
-		                        <p:ajax process="@form" update="table-user"/>
-		                    </h:commandButton>
-						</div>
-						<div class="col">
-							<h:commandButton id="btn-ChangeUserRoleContributor" class="btn btn-block bg-indigo waves-effect"
-                                     value="Phân quyền User" action="#{listUserBean.changeUserRoleUser()}">
-		                        <p:ajax process="@form" update="table-user"/>
-		                    </h:commandButton>
-						</div>
-						<div class="col">
-							 <h:commandButton id="btn-ResetPassword" class="btn btn-block bg-blue-grey waves-effect"
-		                                     value="Đặt lại mật khẩu"
-		                                     action="#{listUserBean.resetPassword()}">
-		                        <p:ajax process="@form" update="table-user"/>
-		                    </h:commandButton>
-						</div>
-					</div>
+                    <div class="row" style="margin-bottom:10px;">
+                        <div class="col">
+                            <h:commandButton id="btn-UnbanUser" class="btn btn-block bg-deep-orange waves-effect"
+                                             value="Vô hiệu" action="#{listUserBean.banUser()}">
+                                <p:ajax process="@form" update="table-user"/>
+                            </h:commandButton>
+                        </div>
+                        <div class="col">
+                            <h:commandButton id="btn-BanUser" class="btn btn-block btn-success waves-effect"
+                                             value="Kích hoạt"
+                                             action="#{listUserBean.unbanUser()}">
+                                <p:ajax process="@form" update="table-user"/>
+                            </h:commandButton>
+                        </div>
+                        <div class="col">
+                            <h:commandButton id="btn-ChangeUserRoleAdmin" class="btn btn-block btn-primary waves-effect"
+                                             value="Phân quyền Admin" action="#{listUserBean.changeUserRoleAdmin()}">
+                                <p:ajax process="@form" update="table-user"/>
+                            </h:commandButton>
+                        </div>
+                        <div class="col">
+                            <h:commandButton id="btn-ChangeUserRoleContributor" class="btn btn-block bg-indigo waves-effect"
+                                             value="Phân quyền User" action="#{listUserBean.changeUserRoleUser()}">
+                                <p:ajax process="@form" update="table-user"/>
+                            </h:commandButton>
+                        </div>
+                        <div class="col">
+                            <h:commandButton id="btn-ResetPassword" class="btn btn-block bg-blue-grey waves-effect"
+                                             value="Đặt lại mật khẩu"
+                                             action="#{listUserBean.resetPassword()}">
+                                <p:ajax process="@form" update="table-user"/>
+                            </h:commandButton>
+                        </div>
+                    </div>
                     <p:dataTable var="user" rowIndexVar="index" id="table"
                                  value="#{listUserBean.lazyUser}"
                                  rowKey="#{user.userId}"
@@ -91,10 +91,11 @@
                                 <p:selectOneMenu onchange="PF('table-user').filter()" styleClass="custom-filter">
                                     <f:selectItem itemLabel="All Role" itemValue="#{null}" noSelectionOption="true" />
                                     <f:selectItem itemLabel="ADMIN" itemValue="ADMIN" />
-                                    <f:selectItem itemLabel="CONTRIBUTER" itemValue="USER" />
+                                    <f:selectItem itemLabel="CONTRIBUTOR" itemValue="USER" />
                                 </p:selectOneMenu>
                             </f:facet>
-                            <h:outputText value="#{user.role}"/>
+                            <h:outputText rendered="#{user.role == 'USER'}" value="CONTRIBUTOR"/>
+                            <h:outputText rendered="#{user.role == 'ADMIN'}" value="ADMIN"/>
                         </p:column>
 
                         <p:column filterBy="#{user.userStatus}" filterMatchMode="exact" style="width: 10%;text-align:center">

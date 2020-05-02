@@ -77,3 +77,19 @@
     background-position: left top;
 	background-image: url("#{resource['img/flag_red.png']}");
 }
+.button-report-status{
+    color: white;
+    margin-left: 15px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.button-report-status-icon-confused{
+    background-color: #ee6161
+}
+.button-report-status-icon-not-verified{
+    background-color: #ffcc00;
+}
+.button-report-status-icon-verified{
+    background-color: #003fff;
+}

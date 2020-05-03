@@ -122,13 +122,15 @@ public class ManageGeoInfoBean implements Serializable {
 			PrimeFaces.current().executeScript("focusMap(" + selectedDistrict.getDistrictLat() + ", " + selectedDistrict.getDistrictLng() + ",17);");
 			PrimeFaces.current().executeScript("changeInfo(\""+selectedDistrict.getDistrictName()+"\", "+selectedDistrict.getDistrictLng()+", "+
 		    selectedDistrict.getDistrictLat()+")");
-			
+
 			List<SegmentOfStreet>listTemp = selectedDistrict.getListSegmentOfStreet();
 			if (listTemp != null)
 				listStreet = listTemp.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
 			else {
 				listStreet = new ArrayList<>();
 			}
+			if (selectedStreet != null)
+				listStreet.add(selectedStreet);
 		}else {
 			listStreet = new ArrayList<>();
 			listSegmentOfStreet = new ArrayList<>();
@@ -145,7 +147,8 @@ public class ManageGeoInfoBean implements Serializable {
 			PrimeFaces.current().executeScript("changeInfo(\""+selectedStreet.getStreetName()+"\", "+selectedStreet.getStreetLat()+", "+
 					selectedStreet.getStreetLng()+")");
 					
-			listSegmentOfStreet = selectedStreet.getListSegmentOfStreet();			
+			listSegmentOfStreet = selectedStreet.getListSegmentOfStreet();	
+			listSegmentOfStreet = listSegmentOfStreet.stream().filter(x->x.getDistrict().equals(selectedDistrict)).collect(Collectors.toList());
 		}else {
 			listSegmentOfStreet = new ArrayList<>();
 		}

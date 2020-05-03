@@ -14,41 +14,129 @@
             <ui:define name="content">
                 <h:outputStylesheet name="listallrealestate.css" library="css" />
                 <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
-				<div id="loader" style="width:64px;height:64px;position:fixed;left:5px;bottom:5px;display:none;">
-	            	<i class="pi pi-spin pi-spinner ajax-loader"/>
-	            </div>
-	            <p:ajaxStatus onstart="$('#loader').show()" onsuccess="$('#loader').hide()" />
-                <h:form id="form-AllRealEstate" prependId="false">
-					<div class="row" style="margin-bottom:10px">
-						<div class="col">
-							<h:commandButton id="btn-ChangeRealEstateStatusConfused"
-                                     value="CONFUSED" class="btn btn-block btn-primary waves-effect"
-                                     action="#{listAllRealEstateBean.changeRealEstateStatusToConfused()}">
-		                        <p:ajax process="@form" update="form-AllRealEstate"/>
-		                    </h:commandButton>
-						</div>
-						<div class="col">	
-							<h:commandButton id="btn-ChangeRealEstateStatusNotVerified"
-                                     value="NOT VERIFIED" class="btn btn-block btn-secondary waves-effect"
-                                     action="#{listAllRealEstateBean.changeRealEstateStatusToNotVerified()}">
-		                        <p:ajax process="@form" update="form-AllRealEstate"/>
-		                    </h:commandButton>
-						</div>
-						<div class="col">
-							<h:commandButton id="btn-ChangeRealEstateStatusVerified"
-                                value="VERIFIED" class="btn btn-block btn-success waves-effect"
-                                action="#{listAllRealEstateBean.changeRealEstateStatusToVerified()}">
-		                        <p:ajax process="@form" update="form-AllRealEstate"/>
-		                    </h:commandButton>
-						</div>
-						<div class="col">
-							<h:commandButton id="btn-DeleteSelectedRealEstate"
-                                value="DELETE"  class="btn btn-block btn-danger waves-effect"
-                                action="#{listAllRealEstateBean.deleteSelectedRealEstate()}">
-		                        <p:ajax process="@form" update="form-AllRealEstate"/>
-		                    </h:commandButton>
-						</div>
-					</div>
+                <div id="loader" style="width:64px;height:64px;position:fixed;left:5px;bottom:5px;display:none;">
+                    <i class="pi pi-spin pi-spinner ajax-loader"/>
+                </div>
+                <p:ajaxStatus onstart="$('#loader').show()" onsuccess="$('#loader').hide()" />
+                <h:form id="form-AllRealEstate" prependId="false" onsubmit="return false;">
+                    <p:growl id="msgs" showDetail="true" widgetVar="alert"/>
+
+                    <p:dialog header="Chuyển trạng thái của bất động sản thành CONFUSED" widgetVar="dlgConfirmConfused" modal="true" resizable="false">
+                        <div class="row">
+                            <div class="col">
+                                <strong>
+                                    <h:outputText value="Bạn có chắc chắn muốn thay đổi trạng thái bất động sản thành CONFUSED không?">
+                                    </h:outputText>
+                                </strong>	               			
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
+                                    <p:ajax listener="#{listAllRealEstateBean.changeRealEstateStatusToConfused()}" update="form-AllRealEstate" process="@form"
+                                            oncomplete="PF('dlgConfirmConfused').hide()"></p:ajax>
+                                </h:commandButton>
+                            </div>
+                            <div class="col text-center">
+                                <h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgConfirmConfused').hide()">
+                                </h:commandButton>
+                            </div>
+                        </div>
+                    </p:dialog>
+                    <p:dialog header="Chuyển trạng thái của bất động sản thành NOT VERIFIED" widgetVar="dlgConfirmNotVerified" modal="true" resizable="false">
+                        <div class="row">
+                            <div class="col">
+                                <strong>
+                                    <h:outputText value="Bạn có chắc chắn muốn thay đổi trạng thái bất động sản thành NOT VERIFIED không?">
+                                    </h:outputText>
+                                </strong>	               			
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
+                                    <p:ajax listener="#{listAllRealEstateBean.changeRealEstateStatusToNotVerified()}" update="form-AllRealEstate" process="@form"
+                                            oncomplete="PF('dlgConfirmNotVerified').hide()"></p:ajax>
+                                </h:commandButton>
+                            </div>
+                            <div class="col text-center">
+                                <h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgConfirmNotVerified').hide()">
+                                </h:commandButton>
+                            </div>
+                        </div>
+                    </p:dialog>
+                    <p:dialog header="Chuyển trạng thái của bất động sản thành VERIFIED" widgetVar="dlgConfirmVerified" modal="true" resizable="false">
+                        <div class="row">
+                            <div class="col">
+                                <strong>
+                                    <h:outputText value="Bạn có chắc chắn muốn thay đổi trạng thái bất động sản thành VERIFIED không?">
+                                    </h:outputText>
+                                </strong>	               			
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
+                                    <p:ajax listener="#{listAllRealEstateBean.changeRealEstateStatusToVerified()}" update="form-AllRealEstate" process="@form"
+                                            oncomplete="PF('dlgConfirmVerified').hide()"></p:ajax>
+                                </h:commandButton>
+                            </div>
+                            <div class="col text-center">
+                                <h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgConfirmVerified').hide()">
+                                </h:commandButton>
+                            </div>
+                        </div>
+                    </p:dialog>
+                    <p:dialog header="Xóa bất động sản" widgetVar="dlgConfirmDelete" modal="true" resizable="false">
+                        <div class="row">
+                            <div class="col">
+                                <strong>
+                                    <h:outputText value="Bạn có chắc chắn muốn xóa bất động sản không?">
+                                    </h:outputText>
+                                </strong>	               			
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
+                                    <p:ajax listener="#{listAllRealEstateBean.deleteSelectedRealEstate()}" update="form-AllRealEstate" process="@form"
+                                            oncomplete="PF('dlgConfirmDelete').hide()"></p:ajax>
+                                </h:commandButton>
+                            </div>
+                            <div class="col text-center">
+                                <h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgConfirmDelete').hide()">
+                                </h:commandButton>
+                            </div>
+                        </div>
+                    </p:dialog>
+
+
+                    <div class="row" style="margin-bottom:10px">
+                        <div class="col">
+                            <h:commandButton id="btn-ChangeRealEstateStatusConfused"
+                                             value="CONFUSED" class="btn btn-block btn-primary waves-effect"
+                                             onclick="checkclick('dlgConfirmConfused')">
+                            </h:commandButton>
+                        </div>
+                        <div class="col">	
+                            <h:commandButton id="btn-ChangeRealEstateStatusNotVerified"
+                                             value="NOT VERIFIED" class="btn btn-block btn-secondary waves-effect"
+                                             onclick="checkclick('dlgConfirmNotVerified')">
+                        </h:commandButton>
+                        </div>
+                        <div class="col">
+                            <h:commandButton id="btn-ChangeRealEstateStatusVerified"
+                                             value="VERIFIED" class="btn btn-block btn-success waves-effect"
+                                             onclick="checkclick('dlgConfirmVerified')">
+                        </h:commandButton>
+                        </div>
+                        <div class="col">
+                            <h:commandButton id="btn-DeleteSelectedRealEstate"
+                                             value="DELETE"  class="btn btn-block btn-danger waves-effect"
+                                             onclick="checkclick('dlgConfirmDelete')">
+                        </h:commandButton>
+                        </div>
+                    </div>
 
                     <p:dataTable var="realEstate"
                                  value="#{listAllRealEstateBean.lazyReo}"
@@ -68,7 +156,7 @@
                         </p:column>
                         <p:column headerText="Tên" filterBy="#{realEstate.realEstateName}" filterMatchMode="contains">
                             <a href="/viewrealestatedetail.xhtml?realEstateId=#{realEstate.realEstateId}" target="_blank">
-                            	<h:outputText id="lbl-ID" value="#{realEstate.realEstateName}" title="#{realEstate.realEstateName}"/>
+                                <h:outputText id="lbl-ID" value="#{realEstate.realEstateName}" title="#{realEstate.realEstateName}"/>
                             </a>
                         </p:column>
                         <p:column headerText="Số report" width="5%">
@@ -76,7 +164,7 @@
                         </p:column>
                         <p:column headerText="Giá trị">
                             <h:outputText id="lbl-Price" value="#{realEstate.realEstatePrice}">
-                            	<f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
+                                <f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
                             </h:outputText>
                         </p:column>
                         <p:column headerText="Tọa độ">

@@ -1,32 +1,3 @@
-
-var map;
-var listMarkers = [];
-
-function initMap() {
-    var markers = JSON.parse($('#txtInput_multipleCoordinate_listAllRealEstate').val());
-    var latitude = markers[0].latitude;
-    var longitude = markers[0].longitude;
-    var myLatLng = {lat: latitude, lng: longitude};
-
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: myLatLng,
-        zoom: 14,
-        mapTypeId: 'roadmap',
-        clickableIcons: false,
-        disableDoubleClickZoom: true,
-        fullscreenControl: false
-    });
-
-    for (i = 0; i < markers.length; i++) {
-        var latLng = {lat: markers[i].latitude, lng: markers[i].longitude};
-        var marker = new google.maps.Marker({position: latLng, map: map});
-        listMarkers.push(marker);
-    }
-    
-//    var markerCluster = new MarkerClusterer(map, listMarkers,
-//            {imagePath: "url('#{'resource[img/']}')"});
-}
-
 function openChangeRealEstateStatusPopup(){
     $('#changeRealEstatePopup').modal('show');
 }
@@ -40,6 +11,16 @@ function openConfirmDeletePopup1() {
 }
 function hideConfirmDeletePopup1() {
     $('#confirmDeletePopup').modal('hide');
+}
+
+function checkclick(dlg) {
+    if (PF('table-real-estate').selection.length > 0) {
+        PF(dlg).show()
+    } else {
+        PF('alert').renderMessage({"summary": "Lỗi",
+            "detail": "Hãy chọn 1 bản ghi",
+            "severity": "warn"})
+    }
 }
 
 function drawMarkers(markers) {

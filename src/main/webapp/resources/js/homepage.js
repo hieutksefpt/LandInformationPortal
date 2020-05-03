@@ -21,6 +21,9 @@ function initMap() {
     let formControl = $('#formControl')[0];
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(formControl);
     
+    let legend = $('#legend')[0];
+    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(legend);
+    
     let input = $('#searchbox-Address')[0];
 	    searchBox = new google.maps.places.SearchBox(input);
 	

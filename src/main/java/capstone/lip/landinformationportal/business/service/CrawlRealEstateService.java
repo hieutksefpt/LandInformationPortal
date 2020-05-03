@@ -142,7 +142,14 @@ public class CrawlRealEstateService implements ICrawlRealEstateService {
                     RealEstateAdjacentSegment adj = mappingRealEstateToLocation(reo);
                     if (adj != null) {
                         adjRepository.save(adj);
-
+                    	SegmentOfStreet segmentAdj = adj.getSegmentOfStreet();
+                    	Street streetAdj = segmentAdj.getStreet();
+                    	District districtAdj = segmentAdj.getDistrict();
+                    	Province provinceAdj = districtAdj.getProvince();
+                    	String newAddress = segmentAdj.getSegmentName()+", "+streetAdj.getStreetName()+", "+districtAdj.getDistrictName()+", "+provinceAdj.getProvinceName();
+                    	
+                    	reo.setRealEstateAddress(newAddress);
+                        	
                         List<RealEstate> listRealEstateByCoordinate = realEstateRepository.findByRealEstateLatAndRealEstateLng(reo.getRealEstateLat(), reo.getRealEstateLng());
                         if (listRealEstateByCoordinate == null || (listRealEstateByCoordinate != null && listRealEstateByCoordinate.isEmpty())) {
                             reo.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.VERIFIED));

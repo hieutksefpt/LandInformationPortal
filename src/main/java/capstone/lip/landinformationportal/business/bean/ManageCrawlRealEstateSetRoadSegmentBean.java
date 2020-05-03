@@ -170,6 +170,15 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 		realEstateAdjacentSegmentService.save(listAdjacentSegment);
 		
 		realEstate = realEstateService.findById(realEstate.getRealEstateId());
+		
+		SegmentOfStreet segmentAdj = listSegment.stream()
+				.filter(x->x.getSegmentId().toString().equals(roadSegmentIdSelected)).collect(Collectors.toList()).get(0);
+		Street streetAdj = segmentAdj.getStreet();
+    	District districtAdj = segmentAdj.getDistrict();
+    	Province provinceAdj = districtAdj.getProvince();
+    	String newAddress = segmentAdj.getSegmentName()+", "+streetAdj.getStreetName()+", "+districtAdj.getDistrictName()+", "+provinceAdj.getProvinceName();
+    	realEstate.setRealEstateAddress(newAddress);
+    	
 		realEstate.setRealEstateLng(Double.parseDouble(singleLng));
 		realEstate.setRealEstateLat(Double.parseDouble(singleLat));
 		realEstate.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.VERIFIED));

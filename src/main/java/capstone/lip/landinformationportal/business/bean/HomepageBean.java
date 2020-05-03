@@ -164,6 +164,7 @@ public class HomepageBean implements Serializable {
 
         } else {
             listRealEstate = new ArrayList<>();
+            PrimeFaces.current().executeScript("drawListMarker([])");
 //			PrimeFaces.current().executeScript("displayReoList(false)");
         }
     }

@@ -274,7 +274,7 @@ public class RealEstateService implements IRealEstateService {
             Page<RealEstate> tempPage = realEstateRepository.findAll(Specification.where(Specification.where(spec1).or(spec2)).and(spec3), page);
             List<RealEstate> listTemp = tempPage.stream().map(x -> x).collect(Collectors.toList());
             if(listTemp.isEmpty() || listTemp == null){
-               throw new Exception();
+               throw new Exception("list data is empty");
             }
             else 
                 return tempPage;

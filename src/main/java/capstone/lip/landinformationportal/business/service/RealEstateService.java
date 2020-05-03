@@ -396,7 +396,13 @@ public class RealEstateService implements IRealEstateService {
 //            if (listAdjacentSegment != null) {
 //                realEstateAdjacentSegmentService.delete(listAdjacentSegment);
 //            }
-            houseService.delete(realEstate.getListHouse());
+            if(realEstate.getListHouse() != null && !realEstate.getListHouse().isEmpty()){
+                houseService.delete(realEstate.getListHouse());
+            }
+            
+            if(realEstate.getLand() != null){
+                landService.delete(realEstate.getLand());
+            }
             landService.delete(realEstate.getLand());
             realEstateAdjacentSegmentService.delete(realEstate.getListRealEstateAdjacentSegment());
 

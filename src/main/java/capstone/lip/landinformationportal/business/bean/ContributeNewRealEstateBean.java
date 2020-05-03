@@ -209,6 +209,9 @@ public class ContributeNewRealEstateBean implements Serializable {
         // save to Table REAS
 
         if (typeRealEstate.equals(RealEstateTypeConstant.LANDTYPE)) {
+            if(newLandMoney == null || newLandMoney.toString().trim().equals("")){
+                newLandMoney = BigDecimal.ZERO;
+            }
             Land newLand = new Land();
             newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
             if (newUploadRealEstate != null && newLandName.isEmpty() && listLandFeatureValue.isEmpty() && newLandMoney.compareTo(BigDecimal.ZERO) == 0) {
@@ -220,6 +223,9 @@ public class ContributeNewRealEstateBean implements Serializable {
             }
 
         } else if (typeRealEstate.equals(RealEstateTypeConstant.HOUSETYPE)) {
+            if(newHouseMoney == null || newHouseMoney.toString().trim().equals("")){
+                newHouseMoney = BigDecimal.ZERO;
+            }
             House newHouse = new House();
             newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
             if (newUploadRealEstate != null && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO) == 0) {
@@ -230,6 +236,12 @@ public class ContributeNewRealEstateBean implements Serializable {
                 variableSuccess = true;
             }
         } else if (typeRealEstate.equals(RealEstateTypeConstant.LANDHOUSETYPE)) {
+            if(newLandMoney == null || newLandMoney.toString().trim().equals("")){
+                newLandMoney = BigDecimal.ZERO;
+            }
+            if(newHouseMoney == null || newHouseMoney.toString().trim().equals("")){
+                newHouseMoney = BigDecimal.ZERO;
+            }
             Land newLand = new Land();
             newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
             listLandDetail = validateLandDetailInfor(newLand, listLandFeatureValue);

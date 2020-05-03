@@ -104,7 +104,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
 
     @Autowired
     private IHousesFeatureService housesFeatureService;
-    
+
     @Autowired
     private IRealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
 
@@ -171,69 +171,95 @@ public class UpdateContributeRealEstateBean implements Serializable {
         listLandsFeature = landFeatureService.findAll();
         listHousesFeature = housesFeatureService.findAll();
         realEstateClicked = realEstateService.findById(realEstateId);
-        currentLand = realEstateService.getLand(realEstateId);
-        currentListHouse = realEstateService.getListHouse(realEstateId);
-        tempHouse = currentListHouse.get(0);
 
-        lngSingleCoordinate = realEstateClicked.getRealEstateLng().toString();
-        latSingleCoordinate = realEstateClicked.getRealEstateLat().toString();
+        User checkUser = realEstateClicked.getUser();
 
-        realEstateStatus = realEstateClicked.getRealEstateStatus();
-        realEstateLink = realEstateClicked.getRealEstateLink();
-        realEstateSource = realEstateClicked.getRealEstateSource();
-
-        realEstateName = realEstateClicked.getRealEstateName();
-        realEstatePrice = realEstateClicked.getRealEstatePrice();
-        realEstateAddress = realEstateClicked.getRealEstateAddress();
-        newLandName = currentLand.getLandName();
-        newLandMoney = currentLand.getLandPrice();
-        List<LandsDetail> landsDetailContribute = currentLand.getListLandsDetail();
-        for (int i = 0; i < landsDetailContribute.size(); i++) {
-            listLandFeatureValue.add(new LandFeatureValue(landsDetailContribute.get(i).getLandsFeature(), landsDetailContribute.get(i).getValue()));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = "";
+        if (auth != null) {
+            username = (String) auth.getPrincipal();
         }
 
-        newHouseName = currentListHouse.get(0).getHouseName();
-        newHouseMoney = currentListHouse.get(0).getHousePrice();
-        List<HousesDetail> housesDetailContribute = currentListHouse.get(0).getListHousesDetail();
-        for (int i = 0; i < housesDetailContribute.size(); i++) {
-            listHouseFeatureValue.add(new HouseFeatureValue(housesDetailContribute.get(i).getHousesFeature(), housesDetailContribute.get(i).getValue()));
-        }
+        User tempUser = userService.findByUsername(username);
 
-        realEstateStatus = "0";   // Set tạm
-
-        segmentStreetIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getSegmentId().toString();
-        districtIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getDistrictId().toString();
-        streetIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getStreet().getStreetId().toString();
-        provinceIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getProvince().getProvinceId().toString();
-
-        for (Province province : listProvince) {
-            if (province.getProvinceId().toString().equals(provinceIdSelected)) {
-                listDistrict = province.getListDistrict();
+        if (checkUser.getUserId() != tempUser.getUserId()) {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            try {
+                ec.redirect(ec.getRequestContextPath() + "homepage.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }
-        for (District district : listDistrict) {
-            if (district.getDistrictId().toString().equals(districtIdSelected)) {
-                listSegmentOfStreet = district.getListSegmentOfStreet();
+        } else {
+            currentLand = realEstateService.getLand(realEstateId);
+            currentListHouse = realEstateService.getListHouse(realEstateId);
+            tempHouse = currentListHouse.get(0);
+
+            lngSingleCoordinate = realEstateClicked.getRealEstateLng().toString();
+            latSingleCoordinate = realEstateClicked.getRealEstateLat().toString();
+
+            realEstateStatus = realEstateClicked.getRealEstateStatus();
+            realEstateLink = realEstateClicked.getRealEstateLink();
+            realEstateSource = realEstateClicked.getRealEstateSource();
+
+            realEstateName = realEstateClicked.getRealEstateName();
+            realEstatePrice = realEstateClicked.getRealEstatePrice();
+            realEstateAddress = realEstateClicked.getRealEstateAddress();
+
+            if (currentLand != null) {
+                newLandName = currentLand.getLandName();
+                newLandMoney = currentLand.getLandPrice();
+                List<LandsDetail> landsDetailContribute = currentLand.getListLandsDetail();
+                for (int i = 0; i < landsDetailContribute.size(); i++) {
+                    listLandFeatureValue.add(new LandFeatureValue(landsDetailContribute.get(i).getLandsFeature(), landsDetailContribute.get(i).getValue()));
+                }
             }
+
+            if (currentListHouse != null && !currentListHouse.isEmpty()) {
+                newHouseName = currentListHouse.get(0).getHouseName();
+                newHouseMoney = currentListHouse.get(0).getHousePrice();
+                List<HousesDetail> housesDetailContribute = currentListHouse.get(0).getListHousesDetail();
+                for (int i = 0; i < housesDetailContribute.size(); i++) {
+                    listHouseFeatureValue.add(new HouseFeatureValue(housesDetailContribute.get(i).getHousesFeature(), housesDetailContribute.get(i).getValue()));
+                }
+            }
+
+            realEstateStatus = "0";   // Set tạm
+
+            segmentStreetIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getSegmentId().toString();
+            districtIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getDistrictId().toString();
+            streetIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getStreet().getStreetId().toString();
+            provinceIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getProvince().getProvinceId().toString();
+
+            for (Province province : listProvince) {
+                if (province.getProvinceId().toString().equals(provinceIdSelected)) {
+                    listDistrict = province.getListDistrict();
+                }
+            }
+            for (District district : listDistrict) {
+                if (district.getDistrictId().toString().equals(districtIdSelected)) {
+                    listSegmentOfStreet = district.getListSegmentOfStreet();
+                }
+            }
+
+            listStreet = listSegmentOfStreet.stream().map(x -> x.getStreet()).distinct().collect(Collectors.toList());
+            typeRealEstate = "Đất và Nhà";
+            landsFeatureDataRangeClicked = new ArrayList<>();
+            housesFeatureDataRangeClicked = new ArrayList<>();
         }
 
-        listStreet = listSegmentOfStreet.stream().map(x -> x.getStreet()).distinct().collect(Collectors.toList());
-        typeRealEstate = "Đất và Nhà";
-        landsFeatureDataRangeClicked = new ArrayList<>();
-        housesFeatureDataRangeClicked = new ArrayList<>();
     }
 
     public void showModalMandatory() {
         PrimeFaces.current().executeScript("showModalMandatory()");
     }
-    
-    public void clearDataOld(long realEstateId){
+
+    public void clearDataOld(long realEstateId) {
         boolean clearData = realEstateService.delete(realEstateId);
     }
-    
+
     public void updateDataUploadToDB() {
         clearDataOld(realEstateClicked.getRealEstateId());             // clear data Old
-        
+
         nextLocatePoint();
         //save to DB RE
         showModalMandatory();
@@ -253,51 +279,33 @@ public class UpdateContributeRealEstateBean implements Serializable {
         RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
         // save to Table REAS
 
-        if (typeRealEstate.equals(RealEstateTypeConstant.LANDTYPE)) {
-            Land newLand = new Land();
-            newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
-            if (newUploadRealEstate != null && newLandName.isEmpty() && listLandFeatureValue.isEmpty() && newLandMoney.compareTo(BigDecimal.ZERO) == 0) {
-                PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
-                variableSuccess = false;
-            } else if (newUploadRealEstate != null && newLand != null) {
-                saveDataNewLandSigleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail);
-                variableSuccess = true;
-            }
+        if (newLandMoney == null || newLandMoney.toString().trim().equals("")) {
+            newLandMoney = BigDecimal.ZERO;
+        }
+        if (newHouseMoney == null || newHouseMoney.toString().trim().equals("")) {
+            newHouseMoney = BigDecimal.ZERO;
+        }
+        Land newLand = new Land();
+        newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
+        listLandDetail = validateLandDetailInfor(newLand, listLandFeatureValue);
 
-        } else if (typeRealEstate.equals(RealEstateTypeConstant.HOUSETYPE)) {
-            House newHouse = new House();
-            newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
-            if (newUploadRealEstate != null && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO) == 0) {
-                PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
-                variableSuccess = false;
-            } else if (newUploadRealEstate != null && newHouse != null) {
-                saveDataNewHouseSingleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newHouse, listHousesDetail);
-                variableSuccess = true;
-            }
-        } else if (typeRealEstate.equals(RealEstateTypeConstant.LANDHOUSETYPE)) {
-            Land newLand = new Land();
-            newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
-            listLandDetail = validateLandDetailInfor(newLand, listLandFeatureValue);
+        House newHouse = new House();
+        newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
+        listHousesDetail = validateHouseDetailInfor(newHouse, listHouseFeatureValue);
 
-            House newHouse = new House();
-            newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
-            listHousesDetail = validateHouseDetailInfor(newHouse, listHouseFeatureValue);
-
-            if (newUploadRealEstate != null && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO) == 0
-                    && newLandName.isEmpty() && listLandFeatureValue.isEmpty() && newLandMoney.compareTo(BigDecimal.ZERO) == 0) {
-                PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
-                variableSuccess = false;
-            } else if (newUploadRealEstate == null || !checkFillTextHouse() || !checkFillTextLand()) {
-                PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
-                variableSuccess = false;
-            } else if (newUploadRealEstate.getRealEstatePrice().compareTo(newHouseMoney.add(newLandMoney)) == -1) {
-                PrimeFaces.current().executeScript("showLogPrice()");
-                variableSuccess = false;
-            } else {
-
-                saveDataNewLandHouseTotalToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail, newHouse, listHousesDetail);
-                variableSuccess = true;
-            }
+        if (newUploadRealEstate != null && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO) == 0
+                && newLandName.isEmpty() && listLandFeatureValue.isEmpty() && newLandMoney.compareTo(BigDecimal.ZERO) == 0) {
+            PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
+            variableSuccess = false;
+        } else if (newUploadRealEstate == null || !checkFillTextHouse() || !checkFillTextLand()) {
+            PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
+            variableSuccess = false;
+        } else if (newUploadRealEstate.getRealEstatePrice().compareTo(newHouseMoney.add(newLandMoney)) == -1) {
+            PrimeFaces.current().executeScript("showLogPrice()");
+            variableSuccess = false;
+        } else {
+            saveDataNewLandHouseTotalToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail, newHouse, listHousesDetail);
+            variableSuccess = true;
         }
 
         if (variableSuccess == true) {
@@ -310,7 +318,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
         }
 
     }
-    
+
     public boolean checkFillTextLand() {
         if (!newLandName.isEmpty() || newLandMoney.compareTo(BigDecimal.ZERO) == 1 || !newLandFeatureValue.isEmpty()) {
             return true;
@@ -326,8 +334,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
             return false;
         }
     }
-    
-    
+
     public void saveDataNewLandSigleToDB(RealEstate newUploadRealEstate, RealEstateAdjacentSegment newRealEstateAdjacentSegment, Land newLand, List<LandsDetail> listLandDetail) {
         newUploadRealEstate = realEstateService.save(newUploadRealEstate);
         RealEstateAdjacentSegmentId realEstateAdjacentSegmentId = new RealEstateAdjacentSegmentId(Long.parseLong(segmentStreetIdSelected), newUploadRealEstate.getRealEstateId());
@@ -586,21 +593,22 @@ public class UpdateContributeRealEstateBean implements Serializable {
 //                // this case will show for user to warning about empty address of Combobox 
 //        }
     }
-public void onChangeLandUnit() {
+
+    public void onChangeLandUnit() {
         for (int i = 0; i < listLandsFeature.size(); i++) {
             if (listLandsFeature.get(i).getLandsFeatureID().toString().equals(landFeatureIdSelected)) {
                 landUnit = listLandsFeature.get(i).getLandsFeatureUnit();
-                
+
             }
         }
         if (landUnit == null) {
             landUnit = RealEstateTypeConstant.UNIT;
         }
         List<String> dataRangeLand = getHintLandDataRange();
-        if(dataRangeLand != null && !dataRangeLand.isEmpty()){
+        if (dataRangeLand != null && !dataRangeLand.isEmpty()) {
             PrimeFaces.current().executeScript("loadLandDataRange('" + dataRangeLand + "')");
         }
-        
+
         PrimeFaces.current().executeScript("loadLandUnit('" + landUnit + "')");
 
     }
@@ -615,7 +623,7 @@ public void onChangeLandUnit() {
             houseUnit = RealEstateTypeConstant.UNIT;
         }
         List<String> dataRangeHouse = getHintHouseDataRange();
-        if(dataRangeHouse != null && !dataRangeHouse.isEmpty()){
+        if (dataRangeHouse != null && !dataRangeHouse.isEmpty()) {
             PrimeFaces.current().executeScript("loadHouseDataRange('" + dataRangeHouse + "')");
         }
         PrimeFaces.current().executeScript("loadHouseUnit('" + houseUnit + "')");
@@ -637,13 +645,13 @@ public void onChangeLandUnit() {
                     }
                     landsFeatureDataRangeClicked = test.getLandsFeatureDataRange();
                     landFeatureDataType = test.getLandsFeatureDataType();
-                    if(landFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newLandFeatureValue)){
+                    if (landFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newLandFeatureValue)) {
                         PrimeFaces.current().executeScript("dataType()");
                     } else if (landsFeatureDataRangeClicked.isEmpty()) {
                         listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
-                    } else if(newLandFeatureValue == null || newLandFeatureValue.isEmpty()){
+                    } else if (newLandFeatureValue == null || newLandFeatureValue.isEmpty()) {
                         PrimeFaces.current().executeScript("emptyDataAdd()");
-                    }else {
+                    } else {
                         if (checkDataRange(landsFeatureDataRangeClicked, newLandFeatureValue)) {
                             listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
                         } else {
@@ -688,13 +696,13 @@ public void onChangeLandUnit() {
                     }
                     housesFeatureDataRangeClicked = test.getHousesFeatureDataRange();
                     houseFeatureDataType = test.getHousesFeatureDataType();
-                    if(houseFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newHouseFeatureValue)){
+                    if (houseFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newHouseFeatureValue)) {
                         PrimeFaces.current().executeScript("dataType()");
                     } else if (housesFeatureDataRangeClicked.isEmpty()) {
                         listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));
-                    } else if(newHouseFeatureValue == null || newHouseFeatureValue.isEmpty()){
+                    } else if (newHouseFeatureValue == null || newHouseFeatureValue.isEmpty()) {
                         PrimeFaces.current().executeScript("emptyDataAdd()");
-                    }else {
+                    } else {
                         if (checkDataRange(housesFeatureDataRangeClicked, newHouseFeatureValue)) {
                             // check data range ok ko ? 
                             listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));
@@ -710,52 +718,48 @@ public void onChangeLandUnit() {
         }
 
     }
-    
-    public List<String> getHintLandDataRange(){
+
+    public List<String> getHintLandDataRange() {
         for (int i = 0; i < listLandsFeature.size(); i++) {
 
-                if (landFeatureIdSelected.equals(listLandsFeature.get(i).getLandsFeatureID().toString())) {
-                    // xử lý data range ở đây
-                    List<LandsFeature> temp = landFeatureService.findAll();
-                    LandsFeature test = new LandsFeature();
-                    for (int j = 0; j < temp.size(); j++) {
-                        if (temp.get(j).getLandsFeatureID().toString().equals(landFeatureIdSelected)) {
-                            test = temp.get(j);
-                            break;
-                        }
+            if (landFeatureIdSelected.equals(listLandsFeature.get(i).getLandsFeatureID().toString())) {
+                // xử lý data range ở đây
+                List<LandsFeature> temp = landFeatureService.findAll();
+                LandsFeature test = new LandsFeature();
+                for (int j = 0; j < temp.size(); j++) {
+                    if (temp.get(j).getLandsFeatureID().toString().equals(landFeatureIdSelected)) {
+                        test = temp.get(j);
+                        break;
                     }
-                    landsFeatureDataRangeClicked = test.getLandsFeatureDataRange();
-                    break;
                 }
+                landsFeatureDataRangeClicked = test.getLandsFeatureDataRange();
+                break;
             }
-            return landsFeatureDataRangeClicked;
-        
-        
-        
-    }
-    
-    public List<String> getHintHouseDataRange(){
-            for (int i = 0; i < listHousesFeature.size(); i++) {
+        }
+        return landsFeatureDataRangeClicked;
 
-                if (houseFeatureIdSelected.equals(listHousesFeature.get(i).getHousesFeatureID().toString())) {
-                    // xử lý data range ở đây
-                    List<HousesFeature> temp = housesFeatureService.findAll();
-                    HousesFeature test = new HousesFeature();
-                    for (int j = 0; j < temp.size(); j++) {
-                        if (temp.get(j).getHousesFeatureID().toString().equals(houseFeatureIdSelected)) {
-                            test = temp.get(j);
-                            break;
-                        }
-                    }
-                    housesFeatureDataRangeClicked = test.getHousesFeatureDataRange();
-                    break;
-                }
-            }
-            return housesFeatureDataRangeClicked;
-        
     }
-    
-    
+
+    public List<String> getHintHouseDataRange() {
+        for (int i = 0; i < listHousesFeature.size(); i++) {
+
+            if (houseFeatureIdSelected.equals(listHousesFeature.get(i).getHousesFeatureID().toString())) {
+                // xử lý data range ở đây
+                List<HousesFeature> temp = housesFeatureService.findAll();
+                HousesFeature test = new HousesFeature();
+                for (int j = 0; j < temp.size(); j++) {
+                    if (temp.get(j).getHousesFeatureID().toString().equals(houseFeatureIdSelected)) {
+                        test = temp.get(j);
+                        break;
+                    }
+                }
+                housesFeatureDataRangeClicked = test.getHousesFeatureDataRange();
+                break;
+            }
+        }
+        return housesFeatureDataRangeClicked;
+
+    }
 
     public boolean checkLandFeatureExisted(String landFeatureIdChecking, List<LandFeatureValue> listLandFeatureValue) {
         for (LandFeatureValue i : listLandFeatureValue) {
@@ -1412,8 +1416,5 @@ public void onChangeLandUnit() {
     public void setHouseFeatureDataType(String houseFeatureDataType) {
         this.houseFeatureDataType = houseFeatureDataType;
     }
-    
-    
 
-    
 }

@@ -263,6 +263,7 @@ and open the template in the editor.
                                             </h:commandButton>
                                         </div>
                                     </div>
+                                    <hr/>
                                 </c:forEach>
                             </h:form>
                         </h:panelGroup>
@@ -377,7 +378,7 @@ and open the template in the editor.
                                     </div>
                                     <div class="row">
                                         <div class="col-4 col-lg-4">Phạm vi dữ liệu VD: Đông|Tây|Nam|Bắc</div>
-                                        
+
                                         <div class="col-8 col-lg-8"><p:inputTextarea value="#{manageRealEstateFeatureBean.tempHousesFeatureDataRangeClicked}" rows="6" cols="33" /></div>
                                     </div>
                                 </div>
@@ -416,7 +417,8 @@ and open the template in the editor.
                         </div>
                     </div>
                 </div>
-                <h:outputScript name="manageRealEstateFeature.js" library="js"></h:outputScript>
+                
+                <h:outputScript name="managerealestatefeature.js" library="js"></h:outputScript>
             </ui:define>
         </ui:composition>
     </h:body>

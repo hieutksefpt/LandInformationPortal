@@ -16,32 +16,29 @@
                 <h:outputStylesheet name="viewrealestatedetail.css" library="css"></h:outputStylesheet>
                 <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
                 <h:outputStylesheet name="bootstrap.min.css" library="css" />
-                <div class="modal fade" id="confirmDeletePopup" tabindex="-1" role="dialog"
-                     aria-labelledby="confirmDeletePopup" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận xóa bất động sản</h5>
-                                <button type="button" class="close" data-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">Bạn có chắc chắn muốn xóa bất động sản này ?</div>
-                            <div class="modal-footer">
-                                <h:form>
-                                    <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Đóng</button>
-                                    <h:commandButton id="btn-ButtonDelete"
-                                                     styleClass="btn btn-primary btn-delete" 
-                                                     onclick="hideConfirmDeletePopup()" 
-                                                     value="Xóa"
-                                                     action="#{viewRealEstateDetailBean.deleteRealEstate()}">
-                                        <p:ajax process="@form"></p:ajax>
-                                    </h:commandButton>
-                                </h:form>
-                            </div>
+
+                <p:dialog header="Xóa bất động sản" widgetVar="dlgConfirmDelete" modal="true" resizable="false">
+                    <div class="row">
+                        <div class="col">
+                            <strong>
+                                <h:outputText value="Bạn có chắc chắn muốn xóa bất động sản không?">
+                                </h:outputText>
+                            </strong>	               			
                         </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col text-center">
+                            <h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
+                                <p:ajax listener="#{viewRealEstateDetailBean.deleteRealEstate()}"
+                                        oncomplete="PF('dlgConfirmDelete').hide()"></p:ajax>
+                            </h:commandButton>
+                        </div>
+                        <div class="col text-center">
+                            <h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgConfirmDelete').hide()">
+                            </h:commandButton>
+                        </div>
+                    </div>
+                </p:dialog>
 
                 <div class="container">
                     <div class="row">
@@ -86,17 +83,13 @@
                                     </div>
                                     <div class="col">
                                         <h:form rendered="#{viewRealEstateDetailBean.ownRealEstate}">
-
-
                                             <h:commandButton id="btn-ButtonDelete" 
                                                              type="button" 
                                                              class="btn-delete btn-in-detai-page" 
                                                              value="Xóa" 
-                                                             onclick="openConfirmDeletePopup()">
-                                                <f:ajax execute="@form" render="confirmDeletePopup" />
+                                                             onclick="checkclick('dlgConfirmDelete')">
                                             </h:commandButton>
                                             <h:commandButton id="btn-ButtonEdit" class="btn-edit btn-in-detai-page" value="Sửa" action="#{viewRealEstateDetailBean.goToDetails(viewRealEstateDetailBean.tempRealEstateId)}">
-                                                <p:ajax process="@form"></p:ajax>
                                             </h:commandButton>
                                         </h:form>
                                     </div>

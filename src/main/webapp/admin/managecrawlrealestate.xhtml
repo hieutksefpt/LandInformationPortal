@@ -22,15 +22,15 @@
                 <h:form onsubmit="return false;" prependId="false">
                     <p:growl id="msgs" showDetail="true" widgetVar="alert"/>
                     <div class="row form-group">
-                        <div class="col-4">
+                        <div class="col-6">
 
                             <div class="row">
-                                <div class="col-7 form-group">
+                                <div class="col-6 form-group">
                                     <h:inputText id="txtInput-time" title="#{manageCrawlRealEstateBean.timerCrawl} giờ" class="form-control" 
                                                  style="border: 1px solid;" a:placeholder="Thời gian crawl tự động (Giờ)" value="#{manageCrawlRealEstateBean.timerCrawl}"></h:inputText>
 
                                 </div>
-                                <div class="col-5">
+                                <div class="col-6">
                                     <h:commandButton id="btn-SetTime" value="Cài thời gian crawler" class="btn btn-block btn-info waves-effect">
                                         <p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.setTimerButtonClick()}"></p:ajax>
                                     </h:commandButton>
@@ -38,7 +38,7 @@
 
                             </div>
                         </div>
-                        <div class="col-4 text-center">
+                        <div class="col-3 text-center">
                             <h:commandButton id="btn-TurnOnCrawl" value="Bật crawler" class="btn btn-block btn-success waves-effect" rendered="#{not manageCrawlRealEstateBean.statusCrawlSchedule}">
                                 <p:ajax process="@form" update="@form" listener="#{manageCrawlRealEstateBean.turnOnCrawler()}"></p:ajax>
                             </h:commandButton>
@@ -52,7 +52,7 @@
 
                             <label id="lb-CrawlNow"></label>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <h:commandButton id="btn-CrawlNow" class="btn btn-block btn-primary waves-effect" value="Crawl ngay">
                                 <p:ajax process="@form" update="@form" oncomplete="renderMessageCrawlNow()" listener="#{manageCrawlRealEstateBean.crawlNow()}"></p:ajax>
                             </h:commandButton>

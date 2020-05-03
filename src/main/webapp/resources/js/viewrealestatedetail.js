@@ -23,3 +23,7 @@ function openConfirmDeletePopup() {
 function hideConfirmDeletePopup() {
     $('#confirmDeletePopup').modal('hide');
 }
+
+function checkclick(dlg) {
+    PF(dlg).show();
+}

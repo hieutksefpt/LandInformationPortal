@@ -55,6 +55,10 @@ function showAlertHousesFeatureName() {
     alert("Tên thuộc tính nhà không được để trống !");
 }
 
-function showAlertOnlyNumber(){
+function showAlertOnlyNumber() {
     alert("Khi chọn kiểu dữ liệu số bạn chỉ có thể nhập số !");
+}
+
+function checkclick(dlg) {
+    PF(dlg).show();
 }

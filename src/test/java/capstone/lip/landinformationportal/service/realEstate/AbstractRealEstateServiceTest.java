@@ -17,12 +17,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /**
  *
@@ -49,7 +43,7 @@ public abstract class AbstractRealEstateServiceTest extends CRUDTest {
     @Autowired
     protected RealEstateRepository repository;
 
-    protected RealEstate sampleRealEstate = new RealEstate()
+    public RealEstate sampleRealEstate = new RealEstate()
             .setRealEstateId(DEFAULT_ID)
             .setRealEstateName("SAMPLE REAL ESTATE")
             .setRealEstatePrice(DEFAULT_PRICE)

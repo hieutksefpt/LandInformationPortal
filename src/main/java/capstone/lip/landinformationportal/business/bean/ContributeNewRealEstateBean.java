@@ -221,7 +221,6 @@ public class ContributeNewRealEstateBean implements Serializable {
                 saveDataNewLandSigleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail);
                 variableSuccess = true;
             }
-
         } else if (typeRealEstate.equals(RealEstateTypeConstant.HOUSETYPE)) {
             if(newHouseMoney == null || newHouseMoney.toString().trim().equals("")){
                 newHouseMoney = BigDecimal.ZERO;

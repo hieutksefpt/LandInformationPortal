@@ -193,21 +193,21 @@ public class RealEstateServiceTest_18_19_20_21 extends AbstractRealEstateService
     /**
      * @Description: Existed real estate address
      * @Dependency: Non existed real estate source
-     * @Expected Result: Fail
+     * @Expected Result: Success
      */
     @Test
     public void FT_RES_19_05() {
         Pageable pageable = PageRequest.of(EXISTED_PAGE, PAGE_SIZE);
         Page result = instance.listFilterRealEstateByAddressAndSourceNot(EXISTED_ADDRESS, 
                 NON_EXISTED_SOURCE, pageable);
-        
-        testFail(result);
+
+        assertEquals(true, result != null);
     }
     
     /**
      * @Description: Existed real estate source
      * @Dependency: Non existed real estatet address
-     * @Expected Result: Fail
+     * @Expected Result: Success
      */
     @Test
     public void FT_RES_19_06() {
@@ -215,7 +215,7 @@ public class RealEstateServiceTest_18_19_20_21 extends AbstractRealEstateService
         Page result = instance.listFilterRealEstateByAddressAndSourceNot(NON_EXISTED_ADDRESS, 
                 EXISTED_SOURCE, pageable);
         
-        testFail(result);
+        assertEquals(true, result != null);
     }
     
     /**
@@ -243,7 +243,7 @@ public class RealEstateServiceTest_18_19_20_21 extends AbstractRealEstateService
         Page result = instance.listFilterRealEstateByAddressAndSourceNot(NON_EXISTED_ADDRESS, 
                 NON_EXISTED_SOURCE, pageable);
         
-        testFail(result);
+        assertEquals(true, result.getTotalPages() < OUT_RANGE_PAGE);
     }
     
     /**
@@ -269,7 +269,7 @@ public class RealEstateServiceTest_18_19_20_21 extends AbstractRealEstateService
         Pageable pageable = PageRequest.of(OUT_RANGE_PAGE, PAGE_SIZE);
         Page result = instance.findAllByAttribute(EMPTY_LIST_ATTRIBUTE, pageable);
         
-        testFail(result);
+        assertEquals(true, result.getTotalPages() < OUT_RANGE_PAGE);
     }
     
     /**
@@ -313,14 +313,14 @@ public class RealEstateServiceTest_18_19_20_21 extends AbstractRealEstateService
     /**
      * @Description: Not existed attributes
      * @Dependency: Valid range
-     * @Expected Result: Success
+     * @Expected Result: Fail
      */
     @Test
     public void FT_RES_20_06() {
         Pageable pageable = PageRequest.of(EXISTED_PAGE, PAGE_SIZE);
         Page result = instance.findAllByAttribute(getNotExistedListAttribute(), pageable);
         
-        assertEquals(true, result != null);
+        testFail(result);
     }
     
     /**
@@ -356,6 +356,6 @@ public class RealEstateServiceTest_18_19_20_21 extends AbstractRealEstateService
     public void FT_RES_21_03() {
         long result = instance.countByAttribute(getNotExistedListAttribute());
         
-        assertEquals(true, result != -1);
+        assertEquals(true, result == -1);
     }
 }

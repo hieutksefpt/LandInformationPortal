@@ -247,6 +247,6 @@ public class ProvinceServiceTest_3_4 extends AbstractProvinceServiceTest {
     public void FT_PS_4_05() {
         Province result = instance.findById(EXISTED_ID);
         
-        Assert.assertEquals(repository.findById(EXISTED_ID), result);
+        Assert.assertEquals(repository.findById(EXISTED_ID).get(), result);
     }
 }

@@ -306,6 +306,6 @@ public class SegmentServiceTest_2_3_4 extends AbstractSegmentServiceTest {
     public void FT_SgS_4_05() {
         SegmentOfStreet result = instance.findById(EXISTED_ID);
         
-        Assert.assertEquals(repository.findById(EXISTED_ID), result);
+        Assert.assertEquals(repository.findById(EXISTED_ID).get(), result);
     }
 }

@@ -306,6 +306,6 @@ public class DistrictServiceTest_2_3_4 extends AbstractDistrictServiceTest {
     public void FT_DS_4_05() {
         District result = instance.findById(EXISTED_ID);
         
-        Assert.assertEquals(repository.findById(EXISTED_ID), result);
+        Assert.assertEquals(repository.findById(EXISTED_ID).get(), result);
     }
 }

@@ -266,61 +266,71 @@ public class CrawledNewsService implements ICrawledNewsService {
 		}
 	}
 
-    @Override
-    public Page<CrawledNews> findAllByAttribute(Map<String, Object> listAttribute, Pageable page) {
-        try {
-            List<CrawledNewsSpecifications> listSpec = new ArrayList();
-            if (listAttribute != null) {
-                for (Map.Entry meta : listAttribute.entrySet()) {
-                    String key = (String) meta.getKey();
-                    String value = (String) meta.getValue();
-                    if (key.equals("crawledNewsStatus")) {
-                        listSpec.add(new CrawledNewsSpecifications(new SearchCriteria(key, ":=", value)));
-                    } 
-                }
-            }
-            if (!listSpec.isEmpty()) {
-                return crawledNewsRepository.findAll(createSpecification(listSpec), page);
-            }
-            return crawledNewsRepository.findAll(page);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+	@Override
+	public Page<CrawledNews> findAllByAttribute(Map<String, Object> listAttribute, Pageable page) {
+		try {
+			if (listAttribute == null) {
+				throw new Exception();
+			}
+			List<CrawledNewsSpecifications> listSpec = new ArrayList();
+			if (listAttribute != null) {
+				for (Map.Entry meta : listAttribute.entrySet()) {
+					String key = (String) meta.getKey();
+					String value = (String) meta.getValue();
+					if (key.equals("crawledNewsStatus")) {
+						listSpec.add(new CrawledNewsSpecifications(new SearchCriteria(key, ":=", value)));
+					}
+				}
+			}
+			if (!listSpec.isEmpty()) {
+				Page<CrawledNews> temp = crawledNewsRepository.findAll(createSpecification(listSpec), page);
+				if (temp == null) {
+					throw new Exception();
+				}
+				return temp;
+			}
+			return crawledNewsRepository.findAll(page);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
-    @Override
-    public long countByAttribute(Map<String, Object> listAttribute) {
-        try {
-            List<CrawledNewsSpecifications> listSpec = new ArrayList();
-            if (listAttribute != null) {
-                for (Map.Entry meta : listAttribute.entrySet()) {
-                    String key = (String) meta.getKey();
-                    String value = (String) meta.getValue();
-                    if (key.equals("crawledNewsStatus")) {
-                        listSpec.add(new CrawledNewsSpecifications(new SearchCriteria(key, ":=", value)));
-                    } 
-                }
-            }
-            if (!listSpec.isEmpty()) {
-                return crawledNewsRepository.count(createSpecification(listSpec));
-            }
-            return crawledNewsRepository.count();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return -1;
-        }
-    }
-    
-    private Specification<CrawledNews> createSpecification(List<CrawledNewsSpecifications> listSpec) {
-        if (listSpec == null) {
-            return null;
-        }
-        Specification<CrawledNews> spec = Specification.where(listSpec.get(0));
-        for (int i = 1; i < listSpec.size(); i++) {
-            spec = spec.and(listSpec.get(i));
-        }
-        return spec;
-    }
+	@Override
+	public long countByAttribute(Map<String, Object> listAttribute) {
+		try {
+			if (listAttribute == null) {
+				throw new Exception();
+			}
+			List<CrawledNewsSpecifications> listSpec = new ArrayList();
+			if (listAttribute != null) {
+				for (Map.Entry meta : listAttribute.entrySet()) {
+					String key = (String) meta.getKey();
+					String value = (String) meta.getValue();
+					if (key.equals("crawledNewsStatus")) {
+						listSpec.add(new CrawledNewsSpecifications(new SearchCriteria(key, ":=", value)));
+					}
+				}
+			}
+			if (!listSpec.isEmpty()) {
+				return crawledNewsRepository.count(createSpecification(listSpec));
+			}
+			return crawledNewsRepository.count();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	private Specification<CrawledNews> createSpecification(List<CrawledNewsSpecifications> listSpec) {
+		if (listSpec == null) {
+			return null;
+		}
+		Specification<CrawledNews> spec = Specification.where(listSpec.get(0));
+		for (int i = 1; i < listSpec.size(); i++) {
+			spec = spec.and(listSpec.get(i));
+		}
+		return spec;
+	}
 
 }

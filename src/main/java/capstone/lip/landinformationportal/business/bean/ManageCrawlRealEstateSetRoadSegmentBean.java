@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.gson.Gson;
 
+import capstone.lip.landinformationportal.business.service.Interface.IPredictPriceService;
 import capstone.lip.landinformationportal.business.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateAdjacentSegmentService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateService;
@@ -60,6 +61,9 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 	
 	@Autowired
 	private IRealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
+	
+	@Autowired
+	private IPredictPriceService predictService;
 
 	public void showPopup(Long realEstateId) {
 		realEstate = realEstateService.findById(realEstateId);
@@ -182,7 +186,9 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 		realEstate.setRealEstateLng(Double.parseDouble(singleLng));
 		realEstate.setRealEstateLat(Double.parseDouble(singleLat));
 		realEstate.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.VERIFIED));
-		realEstateService.save(realEstate);
+		
+		realEstate = realEstateService.save(realEstate);
+		predictService.addDataToModel(realEstate);	
 		setMessage(FacesMessage.SEVERITY_INFO, "Chỉnh sửa thành công");
 		PrimeFaces.current().executeScript("PF('alert').renderMessage({\"summary\":\"Thành công\",\"detail\":\"Chỉnh sửa thành công\",\"severity\":\"info\"})");
 		showPopup = false;

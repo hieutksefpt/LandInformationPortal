@@ -23,7 +23,9 @@ import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.DateAxis;
 import org.primefaces.model.chart.LineChartModel;
+import org.primefaces.model.chart.LineChartSeries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -220,37 +222,44 @@ public class HomepageBean implements Serializable {
 
 		List<GroupByDateMaxMin> listStat = realEstateService.listGroupByDateAndValue(address);
 		lineChartModel = createChart(listStat);
-		lineChartModel.setLegendPosition("e");
+		lineChartModel.setLegendPosition("ne");
 		lineChartModel.setTitle("Biểu đồ giá");
 		lineChartModel.setAnimate(true);
-		lineChartModel.getAxes().put(AxisType.X, new CategoryAxis("Ngày"));
+//		lineChartModel.getAxes().put(AxisType.X, new CategoryAxis("Ngày"));
     }
 
     private LineChartModel createChart(List<GroupByDateMaxMin> listStat) {
         LineChartModel model = new LineChartModel();
-        ChartSeries max = new ChartSeries();
+        LineChartSeries max = new LineChartSeries();
         max.setLabel("Cao nhất");
-        ChartSeries min = new ChartSeries();
+        LineChartSeries min = new LineChartSeries();
         min.setLabel("Thấp nhất");
-        ChartSeries avg = new ChartSeries();
+        LineChartSeries avg = new LineChartSeries();
         avg.setLabel("Trung bình");
         for (GroupByDateMaxMin element : listStat) {
             Timestamp key = element.getDateCreated();
             MaxMinAvg value = element.getMaxMinAvg();
             Date date = new Date(key.getTime());
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             String dateString = format.format(date);
             max.set(dateString, value.getMax().divideToIntegralValue(new BigDecimal(1000000)));
             min.set(dateString, value.getMin().divideToIntegralValue(new BigDecimal(1000000)));
             avg.set(dateString, value.getAvg().divideToIntegralValue(new BigDecimal(1000000)));
         }
 
+    	model.setZoom(true);
         model.addSeries(max);
         model.addSeries(min);
         model.addSeries(avg);
 
         Axis yaxis = model.getAxis(AxisType.Y);
         yaxis.setMin(0);
+        
+        DateAxis xaxis = new DateAxis("Ngày");
+        xaxis.setTickAngle(-55);
+        xaxis.setTickFormat("%d - %m");
+        model.getAxes().put(AxisType.X, xaxis);
+        
         return model;
     }
 

@@ -39,6 +39,7 @@ public class LazyCrawledRealEstate extends LazyDataModel<RealEstate> implements 
         Page<RealEstate> list
                 = realEstateService.findByRealEstateStatus(String.valueOf(StatusRealEstateConstant.CONFUSED),
                         PageRequest.of(first / pageSize, pageSize, sort));
+        if (list == null) return null;
         List<RealEstate> list1 = list.stream().map(x -> x).collect(Collectors.toList());
         return list1;
     }

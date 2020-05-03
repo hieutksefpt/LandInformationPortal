@@ -10,6 +10,8 @@ import capstone.lip.landinformationportal.common.dto.MaxMinAvg;
 import capstone.lip.landinformationportal.common.entity.RealEstate;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -43,6 +45,8 @@ public interface RealEstateRepository extends JpaRepository<RealEstate, Long>, J
 	long countByRealEstateAddress(String address);
 	
 	Page<RealEstate> findByRealEstateSource(String source, Pageable page);
+	
+	Optional<RealEstate> findByRealEstateSource(String source);
 	
 	Page<RealEstate> findByRealEstateSourceNot(String source, Pageable page);
 	

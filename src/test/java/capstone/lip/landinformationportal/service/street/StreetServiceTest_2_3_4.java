@@ -307,6 +307,6 @@ public class StreetServiceTest_2_3_4 extends AbstractStreetServiceTest {
     public void FT_StS_4_05() {
         Street result = instance.findById(EXISTED_ID);
         
-        Assert.assertEquals(repository.findById(EXISTED_ID), result);
+        Assert.assertEquals(repository.findById(EXISTED_ID).get(), result);
     }
 }

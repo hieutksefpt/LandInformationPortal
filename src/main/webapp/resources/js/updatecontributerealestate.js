@@ -123,72 +123,6 @@ function removeMarker(){
 }
 
 
-let countRow = 0;
-function addDataToNewRow(marker) {
-    $('#lng-' + (countRow - 1)).val(marker.getPosition().lng());
-    $('#lat-' + (countRow - 1)).val(marker.getPosition().lat());
-    $('#form\\:txtInput_multipleCoordinate').val(JSON.stringify(
-            selectedMarkers.map(x => {
-                let obj = {};
-                obj.latitude = x.getPosition().lat();
-                obj.longitude = x.getPosition().lng();
-                return obj
-            })
-            ));
-}
-function addNewRowCoordinate() {
-    var newRow = $("<tr>");
-    var cols = "";
-    cols += '<td class="td-lng"><input type="text" name="longitude" id="lng-' + countRow + '" class="form-control longitude-multi""/></td>';
-    cols += '<td class="td-lat"><input type="text" name="latitude"  id="lat-' + countRow + '" class="form-control latitude-multi"/></td>';
-    countRow++;
-    cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger " onclick="deleteRowFeature(this)" value="X"></td>';
-    newRow.append(cols);
-    saveRow.push(newRow);
-    $("#table-coordinate").append(newRow);
-}
-function renderTable() {
-    saveRow.forEach(x => {
-        $("#table-coordinate").append(x);
-    });
-}
-
-function deleteRowFeature(element) {
-    console.log($(element).closest("tr"));
-    $(element).closest("tr").remove();
-}
-function deleteRow(element) {
-    console.log($(element).closest("tr"));
-    $(element).closest("tr").remove();
-    let lng = $($(element).parent().parent().children()[0]).children().val()
-    let lat = $($(element).parent().parent().children()[1]).children().val()
-    saveRow = saveRow.filter(x => {
-        return ($($($($(x).children())[0].children)[0]).val() != lng && $($($($(x).children())[1].children)[0]).val() != lat);
-    });
-    selectedMarkers = selectedMarkers.filter(x => {
-        if (x.getPosition().lat() == lat && x.getPosition().lng() == lng) {
-            x.setMap(null);
-        }
-        return x.getPosition().lat() != lat && x.getPosition().lng() != lng
-    });
-    $('#form\\:txtInput_multipleCoordinate').val(JSON.stringify(
-            selectedMarkers.map(x => {
-                let obj = {};
-                obj.lat = x.getPosition().lat();
-                obj.lng = x.getPosition().lng();
-                return obj
-            }))
-            );
-
-
-
-    countRow--;
-}
-$("#table-coordinate").on("click", ".ibtnDel", function (event) {
-    $(this).closest("tr").remove();
-    countRow--;
-});
-
 function updateDeleteOld() {
     let selectedType = $("#form\\:cbb-IpgType option:selected").val();
     if (selectedType == "4") {
@@ -209,9 +143,27 @@ function clearOldMarkers() {
     }
     selectedMarkers = [];
 }
+let countRow = 0;
 
-function drawPath() {
-    let fromJson = JSON.parse($('#form\\:txtInput_multipleCoordinate').val());
+function renderTable() {
+    saveRow.forEach(x => {
+        $("#table-coordinate").append(x);
+    });
+}
+
+function deleteRowFeature(element) {
+    console.log($(element).closest("tr"));
+    $(element).closest("tr").remove();
+}
+$("#table-coordinate").on("click", ".ibtnDel", function (event) {
+    $(this).closest("tr").remove();
+    countRow--;
+});
+
+
+
+function drawPath(jsonText) {
+    let fromJson = JSON.parse(jsonText);
     let line = fromJson.map(x => {
         let o = {};
         o.lat = x.latitude;
@@ -229,9 +181,9 @@ function drawPath() {
     path.push(element);
 }
 
-function focusMap(latitude, longitude) {
+function focusMap(latitude, longitude, zoom) {
     map.setCenter(new google.maps.LatLng(latitude, longitude));
-    map.setZoom(15);
+    map.setZoom(zoom);
 }
 function changeInfo(name, longitude, latitude) {
     $('#form\\:txtinput-Name').val(name);
@@ -252,8 +204,76 @@ function clearAllInput() {
 }
 
 
+
+
+// đoạn này bắt đầu test MultiForm
+function validateMap() {
+
+    tempCheck = $('#msform\\:checkLocation').val();
+
+    if (tempCheck === "OK") {
+        if (animating)
+            return false;
+        animating = true;
+        next_button = $('.next')[0];
+        current_fs = $(next_button).parent();
+        next_fs = $(next_button).parent().next();
+
+        //activate next step on progressbar using the index of next_fs
+        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+        //show the next fieldset
+        next_fs.show();
+        //hide the current fieldset with style
+        current_fs.animate({opacity: 0}, {
+            step: function (now, mx) {
+                //as the opacity of current_fs reduces to 0 - stored in "now"
+                //1. scale current_fs down to 80%
+                scale = 1 - (1 - now) * 0.2;
+                //2. bring next_fs from the right(50%)
+                left = (now * 50) + "%";
+                //3. increase opacity of next_fs to 1 as it moves in
+                opacity = 1 - now;
+                current_fs.css({
+                    'transform': 'scale(' + scale + ')'
+                });
+                next_fs.css({'left': left, 'opacity': opacity});
+            },
+            duration: 800,
+            complete: function () {
+                current_fs.hide();
+                animating = false;
+            },
+            //this comes from the custom easing plugin
+            easing: 'easeInOutBack'
+        });
+    } else if (tempCheck === "Marker") {
+        alert("Vui lòng thả điểm để định vị bất động sản trên bản đồ");
+    } else if (tempCheck === "TP") {
+        alert("Vui lòng cung cấp địa chỉ Tỉnh/Thành phố của bất động sản");
+    } else if (tempCheck === "QH") {
+        alert("Vui lòng cung cấp địa chỉ Quận/Huyện của bất động sản");
+    } else if (tempCheck === "DP") {
+        alert("Vui lòng cung cấp địa chỉ đường phố của bất động sản");
+    } else if (tempCheck === "DD") {
+        alert("Vui lòng cung cấp địa chỉ đoạn đường của bất động sản");
+    }
+}
+
+function emptyDataAdd() {
+    alert("Vui lòng nhập giá trị thuộc tính");
+}
+
 function loadLandUnit(landUnit) {
     document.getElementById("landUnit").textContent =  landUnit ;
+}
+
+function loadLandDataRange(dataRange) {
+    document.getElementById("landDataRange").textContent =  "Ví dụ: " + dataRange ;
+}
+
+function loadHouseDataRange(dataRange) {
+    document.getElementById("houseDataRange").textContent =  "Ví dụ: " + dataRange ;
 }
 
 function loadHouseUnit(houseUnit) {
@@ -269,15 +289,11 @@ function houseFeatureExisted() {
 }
 
 function showLogDataRange (){
-    alert("Vui lòng điền giá trị thuộc tính phù hợp theo mẫu");
+    alert("Vui lòng nhập giá trị thuộc tính phù hợp theo mẫu");
 }
 
-function loadLandDataRange(dataRange) {
-    document.getElementById("landDataRange").textContent =  "Ví dụ: " + dataRange ;
-}
-
-function loadHouseDataRange(dataRange) {
-    document.getElementById("houseDataRange").textContent =  "Ví dụ: " + dataRange ;
+function dataType (){
+    alert("Vui lòng nhập đúng định dạng dữ liệu");
 }
 
 function showModalMandatory() {
@@ -335,44 +351,6 @@ function showLogPrice(){
 
 
 
-// đoạn này bắt đầu test MultiForm
-$(".next").click(function () {
-    if (animating)
-        return false;
-    animating = true;
-
-    current_fs = $(this).parent();
-    next_fs = $(this).parent().next();
-
-    //activate next step on progressbar using the index of next_fs
-    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-    //show the next fieldset
-    next_fs.show();
-    //hide the current fieldset with style
-    current_fs.animate({opacity: 0}, {
-        step: function (now, mx) {
-            //as the opacity of current_fs reduces to 0 - stored in "now"
-            //1. scale current_fs down to 80%
-            scale = 1 - (1 - now) * 0.2;
-            //2. bring next_fs from the right(50%)
-            left = (now * 50) + "%";
-            //3. increase opacity of next_fs to 1 as it moves in
-            opacity = 1 - now;
-            current_fs.css({
-                'transform': 'scale(' + scale + ')'
-            });
-            next_fs.css({'left': left, 'opacity': opacity});
-        },
-        duration: 800,
-        complete: function () {
-            current_fs.hide();
-            animating = false;
-        },
-        //this comes from the custom easing plugin
-        easing: 'easeInOutBack'
-    });
-});
 
 $(".previous").click(function () {
     if (animating)
@@ -412,5 +390,8 @@ $(".previous").click(function () {
 
 $(".submit").click(function () {
     return false;
-})
+}
+)
+
+
 

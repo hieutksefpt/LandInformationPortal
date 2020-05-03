@@ -39,6 +39,7 @@ import capstone.lip.landinformationportal.common.entity.compositekey.RealEstateA
 
 import capstone.lip.landinformationportal.common.constant.RealEstateTypeConstant;
 import capstone.lip.landinformationportal.business.validation.RealEstateValidation;
+import capstone.lip.landinformationportal.common.constant.StatusRealEstateConstant;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.Serializable;
@@ -67,13 +68,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @ViewScoped
 public class UpdateContributeRealEstateBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    private RealEstate realEstateClicked;
-    private String jsonCoordinate;
-    private Land currentLand;
-    private List<String> landsFeatureDataRangeClicked;
-    private List<String> housesFeatureDataRangeClicked;
-    private List<House> currentListHouse;
+   
 
     @Autowired
     private IRealEstateService realEstateService;
@@ -108,6 +103,13 @@ public class UpdateContributeRealEstateBean implements Serializable {
     @Autowired
     private IRealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
 
+     private static final long serialVersionUID = 1L;
+    private RealEstate realEstateClicked;
+    private String jsonCoordinate;
+    private Land currentLand;
+    private List<String> landsFeatureDataRangeClicked;
+    private List<String> housesFeatureDataRangeClicked;
+    private List<House> currentListHouse;
     private List<Province> listProvince;
     private List<District> listDistrict;
     private List<SegmentOfStreet> listSegmentOfStreet;
@@ -122,7 +124,6 @@ public class UpdateContributeRealEstateBean implements Serializable {
     private String lngSingleCoordinate;
     private String latSingleCoordinate;
     private List<Coordinate> listCoordinate;
-    private String jsonMultipleCoordinate;
 
     private String landFeatureIdSelected = "";
     private String houseFeatureIdSelected = "";
@@ -150,18 +151,27 @@ public class UpdateContributeRealEstateBean implements Serializable {
     private BigDecimal realEstatePrice;
     private String realEstateStatus;
     private String realEstateLink;
-    private String realEstateSource;
+    private String realEstateType;
     //submit data
     private BigDecimal realEstatePriceSubmit;
     private String realEstateNameSubmit;
     private String newLandName;
     private String newHouseName;
+    private String checkLocationLocate;
+    private String typeRealEstate;
+    
+    private String landFeatureDataType;
+    private String houseFeatureDataType;
+    
+    
+    private String jsonMultipleCoordinate;
+
+
+    private String realEstateSource;
+    //submit data
 
     private long tempRealEstateId;
     private House tempHouse;
-    private String typeRealEstate;
-    private String landFeatureDataType;
-    private String houseFeatureDataType;
 
     @PostConstruct
     public void init() {
@@ -182,7 +192,14 @@ public class UpdateContributeRealEstateBean implements Serializable {
 
         User tempUser = userService.findByUsername(username);
 
-        if (checkUser.getUserId() != tempUser.getUserId()) {
+        if (!realEstateClicked.getRealEstateSource().equals(StatusRealEstateConstant.CONTRIBUTOR)) {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            try {
+                ec.redirect(ec.getRequestContextPath() + "homepage.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (checkUser.getUserId() != tempUser.getUserId()) {
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
             try {
                 ec.redirect(ec.getRequestContextPath() + "homepage.xhtml");
@@ -191,10 +208,15 @@ public class UpdateContributeRealEstateBean implements Serializable {
             }
         } else {
             currentLand = realEstateService.getLand(realEstateId);
+
             currentListHouse = realEstateService.getListHouse(realEstateId);
-            
-            
-            tempHouse = currentListHouse.get(0);
+            if (currentLand == null) {
+                typeRealEstate = RealEstateTypeConstant.HOUSETYPE;
+            } else if (currentListHouse == null || currentListHouse.isEmpty()) {
+                typeRealEstate = RealEstateTypeConstant.LANDTYPE;
+            } else {
+                typeRealEstate = RealEstateTypeConstant.LANDHOUSETYPE;
+            }
 
             lngSingleCoordinate = realEstateClicked.getRealEstateLng().toString();
             latSingleCoordinate = realEstateClicked.getRealEstateLat().toString();
@@ -225,7 +247,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
                 }
             }
 
-            realEstateStatus = "0";   // Set tạm
+            realEstateStatus = String.valueOf(StatusRealEstateConstant.NOT_VERIFIED);
 
             segmentStreetIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getSegmentId().toString();
             districtIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getDistrictId().toString();
@@ -244,7 +266,6 @@ public class UpdateContributeRealEstateBean implements Serializable {
             }
 
             listStreet = listSegmentOfStreet.stream().map(x -> x.getStreet()).distinct().collect(Collectors.toList());
-            typeRealEstate = "Đất và Nhà";
             landsFeatureDataRangeClicked = new ArrayList<>();
             housesFeatureDataRangeClicked = new ArrayList<>();
         }
@@ -260,8 +281,9 @@ public class UpdateContributeRealEstateBean implements Serializable {
     }
 
     public void updateDataUploadToDB() {
-        clearDataOld(realEstateClicked.getRealEstateId());             // clear data Old
-
+        try{
+            clearDataOld(realEstateClicked.getRealEstateId());             // clear data Old
+        
         nextLocatePoint();
         //save to DB RE
         showModalMandatory();
@@ -281,33 +303,62 @@ public class UpdateContributeRealEstateBean implements Serializable {
         RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
         // save to Table REAS
 
-        if (newLandMoney == null || newLandMoney.toString().trim().equals("")) {
-            newLandMoney = BigDecimal.ZERO;
-        }
-        if (newHouseMoney == null || newHouseMoney.toString().trim().equals("")) {
-            newHouseMoney = BigDecimal.ZERO;
-        }
-        Land newLand = new Land();
-        newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
-        listLandDetail = validateLandDetailInfor(newLand, listLandFeatureValue);
+        if (typeRealEstate.equals(RealEstateTypeConstant.LANDTYPE)) {
+            if(newLandMoney == null || newLandMoney.toString().trim().equals("")){
+                newLandMoney = BigDecimal.ZERO;
+            }
+            Land newLand = new Land();
+            newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
+            if (newUploadRealEstate != null && newLandName.isEmpty() && listLandFeatureValue.isEmpty() && newLandMoney.compareTo(BigDecimal.ZERO) == 0) {
+                PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
+                variableSuccess = false;
+            } else if (newUploadRealEstate != null && newLand != null) {
+                saveDataNewLandSigleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail);
+                variableSuccess = true;
+            }
+        } else if (typeRealEstate.equals(RealEstateTypeConstant.HOUSETYPE)) {
+            if(newHouseMoney == null || newHouseMoney.toString().trim().equals("")){
+                newHouseMoney = BigDecimal.ZERO;
+            }
+            House newHouse = new House();
+            newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
+            if (newUploadRealEstate != null && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO) == 0) {
+                PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
+                variableSuccess = false;
+            } else if (newUploadRealEstate != null && newHouse != null) {
+                saveDataNewHouseSingleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newHouse, listHousesDetail);
+                variableSuccess = true;
+            }
+        } else if (typeRealEstate.equals(RealEstateTypeConstant.LANDHOUSETYPE)) {
+            if(newLandMoney == null || newLandMoney.toString().trim().equals("")){
+                newLandMoney = BigDecimal.ZERO;
+            }
+            if(newHouseMoney == null || newHouseMoney.toString().trim().equals("")){
+                newHouseMoney = BigDecimal.ZERO;
+            }
+            Land newLand = new Land();
+            newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
+            listLandDetail = validateLandDetailInfor(newLand, listLandFeatureValue);
 
-        House newHouse = new House();
-        newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
-        listHousesDetail = validateHouseDetailInfor(newHouse, listHouseFeatureValue);
+            House newHouse = new House();
+            newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
+            listHousesDetail = validateHouseDetailInfor(newHouse, listHouseFeatureValue);
 
-        if (newUploadRealEstate != null && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO) == 0
-                && newLandName.isEmpty() && listLandFeatureValue.isEmpty() && newLandMoney.compareTo(BigDecimal.ZERO) == 0) {
-            PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
-            variableSuccess = false;
-        } else if (newUploadRealEstate == null || !checkFillTextHouse() || !checkFillTextLand()) {
-            PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
-            variableSuccess = false;
-        } else if (newUploadRealEstate.getRealEstatePrice().compareTo(newHouseMoney.add(newLandMoney)) == -1) {
-            PrimeFaces.current().executeScript("showLogPrice()");
-            variableSuccess = false;
-        } else {
-            saveDataNewLandHouseTotalToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail, newHouse, listHousesDetail);
-            variableSuccess = true;
+            if (newUploadRealEstate != null && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO) == 0
+                    && newLandName.isEmpty() && listLandFeatureValue.isEmpty() && newLandMoney.compareTo(BigDecimal.ZERO) == 0) {
+                PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
+                variableSuccess = false;
+            } else if (newUploadRealEstate == null || !checkFillTextHouse() || !checkFillTextLand()) {
+                PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
+                variableSuccess = false;
+            } else if (newUploadRealEstate.getRealEstatePrice().compareTo(newHouseMoney.add(newLandMoney)) == -1) {
+                PrimeFaces.current().executeScript("showLogPrice()");
+                variableSuccess = false;
+            } else {
+
+                saveDataNewLandHouseTotalToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail, newHouse, listHousesDetail);
+                variableSuccess = true;
+            }
         }
 
         if (variableSuccess == true) {
@@ -316,8 +367,19 @@ public class UpdateContributeRealEstateBean implements Serializable {
                 ec.redirect(ec.getRequestContextPath() + "/user/listownrealestate.xhtml");
             } catch (IOException e) {
                 e.printStackTrace();
+                
             }
         }
+        }catch(Exception e){
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            try {
+                ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml");
+            } catch (IOException n) {
+                n.printStackTrace();
+                
+            }
+        }
+        
 
     }
 
@@ -521,25 +583,29 @@ public class UpdateContributeRealEstateBean implements Serializable {
 
     // function call when Ajax listener (textbox Price change value)
     public void calculateRealEstateValue() {
-        // when new House Price not null but Total Null (Null is different Zero)
-        if (realEstatePrice.equals(BigDecimal.ZERO) && !newHouseMoney.equals(BigDecimal.ZERO) && !newLandMoney.equals(BigDecimal.ZERO)) {
-            realEstatePrice = newHouseMoney.add(newLandMoney);
-        } // when new Land Price not null but Total Null (Null is different Zero)
-        else if (realEstatePrice.equals(BigDecimal.ZERO) && !newHouseMoney.equals(BigDecimal.ZERO) && newLandMoney.equals(BigDecimal.ZERO)) {
-            realEstatePrice = newHouseMoney.add(BigDecimal.ZERO);
-        } // when new House & Land Price not null but Total Null (Null is different Zero)
-        else if (realEstatePrice.equals(BigDecimal.ZERO) && newHouseMoney.equals(BigDecimal.ZERO) && !newLandMoney.equals(BigDecimal.ZERO)) {
-            realEstatePrice = newLandMoney.add(BigDecimal.ZERO);
-        }
-        //khi mà cả 3 trường đều có giá trị 
         try {
-            if (realEstatePrice.equals(newHouseMoney.add(newLandMoney)) || realEstatePrice.compareTo(newHouseMoney.add(newLandMoney)) > 0) {
-                //nothing 
-            } else {
+            // when new House Price not null but Total Null (Null is different Zero)
+            if (realEstatePrice.equals(BigDecimal.ZERO) && !newHouseMoney.equals(BigDecimal.ZERO) && !newLandMoney.equals(BigDecimal.ZERO)) {
                 realEstatePrice = newHouseMoney.add(newLandMoney);
+            } // when new Land Price not null but Total Null (Null is different Zero)
+            else if (realEstatePrice.equals(BigDecimal.ZERO) && !newHouseMoney.equals(BigDecimal.ZERO) && newLandMoney.equals(BigDecimal.ZERO)) {
+                realEstatePrice = newHouseMoney.add(BigDecimal.ZERO);
+            } // when new House & Land Price not null but Total Null (Null is different Zero)
+            else if (realEstatePrice.equals(BigDecimal.ZERO) && newHouseMoney.equals(BigDecimal.ZERO) && !newLandMoney.equals(BigDecimal.ZERO)) {
+                realEstatePrice = newLandMoney.add(BigDecimal.ZERO);
+            }
+            //khi mà cả 3 trường đều có giá trị 
+            try {
+                if (realEstatePrice.equals(newHouseMoney.add(newLandMoney)) || realEstatePrice.compareTo(newHouseMoney.add(newLandMoney)) > 0) {
+                    //nothing 
+                } else {
+                    realEstatePrice = newHouseMoney.add(newLandMoney);
+                }
+            } catch (Exception e) {
+                // Math Exception BigDecimal
             }
         } catch (Exception e) {
-            // Math Exception BigDecimal
+            // typing number to get Null Pointer Exception
         }
 
     }
@@ -582,35 +648,62 @@ public class UpdateContributeRealEstateBean implements Serializable {
                 segmentStreetAddress = listSegmentOfStreet.get(i).getSegmentName();
             }
         }
-        realEstateAddress = streetAddress + ", " + districtAddress + ", " + provinceAddress; // Address of Real Estate show just only Street.
+        realEstateAddress = segmentStreetAddress + ", " + streetAddress + ", " + districtAddress + ", " + provinceAddress; // Address of Real Estate show just only Street.
         try {
             realEstateLng = Double.parseDouble(lngSingleCoordinate);
             realEstateLat = Double.parseDouble(latSingleCoordinate);
         } catch (Exception e) {
 
         }
-//        if(provinceAddress.equals("") || districtAddress.equals("") 
-//                || streetAddress.equals("") || segmentStreetAddress.equals("") 
-//                || realEstateLng.equals("") || realEstateLat.equals("")){
-//                // this case will show for user to warning about empty address of Combobox 
-//        }
+    }
+
+    public void locateSuccess() {
+        nextLocatePoint();
+        if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("OK") && latSingleCoordinate != null && lngSingleCoordinate != null && !latSingleCoordinate.isEmpty() && !lngSingleCoordinate.isEmpty()) {
+            checkLocationLocate = "OK";
+        } else if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("OK") && ((latSingleCoordinate == null && lngSingleCoordinate == null) || (latSingleCoordinate.isEmpty() && lngSingleCoordinate.isEmpty()))) {
+            checkLocationLocate = "Marker";
+        } else if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("TP")) {
+            checkLocationLocate = "TP";
+        } else if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("QH")) {
+            checkLocationLocate = "QH";
+        } else if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("DP")) {
+            checkLocationLocate = "DP";
+        } else if (checkLocation(provinceIdSelected, districtIdSelected, streetIdSelected, segmentStreetIdSelected).equals("DD")) {
+            checkLocationLocate = "DD";
+        }
+        PrimeFaces.current().executeScript("validateMap()");
+    }
+
+    private String checkLocation(String provinceIdSelected, String districtIdSelected, String streetIdSelected, String segmentStreetIdSelected) {
+        if (provinceIdSelected.equals("")) {
+            return "TP";
+        } else if (districtIdSelected.equals("")) {
+            return "QH";
+        } else if (streetIdSelected.equals("")) {
+            return "DP";
+        } else if (segmentStreetIdSelected.equals("")) {
+            return "DD";
+        } else {
+            return "OK";
+        }
     }
 
     public void onChangeLandUnit() {
         for (int i = 0; i < listLandsFeature.size(); i++) {
             if (listLandsFeature.get(i).getLandsFeatureID().toString().equals(landFeatureIdSelected)) {
                 landUnit = listLandsFeature.get(i).getLandsFeatureUnit();
-
+                
             }
         }
         if (landUnit == null) {
             landUnit = RealEstateTypeConstant.UNIT;
         }
         List<String> dataRangeLand = getHintLandDataRange();
-        if (dataRangeLand != null && !dataRangeLand.isEmpty()) {
+        if(dataRangeLand != null && !dataRangeLand.isEmpty()){
             PrimeFaces.current().executeScript("loadLandDataRange('" + dataRangeLand + "')");
         }
-
+        
         PrimeFaces.current().executeScript("loadLandUnit('" + landUnit + "')");
 
     }
@@ -625,7 +718,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
             houseUnit = RealEstateTypeConstant.UNIT;
         }
         List<String> dataRangeHouse = getHintHouseDataRange();
-        if (dataRangeHouse != null && !dataRangeHouse.isEmpty()) {
+        if(dataRangeHouse != null && !dataRangeHouse.isEmpty()){
             PrimeFaces.current().executeScript("loadHouseDataRange('" + dataRangeHouse + "')");
         }
         PrimeFaces.current().executeScript("loadHouseUnit('" + houseUnit + "')");
@@ -645,15 +738,16 @@ public class UpdateContributeRealEstateBean implements Serializable {
                             break;
                         }
                     }
+                    
                     landsFeatureDataRangeClicked = test.getLandsFeatureDataRange();
                     landFeatureDataType = test.getLandsFeatureDataType();
-                    if (landFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newLandFeatureValue)) {
+                    if(landFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newLandFeatureValue)){
                         PrimeFaces.current().executeScript("dataType()");
                     } else if (landsFeatureDataRangeClicked.isEmpty()) {
                         listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
-                    } else if (newLandFeatureValue == null || newLandFeatureValue.isEmpty()) {
+                    } else if(newLandFeatureValue == null || newLandFeatureValue.isEmpty()){
                         PrimeFaces.current().executeScript("emptyDataAdd()");
-                    } else {
+                    }else {
                         if (checkDataRange(landsFeatureDataRangeClicked, newLandFeatureValue)) {
                             listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
                         } else {
@@ -698,13 +792,13 @@ public class UpdateContributeRealEstateBean implements Serializable {
                     }
                     housesFeatureDataRangeClicked = test.getHousesFeatureDataRange();
                     houseFeatureDataType = test.getHousesFeatureDataType();
-                    if (houseFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newHouseFeatureValue)) {
+                    if(houseFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newHouseFeatureValue)){
                         PrimeFaces.current().executeScript("dataType()");
                     } else if (housesFeatureDataRangeClicked.isEmpty()) {
                         listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));
-                    } else if (newHouseFeatureValue == null || newHouseFeatureValue.isEmpty()) {
+                    } else if(newHouseFeatureValue == null || newHouseFeatureValue.isEmpty()){
                         PrimeFaces.current().executeScript("emptyDataAdd()");
-                    } else {
+                    }else {
                         if (checkDataRange(housesFeatureDataRangeClicked, newHouseFeatureValue)) {
                             // check data range ok ko ? 
                             listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));
@@ -720,49 +814,51 @@ public class UpdateContributeRealEstateBean implements Serializable {
         }
 
     }
-
-    public List<String> getHintLandDataRange() {
+    
+    public List<String> getHintLandDataRange(){
         for (int i = 0; i < listLandsFeature.size(); i++) {
 
-            if (landFeatureIdSelected.equals(listLandsFeature.get(i).getLandsFeatureID().toString())) {
-                // xử lý data range ở đây
-                List<LandsFeature> temp = landFeatureService.findAll();
-                LandsFeature test = new LandsFeature();
-                for (int j = 0; j < temp.size(); j++) {
-                    if (temp.get(j).getLandsFeatureID().toString().equals(landFeatureIdSelected)) {
-                        test = temp.get(j);
-                        break;
+                if (landFeatureIdSelected.equals(listLandsFeature.get(i).getLandsFeatureID().toString())) {
+                    // xử lý data range ở đây
+                    List<LandsFeature> temp = landFeatureService.findAll();
+                    LandsFeature test = new LandsFeature();
+                    for (int j = 0; j < temp.size(); j++) {
+                        if (temp.get(j).getLandsFeatureID().toString().equals(landFeatureIdSelected)) {
+                            test = temp.get(j);
+                            break;
+                        }
                     }
+                    landsFeatureDataRangeClicked = test.getLandsFeatureDataRange();
+                    break;
                 }
-                landsFeatureDataRangeClicked = test.getLandsFeatureDataRange();
-                break;
             }
-        }
-        return landsFeatureDataRangeClicked;
-
+            return landsFeatureDataRangeClicked;
+        
+        
+        
     }
+    
+    public List<String> getHintHouseDataRange(){
+            for (int i = 0; i < listHousesFeature.size(); i++) {
 
-    public List<String> getHintHouseDataRange() {
-        for (int i = 0; i < listHousesFeature.size(); i++) {
-
-            if (houseFeatureIdSelected.equals(listHousesFeature.get(i).getHousesFeatureID().toString())) {
-                // xử lý data range ở đây
-                List<HousesFeature> temp = housesFeatureService.findAll();
-                HousesFeature test = new HousesFeature();
-                for (int j = 0; j < temp.size(); j++) {
-                    if (temp.get(j).getHousesFeatureID().toString().equals(houseFeatureIdSelected)) {
-                        test = temp.get(j);
-                        break;
+                if (houseFeatureIdSelected.equals(listHousesFeature.get(i).getHousesFeatureID().toString())) {
+                    // xử lý data range ở đây
+                    List<HousesFeature> temp = housesFeatureService.findAll();
+                    HousesFeature test = new HousesFeature();
+                    for (int j = 0; j < temp.size(); j++) {
+                        if (temp.get(j).getHousesFeatureID().toString().equals(houseFeatureIdSelected)) {
+                            test = temp.get(j);
+                            break;
+                        }
                     }
+                    housesFeatureDataRangeClicked = test.getHousesFeatureDataRange();
+                    break;
                 }
-                housesFeatureDataRangeClicked = test.getHousesFeatureDataRange();
-                break;
             }
-        }
-        return housesFeatureDataRangeClicked;
-
+            return housesFeatureDataRangeClicked;
+        
     }
-
+    
     public boolean checkLandFeatureExisted(String landFeatureIdChecking, List<LandFeatureValue> listLandFeatureValue) {
         for (LandFeatureValue i : listLandFeatureValue) {
             if (landFeatureIdChecking.equals(i.getLandFeature().getLandsFeatureID().toString())) {
@@ -794,13 +890,13 @@ public class UpdateContributeRealEstateBean implements Serializable {
             streetIdSelected = "";
             segmentStreetIdSelected = "";
             nameInput = selectedProvince.getProvinceName();
-            latSingleCoordinate = selectedProvince.getProvinceLat().toString();
-            lngSingleCoordinate = selectedProvince.getProvinceLng().toString();
 
-            PrimeFaces.current().executeScript("focusMap(" + selectedProvince.getProvinceLat() + ", " + selectedProvince.getProvinceLng() + ");");
+            PrimeFaces.current().executeScript("focusMap(" + selectedProvince.getProvinceLat() + ", " + selectedProvince.getProvinceLng() + ", 15);");
         } else {
             listDistrict = new ArrayList<>();
             listStreet = new ArrayList<>();
+            lngSingleCoordinate = "";
+            latSingleCoordinate = "";
         }
 
     }
@@ -813,7 +909,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
             segmentStreetIdSelected = "";
 
             selectedDistrict = listDistrict.stream().filter(x -> x.getDistrictId().equals(Long.parseLong(districtIdSelected))).collect(Collectors.toList()).get(0);
-            PrimeFaces.current().executeScript("focusMap(" + selectedDistrict.getDistrictLat() + ", " + selectedDistrict.getDistrictLng() + ");");
+            PrimeFaces.current().executeScript("focusMap(" + selectedDistrict.getDistrictLat() + ", " + selectedDistrict.getDistrictLng() + ", 17);");
             PrimeFaces.current().executeScript("changeInfo(\"" + selectedDistrict.getDistrictName() + "\", " + selectedDistrict.getDistrictLng() + ", "
                     + selectedDistrict.getDistrictLat() + ")");
             listSegmentOfStreet = selectedDistrict.getListSegmentOfStreet();
@@ -823,6 +919,8 @@ public class UpdateContributeRealEstateBean implements Serializable {
         } else {
             listStreet = new ArrayList<>();
             listSegmentOfStreet = new ArrayList<>();
+            lngSingleCoordinate = "";
+            latSingleCoordinate = "";
         }
     }
     Street selectedStreet;
@@ -833,23 +931,26 @@ public class UpdateContributeRealEstateBean implements Serializable {
             segmentStreetIdSelected = "";
 
             selectedStreet = listStreet.stream().filter(x -> x.getStreetId().equals((Long.parseLong(streetIdSelected)))).collect(Collectors.toList()).get(0);
-            PrimeFaces.current().executeScript("focusMap(" + selectedStreet.getStreetLat() + ", " + selectedStreet.getStreetLng() + ");");
+            PrimeFaces.current().executeScript("focusMap(" + selectedStreet.getStreetLat() + ", " + selectedStreet.getStreetLng() + ", 19);");
             PrimeFaces.current().executeScript("changeInfo(\"" + selectedStreet.getStreetName() + "\", " + selectedStreet.getStreetLat() + ", "
                     + selectedStreet.getStreetLng() + ")");
 
             listSegmentOfStreet = selectedStreet.getListSegmentOfStreet();
         } else {
             listSegmentOfStreet = new ArrayList<>();
+            lngSingleCoordinate = "";
+            latSingleCoordinate = "";
         }
 
     }
     SegmentOfStreet segmentOfStreet;
 
     public void segmentStreetChange() {
-        if (provinceIdSelected != null && !provinceIdSelected.equals("")) {
+        if (segmentStreetIdSelected != null && !segmentStreetIdSelected.equals("")) {
             processType = "4";
             segmentOfStreet = listSegmentOfStreet.stream().filter(x -> x.getSegmentId().equals(Long.parseLong(segmentStreetIdSelected))).collect(Collectors.toList()).get(0);
-            PrimeFaces.current().executeScript("focusMap(" + segmentOfStreet.getSegmentLat() + ", " + segmentOfStreet.getSegmentLng() + ");");
+            PrimeFaces.current().executeScript("clearDataMap()");
+            PrimeFaces.current().executeScript("focusMap(" + segmentOfStreet.getSegmentLat() + ", " + segmentOfStreet.getSegmentLng() + ", 19);");
             PrimeFaces.current().executeScript("changeInfo(\"" + segmentOfStreet.getSegmentName() + "\", " + segmentOfStreet.getSegmentLat() + ", "
                     + segmentOfStreet.getSegmentLng() + ")");
 
@@ -861,9 +962,15 @@ public class UpdateContributeRealEstateBean implements Serializable {
                         return coor;
                     }).collect(Collectors.toList());
             Gson gson = new Gson();
-            jsonMultipleCoordinate = gson.toJson(listCoordinate);
-        } else {
+            String jsonMultipleCoordinate = gson.toJson(listCoordinate);
 
+            PrimeFaces.current().executeScript("drawPath('" + jsonMultipleCoordinate + "')");
+
+        } else {
+            segmentStreetIdSelected = "";
+            segmentOfStreet = null;
+            lngSingleCoordinate = "";
+            latSingleCoordinate = "";
         }
     }
 
@@ -1419,4 +1526,13 @@ public class UpdateContributeRealEstateBean implements Serializable {
         this.houseFeatureDataType = houseFeatureDataType;
     }
 
+    public String getCheckLocationLocate() {
+        return checkLocationLocate;
+    }
+
+    public void setCheckLocationLocate(String checkLocationLocate) {
+        this.checkLocationLocate = checkLocationLocate;
+    }
+
+    
 }

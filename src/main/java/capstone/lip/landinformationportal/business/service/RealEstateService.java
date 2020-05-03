@@ -192,18 +192,18 @@ public class RealEstateService implements IRealEstateService {
     @Override
     public Page<RealEstate> listFilterRealEstateByAddress(String realEstateAddress, Pageable page) {
         try {
-            if(realEstateAddress.isEmpty() || realEstateAddress == null){
+            if (realEstateAddress.isEmpty() || realEstateAddress == null) {
                 throw new Exception("List data is empty");
             }
             RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
             RealEstateSpecifications spec2 = new RealEstateSpecifications(new SearchCriteria("realEstateAddress", ":", realEstateAddress));
             Page<RealEstate> tempPage = realEstateRepository.findAll(Specification.where(spec1).or(spec2), page);
             List<RealEstate> listTemp = tempPage.stream().map(x -> x).collect(Collectors.toList());
-            if(listTemp.isEmpty() || listTemp == null){
-               throw new Exception("List data is empty");
-            }
-            else 
+            if (listTemp.isEmpty() || listTemp == null) {
+                throw new Exception("List data is empty");
+            } else {
                 return tempPage;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -233,11 +233,11 @@ public class RealEstateService implements IRealEstateService {
         try {
             Page<RealEstate> tempPage = realEstateRepository.findAll(page);
             List<RealEstate> listTemp = tempPage.stream().map(x -> x).collect(Collectors.toList());
-            if(listTemp.isEmpty() || listTemp == null){
-               throw new Exception("List data is empty");
-            }
-            else 
+            if (listTemp.isEmpty() || listTemp == null) {
+                throw new Exception("List data is empty");
+            } else {
                 return tempPage;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -262,10 +262,10 @@ public class RealEstateService implements IRealEstateService {
     @Override
     public Page<RealEstate> listFilterRealEstateByAddressAndSource(String realEstateAddress, String realEstateSource, Pageable page) {
         try {
-            if(realEstateAddress.isEmpty() || realEstateAddress == null){
+            if (realEstateAddress.isEmpty() || realEstateAddress == null) {
                 throw new Exception();
             }
-            if(realEstateSource.isEmpty() || realEstateAddress == null){
+            if (realEstateSource.isEmpty() || realEstateAddress == null) {
                 throw new Exception();
             }
             RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
@@ -273,11 +273,11 @@ public class RealEstateService implements IRealEstateService {
             RealEstateSpecifications spec3 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", realEstateSource));
             Page<RealEstate> tempPage = realEstateRepository.findAll(Specification.where(Specification.where(spec1).or(spec2)).and(spec3), page);
             List<RealEstate> listTemp = tempPage.stream().map(x -> x).collect(Collectors.toList());
-            if(listTemp.isEmpty() || listTemp == null){
-               throw new Exception();
-            }
-            else 
+            if (listTemp.isEmpty() || listTemp == null) {
+                throw new Exception();
+            } else {
                 return tempPage;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -288,10 +288,10 @@ public class RealEstateService implements IRealEstateService {
     @Override
     public Page<RealEstate> listFilterRealEstateByAddressAndSourceNot(String realEstateAddress, String realEstateSource, Pageable page) {
         try {
-            if(realEstateAddress.isEmpty()){
+            if (realEstateAddress.isEmpty()) {
                 throw new Exception();
             }
-            if(realEstateSource.isEmpty()){
+            if (realEstateSource.isEmpty()) {
                 throw new Exception();
             }
             RealEstateSpecifications spec1 = new RealEstateSpecifications(new SearchCriteria("realEstateName", ":", realEstateAddress));
@@ -299,11 +299,11 @@ public class RealEstateService implements IRealEstateService {
             RealEstateSpecifications spec3 = new RealEstateSpecifications(new SearchCriteria("realEstateSource", "!=", realEstateSource));
             Page<RealEstate> tempPage = realEstateRepository.findAll(Specification.where(Specification.where(spec1).or(spec2)).and(spec3), page);
             List<RealEstate> listTemp = tempPage.stream().map(x -> x).collect(Collectors.toList());
-            if(listTemp.isEmpty() || listTemp == null){
-               throw new Exception();
-            }
-            else 
+            if (listTemp.isEmpty() || listTemp == null) {
+                throw new Exception();
+            } else {
                 return tempPage;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -331,10 +331,10 @@ public class RealEstateService implements IRealEstateService {
     @Override
     public MaxMinAvg listMaxMinAvg(String location) {
         try {
-            if(location.isEmpty() || location == null){
+            if (location.isEmpty() || location == null) {
                 throw new Exception();
             }
-            
+
             return realEstateRepository.getMaxMinAvg(location);
         } catch (Exception e) {
             e.printStackTrace();
@@ -396,13 +396,8 @@ public class RealEstateService implements IRealEstateService {
 //            if (listAdjacentSegment != null) {
 //                realEstateAdjacentSegmentService.delete(listAdjacentSegment);
 //            }
-            if(realEstate.getListHouse() != null && !realEstate.getListHouse().isEmpty()){
-                houseService.delete(realEstate.getListHouse());
-            }
-            
-            if(realEstate.getLand() != null){
-                landService.delete(realEstate.getLand());
-            }
+
+            houseService.delete(realEstate.getListHouse());
             landService.delete(realEstate.getLand());
             realEstateAdjacentSegmentService.delete(realEstate.getListRealEstateAdjacentSegment());
 
@@ -429,114 +424,116 @@ public class RealEstateService implements IRealEstateService {
         }
     }
 
-	@Override
-	public Page<RealEstate> findAllBySourceAndStatus(String source, String status, Pageable page) {
-		try {
-			List<RealEstateSpecifications> listSpec = new ArrayList();
-			if (source!= null) {
-				RealEstateSpecifications spec = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", source));
-				listSpec.add(spec);
-			}
-			if (status != null) {
-				RealEstateSpecifications spec = new RealEstateSpecifications(new SearchCriteria("realEstateStatus", ":=", status));
-				listSpec.add(spec);
-			}
+    @Override
+    public Page<RealEstate> findAllBySourceAndStatus(String source, String status, Pageable page) {
+        try {
+            List<RealEstateSpecifications> listSpec = new ArrayList();
+            if (source != null) {
+                RealEstateSpecifications spec = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", source));
+                listSpec.add(spec);
+            }
+            if (status != null) {
+                RealEstateSpecifications spec = new RealEstateSpecifications(new SearchCriteria("realEstateStatus", ":=", status));
+                listSpec.add(spec);
+            }
             if (listSpec.size() == 1) {
-            	return realEstateRepository.findAll(Specification.where(listSpec.get(0)), page);
+                return realEstateRepository.findAll(Specification.where(listSpec.get(0)), page);
             }
             if (listSpec.size() == 2) {
-            	return realEstateRepository.findAll(Specification.where(listSpec.get(0)).and(listSpec.get(1)), page); 
+                return realEstateRepository.findAll(Specification.where(listSpec.get(0)).and(listSpec.get(1)), page);
             }
-			return realEstateRepository.findAll(page);
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+            return realEstateRepository.findAll(page);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-	@Override
-	public long countBySourceAndStatus(String source, String status) {
-		try {
-			List<RealEstateSpecifications> listSpec = new ArrayList();
-			if (source!= null) {
-				RealEstateSpecifications spec = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", source));
-				listSpec.add(spec);
-			}
-			if (status != null) {
-				RealEstateSpecifications spec = new RealEstateSpecifications(new SearchCriteria("realEstateStatus", ":=", status));
-				listSpec.add(spec);
-			}
+    @Override
+    public long countBySourceAndStatus(String source, String status) {
+        try {
+            List<RealEstateSpecifications> listSpec = new ArrayList();
+            if (source != null) {
+                RealEstateSpecifications spec = new RealEstateSpecifications(new SearchCriteria("realEstateSource", ":=", source));
+                listSpec.add(spec);
+            }
+            if (status != null) {
+                RealEstateSpecifications spec = new RealEstateSpecifications(new SearchCriteria("realEstateStatus", ":=", status));
+                listSpec.add(spec);
+            }
             if (listSpec.size() == 1) {
-            	return realEstateRepository.count(Specification.where(listSpec.get(0)));
+                return realEstateRepository.count(Specification.where(listSpec.get(0)));
             }
             if (listSpec.size() == 2) {
-            	return realEstateRepository.count(Specification.where(listSpec.get(0)).and(listSpec.get(1))); 
+                return realEstateRepository.count(Specification.where(listSpec.get(0)).and(listSpec.get(1)));
             }
-			return realEstateRepository.count();
-		}catch(Exception e) {
-			e.printStackTrace();
-			return -1;
-		}
-	}
+            return realEstateRepository.count();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 
-	@Override
-	public Page<RealEstate> findAllByAttribute(Map<String, Object> listAttribute, Pageable page) {
-		try {
-			List<RealEstateSpecifications> listSpec = new ArrayList();
-			if (listAttribute != null) {
-				for (Map.Entry meta : listAttribute.entrySet()) {
-	    			String key = (String) meta.getKey();
-	    			String value = (String) meta.getValue();
-	    			if (key.equals("realEstateName")) {
-	    				listSpec.add(new RealEstateSpecifications(new SearchCriteria(key, ":", value)));
-	    			}else {
-	    				listSpec.add(new RealEstateSpecifications(new SearchCriteria(key, ":=", value)));
-	    			}
-	    			
-	    		}
-			}
-			if (!listSpec.isEmpty()) {
-				return realEstateRepository.findAll(createSpecification(listSpec), page);
-			}
-			return realEstateRepository.findAll(page);
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+    @Override
+    public Page<RealEstate> findAllByAttribute(Map<String, Object> listAttribute, Pageable page) {
+        try {
+            List<RealEstateSpecifications> listSpec = new ArrayList();
+            if (listAttribute != null) {
+                for (Map.Entry meta : listAttribute.entrySet()) {
+                    String key = (String) meta.getKey();
+                    String value = (String) meta.getValue();
+                    if (key.equals("realEstateName")) {
+                        listSpec.add(new RealEstateSpecifications(new SearchCriteria(key, ":", value)));
+                    } else {
+                        listSpec.add(new RealEstateSpecifications(new SearchCriteria(key, ":=", value)));
+                    }
 
-	@Override
-	public long countByAttribute(Map<String, Object> listAttribute) {
-		try {
-			List<RealEstateSpecifications> listSpec = new ArrayList();
-			if (listAttribute != null) {
-				for (Map.Entry meta : listAttribute.entrySet()) {
-	    			String key = (String) meta.getKey();
-	    			String value = (String) meta.getValue();
-	    			if (key.equals("realEstateName")) {
-	    				listSpec.add(new RealEstateSpecifications(new SearchCriteria(key, ":", value)));
-	    			}else {
-	    				listSpec.add(new RealEstateSpecifications(new SearchCriteria(key, ":=", value)));
-	    			}
-	    		}
-			}
-			if (!listSpec.isEmpty()) {
-				return realEstateRepository.count(createSpecification(listSpec));
-			}
-			return realEstateRepository.count();
-		}catch(Exception e) {
-			e.printStackTrace();
-			return -1;
-		}
-	}
+                }
+            }
+            if (!listSpec.isEmpty()) {
+                return realEstateRepository.findAll(createSpecification(listSpec), page);
+            }
+            return realEstateRepository.findAll(page);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-	private Specification<RealEstate> createSpecification(List<RealEstateSpecifications> listSpec) {
-		if (listSpec == null) return null;
-		Specification<RealEstate> spec = Specification.where(listSpec.get(0));
-		for (int i=1;i<listSpec.size();i++) {
-			spec = spec.and(listSpec.get(i));
-		}
-		return spec;
-	}
-	
+    @Override
+    public long countByAttribute(Map<String, Object> listAttribute) {
+        try {
+            List<RealEstateSpecifications> listSpec = new ArrayList();
+            if (listAttribute != null) {
+                for (Map.Entry meta : listAttribute.entrySet()) {
+                    String key = (String) meta.getKey();
+                    String value = (String) meta.getValue();
+                    if (key.equals("realEstateName")) {
+                        listSpec.add(new RealEstateSpecifications(new SearchCriteria(key, ":", value)));
+                    } else {
+                        listSpec.add(new RealEstateSpecifications(new SearchCriteria(key, ":=", value)));
+                    }
+                }
+            }
+            if (!listSpec.isEmpty()) {
+                return realEstateRepository.count(createSpecification(listSpec));
+            }
+            return realEstateRepository.count();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    private Specification<RealEstate> createSpecification(List<RealEstateSpecifications> listSpec) {
+        if (listSpec == null) {
+            return null;
+        }
+        Specification<RealEstate> spec = Specification.where(listSpec.get(0));
+        for (int i = 1; i < listSpec.size(); i++) {
+            spec = spec.and(listSpec.get(i));
+        }
+        return spec;
+    }
+
 }

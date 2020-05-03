@@ -19,39 +19,151 @@
                 <div id="loader" style="width:64px;height:64px;position:fixed;left:5px;bottom:5px;display:none;">
                     <i class="pi pi-spin pi-spinner ajax-loader"/>
                 </div>
+
                 <p:ajaxStatus onstart="$('#loader').show()" onsuccess="$('#loader').hide()" />
-                <h:form id="table-user" prependId="false">
+                <h:form id="table-user" prependId="false" onsubmit="return false;">
+                    <p:growl id="msgs" showDetail="true" widgetVar="alert"/>
+
+                    <p:dialog header="Vô hiệu hóa người dùng" widgetVar="dlgConfirmBanUser" modal="true" resizable="false">
+                        <div class="row">
+                            <div class="col">
+                                <strong>
+                                    <h:outputText value="Bạn có chắc chắn muốn vô hiệu hóa người dùng này không?">
+                                    </h:outputText>
+                                </strong>	               			
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
+                                    <p:ajax listener="#{listUserBean.banUser()}" update="table-user" process="@form"
+                                            oncomplete="PF('dlgConfirmBanUser').hide()"></p:ajax>
+                                </h:commandButton>
+                            </div>
+                            <div class="col text-center">
+                                <h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgConfirmBanUser').hide()">
+                                </h:commandButton>
+                            </div>
+                        </div>
+                    </p:dialog>
+                    <p:dialog header="Kích hoạt người dùng" widgetVar="dlgConfirmActiveUser" modal="true" resizable="false">
+                        <div class="row">
+                            <div class="col">
+                                <strong>
+                                    <h:outputText value="Bạn có chắc chắn muốn kích hoạt người dùng này không?">
+                                    </h:outputText>
+                                </strong>	               			
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
+                                    <p:ajax listener="#{listUserBean.unbanUser()}" update="table-user" process="@form"
+                                            oncomplete="PF('dlgConfirmActiveUser').hide()"></p:ajax>
+                                </h:commandButton>
+                            </div>
+                            <div class="col text-center">
+                                <h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgConfirmActiveUser').hide()">
+                                </h:commandButton>
+                            </div>
+                        </div>
+                    </p:dialog>
+                    <p:dialog header="Phân quyền người dùng" widgetVar="dlgConfirmChangeUserRoleAdmin" modal="true" resizable="false">
+                        <div class="row">
+                            <div class="col">
+                                <strong>
+                                    <h:outputText value="Bạn có chắc chắn muốn chuyển người dùng này thành ADMIN không?">
+                                    </h:outputText>
+                                </strong>	               			
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
+                                    <p:ajax listener="#{listUserBean.changeUserRoleAdmin()}" update="table-user" process="@form"
+                                            oncomplete="PF('dlgConfirmChangeUserRoleAdmin').hide()"></p:ajax>
+                                </h:commandButton>
+                            </div>
+                            <div class="col text-center">
+                                <h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgConfirmChangeUserRoleAdmin').hide()">
+                                </h:commandButton>
+                            </div>
+                        </div>
+                    </p:dialog>
+                    <p:dialog header="Phân quyền người dùng" widgetVar="dlgConfirmChangeUserRoleUser" modal="true" resizable="false">
+                        <div class="row">
+                            <div class="col">
+                                <strong>
+                                    <h:outputText value="Bạn có chắc chắn muốn chuyển người dùng này thành CONTRIBUTOR không?">
+                                    </h:outputText>
+                                </strong>	               			
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
+                                    <p:ajax listener="#{listUserBean.changeUserRoleUser()}" update="table-user" process="@form"
+                                            oncomplete="PF('dlgConfirmChangeUserRoleUser').hide()"></p:ajax>
+                                </h:commandButton>
+                            </div>
+                            <div class="col text-center">
+                                <h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgConfirmChangeUserRoleUser').hide()">
+                                </h:commandButton>
+                            </div>
+                        </div>
+                    </p:dialog>
+                    <p:dialog header="Đặt lại mật khẩu của người dùng" widgetVar="dlgConfirmResetPassword" modal="true" resizable="false">
+                        <div class="row">
+                            <div class="col">
+                                <strong>
+                                    <h:outputText value="Bạn có chắc chắn muốn chuyển đặt lại mật khẩu của người dùng không?">
+                                    </h:outputText>
+                                </strong>	               			
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <h:commandButton value="Có" styleClass="btn btn-primary btn-lg">
+                                    <p:ajax listener="#{listUserBean.resetPassword()}" update="table-user" process="@form"
+                                            oncomplete="PF('dlgConfirmResetPassword').hide()"></p:ajax>
+                                </h:commandButton>
+                            </div>
+                            <div class="col text-center">
+                                <h:commandButton value="Không" styleClass="btn btn-secondary btn-lg" onclick="PF('dlgConfirmResetPassword').hide()">
+                                </h:commandButton>
+                            </div>
+                        </div>
+                    </p:dialog>
+
                     <div class="row" style="margin-bottom:10px;">
                         <div class="col">
                             <h:commandButton id="btn-UnbanUser" class="btn btn-block bg-deep-orange waves-effect"
-                                             value="Vô hiệu" action="#{listUserBean.banUser()}">
-                                <p:ajax process="@form" update="table-user"/>
+                                             value="Vô hiệu" 
+                                             onclick="checkclick('dlgConfirmBanUser')">
                             </h:commandButton>
                         </div>
                         <div class="col">
                             <h:commandButton id="btn-BanUser" class="btn btn-block btn-success waves-effect"
                                              value="Kích hoạt"
-                                             action="#{listUserBean.unbanUser()}">
-                                <p:ajax process="@form" update="table-user"/>
+                                             onclick="checkclick('dlgConfirmActiveUser')">
                             </h:commandButton>
                         </div>
                         <div class="col">
                             <h:commandButton id="btn-ChangeUserRoleAdmin" class="btn btn-block btn-primary waves-effect"
-                                             value="Phân quyền Admin" action="#{listUserBean.changeUserRoleAdmin()}">
-                                <p:ajax process="@form" update="table-user"/>
+                                             value="Phân quyền Admin"
+                                             onclick="checkclick('dlgConfirmChangeUserRoleAdmin')">
                             </h:commandButton>
                         </div>
                         <div class="col">
                             <h:commandButton id="btn-ChangeUserRoleContributor" class="btn btn-block bg-indigo waves-effect"
-                                             value="Phân quyền User" action="#{listUserBean.changeUserRoleUser()}">
-                                <p:ajax process="@form" update="table-user"/>
+                                             value="Phân quyền Contributor"
+                                             onclick="checkclick('dlgConfirmChangeUserRoleUser')">
                             </h:commandButton>
                         </div>
                         <div class="col">
                             <h:commandButton id="btn-ResetPassword" class="btn btn-block bg-blue-grey waves-effect"
                                              value="Đặt lại mật khẩu"
-                                             action="#{listUserBean.resetPassword()}">
-                                <p:ajax process="@form" update="table-user"/>
+                                             onclick="checkclick('dlgConfirmResetPassword')">
                             </h:commandButton>
                         </div>
                     </div>

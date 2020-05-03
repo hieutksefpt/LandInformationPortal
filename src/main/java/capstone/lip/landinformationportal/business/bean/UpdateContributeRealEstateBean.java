@@ -192,6 +192,8 @@ public class UpdateContributeRealEstateBean implements Serializable {
         } else {
             currentLand = realEstateService.getLand(realEstateId);
             currentListHouse = realEstateService.getListHouse(realEstateId);
+            
+            
             tempHouse = currentListHouse.get(0);
 
             lngSingleCoordinate = realEstateClicked.getRealEstateLng().toString();

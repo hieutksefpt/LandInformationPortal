@@ -29,6 +29,7 @@ import capstone.lip.landinformationportal.business.repository.RealEstateAdjacent
 import capstone.lip.landinformationportal.business.repository.RealEstateRepository;
 import capstone.lip.landinformationportal.business.repository.UserRepository;
 import capstone.lip.landinformationportal.business.service.Interface.ICrawlRealEstateService;
+import capstone.lip.landinformationportal.business.service.Interface.IPredictPriceService;
 import capstone.lip.landinformationportal.business.validation.CrawlRealEstateValidation;
 import capstone.lip.landinformationportal.common.config.CrawlRealEstateNowJob;
 import capstone.lip.landinformationportal.common.config.CrawlRealEstateScheduleJob;
@@ -82,6 +83,9 @@ public class CrawlRealEstateService implements ICrawlRealEstateService {
 
     @Autowired
     private ProvinceRepository provinceRepository;
+    
+    @Autowired
+    private IPredictPriceService predictService;
 
     @Autowired
     private RealEstateAdjacentSegmentRepository adjRepository;
@@ -141,20 +145,20 @@ public class CrawlRealEstateService implements ICrawlRealEstateService {
 
                     RealEstateAdjacentSegment adj = mappingRealEstateToLocation(reo);
                     if (adj != null) {
-                        adjRepository.save(adj);
+                        adj = adjRepository.save(adj);
                     	SegmentOfStreet segmentAdj = adj.getSegmentOfStreet();
                     	Street streetAdj = segmentAdj.getStreet();
                     	District districtAdj = segmentAdj.getDistrict();
                     	Province provinceAdj = districtAdj.getProvince();
                     	String newAddress = segmentAdj.getSegmentName()+", "+streetAdj.getStreetName()+", "+districtAdj.getDistrictName()+", "+provinceAdj.getProvinceName();
-                    	
                     	reo.setRealEstateAddress(newAddress);
-                        	
                         List<RealEstate> listRealEstateByCoordinate = realEstateRepository.findByRealEstateLatAndRealEstateLng(reo.getRealEstateLat(), reo.getRealEstateLng());
                         if (listRealEstateByCoordinate == null || (listRealEstateByCoordinate != null && listRealEstateByCoordinate.isEmpty())) {
                             reo.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.VERIFIED));
                             reo = realEstateRepository.save(reo);
                         }
+                        
+//                        predictService.addDataToModel(reo);	
                     }
 
                     House house = new House();

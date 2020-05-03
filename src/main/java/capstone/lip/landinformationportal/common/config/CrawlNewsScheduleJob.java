@@ -50,7 +50,7 @@ public class CrawlNewsScheduleJob implements Job {
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
 		        .queryParam("type", "news")
-		        .queryParam("daily", "true")
+//		        .queryParam("daily", "true")
 //		        .queryParam("crawlnow","true")
 		        ;
 

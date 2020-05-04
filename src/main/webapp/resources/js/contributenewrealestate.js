@@ -347,6 +347,9 @@ function showLogPrice(){
     alert("Giá của Bất động sản không thể nhỏ hơn giá của BĐS cấu thành");
 }
 
+function showLogNumericName(){
+    alert("Tên của bất động sản không được chứa ký tự đặc biệt và toàn bộ bằng số");
+}
 
 
 

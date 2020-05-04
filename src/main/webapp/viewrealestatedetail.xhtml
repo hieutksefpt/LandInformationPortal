@@ -122,8 +122,12 @@
                                     Giá
                                 </div>
                                 <div class="priceInput element-list">
-                                    <h:inputText id="txt-RealEstatePrice" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstatePrice}" readonly="true">
+                                    <h:inputText id="txt-RealEstatePrice" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstatePrice}" readonly="true"
+                                     rendered="#{viewRealEstateDetailBean.realEstateClicked.realEstateSource == 'CONTRIBUTOR' or (viewRealEstateDetailBean.realEstateClicked.realEstateSource !='CONTRIBUTOR' and viewRealEstateDetailBean.realEstateClicked.realEstatePrice gt 10)}">
                                         <f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
+                                    </h:inputText>
+                                    <h:inputText id="txt-RealEstatePriceDelegate" class="input" value="Thỏa thuận" readonly="true" 
+                                    rendered="#{!(viewRealEstateDetailBean.realEstateClicked.realEstateSource == 'CONTRIBUTOR' or (viewRealEstateDetailBean.realEstateClicked.realEstateSource !='CONTRIBUTOR' and viewRealEstateDetailBean.realEstateClicked.realEstatePrice gt 10))}">
                                     </h:inputText>
                                     <p>(Đơn vị: Việt Nam đồng)</p>
                                 </div>

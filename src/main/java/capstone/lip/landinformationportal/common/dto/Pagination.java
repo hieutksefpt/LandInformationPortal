@@ -40,7 +40,7 @@ public class Pagination implements Serializable{
 		return totalPages;
 	}
 	public Pagination setTotalPages(int totalPages) {
-		this.totalPages = totalPages+1;
+		this.totalPages = totalPages;
 		return this;
 	}
 	public int getPageRange() {

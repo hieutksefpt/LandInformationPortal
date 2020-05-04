@@ -319,6 +319,13 @@ public class CrawlRealEstateService implements ICrawlRealEstateService {
                                 .setLandsFeature(landsFeature)
                                 .setValue(getStringCheckNull(reoCrawl.getWardin())));
                         break;
+                    case LandsFeatureNameConstant.SIZEFRONT:
+                        listLandDetail.add(new LandsDetail()
+                                .setLand(land)
+                                .setId(new LandsDetailId().setLandId(land.getLandId()).setLandsFeatureId(landsFeature.getLandsFeatureID()))
+                                .setLandsFeature(landsFeature)
+                                .setValue(getStringCheckNull(reoCrawl.getSizeFront())));
+                        break;  
                     default:
                         break;
                 }

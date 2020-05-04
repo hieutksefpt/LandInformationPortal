@@ -93,7 +93,7 @@ public class HomepageBean implements Serializable {
                 .setTotalRow((int) crawledNewService.countByStatus(StatusCrawledNewsConstant.DISPLAY))
                 .setRowsPerPage(10)
                 .setPageRange(3);
-        pageNews.setTotalPages(pageNews.getTotalRow() / pageNews.getRowsPerPage()).setCurrentPage(0);
+        pageNews.setTotalPages((int)Math.ceil(pageNews.getTotalRow()*1.0 / pageNews.getRowsPerPage())).setCurrentPage(0);
 
         pageReo = new Pagination().setTotalRow(0).setTotalPages(0);
 
@@ -471,7 +471,7 @@ public class HomepageBean implements Serializable {
                         .setTotalRow((int) realEstateService.countByRealEstateAddress(address))
                         .setRowsPerPage(100)
                         .setPageRange(3);
-                pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage())
+                pageReo.setTotalPages((int)Math.ceil(pageReo.getTotalRow()*1.0 / pageReo.getRowsPerPage()))
                         .setCurrentPage(0);
                 break;
             case "1":
@@ -479,14 +479,14 @@ public class HomepageBean implements Serializable {
                         .setTotalRow((int) realEstateService.countByRealEstateSource(address, StatusRealEstateConstant.CONTRIBUTOR))
                         .setRowsPerPage(100)
                         .setPageRange(3);
-                pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage()).setCurrentPage(0);
+                pageReo.setTotalPages((int)Math.ceil(pageReo.getTotalRow()*1.0 / pageReo.getRowsPerPage())).setCurrentPage(0);
                 break;
             case "2":
                 pageReo = new Pagination()
                         .setTotalRow((int) realEstateService.countByRealEstateSourceNot(address, StatusRealEstateConstant.CONTRIBUTOR))
                         .setRowsPerPage(100)
                         .setPageRange(3);
-                pageReo.setTotalPages(pageReo.getTotalRow() / pageReo.getRowsPerPage()).setCurrentPage(0);
+                pageReo.setTotalPages((int)Math.ceil(pageReo.getTotalRow()*1.0 / pageReo.getRowsPerPage())).setCurrentPage(0);
                 break;
             default:
                 break;

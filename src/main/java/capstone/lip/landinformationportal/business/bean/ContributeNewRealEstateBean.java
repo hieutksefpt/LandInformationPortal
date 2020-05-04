@@ -217,7 +217,13 @@ public class ContributeNewRealEstateBean implements Serializable {
             if (newUploadRealEstate != null && newLandName.isEmpty() && listLandFeatureValue.isEmpty() && newLandMoney.compareTo(BigDecimal.ZERO) == 0) {
                 PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
                 variableSuccess = false;
-            } else if (newUploadRealEstate != null && newLand != null) {
+            } else if (newUploadRealEstate == null || !checkFillTextHouse()) {
+                PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
+                variableSuccess = false;
+            } else if (newUploadRealEstate.getRealEstatePrice().compareTo(newLandMoney) == -1) {
+                PrimeFaces.current().executeScript("showLogPrice()");
+                variableSuccess = false;
+            }else if (newUploadRealEstate != null && newLand != null) {
                 saveDataNewLandSigleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail);
                 variableSuccess = true;
             }
@@ -230,7 +236,13 @@ public class ContributeNewRealEstateBean implements Serializable {
             if (newUploadRealEstate != null && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO) == 0) {
                 PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
                 variableSuccess = false;
-            } else if (newUploadRealEstate != null && newHouse != null) {
+            } else if (newUploadRealEstate == null || !checkFillTextLand()) {
+                PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
+                variableSuccess = false;
+            } else if (newUploadRealEstate.getRealEstatePrice().compareTo(newHouseMoney) == -1) {
+                PrimeFaces.current().executeScript("showLogPrice()");
+                variableSuccess = false;
+            }else if (newUploadRealEstate != null && newHouse != null) {
                 saveDataNewHouseSingleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newHouse, listHousesDetail);
                 variableSuccess = true;
             }
@@ -637,7 +649,7 @@ public class ContributeNewRealEstateBean implements Serializable {
                     landFeatureDataType = test.getLandsFeatureDataType();
                     if(landFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newLandFeatureValue)){
                         PrimeFaces.current().executeScript("dataType()");
-                    } else if (landsFeatureDataRangeClicked.isEmpty()) {
+                    } else if (landsFeatureDataRangeClicked == null || landsFeatureDataRangeClicked.isEmpty()) {
                         listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
                     } else if(newLandFeatureValue == null || newLandFeatureValue.isEmpty()){
                         PrimeFaces.current().executeScript("emptyDataAdd()");
@@ -688,7 +700,7 @@ public class ContributeNewRealEstateBean implements Serializable {
                     houseFeatureDataType = test.getHousesFeatureDataType();
                     if(houseFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newHouseFeatureValue)){
                         PrimeFaces.current().executeScript("dataType()");
-                    } else if (housesFeatureDataRangeClicked.isEmpty()) {
+                    } else if (housesFeatureDataRangeClicked == null || housesFeatureDataRangeClicked.isEmpty()) {
                         listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));
                     } else if(newHouseFeatureValue == null || newHouseFeatureValue.isEmpty()){
                         PrimeFaces.current().executeScript("emptyDataAdd()");

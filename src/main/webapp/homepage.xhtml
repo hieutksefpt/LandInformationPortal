@@ -255,10 +255,12 @@
 									<li	class="list-group-item row d-flex" id="row-${element.realEstateId}">
 										
 										<div class="col" id="#{element.realEstateName}">
+											<ui:remove>
 											<h:commandLink action="#{homepageBean.goToDetails(element.realEstateId)}" value="#{element.realEstateName}">
 												<p:ajax process="@form"></p:ajax>
 											</h:commandLink>
-											
+											</ui:remove>
+											<a href="/viewrealestatedetail.xhtml?realEstateId=${element.realEstateId}" target="_blank">#{element.realEstateName}</a>
 										</div>
 									</li>
 								</c:forEach>

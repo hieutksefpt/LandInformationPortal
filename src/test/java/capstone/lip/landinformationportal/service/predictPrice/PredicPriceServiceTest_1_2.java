@@ -141,7 +141,7 @@ public class PredicPriceServiceTest_1_2 extends AbstractPredictPriceServiceTest 
     @Test
     public void FT_PPS_2_07() {
         boolean result = instance.addDataToModel(sampleRealEstate
-                .setRealEstatePrice(POSITIVE_PRICE));
+                .setRealEstatePrice(POSITIVE_PRICE).setRealEstateStatus(StatusRealEstateConstant.VERIFIED));
         
         Assert.assertEquals(true, result);
     }

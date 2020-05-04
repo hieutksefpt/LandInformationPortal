@@ -340,7 +340,7 @@ public class FeedbackServiceTest_6_7_8 extends AbstractFeedbackServiceTest {
         Pageable pageable = PageRequest.of(OUT_RANGE_PAGE, PAGE_SIZE);
         Page result = instance.findAllByAttribute(EMPTY_LIST_ATTRIBUTE, pageable);
         
-        testFail(result);
+        assertEquals(true, result.getTotalPages() < OUT_RANGE_PAGE);
     }
     
     /**
@@ -378,7 +378,7 @@ public class FeedbackServiceTest_6_7_8 extends AbstractFeedbackServiceTest {
         Pageable pageable = PageRequest.of(OUT_RANGE_PAGE, PAGE_SIZE);
         Page result = instance.findAllByAttribute(getNotExistedListAttribute(), pageable);
         
-        testFail(result);
+        assertEquals(true, result.getTotalPages() < OUT_RANGE_PAGE);
     }
     
     /**

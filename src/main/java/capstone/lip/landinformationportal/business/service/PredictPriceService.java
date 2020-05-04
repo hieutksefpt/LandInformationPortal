@@ -22,6 +22,7 @@ import capstone.lip.landinformationportal.business.service.Interface.ILandsFeatu
 import capstone.lip.landinformationportal.business.service.Interface.IPredictPriceService;
 import capstone.lip.landinformationportal.common.constant.HousesFeatureNameConstant;
 import capstone.lip.landinformationportal.common.constant.LandsFeatureNameConstant;
+import capstone.lip.landinformationportal.common.constant.StatusRealEstateConstant;
 import capstone.lip.landinformationportal.common.dto.RealEstateObjectCrawl;
 import capstone.lip.landinformationportal.common.entity.HousesDetail;
 import capstone.lip.landinformationportal.common.entity.HousesFeature;
@@ -30,35 +31,43 @@ import capstone.lip.landinformationportal.common.entity.LandsFeature;
 import capstone.lip.landinformationportal.common.entity.RealEstate;
 
 @Service
-public class PredictPriceService implements IPredictPriceService{
+public class PredictPriceService implements IPredictPriceService {
 
 	@Value("${service.predictor.url}")
-	private String URL;	
-	
+	private String URL;
+
 	@Value("${service.token}")
 	private String token;
-	
+
 	@Override
 	public String getPredictPrice(RealEstate realEstate) {
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders header = new HttpHeaders();
-		header.set("WWW-Authenticate", "Token");
-		header.set("Content-Type", "application/json");
-		header.set("Authorization", token);
-		
-		RealEstateObjectCrawl reoDto = convertRealEstateToRealEstateObjectCrawl(realEstate);
-		
-		Map<String, String> map = new HashMap<>();
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-		        .queryParam("numberToilets", reoDto.getNumberToilets()==null? "" : reoDto.getNumberToilets().toString())
-		        .queryParam("numberBedrooms", reoDto.getNumberBedrooms()==null? "" : reoDto.getNumberBedrooms().toString())
-		        .queryParam("area", reoDto.getArea()==null? "" : reoDto.getArea().toString())
-		        .queryParam("latitude", reoDto.getLatitude()==null? "" : reoDto.getLatitude().toString())
-		        .queryParam("longitude", reoDto.getLongitude()==null? "" : reoDto.getLongitude().toString())
-		        ;
-		HttpEntity<Map<String, String>> entity = new HttpEntity<>(map, header);
 		try {
-			ResponseEntity<String> value = restTemplate.exchange(builder.toUriString(),HttpMethod.GET,entity,String.class);
+			if (realEstate == null) {
+				throw new Exception();
+			}
+			if (realEstate.getRealEstateId() == null) {
+				throw new Exception();
+			}
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders header = new HttpHeaders();
+			header.set("WWW-Authenticate", "Token");
+			header.set("Content-Type", "application/json");
+			header.set("Authorization", token);
+
+			RealEstateObjectCrawl reoDto = convertRealEstateToRealEstateObjectCrawl(realEstate);
+
+			Map<String, String> map = new HashMap<>();
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
+					.queryParam("numberToilets",
+							reoDto.getNumberToilets() == null ? "" : reoDto.getNumberToilets().toString())
+					.queryParam("numberBedrooms",
+							reoDto.getNumberBedrooms() == null ? "" : reoDto.getNumberBedrooms().toString())
+					.queryParam("area", reoDto.getArea() == null ? "" : reoDto.getArea().toString())
+					.queryParam("latitude", reoDto.getLatitude() == null ? "" : reoDto.getLatitude().toString())
+					.queryParam("longitude", reoDto.getLongitude() == null ? "" : reoDto.getLongitude().toString());
+			HttpEntity<Map<String, String>> entity = new HttpEntity<>(map, header);
+			ResponseEntity<String> value = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity,
+					String.class);
 			return value.getBody();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,21 +77,28 @@ public class PredictPriceService implements IPredictPriceService{
 
 	@Override
 	public boolean addDataToModel(RealEstate realEstate) {
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders header = new HttpHeaders();
-		header.set("WWW-Authenticate", "Token");
-		header.set("Content-Type", "application/json");
-		header.set("Authorization", token);
-		header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-		
-		RealEstateObjectCrawl reoDto = convertRealEstateToRealEstateObjectCrawl(realEstate);
-		HttpEntity param = new HttpEntity<>(reoDto, header);
-		
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
-		
 		try {
-			ResponseEntity<String> value = restTemplate.exchange(builder.toUriString(),HttpMethod.POST, param, String.class);
-			
+			if(realEstate == null) {
+				throw new Exception();
+			}
+			if(realEstate.getRealEstateId() == null || realEstate.getRealEstatePrice() == null || realEstate.getRealEstatePrice().compareTo(BigDecimal.ZERO) <= 0 || realEstate.getRealEstateStatus() != StatusRealEstateConstant.VERIFIED) {
+				throw new Exception();
+			}
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders header = new HttpHeaders();
+			header.set("WWW-Authenticate", "Token");
+			header.set("Content-Type", "application/json");
+			header.set("Authorization", token);
+			header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+			RealEstateObjectCrawl reoDto = convertRealEstateToRealEstateObjectCrawl(realEstate);
+			HttpEntity param = new HttpEntity<>(reoDto, header);
+
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
+
+			ResponseEntity<String> value = restTemplate.exchange(builder.toUriString(), HttpMethod.POST, param,
+					String.class);
+
 //			restTemplate.postForEntity(URL, param);
 			System.out.print(value);
 			return true;
@@ -91,21 +107,19 @@ public class PredictPriceService implements IPredictPriceService{
 			return false;
 		}
 	}
-	
-	
+
 	@Autowired
 	private IHousesFeatureService housesFeatureService;
-	
+
 	@Autowired
 	private ILandsFeatureService landsFeatureService;
-	
+
 	@Autowired
 	private LandsDetailRepository landsDetailRepository;
-	
+
 	@Autowired
 	private HousesDetailRepository housesDetailRepository;
-	
-	
+
 	private RealEstateObjectCrawl convertRealEstateToRealEstateObjectCrawl(RealEstate realEstate) {
 		RealEstateObjectCrawl reoDto = new RealEstateObjectCrawl();
 		reoDto.setCodePost(realEstate.getRealEstateId());
@@ -123,46 +137,44 @@ public class PredictPriceService implements IPredictPriceService{
 		}
 		if (idHouse != null) {
 			for (HousesFeature element : listHousesFeature) {
-				HousesDetail housesDetail = housesDetailRepository.findByIdHouseIdAndIdHousesFeatureId(idHouse, element.getHousesFeatureID());
+				HousesDetail housesDetail = housesDetailRepository.findByIdHouseIdAndIdHousesFeatureId(idHouse,
+						element.getHousesFeatureID());
 				Integer value = 0;
 				try {
 					value = Integer.parseInt(housesDetail.getValue());
-				}catch(Exception e) {
+				} catch (Exception e) {
 					value = 0;
 				}
-				
-				if (element.getHousesFeatureName().equals(HousesFeatureNameConstant.NUMBERBEDROOMS)){
+
+				if (element.getHousesFeatureName().equals(HousesFeatureNameConstant.NUMBERBEDROOMS)) {
 					reoDto.setNumberBedrooms(value);
-				}
-				else if (element.getHousesFeatureName().equals(HousesFeatureNameConstant.NUMBERFLOORS)) {
+				} else if (element.getHousesFeatureName().equals(HousesFeatureNameConstant.NUMBERFLOORS)) {
 					reoDto.setNumberFloor(value);
-				}
-				else if (element.getHousesFeatureName().equals(HousesFeatureNameConstant.NUMBERTOILETS)) {
+				} else if (element.getHousesFeatureName().equals(HousesFeatureNameConstant.NUMBERTOILETS)) {
 					reoDto.setNumberToilets(value);
 				}
 			}
 		}
 		if (idLand != null) {
 			for (LandsFeature element : listLandsFeature) {
-				LandsDetail landsDetail = landsDetailRepository.findByIdLandIdAndIdLandsFeatureId(idLand, element.getLandsFeatureID());
+				LandsDetail landsDetail = landsDetailRepository.findByIdLandIdAndIdLandsFeatureId(idLand,
+						element.getLandsFeatureID());
 				Double value = 0.0;
 				try {
 					value = Double.parseDouble(landsDetail.getValue());
-				}catch(Exception e) {
+				} catch (Exception e) {
 					value = 0.0;
 				}
 				if (element.getLandsFeatureName().equals(LandsFeatureNameConstant.AREA)) {
 					BigDecimal bigNum = new BigDecimal(value.intValue());
-					if (bigNum.compareTo(BigDecimal.ZERO) != 1 ) {
+					if (bigNum.compareTo(BigDecimal.ZERO) != 1) {
 						reoDto.setArea(BigDecimal.ONE);
-					}else {
+					} else {
 						reoDto.setArea(bigNum);
 					}
-				}
-				else if (element.getLandsFeatureName().equals(LandsFeatureNameConstant.SIZEFRONT)) {
+				} else if (element.getLandsFeatureName().equals(LandsFeatureNameConstant.SIZEFRONT)) {
 					reoDto.setSizeFront(value);
-				}
-				else if (element.getLandsFeatureName().equals(LandsFeatureNameConstant.WARDIN)) {
+				} else if (element.getLandsFeatureName().equals(LandsFeatureNameConstant.WARDIN)) {
 					reoDto.setWardin(value);
 				}
 			}

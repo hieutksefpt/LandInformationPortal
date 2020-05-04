@@ -249,7 +249,7 @@ public class UserServiceTest_5_6_7_8_9 extends AbstractUserServiceTest {
         Pageable pageable = PageRequest.of(OUT_RANGE_PAGE, PAGE_SIZE);
         Page result = instance.findAllByAttribute(EMPTY_LIST_ATTRIBUTE, pageable);
         
-        testFail(result);
+        assertEquals(true, result.getTotalPages() < OUT_RANGE_PAGE);
     }
     
     /**
@@ -293,14 +293,14 @@ public class UserServiceTest_5_6_7_8_9 extends AbstractUserServiceTest {
     /**
      * @Description: Not existed attributes
      * @Dependency: Valid range
-     * @Expected Result: Success
+     * @Expected Result: Fail
      */
     @Test
     public void FT_US_8_06() {
         Pageable pageable = PageRequest.of(EXISTED_PAGE, PAGE_SIZE);
         Page result = instance.findAllByAttribute(getNotExistedListAttribute(), pageable);
         
-        assertEquals(true, result != null);
+        testFail(result);
     }
     
     /**
@@ -336,6 +336,6 @@ public class UserServiceTest_5_6_7_8_9 extends AbstractUserServiceTest {
     public void FT_US_9_03() {
         long result = instance.countByAttribute(getNotExistedListAttribute());
         
-        assertEquals(true, result != -1);
+        assertEquals(true, result == -1);
     }
 }

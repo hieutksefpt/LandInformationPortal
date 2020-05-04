@@ -2,7 +2,9 @@ package capstone.lip.landinformationportal.business.service;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -135,6 +137,13 @@ public class CrawlRealEstateService implements ICrawlRealEstateService {
                             .setUser(user)
                             .setRealEstateStatus(String.valueOf(StatusRealEstateConstant.CONFUSED));
                     reo.setCreateDate(reoCrawl.getStartDatePost());
+                    Date date= new Date();
+                    long time = date.getTime();
+                    Timestamp ts = new Timestamp(time);
+                    if (reo.getCreatedDate().after(ts)) {
+                    	reo.setCreateDate(ts);
+                    }
+                    
                     if (!validateNumber(getStringCheckNull(reoCrawl.getPrice().toString()))) {
                         reo.setRealEstatePrice(BigDecimal.ZERO);
                     } else {

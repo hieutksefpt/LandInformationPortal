@@ -163,8 +163,10 @@
                             <h:outputText id="lbl-NumberOfReport" value="#{realEstate.listReport.size()}" />
                         </p:column>
                         <p:column headerText="Giá trị">
-                            <h:outputText id="lbl-Price" value="#{realEstate.realEstatePrice}">
+                            <h:outputText id="lbl-Price" value="#{realEstate.realEstatePrice}" rendered="#{realEstate.realEstateSource == 'CONTRIBUTOR' or (realEstate.realEstateSource !='CONTRIBUTOR' and realEstate.realEstatePrice gt 10)}">
                                 <f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
+                            </h:outputText>
+                            <h:outputText id="lbl-PriceDelegate" value="Thỏa thuận" rendered="#{!(realEstate.realEstateSource == 'CONTRIBUTOR' or (realEstate.realEstateSource !='CONTRIBUTOR' and realEstate.realEstatePrice gt 10))}">
                             </h:outputText>
                         </p:column>
                         <p:column headerText="Tọa độ">

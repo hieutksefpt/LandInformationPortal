@@ -305,7 +305,8 @@ public class UpdateContributeRealEstateBean implements Serializable {
                 }
                 Land newLand = new Land();
                 newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
-                if (newUploadRealEstate != null && newLandName.isEmpty() && listLandFeatureValue.isEmpty() && newLandMoney.compareTo(BigDecimal.ZERO) == 0) {
+                if (newUploadRealEstate != null && realEstateAddress.isEmpty() && newLandName.isEmpty() && listLandFeatureValue.isEmpty() 
+                        && newLandMoney.compareTo(BigDecimal.ZERO) == 0) {
                     PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
                     variableSuccess = false;
                 } else if (newUploadRealEstate == null || !checkFillTextHouse()) {
@@ -324,7 +325,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
                 }
                 House newHouse = new House();
                 newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
-                if (newUploadRealEstate != null && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO) == 0) {
+                if (newUploadRealEstate != null && realEstateAddress.isEmpty() && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO) == 0) {
                     PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
                     variableSuccess = false;
                 } else if (newUploadRealEstate == null || !checkFillTextLand()) {
@@ -352,7 +353,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
                 newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
                 listHousesDetail = validateHouseDetailInfor(newHouse, listHouseFeatureValue);
 
-                if (newUploadRealEstate != null && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO) == 0
+                if (newUploadRealEstate != null && realEstateAddress.isEmpty() && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO) == 0
                         && newLandName.isEmpty() && listLandFeatureValue.isEmpty() && newLandMoney.compareTo(BigDecimal.ZERO) == 0) {
                     PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
                     variableSuccess = false;

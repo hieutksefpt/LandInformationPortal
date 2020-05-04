@@ -148,6 +148,9 @@ public class FeedbackService implements IFeedbackService {
     @Override
     public Page<Feedback> findAllByAttribute(Map<String, Object> listAttribute, Pageable page) {
         try {
+        	if(listAttribute == null) {
+        		throw new Exception();
+        	}
             List<FeedbackSpecifications> listSpec = new ArrayList();
             if (listAttribute != null) {
                 for (Map.Entry meta : listAttribute.entrySet()) {
@@ -171,6 +174,9 @@ public class FeedbackService implements IFeedbackService {
     @Override
     public long countByAttribute(Map<String, Object> listAttribute) {
         try {
+        	if(listAttribute == null) {
+        		throw new Exception();
+        	}
             List<FeedbackSpecifications> listSpec = new ArrayList();
             if (listAttribute != null) {
                 for (Map.Entry meta : listAttribute.entrySet()) {

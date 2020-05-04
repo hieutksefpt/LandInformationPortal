@@ -177,6 +177,9 @@ public class UserService implements IUserService {
     @Override
     public Page<User> findAllByAttribute(Map<String, Object> listAttribute, Pageable page) {
         try {
+        	if(listAttribute == null) {
+        		throw new Exception();
+        	}
             List<UserSpecifications> listSpec = new ArrayList();
             if (listAttribute != null) {
                 for (Map.Entry meta : listAttribute.entrySet()) {
@@ -198,6 +201,9 @@ public class UserService implements IUserService {
     @Override
     public long countByAttribute(Map<String, Object> listAttribute) {
         try {
+        	if(listAttribute == null) {
+        		throw new Exception();
+        	}
             List<UserSpecifications> listSpec = new ArrayList();
             if (listAttribute != null) {
                 for (Map.Entry meta : listAttribute.entrySet()) {

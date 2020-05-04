@@ -89,8 +89,13 @@
                                                              value="Xóa" 
                                                              onclick="checkclick('dlgConfirmDelete')">
                                             </h:commandButton>
-                                            <h:commandButton id="btn-ButtonEdit" class="btn-edit btn-in-detai-page" value="Sửa" action="#{viewRealEstateDetailBean.goToDetails(viewRealEstateDetailBean.tempRealEstateId)}">
-                                            </h:commandButton>
+                                            <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateSource == 'CONTRIBUTOR'}">
+                                                <h:commandButton id="btn-ButtonEdit" 
+                                                                 class="btn-edit btn-in-detai-page" 
+                                                                 value="Sửa" 
+                                                                 action="#{viewRealEstateDetailBean.goToDetails(viewRealEstateDetailBean.tempRealEstateId)}">
+                                                </h:commandButton>
+                                            </c:if>
                                         </h:form>
                                     </div>
 

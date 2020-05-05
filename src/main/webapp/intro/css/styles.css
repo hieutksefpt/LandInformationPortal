@@ -9963,13 +9963,11 @@ p {
 }
 .page-section h2.section-heading {
   font-size: 2.5rem;
-  margin-top: 0;
   margin-bottom: 1rem;
 }
 .page-section h3.section-subheading {
   font-size: 1rem;
   font-weight: 400;
-  font-style: italic;
   font-family: "Droid Serif", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   margin-bottom: 4rem;
 }
@@ -10022,6 +10020,7 @@ img::-moz-selection {
   padding-top: 1rem;
   padding-bottom: 1rem;
   background-color: #212529;
+  
 }
 #mainNav .navbar-toggler {
   padding: 0.75rem;
@@ -10057,7 +10056,8 @@ img::-moz-selection {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
     border: none;
-    background-color: transparent;
+    background-color: black;
+    opacity:50%;
     transition: padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
   }
   #mainNav .navbar-brand {
@@ -10088,17 +10088,18 @@ img::-moz-selection {
   }
 }
 header.masthead {
+  text-align: center;
   padding-top: 10.5rem;
   padding-bottom: 6rem;
-  text-align: center;
   color: #fff;
-  background-image: url("../assets/img/head-bg.jpg");
+  background-image: url("../assets/img/bb0c76-hanoi.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
   background-size: cover;
 }
 header.masthead .masthead-subheading {
+  text-shadow: 2px 2px 8px #FF0000;
   font-size: 1.5rem;
   font-style: italic;
   line-height: 1.5rem;
@@ -10106,7 +10107,8 @@ header.masthead .masthead-subheading {
   font-family: "Droid Serif", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 header.masthead .masthead-heading {
-  font-size: 3.25rem;
+    text-shadow: 2px 2px 8px #FF0000;
+  font-size: 5.25rem;
   font-weight: 700;
   line-height: 3.25rem;
   margin-bottom: 2rem;
@@ -10125,7 +10127,7 @@ header.masthead .masthead-heading {
     margin-bottom: 2rem;
   }
   header.masthead .masthead-heading {
-    font-size: 4.5rem;
+    font-size: 10.0rem;
     font-weight: 700;
     line-height: 4.5rem;
     margin-bottom: 4rem;
@@ -10133,9 +10135,32 @@ header.masthead .masthead-heading {
 }
 #portfolio .portfolio-item {
   max-width: 25rem;
+  display: block;
   margin-left: auto;
   margin-right: auto;
 }
+
+#portfolio .setImg{
+  max-width: 25rem;
+  display: block;
+  width: 60%;
+  height: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.zoom-effect-container:hover {
+  -webkit-transform: scale(1.08);
+  transform: scale(1.08);
+  border-radius: 2px;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);  
+}
+
+.zoom-effect-container {
+    border-radius: 2px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);  
+}
+
 #portfolio .portfolio-item .portfolio-link {
   position: relative;
   display: block;
@@ -10144,8 +10169,8 @@ header.masthead .masthead-heading {
 #portfolio .portfolio-item .portfolio-link .portfolio-hover {
   display: flex;
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 60%;
+  height: 60%;
   background: rgba(254, 209, 54, 0.9);
   align-items: center;
   justify-content: center;

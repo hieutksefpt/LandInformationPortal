@@ -18,6 +18,9 @@ public class LandValidation extends StringValidation{
 		if (land.getLandPrice() != null && (land.getLandPrice().compareTo(BigDecimal.ZERO)== -1)) {
 			error=ValidateMessageCommon.IS_NEGATIVE_NUMBER;
 		}
+		if (land.getLandPrice() != null && (land.getLandPrice().compareTo(BigDecimal.ZERO)== 0)) {
+			error=ValidateMessageCommon.IS_ZERO_NUMBER;
+		}
 		
 		if (error.compareTo("") != 0) {
 			return error;

@@ -18,7 +18,9 @@ public class HouseValidation extends StringValidation{
 		if (house.getHousePrice() != null && (house.getHousePrice().compareTo(BigDecimal.ZERO)== -1)) {
 			error=ValidateMessageCommon.IS_NEGATIVE_NUMBER;
 		}
-		
+		if (house.getHousePrice() != null && (house.getHousePrice().compareTo(BigDecimal.ZERO)== 0)) {
+			error=ValidateMessageCommon.IS_ZERO_NUMBER;
+		}
 		if (error.compareTo("") != 0) {
 			return error;
 		}

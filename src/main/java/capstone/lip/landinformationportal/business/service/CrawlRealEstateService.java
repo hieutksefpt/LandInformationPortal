@@ -144,7 +144,7 @@ public class CrawlRealEstateService implements ICrawlRealEstateService {
                     Date date= new Date();
                     long time = date.getTime();
                     Timestamp ts = new Timestamp(time);
-                    if (reo.getCreatedDate().after(ts)) {
+                    if (reo.getCreatedDate()== null || reo.getCreatedDate().after(ts)) {
                     	reo.setCreateDate(ts);
                     }
                     

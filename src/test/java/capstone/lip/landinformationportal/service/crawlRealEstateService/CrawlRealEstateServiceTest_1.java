@@ -108,6 +108,7 @@ public class CrawlRealEstateServiceTest_1 extends AbstractCrawlRealEstateService
      */
     @Test
     public void FT_CRES_1_06() {
+ 
         System.out.println(repository.count());
         RealEstateObjectCrawl reoCrawl = new RealEstateObjectCrawl();
         reoCrawl.setTitle(ALPHABETIC_NUMERIC_STRING);

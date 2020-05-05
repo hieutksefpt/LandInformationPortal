@@ -57,6 +57,20 @@ function showLogLengthPass() {
     
 }
 
+function showNameContain() {
+    alert("Tên của bạn không được chứa số và ký tự đặc biệt");
+    
+}
+function showEmailError() {
+    alert("Vui lòng nhập đúng định dạng Email");
+    
+}
+
+function showNotifySuccess() {
+    alert("Cập nhật thông tin thành công");
+    
+}
+
 !(function($) {
   // Smooth scroll for the navigation menu and links with .scrollto classes
   $(document).on('click', '.nav-menu a, .scrollto', function(e) {

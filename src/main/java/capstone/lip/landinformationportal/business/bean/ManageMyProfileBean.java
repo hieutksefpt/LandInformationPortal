@@ -6,6 +6,7 @@
 package capstone.lip.landinformationportal.business.bean;
 
 import capstone.lip.landinformationportal.business.service.Interface.IUserService;
+import capstone.lip.landinformationportal.business.validation.ProfileValidation;
 import capstone.lip.landinformationportal.common.entity.User;
 import capstone.lip.landinformationportal.common.utils.EncryptedPassword;
 
@@ -68,15 +69,38 @@ public class ManageMyProfileBean implements Serializable{
     
     
     public void updateMyProfile(){
+        boolean tempDirect = false;
+        ProfileValidation pv = new ProfileValidation();
         userSelected.setFullName(fullname);
         userSelected.setEmail(email);
         userSelected.setAddress(address);
         userSelected.setPhone(phone);
         userSelected.setGender(genderSelected);
         // update to DB 
-        userSelected = userService.save(userSelected);
+        if(pv.checkFillText(fullname, email, address, phone, email).equals("empty")){
+            PrimeFaces.current().executeScript("showEmptyError()");
+        }
+        else if(pv.checkFillText(fullname, email, address, phone, email).equals("emailError")){
+            PrimeFaces.current().executeScript("showEmailError()");
+        }else {
+            userSelected = userService.save(userSelected);
+            PrimeFaces.current().executeScript("showNotifySuccess()");
+            tempDirect = true;
+        }
+        
+        if(tempDirect){
+            try{
+                ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+                ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            
+        }
         
     }
+    
+    
     
     public void changePassword() throws IOException{
         if(EncryptedPassword.checkPassword(oldPass, userSelected.getPassword()) && newPass.equals(confirmNewPass) && newPass.length() >= 8){

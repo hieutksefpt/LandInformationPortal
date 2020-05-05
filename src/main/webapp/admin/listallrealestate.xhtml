@@ -162,7 +162,7 @@
                         <p:column headerText="Số report" width="5%">
                             <h:outputText id="lbl-NumberOfReport" value="#{realEstate.listReport.size()}" />
                         </p:column>
-                        <p:column headerText="Giá trị">
+                        <p:column headerText="Giá trị" filterBy="#{realEstate.realEstatePrice}" filterMatchMode="contains">
                             <h:outputText id="lbl-Price" value="#{realEstate.realEstatePrice}" rendered="#{realEstate.realEstateSource == 'CONTRIBUTOR' or (realEstate.realEstateSource !='CONTRIBUTOR' and realEstate.realEstatePrice gt 10)}">
                                 <f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
                             </h:outputText>

@@ -3,13 +3,13 @@ package capstone.lip.landinformationportal.business.bean;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.annotation.PostConstruct;
 import javax.faces.component.UICommand;
 import javax.faces.context.ExternalContext;
@@ -17,12 +17,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-
 import org.primefaces.PrimeFaces;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
-import org.primefaces.model.chart.CategoryAxis;
-import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.DateAxis;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
@@ -30,9 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-
 import com.google.gson.Gson;
-
 import capstone.lip.landinformationportal.business.service.Interface.ICrawledNewsService;
 import capstone.lip.landinformationportal.business.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateService;
@@ -190,27 +185,123 @@ public class HomepageBean implements Serializable {
 			return;
 		}
 		List<SegmentOfStreet>listTemp = districtSelected.getListSegmentOfStreet();
+		
+//		listTemp = listTemp.stream().filter(x->x.getDistrict().equals(districtSelected)).collect(Collectors.toList());
+		
 		if (listTemp!= null)
 			listStreet = listTemp.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
-		
 		
 		viewStatistic(districtSelected.getDistrictName());
 		setTypeReo("0");
 		openPageReo(0);
-		
+//		drawAllSegment();
 	}
 	public void streetChange() {
 		setSegmentIdSelected("");
 		if (streetSelected == null) {
 			return;
 		}
+		
 		listSegmentOfStreet = streetSelected.getListSegmentOfStreet();
+		listSegmentOfStreet = listSegmentOfStreet.stream().filter(x->x.getDistrict().equals(districtSelected)).collect(Collectors.toList());
 		
 		viewStatistic(streetSelected.getStreetName());
 		setTypeReo("0");
 		openPageReo(0);
-		
+//		drawAllSegmentInStreet();
 	}
+	
+    private void drawAllSegment() {
+    	List<SegmentOfStreet> listTemp = districtSelected.getListSegmentOfStreet();
+    	
+    	for (SegmentOfStreet element: listTemp) {
+    		List<RealEstate> listReoAdj = element.getListRealEstateAdjacentSegment().stream().map(x->x.getRealEstate()).collect(Collectors.toList());
+    		MaxMinAvg maxMinAvg = new MaxMinAvg();
+    		BigDecimal max,min,avg;
+    		
+    		if (!listReoAdj.isEmpty()) {
+    			max = null;
+    			min = null;
+    			avg = null;
+    			int count = 0;
+    			for (RealEstate reo : listReoAdj) {
+    				if (reo.getRealEstateStatus().equals(StatusRealEstateConstant.VERIFIED)) {
+    					if (max == null) {
+    						max = reo.getRealEstatePrice();
+    						min = reo.getRealEstatePrice();
+    						avg = reo.getRealEstatePrice();
+    						count ++;
+    					}
+    					if (reo.getRealEstatePrice().compareTo(max) == 1) {
+    						max = reo.getRealEstatePrice();
+    					}
+    					if (reo.getRealEstatePrice().compareTo(min) == -1) {
+    						min = reo.getRealEstatePrice();
+    					}
+    					avg = avg.add(reo.getRealEstatePrice());
+    				}
+    			}
+    			if (count != 0) avg = avg.divide(new BigDecimal(count), 3, RoundingMode.CEILING);
+    			
+    			List<FormedCoordinate> listFormedCoordinate = element.getListFormedCoordinate();
+                List<Coordinate> listCoordinate = listFormedCoordinate.stream().map(x -> {
+                    return new Coordinate(x.getFormedLng(), x.getFormedLat());
+                }).collect(Collectors.toList());
+                if (!listCoordinate.isEmpty())
+                	listCoordinate.get(0).setPrice(avg);
+                Gson gson = new Gson();
+//                PrimeFaces.current().executeScript("clearDataMap()");
+                PrimeFaces.current().executeScript("drawPath(" + gson.toJson(listCoordinate) + ", 19);");
+    		}
+    	}
+    	
+    }
+    
+    private void drawAllSegmentInStreet() {
+    	List<SegmentOfStreet> listTemp = streetSelected.getListSegmentOfStreet();
+    	
+    	for (SegmentOfStreet element: listTemp) {
+    		List<RealEstate> listReoAdj = element.getListRealEstateAdjacentSegment().stream().map(x->x.getRealEstate()).collect(Collectors.toList());
+    		MaxMinAvg maxMinAvg = new MaxMinAvg();
+    		BigDecimal max,min,avg;
+    		
+    		if (!listReoAdj.isEmpty()) {
+    			max = null;
+    			min = null;
+    			avg = null;
+    			int count = 0;
+    			for (RealEstate reo : listReoAdj) {
+    				if (reo.getRealEstateStatus().equals(StatusRealEstateConstant.VERIFIED)) {
+    					if (max == null) {
+    						max = reo.getRealEstatePrice();
+    						min = reo.getRealEstatePrice();
+    						avg = reo.getRealEstatePrice();
+    						count ++;
+    					}
+    					if (reo.getRealEstatePrice().compareTo(max) == 1) {
+    						max = reo.getRealEstatePrice();
+    					}
+    					if (reo.getRealEstatePrice().compareTo(min) == -1) {
+    						min = reo.getRealEstatePrice();
+    					}
+    					avg = avg.add(reo.getRealEstatePrice());
+    				}
+    			}
+    			if (count != 0) avg = avg.divide(new BigDecimal(count), 3, RoundingMode.CEILING);
+    			
+    			List<FormedCoordinate> listFormedCoordinate = element.getListFormedCoordinate();
+                List<Coordinate> listCoordinate = listFormedCoordinate.stream().map(x -> {
+                    return new Coordinate(x.getFormedLng(), x.getFormedLat());
+                }).collect(Collectors.toList());
+                if (!listCoordinate.isEmpty())
+                	listCoordinate.get(0).setPrice(avg);
+                Gson gson = new Gson();
+//                PrimeFaces.current().executeScript("clearDataMap()");
+                PrimeFaces.current().executeScript("drawPath(" + gson.toJson(listCoordinate) + ", 19);");
+    		}
+    	}
+    }
+	
 	public void segmentOfStreetChange() {
 		viewStatistic(segmentSelected.getSegmentName());
 		setTypeReo("0");
@@ -219,7 +310,7 @@ public class HomepageBean implements Serializable {
 	public void viewStatistic(String address) {
 		MaxMinAvg maxMinAvgTemp = realEstateService.listMaxMinAvg(address);
 		maxMinAvg = maxMinAvgTemp;
-
+		PrimeFaces.current().executeScript("replaceColor("+maxMinAvg.getAvg()+")");
 		List<GroupByDateMaxMin> listStat = realEstateService.listGroupByDateAndValue(address);
 		lineChartModel = createChart(listStat);
 		lineChartModel.setLegendPosition("ne");

@@ -32,6 +32,7 @@ import capstone.lip.landinformationportal.business.repository.RealEstateReposito
 import capstone.lip.landinformationportal.business.repository.UserRepository;
 import capstone.lip.landinformationportal.business.service.Interface.ICrawlRealEstateService;
 import capstone.lip.landinformationportal.business.service.Interface.IPredictPriceService;
+import capstone.lip.landinformationportal.business.service.Interface.ISegmentOfStreetService;
 import capstone.lip.landinformationportal.business.validation.CrawlRealEstateValidation;
 import capstone.lip.landinformationportal.common.config.CrawlRealEstateNowJob;
 import capstone.lip.landinformationportal.common.config.CrawlRealEstateScheduleJob;
@@ -89,6 +90,9 @@ public class CrawlRealEstateService implements ICrawlRealEstateService {
     @Autowired
     private IPredictPriceService predictService;
 
+    @Autowired
+    private ISegmentOfStreetService segmentService;
+    
     @Autowired
     private RealEstateAdjacentSegmentRepository adjRepository;
 
@@ -155,6 +159,8 @@ public class CrawlRealEstateService implements ICrawlRealEstateService {
                     RealEstateAdjacentSegment adj = mappingRealEstateToLocation(reo);
                     if (adj != null) {
                         adj = adjRepository.save(adj);
+                        adj = adjRepository.findByIdSegmentOfStreetIdAndIdRealEstateId(adj.getId().getSegmentOfStreetId(), adj.getId().getRealEstateId());
+                        
                     	SegmentOfStreet segmentAdj = adj.getSegmentOfStreet();
                     	Street streetAdj = segmentAdj.getStreet();
                     	District districtAdj = segmentAdj.getDistrict();

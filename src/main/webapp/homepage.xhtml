@@ -133,8 +133,8 @@
 	                                </div>
 	                                <div class="col-md-6">
 	                                    <h:selectOneMenu id="cbb-District" value="#{homepageBean.districtIdSelected}" styleClass="w-100">
-	                                        <p:ajax listener="#{homepageBean.districtChange}" update="@form form-list-reo"  
-	                                        oncomplete="clearDataMap()"></p:ajax>
+	                                        <p:ajax listener="#{homepageBean.districtChange}" update="@form form-list-reo"
+	                                        onstart="clearDataMap()"></p:ajax>
 	                                        <f:selectItem itemLabel="Quận/Huyện" itemValue=""/>
 	                                        <f:selectItems value="#{homepageBean.listDistrict}" var="element"
 	                                                       itemLabel="#{element.districtName}" itemValue="#{element.districtId}"/>
@@ -145,7 +145,7 @@
 	                                <div class="col-md-6">
 	                                    <h:selectOneMenu id="cbb-Street" value="#{homepageBean.streetIdSelected}" styleClass="w-100">
 	                                        <p:ajax	listener="#{homepageBean.streetChange}" update="@form form-list-reo"
-	                                         oncomplete="clearDataMap()"></p:ajax>
+	                                         onstart="clearDataMap()"></p:ajax>
 	
 	                                        <f:selectItem itemLabel="Đường phố" itemValue=""/>
 	                                        <f:selectItems value="#{homepageBean.listStreet}" var="element"

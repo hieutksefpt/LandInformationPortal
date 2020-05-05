@@ -11,6 +11,9 @@ public class MaxMinAvg implements Serializable{
 	private BigDecimal min;
 	private BigDecimal avg;
 	
+	public MaxMinAvg() {
+		super();
+	}
 	public MaxMinAvg(BigDecimal max, BigDecimal min, Double avg) {
 		super();
 		this.max = max;

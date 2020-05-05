@@ -70,13 +70,47 @@ function clearDataMap(){
 	path.forEach(x=>x.setMap(null));
 	path = [];
 }
+function getColor(price){
+	if (price < 1000000000){
+		return '#fe5c5c';
+	}
+	if (price < 5000000000){
+		return '#fe3636';
+	}
+	if (price < 10000000000){
+		return '#fe1a1a';
+	}
+	if (price < 20000000000){
+		return '#dc0000';
+	}
+	return '#6b0000';
+}
+function replaceColor(price){
+	let i = 1;
+	if (typeof path !== 'undefined' && path.length > 0) {
+		path.forEach(x=>x.setMap(null));
+		let color = getColor(price);
+		path[0].strokeColor = color;
+		path[0].setMap(map);
+	}
+}
 function drawPath(json){
 	let line = json.map(x=>{
 		let o={};
 		o.lat=x.latitude;
 		o.lng=x.longitude;
+		o.price=x.price;
 		return o;
 	});
+	
+	
+	defaultColor = '#FF0000';
+	if (typeof line !== 'undefined' && line.length > 0){
+		let price = line[0].price;
+		i = 1;
+		i = i+1;
+	}
+	
 	let element = new google.maps.Polyline({
 	    path: line,
 	    geodesic: true,

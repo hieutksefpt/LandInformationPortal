@@ -59,6 +59,14 @@ function showAlertOnlyNumber() {
     alert("Khi chọn kiểu dữ liệu số bạn chỉ có thể nhập số !");
 }
 
+function showAlertDuplicateLandsFeature() {
+    alert("Thuộc tính đất đã tồn tại !");
+}
+
+function showAlertDuplicateHousesFeature(){
+    alert("Thuộc tính nhà đã tồn tại !");
+}
+
 function checkclick(dlg) {
     PF(dlg).show();
 }

@@ -124,7 +124,7 @@ and open the template in the editor.
                                                 <p:ajax process="addHouseFeature" update="view view:formListHouseFeature"></p:ajax>
                                             </h:commandButton>
                                         </ui:remove>
-                                        <h:commandButton class="btn btn-primary" value="Lưu " onclick="hideAddFeaturePopup()">
+                                        <h:commandButton class="btn btn-primary" value="Lưu ">
                                             <p:ajax process="addHouseFeature" update="@(.ui-tabs-panel:visible .tab-content)" 
                                                     listener="#{manageRealEstateFeatureBean.saveHousesFeature}" 
                                                     ></p:ajax>

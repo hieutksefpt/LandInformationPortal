@@ -55,6 +55,11 @@ public class UserService implements IUserService {
     @Override
     public User save(User user) {
         try {
+        	UserValidation validate = new UserValidation();
+            String error = validate.isValidUser(user);
+            if (!error.isEmpty()) {
+                throw new Exception(error);
+            }
             return userRepository.save(user);
         } catch (Exception e) {
             e.printStackTrace();

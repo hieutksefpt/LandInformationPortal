@@ -40,8 +40,7 @@ public interface IRealEstateService {
     //Search man hinh listallrealestate.xhtml
     List<String> listRealEstateSource();
     
-    List<RealEstate> listFilterRealEstate(String realEstateName, String realEstateSource, String realEstateStatus);
-    //
+//    List<RealEstate> listFilterRealEstate(String realEstateName, String realEstateSource, String realEstateStatus);
     
     long countByRealEstateStatus(String status);
     

@@ -71,12 +71,12 @@ public class SignUpBean implements Serializable {
         
         UserValidation validate = new UserValidation();
         String error = validate.isValidUser(newUser);
-        if (!error.isEmpty()) {
+        if (error.equals("email invalid")) {
+            PrimeFaces.current().executeScript("showErrorEmail()");
+        } else if (!error.isEmpty()) {
             PrimeFaces.current().executeScript("showErrorGeneral()");
         } else if (duplicateUsername != null) {
             PrimeFaces.current().executeScript("dulicateUsername()");
-        } else if (!validateEmailRegex(email)) {
-            PrimeFaces.current().executeScript("showErrorEmail()");
         } else if (password.length() < 8) {
             PrimeFaces.current().executeScript("showErrorLengthPass()");
         } else if (!password.equals(confirmpassword)) {

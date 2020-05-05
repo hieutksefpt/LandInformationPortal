@@ -36,6 +36,11 @@
     margin: 5px;
 }
 
+.mandatory::after {
+    content: "*";
+    color: red;
+}
+
 .title-mandatory::after {
     content: "*";
     color: red;

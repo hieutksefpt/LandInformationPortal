@@ -23,22 +23,23 @@ public class UserValidation extends StringValidation{
 			return "gender is invalid";
 		}
 		if (!isEmptyString(user.getFullName()).isEmpty()) {
-			return "empty name";
+			return "empty";
 		}
 		if (!isEmptyString(user.getUsername()).isEmpty()) {
-			return "empty username";
+			return "empty";
 		}
+                
 		if (!isEmptyString(user.getPassword()).isEmpty()) {
-			return "empty password";
+			return "empty";
 		}
 		if (!isValidEmail(user.getEmail()).isEmpty()) {
-			return "invalid email";
+			return "email invalid";
 		}
 		if (!containSpace(user.getUsername()).isEmpty() ) {
 			return "username contain space";
 		}
 		if (!containUTF8(user.getUsername()).isEmpty()) {
-			return "username has utf-8";
+			return "username invalid";
 		}
 		if (user.getUsername().matches(".*[^a-zA-Z0-9].*")) {
 			return "username invalid";
@@ -47,13 +48,13 @@ public class UserValidation extends StringValidation{
 			return "password has utf-8";
 		}
 		if (StringUtils.isNumeric(user.getFullName())) {
-			return "full name is numeric";
+			return "fullname invalid";
 		}
 		if (!hasNumber(user.getFullName()).isEmpty()) {
-			return "fullname has number";
+			return "fullname invalid";
 		}
 		if (!isSpecialCharOnly(user.getFullName()).isEmpty()) {
-			return "fullname has special char";
+			return "fullname invalid";
 		}
 		if (user.getPhone()!=null && !user.getPhone().trim().isEmpty() && !StringUtils.isNumeric(user.getPhone())) {
 			return "phone is invalid";

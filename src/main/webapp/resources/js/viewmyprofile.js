@@ -66,6 +66,11 @@ function showEmailError() {
     
 }
 
+function showLengthInput() {
+    alert("Vui lòng nhập độ dài các trường không quá dài !");
+    
+}
+
 function showNotifySuccess() {
     alert("Cập nhật thông tin thành công");
     

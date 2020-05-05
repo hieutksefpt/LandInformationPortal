@@ -32,22 +32,6 @@
                 <h:outputStylesheet name="venobox.css" library="css"/>
                 <!-- Template Main CSS File -->
                 <h:outputStylesheet name="viewmyprofile.css" library="css"/>
-                <header id="header">
-                    <div class="d-flex flex-column">
-
-                        <div class="profile">
-                            <h1 class="text-light"><a href="viewmyprofile.xhtml">#{manageMyProfileBean.fullname}</a></h1>
-                        </div>
-
-                        <nav class="nav-menu">
-                            <ul>
-                                <li class="active"><a href="#profileInfor"><span>Thông tin cá nhân</span></a></li>
-                                <li><a href="#changepass"> <span>Thay đổi mật khẩu</span></a></li>
-                            </ul>
-                        </nav><!-- .nav-menu -->
-                        <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
-                    </div>
-                </header><!-- End Header -->
 
                 <main id="main">
 
@@ -64,14 +48,14 @@
                                 <h:form id="updateform" role="form" class="updateInfor">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="name">Tên của bạn</label>
+                                            <label for="name" class="mandatory">Tên của bạn</label>
                                             <h:inputText id="txtfullname" value="#{manageMyProfileBean.fullname}"  class="form-control">
 
                                             </h:inputText>
                                             <div class="validate"></div>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="name">Email</label>
+                                            <label for="name" class="mandatory">Email</label>
                                             <h:inputText id="txtEmail" value="#{manageMyProfileBean.email}"  class="form-control">
                                             </h:inputText>
                                             <div class="validate"></div>
@@ -89,7 +73,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="name">Giới tính</label>
+                                        <label for="name" class="mandatory">Giới tính</label>
 
                                         <h:selectOneMenu id="cbb-gender" value="#{manageMyProfileBean.genderSelected}" class="form-control">
                                             <f:selectItem itemLabel="-- Giới tính --" itemValue=""/>

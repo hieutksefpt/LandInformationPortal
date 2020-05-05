@@ -24,7 +24,7 @@ function showErrorEmail(){
 }
 
 function showErrorGeneral(){
-    alert("Vui lòng hoàn thiện tất cả các trường!\nĐồng thời không sử dụng ký tự đặc biệt\nTên đăng nhập không chứa khoảng trắng, số và ký tự đặc biệt");
+    alert("Vui lòng hoàn thiện tất cả các trường!\nĐồng thời không sử dụng ký tự đặc biệt\nTên đăng nhập và tên người dùng không chứa khoảng trắng, số và ký tự đặc biệt");
 }
 
 

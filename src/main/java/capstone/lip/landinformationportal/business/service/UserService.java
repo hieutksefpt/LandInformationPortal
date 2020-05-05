@@ -55,12 +55,28 @@ public class UserService implements IUserService {
     @Override
     public User save(User user) {
         try {
-        	UserValidation validate = new UserValidation();
-            String error = validate.isValidUser(user);
-            if (!error.isEmpty()) {
-                throw new Exception(error);
+            User test = this.findById(user.getUserId());
+            if (test != null) {
+                User userTemp = userRepository.findById(user.getUserId()).get();
+                if (userTemp.getUsername().equals(user.getUsername())) {
+                    UserValidation validate = new UserValidation();
+                    String error = validate.isValidUser(user);
+                    if (!error.isEmpty()) {
+                        throw new Exception(error);
+                    }
+                    return userRepository.save(user);
+                } else {
+                    throw new Exception();
+                }
+
+            } else {
+                UserValidation validate = new UserValidation();
+                String error = validate.isValidUser(user);
+                if (!error.isEmpty()) {
+                    throw new Exception(error);
+                }
+                return userRepository.save(user);
             }
-            return userRepository.save(user);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -84,7 +100,12 @@ public class UserService implements IUserService {
     @Override
     public User findById(Long userId) {
         try {
-            return userRepository.findById(userId).get();
+            if(userId == null){
+                return null;
+            }else{
+                return userRepository.findById(userId).get();
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -182,9 +203,9 @@ public class UserService implements IUserService {
     @Override
     public Page<User> findAllByAttribute(Map<String, Object> listAttribute, Pageable page) {
         try {
-        	if(listAttribute == null) {
-        		throw new Exception();
-        	}
+            if (listAttribute == null) {
+                throw new Exception();
+            }
             List<UserSpecifications> listSpec = new ArrayList();
             if (listAttribute != null) {
                 for (Map.Entry meta : listAttribute.entrySet()) {
@@ -206,9 +227,9 @@ public class UserService implements IUserService {
     @Override
     public long countByAttribute(Map<String, Object> listAttribute) {
         try {
-        	if(listAttribute == null) {
-        		throw new Exception();
-        	}
+            if (listAttribute == null) {
+                throw new Exception();
+            }
             List<UserSpecifications> listSpec = new ArrayList();
             if (listAttribute != null) {
                 for (Map.Entry meta : listAttribute.entrySet()) {

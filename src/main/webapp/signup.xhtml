@@ -37,13 +37,13 @@
                         <h:form class="appointment-form" id="registerUser">
                             <h2>Cổng thông tin đất đai</h2>
                             <div class="form-group-1">
-                                <label for="username">Tên đăng nhập</label>
+                                <label for="username" class="mandatory">Tên đăng nhập</label>
                                 <h:inputText id="txtInputUsername" value="#{signUpBean.username}"/>
-                                <label for="fullname">Họ và tên</label>
+                                <label for="fullname" class="mandatory">Họ và tên</label>
                                 <h:inputText id="name" value="#{signUpBean.fullname}"/>
-                                <label for="Email">Email</label>
+                                <label for="Email" class="mandatory">Email</label>
                                 <h:inputText id="email" value="#{signUpBean.email}"/>
-                                <label for="address">Địa chỉ</label>
+                                <label for="address" >Địa chỉ</label>
                                 <h:inputText id="address" value="#{signUpBean.address}"/>
                                 <label for="phone">Số điện thoại</label>
                                 <h:inputText id="phone_number" value="#{signUpBean.phone}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
@@ -56,9 +56,9 @@
                                     <f:selectItem itemLabel="Khác" itemValue="Khác"/>
                                 </h:selectOneMenu>
 
-                                <label for="password">Mật khẩu</label>
+                                <label for="password" class="mandatory">Mật khẩu</label>
                                 <p:password id="feedback1" value="#{signUpBean.password}" feedback="true" /><div class="validate"></div>
-                                <label for="confirmpassword">Xác nhận lại mật khẩu</label>
+                                <label for="confirmpassword" class="mandatory">Xác nhận lại mật khẩu</label>
                                 <p:password id="feedback2" value="#{signUpBean.confirmpassword}" feedback="true" /><div class="validate"></div>
                             </div>
 

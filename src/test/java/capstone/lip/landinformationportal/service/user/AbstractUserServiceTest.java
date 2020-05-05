@@ -39,7 +39,7 @@ public abstract class AbstractUserServiceTest extends CRUDTest {
     
     protected User sampleUser = new User()
             .setUserId(DEFAULT_ID)
-            .setUsername("SAMPLEUSER").setPassword("PASSWORD")
+            .setUsername("User1").setPassword("PASSWORD")
             .setFullName("SAMPLE USER").setEmail(DEFAULT_EMAIL)
             .setRole(ROLE_ADMIN).setUserStatus(STATUS_ACTIVE);
     

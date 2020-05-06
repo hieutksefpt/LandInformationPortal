@@ -88,8 +88,12 @@ public class ViewRealEstateDetailBean implements Serializable {
         numberOfReport = String.valueOf(realEstateClicked.getListReport().size());
         currentLand = realEstateClicked.getLand();
         currentListHouse = realEstateClicked.getListHouse();
+        try {
+        	predictPrice = new BigDecimal(predictService.getPredictPrice(realEstateClicked));
+		} catch (Exception e) {
+			predictPrice = BigDecimal.ZERO;
+		}
         
-        predictPrice = new BigDecimal(predictService.getPredictPrice(realEstateClicked));
         
         transferCoordinate();
     }

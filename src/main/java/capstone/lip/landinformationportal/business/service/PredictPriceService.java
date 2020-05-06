@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -48,12 +49,14 @@ public class PredictPriceService implements IPredictPriceService {
 			if (realEstate.getRealEstateId() == null) {
 				throw new Exception();
 			}
+//			ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(HttpClients.createDefault());
 			RestTemplate restTemplate = new RestTemplate();
 			HttpHeaders header = new HttpHeaders();
 			header.set("WWW-Authenticate", "Token");
 			header.set("Content-Type", "application/json");
 			header.set("Authorization", token);
-
+			header.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+			
 			RealEstateObjectCrawl reoDto = convertRealEstateToRealEstateObjectCrawl(realEstate);
 
 			Map<String, String> map = new HashMap<>();

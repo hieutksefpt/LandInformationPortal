@@ -46,7 +46,9 @@ function showLogErrorPass() {
     alert("Mật khẩu cũ bạn nhập không chính xác !");
     
 }
-
+function showLogSamePass(){
+	alert("Mật khẩu xác nhận không khớp");
+}
 function showEmptyError() {
     alert("Vui lòng điền đủ các trường cần khai báo");
     

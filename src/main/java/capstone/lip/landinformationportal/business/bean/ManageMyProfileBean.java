@@ -127,6 +127,8 @@ public class ManageMyProfileBean implements Serializable {
             PrimeFaces.current().executeScript("showEmptyError()");
         } else if (newPass.length() < 8) {
             PrimeFaces.current().executeScript("showLogLengthPass()");
+        } else if (!newPass.equals(confirmNewPass)) {
+        	PrimeFaces.current().executeScript("showLogSamePass()");
         } else {
             PrimeFaces.current().executeScript("showLogErrorPass()");
         }

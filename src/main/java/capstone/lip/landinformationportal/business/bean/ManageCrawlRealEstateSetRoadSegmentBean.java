@@ -188,7 +188,12 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 		realEstate.setRealEstateStatus(String.valueOf(StatusRealEstateConstant.VERIFIED));
 		
 		realEstate = realEstateService.save(realEstate);
-		predictService.addDataToModel(realEstate);	
+		try {
+			predictService.addDataToModel(realEstate);	
+		}catch(Exception e) {
+			System.out.println("Cannot submit data to predict service");
+		}
+		
 		setMessage(FacesMessage.SEVERITY_INFO, "Chỉnh sửa thành công");
 		PrimeFaces.current().executeScript("PF('alert').renderMessage({\"summary\":\"Thành công\",\"detail\":\"Chỉnh sửa thành công\",\"severity\":\"info\"})");
 		showPopup = false;

@@ -310,7 +310,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
             if (newUploadRealEstate != null && realEstateAddress.isEmpty() && newLandName.isEmpty() && listLandFeatureValue.isEmpty() && newLandMoney.compareTo(BigDecimal.ZERO) == 0) {
                 PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
                 variableSuccess = false;
-            } else if (newUploadRealEstate == null || !checkFillTextHouse()) {
+            } else if (newUploadRealEstate == null || !checkFillTextLand()) {
                 PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
                 variableSuccess = false;
             } else if (newUploadRealEstate.getRealEstatePrice().compareTo(newLandMoney) == -1) {
@@ -333,7 +333,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
             if (newUploadRealEstate != null && realEstateAddress.isEmpty() && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO) == 0) {
                 PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
                 variableSuccess = false;
-            } else if (newUploadRealEstate == null || !checkFillTextLand()) {
+            } else if (newUploadRealEstate == null || !checkFillTextHouse()) {
                 PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
                 variableSuccess = false;
             }else if (StringUtils.isNumeric(newUploadRealEstate.getRealEstateName().toString()) || StringUtils.isNumeric(newHouseName.toString())

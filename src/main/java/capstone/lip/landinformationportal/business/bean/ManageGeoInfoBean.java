@@ -144,8 +144,8 @@ public class ManageGeoInfoBean implements Serializable {
 			
 			selectedStreet = listStreet.stream().filter(x->x.getStreetId().equals((Long.parseLong(streetIdSelected)))).collect(Collectors.toList()).get(0);
 			PrimeFaces.current().executeScript("focusMap(" + selectedStreet.getStreetLat() + ", " + selectedStreet.getStreetLng() + ",19);");
-			PrimeFaces.current().executeScript("changeInfo(\""+selectedStreet.getStreetName()+"\", "+selectedStreet.getStreetLat()+", "+
-					selectedStreet.getStreetLng()+")");
+			PrimeFaces.current().executeScript("changeInfo(\""+selectedStreet.getStreetName()+"\", "+selectedStreet.getStreetLng()+", "+
+					selectedStreet.getStreetLat()+")");
 					
 			listSegmentOfStreet = selectedStreet.getListSegmentOfStreet();	
 			listSegmentOfStreet = listSegmentOfStreet.stream().filter(x->x.getDistrict().equals(selectedDistrict)).collect(Collectors.toList());
@@ -160,8 +160,8 @@ public class ManageGeoInfoBean implements Serializable {
 			processType = "4";
 			segmentOfStreet = listSegmentOfStreet.stream().filter(x->x.getSegmentId().equals(Long.parseLong(segmentStreetIdSelected))).collect(Collectors.toList()).get(0);
 			PrimeFaces.current().executeScript("focusMap(" + segmentOfStreet.getSegmentLat() + ", " + segmentOfStreet.getSegmentLng() + ",19);");
-			PrimeFaces.current().executeScript("changeInfo(\""+segmentOfStreet.getSegmentName()+"\", "+segmentOfStreet.getSegmentLat()+", "+
-					segmentOfStreet.getSegmentLng()+")");
+			PrimeFaces.current().executeScript("changeInfo(\""+segmentOfStreet.getSegmentName()+"\", "+segmentOfStreet.getSegmentLng()+", "+
+					segmentOfStreet.getSegmentLat()+")");
 			vt1 = segmentOfStreet.getVT1().toString();
 			vt2 = segmentOfStreet.getVT2().toString();
 			vt3 = segmentOfStreet.getVT3().toString();
@@ -541,6 +541,12 @@ public class ManageGeoInfoBean implements Serializable {
 		}
 		if (processType.equals("2")) {
 			if (!listDistrict.stream().filter(x->x.getDistrictName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()
+					&& (action.equals("Add") || action.equals("Update"))) {
+				return "Trùng tên";
+			}
+		}
+		if (processType.equals("3")) {
+			if (!listStreet.stream().filter(x->x.getStreetName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()
 					&& (action.equals("Add") || action.equals("Update"))) {
 				return "Trùng tên";
 			}

@@ -551,6 +551,12 @@ public class ManageGeoInfoBean implements Serializable {
 				return "Trùng tên";
 			}
 		}
+		if (processType.equals("4")) {
+			if (!listSegmentOfStreet.stream().filter(x->x.getSegmentName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()
+					&& (action.equals("Add") || action.equals("Update"))) {
+				return "Trùng tên";
+			}
+		}
 		if (!processType.equals("4")) {
 			if (lngSingleCoordinate == null || latSingleCoordinate ==null 
 					|| (lngSingleCoordinate!= null && lngSingleCoordinate.isEmpty()) || (latSingleCoordinate!=null && latSingleCoordinate.isEmpty())) {

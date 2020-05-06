@@ -535,7 +535,13 @@ public class ManageGeoInfoBean implements Serializable {
 		}
 		if (processType.equals("1")) {
 			if (!listProvince.stream().filter(x->x.getProvinceName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()
-					&& action.equals("Add")) {
+					&& (action.equals("Add") || action.equals("Update"))) {
+				return "Trùng tên";
+			}
+		}
+		if (processType.equals("2")) {
+			if (!listDistrict.stream().filter(x->x.getDistrictName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()
+					&& (action.equals("Add") || action.equals("Update"))) {
 				return "Trùng tên";
 			}
 		}

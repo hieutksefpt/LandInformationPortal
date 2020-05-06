@@ -46,7 +46,7 @@ public class CrawlRealEstateNowJob implements Job {
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
 		        .queryParam("type", "reo")
-//		        .queryParam("daily", "true")
+		        .queryParam("daily", "true")
 		        .queryParam("crawlnow","true")
 		        ;
 

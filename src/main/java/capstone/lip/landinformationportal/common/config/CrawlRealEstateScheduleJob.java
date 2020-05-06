@@ -48,7 +48,7 @@ public class CrawlRealEstateScheduleJob implements Job {
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
 		        .queryParam("type", "reo")
-//		        .queryParam("daily", "true")
+		        .queryParam("daily", "true")
 		        ;
 
 		HttpEntity<Map<String, String>> entity = new HttpEntity<>(map, header);

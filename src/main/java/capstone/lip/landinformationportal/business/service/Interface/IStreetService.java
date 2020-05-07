@@ -9,4 +9,6 @@ public interface IStreetService {
 	boolean delete(List<Street> listStreet);
 	boolean delete(Street street);
 	Street findById(Long id);
+	
+	List<Street> findStreetByDistrictId(Long streetId);
 }

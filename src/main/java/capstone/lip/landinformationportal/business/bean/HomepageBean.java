@@ -31,6 +31,7 @@ import com.google.gson.Gson;
 import capstone.lip.landinformationportal.business.service.Interface.ICrawledNewsService;
 import capstone.lip.landinformationportal.business.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateService;
+import capstone.lip.landinformationportal.business.service.Interface.IStreetService;
 import capstone.lip.landinformationportal.common.constant.StatusCrawledNewsConstant;
 import capstone.lip.landinformationportal.common.constant.StatusRealEstateConstant;
 import capstone.lip.landinformationportal.common.dto.Coordinate;
@@ -58,6 +59,8 @@ public class HomepageBean implements Serializable {
     @Autowired
     private IProvinceService provinceService;
 
+    @Autowired
+    private IStreetService streetService;
     private Pagination pageNews;
     private Pagination pageReo;
 
@@ -184,13 +187,12 @@ public class HomepageBean implements Serializable {
 		if (districtSelected == null) {
 			return;
 		}
-		List<SegmentOfStreet>listTemp = districtSelected.getListSegmentOfStreet();
+//		List<SegmentOfStreet>listTemp = districtSelected.getListSegmentOfStreet();
 		
-//		listTemp = listTemp.stream().filter(x->x.getDistrict().equals(districtSelected)).collect(Collectors.toList());
-		
-		if (listTemp!= null)
-			listStreet = listTemp.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
-		
+//		if (listTemp!= null)
+//			listStreet = listTemp.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
+			
+		listStreet = streetService.findStreetByDistrictId(districtSelected.getDistrictId());
 		viewStatistic(districtSelected.getDistrictName());
 		setTypeReo("0");
 		openPageReo(0);

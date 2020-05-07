@@ -92,4 +92,15 @@ public class StreetService implements IStreetService{
 		}
 	}
 
+	@Override
+	public List<Street> findStreetByDistrictId(Long districtId) {
+		try {
+			List<Street> listOp = streetRepository.findStreetByDistrictId(districtId);
+			return listOp;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

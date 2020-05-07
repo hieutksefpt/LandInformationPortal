@@ -66,7 +66,7 @@
                     <p:dataTable value="#{manageCrawlNewsBean.lazyNews}" var="element"
                                  rows="10" paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} của {totalRecords} bản ghi"
                                  lazy="true"  widgetVar="wgtable"
                                  selection="#{manageCrawlNewsBean.listNewsSelected}" rowKey="#{element.crawledNewsID}"
                                  resizableColumns="true">
@@ -77,7 +77,7 @@
 
                         <p:column selectionMode="multiple" style="width:7%;text-align:center"> 
                         </p:column>
-                        <p:column width="60%">
+                        <p:column width="50%" filterBy="#{element.crawledNewsTitle}" filterMatchMode="contains">
                             <f:facet name="header">Tiêu đề</f:facet>
                             <a href="#{element.crawledNewsLink}" target="_blank">#{element.crawledNewsTitle}</a>
                         </p:column>
@@ -95,8 +95,14 @@
                             </f:facet>
                             <h:outputText value="#{element.crawledNewsStatus}" />
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">Nguồn tin</f:facet>
+                        <p:column filterBy="#{element.crawledNewsWebsite}" filterMatchMode="exact" >
+                            <f:facet name="filter">
+                            	<p:selectOneMenu id="cbb-Source" onchange="PF('wgtable').filter()" styleClass="custom-filter">
+                                    <f:selectItem itemLabel="Nguồn tin" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="batdongsan.com.vn" itemValue="batdongsan.com.vn" />
+                                    <f:selectItem itemLabel="dantri.com.vn" itemValue="dantri.com.vn" />
+                                </p:selectOneMenu>
+                            </f:facet>
                             <h:outputText value="#{element.crawledNewsWebsite}"></h:outputText>
                         </p:column>
                     </p:dataTable>

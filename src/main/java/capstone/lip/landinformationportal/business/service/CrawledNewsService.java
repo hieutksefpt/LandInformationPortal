@@ -277,8 +277,10 @@ public class CrawledNewsService implements ICrawledNewsService {
 				for (Map.Entry meta : listAttribute.entrySet()) {
 					String key = (String) meta.getKey();
 					String value = (String) meta.getValue();
-					if (key.equals("crawledNewsStatus")) {
-						listSpec.add(new CrawledNewsSpecifications(new SearchCriteria(key, ":=", value)));
+					if (key.equals("crawledNewsTitle")) {
+						listSpec.add(new CrawledNewsSpecifications(new SearchCriteria(key, ":", value)));
+					}else {
+						listSpec.add(new CrawledNewsSpecifications(new SearchCriteria(key, ":=", value)));;
 					}
 				}
 			}
@@ -307,8 +309,10 @@ public class CrawledNewsService implements ICrawledNewsService {
 				for (Map.Entry meta : listAttribute.entrySet()) {
 					String key = (String) meta.getKey();
 					String value = (String) meta.getValue();
-					if (key.equals("crawledNewsStatus")) {
-						listSpec.add(new CrawledNewsSpecifications(new SearchCriteria(key, ":=", value)));
+					if (key.equals("crawledNewsTitle")) {
+						listSpec.add(new CrawledNewsSpecifications(new SearchCriteria(key, ":", value)));
+					}else {
+						listSpec.add(new CrawledNewsSpecifications(new SearchCriteria(key, ":=", value)));;
 					}
 				}
 			}

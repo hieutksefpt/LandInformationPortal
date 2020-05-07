@@ -29,7 +29,7 @@
                     <p:dataTable value="#{manageFeedbackBean.lazyFeedback}" var="element"
                                  rows="10" paginator="true" lazy="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} của {totalRecords} bản ghi"
                                  rowKey="#{element.feedBackID}"
                                  widgetVar="table-feedback"
                                  resizableColumns="true">
@@ -40,7 +40,7 @@
                         </p:column>
 
                         <p:column>
-                            <f:facet name="header">User</f:facet>
+                            <f:facet name="header">Tên đăng nhập</f:facet>
                             <h:outputText value="#{element.user.username}"></h:outputText>
                         </p:column>
                         <p:column>

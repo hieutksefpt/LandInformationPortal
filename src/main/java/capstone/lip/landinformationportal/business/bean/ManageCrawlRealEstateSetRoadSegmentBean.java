@@ -2,6 +2,8 @@ package capstone.lip.landinformationportal.business.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +22,7 @@ import capstone.lip.landinformationportal.business.service.Interface.IPredictPri
 import capstone.lip.landinformationportal.business.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateAdjacentSegmentService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateService;
+import capstone.lip.landinformationportal.business.service.Interface.IStreetService;
 import capstone.lip.landinformationportal.common.constant.StatusRealEstateConstant;
 import capstone.lip.landinformationportal.common.dto.Coordinate;
 import capstone.lip.landinformationportal.common.entity.District;
@@ -65,6 +68,9 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 	@Autowired
 	private IPredictPriceService predictService;
 
+	@Autowired
+	private IStreetService streetService;
+	
 	public void showPopup(Long realEstateId) {
 		realEstate = realEstateService.findById(realEstateId);
 		showPopup = true;
@@ -106,6 +112,15 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 		Province provinceSelected = listProvince.stream().filter(x->x.getProvinceId().toString().equals(provinceIdSelected))
 				.collect(Collectors.toList()).get(0);
 		listDistrict = provinceSelected.getListDistrict();
+		
+		Collections.sort(listDistrict, new Comparator<District>() {
+
+			@Override
+			public int compare(District o1, District o2) {
+				return o1.getDistrictName().compareTo(o2.getDistrictName());
+			}
+			
+		});
 	}
 	public void districtChange() {
 		if (districtIdSelected.isEmpty()) {
@@ -116,7 +131,19 @@ public class ManageCrawlRealEstateSetRoadSegmentBean implements Serializable{
 		District districtSelected = listDistrict.stream().filter(x->x.getDistrictId().toString().equals(districtIdSelected))
 				.collect(Collectors.toList()).get(0);
 		List<SegmentOfStreet> listSegmentByDistrict = districtSelected.getListSegmentOfStreet();
-		listStreet = listSegmentByDistrict.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
+//		listStreet = listSegmentByDistrict.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
+		
+		listStreet = streetService.findStreetByDistrictId(districtSelected.getDistrictId());
+		
+		Collections.sort(listStreet, new Comparator<Street>() {
+
+			@Override
+			public int compare(Street o1, Street o2) {
+				return o1.getStreetName().compareTo(o2.getStreetName());
+			}
+			
+		});
+		
 	}
 	public void streetChange() {
 		if (streetIdSelected.isEmpty()) {

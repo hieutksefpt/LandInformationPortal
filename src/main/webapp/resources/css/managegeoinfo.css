@@ -30,3 +30,8 @@
 	font-size: 4em;
 	color: white;
 }
+
+.ui-widget-content{
+    border:1px solid #8c8c8c;
+    background-color: aliceblue   !important;
+}

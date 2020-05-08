@@ -288,4 +288,7 @@ html {
 }
 
 
-
+.ui-widget-content{
+    border:1px solid #8c8c8c;
+    background-color: aliceblue   !important;
+}

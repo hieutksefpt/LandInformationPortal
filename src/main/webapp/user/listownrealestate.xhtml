@@ -14,14 +14,16 @@
             <ui:define name="content">
                 <h:outputStylesheet name="listownrealestate.css" library="css"></h:outputStylesheet>
                 <div class="container">
-                    <div class="row">
+                    <div class="row justify-content-center h-100">
                         <div id="map" class="col-9 col-lg-9"></div>
                         <div id="content-RightMap" class="col-3 col-lg-3 right-map">
                             <div class="row">
-                                <div class="col-8 col-lg-8 header-list title-header">Danh sách BĐS đóng góp</div>
-                                <div class="col-4 col-lg-4 header-list"><a id="link-AddNewRealEstate" class="label-add-new-real-estate" href="/user/contributenewrealestate.xhtml">+ New</a></div>
+                                <div class="col-12 col-lg-12 header-list title-header text-center">Danh sách BĐS đóng góp</div>
+                                <ui:remove>
+                                	<div class="col-4 col-lg-4 header-list"><a id="link-AddNewRealEstate" class="label-add-new-real-estate" href="/user/contributenewrealestate.xhtml">+ New</a></div>
+                                </ui:remove>
                                 <h:form id="form-ViewList" class="w-100">
-                                    <div class="w-100">
+                                    <div class="w-100" style="height:500px;">
                                         <c:forEach items="#{listOwnRealEstateBean.listUserRealEstate}" var="realEstate">
                                         	<li	class="list-group-item row d-flex" id="row-${realEstate.realEstateId}">
 	                                            <h:commandLink id="link-ViewDetail" class="blue-link col-12 col-lg-12" value="#{realEstate.realEstateName}" action="#{listOwnRealEstateBean.goToDetails(realEstate.realEstateId)}">

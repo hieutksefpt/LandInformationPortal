@@ -3,13 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-function abc() {
-    Swal.fire(
-            'Good job!',
-            'You clicked the button!',
-            'success'
-            );
-}
 function showError(content) {
     Swal.fire(
         'Opps!',

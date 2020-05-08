@@ -283,6 +283,9 @@ html {
   text-decoration: none;
   cursor: pointer;
 }
+.navbar{
+	height: 70px;
+}
 
 
 

@@ -246,20 +246,20 @@ function validateMap() {
             easing: 'easeInOutBack'
         });
     } else if (tempCheck === "Marker") {
-        alert("Vui lòng thả điểm để định vị bất động sản trên bản đồ");
+        showError("Vui lòng thả điểm để định vị bất động sản trên bản đồ");
     } else if (tempCheck === "TP") {
-        alert("Vui lòng cung cấp địa chỉ Tỉnh/Thành phố của bất động sản");
+        showError("Vui lòng cung cấp địa chỉ Tỉnh/Thành phố của bất động sản");
     } else if (tempCheck === "QH") {
-        alert("Vui lòng cung cấp địa chỉ Quận/Huyện của bất động sản");
+        showError("Vui lòng cung cấp địa chỉ Quận/Huyện của bất động sản");
     } else if (tempCheck === "DP") {
-        alert("Vui lòng cung cấp địa chỉ đường phố của bất động sản");
+        showError("Vui lòng cung cấp địa chỉ đường phố của bất động sản");
     } else if (tempCheck === "DD") {
-        alert("Vui lòng cung cấp địa chỉ đoạn đường của bất động sản");
+        showError("Vui lòng cung cấp địa chỉ đoạn đường của bất động sản");
     }
 }
 
 function emptyDataAdd() {
-    alert("Vui lòng nhập giá trị thuộc tính");
+    showError("Vui lòng nhập giá trị thuộc tính");
 }
 
 function loadLandUnit(landUnit) {
@@ -279,19 +279,19 @@ function loadHouseUnit(houseUnit) {
 }
 
 function landFeatureExisted() {
-    alert("Thuộc tính này của Đất đã được thêm vào bảng.\nNếu muốn chỉnh sửa vui lòng xóa bỏ giá trị thuộc tính đã tồn tại !");
+    showError("Thuộc tính này của Đất đã được thêm vào bảng.\nNếu muốn chỉnh sửa vui lòng xóa bỏ giá trị thuộc tính đã tồn tại !");
 }
 
 function houseFeatureExisted() {
-    alert("Thuộc tính này của Nhà đã được thêm vào bảng.\nNếu muốn chỉnh sửa vui lòng xóa bỏ giá trị thuộc tính đã tồn tại !");
+    showError("Thuộc tính này của Nhà đã được thêm vào bảng.\nNếu muốn chỉnh sửa vui lòng xóa bỏ giá trị thuộc tính đã tồn tại !");
 }
 
 function showLogDataRange (){
-    alert("Vui lòng nhập giá trị thuộc tính phù hợp theo mẫu");
+    showError("Vui lòng nhập giá trị thuộc tính phù hợp theo mẫu");
 }
 
 function dataType (){
-    alert("Vui lòng nhập đúng định dạng dữ liệu");
+    showError("Vui lòng nhập đúng định dạng dữ liệu");
 }
 
 function showModalMandatory() {
@@ -317,38 +317,38 @@ function showModalMandatory() {
 
 
     if (tempRealEstateName === '') {
-        alert("Tên của bất động sản không được để trống");
+        showError("Tên của bất động sản không được để trống");
     } else if (tempRealEstateValue <= 0 || tempRealEstateValue === null) {
-        alert("Giá trị của bất động sản phải lớn hơn 0 VND.\nĐồng thời phải lớn hơn hoặc bằng tổng giá trị của các bất động sản thành phần");
+        showError("Giá trị của bất động sản phải lớn hơn 0 VND.\nĐồng thời phải lớn hơn hoặc bằng tổng giá trị của các bất động sản thành phần");
     } 
     
     else if (tempRealEstateType === 'Đất và Nhà') {                  // to validate when choosing combobox Type RE.
          if (tempNewLandValue < 0) {   
-            alert("Giá trị của phần Đất phải lớn hơn 0 VND.");
+            showError("Giá trị của phần Đất phải lớn hơn 0 VND.");
         }else if (tempNewHouseValue < 0) {   
-            alert("Giá trị của phần Nhà phải lớn hơn 0 VND.");
+            showError("Giá trị của phần Nhà phải lớn hơn 0 VND.");
         }
     } else if (tempRealEstateType === 'Đất') {                             // If choose Land Feature --> have to contribute Land Value
         if (tempNewLandValue < 0) {
-            alert("Giá trị của phần Đất phải lớn hơn 0 VND.");
+            showError("Giá trị của phần Đất phải lớn hơn 0 VND.");
         }
     } else if (tempRealEstateType === 'Nhà') {                             // If choose House Feature --> have to contribute House Value
         if (tempNewHouseValue < 0) {
-            alert("Giá trị của phần Nhà phải lớn hơn 0 VND.");
+            showError("Giá trị của phần Nhà phải lớn hơn 0 VND.");
         }
     }
 }
 
 function showLogEmptyLandHouse(){
-    alert("Vui lòng cung cấp ít nhất 1 trong 3 trường Tên, giá trị, thuộc tính phần BĐS cấu thành, bao gồm cả Nhà và Đất");
+    showError("Vui lòng cung cấp ít nhất 1 trong 3 trường Tên, giá trị, thuộc tính phần BĐS cấu thành, bao gồm cả Nhà và Đất");
 }
 
 function showLogPrice(){
-    alert("Giá của Bất động sản không thể nhỏ hơn giá của BĐS cấu thành");
+    showError("Giá của Bất động sản không thể nhỏ hơn giá của BĐS cấu thành");
 }
 
 function showLogNumericName(){
-    alert("Tên của bất động sản không được chứa ký tự đặc biệt và toàn bộ bằng số");
+    showError("Tên của bất động sản không được chứa ký tự đặc biệt và toàn bộ bằng số");
 }
 
 

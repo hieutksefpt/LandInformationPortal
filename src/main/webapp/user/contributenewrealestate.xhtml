@@ -14,6 +14,10 @@
             <ui:define name="content">
                 <h:outputStylesheet name="contributenewrealestate.css" library="css"/>
                 <h:outputStylesheet name="common-style.css" library="css"/>
+                
+                <!--Alert Dialog-->
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.min.css"/>
+                
                 <h:form id="msform" onsubmit="return false;">
                     <!-- progressbar -->
                     <ul id="progressbar">
@@ -435,6 +439,10 @@
                 </h:form>
             </ui:define>
             <ui:define name="footer">
+                <!--Alert Dialog-->
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.min.js"></script>
+                <h:outputScript name="alertdialog.js" library="js"/> 
+                
                 <h:outputScript name="contributenewrealestate.js" library="js" />
                 <script type="text/javascript"
                         src="http://maps.googleapis.com/maps/api/js?key=#{googleMapBean.googleMapKey}&amp;libraries=places&amp;callback=initMap"

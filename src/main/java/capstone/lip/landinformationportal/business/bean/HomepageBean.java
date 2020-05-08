@@ -7,6 +7,8 @@ import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -179,7 +181,14 @@ public class HomepageBean implements Serializable {
 			return;
 		}
 		listDistrict = provinceSelected.getListDistrict();
-		
+		Collections.sort(listDistrict, new Comparator<District>() {
+
+			@Override
+			public int compare(District o1, District o2) {
+				return o1.getDistrictName().compareTo(o2.getDistrictName());
+			}
+			
+		});
 	}
 	public void districtChange() {
 		setStreetIdSelected("");
@@ -193,6 +202,15 @@ public class HomepageBean implements Serializable {
 //			listStreet = listTemp.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
 			
 		listStreet = streetService.findStreetByDistrictId(districtSelected.getDistrictId());
+		Collections.sort(listStreet, new Comparator<Street>() {
+
+			@Override
+			public int compare(Street o1, Street o2) {
+				return o1.getStreetName().compareTo(o2.getStreetName());
+			}
+			
+		});
+		
 		viewStatistic(districtSelected.getDistrictName());
 		setTypeReo("0");
 		openPageReo(0);

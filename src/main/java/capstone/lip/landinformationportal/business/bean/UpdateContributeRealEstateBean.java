@@ -15,6 +15,7 @@ import capstone.lip.landinformationportal.business.service.Interface.ILandsFeatu
 import capstone.lip.landinformationportal.business.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateAdjacentSegmentService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateService;
+import capstone.lip.landinformationportal.business.service.Interface.IStreetService;
 import capstone.lip.landinformationportal.business.service.Interface.IUserService;
 import capstone.lip.landinformationportal.common.dto.Coordinate;
 import capstone.lip.landinformationportal.common.dto.HouseFeatureValue;
@@ -46,6 +47,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -101,6 +104,9 @@ public class UpdateContributeRealEstateBean implements Serializable {
 
     @Autowired
     private IRealEstateAdjacentSegmentService realEstateAdjacentSegmentService;
+
+    @Autowired
+    private IStreetService streetService;
 
     private static final long serialVersionUID = 1L;
     private RealEstate realEstateClicked;
@@ -910,6 +916,15 @@ public class UpdateContributeRealEstateBean implements Serializable {
             segmentStreetIdSelected = "";
             nameInput = selectedProvince.getProvinceName();
 
+            Collections.sort(listDistrict, new Comparator<District>() {
+
+    			@Override
+    			public int compare(District o1, District o2) {
+    				return o1.getDistrictName().compareTo(o2.getDistrictName());
+    			}
+    			
+    		});
+            
             PrimeFaces.current().executeScript("focusMap(" + selectedProvince.getProvinceLat() + ", " + selectedProvince.getProvinceLng() + ", 15);");
         } else {
             listDistrict = new ArrayList<>();
@@ -932,9 +947,18 @@ public class UpdateContributeRealEstateBean implements Serializable {
             PrimeFaces.current().executeScript("changeInfo(\"" + selectedDistrict.getDistrictName() + "\", " + selectedDistrict.getDistrictLng() + ", "
                     + selectedDistrict.getDistrictLat() + ")");
             listSegmentOfStreet = selectedDistrict.getListSegmentOfStreet();
-            if (listSegmentOfStreet != null) {
-                listStreet = listSegmentOfStreet.stream().map(x -> x.getStreet()).distinct().collect(Collectors.toList());
-            }
+//            if (listSegmentOfStreet != null) {
+//                listStreet = listSegmentOfStreet.stream().map(x -> x.getStreet()).distinct().collect(Collectors.toList());
+//            }
+            listStreet = streetService.findStreetByDistrictId(selectedDistrict.getDistrictId());
+            Collections.sort(listStreet, new Comparator<Street>() {
+
+    			@Override
+    			public int compare(Street o1, Street o2) {
+    				return o1.getStreetName().compareTo(o2.getStreetName());
+    			}
+    			
+    		});
         } else {
             listStreet = new ArrayList<>();
             listSegmentOfStreet = new ArrayList<>();

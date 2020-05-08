@@ -1,6 +1,8 @@
 package capstone.lip.landinformationportal.business.bean;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -100,7 +102,14 @@ public class ManageGeoInfoBean implements Serializable {
 			nameInput = selectedProvince.getProvinceName();
 			latSingleCoordinate = selectedProvince.getProvinceLat().toString();
 			lngSingleCoordinate = selectedProvince.getProvinceLng().toString();
-			
+			Collections.sort(listDistrict, new Comparator<District>() {
+
+				@Override
+				public int compare(District o1, District o2) {
+					return o1.getDistrictName().compareTo(o2.getDistrictName());
+				}
+				
+			});
 			
 			PrimeFaces.current().executeScript("focusMap(" + selectedProvince.getProvinceLat() + ", " + selectedProvince.getProvinceLng() + ",15);");
 		}else {
@@ -122,13 +131,25 @@ public class ManageGeoInfoBean implements Serializable {
 			PrimeFaces.current().executeScript("focusMap(" + selectedDistrict.getDistrictLat() + ", " + selectedDistrict.getDistrictLng() + ",17);");
 			PrimeFaces.current().executeScript("changeInfo(\""+selectedDistrict.getDistrictName()+"\", "+selectedDistrict.getDistrictLng()+", "+
 		    selectedDistrict.getDistrictLat()+")");
+				
+//			List<SegmentOfStreet>listTemp = selectedDistrict.getListSegmentOfStreet();
+//			if (listTemp != null)
+//				listStreet = listTemp.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
+//			else {
+//				listStreet = new ArrayList<>();
+//			}
+			
+			listStreet = streetService.findStreetByDistrictId(selectedDistrict.getDistrictId());
+			
+			Collections.sort(listStreet, new Comparator<Street>() {
 
-			List<SegmentOfStreet>listTemp = selectedDistrict.getListSegmentOfStreet();
-			if (listTemp != null)
-				listStreet = listTemp.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
-			else {
-				listStreet = new ArrayList<>();
-			}
+				@Override
+				public int compare(Street o1, Street o2) {
+					return o1.getStreetName().compareTo(o2.getStreetName());
+				}
+				
+			});
+			
 			if (selectedStreet != null)
 				listStreet.add(selectedStreet);
 		}else {

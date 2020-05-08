@@ -6,6 +6,8 @@
 package capstone.lip.landinformationportal.business.bean;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +33,7 @@ import capstone.lip.landinformationportal.business.service.Interface.ILandsFeatu
 import capstone.lip.landinformationportal.business.service.Interface.IProvinceService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateAdjacentSegmentService;
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateService;
+import capstone.lip.landinformationportal.business.service.Interface.IStreetService;
 import capstone.lip.landinformationportal.business.service.Interface.IUserService;
 import capstone.lip.landinformationportal.business.validation.RealEstateValidation;
 import capstone.lip.landinformationportal.business.validation.StringValidation;
@@ -102,6 +105,9 @@ public class ContributeNewRealEstateBean implements Serializable {
 
     @Autowired
     private IHousesFeatureService housesFeatureService;
+    
+    @Autowired
+    private IStreetService streetService;
 
     private List<Province> listProvince;
     private List<District> listDistrict;
@@ -804,6 +810,16 @@ public class ContributeNewRealEstateBean implements Serializable {
             processType = "1";
             selectedProvince = listProvince.stream().filter(x -> x.getProvinceId().equals(Long.parseLong(provinceIdSelected))).collect(Collectors.toList()).get(0);
             listDistrict = selectedProvince.getListDistrict();
+            
+            Collections.sort(listDistrict, new Comparator<District>() {
+
+    			@Override
+    			public int compare(District o1, District o2) {
+    				return o1.getDistrictName().compareTo(o2.getDistrictName());
+    			}
+    			
+    		});
+            
             listSegmentOfStreet = new ArrayList();
             listStreet = new ArrayList();
             districtIdSelected = "";
@@ -833,9 +849,19 @@ public class ContributeNewRealEstateBean implements Serializable {
             PrimeFaces.current().executeScript("changeInfo(\"" + selectedDistrict.getDistrictName() + "\", " + selectedDistrict.getDistrictLng() + ", "
                     + selectedDistrict.getDistrictLat() + ")");
             listSegmentOfStreet = selectedDistrict.getListSegmentOfStreet();
-            if (listSegmentOfStreet != null) {
-                listStreet = listSegmentOfStreet.stream().map(x -> x.getStreet()).distinct().collect(Collectors.toList());
-            }
+//            if (listSegmentOfStreet != null) {
+//                listStreet = listSegmentOfStreet.stream().map(x -> x.getStreet()).distinct().collect(Collectors.toList());
+//            }
+            
+            listStreet = streetService.findStreetByDistrictId(selectedDistrict.getDistrictId());
+            Collections.sort(listStreet, new Comparator<Street>() {
+
+    			@Override
+    			public int compare(Street o1, Street o2) {
+    				return o1.getStreetName().compareTo(o2.getStreetName());
+    			}
+    			
+    		});
         } else {
             listStreet = new ArrayList<>();
             listSegmentOfStreet = new ArrayList<>();
@@ -856,6 +882,7 @@ public class ContributeNewRealEstateBean implements Serializable {
                     + selectedStreet.getStreetLng() + ")");
 
             listSegmentOfStreet = selectedStreet.getListSegmentOfStreet();
+            listSegmentOfStreet = listSegmentOfStreet.stream().filter(x->x.getDistrict().equals(selectedDistrict)).collect(Collectors.toList());
         } else {
             listSegmentOfStreet = new ArrayList<>();
             lngSingleCoordinate = "";

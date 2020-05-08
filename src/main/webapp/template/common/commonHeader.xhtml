@@ -9,6 +9,7 @@
       xmlns:sec="http://www.springframework.org/security/tags">
     <head>
         <h:outputStylesheet name="bootstrap.min.css" library="css" />
+        <h:outputStylesheet name="commonLayout.css" library="css" />
     </head>
     <body>
         <ui:composition>
@@ -83,7 +84,7 @@
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <h:commandLink
-                                            class="nav-link"
+                                            class="nav-link btn-log-out"
                                             value="Đăng xuất">
                                             <p:ajax process="@form"
                                                     listener="#{authenticationBean.signout()}"></p:ajax>

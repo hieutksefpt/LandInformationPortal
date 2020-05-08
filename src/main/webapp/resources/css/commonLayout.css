@@ -34,3 +34,20 @@
 .btnLogOut{
     background-color: #d9534f;
 }
+.btn-log-out{
+    border: 2px white groove;
+    border-radius: 10px;
+}
+
+.btn-log-out:hover{
+    background-color: white;
+    color: black;
+}
+.btn-log-in{
+    border: 2px white groove;
+    border-radius: 10px;
+}
+.btn-log-in:hover{
+    background-color: white;
+    color: black;
+}

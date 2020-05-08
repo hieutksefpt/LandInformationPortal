@@ -35,6 +35,7 @@
     color: white;
     padding-left: 5px;
     padding-right: 5px;
+    margin-top: -14px;
 }
 .element-list-house{
     padding-right: 25px;
@@ -46,17 +47,18 @@
 }
 .btn-in-detai-page{
     border-radius: 20px;
-    float: right;
     color: white;
     width: 60px;
     height: 30px;
+    margin-top: 15px;
 }
 .btn-delete{
-    margin-right: 25px;
-    background-color: #d9534f;
+    margin-left: 15px;
+    background-color: #343a40;
 }
 .btn-edit{
-    background-color: #56c6c6;
+    background-color: #fed136;
+    color: black;
 }
 .blue-report{
     color: #007bff;
@@ -68,16 +70,16 @@
     font-size: 20px;
 }
 .flag{
-	background-size: auto 100%;
+    background-size: auto 100%;
     background-repeat: no-repeat;
     background-position: left top;
-	background-image: url("#{resource['img/flag.png']}");
+    background-image: url("#{resource['img/flag.png']}");
 }
 .flag-red{
-	background-size: auto 100%;
+    background-size: auto 100%;
     background-repeat: no-repeat;
     background-position: left top;
-	background-image: url("#{resource['img/flag_red.png']}");
+    background-image: url("#{resource['img/flag_red.png']}");
 }
 .button-report-status{
     color: white;

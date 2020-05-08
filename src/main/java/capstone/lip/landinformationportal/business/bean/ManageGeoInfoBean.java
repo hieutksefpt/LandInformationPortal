@@ -175,20 +175,20 @@ public class ManageGeoInfoBean implements Serializable {
 		}
 		
 	}
-	SegmentOfStreet segmentOfStreet;
+	SegmentOfStreet selectedSegmentOfStreet;
 	public void segmentStreetChange() {
 		if (segmentStreetIdSelected != null && !segmentStreetIdSelected.equals("")) {
 			processType = "4";
-			segmentOfStreet = listSegmentOfStreet.stream().filter(x->x.getSegmentId().equals(Long.parseLong(segmentStreetIdSelected))).collect(Collectors.toList()).get(0);
-			PrimeFaces.current().executeScript("focusMap(" + segmentOfStreet.getSegmentLat() + ", " + segmentOfStreet.getSegmentLng() + ",19);");
-			PrimeFaces.current().executeScript("changeInfo(\""+segmentOfStreet.getSegmentName()+"\", "+segmentOfStreet.getSegmentLng()+", "+
-					segmentOfStreet.getSegmentLat()+")");
-			vt1 = segmentOfStreet.getVT1().toString();
-			vt2 = segmentOfStreet.getVT2().toString();
-			vt3 = segmentOfStreet.getVT3().toString();
-			vt4 = segmentOfStreet.getVT4().toString();
+			selectedSegmentOfStreet = listSegmentOfStreet.stream().filter(x->x.getSegmentId().equals(Long.parseLong(segmentStreetIdSelected))).collect(Collectors.toList()).get(0);
+			PrimeFaces.current().executeScript("focusMap(" + selectedSegmentOfStreet.getSegmentLat() + ", " + selectedSegmentOfStreet.getSegmentLng() + ",19);");
+			PrimeFaces.current().executeScript("changeInfo(\""+selectedSegmentOfStreet.getSegmentName()+"\", "+selectedSegmentOfStreet.getSegmentLng()+", "+
+					selectedSegmentOfStreet.getSegmentLat()+")");
+			vt1 = selectedSegmentOfStreet.getVT1().toString();
+			vt2 = selectedSegmentOfStreet.getVT2().toString();
+			vt3 = selectedSegmentOfStreet.getVT3().toString();
+			vt4 = selectedSegmentOfStreet.getVT4().toString();
 			PrimeFaces.current().executeScript("updateDeleteOld()");
-			List<FormedCoordinate> listFormedCoordinate = segmentOfStreet.getListFormedCoordinate();
+			List<FormedCoordinate> listFormedCoordinate = selectedSegmentOfStreet.getListFormedCoordinate();
 			List<Coordinate> listCoordinate = listFormedCoordinate.stream()
 					.map(x->{
 						Coordinate coor = new Coordinate(x.getFormedLng(), x.getFormedLat());
@@ -555,26 +555,54 @@ public class ManageGeoInfoBean implements Serializable {
 			return "Tên không được để trống";
 		}
 		if (processType.equals("1")) {
+			List<Province> listTempProvince = listProvince.stream().filter(x->!x.equals(selectedProvince)).collect(Collectors.toList());
+			
 			if (!listProvince.stream().filter(x->x.getProvinceName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()
-					&& (action.equals("Add") || action.equals("Update"))) {
+					&& (action.equals("Add"))) {
+				return "Trùng tên";
+			}
+			
+			if (!listTempProvince.stream().filter(x->x.getProvinceName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()
+					&& (action.equals("Update"))) {
 				return "Trùng tên";
 			}
 		}
 		if (processType.equals("2")) {
+			List<District> listDistrictTemp = listDistrict.stream().filter(x->!x.equals(selectedDistrict)).collect(Collectors.toList());
+			
 			if (!listDistrict.stream().filter(x->x.getDistrictName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()
-					&& (action.equals("Add") || action.equals("Update"))) {
+					&& (action.equals("Add"))) {
+				return "Trùng tên";
+			}
+			
+			if (!listDistrictTemp.stream().filter(x->x.getDistrictName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()
+					&& (action.equals("Update"))) {
 				return "Trùng tên";
 			}
 		}
 		if (processType.equals("3")) {
+			List<Street> listStreetTemp = listStreet.stream().filter(x->!x.equals(selectedStreet)).collect(Collectors.toList());
+			
 			if (!listStreet.stream().filter(x->x.getStreetName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()
-					&& (action.equals("Add") || action.equals("Update"))) {
+					&& (action.equals("Add"))) {
+				return "Trùng tên";
+			}
+			
+			if (!listStreetTemp.stream().filter(x->x.getStreetName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()
+					&& (action.equals("Update"))) {
 				return "Trùng tên";
 			}
 		}
 		if (processType.equals("4")) {
+			List<SegmentOfStreet> listSegmentTemp = listSegmentOfStreet.stream().filter(x->!x.equals(selectedSegmentOfStreet)).collect(Collectors.toList());
+			
 			if (!listSegmentOfStreet.stream().filter(x->x.getSegmentName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()
-					&& (action.equals("Add") || action.equals("Update"))) {
+					&& (action.equals("Add") )) {
+				return "Trùng tên";
+			}
+			
+			if (!listSegmentTemp.stream().filter(x->x.getSegmentName().equalsIgnoreCase(nameInput)).collect(Collectors.toList()).isEmpty()
+					&& (action.equals("Update"))) {
 				return "Trùng tên";
 			}
 		}

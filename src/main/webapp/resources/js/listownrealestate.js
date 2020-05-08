@@ -19,8 +19,18 @@ function initMap() {
     });
     
     for (i = 0; i < markers.length; i++) {
-        var latLng = {lat: markers[i].latitude, lng: markers[i].longitude};
-        var marker = new google.maps.Marker({position: latLng, map: map});
+        let latLng = {lat: markers[i].latitude, lng: markers[i].longitude};
+        let marker = new google.maps.Marker({position: latLng, map: map, info: markers[i]});
+
+        marker.addListener('click', function() {
+        	$('#row-'+marker.info.id).effect("highlight", {}, 3000);
+        });
+        
+//        google.maps.event.addListener(marker, 'click', function (e) {
+////    		$('#row-'+marker.info.id).effect("highlight", {}, 3000);
+//    		console.log(e)
+//        });
+        
         listMarkers.push(marker);
     }
     

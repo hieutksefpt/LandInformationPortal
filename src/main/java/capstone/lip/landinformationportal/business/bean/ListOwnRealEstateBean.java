@@ -59,7 +59,7 @@ public class ListOwnRealEstateBean implements Serializable {
     public void transferListCoordinate() {
         List<Coordinate> listCoordinate = new ArrayList<>();
         listUserRealEstate.stream().forEach((re) -> {
-            listCoordinate.add(new Coordinate().setLatitude(re.getRealEstateLat()).setLongitude(re.getRealEstateLng()));
+            listCoordinate.add(new Coordinate().setLatitude(re.getRealEstateLat()).setLongitude(re.getRealEstateLng()).setId(re.getRealEstateId()));
         });
         Gson gson = new Gson();
         jsonMultipleCoordinate = gson.toJson(listCoordinate);

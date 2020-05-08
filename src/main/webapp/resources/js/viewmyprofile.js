@@ -43,38 +43,38 @@ var checkConfirm = function() {
 };  
 
 function showLogErrorPass() {
-    alert("Mật khẩu cũ bạn nhập không chính xác !");
+    showError("Mật khẩu cũ bạn nhập không chính xác !");
     
 }
 function showLogSamePass(){
-	alert("Mật khẩu xác nhận không khớp");
+    showError("Mật khẩu xác nhận không khớp");
 }
 function showEmptyError() {
-    alert("Vui lòng điền đủ các trường cần khai báo");
+    showError("Vui lòng điền đủ các trường cần khai báo");
     
 }
 
 function showLogLengthPass() {
-    alert("Mật khẩu mới phải có nhiều hơn 8 ký tự !");
+    showError("Mật khẩu mới phải có nhiều hơn 8 ký tự !");
     
 }
 
 function showNameContain() {
-    alert("Tên của bạn không được chứa số và ký tự đặc biệt");
+    showError("Tên của bạn không được chứa số và ký tự đặc biệt");
     
 }
 function showEmailError() {
-    alert("Vui lòng nhập đúng định dạng Email");
+    showError("Vui lòng nhập đúng định dạng Email");
     
 }
 
 function showLengthInput() {
-    alert("Vui lòng nhập độ dài các trường không quá dài !");
+    showError("Vui lòng nhập độ dài các trường không quá dài !");
     
 }
 
 function showNotifySuccess() {
-    alert("Cập nhật thông tin thành công");
+    showSuccess("Cập nhật thông tin thành công");
     
 }
 

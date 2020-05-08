@@ -252,23 +252,32 @@ public class UpdateContributeRealEstateBean implements Serializable {
 
             realEstateStatus = String.valueOf(StatusRealEstateConstant.NOT_VERIFIED);
 
-            segmentStreetIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getSegmentId().toString();
-            districtIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getDistrictId().toString();
-            streetIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getStreet().getStreetId().toString();
-            provinceIdSelected = realEstateClicked.getListRealEstateAdjacentSegment().get(0).getSegmentOfStreet().getDistrict().getProvince().getProvinceId().toString();
+            RealEstateAdjacentSegment tempAdj = realEstateClicked.getListRealEstateAdjacentSegment().get(0);
+            SegmentOfStreet tempSegment = tempAdj.getSegmentOfStreet();
+            
+            segmentStreetIdSelected = tempSegment.getSegmentId().toString();
+            districtIdSelected = tempSegment.getDistrict().getDistrictId().toString();
+            streetIdSelected = tempSegment.getStreet().getStreetId().toString();
+            provinceIdSelected = tempSegment.getDistrict().getProvince().getProvinceId().toString();
 
+            
+            
             for (Province province : listProvince) {
                 if (province.getProvinceId().toString().equals(provinceIdSelected)) {
                     listDistrict = province.getListDistrict();
+                    break;
                 }
             }
             for (District district : listDistrict) {
                 if (district.getDistrictId().toString().equals(districtIdSelected)) {
                     listSegmentOfStreet = district.getListSegmentOfStreet();
+                    break;
                 }
             }
-
-            listStreet = listSegmentOfStreet.stream().map(x -> x.getStreet()).distinct().collect(Collectors.toList());
+            
+            listStreet = streetService.findStreetByDistrictId(Long.valueOf(districtIdSelected));
+            
+//            listStreet = listSegmentOfStreet.stream().map(x -> x.getStreet()).distinct().collect(Collectors.toList());
             landsFeatureDataRangeClicked = new ArrayList<>();
             housesFeatureDataRangeClicked = new ArrayList<>();
         }

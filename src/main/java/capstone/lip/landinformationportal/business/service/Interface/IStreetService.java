@@ -10,5 +10,5 @@ public interface IStreetService {
 	boolean delete(Street street);
 	Street findById(Long id);
 	
-	List<Street> findStreetByDistrictId(Long streetId);
+	List<Street> findStreetByDistrictId(Long districtId);
 }

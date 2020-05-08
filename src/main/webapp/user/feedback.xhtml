@@ -37,7 +37,9 @@
                 <!-- Template Main CSS File -->
                 <h:outputStylesheet name="util.css" library="css"/>
                 <h:outputStylesheet name="feedback.css" library="css"/>
-
+                
+                <!--Alert Dialog-->
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.min.css"/>
 
                 <div class="contact1">
                     
@@ -78,14 +80,19 @@
                     </div>
                 </div>
 
+                <!--Alert Dialog-->
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.min.js"></script>
+                <h:outputScript name="alertdialog.js" library="js"/> 
+                
                 <!-- JS -->
                 <h:outputScript name="jquery.min.js" library="js" />
                 <h:outputScript name="popper.js" library="js" />
                 <h:outputScript name="select2.min.js" library="js" />
                 <h:outputScript name="tilt.jquery.min.js" library="js" />
+                
                 <!-- Main JS -->
                 <h:outputScript name="feedback.js" library="js"/>                
-
+                  
             </ui:define>
         </ui:composition>
     </h:body>

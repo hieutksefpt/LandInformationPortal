@@ -20,12 +20,14 @@
                             <div class="row">
                                 <div class="col-8 col-lg-8 header-list title-header">Danh sách BĐS đóng góp</div>
                                 <div class="col-4 col-lg-4 header-list"><a id="link-AddNewRealEstate" class="label-add-new-real-estate" href="/user/contributenewrealestate.xhtml">+ New</a></div>
-                                <h:form id="form-ViewList">
-                                    <div class="row">
+                                <h:form id="form-ViewList" class="w-100">
+                                    <div class="w-100">
                                         <c:forEach items="#{listOwnRealEstateBean.listUserRealEstate}" var="realEstate">
-                                            <h:commandLink id="link-ViewDetail" class="blue-link col-12 col-lg-12" value="#{realEstate.realEstateName}" action="#{listOwnRealEstateBean.goToDetails(realEstate.realEstateId)}">
-                                                <p:ajax process="@form"/>
-                                            </h:commandLink>
+                                        	<li	class="list-group-item row d-flex" id="row-${realEstate.realEstateId}">
+	                                            <h:commandLink id="link-ViewDetail" class="blue-link col-12 col-lg-12" value="#{realEstate.realEstateName}" action="#{listOwnRealEstateBean.goToDetails(realEstate.realEstateId)}">
+	                                                <p:ajax process="@form"/>
+	                                            </h:commandLink>
+                                            </li>
                                         </c:forEach>
                                     </div>
                                 </h:form>

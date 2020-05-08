@@ -1,43 +1,58 @@
 html,body{height:100%;}
 .main{
-	height:100%;
-	width:100%;
-	overflow: auto;
-	overflow-x: hidden;
+    height:100%;
+    width:100%;
+    overflow: auto;
+    overflow-x: hidden;
 }
 .scrollable{
-	max-height: 700px;
- 	overflow-y: auto;
- 	overflow-x: hidden;
+    max-height: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 @media only screen and (max-height: 750px) {
-	
-	.scrollable{
-		max-height: 500px;
-	 	overflow-y: auto;
-	 	overflow-x: hidden;
-	}
+
+    .scrollable{
+        max-height: 500px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
 }
 .navbar{
-	height:70px;
-	margin-bottom:0;
+    height:70px;
+    margin-bottom:0;
 }
 
 #panel-list-reo{
-	width:300px;
+    width:300px;
 }
 .scroll-y-only{
-	overflow-y:auto;
-	overflow-x:hidden;
-	height: 400px;
+    overflow-y:auto;
+    overflow-x:hidden;
+    height: 400px;
+}
+
+
+.ui-widget-content{
+    border:1px solid #8c8c8c;
+    background-color: aliceblue   !important;
+/*    background:-moz-radial-gradient(50% 75%,circle,#eeeeee,#eeeeee); 
+    background:-webkit-radial-gradient(50% 75%,circle,#eeeeee,#eeeeee); */
+/*    background:-o-radial-gradient(50% 75%,circle,#eeeeee,#eeeeee) !important;
+    background:-ms-radial-gradient(50% 75%,circle,#eeeeee,#eeeeee) !important;*/
+/*    background:radial-gradient(50% 75%,circle,#eeeeee,#eeeeee) !important;*/
+}
+
+.list-reo {
+    background-color: aliceblue   !important;
 }
 
 .zoom-effect-container:hover {
-  -webkit-transform: scale(1.08);
-  transform: scale(1.08);
-  border-radius: 2px;
-  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);  
+    -webkit-transform: scale(1.08);
+    transform: scale(1.08);
+    border-radius: 2px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);  
 }
 
 .zoom-effect-container {
@@ -56,3 +71,4 @@ html,body{height:100%;}
     99%{    color:transparent;  }
     100%{   color: #000;    }
 }
+

@@ -70,7 +70,6 @@ public class ManageMyProfileBean implements Serializable {
     }
 
     public void updateMyProfile() {
-        boolean tempDirect = false;
         StringValidation sv = new StringValidation();
         userSelected.setFullName(fullname);
         userSelected.setEmail(email);
@@ -91,18 +90,9 @@ public class ManageMyProfileBean implements Serializable {
         } else {
             userSelected = userService.save(userSelected);
             PrimeFaces.current().executeScript("showNotifySuccess()");
-            tempDirect = true;
         }
 
-        if (tempDirect) {
-            try {
-                ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-                ec.redirect(ec.getRequestContextPath() + "/user/viewmyprofile.xhtml?");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
+        
 
     }
     

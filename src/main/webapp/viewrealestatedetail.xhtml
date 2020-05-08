@@ -45,21 +45,39 @@
                         <div id="map" class="col-8 col-lg-8"></div>
                         <div id="content-RightMap" class="col-4 col-lg-4 right-map">
                             <div class="content-right-map">
-                                <div id="lbl-DetailRealEstate" class="title-header">Chi tiết Bất Động Sản</div>
+                                <div id="lbl-DetailRealEstate" class="title-header">
+                                    Chi tiết Bất Động Sản
+                                    <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateStatus == 'CONFUSED'}">
+                                        <span class="badge button-report-status button-report-status-icon-confused">Chưa xác định</span>
+                                    </c:if>
+                                    <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateStatus == 'NOTVERIFY'}">
+                                        <span class="badge button-report-status button-report-status-icon-not-verified">Chưa thẩm định</span>
+                                    </c:if>
+                                    <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateStatus == 'VERIFIED'}">
+                                        <span class="badge button-report-status button-report-status-icon-verified">Đã thẩm định</span>
+                                    </c:if>
+                                </div>
                                 <h:inputHidden id="txtInput_coordinate_detailRealEstate" value="#{viewRealEstateDetailBean.jsonCoordinate}"></h:inputHidden>
                                 <div class="row">
-                                    <div class="col">
+                                    <div class="col-4 col-lg-4">
+                                        <h:form rendered="#{viewRealEstateDetailBean.ownRealEstate}">
+                                            <h:commandButton id="btn-ButtonDelete" 
+                                                             type="button" 
+                                                             class="btn-delete btn-in-detai-page" 
+                                                             value="Xóa" 
+                                                             onclick="checkclick('dlgConfirmDelete')">
+                                            </h:commandButton>
+                                            <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateSource == 'CONTRIBUTOR'}">
+                                                <h:commandButton id="btn-ButtonEdit" 
+                                                                 class="btn-edit btn-in-detai-page" 
+                                                                 value="Sửa" 
+                                                                 action="#{viewRealEstateDetailBean.goToDetails(viewRealEstateDetailBean.tempRealEstateId)}">
+                                                </h:commandButton>
+                                            </c:if>
+                                        </h:form>
+                                    </div>
+                                    <div class="col-8 col-lg-8" style="margin-top: 15px;">
                                         <sec:authenticated>
-                                            <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateStatus == 'CONFUSED'}">
-                                                <span class="badge button-report-status button-report-status-icon-confused">Chưa xác định</span>
-                                            </c:if>
-                                            <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateStatus == 'NOTVERIFY'}">
-                                                <span class="badge button-report-status button-report-status-icon-not-verified">Chưa thẩm định</span>
-                                            </c:if>
-                                            <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateStatus == 'VERIFIED'}">
-                                                <span class="badge button-report-status button-report-status-icon-verified">Đã thẩm định</span>
-                                            </c:if>
-
                                             <h:form id="updateReport" styleClass="element-list" >
                                                 <span class="flag-red">
                                                 </span>
@@ -81,24 +99,6 @@
                                             <h:outputText value="#{viewRealEstateDetailBean.numberOfReport}"/>
                                         </sec:anonymous>
                                     </div>
-                                    <div class="col">
-                                        <h:form rendered="#{viewRealEstateDetailBean.ownRealEstate}">
-                                            <h:commandButton id="btn-ButtonDelete" 
-                                                             type="button" 
-                                                             class="btn-delete btn-in-detai-page" 
-                                                             value="Xóa" 
-                                                             onclick="checkclick('dlgConfirmDelete')">
-                                            </h:commandButton>
-                                            <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateSource == 'CONTRIBUTOR'}">
-                                                <h:commandButton id="btn-ButtonEdit" 
-                                                                 class="btn-edit btn-in-detai-page" 
-                                                                 value="Sửa" 
-                                                                 action="#{viewRealEstateDetailBean.goToDetails(viewRealEstateDetailBean.tempRealEstateId)}">
-                                                </h:commandButton>
-                                            </c:if>
-                                        </h:form>
-                                    </div>
-
                                 </div>
                                 <sec:authenticated>
                                     <div id="lbl-UsersNameLabel" class="text name element-list">
@@ -128,11 +128,11 @@
                                 </div>
                                 <div class="priceInput element-list">
                                     <h:inputText id="txt-RealEstatePrice" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstatePrice}" readonly="true"
-                                     rendered="#{viewRealEstateDetailBean.realEstateClicked.realEstateSource == 'CONTRIBUTOR' or (viewRealEstateDetailBean.realEstateClicked.realEstateSource !='CONTRIBUTOR' and viewRealEstateDetailBean.realEstateClicked.realEstatePrice gt 10)}">
+                                                 rendered="#{viewRealEstateDetailBean.realEstateClicked.realEstateSource == 'CONTRIBUTOR' or (viewRealEstateDetailBean.realEstateClicked.realEstateSource !='CONTRIBUTOR' and viewRealEstateDetailBean.realEstateClicked.realEstatePrice gt 10)}">
                                         <f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
                                     </h:inputText>
                                     <h:inputText id="txt-RealEstatePriceDelegate" class="input" value="Thỏa thuận" readonly="true" 
-                                    rendered="#{!(viewRealEstateDetailBean.realEstateClicked.realEstateSource == 'CONTRIBUTOR' or (viewRealEstateDetailBean.realEstateClicked.realEstateSource !='CONTRIBUTOR' and viewRealEstateDetailBean.realEstateClicked.realEstatePrice gt 10))}">
+                                                 rendered="#{!(viewRealEstateDetailBean.realEstateClicked.realEstateSource == 'CONTRIBUTOR' or (viewRealEstateDetailBean.realEstateClicked.realEstateSource !='CONTRIBUTOR' and viewRealEstateDetailBean.realEstateClicked.realEstatePrice gt 10))}">
                                     </h:inputText>
                                     <p>(Đơn vị: Việt Nam đồng)</p>
                                 </div>
@@ -163,12 +163,24 @@
                                     </h:inputText><p>(Đơn vị: Việt Nam đồng)</p>
                                 </div>
                                 <div class="row element-list-land">
-                                    <c:forEach items="#{viewRealEstateDetailBean.listLandsDetail}" var="landsDetail">
-                                        <c:if test="#{not empty landsDetail.value}">
-                                            <div id="lbl-LandsDetailFeatureName" class="col-4 col-lg-4">#{landsDetail.landsFeature.landsFeatureName}</div>
-                                            <div id="lbl-LandsDetailValueUnit" class="col-8 col-lg-8">#{landsDetail.value} #{landsDetail.landsFeature.landsFeatureUnit}</div>
-                                        </c:if>
-                                    </c:forEach>
+                                    <table class="table table-striped" style="margin-left: 15px; margin-right: 15px; border: groove black 1px;">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Tên thuộc tính</th>
+                                                <th scope="col">Giá trị</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="#{viewRealEstateDetailBean.listLandsDetail}" var="landsDetail">
+                                                <tr>
+                                                    <c:if test="#{not empty landsDetail.value}">
+                                                        <td>#{landsDetail.landsFeature.landsFeatureName}</td>
+                                                        <td>#{landsDetail.value} #{landsDetail.landsFeature.landsFeatureUnit}</td>
+                                                    </c:if>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </c:if>
                             <c:if test="#{viewRealEstateDetailBean.currentListHouse != null}">
@@ -190,12 +202,24 @@
                                     </div>
                                     <c:if test="#{house.listHousesDetail != null}">
                                         <div class="row element-list-house">
-                                            <c:forEach items="#{viewRealEstateDetailBean.getListHousesDetail(house)}" var="housesDetail">
-                                                <c:if test="#{not empty housesDetail.value}">
-                                                    <div id="lbl-HousesDetailFeatureName" class="col-4 col-lg-4">#{housesDetail.housesFeature.housesFeatureName}</div>
-                                                    <div id="lbl-HousesDetailValueUnit" class="col-8 col-lg-8">#{housesDetail.value} #{housesDetail.housesFeature.housesFeatureUnit}</div>
-                                                </c:if>
-                                            </c:forEach>
+                                            <table class="table table-striped" style="margin-left: 15px; margin-right: 15px; border: groove black 1px;">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Tên thuộc tính</th>
+                                                        <th scope="col">Giá trị</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach items="#{viewRealEstateDetailBean.getListHousesDetail(house)}" var="housesDetail">
+                                                        <tr>
+                                                            <c:if test="#{not empty housesDetail.value}">
+                                                                <td>#{housesDetail.housesFeature.housesFeatureName}</td>
+                                                                <td>#{housesDetail.value} #{housesDetail.housesFeature.housesFeatureUnit}</td>
+                                                            </c:if>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </c:if>
                                 </c:forEach>

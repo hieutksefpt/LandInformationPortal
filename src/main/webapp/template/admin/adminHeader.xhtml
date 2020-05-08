@@ -7,8 +7,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:sec="http://www.springframework.org/security/tags">
     <h:body>
-        <nav
-            class="navbar navbar-light navbar-expand-md navigation-clean-button">
+        <nav class="navbar navbar-dark bg-dark navbar-expand-md navigation-clean-button">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Quản lý hệ thống</a>
                 <button data-toggle="collapse" class="navbar-toggler"
@@ -16,44 +15,44 @@
                     <span class="sr-only">Toggle navigation</span><span
                         class="navbar-toggler-icon"></span>
                 </button>
-                
-	                <div class="collapse navbar-collapse" id="navcol-1">
-	                	
-	                    
-	                    <ul class="nav navbar-nav mr-auto">
-	                        <li class="nav-item" role="presentation">
-	                        	<h:form prependId="false" onsubmit="return false;">
-	                            	<h:commandLink class="nav-link" value="Màn hình người dùng"> 
-	                            		<p:ajax process="@form" listener="#{authenticationBean.redirectHomepage()}"></p:ajax>
-	                            	</h:commandLink>
-                            	</h:form>
-                            </li>
-	                       
-	                    </ul>
-	                    <h:form prependId="false" onsubmit="return false;">
-		                    <span class="navbar-text actions">
-		                        <a class="btn btn-light action-button" href="/user/viewmyprofile.xhtml">
-		                      		#{authenticationBean.currentUser.fullName}
-		                        </a>
-			                    <h:commandLink class="btnOnNav" value="Đăng xuất">
-			                    	<p:ajax process="@form" listener="#{authenticationBean.signout()}"></p:ajax>
-			                    </h:commandLink>
-		                    </span>
-	                    </h:form>
-	                </div>
-                
+
+                <div class="collapse navbar-collapse" id="navcol-1">
+
+
+                    <ul class="nav navbar-nav mr-auto">
+                        <li class="nav-item" role="presentation">
+                            <h:form prependId="false" onsubmit="return false;">
+                                <h:commandLink class="nav-link" value="Màn hình người dùng"> 
+                                    <p:ajax process="@form" listener="#{authenticationBean.redirectHomepage()}"></p:ajax>
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+
+                    </ul>
+                    <h:form prependId="false" onsubmit="return false;">
+                        <span class="navbar-text actions">
+                            <a class="btn btn-light action-button" href="/user/viewmyprofile.xhtml">
+                                #{authenticationBean.currentUser.fullName}
+                            </a>
+                            <h:commandLink class="btnOnNav" value="Đăng xuất">
+                                <p:ajax process="@form" listener="#{authenticationBean.signout()}"></p:ajax>
+                            </h:commandLink>
+                        </span>
+                    </h:form>
+                </div>
+
             </div>
         </nav>
         <ui:remove>
-        <div class="authorization-div">
-            <sec:authorize access="hasRole('ROLE_USER')">
-                <p:outputLabel value="You have the USER role" />
-            </sec:authorize>
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
-                <p:outputLabel value="You have the ADMIN role" />
-            </sec:authorize>
-        </div>
+            <div class="authorization-div">
+                <sec:authorize access="hasRole('ROLE_USER')">
+                    <p:outputLabel value="You have the USER role" />
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <p:outputLabel value="You have the ADMIN role" />
+                </sec:authorize>
+            </div>
         </ui:remove>
-        
+
     </h:body>
 </html>

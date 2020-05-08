@@ -54,9 +54,26 @@ public class ManageRealEstateFeatureBean implements Serializable {
     private String tempHousesFeatureDataRange;
     private List<String> landsFeatureDataRange;
     private List<String> housesFeatureDataRange;
+    
+    private void clearDataLand(){
+        landsFeatureName = "";
+        landsFeatureUnit = "";
+        landfeatureID = -1L;
+        landsFeatureDataType = "STR";
+        tempLandsFeatureDataRange = "";
+        landsFeatureDataRange = new ArrayList<>();
+    }
+    private void clearDataHouse(){
+        housesFeatureName = "";
+        housesFeatureUnit = "";
+        housefeatureID = -1L;
+        housesFeatureDataType = "STR";
+        tempHousesFeatureDataRange = "";
+        housesFeatureDataRange = new ArrayList<>();
+    }
 
-    private LandsFeature landsFeatureClicked;
-    private HousesFeature housesFeatureClicked;
+    private LandsFeature landsFeatureClicked = null;
+    private HousesFeature housesFeatureClicked = null;
 
     @PostConstruct
     public void init() {
@@ -78,7 +95,7 @@ public class ManageRealEstateFeatureBean implements Serializable {
     public void showAlertHousesFeatureName() {
         PrimeFaces.current().executeScript("showAlertHousesFeatureName()");
     }
-    
+
     public void showAlertDuplicateHousesFeature() {
         PrimeFaces.current().executeScript("showAlertDuplicateHousesFeature()");
     }
@@ -111,7 +128,7 @@ public class ManageRealEstateFeatureBean implements Serializable {
     private boolean landsFeatureCheck = true;
     private boolean housesFeatureCheck = true;
 
-    private boolean checkDuplicateLandsFeature(String landsFeatureName) {
+    private boolean checkDuplicateAddLandsFeature(String landsFeatureName) {
         for (LandsFeature lf : listLandsFeature) {
             if (lf.getLandsFeatureName().equalsIgnoreCase(landsFeatureName)) {
                 return false;
@@ -119,11 +136,33 @@ public class ManageRealEstateFeatureBean implements Serializable {
         }
         return true;
     }
-    
-    private boolean checkDuplicateHousesFeature(String housesFeatureName) {
+
+    private boolean checkDuplicateUpdateLandsFeature(String landsFeatureName) {
+        for (LandsFeature lf : listLandsFeature) {
+            if (lf.getLandsFeatureName().equalsIgnoreCase(landsFeatureName)) {
+                if (lf.getLandsFeatureID() != landsFeatureClicked.getLandsFeatureID()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean checkDuplicateAddHousesFeature(String housesFeatureName) {
         for (HousesFeature hf : listHousesFeature) {
             if (hf.getHousesFeatureName().equalsIgnoreCase(housesFeatureName)) {
                 return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkDuplicateUpdateHousesFeature(String housesFeatureName) {
+        for (HousesFeature hf : listHousesFeature) {
+            if (hf.getHousesFeatureName().equalsIgnoreCase(housesFeatureName)) {
+                if (hf.getHousesFeatureID() != housesFeatureClicked.getHousesFeatureID()) {
+                    return false;
+                }
             }
         }
         return true;
@@ -135,7 +174,7 @@ public class ManageRealEstateFeatureBean implements Serializable {
             landsFeatureCheck = false;
             showAlertLandsFeatureName();
         }
-        if (!checkDuplicateLandsFeature(landsFeatureName)) {
+        if (!checkDuplicateAddLandsFeature(landsFeatureName)) {
             landsFeatureCheck = false;
             showAlertDuplicateLandsFeature();
         }
@@ -162,6 +201,7 @@ public class ManageRealEstateFeatureBean implements Serializable {
             landfeature = landsFeatureService.save(landfeature);
             listLandsFeature = landsFeatureService.findAll();
             hideAddFeaturePopup();
+            clearDataLand();
         }
     }
 
@@ -171,7 +211,7 @@ public class ManageRealEstateFeatureBean implements Serializable {
             housesFeatureCheck = false;
             showAlertHousesFeatureName();
         }
-        if (!checkDuplicateHousesFeature(housesFeatureName)) {
+        if (!checkDuplicateAddHousesFeature(housesFeatureName)) {
             housesFeatureCheck = false;
             showAlertDuplicateHousesFeature();
         }
@@ -198,6 +238,7 @@ public class ManageRealEstateFeatureBean implements Serializable {
             housesFeature = housesFeatureService.save(housesFeature);
             listHousesFeature = housesFeatureService.findAll();
             hideAddFeaturePopup();
+            clearDataHouse();
         }
     }
 
@@ -207,7 +248,7 @@ public class ManageRealEstateFeatureBean implements Serializable {
             landsFeatureCheck = false;
             showAlertLandsFeatureName();
         }
-        if (!checkDuplicateLandsFeature(landsFeatureNameClicked)) {
+        if (!checkDuplicateUpdateLandsFeature(landsFeatureNameClicked)) {
             landsFeatureCheck = false;
             showAlertDuplicateLandsFeature();
         }
@@ -240,6 +281,7 @@ public class ManageRealEstateFeatureBean implements Serializable {
             landsFeatureService.save(landsFeatureClicked);
             listLandsFeature = landsFeatureService.findAll();
             hideEditPopup();
+            landsFeatureClicked = null;
         }
     }
 
@@ -247,9 +289,9 @@ public class ManageRealEstateFeatureBean implements Serializable {
         housesFeatureCheck = true;
         if (housesFeatureNameClicked.isEmpty() || housesFeatureNameClicked == null) {
             housesFeatureCheck = false;
-            showAlertHousesFeatureName();
+            showAlertDuplicateHousesFeature();
         }
-        if (!checkDuplicateHousesFeature(housesFeatureName)) {
+        if (!checkDuplicateUpdateHousesFeature(housesFeatureNameClicked)) {
             housesFeatureCheck = false;
             showAlertDuplicateHousesFeature();
         }
@@ -282,6 +324,7 @@ public class ManageRealEstateFeatureBean implements Serializable {
             housesFeatureService.save(housesFeatureClicked);
             listHousesFeature = housesFeatureService.findAll();
             hideEditPopup2();
+            housesFeatureClicked = null;
         }
     }
 

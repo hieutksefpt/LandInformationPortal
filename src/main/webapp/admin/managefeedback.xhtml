@@ -23,7 +23,7 @@
                     <p:ajaxStatus onstart="$('#loader').show()" onsuccess="$('#loader').hide()" />	
 
                 </h:form>
-                <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px">
+                <h:form id="tabledata" prependId="false" onsubmit="return false;" style="padding-top:10px;padding-right: 10px">
                     <p:growl id="msgs" showDetail="true"/>
 
                     <p:dataTable value="#{manageFeedbackBean.lazyFeedback}" var="element"
@@ -32,14 +32,14 @@
                                  currentPageReportTemplate="{startRecord}-{endRecord} của {totalRecords} bản ghi"
                                  rowKey="#{element.feedBackID}"
                                  widgetVar="table-feedback"
-                                 resizableColumns="true">
+                                 resizableColumns="true" style="overflow-x:hidden">
 
                         <p:column>
                             <f:facet name="header">Tiêu đề</f:facet>
                             <h:outputText value="#{element.feedbackTitle}"></h:outputText>
                         </p:column>
 
-                        <p:column>
+                        <p:column width="10%">
                             <f:facet name="header">Tên đăng nhập</f:facet>
                             <h:outputText value="#{element.user.username}"></h:outputText>
                         </p:column>
@@ -52,15 +52,16 @@
                             <h:outputText value="#{element.feedbackContent}"></h:outputText>
                         </p:column>
                         
-                        <p:column filterBy="#{element.feedbackStatus}" filterMatchMode="exact" style="text-align:center">
+                        <p:column filterBy="#{element.feedbackStatus}" filterMatchMode="exact" style="text-align:center" width="10%">
                             <f:facet name="filter">
                                 <p:selectOneMenu id="cbb-Status" onchange="PF('table-feedback').filter()" styleClass="custom-filter">
-                                    <f:selectItem itemLabel="All Status" itemValue="#{null}" noSelectionOption="true" />
-                                    <f:selectItem itemLabel="OPEN" itemValue="OPEN" />
-                                    <f:selectItem itemLabel="CLOSE" itemValue="CLOSE" />
+                                    <f:selectItem itemLabel="Trạng thái" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="MỞ" itemValue="OPEN" />
+                                    <f:selectItem itemLabel="ĐÓNG" itemValue="CLOSE" />
                                 </p:selectOneMenu>
                             </f:facet>
-                            <h:outputText value="#{element.feedbackStatus}" />
+                            <h:outputText rendered="#{element.feedbackStatus == 'OPEN'}" value="MỞ" />
+                            <h:outputText rendered="#{element.feedbackStatus == 'CLOSE'}" value="ĐÓNG" />
                         </p:column>
                         
                         <p:column style="text-align: center" width="10%">

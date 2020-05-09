@@ -23,6 +23,7 @@ function initMap() {
         let marker = new google.maps.Marker({position: latLng, map: map, info: markers[i]});
 
         marker.addListener('click', function() {
+        	$('#content-RightMap').scrollTop($('#row-220').offset().top - $($('.list-group-item')[0]).offset().top)
         	$('#row-'+marker.info.id).effect("highlight", {}, 3000);
         });
         

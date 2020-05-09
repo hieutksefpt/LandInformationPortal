@@ -12,7 +12,7 @@
     <body>
         <ui:composition template="/template/admin/adminLayout.xhtml">
             <ui:define name="content">
-                <h:outputStylesheet name="listallrealestate.css" library="css" />
+                <h:outputStylesheet name="listuser.css" library="css" />
                 <h:outputStylesheet name="color.css" library="css"/>
                 <h:outputStylesheet name="bootstrap.min.css" library="css" />
                 <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
@@ -21,7 +21,7 @@
                 </div>
 
                 <p:ajaxStatus onstart="$('#loader').show()" onsuccess="$('#loader').hide()" />
-                <h:form id="table-user" prependId="false" onsubmit="return false;">
+                <h:form id="table-user" prependId="false" onsubmit="return false;" style="padding-right:10px;">
                     <p:growl id="msgs" showDetail="true" widgetVar="alert"/>
 
                     <p:dialog header="Vô hiệu hóa người dùng" widgetVar="dlgConfirmBanUser" modal="true" resizable="false">

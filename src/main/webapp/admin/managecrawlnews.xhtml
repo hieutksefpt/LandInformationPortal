@@ -88,12 +88,13 @@
                         <p:column filterBy="#{element.crawledNewsStatus}" filterMatchMode="exact" style="text-align:center">
                             <f:facet name="filter">
                                 <p:selectOneMenu id="cbb-Status" onchange="PF('wgtable').filter()" styleClass="custom-filter">
-                                    <f:selectItem itemLabel="All Status" itemValue="#{null}" noSelectionOption="true" />
-                                    <f:selectItem itemLabel="DISPLAY" itemValue="DISPLAY" />
-                                    <f:selectItem itemLabel="NON DISPLAY" itemValue="NONDISPLAY" />
+                                    <f:selectItem itemLabel="Trạng thái" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="HIỂN THỊ" itemValue="DISPLAY" />
+                                    <f:selectItem itemLabel="KHÔNG HIỂN THỊ" itemValue="NONDISPLAY" />
                                 </p:selectOneMenu>
                             </f:facet>
-                            <h:outputText value="#{element.crawledNewsStatus}" />
+                            <h:outputText rendered="#{element.crawledNewsStatus == 'DISPLAY'}" value="HIỂN THỊ" />
+                            <h:outputText rendered="#{element.crawledNewsStatus == 'NONDISPLAY'}" value="KHÔNG HIỂN THỊ" />
                         </p:column>
                         <p:column filterBy="#{element.crawledNewsWebsite}" filterMatchMode="exact" >
                             <f:facet name="filter">

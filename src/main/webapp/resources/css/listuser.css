@@ -7,3 +7,9 @@
 	font-size: 4em;
 	color: white;
 }
+#header{
+	padding-right: 10px;
+}
+.wrapper{
+	overflow-x:hidden;
+}

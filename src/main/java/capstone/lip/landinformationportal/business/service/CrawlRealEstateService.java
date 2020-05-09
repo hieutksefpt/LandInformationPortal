@@ -33,6 +33,7 @@ import capstone.lip.landinformationportal.business.repository.UserRepository;
 import capstone.lip.landinformationportal.business.service.Interface.ICrawlRealEstateService;
 import capstone.lip.landinformationportal.business.service.Interface.IPredictPriceService;
 import capstone.lip.landinformationportal.business.service.Interface.ISegmentOfStreetService;
+import capstone.lip.landinformationportal.business.service.Interface.IStreetService;
 import capstone.lip.landinformationportal.business.validation.CrawlRealEstateValidation;
 import capstone.lip.landinformationportal.common.config.CrawlRealEstateNowJob;
 import capstone.lip.landinformationportal.common.config.CrawlRealEstateScheduleJob;
@@ -95,6 +96,9 @@ public class CrawlRealEstateService implements ICrawlRealEstateService {
     
     @Autowired
     private RealEstateAdjacentSegmentRepository adjRepository;
+    
+    @Autowired
+    private IStreetService streetService;
 
     private JobKey jobKey = new JobKey("crawlerJob", "crawler");
     private TriggerKey triggerKey = new TriggerKey("crawlerTriggler", "crawler");
@@ -455,7 +459,8 @@ public class CrawlRealEstateService implements ICrawlRealEstateService {
             return null;
         }
         List<SegmentOfStreet> listSegment = districtSearch.getListSegmentOfStreet();
-        List<Street> listStreet = listSegment.stream().map(x -> x.getStreet()).distinct().collect(Collectors.toList());
+//        List<Street> listStreet = listSegment.stream().map(x -> x.getStreet()).distinct().collect(Collectors.toList());
+        List<Street> listStreet = streetService.findStreetByDistrictId(districtSearch.getDistrictId());
         Street streetSearch = listStreet.stream().filter(element -> address.contains(element.getStreetName().toLowerCase())).findAny().orElse(null);
         if (streetSearch == null) {
             return null;

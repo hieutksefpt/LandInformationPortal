@@ -5,3 +5,9 @@
 	font-size: 4em;
 	color: white;
 }
+.wrapper{
+	overflow-x:hidden;
+}
+#header{
+	padding-right: 10px;
+}

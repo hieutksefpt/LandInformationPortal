@@ -132,6 +132,31 @@ function drawListMarker(list){
         
         
         if(item.source=='CONTRIBUTOR'){
+//            OLD STATUS
+//            if (item.status=='VERIFIED'){
+//			marker = new google.maps.Marker({
+//	            position: {lat: item.latitude, lng: item.longitude},
+//	            map: map,
+//	            icon: contributeVerifiedIcon,
+//	            info: item
+//	        });
+//            }else if(item.status=='NOTVERIFY'){
+//                    marker = new google.maps.Marker({
+//                        position: {lat: item.latitude, lng: item.longitude},
+//                        map: map,
+//                        icon: contributeNotVerifiedIcon,
+//                        info: item
+//                    });
+//            }else{
+//                marker = new google.maps.Marker({
+//                        position: {lat: item.latitude, lng: item.longitude},
+//                        map: map,
+//                        icon: contributeConfusedIcon,
+//                        info: item
+//                    });
+//            }
+
+//            NEW STATUS DISPLAY
             if (item.status=='VERIFIED'){
 			marker = new google.maps.Marker({
 	            position: {lat: item.latitude, lng: item.longitude},
@@ -139,41 +164,52 @@ function drawListMarker(list){
 	            icon: contributeVerifiedIcon,
 	            info: item
 	        });
-            }else if(item.status=='NOTVERIFY'){
-                    marker = new google.maps.Marker({
+            }else{
+                marker = new google.maps.Marker({
                         position: {lat: item.latitude, lng: item.longitude},
                         map: map,
                         icon: contributeNotVerifiedIcon,
                         info: item
                     });
-            }else{
-                marker = new google.maps.Marker({
-                        position: {lat: item.latitude, lng: item.longitude},
-                        map: map,
-                        icon: contributeConfusedIcon,
-                        info: item
-                    });
             }
         }else{
-            if (item.status=='VERIFIED'){
+//            OLD STATUS DISPLAY
+//            if (item.status=='VERIFIED'){
+//			marker = new google.maps.Marker({
+//	            position: {lat: item.latitude, lng: item.longitude},
+//	            map: map,
+//	            icon: crawlVerifiedIcon,
+//	            info: item
+//	        });
+//            }else if(item.status=='NOTVERIFY'){
+//                    marker = new google.maps.Marker({
+//                        position: {lat: item.latitude, lng: item.longitude},
+//                        map: map,
+//                        icon: crawlNotVerifiedIcon,
+//                        info: item
+//                    });
+//            }else{
+//                marker = new google.maps.Marker({
+//                        position: {lat: item.latitude, lng: item.longitude},
+//                        map: map,
+//                        icon: crawlConfusedIcon,
+//                        info: item
+//                    });
+//            }
+            
+//            NEW STATUS DISPLAY
+            if (item.status=='VERIFIED') {
 			marker = new google.maps.Marker({
 	            position: {lat: item.latitude, lng: item.longitude},
 	            map: map,
 	            icon: crawlVerifiedIcon,
 	            info: item
 	        });
-            }else if(item.status=='NOTVERIFY'){
-                    marker = new google.maps.Marker({
-                        position: {lat: item.latitude, lng: item.longitude},
-                        map: map,
-                        icon: crawlNotVerifiedIcon,
-                        info: item
-                    });
-            }else{
+            } else {
                 marker = new google.maps.Marker({
                         position: {lat: item.latitude, lng: item.longitude},
                         map: map,
-                        icon: crawlConfusedIcon,
+                        icon: crawlNotVerifiedIcon,
                         info: item
                     });
             }

@@ -44,7 +44,8 @@
     color: white;
     padding-left: 5px;
     padding-right: 5px;
-    margin-top: -14px;
+    /*Phong comment remove status*/
+/*    margin-top: -14px;*/
 }
 .element-list-house{
     padding-right: 25px;
@@ -57,17 +58,22 @@
 .btn-in-detai-page{
     border-radius: 20px;
     color: white;
-    width: 60px;
+    /*Phong change width*/
+    /*width: 60px;*/
+    /*width: 75px;*/
     height: 30px;
-    margin-top: 15px;
+    /*Phong update status*/
+    /*margin-top: 15px;*/
 }
 .btn-delete{
     margin-left: 15px;
-    background-color: #343a40;
+    /*background-color: #343a40;*/
+    background-color: #dc3545;
 }
 .btn-edit{
-    background-color: #fed136;
-    color: black;
+    background-color: #17a2b8;
+/*    background-color: #fed136;
+    color: black;*/
 }
 .blue-report{
     color: #007bff;
@@ -90,10 +96,26 @@
     background-position: left top;
     background-image: url("#{resource['img/flag_red.png']}");
 }
+
+.blue-tick {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-image: url("#{resource['img/blue-tick.png']}");
+}
+.btn-report {
+    background-color: #fed136;
+    color: black;
+}
+
 .button-report-status{
     color: white;
     margin-left: 15px;
-    margin-top: 15px;
+    /*Phong comment remove status*/
+    /*margin-top: 15px;*/
     font-weight: bold;
 }
 

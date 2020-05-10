@@ -121,7 +121,6 @@ html {
     border-radius: 3px;
     /*box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);*/
     box-sizing: border-box;
-    height: 250px;
     margin: auto;
     margin-bottom: 15px;
     width: 95%;
@@ -167,7 +166,7 @@ html {
     cursor: pointer;
     padding: 10px 5px;
     margin: 10px 5px;
-    float: right;
+    float: left;
 }
 #msform .action-button:hover, #msform .action-button:focus {
     box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;

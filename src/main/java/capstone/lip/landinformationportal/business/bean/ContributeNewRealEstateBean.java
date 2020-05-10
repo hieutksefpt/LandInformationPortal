@@ -233,7 +233,7 @@ public class ContributeNewRealEstateBean implements Serializable {
                 variableSuccess = false;
             } else if (StringUtils.isNumeric(newUploadRealEstate.getRealEstateName().toString()) || StringUtils.isNumeric(newLandName.toString()) 
                     || !sv.isValidText(newUploadRealEstate.getRealEstateName().toString()).equals("") || !sv.isValidText(newLandName.toString()).equals("")) {
-                PrimeFaces.current().executeScript("showLogNumericName()");
+                PrimeFaces.current().executeScript("showLogInvalidName()");
                 variableSuccess = false;
             } else if (newUploadRealEstate != null && newLand != null) {
                 saveDataNewLandSigleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail);
@@ -251,9 +251,8 @@ public class ContributeNewRealEstateBean implements Serializable {
             } else if (newUploadRealEstate == null || !checkFillTextHouse()) {
                 PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
                 variableSuccess = false;
-            }else if (StringUtils.isNumeric(newUploadRealEstate.getRealEstateName().toString()) || StringUtils.isNumeric(newHouseName.toString())
-                    || !sv.isValidText(newUploadRealEstate.getRealEstateName().toString()).equals("") || !sv.isValidText(newHouseName.toString()).equals("")) {
-                PrimeFaces.current().executeScript("showLogNumericName()");
+            }else if (!checkNullString(newHouseName) && (StringUtils.isNumeric(newHouseName.toString()) || !sv.isValidText(newUploadRealEstate.getRealEstateName().toString()).equals("") || !sv.isValidText(newHouseName.toString()).equals(""))) {
+                PrimeFaces.current().executeScript("showLogInvalidName()");
                 variableSuccess = false;
             } else if (newUploadRealEstate.getRealEstatePrice().compareTo(newHouseMoney) == -1) {
                 PrimeFaces.current().executeScript("showLogPrice()");
@@ -281,9 +280,10 @@ public class ContributeNewRealEstateBean implements Serializable {
                     && newLandName.isEmpty() && listLandFeatureValue.isEmpty() && newLandMoney.compareTo(BigDecimal.ZERO) == 0) {
                 PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
                 variableSuccess = false;
-            } else if (StringUtils.isNumeric(newUploadRealEstate.getRealEstateName().toString()) || StringUtils.isNumeric(newLandName.toString()) || StringUtils.isNumeric(newHouseName.toString())
-                    || !sv.isValidText(newUploadRealEstate.getRealEstateName().toString()).equals("") || !sv.isValidText(newLandName.toString()).equals("") || !sv.isValidText(newHouseName.toString()).equals("")) {
-                PrimeFaces.current().executeScript("showLogNumericName()");
+            } else if ((!checkNullString(newLandName) && ((StringUtils.isNumeric(newLandName.toString()) || !sv.isValidText(newUploadRealEstate.getRealEstateName().toString()).equals("") || !sv.isValidText(newLandName.toString()).equals(""))))
+                    || (!checkNullString(newHouseName) && (StringUtils.isNumeric(newHouseName.toString()) || !sv.isValidText(newUploadRealEstate.getRealEstateName().toString()).equals("") || !sv.isValidText(newHouseName.toString()).equals("")))) 
+            {
+                PrimeFaces.current().executeScript("showLogInvalidName()");
                 variableSuccess = false;
             } else if (newUploadRealEstate == null || !checkFillTextHouse() || !checkFillTextLand()) {
                 PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
@@ -309,6 +309,13 @@ public class ContributeNewRealEstateBean implements Serializable {
 
     }
     
+    
+    public boolean checkNullString(String text){
+        if(text == null || text.toString().equals(""))
+            return true;
+        else 
+            return false;
+    }
     
 
     public boolean checkFillTextLand() {

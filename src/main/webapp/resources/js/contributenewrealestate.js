@@ -340,15 +340,15 @@ function showModalMandatory() {
 }
 
 function showLogEmptyLandHouse(){
-    showError("Vui lòng cung cấp ít nhất 1 trong 3 trường Tên, giá trị, thuộc tính phần BĐS cấu thành, bao gồm cả Nhà và Đất");
+    showError("Vui lòng cung cấp ít nhất 1 trong 3 trường Tên, giá trị, thuộc tính phần BĐS cấu thành, bao gồm cả Nhà và Đất\n Lưu ý tên không chứa số và ký tự đặc biệt");
 }
 
 function showLogPrice(){
     showError("Giá của Bất động sản không thể nhỏ hơn giá của BĐS cấu thành");
 }
 
-function showLogNumericName(){
-    showError("Tên của bất động sản không được chứa ký tự đặc biệt và toàn bộ bằng số");
+function showLogInvalidName(){
+    showError("Tên của bất động sản và tài sản cấu thành không được chứa ký tự đặc biệt, số hoặc để trống");
 }
 
 

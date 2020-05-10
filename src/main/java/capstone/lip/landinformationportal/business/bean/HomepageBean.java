@@ -271,8 +271,8 @@ public class HomepageBean implements Serializable {
                 if (!listCoordinate.isEmpty())
                 	listCoordinate.get(0).setPrice(avg);
                 Gson gson = new Gson();
-//                PrimeFaces.current().executeScript("clearDataMap()");
-                PrimeFaces.current().executeScript("drawPath(" + gson.toJson(listCoordinate) + ", 19);");
+                PrimeFaces.current().executeScript("clearDataMap()");
+                PrimeFaces.current().executeScript("drawPath(" + gson.toJson(listCoordinate) + ", 16);");
     		}
     	}
     	
@@ -318,7 +318,7 @@ public class HomepageBean implements Serializable {
                 	listCoordinate.get(0).setPrice(avg);
                 Gson gson = new Gson();
 //                PrimeFaces.current().executeScript("clearDataMap()");
-                PrimeFaces.current().executeScript("drawPath(" + gson.toJson(listCoordinate) + ", 19);");
+                PrimeFaces.current().executeScript("drawPath(" + gson.toJson(listCoordinate) + ", 16);");
     		}
     	}
     }
@@ -469,7 +469,7 @@ public class HomepageBean implements Serializable {
         if (provinceIdSelected != null && !provinceIdSelected.isEmpty()) {
             provinceSelected = listProvince.stream()
                     .filter(x -> x.getProvinceId().equals(Long.parseLong(provinceIdSelected))).collect(Collectors.toList()).get(0);
-            PrimeFaces.current().executeScript("focusMap(" + provinceSelected.getProvinceLat() + ", " + provinceSelected.getProvinceLng() + ", 15);");
+            PrimeFaces.current().executeScript("focusMap(" + provinceSelected.getProvinceLat() + ", " + provinceSelected.getProvinceLng() + ", 12);");
 
         } else {
             provinceSelected = null;
@@ -485,7 +485,7 @@ public class HomepageBean implements Serializable {
         if (districtIdSelected != null && !districtIdSelected.isEmpty()) {
             districtSelected = listDistrict.stream()
                     .filter(x -> x.getDistrictId().equals(Long.parseLong(districtIdSelected))).collect(Collectors.toList()).get(0);
-            PrimeFaces.current().executeScript("focusMap(" + districtSelected.getDistrictLat() + ", " + districtSelected.getDistrictLng() + ", 17);");
+            PrimeFaces.current().executeScript("focusMap(" + districtSelected.getDistrictLat() + ", " + districtSelected.getDistrictLng() + ", 14);");
         } else {
             districtSelected = null;
         }
@@ -500,7 +500,7 @@ public class HomepageBean implements Serializable {
         if (streetIdSelected != null && !streetIdSelected.isEmpty()) {
             streetSelected = listStreet.stream()
                     .filter(x -> x.getStreetId().equals(Long.parseLong(streetIdSelected))).collect(Collectors.toList()).get(0);
-            PrimeFaces.current().executeScript("focusMap(" + streetSelected.getStreetLat() + ", " + streetSelected.getStreetLng() + ", 19);");
+            PrimeFaces.current().executeScript("focusMap(" + streetSelected.getStreetLat() + ", " + streetSelected.getStreetLng() + ", 16);");
         } else {
             streetSelected = null;
         }
@@ -522,7 +522,7 @@ public class HomepageBean implements Serializable {
             Gson gson = new Gson();
             PrimeFaces.current().executeScript("clearDataMap()");
             PrimeFaces.current().executeScript("focusMap(" + listCoordinate.get(0).getLatitude() + ", " + listCoordinate.get(0).getLongitude() + ", 19);");
-            PrimeFaces.current().executeScript("drawPath(" + gson.toJson(listCoordinate) + ", 19);");
+            PrimeFaces.current().executeScript("drawPath(" + gson.toJson(listCoordinate) + ", 16);");
 
         } else {
             segmentSelected = null;

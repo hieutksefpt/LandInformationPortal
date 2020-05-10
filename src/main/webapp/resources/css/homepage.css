@@ -67,10 +67,10 @@ html,body{height:100%;}
     font-size: 20px;
 }
 @keyframes blinkingText{
-    0%{     color: #000;    }
-    49%{    color: #000; }
+    0%{     color: #fff;    }
+    49%{    color: #fff; }
     60%{    color: transparent; }
     99%{    color:transparent;  }
-    100%{   color: #000;    }
+    100%{   color: #fff;    }
 }
 

@@ -79,42 +79,35 @@
                                         </h:form>
                                     </div>
                                     <div class="col-8 col-lg-8">
-                                        <sec:authenticated>
-                                            <h:form id="updateReport" styleClass="element-list" style="float:right;margin-right: 20px;">
+                                        <h:form id="updateReport" styleClass="element-list" style="float:right;margin-right: 20px;">
+                                            <sec:authenticated>
                                                 <!--Phong change report button-->
                                                 <c:if test="#{viewRealEstateDetailBean.checkExistInReport() != null}">
 <!--                                                    <p:commandButton image="flag-red" title="Bỏ report"
+                                                            action="#{viewRealEstateDetailBean.reportAndUnreport()}"
+                                                            update="updateReport"/>-->
+                                                    <p:commandButton value="Bỏ báo cáo" class="btn-report btn-in-detai-page"
                                                                      action="#{viewRealEstateDetailBean.reportAndUnreport()}"
-                                                                     update="updateReport"/>-->
-                                                    <h:commandButton id="btn-ButtonUnReport" 
-                                                                     type="button" 
-                                                                     class="btn-report btn-in-detai-page" 
-                                                                     value="Bỏ báo cáo"
-                                                                     action="#{viewRealEstateDetailBean.reportAndUnreport()}">
-                                                        <f:ajax execute="@form" render="updateReport" />
-                                                    </h:commandButton>
+                                                                     update="updateReport"/>
                                                 </c:if>
                                                 <c:if test="#{viewRealEstateDetailBean.checkExistInReport() == null}">
 <!--                                                    <p:commandButton image="flag" title="Report"
+                                                            action="#{viewRealEstateDetailBean.reportAndUnreport()}"
+                                                            update="updateReport"/>-->
+                                                    <p:commandButton value="Báo cáo" class="btn-report btn-in-detai-page"
                                                                      action="#{viewRealEstateDetailBean.reportAndUnreport()}"
-                                                                     update="updateReport"/>-->
-                                                    <h:commandButton id="btn-ButtonReport" 
-                                                                     type="button" 
-                                                                     class="btn-report btn-in-detai-page" 
-                                                                     value="Báo cáo"
-                                                                     action="#{viewRealEstateDetailBean.reportAndUnreport()}">
-                                                        <f:ajax execute="@form" render="updateReport" />
-                                                    </h:commandButton>
+                                                                     update="updateReport"/>
                                                 </c:if>
-                                                <h:outputText value="#{viewRealEstateDetailBean.numberOfReport}" class="badge badge-danger" style="margin-left: 5px;"/>
-                                            </h:form>
-                                        </sec:authenticated>
-                                        <sec:anonymous>
-                                            <div style="float:right;margin-right: 35px;">
-                                                <p:commandButton image="flag-red"/>
-                                                <h:outputText value="#{viewRealEstateDetailBean.numberOfReport}"/>
-                                            </div>
-                                        </sec:anonymous>
+                                            </sec:authenticated>
+<!--                                            <sec:anonymous>
+                                                <div style="float:right;margin-right: 35px;">
+                                                    <p:commandButton image="flag-red"/>
+                                                </div>
+                                            </sec:anonymous>-->
+                                            <span>
+                                                <h:outputText value="#{viewRealEstateDetailBean.numberOfReport}" class="badge badge-danger" style="margin-left: 5px;"/> nghi vấn 
+                                            </span>
+                                        </h:form>
                                     </div>
                                 </div>
                                 <sec:authenticated>

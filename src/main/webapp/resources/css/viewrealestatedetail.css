@@ -65,6 +65,7 @@
     /*Phong update status*/
     /*margin-top: 15px;*/
 }
+
 .btn-delete{
     margin-left: 15px;
     /*background-color: #343a40;*/
@@ -107,7 +108,7 @@
     background-image: url("#{resource['img/blue-tick.png']}");
 }
 .btn-report {
-    background-color: #fed136;
+    background: #fed136 !important; 
     color: black;
 }
 

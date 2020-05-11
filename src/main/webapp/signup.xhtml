@@ -41,16 +41,16 @@
                             <h2>Cổng thông tin đất đai</h2>
                             <div class="form-group-1">
                                 <label for="username" class="mandatory">Tên đăng nhập</label>
-                                <p:inputText id="txtInputUsername" value="#{signUpBean.username}"/>
+                                <h:inputText id="txtInputUsername" value="#{signUpBean.username}"/>
                                 <label for="fullname" class="mandatory">Họ và tên</label>
-                                <p:inputText id="name" value="#{signUpBean.fullname}"/>
+                                <h:inputText id="name" value="#{signUpBean.fullname}"/>
                                 <label for="Email" class="mandatory">Email</label>
-                                <p:inputText id="email" value="#{signUpBean.email}"/>
+                                <h:inputText id="email" value="#{signUpBean.email}"/>
                                 <label for="address" >Địa chỉ</label>
-                                <p:inputText id="address" value="#{signUpBean.address}"/>
+                                <h:inputText id="address" value="#{signUpBean.address}"/>
                                 <label for="phone">Số điện thoại</label>
-                                <p:inputText id="phone_number" value="#{signUpBean.phone}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
-                                </p:inputText>
+                                <h:inputText id="phone_number" value="#{signUpBean.phone}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
+                                </h:inputText>
                                 <label for="phone">Giới tính</label>
                                 <h:selectOneMenu id="cbb-gender" value="#{signUpBean.gender}">
                                     <f:selectItem itemLabel="--  --" itemValue=""/>
@@ -61,9 +61,12 @@
 
                                 <label for="password" class="mandatory">Mật khẩu</label>
 
-                                <p:password id="feedback1" value="#{signUpBean.password}" feedback="true" /><div class="validate"></div>
+                                
+                                <h:inputSecret id="feedback1" value="#{signUpBean.password}"/><div class="validate"></div>
+                                
                                 <label for="confirmpassword" class="mandatory">Xác nhận lại mật khẩu</label>
-                                <p:password id="feedback2" value="#{signUpBean.confirmpassword}" feedback="true" /><div class="validate"></div>
+                                <h:inputSecret id="feedback2" value="#{signUpBean.confirmpassword}"/><div class="validate"></div>
+                                
                             </div>
 
 

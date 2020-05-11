@@ -47,7 +47,9 @@ html,body{height:100%;}
 .list-reo {
     background-color: aliceblue   !important;
 }
-
+.ui-accordion .ui-accordion-content {
+    background: aliceblue   !important;
+}
 .zoom-effect-container:hover {
     -webkit-transform: scale(1.08);
     transform: scale(1.08);

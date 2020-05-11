@@ -114,25 +114,28 @@
                     <div class="row" style="margin-bottom:10px">
                         <div class="col">
                             <h:commandButton id="btn-ChangeRealEstateStatusConfused"
-                                             value="CONFUSED" class="btn btn-block btn-primary waves-effect"
-                                             onclick="checkclick('dlgConfirmConfused')">
+                                             value="Chưa xác định" class="btn btn-block btn-primary waves-effect"
+                                             onclick="checkclick('dlgConfirmConfused')"
+                                             style="background-color: #343a40">
                             </h:commandButton>
                         </div>
                         <div class="col">	
                             <h:commandButton id="btn-ChangeRealEstateStatusNotVerified"
-                                             value="NOT VERIFIED" class="btn btn-block btn-secondary waves-effect"
-                                             onclick="checkclick('dlgConfirmNotVerified')">
+                                             value="Chưa thẩm định" class="btn btn-block btn-secondary waves-effect"
+                                             onclick="checkclick('dlgConfirmNotVerified')"
+                                             style="background-color: #ffcc00">
                         </h:commandButton>
                         </div>
                         <div class="col">
                             <h:commandButton id="btn-ChangeRealEstateStatusVerified"
-                                             value="VERIFIED" class="btn btn-block btn-success waves-effect"
-                                             onclick="checkclick('dlgConfirmVerified')">
+                                             value="Đã thẩm định" class="btn btn-block btn-success waves-effect"
+                                             onclick="checkclick('dlgConfirmVerified')"
+                                             style="background-color: #003fff">
                         </h:commandButton>
                         </div>
                         <div class="col">
                             <h:commandButton id="btn-DeleteSelectedRealEstate"
-                                             value="DELETE"  class="btn btn-block btn-danger waves-effect"
+                                             value="Xóa bất động sản"  class="btn btn-block btn-danger waves-effect"
                                              onclick="checkclick('dlgConfirmDelete')">
                         </h:commandButton>
                         </div>
@@ -193,9 +196,9 @@
                                     <f:selectItem itemLabel="VERIFIED" itemValue="VERIFIED" />
                                 </p:selectOneMenu>
                             </f:facet>
-                            <h:outputText value="CONFUSED" style="color: red" rendered="#{realEstate.realEstateStatus == 'CONFUSED'}"/>
-                            <h:outputText value="NOT VERIFIED" style="color: #f6b102" rendered="#{realEstate.realEstateStatus == 'NOTVERIFY'}"/>
-                            <h:outputText value="VERIFIED" style="color: green" rendered="#{realEstate.realEstateStatus == 'VERIFIED'}"/>
+                            <h:outputText value="CONFUSED" style="color: #343a40" rendered="#{realEstate.realEstateStatus == 'CONFUSED'}"/>
+                            <h:outputText value="NOT VERIFIED" style="color: #ffcc00" rendered="#{realEstate.realEstateStatus == 'NOTVERIFY'}"/>
+                            <h:outputText value="VERIFIED" style="color: #003fff" rendered="#{realEstate.realEstateStatus == 'VERIFIED'}"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>

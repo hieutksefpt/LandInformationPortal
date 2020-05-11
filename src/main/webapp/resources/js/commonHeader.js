@@ -20,3 +20,13 @@ function setPopupSignin(){
 	$('#btn-group-signin').show();
 	$('#btn-group-forgetpass').hide();
 }
+$(function() {
+    $("#modalLogin input").keypress(function (e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            $('#btn-signin').click();
+            return false;
+        } else {
+            return true;
+        }
+    });
+});

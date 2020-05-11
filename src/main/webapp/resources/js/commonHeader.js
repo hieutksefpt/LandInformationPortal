@@ -1,5 +1,5 @@
 function setMessageError(error){
-	$('#panel-error')[0].innerHTML = error
+	$('#panel-error')[0].innerHTML = error;
 	$("#panel-error").show();
 	window.setTimeout(function() { $("#panel-error").hide(); }, 5000);
 }
@@ -13,10 +13,14 @@ function setPopupForgetPass(){
 	$('#div-email').show();
 	$('#btn-group-forgetpass').show();
 	$('#btn-group-signin').hide();
+	$('#lbl-ResetTitle').show();
+	$('#lbl-LoginTitle').hide();
 }
 function setPopupSignin(){
 	$('#div-password').show();
 	$('#div-email').hide();
 	$('#btn-group-signin').show();
 	$('#btn-group-forgetpass').hide();
+        $('#lbl-ResetTitle').hide();
+	$('#lbl-LoginTitle').show();
 }

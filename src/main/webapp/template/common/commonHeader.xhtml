@@ -94,20 +94,25 @@
                     <div id="modalLogin" class="modal fade">
                         <div class="modal-dialog modal-login">
                             <div class="modal-content">
-                                <div class="modal-header">				
-                                    <h4 class="modal-title" style="color: black;">Đăng nhập</h4>
+                                <div class="modal-header text-body">				
+                                    <h4 id="lbl-LoginTitle" class="modal-title">
+                                        ĐĂNG NHẬP
+                                    </h4>
+                                    <h4 id="lbl-ResetTitle" class="modal-title" style="display: none;">
+                                        ĐẶT LẠI MẬT KHẨU
+                                    </h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                 </div>
-                                <div class="modal-body">				
-                                    <div class="form-group" style="color: black;">
+                                <div class="modal-body text-body">				
+                                    <div class="form-group">
                                         <label>Tài khoản</label>
                                         <h:inputText id="username_signin" value="#{authenticationBean.usernameSignin}" styleClass="form-control"></h:inputText>
                                     </div>
-                                    <div id="div-email" class="form-group" style="display:none">
+                                    <div id="div-email" class="form-group" style="display:none;">
                                         <label>Email</label>
                                         <h:inputText id="email_forget" value="#{authenticationBean.emailForget}" styleClass="form-control"></h:inputText>
                                     </div>
-                                    <div id="div-password" class="form-group" style="color: black;">
+                                    <div id="div-password" class="form-group">
                                         <label>Mật khẩu</label>
                                         <h:inputSecret id="password_signin" value="#{authenticationBean.passwordSignin}" styleClass="form-control"></h:inputSecret>
                                     </div>
@@ -120,27 +125,26 @@
                                 </div>
                                 <div class="modal-footer">
                                     <div id="btn-group-forgetpass" style="display:none">
-                                        <h:commandLink styleClass="pull-right text-muted">
-                                            <small>Quay lại
+                                        <h:commandButton value="Quay lại" 
+                                                       styleClass="pull-right text-muted" class="btn btn-light">
                                                 <p:ajax onstart="setPopupSignin()"></p:ajax>
-                                            </small>
-                                        </h:commandLink>
-                                        <h:commandLink id="btn-reset" value="Reset mật khẩu" styleClass="btn pull-right" class="btn-sm btn-outline-secondary">
+                                        </h:commandButton>
+                                        <h:commandButton id="btn-reset" value="Đặt lại" style="margin-left: 5px;"
+                                                         styleClass="btn pull-right" class="btn btn-dark">>
                                             <p:ajax process="@form" listener="#{authenticationBean.forgetPass()}"></p:ajax>
-                                        </h:commandLink>
+                                        </h:commandButton>
                                     </div>
 
                                     <div id="btn-group-signin">
-                                        <h:commandLink id="btn-forget-popup" styleClass="pull-right text-muted">
-                                            <small>
-                                                Quên mật khẩu
-                                                <p:ajax onstart="setPopupForgetPass()"></p:ajax>
-                                            </small>
-                                        </h:commandLink>
+                                        <h:commandButton id="btn-forget-popup" value="Quên mật khẩu" 
+                                                         styleClass="pull-right text-muted" class="btn btn-light">
+                                            <p:ajax onstart="setPopupForgetPass()" ></p:ajax>
+                                        </h:commandButton>
 
-                                        <h:commandLink value="Đăng nhập" styleClass="btn pull-right" class="btn-sm btn-outline-secondary">
+                                        <h:commandButton value="Đăng nhập" style="margin-left: 5px;"
+                                                         styleClass="btn pull-right" class="btn btn-dark">
                                             <p:ajax process="@form"  listener="#{authenticationBean.signin}"></p:ajax>
-                                        </h:commandLink>
+                                        </h:commandButton>
                                     </div>
                                 </div>
                             </div>

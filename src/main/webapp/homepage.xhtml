@@ -319,24 +319,27 @@
 
                 <div id="legend">
                     <p:panel>
-                        <div class="row">
-                            <div class="col-3">Thu thập</div>
-                            <div class="col"><h:graphicImage value="resources/img/crawl-verified.png" width="20px" height="20px"></h:graphicImage> Đã xác thực</div>
-                            <div class="col"><h:graphicImage value="resources/img/crawl-notverified.png" width="20px" height="20px"></h:graphicImage> Chưa xác thực</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-3">Đóng góp</div>
-                            <div class="col"><h:graphicImage value="resources/img/contribute-verified.png" width="20px" height="20px"></h:graphicImage> Đã xác thực</div>
-                            <div class="col"><h:graphicImage value="resources/img/contribute-notverified.png" width="20px" height="20px"></h:graphicImage> Chưa xác thực</div>
-                        </div>
+                        <table>
+                            <tr>
+                                <td>Thu thập</td>
+                                <td><h:graphicImage value="resources/img/crawl-verified.png" width="20px" height="20px"></h:graphicImage> Đã xác thực</td>
+                                <td><h:graphicImage value="resources/img/crawl-notverified.png" width="20px" height="20px"></h:graphicImage> Chưa xác thực</td>
+                            </tr>
+                            <tr>
+                                <td>Đóng góp</td>
+                                <td><h:graphicImage value="resources/img/contribute-verified.png" width="20px" height="20px"></h:graphicImage> Đã xác thực</td>
+                                <td><h:graphicImage value="resources/img/contribute-notverified.png" width="20px" height="20px"></h:graphicImage> Chưa xác thực</td>
+                            </tr>
+                        </table>
                     </p:panel>
                 </div>
 
-                <div id="news-button">
+                <div id="news-button" style="margin: 5px;">
                     <button class="btn btn-info blinking" type="button" data-toggle="collapse" data-target="#news-bar" aria-expanded="true" aria-controls="news-bar">
                         Tin nổi bật
                     </button>
                 </div>
+                
             </ui:define>
 
             <ui:define name="footer">

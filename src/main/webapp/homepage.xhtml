@@ -46,10 +46,8 @@
                                                                 <a href="#{element.crawledNewsLink}" target="_blank">
                                                                     <img src="#{element.crawledNewsImageUrl}" class="img-fluid zoom-effect-container"/>
                                                                 </a>
-
                                                             </div>
                                                         </div>
-
                                                     </li>
                                                 </c:forEach>
                                             </ul>
@@ -95,6 +93,7 @@
                                                                     </h:commandLink>
                                                                 </li>
                                                             </c:if>
+
                                                         </ul>
                                                     </nav>
                                                 </c:if>
@@ -106,6 +105,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div id="formControl">
                     <p:panel id="container">
                         <ui:remove>
@@ -117,7 +117,6 @@
                         </ui:remove>
                         <h:form id="form" onsubmit="return false;" prependId="false">
                             <p:growl id="msgs" showDetail="true"/>
-
 
                             <p:panel id="panel-form" style="margin-bottom:10px;">
                                 <h:panelGroup id="combobox_data">
@@ -194,44 +193,7 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <!--                                            <div class="form-group row">
-                                                                                            <div class="col">
-                                                                                                <strong>Bảng giá</strong>
-                                                                                            </div>
-                                                                                            <div class="col">
-                                                                                                <div class="row">
-                                                                                                    VT1
-                                                                                                </div>
-                                                                                                <div class="row">
-                                            #{homepageBean.segmentSelected.VT1}
-                                        </div>
 
-                                    </div>
-                                    <div class="col">
-                                        <div class="row">
-                                            VT2
-                                        </div>
-                                        <div class="row">
-                                            #{homepageBean.segmentSelected.VT2}
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="row">
-                                            VT3
-                                        </div>
-                                        <div class="row">
-                                            #{homepageBean.segmentSelected.VT3}
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="row">
-                                            VT4
-                                        </div>
-                                        <div class="row">
-                                            #{homepageBean.segmentSelected.VT4}
-                                        </div>
-                                    </div>
-                                </div>-->
                                         </p:tab>
                                     </p:accordionPanel>
 
@@ -306,13 +268,16 @@
                                             <c:if test="#{homepageBean.pageReo.totalPages gt 1}">
                                                 <nav style="display:inline-block">
                                                     <ul class="pagination" style="">
-                                                        <li class="page-item">
-                                                            <h:commandLink class="page-link" title="Previous">
-                                                                <span aria-hidden="true">&laquo;</span>
-                                                                <p:ajax listener="#{homepageBean.firstPageReo}"
-                                                                        process="@form" update="@form"></p:ajax>
-                                                            </h:commandLink>
-                                                        </li>
+
+                                                        <c:if test="#{homepageBean.pageReo.currentPage ne 0}">
+                                                            <li class="page-item">
+                                                                <h:commandLink class="page-link" title="Previous">
+                                                                    <span aria-hidden="true">&laquo;</span>
+                                                                    <p:ajax listener="#{homepageBean.firstPageReo}"
+                                                                            process="@form" update="@form"></p:ajax>
+                                                                </h:commandLink>
+                                                            </li>
+                                                        </c:if>
 
                                                         <ui:repeat value="#{homepageBean.pageReo.pages}" var="page">
                                                             <h:panelGroup rendered="#{page != homepageBean.pageReo.currentPage + 1}">
@@ -330,12 +295,16 @@
                                                             </h:panelGroup>
                                                         </ui:repeat>
 
-                                                        <li class="page-item">
-                                                            <h:commandLink class="page-link" title="Next">
-                                                                <span aria-hidden="true">&raquo;</span>
-                                                                <p:ajax listener="#{homepageBean.lastPageReo}" process="@form"
-                                                                        update="@form"></p:ajax>
-                                                            </h:commandLink></li>
+                                                        <c:if test="#{homepageBean.pageReo.currentPage ne (homepageBean.pageReo.totalPages-1)}">
+                                                            <li class="page-item">
+                                                                <h:commandLink class="page-link" title="Next">
+                                                                    <span aria-hidden="true">&raquo;</span>
+                                                                    <p:ajax listener="#{homepageBean.lastPageReo}" process="@form"
+                                                                            update="@form"></p:ajax>
+                                                                </h:commandLink>
+                                                            </li>
+                                                        </c:if>
+
                                                     </ul>
                                                 </nav>
                                             </c:if>
@@ -351,16 +320,14 @@
                 <div id="legend">
                     <p:panel>
                         <div class="row">
-                            <div class="col">Thu thập</div>
+                            <div class="col-3">Thu thập</div>
                             <div class="col"><h:graphicImage value="resources/img/crawl-verified.png" width="20px" height="20px"></h:graphicImage> Đã xác thực</div>
                             <div class="col"><h:graphicImage value="resources/img/crawl-notverified.png" width="20px" height="20px"></h:graphicImage> Chưa xác thực</div>
-                            <!--						<div class="col"><h:graphicImage value="resources/img/crawl-confused.png" width="20px" height="20px"></h:graphicImage> Mới</div>-->
                         </div>
                         <div class="row">
-                            <div class="col">Đóng góp</div>
+                            <div class="col-3">Đóng góp</div>
                             <div class="col"><h:graphicImage value="resources/img/contribute-verified.png" width="20px" height="20px"></h:graphicImage> Đã xác thực</div>
                             <div class="col"><h:graphicImage value="resources/img/contribute-notverified.png" width="20px" height="20px"></h:graphicImage> Chưa xác thực</div>
-                            <!--						<div class="col"><h:graphicImage value="resources/img/contribute-confused.png" width="20px" height="20px"></h:graphicImage> Mới</div>-->
                         </div>
                     </p:panel>
                 </div>
@@ -376,10 +343,8 @@
                 <h:outputScript name="markerclustererplus.min.js" library="js"></h:outputScript>
                 <h:outputScript>var crawlVerifiedIcon = "${resource['img/crawl-verified.png']}" </h:outputScript>
                 <h:outputScript>var crawlNotVerifiedIcon = "${resource['img/crawl-notverified.png']}" </h:outputScript>
-<!--                        <h:outputScript>var crawlConfusedIcon = "${resource['img/crawl-confused.png']}" </h:outputScript>-->
                 <h:outputScript>var contributeVerifiedIcon = "${resource['img/contribute-verified.png']}" </h:outputScript>
                 <h:outputScript>var contributeNotVerifiedIcon = "${resource['img/contribute-notverified.png']}" </h:outputScript>
-<!--                        <h:outputScript>var contributeConfusedIcon = "${resource['img/contribute-confused.png']}" </h:outputScript>-->
                 <h:outputScript name="homepage.js" library="js" />
                 <script type="text/javascript"
                         src="http://maps.googleapis.com/maps/api/js?key=#{googleMapBean.googleMapKey}&amp;libraries=places&amp;callback=initMap"

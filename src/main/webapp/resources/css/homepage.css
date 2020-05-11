@@ -6,15 +6,14 @@ html,body{height:100%;}
     overflow-x: hidden;
 }
 .scrollable{
-    max-height: 770px;
+    max-height: 730px;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-@media only screen and (max-height: 770px) {
-
+@media only screen and (max-height: 730px) {
     .scrollable{
-        max-height: 570px;
+        max-height: 530px;
         overflow-y: auto;
         overflow-x: hidden;
     }

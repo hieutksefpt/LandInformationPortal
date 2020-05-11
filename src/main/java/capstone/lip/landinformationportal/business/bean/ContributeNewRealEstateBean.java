@@ -231,6 +231,9 @@ public class ContributeNewRealEstateBean implements Serializable {
             } else if (newUploadRealEstate.getRealEstatePrice().compareTo(newLandMoney) == -1) {
                 PrimeFaces.current().executeScript("showLogPrice()");
                 variableSuccess = false;
+            }else if(!checkLengthPrice(realEstatePrice) || !checkLengthPrice(newLandMoney)){
+                PrimeFaces.current().executeScript("logLengthPrice()");
+                variableSuccess = false;
             } else if (StringUtils.isNumeric(newUploadRealEstate.getRealEstateName().toString()) || StringUtils.isNumeric(newLandName.toString()) 
                     || !sv.isValidText(newUploadRealEstate.getRealEstateName().toString()).equals("") || !sv.isValidText(newLandName.toString()).equals("")) {
                 PrimeFaces.current().executeScript("showLogInvalidName()");
@@ -256,6 +259,9 @@ public class ContributeNewRealEstateBean implements Serializable {
                 variableSuccess = false;
             } else if (newUploadRealEstate.getRealEstatePrice().compareTo(newHouseMoney) == -1) {
                 PrimeFaces.current().executeScript("showLogPrice()");
+                variableSuccess = false;
+            }else if(!checkLengthPrice(realEstatePrice) || !checkLengthPrice(newHouseMoney)){
+                PrimeFaces.current().executeScript("logLengthPrice()");
                 variableSuccess = false;
             } else if (newUploadRealEstate != null && newHouse != null) {
                 saveDataNewHouseSingleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newHouse, listHousesDetail);
@@ -291,7 +297,10 @@ public class ContributeNewRealEstateBean implements Serializable {
             } else if (newUploadRealEstate.getRealEstatePrice().compareTo(newHouseMoney.add(newLandMoney)) == -1) {
                 PrimeFaces.current().executeScript("showLogPrice()");
                 variableSuccess = false;
-            } else {
+            } else if(!checkLengthPrice(realEstatePrice) || !checkLengthPrice(newLandMoney) || !checkLengthPrice(newHouseMoney)){
+                PrimeFaces.current().executeScript("logLengthPrice()");
+                variableSuccess = false;
+            }else {
 
                 saveDataNewLandHouseTotalToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail, newHouse, listHousesDetail);
                 variableSuccess = true;
@@ -307,6 +316,12 @@ public class ContributeNewRealEstateBean implements Serializable {
             }
         }
 
+    }
+    
+    public boolean checkLengthPrice(BigDecimal totalPrice){
+        if(totalPrice.toString().length() > 15)
+            return false;
+        return true;
     }
     
     

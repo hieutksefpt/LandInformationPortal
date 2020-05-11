@@ -22,18 +22,18 @@
                 <p:ajaxStatus onstart="$('#loader').show()" onsuccess="$('#loader').hide()" />
                 <div class="container-fluid" style="height:calc(100% - 70px)">
                     <div class="row justify-content-center h-100">
-                        <div class="col">
+                        <div class="col h-100">
                             <div class="h-100 d-flex flex-column">
                                 <div class="row flex-grow-1" >
                                     <div id="map" class="h-100 w-100"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-3 collapse show" id="news-bar">
+                        <div class="col-3 h-100 collapse show" id="news-bar">
                             <div class="h-100 d-flex flex-column">
-                                <div class="row flex-grow-1" style="background-color: aliceblue;">
+                                <div class="h-100 row flex-grow-1" style="background-color: aliceblue;">
                                     <h:form id="form-news" prependId="false" onsubmit="return false;" styleClass="h-100">
-                                        <div class="row" style="padding-left:15px">
+                                        <div class="row" style="padding-left:15px;height: 90%;">
                                             <ul class="list-group scrollable list img-list">
                                                 <c:forEach items="${homepageBean.listNews}" var="element">
                                                     <li	class="list-group-item row d-flex">

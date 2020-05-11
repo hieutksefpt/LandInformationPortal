@@ -12,7 +12,8 @@ function initMap() {
         mapTypeId: 'roadmap',
         clickableIcons: false,
         disableDoubleClickZoom: true,
-        fullscreenControl: false
+        fullscreenControl: false,
+        disableDefaultUI: true
     });
 
     var marker = new google.maps.Marker({position: myLatLng, map: map});

@@ -296,6 +296,22 @@ function dataType (){
     showError("Vui lòng nhập đúng định dạng dữ liệu");
 }
 
+function logLengthPrice (){
+    showError("Giá trị của BĐS hoặc tài sản cấu thành không thể lớn hơn 1000,000,000,000 VND");
+}
+
+function showLogEmptyLandHouse(){
+    showError("Vui lòng cung cấp ít nhất 1 trong 3 trường Tên, giá trị, thuộc tính phần BĐS cấu thành, bao gồm cả Nhà và Đất\n Lưu ý tên không chứa số và ký tự đặc biệt");
+}
+
+function showLogPrice(){
+    showError("Giá của Bất động sản không thể nhỏ hơn giá của BĐS cấu thành");
+}
+
+function showLogInvalidName(){
+    showError("Tên của bất động sản và tài sản cấu thành không được chứa ký tự đặc biệt, số hoặc để trống");
+}
+
 function showModalMandatory() {
     tempRealEstateName = $('#msform\\:realEstateName').val();
     tempRealEstateValue = $('#msform\\:realEstatePrice').val();
@@ -340,16 +356,6 @@ function showModalMandatory() {
         }
     }
 }
-
-function showLogEmptyLandHouse(){
-    showError("Vui lòng cung cấp ít nhất 1 trong 3 trường Tên, giá trị, thuộc tính phần BĐS cấu thành, bao gồm cả Nhà và Đất");
-}
-
-function showLogPrice(){
-    showError("Giá của Bất động sản không thể nhỏ hơn giá của BĐS cấu thành");
-}
-
-
 
 
 $(".previous").click(function () {

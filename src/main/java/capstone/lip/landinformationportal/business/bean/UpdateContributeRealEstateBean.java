@@ -294,9 +294,6 @@ public class UpdateContributeRealEstateBean implements Serializable {
 
     public void updateDataUploadToDB() {
         try {
-            clearDataOld(realEstateClicked.getRealEstateId());             // clear data Old
-
-        
         nextLocatePoint();
         //save to DB RE
         showModalMandatory();
@@ -340,6 +337,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
                 PrimeFaces.current().executeScript("showLogInvalidName()");
                 variableSuccess = false;
             } else if (newUploadRealEstate != null && newLand != null) {
+                clearDataOld(realEstateClicked.getRealEstateId());
                 saveDataNewLandSigleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail);
                 variableSuccess = true;
             }
@@ -365,6 +363,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
                 PrimeFaces.current().executeScript("logLengthPrice()");
                 variableSuccess = false;
             } else if (newUploadRealEstate != null && newHouse != null) {
+                clearDataOld(realEstateClicked.getRealEstateId());
                 saveDataNewHouseSingleToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newHouse, listHousesDetail);
                 variableSuccess = true;
             }
@@ -402,7 +401,7 @@ public class UpdateContributeRealEstateBean implements Serializable {
                 PrimeFaces.current().executeScript("logLengthPrice()");
                 variableSuccess = false;
             }else {
-
+                clearDataOld(realEstateClicked.getRealEstateId());
                 saveDataNewLandHouseTotalToDB(newUploadRealEstate, newRealEstateAdjacentSegment, newLand, listLandDetail, newHouse, listHousesDetail);
                 variableSuccess = true;
             }

@@ -108,40 +108,7 @@
                                             <h:inputText id="txtinput-latSingleCoordinate" value="#{manageGeoInfoBean.latSingleCoordinate}"></h:inputText>
                                         </div>
                                     </div>
-                                    <ui:remove>
-                                    <h:panelGroup rendered="#{manageGeoInfoBean.processType == '3'}">
-                                    	<div class="form-group row">
-	                                		<div class="col">
-	                                            <p:outputLabel value="Bảng giá"></p:outputLabel>
-	                                        </div>
-	                                		<div class="col text-center">
-	                                			<h:outputText value="VT1"></h:outputText>
-	                                            <h:inputText a:placeholder="VT1" style="width:95%" value="#{manageGeoInfoBean.vt1}"></h:inputText>
-	                                        </div>
-	                                        <div class="col text-center">
-	                                        	<h:outputText value="VT2"></h:outputText>
-	                                            <h:inputText a:placeholder="VT2" style="width:95%" value="#{manageGeoInfoBean.vt2}"></h:inputText>
-	                                        </div>
-	                                        <div class="col text-center">
-	                                        	<h:outputText value="VT3"></h:outputText>
-	                                            <h:inputText a:placeholder="VT3" style="width:95%" value="#{manageGeoInfoBean.vt3}"></h:inputText>
-	                                        </div>
-	                                        <div class="col text-center">
-	                                        	<h:outputText value="VT4"></h:outputText>
-	                                            <h:inputText a:placeholder="VT4" style="width:95%" value="#{manageGeoInfoBean.vt4}"></h:inputText>
-	                                        </div>
-	                                	</div>
-	                                    <div class="form-group row" id="div-multiple" style="display:none">
-	                                        <h:inputHidden id="txtInput1_multipleCoordinate" value="#{manageGeoInfoBean.jsonMultipleCoordinate}"></h:inputHidden>
-	                                        <div class="scrolldata">
-	                                            <table id="table-coordinate">
-	                                                <th>Kinh độ</th>
-	                                                <th>Vĩ độ</th>
-	                                            </table>
-	                                        </div>
-	                                    </div>
-                                    </h:panelGroup>
-                                    </ui:remove>
+                                    
                                 </h:panelGroup>
                                 <h:panelGroup rendered="#{manageGeoInfoBean.processType == '4'}">
                                 	<div class="form-group row">

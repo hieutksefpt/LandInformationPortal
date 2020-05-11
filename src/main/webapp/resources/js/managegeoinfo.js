@@ -140,7 +140,7 @@ function deleteRow(element){
 	});
 	$('#form\\:txtInput_multipleCoordinate').val(JSON.stringify(
 		selectedMarkers.map(x=>{
-			let obj={};obj.lat = x.getPosition().lat();obj.lng=x.getPosition().lng();
+			let obj={};obj.latitude = x.getPosition().lat();obj.longitude=x.getPosition().lng();
 			return obj}))
 	);	
 	

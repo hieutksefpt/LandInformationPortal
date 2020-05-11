@@ -47,11 +47,12 @@
     /*Phong comment remove status*/
 /*    margin-top: -14px;*/
 }
-.element-list-house{
-    padding-right: 25px;
-    padding-left: 25px;
+
+.element-list-house ,.element-list-land {
+    margin-top: 10px;
 }
-.element-list ,.element-list-house-name ,.element-list-land{
+
+.element-list ,.element-list-house ,.element-list-land{
     padding-right: 15px;
     padding-left: 15px;
 }

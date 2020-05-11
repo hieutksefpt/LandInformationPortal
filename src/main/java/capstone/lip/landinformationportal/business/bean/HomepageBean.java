@@ -198,7 +198,18 @@ public class HomepageBean implements Serializable {
 			return;
 		}
 //		List<SegmentOfStreet>listTemp = districtSelected.getListSegmentOfStreet();
-		
+//		PrimeFaces.current().executeScript("clearDataMap()");
+//		for (SegmentOfStreet element: listTemp) {
+//			List<FormedCoordinate> listFormedCoordinate = element.getListFormedCoordinate();
+//            List<Coordinate> listCoordinate = listFormedCoordinate.stream().map(x -> {
+//                return new Coordinate(x.getFormedLng(), x.getFormedLat());
+//            }).collect(Collectors.toList());
+//            if (!listCoordinate.isEmpty())
+//            	listCoordinate.get(0).setPrice(new BigDecimal(element.getVT1()));
+//            Gson gson = new Gson();
+//            
+//            PrimeFaces.current().executeScript("drawPath(" + gson.toJson(listCoordinate) + ", 16);");
+//		}
 //		if (listTemp!= null)
 //			listStreet = listTemp.stream().map(x->x.getStreet()).distinct().collect(Collectors.toList());
 			

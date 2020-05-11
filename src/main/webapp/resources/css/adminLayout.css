@@ -171,3 +171,7 @@ a.article:hover {
         display: none;
     }
 }
+.btn-log-out{
+    border: 2px white groove;
+    border-radius: 10px;
+}

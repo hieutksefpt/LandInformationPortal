@@ -31,10 +31,10 @@
                     </ul>
                     <h:form prependId="false" onsubmit="return false;">
                         <span class="navbar-text actions">
-                            <a class="btn btn-light action-button" href="/user/viewmyprofile.xhtml">
+                            <a class="btn" href="/user/viewmyprofile.xhtml">
                                 #{authenticationBean.currentUser.fullName}
                             </a>
-                            <h:commandLink class="btnOnNav" value="Đăng xuất">
+                            <h:commandLink class="btn btn-log-out" value="Đăng xuất">
                                 <p:ajax process="@form" listener="#{authenticationBean.signout()}"></p:ajax>
                             </h:commandLink>
                         </span>

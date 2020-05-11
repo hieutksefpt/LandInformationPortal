@@ -105,9 +105,10 @@ html {
 
 .landbox , .housebox {
     border-radius: 3px;
-    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.4);
+/*    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.4);*/
     box-sizing: border-box;
     margin-top: 25px;
+    border: 1px black groove;
 }
 
 .landboxTotal , .houseboxTotal {
@@ -145,9 +146,9 @@ html {
 
 #msform .action-button {
     width: 100px;
-    background: #27AE60;
+    background: #ffcc00;
     font-weight: bold;
-    color: white;
+    color: #343a40;
     border: 0 none;
     border-radius: 1px;
     cursor: pointer;
@@ -158,9 +159,9 @@ html {
 
 #msform .action-button2 {
     width: 200px;
-    background: #27AE60;
+    background:  #ffcc00;
     font-weight: bold;
-    color: white;
+    color: #343a40;
     border: 0 none;
     border-radius: 1px;
     cursor: pointer;
@@ -169,7 +170,11 @@ html {
     float: left;
 }
 #msform .action-button:hover, #msform .action-button:focus {
-    box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #343a40;
+}
+
+#msform .action-button2:hover, #msform .action-button2:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #343a40;
 }
 /*headings*/
 
@@ -240,8 +245,8 @@ html {
 /*marking active/completed steps green*/
 /*The number of the step and the connector before it = green*/
 #progressbar li.active:before,  #progressbar li.active:after{
-    background: #27AE60;
-    color: white;
+    background:  #ffcc00;
+    color:  #343a40;
 }
 
 

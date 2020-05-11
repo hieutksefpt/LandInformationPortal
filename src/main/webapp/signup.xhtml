@@ -22,8 +22,8 @@
 
     <h:body>
         <ui:composition template="/template/common/commonLayout.xhtml">
-        	<ui:define name="header">
-        	</ui:define>
+            <ui:define name="header">
+            </ui:define>
             <ui:define name="content">
                 <h:outputStylesheet name="material-design-iconic-font.min.css" library="css"/>
                 <h:outputStylesheet name="signup.css" library="css"/>
@@ -31,43 +31,44 @@
 
                 <!--Alert Dialog-->
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.min.css"/>
-                
+
                 <div class="main">
                     <h:commandButton class="btn btn-primary backHome" value="Trở về Trang chủ">
                         <p:ajax listener="#{signUpBean.directToHomePage()}"/>
                     </h:commandButton>
                     <div class="container">
-                        <h:form class="appointment-form" id="registerUser">
+                        <h:form class="appointment-form" id="registerUser" style="margin-bottom: 50px;">
                             <h2>Cổng thông tin đất đai</h2>
                             <div class="form-group-1">
                                 <label for="username" class="mandatory">Tên đăng nhập</label>
-                                <h:inputText id="txtInputUsername" value="#{signUpBean.username}"/>
+                                <p:inputText id="txtInputUsername" value="#{signUpBean.username}"/>
                                 <label for="fullname" class="mandatory">Họ và tên</label>
-                                <h:inputText id="name" value="#{signUpBean.fullname}"/>
+                                <p:inputText id="name" value="#{signUpBean.fullname}"/>
                                 <label for="Email" class="mandatory">Email</label>
-                                <h:inputText id="email" value="#{signUpBean.email}"/>
+                                <p:inputText id="email" value="#{signUpBean.email}"/>
                                 <label for="address" >Địa chỉ</label>
-                                <h:inputText id="address" value="#{signUpBean.address}"/>
+                                <p:inputText id="address" value="#{signUpBean.address}"/>
                                 <label for="phone">Số điện thoại</label>
-                                <h:inputText id="phone_number" value="#{signUpBean.phone}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
-                                </h:inputText>
+                                <p:inputText id="phone_number" value="#{signUpBean.phone}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
+                                </p:inputText>
                                 <label for="phone">Giới tính</label>
                                 <h:selectOneMenu id="cbb-gender" value="#{signUpBean.gender}">
-                                    <f:selectItem itemLabel=" " itemValue=""/>
+                                    <f:selectItem itemLabel="--  --" itemValue=""/>
                                     <f:selectItem itemLabel="Nam" itemValue="Nam"/>
                                     <f:selectItem itemLabel="Nữ" itemValue="Nữ"/>
                                     <f:selectItem itemLabel="Khác" itemValue="Khác"/>
                                 </h:selectOneMenu>
 
                                 <label for="password" class="mandatory">Mật khẩu</label>
+
                                 <p:password id="feedback1" value="#{signUpBean.password}" feedback="true" /><div class="validate"></div>
                                 <label for="confirmpassword" class="mandatory">Xác nhận lại mật khẩu</label>
                                 <p:password id="feedback2" value="#{signUpBean.confirmpassword}" feedback="true" /><div class="validate"></div>
                             </div>
 
-                            
+
                             <div class="form-submit">
-                                <h:commandButton class="next action-button"  value="Đăng ký tài khoản">
+                                <h:commandButton class="next action-button"  value="Đăng ký tài khoản"> 
                                     <p:ajax listener="#{signUpBean.registerUser()}" process="registerUser"/>
                                 </h:commandButton>
                             </div>
@@ -79,7 +80,7 @@
                 <!--Alert Dialog-->
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.min.js"></script>
                 <h:outputScript name="alertdialog.js" library="js"/> 
-                
+
                 <!-- JS -->
                 <h:outputScript name="jquery.min.js" library="js" />
                 <h:outputScript name="signup.js" library="js"/>

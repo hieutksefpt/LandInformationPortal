@@ -60,7 +60,7 @@ public class FeedbackBean implements Serializable {
     }
 
     public void sendFeedback() throws IOException{
-        if (!fullname.isEmpty() && fullname != null && feedbackTitle != null && !feedbackTitle.isEmpty() && !feedbackContent.isEmpty() && feedbackContent != null) {
+        if (feedbackTitle != null && !feedbackTitle.trim().isEmpty() && !feedbackContent.trim().isEmpty() && feedbackContent != null) {
             feedbackStatus = FeedbackStatusConstant.OPEN;
             Feedback newfb = new Feedback();
             newfb.setFeedbackTitle(feedbackTitle);
@@ -77,7 +77,7 @@ public class FeedbackBean implements Serializable {
             PrimeFaces.current().executeScript("showLogSuccessSendFeedback()");
             
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-            ec.redirect(ec.getRequestContextPath() + "/homepage.xhtml?");
+            ec.redirect(ec.getRequestContextPath() + "/feedback.xhtml?");
         } else {
             PrimeFaces.current().executeScript("showLogErrorEmpty()");
         }

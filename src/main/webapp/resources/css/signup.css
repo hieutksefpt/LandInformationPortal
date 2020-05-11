@@ -331,9 +331,9 @@ li.init {
 
 .action-button {
     width: 200px;
-    background: #27AE60;
+    background: #ffcc00;
     font-weight: bold;
-    color: white;
+    color: #343a40;
     border: 0 none;
     border-radius: 1px;
     cursor: pointer;
@@ -343,5 +343,5 @@ li.init {
 }
 
 .action-button:hover, .action-button:focus {
-    box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #343a40;
 }

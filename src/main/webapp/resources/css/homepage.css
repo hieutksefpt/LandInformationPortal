@@ -13,7 +13,7 @@ html,body{height:100%;}
 
 @media only screen and (max-height: 730px) {
     .scrollable{
-        max-height: 530px;
+        max-height: 480px;
         overflow-y: auto;
         overflow-x: hidden;
     }
@@ -29,7 +29,7 @@ html,body{height:100%;}
 .scroll-y-only{
     overflow-y:auto;
     overflow-x:hidden;
-    height: 400px;
+    height: 350px;
 }
 
 

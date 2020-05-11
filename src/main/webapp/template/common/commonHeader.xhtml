@@ -14,146 +14,143 @@
     <body>
         <ui:composition>
             <nav class="navbar navbar-dark bg-dark navbar-expand-md navigation-clean-button">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/homepage.xhtml">
-                        <img src="/resources/img/logo.svg" style="width:45px;height:45px;"/>
-                        <span>Land Information Portal</span>
-                    </a>
-                    <button data-toggle="collapse" class="navbar-toggler"
-                            data-target="#navcol-1">
-                        <span class="sr-only">Toggle navigation</span><span
-                            class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navcol-1">
+                <a class="navbar-brand" href="/homepage.xhtml">
+                    <img src="/resources/img/logo.svg" style="width:45px;height:45px;"/>
+                    <span>Land Information Portal</span>
+                </a>
+                <ul class="nav navbar-nav mr-auto">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="/intro/index.html">Giới thiệu về L.I.P</a>
+                    </li>
+                    <sec:authenticated>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" href="/user/feedback.xhtml">Phản hồi</a>
+                        </li>
+                    </sec:authenticated>
+                </ul>
+                <h:form onsubmit="return false;" prependId="false">
+                    <sec:anonymous>
                         <ul class="nav navbar-nav mr-auto">
-                            <li class="nav-item" role="presentation"><a class="nav-link"
-                                                                        href="/intro/index.html">Giới thiệu về L.I.P</a></li>
-                            <sec:authenticated>
-                                <li class="nav-item" role="presentation"><a class="nav-link"
-                                                                            href="/user/feedback.xhtml">Phản hồi</a></li>
-                            </sec:authenticated>
+                            <li class="nav-item" role="presentation">
+                                <h:commandLink
+                                    class="nav-item" style="color: white; margin-right: 20px;" 
+                                    value="Đăng kí">
+                                    <p:ajax listener="#{authenticationBean.signup()}" process="@form"></p:ajax>
+                                </h:commandLink>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <h:outputLink class="nav-item" style="color: white"
+                                              onclick="$('#modalLogin').modal('show');" value="javascript:void(0)">Đăng nhập
+                                </h:outputLink>
+                            </li>
                         </ul>
-                        <h:form onsubmit="return false;" prependId="false">
-                            <sec:anonymous>
-                                <ul class="nav navbar-nav mr-auto">
-                                    <li class="nav-item" role="presentation">
-                                        <h:commandLink
-                                            class="nav-item" style="color: white; margin-right: 20px;" 
-                                            value="Đăng kí">
-                                            <p:ajax listener="#{authenticationBean.signup()}" process="@form"></p:ajax>
-                                        </h:commandLink>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <h:outputLink class="nav-item" style="color: white"
-                                                      onclick="$('#modalLogin').modal('show');" value="javascript:void(0)">Đăng nhập
-                                        </h:outputLink>
-                                    </li>
-                                </ul>
-                            </sec:anonymous>
-                            <sec:authenticated>
+                    </sec:anonymous>
+                    <sec:authenticated>
 
-                            </sec:authenticated>
-                            <ul class="nav navbar-nav mr-auto">
-                                <sec:authorize access="hasRole('ADMIN')">
-                                    <li class="nav-item" role="presentation">
-                                        <h:commandLink
-                                            class="nav-link" 
-                                            value="Quản lý hệ thống">
-                                            <p:ajax process="@form"
-                                                    listener="#{authenticationBean.redirectAdminManage()}"></p:ajax>
-                                        </h:commandLink>
-                                    </li>
-                                </sec:authorize>
-                                <sec:authorize access="hasRole('USER')">
-                                    <li class="nav-item" role="presentation">
-                                        <a href="/user/contributenewrealestate.xhtml"
-                                           class="nav-link"> Đăng mới BĐS
-                                        </a>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <h:commandLink
-                                            class="nav-link" 
-                                            value="BĐS đóng góp" action="#{authenticationBean.redirectListOwnReo}">
-                                            <p:ajax process="@form"></p:ajax>
-                                        </h:commandLink>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link" href="/user/viewmyprofile.xhtml">
-                                            #{authenticationBean.currentUser.fullName}
-                                        </a>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <h:commandLink
-                                            class="nav-link btn-log-out"
-                                            value="Đăng xuất">
-                                            <p:ajax process="@form"
-                                                    listener="#{authenticationBean.signout()}"></p:ajax>
-                                        </h:commandLink>
-                                    </li>
-                                </sec:authorize>
-                            </ul>
+                    </sec:authenticated>
+                    <ul class="nav navbar-nav mr-auto">
+                        <sec:authorize access="hasRole('ADMIN')">
+                            <li class="nav-item" role="presentation">
+                                <h:commandLink
+                                    class="nav-link" 
+                                    value="Quản lý hệ thống">
+                                    <p:ajax process="@form"
+                                            listener="#{authenticationBean.redirectAdminManage()}"></p:ajax>
+                                </h:commandLink>
+                            </li>
+                        </sec:authorize>
+                        <sec:authorize access="hasRole('USER')">
+                            <li class="nav-item" role="presentation">
+                                <a href="/user/contributenewrealestate.xhtml"
+                                   class="nav-link"> Đăng mới BĐS
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <h:commandLink
+                                    class="nav-link" 
+                                    value="BĐS đóng góp" action="#{authenticationBean.redirectListOwnReo}">
+                                    <p:ajax process="@form"></p:ajax>
+                                </h:commandLink>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" href="/user/viewmyprofile.xhtml">
+                                    #{authenticationBean.currentUser.fullName}
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <h:commandLink
+                                    class="nav-link btn-log-out"
+                                    value="Đăng xuất">
+                                    <p:ajax process="@form"
+                                            listener="#{authenticationBean.signout()}"></p:ajax>
+                                </h:commandLink>
+                            </li>
+                        </sec:authorize>
+                    </ul>
 
-                            <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+                    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
 
 
-                            <div id="modalLogin" class="modal fade">
-                                <div class="modal-dialog modal-login">
-                                    <div class="modal-content">
-                                        <div class="modal-header">				
-                                            <h4 class="modal-title" style="color: black;">Đăng nhập</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        </div>
-                                        <div class="modal-body">				
-                                            <div class="form-group" style="color: black;">
-                                                <label>Tài khoản</label>
-                                                <h:inputText id="username_signin" value="#{authenticationBean.usernameSignin}" styleClass="form-control"></h:inputText>
-                                            </div>
-                                            <div id="div-email" class="form-group" style="display:none">
-                                                <label>Email</label>
-                                                <h:inputText id="email_forget" value="#{authenticationBean.emailForget}" styleClass="form-control"></h:inputText>
-                                            </div>
-                                            <div id="div-password" class="form-group" style="color: black;">
-                                                <label>Mật khẩu</label>
-                                                <h:inputSecret id="password_signin" value="#{authenticationBean.passwordSignin}" styleClass="form-control"></h:inputSecret>
-                                            </div>
-                                        </div>
-                                        <div id="panel-error" class="alert alert-danger" style="display:none">
-
-                                        </div>
-                                        <div id="panel-forgetpass" class="alert alert-primary" style="display:none">
-                                            Đã gửi mail reset mật khẩu
-                                        </div>
-                                        <div class="modal-footer">
-                                            <div id="btn-group-forgetpass" style="display:none">
-                                                <h:commandLink styleClass="pull-right text-muted">
-                                                    <small>Quay lại
-                                                        <p:ajax onstart="setPopupSignin()"></p:ajax>
-                                                    </small>
-                                                </h:commandLink>
-                                                <h:commandLink id="btn-reset" value="Reset mật khẩu" styleClass="btn pull-right" class="btn-sm btn-outline-secondary">
-                                                    <p:ajax process="@form" listener="#{authenticationBean.forgetPass()}"></p:ajax>
-                                                </h:commandLink>
-                                            </div>
-
-                                            <div id="btn-group-signin">
-                                                <h:commandLink id="btn-forget-popup" styleClass="pull-right text-muted">
-                                                    <small>
-                                                        Quên mật khẩu
-                                                        <p:ajax onstart="setPopupForgetPass()"></p:ajax>
-                                                    </small>
-                                                </h:commandLink>
-
-                                                <h:commandLink id="btn-signin" value="Đăng nhập" styleClass="btn pull-right" class="btn-sm btn-secondary btn-outline-secondary" style="color:white">
-                                                    <p:ajax process="@form"  listener="#{authenticationBean.signin}"></p:ajax>
-                                                </h:commandLink>
-                                            </div>
-                                        </div>
+                    <div id="modalLogin" class="modal fade">
+                        <div class="modal-dialog modal-login">
+                            <div class="modal-content">
+                                <div class="modal-header text-body">				
+                                    <h4 id="lbl-LoginTitle" class="modal-title">
+                                        ĐĂNG NHẬP
+                                    </h4>
+                                    <h4 id="lbl-ResetTitle" class="modal-title" style="display: none;">
+                                        ĐẶT LẠI MẬT KHẨU
+                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body text-body">				
+                                    <div class="form-group">
+                                        <label>Tài khoản</label>
+                                        <h:inputText id="username_signin" value="#{authenticationBean.usernameSignin}" styleClass="form-control"></h:inputText>
+                                    </div>
+                                    <div id="div-email" class="form-group" style="display:none;">
+                                        <label>Email</label>
+                                        <h:inputText id="email_forget" value="#{authenticationBean.emailForget}" styleClass="form-control"></h:inputText>
+                                    </div>
+                                    <div id="div-password" class="form-group">
+                                        <label>Mật khẩu</label>
+                                        <h:inputSecret id="password_signin" value="#{authenticationBean.passwordSignin}" styleClass="form-control"></h:inputSecret>
                                     </div>
                                 </div>
-                            </div>     
-                        </h:form>
-                    </div>
-                </div>
+                                <div id="panel-error" class="alert alert-danger" style="display:none">
+
+                                </div>
+                                <div id="panel-forgetpass" class="alert alert-primary" style="display:none">
+                                    Đã gửi mail reset mật khẩu
+                                </div>
+                                <div class="modal-footer">
+                                    <div id="btn-group-forgetpass" style="display:none">
+                                        <h:commandButton value="Quay lại" 
+                                                       styleClass="pull-right text-muted" class="btn btn-light">
+                                                <p:ajax onstart="setPopupSignin()"></p:ajax>
+                                        </h:commandButton>
+                                        <h:commandButton id="btn-reset" value="Đặt lại" style="margin-left: 5px;"
+                                                         styleClass="btn pull-right" class="btn btn-dark">>
+                                            <p:ajax process="@form" listener="#{authenticationBean.forgetPass()}"></p:ajax>
+                                        </h:commandButton>
+                                    </div>
+
+                                    <div id="btn-group-signin">
+                                        <h:commandButton id="btn-forget-popup" value="Quên mật khẩu" 
+                                                         styleClass="pull-right text-muted" class="btn btn-light">
+                                            <p:ajax onstart="setPopupForgetPass()" ></p:ajax>
+                                        </h:commandButton>
+
+                                        <h:commandButton id="btn-signin" value="Đăng nhập" style="margin-left: 5px;"
+                                                         styleClass="btn pull-right" class="btn btn-dark">
+                                            <p:ajax process="@form"  listener="#{authenticationBean.signin}"></p:ajax>
+                                        </h:commandButton>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>     
+                </h:form>
             </nav>
         </ui:composition>
     </body>

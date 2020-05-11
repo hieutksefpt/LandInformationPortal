@@ -7,7 +7,7 @@ function initMap() {
     let myLatLng = {lat: latitude, lng: longitude};
     map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
-        zoom: 14,
+        zoom: 12,
         mapTypeId: 'roadmap',
         clickableIcons: false,
         disableDoubleClickZoom: true,
@@ -23,6 +23,9 @@ function initMap() {
     
     let legend = $('#legend')[0];
     map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(legend);
+    
+    let news = $('#news-button')[0];
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(news);
     
 //    let input = $('#searchbox-Address')[0];
 //	    searchBox = new google.maps.places.SearchBox(input);
@@ -70,20 +73,36 @@ function clearDataMap(){
 	path.forEach(x=>x.setMap(null));
 	path = [];
 }
+//function getColor(price){
+//	if (price < 1000000000){
+//		return '#fe5c5c';
+//	}
+//	if (price < 5000000000){
+//		return '#fe3636';
+//	}
+//	if (price < 10000000000){
+//		return '#fe1a1a';
+//	}
+//	if (price < 20000000000){
+//		return '#dc0000';
+//	}
+//	return '#6b0000';
+//}
+//Phong test color
 function getColor(price){
 	if (price < 1000000000){
-		return '#fe5c5c';
+		return '#fd7e14';
 	}
 	if (price < 5000000000){
-		return '#fe3636';
+		return '#ffc107';
 	}
 	if (price < 10000000000){
-		return '#fe1a1a';
+		return '#28a745';
 	}
 	if (price < 20000000000){
-		return '#dc0000';
+		return '#e83e8c';
 	}
-	return '#6b0000';
+	return '#dc3545';
 }
 function replaceColor(price){
 	let i = 1;
@@ -215,8 +234,6 @@ function drawListMarker(list){
             }
         }
         
-    	
-    	
     	google.maps.event.addListener(marker, 'click', function () {
     		if ($(PF('accord-panel').panels[0]).css('display') == "none")
     			PF('accord-panel').select(0);
@@ -226,8 +243,9 @@ function drawListMarker(list){
     	
     	listMarker.push(marker);
 	}
-//    var markerCluster = new MarkerClusterer(map, listMarker,
-//            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+        
+    var markerCluster = new MarkerClusterer(map, listMarker,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 }
 function displayReoList(isDisplay){
 	if (isDisplay){

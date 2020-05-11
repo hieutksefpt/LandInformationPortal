@@ -113,10 +113,13 @@
 		                                </tr>
 		                                <tr>
 		                                    <td><span class="title-mandatory">Giá trị</span></td><td>
-		                                        <h:inputText id="realEstatePrice" value="#{contributeNewRealEstateBean.realEstatePrice}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
+		                                        <h:inputText id="realEstatePrice" value="#{contributeNewRealEstateBean.realEstatePrice}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;" onkeyup="convert_text_1(this)" onchange="convert_text_1(this)">
 		                                        </h:inputText>
-		                                        <span class="unit"><i>(VND)</i></span></td>
+                                                        <input type="number" onkeyup="convert_text_1(this)" onchange="convert_text_1(this)"></input>
+		                                        <span class="unit"><i>(VND)</i></span>
+                                                    </td>
 		                                </tr>
+                                                <tr><p id="result1"></p></tr>
 		                                <tr>
 		                                    <td><span class="title-mandatory">Địa chỉ bất động sản</span></td>
 		                                    <td>
@@ -476,6 +479,11 @@
             <ui:define name="footer">
                 <!--Alert Dialog-->
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.min.js"></script>
+                
+                <script src="n2vi.min.js"></script>
+                <script src="dist/n2vw.min.js"></script>
+                <script src="dist/written-number.min.js"></script>
+    
                 <h:outputScript name="alertdialog.js" library="js"/> 
                 
                 <h:outputScript name="contributenewrealestate.js" library="js" />

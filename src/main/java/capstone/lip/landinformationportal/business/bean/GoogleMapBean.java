@@ -1,16 +1,9 @@
 package capstone.lip.landinformationportal.business.bean;
 
 import java.io.Serializable;
-
-import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-
-import capstone.lip.landinformationportal.common.entity.User;
 
 @Named
 @ViewScoped

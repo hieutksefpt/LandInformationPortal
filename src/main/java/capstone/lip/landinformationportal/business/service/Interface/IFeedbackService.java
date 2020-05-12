@@ -4,7 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import capstone.lip.landinformationportal.common.entity.Feedback;
-import capstone.lip.landinformationportal.common.entity.RealEstate;
 import java.util.Map;
 
 public interface IFeedbackService {

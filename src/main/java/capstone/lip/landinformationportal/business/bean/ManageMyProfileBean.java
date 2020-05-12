@@ -6,7 +6,6 @@
 package capstone.lip.landinformationportal.business.bean;
 
 import capstone.lip.landinformationportal.business.service.Interface.IUserService;
-import capstone.lip.landinformationportal.business.validation.ProfileValidation;
 import capstone.lip.landinformationportal.business.validation.StringValidation;
 import capstone.lip.landinformationportal.business.validation.UserValidation;
 import capstone.lip.landinformationportal.common.entity.User;

@@ -11,17 +11,8 @@ import capstone.lip.landinformationportal.business.service.Interface.IHouseServi
 import capstone.lip.landinformationportal.business.service.Interface.IHousesDetailService;
 import capstone.lip.landinformationportal.business.validation.HouseValidation;
 import capstone.lip.landinformationportal.business.validation.HousesDetailValidation;
-import capstone.lip.landinformationportal.business.validation.RealEstateValidation;
-import capstone.lip.landinformationportal.common.dto.HouseFeatureValue;
 import capstone.lip.landinformationportal.common.entity.House;
 import capstone.lip.landinformationportal.common.entity.HousesDetail;
-import capstone.lip.landinformationportal.common.entity.HousesFeature;
-import capstone.lip.landinformationportal.common.entity.RealEstate;
-import capstone.lip.landinformationportal.common.entity.compositekey.HousesDetailId;
-
-import java.math.BigDecimal;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

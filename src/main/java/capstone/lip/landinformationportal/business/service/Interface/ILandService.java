@@ -5,14 +5,7 @@
  */
 package capstone.lip.landinformationportal.business.service.Interface;
 
-import capstone.lip.landinformationportal.common.dto.LandFeatureValue;
 import capstone.lip.landinformationportal.common.entity.Land;
-import capstone.lip.landinformationportal.common.entity.LandsDetail;
-import capstone.lip.landinformationportal.common.entity.LandsFeature;
-import capstone.lip.landinformationportal.common.entity.RealEstate;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 /**
  *

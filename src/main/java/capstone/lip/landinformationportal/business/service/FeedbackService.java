@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import capstone.lip.landinformationportal.business.repository.FeedbackRepository;
 import capstone.lip.landinformationportal.business.service.Interface.IFeedbackService;
 import capstone.lip.landinformationportal.business.specification.FeedbackSpecifications;
-import capstone.lip.landinformationportal.business.specification.RealEstateSpecifications;
 import capstone.lip.landinformationportal.business.specification.SearchCriteria;
 import capstone.lip.landinformationportal.business.validation.FeedbackValidation;
 import capstone.lip.landinformationportal.common.constant.FeedbackStatusConstant;

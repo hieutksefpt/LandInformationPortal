@@ -12,7 +12,6 @@ import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import capstone.lip.landinformationportal.business.service.Interface.IFeedbackService;
-import capstone.lip.landinformationportal.business.validation.FeedbackValidation;
 import capstone.lip.landinformationportal.common.constant.FeedbackStatusConstant;
 import capstone.lip.landinformationportal.common.dto.LazyFeedback;
 import capstone.lip.landinformationportal.common.entity.Feedback;

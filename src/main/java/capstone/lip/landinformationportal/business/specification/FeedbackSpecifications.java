@@ -17,7 +17,8 @@ import org.springframework.data.jpa.domain.Specification;
  * @author AnhHao
  */
 public class FeedbackSpecifications implements Specification<Feedback>{
-    
+
+    private static final long serialVersionUID = -2735727681874376350L;
     private SearchCriteria criteria;
 
     public FeedbackSpecifications(SearchCriteria criteria) {

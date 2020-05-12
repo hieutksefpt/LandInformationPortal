@@ -6,24 +6,13 @@
 package capstone.lip.landinformationportal.business.service;
 
 import capstone.lip.landinformationportal.business.repository.LandRepository;
-import capstone.lip.landinformationportal.business.repository.LandsDetailRepository;
 import capstone.lip.landinformationportal.business.repository.LandsFeatureRepository;
 import capstone.lip.landinformationportal.business.service.Interface.ILandService;
 import capstone.lip.landinformationportal.business.service.Interface.ILandsDetailService;
-import capstone.lip.landinformationportal.business.validation.HousesDetailValidation;
 import capstone.lip.landinformationportal.business.validation.LandValidation;
 import capstone.lip.landinformationportal.business.validation.LandsDetailValidation;
-import capstone.lip.landinformationportal.business.validation.RealEstateValidation;
-import capstone.lip.landinformationportal.common.dto.LandFeatureValue;
-import capstone.lip.landinformationportal.common.entity.House;
 import capstone.lip.landinformationportal.common.entity.Land;
 import capstone.lip.landinformationportal.common.entity.LandsDetail;
-import capstone.lip.landinformationportal.common.entity.RealEstate;
-import capstone.lip.landinformationportal.common.entity.compositekey.LandsDetailId;
-
-import java.math.BigDecimal;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

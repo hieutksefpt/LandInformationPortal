@@ -6,8 +6,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
@@ -19,7 +17,6 @@ import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import capstone.lip.landinformationportal.business.repository.HouseRepository;
 import capstone.lip.landinformationportal.business.repository.HousesDetailRepository;
 import capstone.lip.landinformationportal.business.repository.HousesFeatureRepository;
@@ -87,12 +84,6 @@ public class CrawlRealEstateService implements ICrawlRealEstateService {
 
     @Autowired
     private ProvinceRepository provinceRepository;
-    
-    @Autowired
-    private IPredictPriceService predictService;
-
-    @Autowired
-    private ISegmentOfStreetService segmentService;
     
     @Autowired
     private RealEstateAdjacentSegmentRepository adjRepository;

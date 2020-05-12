@@ -2,12 +2,8 @@ package capstone.lip.landinformationportal.business.validation;
 
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import capstone.lip.landinformationportal.business.repository.HousesFeatureRepository;
 import capstone.lip.landinformationportal.common.constant.ValidateMessageCommon;
-import capstone.lip.landinformationportal.common.entity.House;
 import capstone.lip.landinformationportal.common.entity.HousesDetail;
 import capstone.lip.landinformationportal.common.entity.HousesFeature;
 

@@ -8,9 +8,7 @@ package capstone.lip.landinformationportal.business.service;
 import capstone.lip.landinformationportal.business.repository.HouseRepository;
 import capstone.lip.landinformationportal.business.repository.HousesDetailRepository;
 import capstone.lip.landinformationportal.business.repository.HousesFeatureRepository;
-import capstone.lip.landinformationportal.business.service.Interface.IHouseService;
 import capstone.lip.landinformationportal.business.service.Interface.IHousesDetailService;
-import capstone.lip.landinformationportal.business.service.Interface.IHousesFeatureService;
 import capstone.lip.landinformationportal.common.entity.HousesDetail;
 
 import java.util.List;

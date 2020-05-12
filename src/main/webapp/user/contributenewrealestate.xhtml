@@ -108,16 +108,20 @@
 		                                <tr>
 		                                    <td><span class="title-mandatory">Tên bất động sản</span></td>
 		                                    <td>
-		                                        <h:inputText id="realEstateName" value="#{contributeNewRealEstateBean.realEstateName}">
-		                                        </h:inputText></td>
+		                                        <h:inputText id="realEstateName" class="w-100" value="#{contributeNewRealEstateBean.realEstateName}">
+                                                </h:inputText></td>
+                                            <td></td>
 		                                </tr>
 		                                <tr>
 		                                    <td><span class="title-mandatory">Giá trị</span></td><td>
-		                                        <h:inputText id="realEstatePrice" value="#{contributeNewRealEstateBean.realEstatePrice}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
+		                                        <h:inputText id="realEstatePrice" class="w-100" value="#{contributeNewRealEstateBean.realEstatePrice}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
 		                                        </h:inputText>
 <!--                                                        <input type="number" onkeyup="convert_text_1(this)" onchange="convert_text_1(this)"></input>-->
-		                                        <span class="unit"><i>(VND)</i></span>
+		                                        
                                                     </td>
+                                                <td>
+                                                    <span class="unit"><i>(VND)</i></span>
+                                                </td>
 		                                </tr>
 <!--                                                <tr><p id="result1"></p></tr>-->
 		                                <tr>
@@ -125,12 +129,13 @@
 		                                    <td>
 		                                        <h:inputText id="realEstateAddress" value="#{contributeNewRealEstateBean.realEstateAddress}">
 		                                        </h:inputText>
-		                                    </td>
+                                            </td>
+                                            <td></td>
 		                                </tr>
 		                                <tr>
 		                                    <td><span class="title-mandatory">Loại bất động sản</span></td>
 		                                    <td>
-		                                        <h:selectOneMenu id="cbb-Type" value="#{contributeNewRealEstateBean.typeRealEstate}" style="width:82%">
+		                                        <h:selectOneMenu id="cbb-Type" value="#{contributeNewRealEstateBean.typeRealEstate}" class="w-100">
 		                                            <p:ajax process="msform" update="typeRealEstate-form"/>
 		                                            <f:selectItem itemLabel="Đất và Nhà" itemValue="Đất và Nhà"/>
 		                                            <f:selectItem itemLabel="Đất" itemValue="Đất"/>

@@ -99,27 +99,25 @@
                                         </h:form>
                                     </div>
                                 </div>
-                                <sec:authenticated>
-                                    <div id="lbl-UsersNameLabel" class="text name element-list">
-                                        Nguồn đóng góp 
-                                        <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateLink != null}">
-                                            <a href="#{viewRealEstateDetailBean.realEstateClicked.realEstateLink}" 
-                                               target="_blank">
-                                                <h:outputText value="Chi tiết"/>
-                                            </a>
-                                        </c:if>
-                                    </div>
-                                    <div class="nameInput element-list">
-                                        <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateSource eq 'CONTRIBUTOR'}">
-                                            <h:inputText id="txt-UsersName" class="input" 
-                                                         value="#{viewRealEstateDetailBean.realEstateClicked.user.fullName}" readonly="true"/>
-                                        </c:if>
-                                        <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateSource ne 'CONTRIBUTOR'}">
-                                            <h:inputText id="txt-UsersName" class="input" 
-                                                         value="#{viewRealEstateDetailBean.realEstateClicked.realEstateSource}" readonly="true"/>
-                                        </c:if>
-                                    </div>
-                                </sec:authenticated>
+                                <div id="lbl-UsersNameLabel" class="text name element-list">
+                                    Nguồn đóng góp 
+                                    <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateLink != null}">
+                                        <a href="#{viewRealEstateDetailBean.realEstateClicked.realEstateLink}" 
+                                           target="_blank">
+                                            <h:outputText value="Chi tiết"/>
+                                        </a>
+                                    </c:if>
+                                </div>
+                                <div class="nameInput element-list">
+                                    <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateSource eq 'CONTRIBUTOR'}">
+                                        <h:inputText id="txt-UsersName" class="input" 
+                                                     value="#{viewRealEstateDetailBean.realEstateClicked.user.fullName}" readonly="true"/>
+                                    </c:if>
+                                    <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateSource ne 'CONTRIBUTOR'}">
+                                        <h:inputText id="txt-UsersName" class="input" 
+                                                     value="#{viewRealEstateDetailBean.realEstateClicked.realEstateSource}" readonly="true"/>
+                                    </c:if>
+                                </div>
                                 <div id="lbl-RealEstateNameLabel" class="text realEstateName element-list">
                                     Tên bất động sản
                                 </div>

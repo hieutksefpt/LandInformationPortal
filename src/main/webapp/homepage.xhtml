@@ -238,7 +238,8 @@
                 </div>
                 <div id="list-reo" style="display:none">
                     <h:form prependId="false" onsubmit="return false;" id="form-list-reo">
-                        <p:accordionPanel id="panel-list-reo" prependId="false" tabindex="-1" widgetVar="accord-panel">
+                        <p:accordionPanel id="panel-list-reo" prependId="false" onTabShow="closeNews()" 
+                                          activeIndex="-1" tabindex="-1" widgetVar="accord-panel">
                             <p:tab title="Danh sách BĐS" id="tab">
                                 <h:selectOneMenu id="cbb-type-reo" value="#{homepageBean.typeReo}" 
                                                  styleClass="browser-default custom-select custom-select-lg mb-3">
@@ -335,7 +336,8 @@
                 </div>
 
                 <div id="news-button" style="margin: 5px;">
-                    <button class="btn btn-info blinking" type="button" data-toggle="collapse" data-target="#news-bar" aria-expanded="true" aria-controls="news-bar">
+                    <button class="btn btn-info blinking" type="button" data-toggle="collapse" 
+                            data-target="#news-bar" aria-expanded="true" aria-controls="news-bar">
                         Tin nổi bật
                     </button>
                 </div>

@@ -101,88 +101,99 @@
 
                         <!-- fieldset 2 : cung cấp thông tin -->
                         <div id="UploadInfor">
+                            <div class="col row" style="margin-left: 20px;">
+                                <table class="formUploadInfor">
+                                    <tr>
+                                        <td><span class="title-mandatory">Tên bất động sản</span></td>
+                                        <td>
+                                            <h:inputText id="realEstateName" class="w-100" value="#{updateContributeRealEstateBean.realEstateName}">
+                                            </h:inputText></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="title-mandatory">Giá trị</span></td><td>
+                                            <h:inputText id="realEstatePrice" class="w-100" value="#{updateContributeRealEstateBean.realEstatePrice}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
+                                            </h:inputText>
+                                            </td>
+                                        <td><span class="unit"><i>(VND)</i></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="title-mandatory">Địa chỉ bất động sản</span></td>
+                                        <td>
+                                            <h:inputText id="realEstateAddress" class="w-100" value="#{updateContributeRealEstateBean.realEstateAddress}">
+                                            </h:inputText>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="title-mandatory">Loại bất động sản</span></td>
+                                        <td>
+                                            <h:selectOneMenu id="cbb-Type" value="#{updateContributeRealEstateBean.typeRealEstate}" class="w-100">
+                                                <p:ajax process="msform" update="typeRealEstate-form"/>
+                                                <f:selectItem itemLabel="Đất và Nhà" itemValue="Đất và Nhà"/>
+                                                <f:selectItem itemLabel="Đất" itemValue="Đất"/>
+                                                <f:selectItem itemLabel="Nhà" itemValue="Nhà"/>
+                                            </h:selectOneMenu>
+                                        </td>
+                                        <td></td>
+                                    </tr>
 
-                            <table class="formUploadInfor">
-                                <tr>
-                                    <td><span class="title-mandatory">Tên bất động sản</span></td>
-                                    <td>
-                                        <h:inputText id="realEstateName" value="#{updateContributeRealEstateBean.realEstateName}">
-                                        </h:inputText></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="title-mandatory">Giá trị</span></td><td>
-                                        <h:inputText id="realEstatePrice" value="#{updateContributeRealEstateBean.realEstatePrice}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
-                                        </h:inputText>
-                                        <span class="unit"><i>(VND)</i></span></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="title-mandatory">Địa chỉ bất động sản</span></td>
-                                    <td>
-                                        <h:inputText id="realEstateAddress" value="#{updateContributeRealEstateBean.realEstateAddress}">
-                                        </h:inputText>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="title-mandatory">Loại bất động sản</span></td>
-                                    <td>
-                                        <h:selectOneMenu id="cbb-Type" value="#{updateContributeRealEstateBean.typeRealEstate}">
-                                            <p:ajax process="msform" update="typeRealEstate-form"/>
-                                            <f:selectItem itemLabel="Đất và Nhà" itemValue="Đất và Nhà"/>
-                                            <f:selectItem itemLabel="Đất" itemValue="Đất"/>
-                                            <f:selectItem itemLabel="Nhà" itemValue="Nhà"/>
-                                        </h:selectOneMenu>
-                                    </td>
-                                </tr>
 
-
-                            </table>
+                                </table>
+                            </div>
                             <h:panelGroup id="typeRealEstate-form">
                                 <c:if test="#{updateContributeRealEstateBean.typeRealEstate == 'Đất'}" >
                                     <div class="row">
                                     <div id="landBox" class="landbox col-5 offset-3">
                                                 <table class="landUpload">
                                                     <tr>
-                                                        <td><span class="title">Tên phần Đất</span></td>
+                                                        <td><span class="title">Mô tả đất</span></td>
                                                         <td>
-                                                            <h:inputText id="txtInputLandName" value="#{updateContributeRealEstateBean.newLandName}">
-                                                            </h:inputText>
+                                                            <h:inputTextarea id="txtInputLandName" class="w-100" value="#{updateContributeRealEstateBean.newLandName}">
+                                                            </h:inputTextarea>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                     <tr><td><span class="title">Giá trị phần Đất</span></td>
                                                         <td>
-                                                            <h:inputText id="txtInputLandMoney" value="#{updateContributeRealEstateBean.newLandMoney}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
+                                                            <h:inputText id="txtInputLandMoney" class="w-100" value="#{updateContributeRealEstateBean.newLandMoney}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
                                                                 <p:ajax listener="#{updateContributeRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
                                                             </h:inputText>
-                                                            <span class="unit"><i>(VND)</i></span>
+                                                            
                                                         </td>
+                                                        <td><span class="unit"><i>(VND)</i></span></td>
                                                     </tr>
                                                     <tr>
 
                                                         <td><span class="title">Thuộc tính Đất</span></td>
                                                         <td>
-                                                            <h:selectOneMenu id="cbb-landFeature" value="#{updateContributeRealEstateBean.landFeatureIdSelected}">
+                                                            <h:selectOneMenu id="cbb-landFeature" class="w-100" value="#{updateContributeRealEstateBean.landFeatureIdSelected}">
                                                                 <p:ajax listener="#{updateContributeRealEstateBean.onChangeLandUnit()}" process="msform" update="typeRealEstate-form"/>
                                                                 <f:selectItem itemLabel="---" itemValue=""/>
                                                                 <f:selectItems value="#{updateContributeRealEstateBean.listLandsFeature}" var="element"
                                                                                itemLabel="#{element.landsFeatureName}" itemValue="#{element.landsFeatureID}"/>
                                                             </h:selectOneMenu>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><span class="title">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputLandFeatureNew" value="#{updateContributeRealEstateBean.newLandFeatureValue}"></h:inputText> <span id="landUnit" class="unit"><i>(đơn vị)</i></span></td>
+                                                        <td><span class="title">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputLandFeatureNew" class="w-100" value="#{updateContributeRealEstateBean.newLandFeatureValue}"></h:inputText> </td>
+                                                        <td><span id="landUnit" class="unit"><i>(đơn vị)</i></span></td>
                                                     </tr>
                                                     
                                                             <tr>
                                                                 <td colspan="2"><span id="landDataRange" class="unit"><i> </i></span></td>
+                                                                <td></td>
                                                             </tr>
                                                    
                                                     <tr>
                                                         <td></td>
                                                         <td>
-                                                            <h:commandButton class="add action-button2" value="Thêm thuộc tính Đất" id="addLandFeature">
+                                                            <h:commandButton class="add action-button2 w-100" value="Thêm thuộc tính Đất" id="addLandFeature">
                                                                 <p:ajax listener="#{updateContributeRealEstateBean.addNewLandFeatureValue()}" process="msform" update="panel-UploadLandform"/>
                                                             </h:commandButton>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                 </table>
                                                 <div class="boxAreaInput">
@@ -218,41 +229,48 @@
                                     <div id="houseBox" class="housebox col-5 offset-3">
                                                 <table class="houseUpload">
                                                     <tr>
-                                                        <td><span class="title">Tên phần Nhà</span></td>
+                                                        <td><span class="title">Mô tả Nhà</span></td>
                                                         <td>
-                                                            <h:inputText id="txtInputHouseName" value="#{updateContributeRealEstateBean.newHouseName}">
-                                                            </h:inputText>
+                                                            <h:inputTextarea id="txtInputHouseName" class="w-100" value="#{updateContributeRealEstateBean.newHouseName}">
+                                                            </h:inputTextarea>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                     <tr><td><span class="title">Giá trị phần Nhà</span></td><td>
-                                                            <h:inputText id="txtInputHouseMoney" value="#{updateContributeRealEstateBean.newHouseMoney}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
+                                                            <h:inputText id="txtInputHouseMoney" class="w-100" value="#{updateContributeRealEstateBean.newHouseMoney}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
                                                                 <p:ajax listener="#{updateContributeRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
-                                                            </h:inputText><span class="unit"><i>(VND)</i></span></td></tr>
+                                                            </h:inputText></td>
+                                                        <td><span class="unit"><i>(VND)</i></span></td>
+                                                    </tr>
                                                     <tr>
 
                                                         <td><span class="title">Thuộc tính Nhà</span></td>
                                                         <td>
-                                                            <h:selectOneMenu id="cbb-houseFeature" value="#{updateContributeRealEstateBean.houseFeatureIdSelected}">
+                                                            <h:selectOneMenu id="cbb-houseFeature" class="w-100" value="#{updateContributeRealEstateBean.houseFeatureIdSelected}">
                                                                 <p:ajax listener="#{updateContributeRealEstateBean.onChangeHouseUnit()}" process="msform" update="typeRealEstate-form"/>
                                                                 <f:selectItem itemLabel="---" itemValue=""/>
                                                                 <f:selectItems value="#{updateContributeRealEstateBean.listHousesFeature}" var="element"
                                                                                itemLabel="#{element.housesFeatureName}" itemValue="#{element.housesFeatureID}"/>
                                                             </h:selectOneMenu>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><span class="title">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputHouseFeatureNew" value="#{updateContributeRealEstateBean.newHouseFeatureValue}"></h:inputText> <span id="houseUnit" class="unit"><i>(đơn vị)</i></span></td>
+                                                        <td><span class="title">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputHouseFeatureNew" class="w-100" value="#{updateContributeRealEstateBean.newHouseFeatureValue}"></h:inputText> </td>
+                                                        <td><span id="houseUnit" class="unit"><i>(đơn vị)</i></span></td>
                                                     </tr>
                                                             <tr>
                                                                 <td colspan="2"><span id="houseDataRange" class="unit"><i> </i></span></td>
+                                                                <td></td>
                                                             </tr>
                                                     <tr>
                                                         <td></td>
                                                         <td>
-                                                            <h:commandButton class="add action-button2" value="Thêm thuộc tính Nhà" id="addHouseFeature">
+                                                            <h:commandButton class="add action-button2 w-100" value="Thêm thuộc tính Nhà" id="addHouseFeature">
                                                                 <p:ajax listener="#{updateContributeRealEstateBean.addNewHousesFeatureValue()}" process="msform" update="panel-UploadHouseform"/>
                                                             </h:commandButton>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                 </table>
                                                 <div class="boxAreaInput">
@@ -285,50 +303,56 @@
 
                                 <c:if test="#{updateContributeRealEstateBean.typeRealEstate== 'Đất và Nhà'}">
                                         <div class="flexCommon row">
-                                            <div id="landBox" class="landbox col-5 offset-1">
+                                            <div id="landBox" class="landbox col-5" style="margin: auto;">
                                                 <table class="landUpload">
                                                     <tr>
-                                                        <td><span class="title">Tên phần Đất</span></td>
+                                                        <td><span class="title">Mô tả đất</span></td>
                                                         <td>
-                                                            <h:inputText id="txtInputLandName" value="#{updateContributeRealEstateBean.newLandName}">
-                                                            </h:inputText>
+                                                            <h:inputTextarea id="txtInputLandName" class="w-100" value="#{updateContributeRealEstateBean.newLandName}">
+                                                            </h:inputTextarea>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                     <tr><td><span class="title">Giá trị phần Đất</span></td>
                                                         <td>
-                                                            <h:inputText id="txtInputLandMoney" value="#{updateContributeRealEstateBean.newLandMoney}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
+                                                            <h:inputText id="txtInputLandMoney" class="w-100" value="#{updateContributeRealEstateBean.newLandMoney}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
                                                                 <p:ajax listener="#{updateContributeRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
                                                             </h:inputText>
-                                                            <span class="unit"><i>(VND)</i></span>
+                                                            
                                                         </td>
+                                                        <td><span class="unit"><i>(VND)</i></span></td>
                                                     </tr>
                                                     <tr>
 
                                                         <td><span class="title">Thuộc tính Đất</span></td>
                                                         <td>
-                                                            <h:selectOneMenu id="cbb-landFeature" value="#{updateContributeRealEstateBean.landFeatureIdSelected}">
+                                                            <h:selectOneMenu id="cbb-landFeature" class="w-100" value="#{updateContributeRealEstateBean.landFeatureIdSelected}">
                                                                 <p:ajax listener="#{updateContributeRealEstateBean.onChangeLandUnit()}" process="msform" update="typeRealEstate-form"/>
                                                                 <f:selectItem itemLabel="---" itemValue=""/>
                                                                 <f:selectItems value="#{updateContributeRealEstateBean.listLandsFeature}" var="element"
                                                                                itemLabel="#{element.landsFeatureName}" itemValue="#{element.landsFeatureID}"/>
                                                             </h:selectOneMenu>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><span class="title">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputLandFeatureNew" value="#{updateContributeRealEstateBean.newLandFeatureValue}"></h:inputText> <span id="landUnit" class="unit"><i>(đơn vị)</i></span></td>
+                                                        <td><span class="title">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputLandFeatureNew" value="#{updateContributeRealEstateBean.newLandFeatureValue}"></h:inputText> </td>
+                                                        <td><span id="landUnit" class="unit"><i>(đơn vị)</i></span></td>
                                                     </tr>
                                                     
                                                             <tr>
                                                                 <td colspan="2"><span id="landDataRange" class="unit"><i> </i></span></td>
+                                                                <td></td>
                                                             </tr>
                                                    
                                                     <tr>
                                                         <td></td>
                                                         <td>
-                                                            <h:commandButton class="add action-button2" value="Thêm thuộc tính Đất" id="addLandFeature">
+                                                            <h:commandButton class="add action-button2 w-100" value="Thêm thuộc tính Đất" id="addLandFeature">
                                                                 <p:ajax listener="#{updateContributeRealEstateBean.addNewLandFeatureValue()}" process="msform" update="panel-UploadLandform"/>
                                                             </h:commandButton>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                 </table>
                                                 <div class="boxAreaInput">
@@ -357,44 +381,51 @@
                                                 </div>
                                             </div>
 
-                                            <div id="houseBox" class="housebox col-5">
+                                            <div id="houseBox" class="housebox col-5"  style="margin: auto;">
                                                 <table class="houseUpload">
                                                     <tr>
-                                                        <td><span class="title">Tên phần Nhà</span></td>
+                                                        <td><span class="title">Mô tả nhà</span></td>
                                                         <td>
-                                                            <h:inputText id="txtInputHouseName" value="#{updateContributeRealEstateBean.newHouseName}">
-                                                            </h:inputText>
+                                                            <h:inputTextarea id="txtInputHouseName" class="w-100" value="#{updateContributeRealEstateBean.newHouseName}">
+                                                            </h:inputTextarea>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                     <tr><td><span class="title">Giá trị phần Nhà</span></td><td>
-                                                            <h:inputText id="txtInputHouseMoney" value="#{updateContributeRealEstateBean.newHouseMoney}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
+                                                            <h:inputText id="txtInputHouseMoney" class="w-100" value="#{updateContributeRealEstateBean.newHouseMoney}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
                                                                 <p:ajax listener="#{updateContributeRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
-                                                            </h:inputText><span class="unit"><i>(VND)</i></span></td></tr>
+                                                            </h:inputText></td>
+                                                        <td><span class="unit"><i>(VND)</i></span></td>
+                                                    </tr>
                                                     <tr>
 
                                                         <td><span class="title">Thuộc tính Nhà</span></td>
                                                         <td>
-                                                            <h:selectOneMenu id="cbb-houseFeature" value="#{updateContributeRealEstateBean.houseFeatureIdSelected}">
+                                                            <h:selectOneMenu id="cbb-houseFeature" class="w-100" value="#{updateContributeRealEstateBean.houseFeatureIdSelected}">
                                                                 <p:ajax listener="#{updateContributeRealEstateBean.onChangeHouseUnit()}" process="msform" update="typeRealEstate-form"/>
                                                                 <f:selectItem itemLabel="---" itemValue=""/>
                                                                 <f:selectItems value="#{updateContributeRealEstateBean.listHousesFeature}" var="element"
                                                                                itemLabel="#{element.housesFeatureName}" itemValue="#{element.housesFeatureID}"/>
                                                             </h:selectOneMenu>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><span class="title">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputHouseFeatureNew" value="#{updateContributeRealEstateBean.newHouseFeatureValue}"></h:inputText> <span id="houseUnit" class="unit"><i>(đơn vị)</i></span></td>
+                                                        <td><span class="title">Giá trị thuộc tính</span></td><td><h:inputText id="txtInputHouseFeatureNew" class="w-100" value="#{updateContributeRealEstateBean.newHouseFeatureValue}"></h:inputText> </td>
+                                                        <td><span id="houseUnit" class="unit"><i>(đơn vị)</i></span></td>
                                                     </tr>
                                                             <tr>
                                                                 <td colspan="2"><span id="houseDataRange" class="unit"><i> </i></span></td>
+                                                                <td></td>
                                                             </tr>
                                                     <tr>
                                                         <td></td>
                                                         <td>
-                                                            <h:commandButton class="add action-button2" value="Thêm thuộc tính Nhà" id="addHouseFeature">
+                                                            <h:commandButton class="add action-button2 w-100" value="Thêm thuộc tính Nhà" id="addHouseFeature">
                                                                 <p:ajax listener="#{updateContributeRealEstateBean.addNewHousesFeatureValue()}" process="msform" update="panel-UploadHouseform"/>
                                                             </h:commandButton>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                 </table>
                                                 <div class="boxAreaInput">

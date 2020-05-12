@@ -294,6 +294,7 @@ function dataType (){
     showError("Vui lòng nhập đúng định dạng dữ liệu");
 }
 
+
 function logLengthPrice (){
     showError("Giá trị của BĐS hoặc tài sản cấu thành không thể lớn hơn 1000,000,000,000 VND");
 }

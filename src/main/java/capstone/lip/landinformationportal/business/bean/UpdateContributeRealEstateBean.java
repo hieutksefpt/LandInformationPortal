@@ -797,16 +797,30 @@ public class UpdateContributeRealEstateBean implements Serializable {
                             break;
                         }
                     }
-                    
+
                     landsFeatureDataRangeClicked = test.getLandsFeatureDataRange();
                     landFeatureDataType = test.getLandsFeatureDataType();
-                    if(landFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newLandFeatureValue)){
+                    
+                    if (landFeatureDataType.equalsIgnoreCase("INT") && StringUtils.isNumeric(newLandFeatureValue)) {
+                        try {
+                            BigDecimal newLandValueTemp = new BigDecimal(newLandFeatureValue);
+                            if (newLandValueTemp.compareTo(BigDecimal.ZERO) <= 0) {
+                                PrimeFaces.current().executeScript("dataType()");
+                                return;
+                            } 
+                        } catch (Exception e) {
+                            PrimeFaces.current().executeScript("dataType()");
+                            return;
+                        }
+                    }
+                    
+                    if (landFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newLandFeatureValue)) {
                         PrimeFaces.current().executeScript("dataType()");
                     } else if (landsFeatureDataRangeClicked == null || landsFeatureDataRangeClicked.isEmpty()) {
                         listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
-                    } else if(newLandFeatureValue == null || newLandFeatureValue.isEmpty()){
+                    } else if (newLandFeatureValue == null || newLandFeatureValue.isEmpty()) {
                         PrimeFaces.current().executeScript("emptyDataAdd()");
-                    }else {
+                    } else {
                         if (checkDataRange(landsFeatureDataRangeClicked, newLandFeatureValue)) {
                             listLandFeatureValue.add(new LandFeatureValue(listLandsFeature.get(i), newLandFeatureValue));
                         } else {
@@ -851,13 +865,26 @@ public class UpdateContributeRealEstateBean implements Serializable {
                     }
                     housesFeatureDataRangeClicked = test.getHousesFeatureDataRange();
                     houseFeatureDataType = test.getHousesFeatureDataType();
-                    if(houseFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newHouseFeatureValue)){
+                    
+                    if (houseFeatureDataType.equalsIgnoreCase("INT") && StringUtils.isNumeric(newHouseFeatureValue)) {
+                        try {
+                            BigDecimal newHouseValueTemp = new BigDecimal(newHouseFeatureValue);
+                            if (newHouseValueTemp.compareTo(BigDecimal.ZERO) <= 0) {
+                                PrimeFaces.current().executeScript("dataType()");
+                                return;
+                            }
+                        } catch (Exception e) {
+                            PrimeFaces.current().executeScript("dataType()");
+                            return;
+                        }
+                    } 
+                    if (houseFeatureDataType.equalsIgnoreCase("INT") && !StringUtils.isNumeric(newHouseFeatureValue)) {
                         PrimeFaces.current().executeScript("dataType()");
                     } else if (housesFeatureDataRangeClicked == null || housesFeatureDataRangeClicked.isEmpty()) {
                         listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));
-                    } else if(newHouseFeatureValue == null || newHouseFeatureValue.isEmpty()){
+                    } else if (newHouseFeatureValue == null || newHouseFeatureValue.isEmpty()) {
                         PrimeFaces.current().executeScript("emptyDataAdd()");
-                    }else {
+                    } else {
                         if (checkDataRange(housesFeatureDataRangeClicked, newHouseFeatureValue)) {
                             // check data range ok ko ? 
                             listHouseFeatureValue.add(new HouseFeatureValue(listHousesFeature.get(i), newHouseFeatureValue));

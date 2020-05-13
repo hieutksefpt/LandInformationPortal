@@ -35,9 +35,11 @@ public class RealEstateValidation {
             return "NegativePrice";
         } else if (newUploadRealEstate.getUser() == null) {
             return "UserError";
-        } else if (StringUtils.isNumeric(newUploadRealEstate.getRealEstateName().toString())) {
-            return "Numberic";
-        } else if (newUploadRealEstate.getRealEstateLat() <= 0 || newUploadRealEstate.getRealEstateLng() <= 0) {
+        } 
+//        else if (StringUtils.isNumeric(newUploadRealEstate.getRealEstateName().toString())) {
+//            return "Numberic";
+//        } 
+        else if (newUploadRealEstate.getRealEstateLat() <= 0 || newUploadRealEstate.getRealEstateLng() <= 0) {
             return "NegativeLatLng";
         }
         return "";

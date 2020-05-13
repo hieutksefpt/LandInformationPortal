@@ -12,9 +12,9 @@ public class StringValidation {
 		if (text.trim().length() == 0) {
 			return ValidateMessageCommon.EMPTY;
 		}
-		if (text.matches(".*\\d.*")) {
-			return ValidateMessageCommon.HAS_NUMBER;
-		}
+//		if (text.matches(".*\\d.*")) {
+//			return ValidateMessageCommon.HAS_NUMBER;
+//		}
 		if (text.matches(".*[^A-Za-z0-9\\p{L}\\p{M} ].*")) {
 			return ValidateMessageCommon.HAS_SPECIAL_CHAR;
 		}

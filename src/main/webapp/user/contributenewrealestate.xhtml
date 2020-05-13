@@ -7,7 +7,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <h:body>
         <ui:composition template="/template/common/commonLayout.xhtml">
 
@@ -115,7 +116,7 @@
 		                                </tr>
 		                                <tr>
 		                                    <td><span class="title-mandatory">Giá trị</span></td><td>
-                                                <h:inputText id="realEstatePrice" class="w-100" title="Giá trị của BĐS bằng tổng giá thành phần cấu thành (đất, nhà,...)" value="#{contributeNewRealEstateBean.realEstatePrice}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
+                                                <h:inputText id="realEstatePrice" class="w-100" title="Giá trị của BĐS bằng tổng giá thành phần cấu thành (đất, nhà,...)" a:maxlength="15"  value="#{contributeNewRealEstateBean.realEstatePrice}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
 		                                        </h:inputText>
 <!--                                                        <input type="number" onkeyup="convert_text_1(this)" onchange="convert_text_1(this)"></input>-->
 		                                        
@@ -155,6 +156,16 @@
                                     <div class="row">
                                     <div id="landBox" class="landbox col-5 offset-4">
                                                 <table class="landUpload w-100">
+                                                    
+                                                    <tr><td><span class="title">Giá trị phần Đất</span></td>
+                                                        <td>
+                                                            <h:inputText id="txtInputLandMoney" class="w-100" a:maxlength="15" value="#{contributeNewRealEstateBean.newLandMoney}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
+                                                                <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
+                                                            </h:inputText>
+                                                            
+                                                        </td>
+                                                        <td><span class="unit"><i>(VND)</i></span></td>
+                                                    </tr>
                                                     <tr>
                                                         <td><span class="title">Mô tả đất</span></td>
                                                         <td>
@@ -162,15 +173,6 @@
                                                             </h:inputTextarea>
                                                         </td>
                                                         <td></td>
-                                                    </tr>
-                                                    <tr><td><span class="title">Giá trị phần Đất</span></td>
-                                                        <td>
-                                                            <h:inputText id="txtInputLandMoney" class="w-100" value="#{contributeNewRealEstateBean.newLandMoney}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
-                                                                <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
-                                                            </h:inputText>
-                                                            
-                                                        </td>
-                                                        <td><span class="unit"><i>(VND)</i></span></td>
                                                     </tr>
                                                     <tr>
 
@@ -239,6 +241,14 @@
                                     <div class="row">
                                     <div id="houseBox" class="housebox col-5 offset-4">
                                                 <table class="houseUpload w-100">
+                                                    
+                                                    <tr>
+                                                        <td><span class="title">Giá trị phần Nhà</span></td><td>
+                                                            <h:inputText id="txtInputHouseMoney" class="w-100" a:maxlength="15" value="#{contributeNewRealEstateBean.newHouseMoney}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
+                                                                <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
+                                                            </h:inputText></td>
+                                                            <td><span class="unit"><i>(VND)</i></span></td>
+                                                            </tr>
                                                     <tr>
                                                         <td><span class="title">Mô tả nhà</span></td>
                                                         <td>
@@ -247,12 +257,6 @@
                                                         </td>
                                                         <td></td>
                                                     </tr>
-                                                    <tr><td><span class="title">Giá trị phần Nhà</span></td><td>
-                                                            <h:inputText id="txtInputHouseMoney" class="w-100" value="#{contributeNewRealEstateBean.newHouseMoney}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
-                                                                <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
-                                                            </h:inputText></td>
-                                                            <td><span class="unit"><i>(VND)</i></span></td>
-                                                            </tr>
                                                     <tr>
 
                                                         <td><span class="title">Thuộc tính Nhà</span></td>
@@ -316,6 +320,17 @@
                                         <div class="flexCommon row">
                                             <div id="landBox" class="landbox col-5" style="margin: auto">
                                                 <table class="landUpload w-100">
+                                                    
+                                                    <tr>
+                                                        <td><span class="title">Giá trị phần Đất</span></td>
+                                                        <td>
+                                                            <h:inputText id="txtInputLandMoney"  a:maxlength="15" value="#{contributeNewRealEstateBean.newLandMoney}" class="w-100" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
+                                                                <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
+                                                            </h:inputText>
+                                                            
+                                                        </td>
+                                                        <td><span class="unit"><i>(VND)</i></span></td>
+                                                    </tr>
                                                     <tr>
                                                         <td><span class="title">Mô tả đất</span></td>
                                                         <td>
@@ -323,15 +338,6 @@
                                                             </h:inputTextarea>
                                                         </td>
                                                         <td></td>
-                                                    </tr>
-                                                    <tr><td><span class="title">Giá trị phần Đất</span></td>
-                                                        <td>
-                                                            <h:inputText id="txtInputLandMoney" value="#{contributeNewRealEstateBean.newLandMoney}" class="w-100" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
-                                                                <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
-                                                            </h:inputText>
-                                                            
-                                                        </td>
-                                                        <td><span class="unit"><i>(VND)</i></span></td>
                                                     </tr>
                                                     <tr>
 
@@ -395,21 +401,22 @@
 
                                             <div id="houseBox" class="housebox col-5" style="margin: auto">
                                                 <table class="houseUpload w-100">
-                                                    <tr>
-                                                        <td><span class="title">Mô tả nhà</span></td>
-                                                        <td>
-                                                            <h:inputTextarea id="txtInputHouseName" value="#{contributeNewRealEstateBean.newHouseName}" class="w-100">
-                                                            </h:inputTextarea>
-                                                        </td>
-                                                        <td></td>
-                                                    </tr>
+                                                    
                                                     <tr><td><span class="title">Giá trị phần Nhà</span></td><td>
-                                                            <h:inputText id="txtInputHouseMoney" value="#{contributeNewRealEstateBean.newHouseMoney}" class="w-100" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
+                                                            <h:inputText id="txtInputHouseMoney" a:maxlength="15" value="#{contributeNewRealEstateBean.newHouseMoney}" class="w-100" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
                                                                 <p:ajax listener="#{contributeNewRealEstateBean.calculateRealEstateValue()}" process="msform" update="realEstatePrice"/>
                                                             </h:inputText>
                                                             
                                                             </td>
                                                             <td><span class="unit"><i>(VND)</i></span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="title">Mô tả nhà</span></td>
+                                                        <td>
+                                                            <h:inputTextarea id="txtInputHouseName" class="w-100" value="#{contributeNewRealEstateBean.newHouseName}">
+                                                            </h:inputTextarea>
+                                                        </td>
+                                                        <td></td>
                                                     </tr>
                                                     <tr>
 

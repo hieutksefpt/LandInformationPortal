@@ -10,10 +10,10 @@ public class HouseValidation extends StringValidation{
 		String error = "";
 		if (house.getRealEstate() == null) return "null";
 		if (house.getRealEstate().getRealEstateId() == null) return "null";
-		if (house.getHouseName()!=null) {
-			error = isNumericOnly(house.getHouseName());
-			if (error.isEmpty()) error = isSpecialCharOnly(house.getHouseName());
-		}
+//		if (house.getHouseName()!=null) {
+//			error = isNumericOnly(house.getHouseName());
+//			if (error.isEmpty()) error = isSpecialCharOnly(house.getHouseName());
+//		}
 		
 		if (house.getHousePrice() != null && (house.getHousePrice().compareTo(BigDecimal.ZERO)== -1)) {
 			error=ValidateMessageCommon.IS_NEGATIVE_NUMBER;

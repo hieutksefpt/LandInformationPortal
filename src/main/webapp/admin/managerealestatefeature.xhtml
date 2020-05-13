@@ -28,7 +28,7 @@ and open the template in the editor.
                     <div class="modal fade" id="addLandFeaturePopup" tabindex="-1"
                          role="dialog" aria-labelledby="addLandFeaturePopupTitle"
                          aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLongTitle">Thêm
@@ -41,15 +41,17 @@ and open the template in the editor.
                                         <div class="row">
                                             <div class="col-4 col-lg-4 title-mandatory">Tên thuộc tính</div>
                                             <div class="col-8 col-lg-8">
-                                                <h:inputText id="landsFeatureName" value="#{manageRealEstateFeatureBean.landsFeatureName}"></h:inputText>
+                                                <h:inputText style="width: 80%;" id="landsFeatureName" value="#{manageRealEstateFeatureBean.landsFeatureName}"></h:inputText>
                                             </div>
                                         </div>
+                                        <hr/>
                                         <div class="row">
                                             <div class="col-4 col-lg-4">Đơn vị</div>
                                             <div class="col-8 col-lg-8">
-                                                <h:inputText id="landsFeatureUnit" value="#{manageRealEstateFeatureBean.landsFeatureUnit}"></h:inputText>
+                                                <h:inputText style="width: 80%;" id="landsFeatureUnit" value="#{manageRealEstateFeatureBean.landsFeatureUnit}"></h:inputText>
                                             </div>
                                         </div>
+                                        <hr/>
                                         <div class="row">
                                             <div class="col-4 col-lg-4">Loại giá trị</div>
                                             <div class="col-8 col-lg-8">
@@ -59,9 +61,10 @@ and open the template in the editor.
                                                 </p:selectOneRadio>
                                             </div>
                                         </div>
+                                        <hr/>
                                         <div class="row">
                                             <div class="col-4 col-lg-4">Phạm vi dữ liệu VD: Đông|Tây|Nam|Bắc</div>
-                                            <div class="col-8 col-lg-8"><p:inputTextarea value="#{manageRealEstateFeatureBean.tempLandsFeatureDataRange}" rows="6" cols="33" /></div>
+                                            <div class="col-8 col-lg-8"><p:inputTextarea style="width: 80%;" value="#{manageRealEstateFeatureBean.tempLandsFeatureDataRange}" rows="6" cols="33" /></div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -79,7 +82,7 @@ and open the template in the editor.
                     <div class="modal fade" id="addHouseFeaturePopup" tabindex="-1"
                          role="dialog" aria-labelledby="addHouseFeaturePopupTitle"
                          aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLongTitle">Thêm
@@ -92,15 +95,17 @@ and open the template in the editor.
                                         <div class="row">
                                             <div class="col-4 col-lg-4 title-mandatory">Tên thuộc tính</div>
                                             <div class="col-8 col-lg-8">
-                                                <h:inputText id="housesFeatureName" value="#{manageRealEstateFeatureBean.housesFeatureName}"></h:inputText>
+                                                <h:inputText id="housesFeatureName" style="width: 80%;" value="#{manageRealEstateFeatureBean.housesFeatureName}"></h:inputText>
                                             </div>
                                         </div>
+                                        <hr/>
                                         <div class="row">
                                             <div class="col-4 col-lg-4">Đơn vị</div>
                                             <div class="col-8 col-lg-8">
-                                                <h:inputText id="housesFeatureUnit" value="#{manageRealEstateFeatureBean.housesFeatureUnit}"></h:inputText>
+                                                <h:inputText id="housesFeatureUnit" style="width: 80%;" value="#{manageRealEstateFeatureBean.housesFeatureUnit}"></h:inputText>
                                             </div>
                                         </div>
+                                        <hr/>
                                         <div class="row">
                                             <div class="col-4 col-lg-4">Loại giá trị</div>
                                             <div class="col-8 col-lg-8">
@@ -110,9 +115,10 @@ and open the template in the editor.
                                                 </p:selectOneRadio>
                                             </div>
                                         </div>
+                                        <hr/>
                                         <div class="row">
                                             <div class="col-4 col-lg-4">Phạm vi dữ liệu VD: Đông|Tây|Nam|Bắc</div>
-                                            <div class="col-8 col-lg-8"><p:inputTextarea value="#{manageRealEstateFeatureBean.tempHousesFeatureDataRange}" rows="6" cols="33" /></div>
+                                            <div class="col-8 col-lg-8"><p:inputTextarea style="width: 80%;" value="#{manageRealEstateFeatureBean.tempHousesFeatureDataRange}" rows="6" cols="33" /></div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

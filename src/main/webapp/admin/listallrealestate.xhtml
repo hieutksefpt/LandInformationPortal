@@ -181,7 +181,7 @@
                         <p:column filterBy="#{realEstate.realEstateSource}" filterMatchMode="exact" style="text-align:center">
                             <f:facet name="filter">
                                 <p:selectOneMenu id="cbb-Source" onchange="PF('table-real-estate').filter()" styleClass="custom-filter">
-                                    <f:selectItem itemLabel="All Source" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Nguồn đăng" itemValue="#{null}" noSelectionOption="true" />
                                     <f:selectItems value="#{listAllRealEstateBean.listRealEstateSource}" />
                                 </p:selectOneMenu>
                             </f:facet>
@@ -190,15 +190,15 @@
                         <p:column filterBy="#{realEstate.realEstateStatus}" filterMatchMode="exact" style="text-align:center">
                             <f:facet name="filter">
                                 <p:selectOneMenu id="cbb-Status" onchange="PF('table-real-estate').filter()" styleClass="custom-filter">
-                                    <f:selectItem itemLabel="All Status" itemValue="#{null}" noSelectionOption="true" />
-                                    <f:selectItem itemLabel="CONFUSED" itemValue="CONFUSED" />
-                                    <f:selectItem itemLabel="NOT VERIFIED" itemValue="NOTVERIFY" />
-                                    <f:selectItem itemLabel="VERIFIED" itemValue="VERIFIED" />
+                                    <f:selectItem itemLabel="Trạng thái" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Chưa xác định" itemValue="CONFUSED" />
+                                    <f:selectItem itemLabel="Chưa thẩm định" itemValue="NOTVERIFY" />
+                                    <f:selectItem itemLabel="Đã thẩm định" itemValue="VERIFIED" />
                                 </p:selectOneMenu>
                             </f:facet>
-                            <h:outputText value="CONFUSED" style="color: #343a40" rendered="#{realEstate.realEstateStatus == 'CONFUSED'}"/>
-                            <h:outputText value="NOT VERIFIED" style="color: #ffcc00" rendered="#{realEstate.realEstateStatus == 'NOTVERIFY'}"/>
-                            <h:outputText value="VERIFIED" style="color: #003fff" rendered="#{realEstate.realEstateStatus == 'VERIFIED'}"/>
+                            <h:outputText value="Chưa xác định" style="color: #343a40" rendered="#{realEstate.realEstateStatus == 'CONFUSED'}"/>
+                            <h:outputText value="Chưa thẩm định" style="color: #ffcc00" rendered="#{realEstate.realEstateStatus == 'NOTVERIFY'}"/>
+                            <h:outputText value="Đã thẩm định" style="color: #003fff" rendered="#{realEstate.realEstateStatus == 'VERIFIED'}"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>

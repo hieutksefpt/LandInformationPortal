@@ -76,8 +76,11 @@
                         </p:column>
                         <p:column width="30%">
                             <f:facet name="header">Giá tiền</f:facet>
-                            <h:outputText id="lbl-Price" value="#{element.realEstatePrice}">
+                            <h:outputText id="lbl-Price" value="#{element.realEstatePrice}" rendered="#{element.realEstatePrice != '1'}">
                                 <f:convertNumber maxFractionDigits="0" groupingUsed="true"></f:convertNumber>
+                            </h:outputText>
+                            
+                            <h:outputText id="lbl-Price-delegate" value="Thỏa thuận" rendered="#{element.realEstatePrice == '1'}">
                             </h:outputText>
                         </p:column>
 

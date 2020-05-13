@@ -201,7 +201,7 @@
                         <p:column filterBy="#{user.role}" filterMatchMode="exact" style="width: 10%;text-align:center">
                             <f:facet name="filter">
                                 <p:selectOneMenu onchange="PF('table-user').filter()" styleClass="custom-filter">
-                                    <f:selectItem itemLabel="All Role" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Quyền" itemValue="#{null}" noSelectionOption="true" />
                                     <f:selectItem itemLabel="ADMIN" itemValue="ADMIN" />
                                     <f:selectItem itemLabel="CONTRIBUTOR" itemValue="USER" />
                                 </p:selectOneMenu>
@@ -213,7 +213,7 @@
                         <p:column filterBy="#{user.userStatus}" filterMatchMode="exact" style="width: 10%;text-align:center">
                             <f:facet name="filter">
                                 <p:selectOneMenu onchange="PF('table-user').filter()" styleClass="custom-filter">
-                                    <f:selectItem itemLabel="All Status" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Trạng thái" itemValue="#{null}" noSelectionOption="true" />
                                     <f:selectItem itemLabel="Ban" itemValue="BAN" />
                                     <f:selectItem itemLabel="Active" itemValue="ACTIVE" />
                                 </p:selectOneMenu>

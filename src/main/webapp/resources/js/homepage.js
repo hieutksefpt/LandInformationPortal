@@ -254,3 +254,16 @@ function displayReoList(isDisplay){
 		$("#list-reo").css("display","none");
 	}
 }
+
+function closeNews() {
+    $('#news-bar').collapse('hide');
+}
+
+$("#news-bar").on('show.bs.collapse', function(){
+    if (PF('accord-panel-statistic') != null) 
+        PF('accord-panel-statistic').unselect(-1);
+    if (PF('accord-panel-land-price-table') != null) 
+        PF('accord-panel-land-price-table').unselect(-1);
+    if (PF('accord-panel') != null) 
+        PF('accord-panel').unselect(-1);
+});

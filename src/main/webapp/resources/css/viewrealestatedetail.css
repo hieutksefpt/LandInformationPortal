@@ -108,6 +108,17 @@
     background-position: left top;
     background-image: url("#{resource['img/blue-tick.png']}");
 }
+
+.ques-sign {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-image: url("#{resource['img/ques-sign.png']}");
+}
+
 .btn-report {
     background: #fed136 !important; 
     color: black;

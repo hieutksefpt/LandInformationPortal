@@ -118,12 +118,14 @@
                                                      value="#{viewRealEstateDetailBean.realEstateClicked.realEstateSource}" readonly="true"/>
                                     </c:if>
                                 </div>
-                                <div id="lbl-RealEstateNameLabel" class="text realEstateName element-list">
-                                    Tên bất động sản
-                                </div>
-                                <div class="realEstateNameInput element-list">
-                                    <h:inputTextarea id="txt-RealEstateName" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstateName}" readonly="true"></h:inputTextarea>
-                                </div>
+                                <c:if test="#{viewRealEstateDetailBean.realEstateClicked.realEstateSource eq 'CONTRIBUTOR'}">
+                                    <div id="lbl-RealEstateNameLabel" class="text realEstateName element-list">
+                                        Tên bất động sản
+                                    </div>
+                                    <div class="realEstateNameInput element-list">
+                                        <h:inputTextarea id="txt-RealEstateName" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstateName}" readonly="true"></h:inputTextarea>
+                                    </div>
+                                </c:if>
                                 <div id="lbl-RealEstateAddressLabel" class="text address element-list">
                                     Địa chỉ
                                 </div>
@@ -131,7 +133,8 @@
                                     <h:inputTextarea id="txt-RealEstateAddress" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstateAddress}" readonly="true"></h:inputTextarea>
                                 </div>
                                 <div id="lbl-RealEstatePriceLabel" class="text price element-list">
-                                    Giá bất động sản
+                                    Giá bất động sản 
+                                    <span class="ques-sign" title="Giá BĐS bằng tổng giá thành phần cấu thành (đất, nhà,...)"/>
                                 </div>
                                 <div class="priceInput element-list">
                                     <h:inputText id="txt-RealEstatePrice" class="input" value="#{viewRealEstateDetailBean.realEstateClicked.realEstatePrice}" readonly="true"
@@ -144,7 +147,8 @@
                                     <p>(Đơn vị: Việt Nam đồng)</p>
                                 </div>
                                 <div id="lbl-RealEstatePriceLabel" class="text price element-list">
-                                    Giá hệ thống dự đoán
+                                    Giá hệ thống dự đoán 
+                                    <span class="ques-sign" title="Giá hệ thống dự đoán chỉ mang tính chất THAM KHẢO"/>
                                 </div>
                                 <div class="priceInput element-list">
                                     <h:inputText id="txt-RealEstatePredictPrice" class="input" value="#{viewRealEstateDetailBean.predictPrice}" readonly="true">
@@ -158,9 +162,10 @@
                                     <a data-toggle="collapse" data-target="#land-block">THÔNG TIN VỀ ĐẤT</a>
                                 </div>
                                 <div id="land-block" class="collapse show">
-                                    <c:if test="#{not empty viewRealEstateDetailBean.currentLand.landName}">
+                                    <c:if test="#{not empty viewRealEstateDetailBean.currentLand.landName and 
+                                                  viewRealEstateDetailBean.realEstateClicked.realEstateSource eq 'CONTRIBUTOR'}">
                                         <div id="lbl-LandNameLabel" class="text element-list">
-                                            Tên đất
+                                            Mô tả đất
                                         </div>
                                         <div class="landNameInput element-list">
                                             <h:inputTextarea id="txt-LandName" class="input" value="#{viewRealEstateDetailBean.currentLand.landName}" readonly="true"></h:inputTextarea>
@@ -183,8 +188,8 @@
                                             <table class="table table-striped" style="margin-left: 15px; border: groove black 1px;">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col">Đặc tính</th>
-                                                        <th scope="col">Giá trị</th>
+                                                        <th class="col-5">Đặc tính</th>
+                                                        <th>Giá trị</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -208,11 +213,12 @@
                                 <div class="title-header">
                                     <a data-toggle="collapse" data-target="#house-block">THÔNG TIN VỀ NHÀ</a>
                                 </div>
-                                <div id="house-block" class="collapse show">
+                                <div id="house-block" class="collapse show mb-3"> 
                                     <c:forEach items="#{viewRealEstateDetailBean.currentListHouse}" var="house">
-                                        <c:if test="#{not empty house.houseName}">
+                                        <c:if test="#{not empty house.houseName and 
+                                                      viewRealEstateDetailBean.realEstateClicked.realEstateSource eq 'CONTRIBUTOR'}">
                                             <div id="lbl-HouseNameLabel" class="text element-list">
-                                                Tên nhà
+                                                Mô tả nhà
                                             </div>
                                             <div class="houseNameInput element-list">
                                                 <h:inputTextarea id="txt-HouseName" class="input" value="#{house.houseName}" readonly="true"></h:inputTextarea>
@@ -234,8 +240,8 @@
                                                 <table class="table table-striped" style="margin-left: 15px; border: groove black 1px;">
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col">Đặc tính</th>
-                                                            <th scope="col">Giá trị</th>
+                                                            <th class="col-5">Đặc tính</th>
+                                                            <th>Giá trị</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

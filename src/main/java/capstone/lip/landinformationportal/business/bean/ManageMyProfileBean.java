@@ -70,10 +70,10 @@ public class ManageMyProfileBean implements Serializable {
 
     public void updateMyProfile() {
         StringValidation sv = new StringValidation();
-        userSelected.setFullName(fullname);
-        userSelected.setEmail(email);
-        userSelected.setAddress(address);
-        userSelected.setPhone(phone);
+        userSelected.setFullName(fullname.trim());
+        userSelected.setEmail(email.trim());
+        userSelected.setAddress(address.trim());
+        userSelected.setPhone(phone.trim());
         userSelected.setGender(genderSelected);
         UserValidation uv = new UserValidation();
         // update to DB 

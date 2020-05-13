@@ -1,3 +1,4 @@
+
 package capstone.lip.landinformationportal.business.bean;
 
 import capstone.lip.landinformationportal.business.service.Interface.IRealEstateService;

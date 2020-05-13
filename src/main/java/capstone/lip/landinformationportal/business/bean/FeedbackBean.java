@@ -63,8 +63,8 @@ public class FeedbackBean implements Serializable {
         if (feedbackTitle != null && !feedbackTitle.trim().isEmpty() && !feedbackContent.trim().isEmpty() && feedbackContent != null) {
             feedbackStatus = FeedbackStatusConstant.OPEN;
             Feedback newfb = new Feedback();
-            newfb.setFeedbackTitle(feedbackTitle);
-            newfb.setFeedbackContent(feedbackContent);
+            newfb.setFeedbackTitle(feedbackTitle.trim());
+            newfb.setFeedbackContent(feedbackContent.trim());
             newfb.setFeedbackStatus(feedbackStatus);
             newfb.setUser(userSelected);
             

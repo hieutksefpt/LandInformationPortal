@@ -92,13 +92,13 @@ public class SignUpBean implements Serializable {
 
     public User setUserInformation() {
         User user = new User();
-        user.setAddress(address);
-        user.setEmail(email);
-        user.setFullName(fullname);
-        user.setGender(gender);
+        user.setAddress(address.trim());
+        user.setEmail(email.trim());
+        user.setFullName(fullname.trim());
+        user.setGender(gender.trim());
         user.setPassword(EncryptedPassword.encrytePassword(password));
-        user.setPhone(phone);
-        user.setUsername(username);
+        user.setPhone(phone.trim());
+        user.setUsername(username.trim());
         user.setUserStatus("ACTIVE");
         user.setRole(UserRoleConstant.USER);
 

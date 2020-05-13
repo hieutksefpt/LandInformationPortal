@@ -21,6 +21,17 @@ public class StringValidation {
 		
 		return "";
 	}
+        
+        public String isValidText2(String text) {
+		if (text == null) {
+			return ValidateMessageCommon.NULL;
+		}
+		if (text.matches(".*[^A-Za-z0-9\\p{L}\\p{M} ].*")) {
+			return ValidateMessageCommon.HAS_SPECIAL_CHAR;
+		}
+		
+		return "";
+	}
 	public String isValidDouble(String text) {
 		try {
 			Double.parseDouble(text);

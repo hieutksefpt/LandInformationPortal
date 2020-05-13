@@ -210,18 +210,15 @@ public class ContributeNewRealEstateBean implements Serializable {
         RealEstate newUploadRealEstate = new RealEstate();
         List<LandsDetail> listLandDetail = new ArrayList<>();
         List<HousesDetail> listHousesDetail = new ArrayList<>();
-        newUploadRealEstate = validateInfor(realEstateName, realEstateLat, realEstateLng, realEstateAddress, realEstatePrice, realEstateStatus, tempUser);
+        newUploadRealEstate = validateInfor(realEstateName.trim(), realEstateLat, realEstateLng, realEstateAddress, realEstatePrice, realEstateStatus, tempUser);
 
         StringValidation sv = new StringValidation();
         RealEstateAdjacentSegment newRealEstateAdjacentSegment = new RealEstateAdjacentSegment();
         // save to Table REAS
 
         if (typeRealEstate.equals(RealEstateTypeConstant.LANDTYPE)) {
-            if (newLandMoney == null || newLandMoney.toString().trim().equals("")) {
-                newLandMoney = BigDecimal.ZERO;
-            }
             Land newLand = new Land();
-            newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
+            newLand = validateLandInfor(newUploadRealEstate, newLandName.trim(), newLandMoney, listLandFeatureValue);                 // call from Service
             if (newUploadRealEstate != null && realEstateAddress.isEmpty() && newLandName.isEmpty() && listLandFeatureValue.isEmpty() && newLandMoney.compareTo(BigDecimal.ZERO) == 0) {
                 PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
                 variableSuccess = false;
@@ -235,7 +232,7 @@ public class ContributeNewRealEstateBean implements Serializable {
                 PrimeFaces.current().executeScript("logLengthPrice()");
                 variableSuccess = false;
             } else if (!checkNullString(newLandName) && (StringUtils.isNumeric(newUploadRealEstate.getRealEstateName().toString())
-                    || !sv.isValidText(newUploadRealEstate.getRealEstateName().toString().trim()).equals("") || !sv.isValidText(newLandName.toString().trim()).equals(""))) {
+                    || !sv.isValidText2(newUploadRealEstate.getRealEstateName().toString().trim()).equals("") || !sv.isValidText2(newLandName.toString().trim()).equals(""))) {
                 PrimeFaces.current().executeScript("showLogInvalidName()");
                 variableSuccess = false;
             } else if (newUploadRealEstate != null && newLand != null) {
@@ -246,18 +243,15 @@ public class ContributeNewRealEstateBean implements Serializable {
                 variableSuccess = true;
             }
         } else if (typeRealEstate.equals(RealEstateTypeConstant.HOUSETYPE)) {
-            if (newHouseMoney == null || newHouseMoney.toString().trim().equals("")) {
-                newHouseMoney = BigDecimal.ZERO;
-            }
             House newHouse = new House();
-            newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
+            newHouse = validateHouseInfor(newUploadRealEstate, newHouseName.trim(), newHouseMoney, listHouseFeatureValue);            // call from Service
             if (newUploadRealEstate != null && realEstateAddress.isEmpty() && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO) == 0) {
                 PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
                 variableSuccess = false;
             } else if (newUploadRealEstate == null || !checkFillTextHouse()) {
                 PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
                 variableSuccess = false;
-            } else if (!checkNullString(newHouseName) && (!sv.isValidText(newUploadRealEstate.getRealEstateName().toString().trim()).equals("") || !sv.isValidText(newHouseName.toString().trim()).equals(""))) {
+            } else if (!checkNullString(newHouseName) && (!sv.isValidText2(newUploadRealEstate.getRealEstateName().toString().trim()).equals("") || !sv.isValidText2(newHouseName.toString().trim()).equals(""))) {
                 PrimeFaces.current().executeScript("showLogInvalidName()");
                 variableSuccess = false;
             } else if (newUploadRealEstate.getRealEstatePrice().compareTo(newHouseMoney) == -1) {
@@ -274,26 +268,20 @@ public class ContributeNewRealEstateBean implements Serializable {
                 variableSuccess = true;
             }
         } else if (typeRealEstate.equals(RealEstateTypeConstant.LANDHOUSETYPE)) {
-            if (newLandMoney == null || newLandMoney.toString().trim().equals("")) {
-                newLandMoney = BigDecimal.ZERO;
-            }
-            if (newHouseMoney == null || newHouseMoney.toString().trim().equals("")) {
-                newHouseMoney = BigDecimal.ZERO;
-            }
             Land newLand = new Land();
-            newLand = validateLandInfor(newUploadRealEstate, newLandName, newLandMoney, listLandFeatureValue);                 // call from Service
+            newLand = validateLandInfor(newUploadRealEstate, newLandName.trim(), newLandMoney, listLandFeatureValue);                 // call from Service
             listLandDetail = validateLandDetailInfor(newLand, listLandFeatureValue);
 
             House newHouse = new House();
-            newHouse = validateHouseInfor(newUploadRealEstate, newHouseName, newHouseMoney, listHouseFeatureValue);            // call from Service
+            newHouse = validateHouseInfor(newUploadRealEstate, newHouseName.trim(), newHouseMoney, listHouseFeatureValue);            // call from Service
             listHousesDetail = validateHouseDetailInfor(newHouse, listHouseFeatureValue);
 
             if (newUploadRealEstate != null && realEstateAddress.isEmpty() && newHouseName.isEmpty() && listHouseFeatureValue.isEmpty() && newHouseMoney.compareTo(BigDecimal.ZERO) == 0
                     && newLandName.isEmpty() && listLandFeatureValue.isEmpty() && newLandMoney.compareTo(BigDecimal.ZERO) == 0) {
                 PrimeFaces.current().executeScript("showLogEmptyLandHouse()");
                 variableSuccess = false;
-            } else if ((!checkNullString(newLandName) && (!sv.isValidText(newUploadRealEstate.getRealEstateName().toString().trim()).equals("") || !sv.isValidText(newLandName.toString().trim()).equals("")))
-                    || (!checkNullString(newHouseName) && (!sv.isValidText(newUploadRealEstate.getRealEstateName().toString().trim()).equals("") || !sv.isValidText(newHouseName.toString().trim()).equals("")))) {
+            } else if ((!checkNullString(newLandName) && (!sv.isValidText2(newUploadRealEstate.getRealEstateName().toString().trim()).equals("") || !sv.isValidText2(newLandName.toString().trim()).equals("")))
+                    || (!checkNullString(newHouseName) && (!sv.isValidText2(newUploadRealEstate.getRealEstateName().toString().trim()).equals("") || !sv.isValidText2(newHouseName.toString().trim()).equals("")))) {
                 PrimeFaces.current().executeScript("showLogInvalidName()");
                 variableSuccess = false;
             } else if (newUploadRealEstate == null || !checkFillTextHouse() || !checkFillTextLand()) {
@@ -695,6 +683,10 @@ public class ContributeNewRealEstateBean implements Serializable {
     }
 
     public void addNewLandFeatureValue() {
+        if(landFeatureIdSelected.trim().equals("")){
+            PrimeFaces.current().executeScript("dataType()");
+            return;
+        }
         if (!checkLandFeatureExisted(landFeatureIdSelected, listLandFeatureValue)) {
             for (int i = 0; i < listLandsFeature.size(); i++) {
 
@@ -761,6 +753,10 @@ public class ContributeNewRealEstateBean implements Serializable {
     }
 
     public void addNewHousesFeatureValue() {
+        if(houseFeatureIdSelected.trim().equals("")){
+            PrimeFaces.current().executeScript("dataType()");
+            return;
+        }
         if (!checkHouseFeatureExisted(houseFeatureIdSelected, listHouseFeatureValue)) {
             for (int i = 0; i < listHousesFeature.size(); i++) {
 

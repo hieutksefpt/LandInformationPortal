@@ -20,6 +20,10 @@ and open the template in the editor.
             <ui:define name="content">
                 <h:outputStylesheet name="managerealestatefeature.css" library="css" />
                 <h:outputStylesheet name="bootstrap.min.css" library="css" />
+                
+                <!--Alert Dialog-->
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.min.css"/>
+                
                 <div>
                     <h2>Danh sách thuộc tính</h2>
                     <h:commandButton id="buttonAddFeature" value="+ Thêm thuộc tính"
@@ -428,6 +432,10 @@ and open the template in the editor.
                         </div>
                     </div>
                 </div>
+                
+                <!--Alert Dialog-->
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.min.js"></script>
+                <h:outputScript name="alertdialog.js" library="js"/> 
                 
                 <h:outputScript name="managerealestatefeature.js" library="js"></h:outputScript>
             </ui:define>

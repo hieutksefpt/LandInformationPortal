@@ -48,23 +48,23 @@ function reloadPage() {
 }
 
 function showAlertLandsFeatureName() {
-    alert("Tên thuộc tính đất không được để trống !");
+    showError("Tên thuộc tính đất không được để trống !");
 }
 
 function showAlertHousesFeatureName() {
-    alert("Tên thuộc tính nhà không được để trống !");
+    showError("Tên thuộc tính nhà không được để trống !");
 }
 
 function showAlertOnlyNumber() {
-    alert("Khi chọn kiểu dữ liệu số bạn chỉ có thể nhập số !");
+    showError("Khi chọn kiểu dữ liệu số bạn chỉ có thể nhập số !");
 }
 
 function showAlertDuplicateLandsFeature() {
-    alert("Thuộc tính đất đã tồn tại !");
+    showError("Thuộc tính đất đã tồn tại !");
 }
 
 function showAlertDuplicateHousesFeature(){
-    alert("Thuộc tính nhà đã tồn tại !");
+    showError("Thuộc tính nhà đã tồn tại !");
 }
 
 function checkclick(dlg) {
